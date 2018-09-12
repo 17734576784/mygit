@@ -6,20 +6,22 @@ import java.util.List;
 public class NotifyType {
 
     //please replace the IP and Port to your localhost IP and port, when you use the testMessagePush.
-    public static final String TEST_CALLBACK_BASE_URL = "http://185.14.81.247:8888";
+//    public static final String TEST_CALLBACK_BASE_URL = "http://185.14.81.247:8888";
+    public static final String TEST_CALLBACK_BASE_URL = "https://222.222.60.180:8443/addDevice";
+
 
     public static List<String> notifyTypes = new ArrayList<>();
     public static List<String> getNotifyTypes () {
-        notifyTypes.add(SERVICE_INFO_CHANGED);
-        notifyTypes.add(DEVICE_INFO_CHANGED);
-        notifyTypes.add(DEVICE_DATA_CHANGED);
+//        notifyTypes.add(SERVICE_INFO_CHANGED);
+//        notifyTypes.add(DEVICE_INFO_CHANGED);
+//        notifyTypes.add(DEVICE_DATA_CHANGED);
         notifyTypes.add(DEVICE_ADDED);
-        notifyTypes.add(DEVICE_DELETED);
-        notifyTypes.add(MESSAGE_CONFIRM);
-        notifyTypes.add(COMMAND_RSP);
-        notifyTypes.add(DEVICE_EVENT);
-        notifyTypes.add(RULE_EVENT);
-        notifyTypes.add(DEVICE_DATAS_CHANGED);
+//        notifyTypes.add(DEVICE_DELETED);
+//        notifyTypes.add(MESSAGE_CONFIRM);
+//        notifyTypes.add(COMMAND_RSP);
+//        notifyTypes.add(DEVICE_EVENT);
+//        notifyTypes.add(RULE_EVENT);
+//        notifyTypes.add(DEVICE_DATAS_CHANGED);
         return notifyTypes;
     }
 
