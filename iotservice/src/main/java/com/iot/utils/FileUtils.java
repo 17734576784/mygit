@@ -73,7 +73,7 @@ public class FileUtils {
 					buffer.append(str);
 				}
 
-				System.out.println(buffer.toString());
+//				System.out.println(buffer.toString());
 				flag = true;
 			}
 

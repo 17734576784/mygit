@@ -9,20 +9,30 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.http.client.ClientProtocolException;
 
 import com.iot.utils.CommFunc;
-import com.iot.utils.FileUtils;
 
 public class MainTest {
 
-	public static void main(String[] args) throws ClientProtocolException, IOException {
+	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String url ="http://222.222.60.178:18130/Enterprise_EnnGas/enngas/message/nbNotifyAction!notifyToWeb.action";
-//		url = "http://127.0.0.1:8080/file";
-		String filePath ="D:/20180831114948.png";
+//		String str = "ASNFZ4mrze8BI0VniavN7wEjRWeJq83vASNFZ4mrze8BI0VniavN7wEjRWeJq83vASNFZ4mrze8BI0VniavN7wEjRWeJq83vASNFZ4mrze8BI0VniavN7wEjRWeJq83vAAAAAA==";
+//		byte[] result = decode(str);
+//		for (byte b : result) {
+//			System.out.print(b + " ");
+//		}
 		
-		FileUtils.upload(url, filePath, "20180901", "232323232");
+//		System.out.println(LocalDateTime.now().getNano());
+//		String fileName = "d://c446472e-207d-4c53-a676-4fd3873b6406.jpeg";
+//		byte[] a = new byte[10];
+//		for (int i = 0; i < a.length; i++) {
+//			a[i] = (byte)i;
+//		}
+//		
+//		CommFunc.byte2image(a, fileName);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		System.out.println(sdf.format(new Date()));
 	}
 	
 	/**  
