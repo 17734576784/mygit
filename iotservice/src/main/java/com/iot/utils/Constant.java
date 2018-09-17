@@ -25,22 +25,22 @@ public class Constant {
      *IP and port of callback url.
      *please replace the IP and Port of your Application deployment environment address, when you use the demo.
      */
-    public static final String CALLBACK_BASE_URL = "https://39.106.116.158:8443";
+    public static final String CALLBACK_BASE_URL = "https://222.222.60.180:8443";
 
     /*
      * complete callback url锛�
      * please replace uri, when you use the demo.
      */
-	public static final String DEVICE_ADDED_CALLBACK_URL = "/na/iocm/devNotify/v1.1.0/addDevice";
-	public static final String DEVICE_INFO_CHANGED_CALLBACK_URL = "/na/iocm/devNotify/v1.1.0/updateDeviceInfo";
-	public static final String DEVICE_DATA_CHANGED_CALLBACK_URL = "/na/iocm/devNotify/v1.1.0/updateDeviceData";
-	public static final String DEVICE_DELETED_CALLBACK_URL = "/na/iocm/devNotify/v1.1.0/deletedDevice";
-	public static final String MESSAGE_CONFIRM_CALLBACK_URL = "/na/iocm/devNotify/v1.1.0/commandConfirmData";
-	public static final String SERVICE_INFO_CHANGED_CALLBACK_URL = "/na/iocm/devNotify/v1.1.0/updateServiceInfo";
-	public static final String COMMAND_RSP_CALLBACK_URL = "/na/iocm/devNotify/v1.1.0/commandRspData";
-	public static final String DEVICE_EVENT_CALLBACK_URL = "/na/iocm/devNotify/v1.1.0/DeviceEvent";
-	public static final String RULE_EVENT_CALLBACK_URL = "/na/iocm/devNotify/v1.1.0/RulEevent";
-	public static final String DEVICE_DATAS_CHANGED_CALLBACK_URL = "/na/iocm/devNotify/v1.1.0/updateDeviceDatas";
+	public static final String DEVICE_ADDED_CALLBACK_URL = CALLBACK_BASE_URL + "/addDevice";
+	public static final String DEVICE_INFO_CHANGED_CALLBACK_URL = CALLBACK_BASE_URL + "/updateDeviceInfo";
+	public static final String DEVICE_DATA_CHANGED_CALLBACK_URL = CALLBACK_BASE_URL + "/updateDeviceData";
+	public static final String DEVICE_DELETED_CALLBACK_URL = CALLBACK_BASE_URL + "/deletedDevice";
+	public static final String MESSAGE_CONFIRM_CALLBACK_URL = CALLBACK_BASE_URL + "/commandConfirmData";
+	public static final String SERVICE_INFO_CHANGED_CALLBACK_URL = CALLBACK_BASE_URL + "/updateServiceInfo";
+	public static final String COMMAND_RSP_CALLBACK_URL = CALLBACK_BASE_URL + "/commandRspData";
+	public static final String DEVICE_EVENT_CALLBACK_URL = CALLBACK_BASE_URL + "/deviceEvent";
+	public static final String RULE_EVENT_CALLBACK_URL = CALLBACK_BASE_URL + "/ruleEvent";
+	public static final String DEVICE_DATAS_CHANGED_CALLBACK_URL = CALLBACK_BASE_URL + "/updateDeviceDatas";
 
 	/*
 	 * Specifies the callback URL for the command execution result notification. For
@@ -48,7 +48,7 @@ public class Constant {
 	 *
 	 * please replace uri, when you use the demo.
 	 */
-	public static final String REPORT_CMD_EXEC_RESULT_CALLBACK_URL = "/na/iocm/devNotify/v1.1.0/reportCmdExecResult";
+	public static final String REPORT_CMD_EXEC_RESULT_CALLBACK_URL = CALLBACK_BASE_URL + "/reportCmdExecResult";
 
     //Paths of certificates.
     public static String SELFCERTPATH = "/src/main/resources/cert/outgoing.CertwithKey.pkcs12";
@@ -145,4 +145,15 @@ public class Constant {
     public static final String RULE_EVENT = "ruleEvent";
     public static final String DEVICE_DATAS_CHANGED = "deviceDatasChanged";
 
+    
+	/** 返回错误码 0：成功 1：失败 */
+    public static final int SUCCESS = 0;
+    public static final int ERROR = -1;
+    
+	public static final String PHOTOSERVICE = "PhotoData";
+	public static final String ALARMSERVICE = "Alarm1";
+	public static final String CHECKSERVICE = "Check";
+
+	public static final String UPLOADIMAGEURL = "http://";
+    
 }
