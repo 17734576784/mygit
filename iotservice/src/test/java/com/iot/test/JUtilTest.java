@@ -42,7 +42,7 @@ public class JUtilTest {
 //		}
 //		photoMap.put(1, b1);
 //		
-//		String key ="11111";
+		String key ="11111";
 //		
 //		JSONObject photoJson = new JSONObject();
 //		photoJson.put("packnum", 1);

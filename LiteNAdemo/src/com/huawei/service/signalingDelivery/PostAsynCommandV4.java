@@ -67,6 +67,7 @@ public class PostAsynCommandV4 {
         //The following parameter values of this demo are use the watermeter profile that already initialized to IoT platform.
         String serviceId = "PhotoData";
         String method = "SendPhoto_once";
+        
         ObjectNode paras = JsonUtil.convertObject2ObjectNode("{\"value\":\"0\"}");
       
         Map<String, Object> paramCommand = new HashMap<>();

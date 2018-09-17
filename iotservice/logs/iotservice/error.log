@@ -19,3 +19,5 @@
 2018-09-10 15:44:13,740 - deviceDataChanged处理消息异常 ERROR [error 229 com.iot.controller.CallBackController.recvDataChangeNotify(CallBackController.java:229)] 
 2018-09-10 15:44:24,741 - deviceDataChanged处理消息异常 ERROR [error 229 com.iot.controller.CallBackController.recvDataChangeNotify(CallBackController.java:229)] 
 2018-09-14 10:35:28,374 - 创建设备命令异常，入参：null ERROR [error 82 com.iot.controller.PostAsynCommandController.asynCommand(PostAsynCommandController.java:82)] 
+2018-09-17 11:14:04,315 - 创建设备命令异常，入参：null ERROR [error 82 com.iot.controller.PostAsynCommandController.asynCommand(PostAsynCommandController.java:82)] 
+2018-09-17 11:19:52,806 - 创建设备命令异常，入参：null ERROR [error 82 com.iot.controller.PostAsynCommandController.asynCommand(PostAsynCommandController.java:82)] 
