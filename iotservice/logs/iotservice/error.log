@@ -21,3 +21,6 @@
 2018-09-14 10:35:28,374 - 创建设备命令异常，入参：null ERROR [error 82 com.iot.controller.PostAsynCommandController.asynCommand(PostAsynCommandController.java:82)] 
 2018-09-17 11:14:04,315 - 创建设备命令异常，入参：null ERROR [error 82 com.iot.controller.PostAsynCommandController.asynCommand(PostAsynCommandController.java:82)] 
 2018-09-17 11:19:52,806 - 创建设备命令异常，入参：null ERROR [error 82 com.iot.controller.PostAsynCommandController.asynCommand(PostAsynCommandController.java:82)] 
+2018-09-17 12:29:21,204 - 创建设备命令异常，入参：null ERROR [error 82 com.iot.controller.PostAsynCommandController.asynCommand(PostAsynCommandController.java:82)] 
+2018-09-17 14:07:49,764 - 创建设备命令异常，入参：null ERROR [error 82 com.iot.controller.PostAsynCommandController.asynCommand(PostAsynCommandController.java:82)] 
+2018-09-17 14:11:19,227 - 创建设备命令异常，入参：null ERROR [error 82 com.iot.controller.PostAsynCommandController.asynCommand(PostAsynCommandController.java:82)] 
