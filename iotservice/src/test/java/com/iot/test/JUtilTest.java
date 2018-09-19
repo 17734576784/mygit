@@ -67,9 +67,9 @@ public class JUtilTest {
 //		b4[0] = 4;
 //		packnum = 4;
 //
-		JSONObject photoJson = (JSONObject) jedisUtils.get("59219e82-5fc7-46e1-909a-979638c2295b");
-		LinkedHashMap<Integer, byte[]> photoMap = (LinkedHashMap<Integer, byte[]>) photoJson.get("data");
-		System.out.println(photoMap.size());
+//		JSONObject photoJson = (JSONObject) jedisUtils.get("59219e82-5fc7-46e1-909a-979638c2295b");
+//		LinkedHashMap<Integer, byte[]> photoMap = (LinkedHashMap<Integer, byte[]>) photoJson.get("data");
+//		System.out.println(photoMap.size());
 
 //		photoMap.put(packnum, b4);
 //		
