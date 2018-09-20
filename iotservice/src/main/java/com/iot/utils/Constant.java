@@ -12,6 +12,8 @@
  */
 package com.iot.utils;
 
+import java.io.File;
+
 public class Constant {
 
     //please replace the IP and Port, when you use the demo.
@@ -50,11 +52,13 @@ public class Constant {
 	 */
 	public static final String REPORT_CMD_EXEC_RESULT_CALLBACK_URL = CALLBACK_BASE_URL + "/reportCmdExecResult";
 
-    //Paths of certificates.
-    public static String SELFCERTPATH = "/src/main/resources/cert/outgoing.CertwithKey.pkcs12";
-    public static String TRUSTCAPATH = "/src/main//resources/cert/ca.jks";
+	public static String realBasepath = new File(Constant.class.getResource("/").getPath()).getParent();
 
-    //Password of certificates.
+	//Paths of certificates.
+	public static String SELFCERTPATH = "cert\\CertwithKey.pkcs12";
+	public static String TRUSTCAPATH = "cert\\ca.jks";
+    
+    //Password of certificates."classpath:cert\\outgoing.CertwithKey.pkcs12"
     public static String SELFCERTPWD = "IoM@1234";
     public static String TRUSTCAPWD = "Huawei@123";
 

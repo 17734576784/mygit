@@ -1,5 +1,7 @@
 package com.iot.test;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -10,6 +12,7 @@ import java.util.Map;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.http.client.ClientProtocolException;
+import org.springframework.util.ResourceUtils;
 
 import com.iot.utils.CommFunc;
 import com.iot.utils.Constant;
@@ -36,8 +39,11 @@ public class MainTest {
 		
 //		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //		System.out.println(sdf.format(new Date()));
-		
-		FileUtils.upload(Constant.UPLOADIMAGEURL, "d:/cee8649d-c079-4424-aa76-a05a085881d6_40000000.jpeg", "20180912", "cee8649d-c079-4424-aa76-a05a085881d6");
+		String selfcertpath =  ResourceUtils.getFile(Constant.SELFCERTPATH).getAbsolutePath();
+System.out.println("selfcertpath");
+		new FileInputStream(selfcertpath);
+//		System.out.println(	new FileInputStream(file)+"  "+file.getAbsolutePath());
+//		FileUtils.upload(Constant.UPLOADIMAGEURL, "d:/cee8649d-c079-4424-aa76-a05a085881d6_40000000.jpeg", "20180912", "cee8649d-c079-4424-aa76-a05a085881d6");
 
 	}
 	

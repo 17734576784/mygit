@@ -35,6 +35,7 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.springframework.util.ResourceUtils;
 
 @SuppressWarnings("deprecation")
 public class HttpsUtil extends DefaultHttpClient {
@@ -63,13 +64,12 @@ public class HttpsUtil extends DefaultHttpClient {
 	 * */
 	public void initSSLConfigForTwoWay() throws Exception {
 		// 1 Import your own certificate
-		String demo_base_Path = System.getProperty("user.dir");
-		String selfcertpath = demo_base_Path + Constant.SELFCERTPATH;
-		String trustcapath = demo_base_Path + Constant.TRUSTCAPATH;
-
+//		String demo_base_Path = "";//System.getProperty("user.dir");
+		String selfcertpath =  ResourceUtils.getFile(Constant.SELFCERTPATH).getAbsolutePath();
+		String trustcapath = ResourceUtils.getFile(Constant.TRUSTCAPATH).getAbsolutePath();
+		
 		KeyStore selfCert = KeyStore.getInstance("pkcs12");
-		selfCert.load(new FileInputStream(selfcertpath),
-				Constant.SELFCERTPWD.toCharArray());
+		selfCert.load(new FileInputStream(selfcertpath),Constant.SELFCERTPWD.toCharArray());
 		KeyManagerFactory kmf = KeyManagerFactory.getInstance("sunx509");
 		kmf.init(selfCert, Constant.SELFCERTPWD.toCharArray());
 
