@@ -23,7 +23,6 @@ import org.springframework.stereotype.Component;
  * @date 2018年1月19日 下午4:39:43
  * 
  */
-@Component
 public class Log4jUtils {
 	 private static final Logger info = Logger.getLogger("info");
 	 private static final Logger error = Logger.getLogger("error");
