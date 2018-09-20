@@ -161,7 +161,7 @@ public class CallBackController {
 				// 照片数据
 				photo = toStr(serviceMap.get("rawdata"));
 				photoByte = CommFunc.decode(photo);
-				System.out.println(" packnum : " + packnum + "  totalpack : " + totalpack);
+				System.out.println(" packnum : " + packnum + "  totalpack : " + totalpack + " photoByte :/" + photoByte);
 
 				JSONObject photoJson = new JSONObject();
 
@@ -178,7 +178,7 @@ public class CallBackController {
 							jedisUtils.del(deviceId);
 						}
 					} else {
-//						jedisUtils.del(deviceId);
+						jedisUtils.del(deviceId);
 						insertDevicePhoto(deviceId, totalpack, packnum, photoByte);
 					}
 				} else {
@@ -247,7 +247,7 @@ public class CallBackController {
 			while (iterator.hasNext()) {
 				Entry<String, byte[]> entry = iterator.next();
 				byte[] photoByte = entry.getValue();
-//				System.out.println(entry.getKey() + "    " + photoByte.length);
+				System.out.println(entry.getKey() + "    " + photoByte.length);
 
 				if (photoByte.length != 0) {
 					tmp = CommFunc.byteMerger(tmp, photoByte);

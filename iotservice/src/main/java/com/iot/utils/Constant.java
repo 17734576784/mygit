@@ -154,6 +154,6 @@ public class Constant {
 	public static final String ALARMSERVICE = "Alarm1";
 	public static final String CHECKSERVICE = "Check";
 
-	public static final String UPLOADIMAGEURL = "http://222.222.60.178:18130/enngas/message/nbNotifyAction!notifyToWeb.action";
+	public static final String UPLOADIMAGEURL = "http://127.0.0.1:8091/Enterprise_EnnGas/enngas/message/nbNotifyAction!notifyToWeb.action";
     
 }
