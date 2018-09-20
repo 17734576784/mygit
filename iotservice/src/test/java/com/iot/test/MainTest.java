@@ -9,12 +9,15 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.http.client.ClientProtocolException;
 
 import com.iot.utils.CommFunc;
+import com.iot.utils.Constant;
+import com.iot.utils.FileUtils;
 
 public class MainTest {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ClientProtocolException, IOException {
 		// TODO Auto-generated method stub
 //		String str = "ASNFZ4mrze8BI0VniavN7wEjRWeJq83vASNFZ4mrze8BI0VniavN7wEjRWeJq83vASNFZ4mrze8BI0VniavN7wEjRWeJq83vASNFZ4mrze8BI0VniavN7wEjRWeJq83vAAAAAA==";
 //		byte[] result = decode(str);
@@ -31,8 +34,11 @@ public class MainTest {
 //		
 //		CommFunc.byte2image(a, fileName);
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		System.out.println(sdf.format(new Date()));
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		System.out.println(sdf.format(new Date()));
+		
+		FileUtils.upload(Constant.UPLOADIMAGEURL, "d:/cee8649d-c079-4424-aa76-a05a085881d6_40000000.jpeg", "20180912", "cee8649d-c079-4424-aa76-a05a085881d6");
+
 	}
 	
 	/**  
