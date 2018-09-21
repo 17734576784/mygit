@@ -10,6 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,9 +21,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.iot.utils.AuthenticationUtils;
 import com.iot.utils.CommFunc;
 import com.iot.utils.Constant;
 import com.iot.utils.FileUtils;
+import com.iot.utils.HttpsUtil;
 import com.iot.utils.JedisUtils;
 import com.iot.utils.JsonUtil;
 import com.iot.utils.Log4jUtils;
@@ -190,6 +194,37 @@ public class CallBackController {
 				magnetic_disturb = toStr(serviceMap.get("magnetic_disturb"));
 			} else if (Constant.CHECKSERVICE.equals(serviceId)) {
 				isdata = toStr(serviceMap.get("isdata"));
+				if (isdata.equals("1")) {
+					HttpsUtil httpsUtil = new HttpsUtil();
+					httpsUtil.initSSLConfigForTwoWay();
+					String accessToken = AuthenticationUtils.getAccessToken(httpsUtil);
+
+					String urlPostAsynCmd = Constant.POST_ASYN_CMD;
+					String appId = Constant.APPID;
+					String callbackUrl = Constant.REPORT_CMD_EXEC_RESULT_CALLBACK_URL;
+					
+			        ObjectNode paras = JsonUtil.convertObject2ObjectNode("{\"value\":\"1\"}");
+
+					Map<String, Object> paramCommand = new HashMap<>();
+					paramCommand.put("serviceId", "PhotoData");
+					paramCommand.put("method", "SendPhoto_once");
+					paramCommand.put("paras", paras);
+					
+					Map<String, Object> paramPostAsynCmd = new HashMap<>();
+					paramPostAsynCmd.put("deviceId", deviceId);
+					paramPostAsynCmd.put("command", paramCommand);
+					paramPostAsynCmd.put("callbackUrl", callbackUrl);
+
+					String jsonRequest = JsonUtil.jsonObj2Sting(paramPostAsynCmd);
+					Map<String, String> header = new HashMap<>();
+					header.put(Constant.HEADER_APP_KEY, appId);
+					header.put(Constant.HEADER_APP_AUTH, "Bearer" + " " + accessToken);
+
+					HttpResponse responsePostAsynCmd = httpsUtil.doPostJson(urlPostAsynCmd, header, jsonRequest);
+
+					String responseBody = httpsUtil.getHttpResponseBody(responsePostAsynCmd);
+					CommFunc.result(Constant.SUCCESS, responseBody);
+				}
 			}
 
 			JSONObject json = new JSONObject();
