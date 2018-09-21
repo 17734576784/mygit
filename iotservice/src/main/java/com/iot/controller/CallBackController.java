@@ -194,6 +194,7 @@ public class CallBackController {
 				magnetic_disturb = toStr(serviceMap.get("magnetic_disturb"));
 			} else if (Constant.CHECKSERVICE.equals(serviceId)) {
 				isdata = toStr(serviceMap.get("isdata"));
+				System.out.println("isdata : "+ isdata);
 				if (isdata.equals("1")) {
 					HttpsUtil httpsUtil = new HttpsUtil();
 					httpsUtil.initSSLConfigForTwoWay();
@@ -224,6 +225,8 @@ public class CallBackController {
 
 					String responseBody = httpsUtil.getHttpResponseBody(responsePostAsynCmd);
 					CommFunc.result(Constant.SUCCESS, responseBody);
+					System.out.println("isdata : 下发成功");
+
 				}
 			}
 
