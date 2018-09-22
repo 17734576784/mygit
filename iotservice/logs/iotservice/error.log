@@ -25,3 +25,5 @@
 2018-09-17 14:07:49,764 - 创建设备命令异常，入参：null ERROR [error 82 com.iot.controller.PostAsynCommandController.asynCommand(PostAsynCommandController.java:82)] 
 2018-09-17 14:11:19,227 - 创建设备命令异常，入参：null ERROR [error 82 com.iot.controller.PostAsynCommandController.asynCommand(PostAsynCommandController.java:82)] 
 2018-09-17 14:53:49,684 - 创建设备命令异常，入参：null ERROR [error 82 com.iot.controller.PostAsynCommandController.asynCommand(PostAsynCommandController.java:82)] 
+2018-09-21 15:21:07,843 - deviceDataChanged处理消息异常 ERROR [error 250 com.iot.controller.CallBackController.recvDataChangeNotify(CallBackController.java:250)] 
+2018-09-21 15:22:07,904 - deviceDataChanged处理消息异常 ERROR [error 250 com.iot.controller.CallBackController.recvDataChangeNotify(CallBackController.java:250)] 
