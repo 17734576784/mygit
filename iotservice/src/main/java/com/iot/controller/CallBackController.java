@@ -165,7 +165,7 @@ public class CallBackController {
 				// 照片数据
 				photo = toStr(serviceMap.get("rawdata"));
 				photoByte = CommFunc.decode(photo);
-				System.out.println(" packnum : " + packnum + "  totalpack : " + totalpack + " photoByte :/" + photoByte);
+				System.out.println(" packnum : " + packnum + "  totalpack : " + totalpack + " deviceId :/" + deviceId);
 
 				JSONObject photoJson = new JSONObject();
 
