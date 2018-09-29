@@ -154,19 +154,20 @@ public class CallBackController {
 			serviceMap = JsonUtil.jsonString2SimpleObj(servicedata, serviceMap.getClass());
 			String broke = "", magnetic_disturb = "", photo = "", isdata = "";
 			byte[] photoByte = null;
-			int packnum = 0;
-			int totalpack = 0;
+//			int packnum = 0;
+//			int totalpack = 0;
 
 			if (Constant.PHOTOSERVICE.equals(serviceId)) {
 				// 当前包号
-				packnum = toInt(serviceMap.get("packnum"));
+				int packnum = toInt(serviceMap.get("packnum"));
 				// 消息总包数
-				totalpack = toInt(serviceMap.get("totalpack"));
+				int totalpack = toInt(serviceMap.get("totalpack"));
 				// 照片数据
 				photo = toStr(serviceMap.get("rawdata"));
 				photoByte = CommFunc.decode(photo);
 				System.out.println(" packnum : " + packnum + "  totalpack : " + totalpack + " deviceId :/" + deviceId);
 
+				Log4jUtils.getError().info(" packnum : " + packnum + "  totalpack : " + totalpack + " deviceId :/" + deviceId);
 				JSONObject photoJson = new JSONObject();
 
 				if (jedisUtils.hasKey(deviceId)) {
@@ -235,13 +236,13 @@ public class CallBackController {
 			json.put("deviceId", deviceId);
 			json.put("gatewayId", gatewayId);
 			json.put("serviceId", serviceId);
-			json.put("serviceId", totalpack);
+//			json.put("serviceId", totalpack);
 			json.put("serviceType", serviceType);
 			json.put("eventTime", eventTime);
 			json.put("broke", broke);
 			json.put("magnetic_disturb", magnetic_disturb);
 			json.put("photo", photoByte);
-			json.put("packnum", packnum);
+//			json.put("packnum", packnum);
 			json.put("packnum", isdata);
 
 //			System.out.println(LocalDateTime.now() + "    recvDataChangeNotify  : " + messageMap.toString());
@@ -285,9 +286,8 @@ public class CallBackController {
 			while (iterator.hasNext()) {
 				Entry<String, byte[]> entry = iterator.next();
 				byte[] photoByte = entry.getValue();
-				System.out.println(entry.getKey() + "    " + photoByte.length);
-
 				if (photoByte.length != 0) {
+					System.out.println(entry.getKey() + "    " + photoByte.length);
 					tmp = CommFunc.byteMerger(tmp, photoByte);
 				} else {
 					return false;
