@@ -178,7 +178,8 @@ public class CallBackController {
 					if (totalpack == photoMap.size()) {
 						photoMap.put(toStr(packnum), photoByte);
 						photoJson.put("packnum", packnum);
-						jedisUtils.set(deviceId, photoJson, 60 * 60 * 2);
+						long expireTime = jedisUtils.getExpire(deviceId);
+						jedisUtils.set(deviceId, photoJson, expireTime);
 						if (generateImage(photoMap, deviceId)) {
 							jedisUtils.del(deviceId);
 						}
