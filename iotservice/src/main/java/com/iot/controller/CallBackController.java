@@ -168,9 +168,9 @@ public class CallBackController {
 				System.out.println(" packnum : " + packnum + "  totalpack : " + totalpack + " deviceId :/" + deviceId);
 
 				Log4jUtils.getError().info(" packnum : " + packnum + "  totalpack : " + totalpack + " deviceId :/" + deviceId);
-				JSONObject photoJson = new JSONObject();
 
 				if (jedisUtils.hasKey(deviceId)) {
+					JSONObject photoJson = new JSONObject();
 					// 获取该设备之前获取的数据
 					photoJson = (JSONObject) jedisUtils.get(deviceId);
 					// 获取该设备之前获取的照片数据
