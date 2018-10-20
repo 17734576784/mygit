@@ -13,10 +13,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import javax.annotation.PostConstruct;
+
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import redis.clients.jedis.BinaryClient.LIST_POSITION;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -35,34 +39,42 @@ public class JedisUtils {
 	/** 
      * 成功,"OK" 
      */  
-    public  final String SUCCESS_OK = "OK";  
+    public static final String SUCCESS_OK = "OK";  
     /** 
      * 成功,1L 
      */  
-    public  final Long SUCCESS_STATUS_LONG = 1L;  
+    public static final Long SUCCESS_STATUS_LONG = 1L;  
     /** 
      * 只用key不存在时才设置。Only set the key if it does not already exist 
      */  
-    public  final String NX = "NX";  
+    public static final String NX = "NX";  
     /** 
      * XX -- 只有key存在时才设置。和NX相反。Only set the key if it already exist. 
      */  
-    public  final String XX = "XX";  
+    public static final String XX = "XX";  
     /** 
      * EX|PX, 时间单位，EX是秒，PX是毫秒。expire time units: EX = seconds; PX = milliseconds 
      */  
-    public  final String EX = "EX";  
+    public static final String EX = "EX";  
     
 	@Autowired
 	public JedisPool jedisPool;
 	
+	public static JedisUtils jedisUtils;
+
+	@PostConstruct
+	private void init() {
+		jedisUtils = this;
+		jedisUtils.jedisPool = this.jedisPool;
+	}
+	
 	/**
 	 * 同步获取Jedis实例
 	 * */
-	public  synchronized Jedis getJedis() {
+	public static Jedis getResource() {
 		Jedis jedis = null;
 		try {
-			jedis = jedisPool.getResource();
+			jedis = jedisUtils.jedisPool.getResource();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -72,8 +84,8 @@ public class JedisUtils {
 	/**
 	 * 释放jedis资源
 	 * */
-	public  void returnRource(final Jedis jedis){
-		if (jedis != null && jedisPool != null) {
+	public static void returnRource(final Jedis jedis){
+		if (jedis != null && jedisUtils.jedisPool != null) {
 			jedis.close();
 		}
 	}
@@ -84,10 +96,10 @@ public class JedisUtils {
      * @param value 
      * @return 
      */  
-	public  boolean set(String key, String value) {
+	public static boolean set(String key, String value) {
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			String statusCode = jedis.set(key, value);
 			if (SUCCESS_OK.equalsIgnoreCase(statusCode)) {
 				return true;
@@ -106,10 +118,10 @@ public class JedisUtils {
      * @param key 
      * @return 
      */  
-	public  String get(String key) {
+	public static String get(String key) {
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			return jedis.get(key);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -125,10 +137,10 @@ public class JedisUtils {
      * @param key 
      * @return 
      */  
-	public  byte[] get(byte[] key) {
+	public static byte[] get(byte[] key) {
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			return jedis.get(key);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -146,13 +158,13 @@ public class JedisUtils {
      * @param seconds 秒数，不能小于0 
      * @return 
      */  
-	public  boolean setByTime(String key, String value, int seconds) {
+	public static boolean setByTime(String key, String value, int seconds) {
 		if (seconds < 0) {
 			return false;
 		}
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			String statusCode = jedis.setex(key, seconds, value);
 			if (SUCCESS_OK.equalsIgnoreCase(statusCode)) {
 				return true;
@@ -179,14 +191,14 @@ public class JedisUtils {
      * @param time expire time in the units of expx，时间（long型），不能小于0 
      * @return 
      */  
-	public  boolean set(String key, String value, String nxxx, String expx, long time) {
+	public static boolean set(String key, String value, String nxxx, String expx, long time) {
 		if (time < 0) {
 			return false;
 		}
 
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			String statusCode = jedis.set(key, value, nxxx, expx, time);
 			if (SUCCESS_OK.equalsIgnoreCase(statusCode)) {
 				return true;
@@ -208,10 +220,10 @@ public class JedisUtils {
      * <li>XX -- Only set the key if it already exist.</li>  
      * @return 
      */  
-	public  boolean set(String key, String value, String nxxx) {
+	public static boolean set(String key, String value, String nxxx) {
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			String statusCode = jedis.set(key, value, nxxx);
 			if (SUCCESS_OK.equalsIgnoreCase(statusCode)) {
 				return true;
@@ -230,10 +242,10 @@ public class JedisUtils {
      * @param value 
      * @return 
      */  
-	public  boolean setIfNotExists(String key, String value) {
+	public static boolean setIfNotExists(String key, String value) {
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			Long statusCode = jedis.setnx(key, value);
 			if (SUCCESS_STATUS_LONG.equals(statusCode)) {
 				return true;
@@ -252,7 +264,7 @@ public class JedisUtils {
      * @param value 
      * @return 
      */  
-	public  boolean setNX(String key, String value) {
+	public static boolean setNX(String key, String value) {
 		return setIfNotExists(key, value);
 	}
       
@@ -263,7 +275,7 @@ public class JedisUtils {
      * @param seconds，秒数，不能小于0 
      * @return 
      */  
-	public  boolean setIfNotExists(String key, String value, long seconds) {
+	public static boolean setIfNotExists(String key, String value, long seconds) {
 		if (seconds < 0) {
 			return false;
 		}
@@ -277,7 +289,7 @@ public class JedisUtils {
      * @param seconds 
      * @return 
      */  
-	public  boolean setNX(String key, String value, Long seconds) {
+	public static boolean setNX(String key, String value, Long seconds) {
 		return setIfNotExists(key, value, seconds);
 	} 
       
@@ -287,7 +299,7 @@ public class JedisUtils {
      * @param value 
      * @return 
      */  
-	public  boolean setIfExists(String key, String value) {
+	public static boolean setIfExists(String key, String value) {
 		return set(key, value, XX);
 	}
 
@@ -297,7 +309,7 @@ public class JedisUtils {
      * @param value 
      * @return 
      */  
-	public  boolean setXX(String key, String value) {
+	public static boolean setXX(String key, String value) {
 		return setIfExists(key, value);
 	}
 
@@ -308,7 +320,7 @@ public class JedisUtils {
      * @param seconds，秒数，不能小于0 
      * @return 
      */  
-	public  boolean setIfExists(String key, String value, long seconds) {
+	public static boolean setIfExists(String key, String value, long seconds) {
 		if (seconds < 0) {
 			return false;
 		}
@@ -322,7 +334,7 @@ public class JedisUtils {
      * @param seconds，秒数，不能小于0 
      * @return 
      */  
-	public  boolean setXX(String key, String value, long seconds) {
+	public static boolean setXX(String key, String value, long seconds) {
 		return setIfExists(key, value, seconds);
 	}
       
@@ -332,13 +344,13 @@ public class JedisUtils {
      * @param seconds 为Null时，将会马上过期。可以设置-1，0，表示马上过期 
      * @return 
      */  
-	public  boolean setTime(String key, Integer seconds) {
+	public static boolean setTime(String key, Integer seconds) {
 		Jedis jedis = null;
 		try {
 			if (seconds == null) {
 				seconds = -1;
 			}
-			jedis = getJedis();
+			jedis = getResource();
 			Long statusCode = jedis.expire(key, seconds);
 			if (SUCCESS_STATUS_LONG.equals(statusCode)) {
 				return true;
@@ -357,7 +369,7 @@ public class JedisUtils {
      * @param seconds 为Null时，将会马上过期。可以设置-1，0，表示马上过期 
      * @return 
      */  
-	public  boolean setOutTime(String key, Integer seconds) {
+	public static boolean setOutTime(String key, Integer seconds) {
 		return setTime(key, seconds);
 	}
 
@@ -367,7 +379,7 @@ public class JedisUtils {
      * @param seconds 秒数，为Null时，将会马上过期。可以设置-1，0，表示马上过期 
      * @return 
      */  
-	public  boolean expire(String key, Integer seconds) {
+	public static boolean expire(String key, Integer seconds) {
 		return setTime(key, seconds);
 	}
       
@@ -376,10 +388,10 @@ public class JedisUtils {
      * @param key 
      * @return 
      */  
-	public  boolean exists(String key) {
+	public static boolean exists(String key) {
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			return jedis.exists(key);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -395,10 +407,10 @@ public class JedisUtils {
      * @param key 
      * @return 
      */  
-	public  boolean exists(byte[] key) {
+	public static boolean exists(byte[] key) {
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			return jedis.exists(key);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -414,7 +426,7 @@ public class JedisUtils {
      * @param key 
      * @return 
      */  
-	public  boolean isExists(String key) {
+	public static boolean isExists(String key) {
 		return exists(key);
 	} 
       
@@ -423,10 +435,10 @@ public class JedisUtils {
      * @param key 
      * @return 
      */  
-	public  boolean persist(String key) {
+	public static boolean persist(String key) {
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			long time = getTime(key);
 			if (time == -1) {
 				return true;
@@ -450,10 +462,10 @@ public class JedisUtils {
      * @param key 
      * @return 
      */  
-	public  Long getTime(String key) {
+	public static Long getTime(String key) {
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			return jedis.ttl(key);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -468,7 +480,7 @@ public class JedisUtils {
      * @param key 
      * @return 
      */  
-	public  Long getTtl(String key) {
+	public static Long getTtl(String key) {
 		return getTime(key);
 	} 
       
@@ -476,10 +488,10 @@ public class JedisUtils {
      * 随机获取一个key 
      * @return 
      */  
-	public  String randomKey() {
+	public static String randomKey() {
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			return jedis.randomKey();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -493,7 +505,7 @@ public class JedisUtils {
      * 随机获取一个key 
      * @return 
      */  
-	public  String random() {
+	public static String random() {
 		return randomKey();
 	} 
       
@@ -504,10 +516,10 @@ public class JedisUtils {
      * @param newKey 新的key 
      * @return 
      */  
-	public  boolean rename(String oldkey, String newKey) {
+	public static boolean rename(String oldkey, String newKey) {
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			String statusCode = jedis.rename(oldkey, newKey);
 			if (SUCCESS_OK.equalsIgnoreCase(statusCode)) {
 				return true;
@@ -526,10 +538,10 @@ public class JedisUtils {
      * @param newKey 
      * @return 
      */  
-	public  boolean renameNX(String oldkey, String newKey) {
+	public static boolean renameNX(String oldkey, String newKey) {
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			Long statusCode = jedis.renamenx(oldkey, newKey);
 			if (SUCCESS_STATUS_LONG.equals(statusCode)) {
 				return true;
@@ -548,7 +560,7 @@ public class JedisUtils {
      * @param newKey 
      * @return 
      */  
-	public  boolean renameIfNotExists(String oldkey, String newKey) {
+	public static boolean renameIfNotExists(String oldkey, String newKey) {
 		return renameNX(oldkey, newKey);
 	}
       
@@ -558,10 +570,10 @@ public class JedisUtils {
 	 * @param key
 	 * @return
 	 */
-	public  String type(String key) {
+	public static String type(String key) {
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			return jedis.type(key);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -576,7 +588,7 @@ public class JedisUtils {
      * @param key 
      * @return 
      */  
-	public  String getType(String key) {
+	public static String getType(String key) {
 		return type(key);
 	}
       
@@ -585,10 +597,10 @@ public class JedisUtils {
      * @param key 
      * @return 
      */  
-	public  boolean del(String key) {
+	public static boolean del(String key) {
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			Long statusCode = jedis.del(key);
 			if (SUCCESS_STATUS_LONG.equals(statusCode)) {
 				return true;
@@ -606,7 +618,7 @@ public class JedisUtils {
      * @param key 
      * @return 
      */  
-	public  boolean delete(String key) {
+	public static boolean delete(String key) {
 		return del(key);
 	}
       
@@ -615,7 +627,7 @@ public class JedisUtils {
      * @param key 
      * @return 
      */  
-	public  boolean remove(String key) {
+	public static boolean remove(String key) {
 		return del(key);
 	}
       
@@ -624,10 +636,10 @@ public class JedisUtils {
      * @param key 
      * @return 
      */  
-	public  boolean del(String[] keys) {
+	public static boolean del(String[] keys) {
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			Long statusCode = jedis.del(keys);
 			if (statusCode > 0) {
 				return true;
@@ -645,7 +657,7 @@ public class JedisUtils {
      * @param key 
      * @return 
      */  
-	public  boolean delete(String[] keys) {
+	public static boolean delete(String[] keys) {
 		return del(keys);
 	} 
       
@@ -654,7 +666,7 @@ public class JedisUtils {
      * @param key 
      * @return 
      */  
-	public  boolean remove(String[] keys) {
+	public static boolean remove(String[] keys) {
 		return del(keys);
 	}
 	
@@ -665,11 +677,11 @@ public class JedisUtils {
 	 * @param value String
 	 * @return 返回List的长度
 	 */
-	public  Long lpush(String key, Object value) {
+	public static Long lpush(String key, Object value) {
 		Jedis jedis = null;
 		Long length = 0L;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			length = jedis.lpush(key.getBytes(), SerializeUtils.serialize(value));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -685,11 +697,11 @@ public class JedisUtils {
 	 * @param value String
 	 * @return 返回List的长度
 	 */
-	public  Long lpush(String key, String value) {
+	public static Long lpush(String key, String value) {
 		Jedis jedis = null;
 		Long length = 0L;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			length = jedis.lpush(key, value);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -705,12 +717,12 @@ public class JedisUtils {
 	 * @param values String[]
 	 * @return 返回List的数量size
 	 */
-	public  Long lpush(String key, Object[] values) {
+	public static Long lpush(String key, Object[] values) {
 
 		Jedis jedis = null;
 		Long size = 0L;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			size = jedis.lpush(key.getBytes(), SerializeUtils.serialize(values));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -728,12 +740,12 @@ public class JedisUtils {
 	 * @param end long， 结束索引
 	 * @return List<String>
 	 */
-	public  List<Object> lrange(String key, long start, long end) {
+	public static List<Object> lrange(String key, long start, long end) {
 
 		Jedis jedis = null;
 		List<Object> list = new ArrayList<Object>();
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			List<byte[]> value = jedis.lrange(key.getBytes(), start, end);
 			for (byte[] bs : value) {
 				list.add(SerializeUtils.deserialize(bs));
@@ -753,11 +765,11 @@ public class JedisUtils {
 	 * @param index，索引，0表示最新的一个元素
 	 * @return String
 	 */
-	public  Object lindex(String key, long index) {
+	public static Object lindex(String key, long index) {
 		Object object = null;
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			byte[] value = jedis.lindex(key.getBytes(), index);
 			object = SerializeUtils.deserialize(value);
 		} catch (Exception e) {
@@ -773,11 +785,11 @@ public class JedisUtils {
 	 * @param key
 	 * @return Long
 	 */
-	public  Long llen(String key) {
+	public static Long llen(String key) {
 		Jedis jedis = null;
 		Long length = 0L;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			length = jedis.llen(key.getBytes());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -795,11 +807,11 @@ public class JedisUtils {
 	 * @param value
 	 * @return Long
 	 */
-	public  Long linsert(String key, LIST_POSITION where, String pivot, Object value) {
+	public static Long linsert(String key, LIST_POSITION where, String pivot, Object value) {
 		Jedis jedis = null;
 		Long length = 0L;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			length = jedis.linsert(key.getBytes(), where, pivot.getBytes(), SerializeUtils.serialize(value));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -815,11 +827,11 @@ public class JedisUtils {
 	 * @param value String
 	 * @return Long
 	 */
-	public  Long lpushx(String key, Object value) {
+	public static Long lpushx(String key, Object value) {
 		Jedis jedis = null;
 		Long length = 0L;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			length = jedis.lpushx(key.getBytes(), SerializeUtils.serialize(value));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -835,11 +847,11 @@ public class JedisUtils {
 	 * @param values String[]
 	 * @return Long
 	 */
-	public  Long lpushx(String key, Object[] values){
+	public static Long lpushx(String key, Object[] values){
 		Jedis jedis = null;
 		Long length = 0L;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			length = jedis.lpushx(key.getBytes(), SerializeUtils.serialize(values));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -859,11 +871,11 @@ public class JedisUtils {
 	 * @param value 匹配的元素
 	 * @return Long
 	 */
-	public  Long lrem(String key, long count, Object value) {
+	public static Long lrem(String key, long count, Object value) {
 		Jedis jedis = null;
 		Long length = 0L;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			length = jedis.lrem(key.getBytes(), count, SerializeUtils.serialize(value));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -880,11 +892,11 @@ public class JedisUtils {
 	 * @param value
 	 * @return boolean
 	 */
-	public  boolean lset(String key, long index, String value) {
+	public static boolean lset(String key, long index, String value) {
 		Jedis jedis = null;
 		String statusCode = "";
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			statusCode = jedis.lset(key.getBytes(), index, SerializeUtils.serialize(value));
 			if (SUCCESS_OK.equalsIgnoreCase(statusCode)) {
 				return true;
@@ -908,11 +920,11 @@ public class JedisUtils {
 	 * <li>可以超出索引，不影响结果</li>
 	 * @return boolean
 	 */
-	public  boolean ltrim(String key, long start, long end) {
+	public static boolean ltrim(String key, long start, long end) {
 		Jedis jedis = null;
 		String statusCode = "";
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			statusCode = jedis.ltrim(key.getBytes(), start, end);
 			if (SUCCESS_OK.equalsIgnoreCase(statusCode)) {
 				return true;
@@ -930,11 +942,11 @@ public class JedisUtils {
 	 * @param key
 	 * @return String
 	 */
-	public  Object lpop(String key) {
+	public static Object lpop(String key) {
 		Jedis jedis = null;
 		Object value = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			byte[] tempValue= jedis.lpop(key.getBytes());
 			value = SerializeUtils.deserialize(tempValue);
 		} catch (Exception e) {
@@ -950,11 +962,11 @@ public class JedisUtils {
 	 * @param key
 	 * @return String
 	 */
-	public Object rpop(String key) {
+	public static Object rpop(String key) {
 		Jedis jedis = null;
 		Object value = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			byte[] tempValue= jedis.rpop(key.getBytes());
 			value = SerializeUtils.deserialize(tempValue);
 		} catch (Exception e) {
@@ -971,11 +983,11 @@ public class JedisUtils {
 	 * @param value
 	 * @return Long
 	 */
-	public  Long rpush(String key, Object value) {
+	public static Long rpush(String key, Object value) {
 		Jedis jedis = null;
 		Long length = 0L;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			length = jedis.rpush(key.getBytes(),SerializeUtils.serialize(value));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -991,11 +1003,11 @@ public class JedisUtils {
 	 * @param values
 	 * @return Long
 	 */
-	public  Long rpush(String key, Object[] values) {
+	public static Long rpush(String key, Object[] values) {
 		Jedis jedis = null;
 		Long length = 0L;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			length = jedis.rpush(key.getBytes(), SerializeUtils.serialize(values));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1011,11 +1023,11 @@ public class JedisUtils {
 	 * @param value
 	 * @return Long
 	 */
-	public  Long rpushx(String key, Object value) {
+	public static Long rpushx(String key, Object value) {
 		Jedis jedis = null;
 		Long length = 0L;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			length = jedis.rpushx(key.getBytes(), SerializeUtils.serialize(value));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1031,12 +1043,12 @@ public class JedisUtils {
 	 * @param targetKey 目标列表的key，当目标key不存在时，会自动创建新的
 	 * @return String
 	 */
-	public  Object rpopLpush(String sourceKey, String targetKey) {
+	public static Object rpopLpush(String sourceKey, String targetKey) {
 
 		Jedis jedis = null;
 		Object value = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			byte[] tempValue= jedis.rpoplpush(sourceKey.getBytes(), targetKey.getBytes());
 			value = SerializeUtils.deserialize(tempValue);
 		} catch (Exception e) {
@@ -1057,11 +1069,11 @@ public class JedisUtils {
 	 * <li>当超期时间到达时，keys列表仍然没有内容，则返回Null</li>
 	 * @return List<String>
 	 */
-	public  List<String> brpop(int timeout, String... keys) {
+	public static List<String> brpop(int timeout, String... keys) {
 		Jedis jedis = null;
 		List<String> values = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			values = jedis.brpop(timeout, keys);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1079,12 +1091,12 @@ public class JedisUtils {
 	 * @param timeout 单位为秒
 	 * @return String
 	 */
-	public  Object brpopLpush(String sourceKey, String targetKey, int timeout) {
+	public static Object brpopLpush(String sourceKey, String targetKey, int timeout) {
 
 		Jedis jedis = null;
 		Object value = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			byte[] tmpValue = jedis.brpoplpush(sourceKey.getBytes(), targetKey.getBytes(), timeout);
 			value = SerializeUtils.deserialize(tmpValue);
 		} catch (Exception e) {
@@ -1106,14 +1118,14 @@ public class JedisUtils {
 	 * @param value
 	 * @return
 	 */
-	public  boolean hset(String key, String field, String value) {
+	public static boolean hset(String key, String field, String value) {
 		if (key.isEmpty() || null == field) {
 			return false;
 		}
 
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			// If the field already exists, and the HSET just produced an update
 			// of the value, 0 is returned,
 			// otherwise if a new field is created 1 is returned.
@@ -1136,14 +1148,14 @@ public class JedisUtils {
 	 * @param values
 	 * @return
 	 */
-	public  boolean hmset(String key, String[] fields, String[] values) {
+	public static boolean hmset(String key, String[] fields, String[] values) {
 		if (key.isEmpty() || fields.length == 0 || values.length == 0) {
 			return false;
 		}
 
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			Map<String, String> hash = new HashMap<String, String>(16);
 			for (int i = 0; i < fields.length; i++) {
 				hash.put(fields[i], values[i]);
@@ -1166,14 +1178,14 @@ public class JedisUtils {
 	 * @param map Map<String, String>
 	 * @return
 	 */
-	public boolean hmset(String key, Map<String, String> map) {
+	public static boolean hmset(String key, Map<String, String> map) {
 		if (key.isEmpty() || map.isEmpty()) {
 			return false;
 		}
 
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			String statusCode = jedis.hmset(key, map);
 			jedis.close();
 			if (SUCCESS_OK.equalsIgnoreCase(statusCode)) {
@@ -1194,14 +1206,14 @@ public class JedisUtils {
 	 * @param value
 	 * @return
 	 */
-	public  boolean hsetNX(String key, String field, String value) {
+	public static boolean hsetNX(String key, String field, String value) {
 		if (key.isEmpty() || field.isEmpty()) {
 			return false;
 		}
 
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			// If the field already exists, 0 is returned,
 			// otherwise if a new field is created 1 is returned.
 			Long statusCode = jedis.hsetnx(key, field, value);
@@ -1223,14 +1235,14 @@ public class JedisUtils {
 	 * @param field
 	 * @return
 	 */
-	public  String hget(String key, String field) {
+	public static String hget(String key, String field) {
 		if (key.isEmpty() || field.isEmpty()) {
 			return null;
 		}
 		Jedis jedis = null;
 		String value = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			value = jedis.hget(key, field);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1247,14 +1259,14 @@ public class JedisUtils {
 	 * @param fields String...
 	 * @return
 	 */
-	public  List<String> hmget(String key, String... fields) {
+	public static List<String> hmget(String key, String... fields) {
 		if (key.isEmpty() || fields.length == 0) {
 			return null;
 		}
 		Jedis jedis = null;
 		List<String> values = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			values = jedis.hmget(key, fields);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1270,7 +1282,7 @@ public class JedisUtils {
 	 * @param key
 	 * @return Map<String, String>
 	 */
-	public  Map<String, String> hgetAll(String key) {
+	public static Map<String, String> hgetAll(String key) {
 		if (key.isEmpty()) {
 			return null;
 		}
@@ -1279,7 +1291,7 @@ public class JedisUtils {
 		Map<String, String> map = null;
 
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			map = jedis.hgetAll(key);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1296,13 +1308,13 @@ public class JedisUtils {
 	 * @param fields
 	 * @return
 	 */
-	public  boolean hdel(String key, String... fields) {
+	public static boolean hdel(String key, String... fields) {
 		if (key.isEmpty() || null == fields) {
 			return false;
 		}
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			jedis.hdel(key, fields);
 
 		} catch (Exception e) {
@@ -1320,14 +1332,14 @@ public class JedisUtils {
 	 * @param field
 	 * @return
 	 */
-	public  boolean hexists(String key, String field) {
+	public static boolean hexists(String key, String field) {
 		if (key.isEmpty() || field.isEmpty()) {
 			return false;
 		}
 		Jedis jedis = null;
 		boolean result = false;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			result = jedis.hexists(key, field);
 
 		} catch (Exception e) {
@@ -1346,12 +1358,12 @@ public class JedisUtils {
 	 * @param increment 正负数、0、正整数
 	 * @return
 	 */
-	public  long hincrBy(String key, String field, long increment) {
+	public static long hincrBy(String key, String field, long increment) {
 		Jedis jedis = null;
 		long result = 0L;
 
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			result = jedis.hincrBy(key, field, increment);
 
 		} catch (Exception e) {
@@ -1370,11 +1382,11 @@ public class JedisUtils {
 	 * @param increment，可以为负数、正数、0
 	 * @return
 	 */
-	public  Double hincrByFloat(String key, String field, double increment) {
+	public static Double hincrByFloat(String key, String field, double increment) {
 		Jedis jedis = null;
 		Double result = 0D;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			result = jedis.hincrByFloat(key, field, increment);
 
 		} catch (Exception e) {
@@ -1390,11 +1402,11 @@ public class JedisUtils {
 	 * @param key
 	 * @return Set<String>
 	 */
-	public  Set<String> hkeys(String key) {
+	public static Set<String> hkeys(String key) {
 		Jedis jedis = null;
 		Set<String> result = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			result = jedis.hkeys(key);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1409,11 +1421,11 @@ public class JedisUtils {
 	 * @param key
 	 * @return List<String>
 	 */
-	public  List<String> hvals(String key) {
+	public static List<String> hvals(String key) {
 		List<String> result = null;
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			result = jedis.hvals(key);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1428,11 +1440,11 @@ public class JedisUtils {
 	 * @param key
 	 * @return
 	 */
-	public  Long hlen(String key) {
+	public static Long hlen(String key) {
 		Long result = null;
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			result = jedis.hlen(key);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1448,12 +1460,12 @@ public class JedisUtils {
 	 * @param cursor
 	 * @return ScanResult<Entry<String, String>>
 	 */
-	public  ScanResult<Entry<String, String>> hscan(String key, String cursor) {
+	public static ScanResult<Entry<String, String>> hscan(String key, String cursor) {
 		Jedis jedis = null;
 		ScanResult<Entry<String, String>> scanResult = null;
 
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			scanResult = jedis.hscan(key, cursor);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1474,10 +1486,10 @@ public class JedisUtils {
 	 * @param members
 	 * @return Long
 	 */
-	public  Long sadd(String key, String... members) {
+	public static Long sadd(String key, String... members) {
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			return jedis.sadd(key, members);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1492,10 +1504,10 @@ public class JedisUtils {
 	 * @param key
 	 * @return
 	 */
-	public  Long scard(String key) {
+	public static Long scard(String key) {
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			return jedis.scard(key);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1510,10 +1522,10 @@ public class JedisUtils {
 	 * @param key
 	 * @return Set<String>
 	 */
-	public  Set<String> smembers(String key) {
+	public static Set<String> smembers(String key) {
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			return jedis.smembers(key);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1529,10 +1541,10 @@ public class JedisUtils {
 	 * @param member
 	 * @return Boolean
 	 */
-	public  Boolean sIsMember(String key, String member) {
+	public static Boolean sIsMember(String key, String member) {
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			return jedis.sismember(key, member);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1547,10 +1559,10 @@ public class JedisUtils {
 	 * @param keys
 	 * @return Set<String>
 	 */
-	public  Set<String> sdiff(String... keys) {
+	public static Set<String> sdiff(String... keys) {
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			return jedis.sdiff(keys);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1568,10 +1580,10 @@ public class JedisUtils {
 	 * @param keys
 	 * @return
 	 */
-	public  boolean sdiffStore(String targetKey, String... keys) {
+	public static boolean sdiffStore(String targetKey, String... keys) {
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			Long statusCode = jedis.sdiffstore(targetKey, keys);
 			if (SUCCESS_STATUS_LONG.equals(statusCode)) {
 				return true;
@@ -1589,10 +1601,10 @@ public class JedisUtils {
 	 * @param keys
 	 * @return Set<String>
 	 */
-	public  Set<String> sinter(String... keys) {
+	public static Set<String> sinter(String... keys) {
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			return jedis.sinter(keys);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1608,10 +1620,10 @@ public class JedisUtils {
 	 * @param keys
 	 * @return boolean
 	 */
-	public  boolean sinterStore(String targetKey, String... keys) {
+	public static boolean sinterStore(String targetKey, String... keys) {
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			Long statusCode = jedis.sinterstore(targetKey, keys);
 			if (SUCCESS_STATUS_LONG.equals(statusCode)) {
 				return true;
@@ -1634,10 +1646,10 @@ public class JedisUtils {
 	 * @param member
 	 * @return boolean
 	 */
-	public  boolean smove(String sourceKey, String targetKey, String member) {
+	public static boolean smove(String sourceKey, String targetKey, String member) {
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			Long value = jedis.smove(sourceKey, targetKey, member);
 			if (value > 0) {
 				return true;
@@ -1656,10 +1668,10 @@ public class JedisUtils {
 	 * @param key
 	 * @return String
 	 */
-	public  String spop(String key) {
+	public static String spop(String key) {
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			return jedis.spop(key);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1678,10 +1690,10 @@ public class JedisUtils {
 	 * @param count
 	 * @return List<String>
 	 */
-	public  List<String> srandMember(String key, int count) {
+	public static List<String> srandMember(String key, int count) {
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			return jedis.srandmember(key, count);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1697,10 +1709,10 @@ public class JedisUtils {
 	 * @param members
 	 * @return
 	 */
-	public  boolean srem(String key, String... members) {
+	public static boolean srem(String key, String... members) {
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			// Integer reply, specifically: 1 if the new element was removed
 			// 0 if the new element was not a member of the set
 			Long value = jedis.srem(key, members);
@@ -1720,10 +1732,10 @@ public class JedisUtils {
 	 * @param keys
 	 * @return
 	 */
-	public  Set<String> sunion(String... keys) {
+	public static Set<String> sunion(String... keys) {
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			return jedis.sunion(keys);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1743,10 +1755,10 @@ public class JedisUtils {
 	 * @param keys
 	 * @return
 	 */
-	public boolean sunionStore(String targetKey, String... keys) {
+	public static boolean sunionStore(String targetKey, String... keys) {
 		Jedis jedis = null;
 		try {
-			jedis = getJedis();
+			jedis = getResource();
 			// 返回合并后的长度
 			Long statusCode = jedis.sunionstore(targetKey, keys);
 			if (statusCode > 0) {

@@ -1,17 +1,12 @@
 package com.pile.utils;
 
 import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
 
 @Component
 public class DictionUtil {
-	
-	@Autowired
-	private JedisUtils jedisUtils;
 	
 	public static final String PREDICTON = "Diction:";
 	
@@ -26,7 +21,7 @@ public class DictionUtil {
 	*/
 	public String getItemName(String type, int value) {
 
-		Map<String, String> map = jedisUtils.hgetAll(type);
+		Map<String, String> map = JedisUtils.hgetAll(type);
 
 		if (map == null || map.size() == 0){
 			return null;

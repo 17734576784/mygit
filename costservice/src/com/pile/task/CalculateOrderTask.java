@@ -36,9 +36,6 @@ import com.pile.utils.Log4jUtils;
 public class CalculateOrderTask extends QuartzJobBean{
 
 	@Autowired
-	private JedisUtils jedisUtils;
-	
-	@Autowired
 	private CalculateFeeExecutor calculateorder;
 
 	@Resource
@@ -69,7 +66,7 @@ public class CalculateOrderTask extends QuartzJobBean{
 	public void processErrorQueue() {
 		Object value = null;
 		try {
-			value = jedisUtils.rpop(Constant.ERRORCOSTQUEUE);
+			value = JedisUtils.rpop(Constant.ERRORCOSTQUEUE);
 			if (null == value) {
 				return;
 			}

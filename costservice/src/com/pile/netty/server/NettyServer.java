@@ -8,6 +8,7 @@
 */
 package com.pile.netty.server;
 
+import com.pile.common.Constant;
 import com.pile.netty.message.ServerProtobufDecoder;
 import com.pile.netty.message.ServerProtobufEncoder;
 import com.pile.utils.Log4jUtils;
@@ -33,12 +34,6 @@ import io.netty.handler.logging.LoggingHandler;
 public class NettyServer {
 	
 	/** 
-	* @Fields port : 服务端端口号 
-	*/ 
-//	@Value("${netty.port}")
-	private int port = 19999;
-	
-	/** 
 	* @Title: run 
 	* @Description: 启动服务器方法 
 	* @param     设定文件 
@@ -46,6 +41,7 @@ public class NettyServer {
 	* @throws 
 	*/
 	public void run(){
+		int port = Constant.NETTYPORT;
 		EventLoopGroup bossGroup = new NioEventLoopGroup();
 		EventLoopGroup workerGroup = new NioEventLoopGroup();
  		try {

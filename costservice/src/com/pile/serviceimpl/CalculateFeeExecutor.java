@@ -37,9 +37,6 @@ import com.pile.utils.Log4jUtils;
 public class CalculateFeeExecutor {
 	
 	@Autowired
-	private JedisUtils jedisUtils;
-
-	@Autowired
 	private ICalculateFeeService calculateFeeService;
 
 	@Resource
@@ -62,7 +59,7 @@ public class CalculateFeeExecutor {
 			
 			String orderSerialNumber = chargeInfo.getOrderSerialNumber();
 			String key = Constant.ORDER + orderSerialNumber;
-			Map<String, String> orderMap = jedisUtils.hgetAll(key);
+			Map<String, String> orderMap = JedisUtils.hgetAll(key);
 			if (null == orderMap || orderMap.isEmpty()) {
 				// redis不存在，查库
 				orderMap = calculateFeeMapper.getMemberOrder(orderSerialNumber);

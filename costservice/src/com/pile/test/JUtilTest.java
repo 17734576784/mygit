@@ -27,6 +27,7 @@ import com.pile.strategy.DiscountContext;
 import com.pile.utils.JedisUtils;
 import com.pile.utils.SerializeUtils;
 
+import sun.nio.cs.ext.JISAutoDetect;
 
 /**
  * @author dbr

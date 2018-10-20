@@ -25,7 +25,8 @@ import com.pile.serviceimpl.CalculateFeeExecutor;
  */
 @Component
 public class CostCustomer implements InitializingBean {
-
+	
+	@SuppressWarnings("unused")
 	@Autowired
 	private JedisUtils jedisUtils;
 
@@ -35,16 +36,16 @@ public class CostCustomer implements InitializingBean {
 	public void afterPropertiesSet() throws Exception {
 		new Thread(() -> {
 			while (true) {
-				Object value = jedisUtils.brpopLpush(Constant.COSTQUEUE, Constant.BAKCOSTQUEUE,20);
+				Object value = JedisUtils.brpopLpush(Constant.COSTQUEUE, Constant.BAKCOSTQUEUE,20);
 				if (null != value) {
 					try {
 						boolean flag = calculateFeeExecutor.calculateOrder(value);
 						if (flag) {
 							// 处理成功，从备份列表中弹出
-							jedisUtils.rpop(Constant.BAKCOSTQUEUE);
+							JedisUtils.rpop(Constant.BAKCOSTQUEUE);
 						} else {
 							// 处理失败，从备份列表中弹出，放入错误列队中 再处理
-							jedisUtils.rpopLpush(Constant.BAKCOSTQUEUE, Constant.ERRORCOSTQUEUE);
+							JedisUtils.rpopLpush(Constant.BAKCOSTQUEUE, Constant.ERRORCOSTQUEUE);
 						}
 						Thread.sleep(1000);
 					} catch (Exception e) {

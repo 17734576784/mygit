@@ -8,7 +8,6 @@ import java.net.InetSocketAddress;
 import com.pile.common.Constant;
 import com.pile.utils.JedisUtils;
 import com.pile.utils.Log4jUtils;
-import com.pile.utils.MyApplicationContextUtil;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -22,18 +21,15 @@ import io.netty.channel.SimpleChannelInboundHandler;
  */
 public class NettyServerHandler extends SimpleChannelInboundHandler<Object> {
 
- 	private JedisUtils jedisUtils;
-	
 	@Override
     protected void channelRead0(ChannelHandlerContext ctx, Object msg) {
 		StringBuilder sb = null;
 		String result= "";
         try {
-        	jedisUtils = (JedisUtils) MyApplicationContextUtil.getContext().getBean("jedisUtils");
 			// 报文解析处理
         	System.out.println("接收充电消息：" + msg);
 			Log4jUtils.getDiscountinfo().info("接收充电消息：" + msg);	
-			jedisUtils.lpush(Constant.COSTQUEUE,msg);
+			JedisUtils.lpush(Constant.COSTQUEUE,msg);
 			
 			sb = new StringBuilder();
 			sb.append(result);

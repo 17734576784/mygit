@@ -45,9 +45,6 @@ public class CalculateFeeServiceImpl implements ICalculateFeeService{
 	@Value("#{${appFlag}}")
 	private Map<Integer, String> appFlagMap;
 
-	@Autowired
-	private JedisUtils jedisUtils;
-	
 	/** (非 Javadoc) 
 	* <p>Title: calculateChargeFee</p> 
 	* <p>Description: </p>  
@@ -91,7 +88,7 @@ public class CalculateFeeServiceImpl implements ICalculateFeeService{
 			//member_account_change2018
 			/** 小程序 app 将充电单存入队列 */
 			if (appFlagMap.containsKey(chargeInfo.getAppFlag())) {
-				jedisUtils.lpush(appFlagMap.get(chargeInfo.getAppFlag()), chargeInfo.getOrderSerialNumber());
+				JedisUtils.lpush(appFlagMap.get(chargeInfo.getAppFlag()), chargeInfo.getOrderSerialNumber());
 			}
 			
 			flag = true;

@@ -71,5 +71,8 @@ public class Constant {
 	/** 操作类型 0:充电支出 1:充电退款 2：充值收入 3:充值退款 4:转账收入 5:转账支出 6:预约支出 7:预约退款 */
 	public static final int TRANSFERINCOME = 4;
 	
+	/** netty服务端口号 */
+	public static final int NETTYPORT = 19999;
+	
 	
  }
