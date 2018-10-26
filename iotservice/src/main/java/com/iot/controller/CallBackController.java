@@ -1,17 +1,13 @@
 package com.iot.controller;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Map.Entry;
+import javax.annotation.Resource;
 
-import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,30 +17,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.iot.utils.AuthenticationUtils;
-import com.iot.utils.CommFunc;
-import com.iot.utils.Constant;
-import com.iot.utils.FileUtils;
-import com.iot.utils.HttpsUtil;
-import com.iot.utils.JedisUtils;
+import com.iot.commandstrategy.CommandContext;
+import com.iot.exception.ResultBean;
+import com.iot.servicestrategy.ServiceContext;
 import com.iot.utils.JsonUtil;
 import com.iot.utils.Log4jUtils;
-
 import static com.iot.utils.ConverterUtils.*;
 
 @RestController
 public class CallBackController {
-
+	@Resource
+	private ServiceContext serviceContext;
+	
 	@Autowired
-	private JedisUtils jedisUtils;
-
-	@RequestMapping(value = "/test")
-	public String test(String name) {
-		System.out.println("Helo");
-		return "Hello" + name;
+	private CommandContext commandContext;
+	
+	@RequestMapping("test")
+	public ResultBean<?> test() {
+//		testService.test();
+		System.out.println(3234);
+		return new ResultBean<>();
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "addDevice", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<HttpStatus> recvAddDeviceNotify(@RequestBody Object addDevice_NotifyMessage)
@@ -137,172 +131,22 @@ public class CallBackController {
 		try {
 			Map<String, String> messageMap = new HashMap<String, String>();
 			messageMap = JsonUtil.jsonString2SimpleObj(updateDeviceData_NotifyMessage, messageMap.getClass());
-			String notifyType = toStr(messageMap.get("notifyType"));
 			String deviceId = toStr(messageMap.get("deviceId"));
-			String gatewayId = toStr(messageMap.get("gatewayId"));
 			Object service = messageMap.get("service");
 
-			Map<String, String> dataMap = new HashMap<String, String>();
-			dataMap = JsonUtil.jsonString2SimpleObj(service, dataMap.getClass());
-			String serviceId = toStr(dataMap.get("serviceId"));
-			String serviceType = toStr(dataMap.get("serviceType"));
-			String eventTime = toStr(dataMap.get("eventTime"));
-
-			Object servicedata = dataMap.get("data");
-
 			Map<String, String> serviceMap = new HashMap<String, String>();
-			serviceMap = JsonUtil.jsonString2SimpleObj(servicedata, serviceMap.getClass());
-			String broke = "", magnetic_disturb = "", photo = "", isdata = "";
-			byte[] photoByte = null;
-//			int packnum = 0;
-//			int totalpack = 0;
+			serviceMap = JsonUtil.jsonString2SimpleObj(service, serviceMap.getClass());
+			String serviceId = toStr(serviceMap.get("serviceId"));
+			serviceContext.parseService(serviceId, deviceId, serviceMap);
 
-			if (Constant.PHOTOSERVICE.equals(serviceId)) {
-				// 当前包号
-				int packnum = toInt(serviceMap.get("packnum"));
-				// 消息总包数
-				int totalpack = toInt(serviceMap.get("totalpack"));
-				// 照片数据
-				photo = toStr(serviceMap.get("rawdata"));
-				photoByte = CommFunc.decode(photo);
-				System.out.println(" packnum : " + packnum + "  totalpack : " + totalpack + " deviceId :/" + deviceId);
-
-				Log4jUtils.getError().info(" packnum : " + packnum + "  totalpack : " + totalpack + " deviceId :/" + deviceId);
-
-				if (jedisUtils.hasKey(deviceId)) {
-					JSONObject photoJson = new JSONObject();
-					// 获取该设备之前获取的数据
-					photoJson = (JSONObject) jedisUtils.get(deviceId);
-					// 获取该设备之前获取的照片数据
-					LinkedHashMap<String, byte[]> photoMap = (LinkedHashMap<String, byte[]>) photoJson.get("data");
-					if (totalpack == photoMap.size()) {
-						photoMap.put(toStr(packnum), photoByte);
-						photoJson.put("packnum", packnum);
-						long expireTime = jedisUtils.getExpire(deviceId);
-						jedisUtils.set(deviceId, photoJson, expireTime);
-						if (generateImage(photoMap, deviceId)) {
-							jedisUtils.del(deviceId);
-						}
-					} else {
-						jedisUtils.del(deviceId);
-						insertDevicePhoto(deviceId, totalpack, packnum, photoByte);
-					}
-				} else {
-					/** 不存在 该包存入redis */
-					insertDevicePhoto(deviceId, totalpack, packnum, photoByte);
-				}
-			} else if (Constant.ALARMSERVICE.equals(serviceId)) {
-				broke = toStr(serviceMap.get("broke"));
-				magnetic_disturb = toStr(serviceMap.get("magnetic_disturb"));
-			} else if (Constant.CHECKSERVICE.equals(serviceId)) {
-				isdata = toStr(serviceMap.get("isdata"));
-				System.out.println("isdata : "+ isdata);
-				if (isdata.equals("1")) {
-					HttpsUtil httpsUtil = new HttpsUtil();
-					httpsUtil.initSSLConfigForTwoWay();
-					String accessToken = AuthenticationUtils.getAccessToken(httpsUtil);
-
-					String urlPostAsynCmd = Constant.POST_ASYN_CMD;
-					String appId = Constant.APPID;
-					String callbackUrl = Constant.REPORT_CMD_EXEC_RESULT_CALLBACK_URL;
-					
-			        ObjectNode paras = JsonUtil.convertObject2ObjectNode("{\"value\":\"1\"}");
-
-					Map<String, Object> paramCommand = new HashMap<>();
-					paramCommand.put("serviceId", "PhotoData");
-					paramCommand.put("method", "SendPhoto_once");
-					paramCommand.put("paras", paras);
-					
-					Map<String, Object> paramPostAsynCmd = new HashMap<>();
-					paramPostAsynCmd.put("deviceId", deviceId);
-					paramPostAsynCmd.put("command", paramCommand);
-					paramPostAsynCmd.put("callbackUrl", callbackUrl);
-
-					String jsonRequest = JsonUtil.jsonObj2Sting(paramPostAsynCmd);
-					Map<String, String> header = new HashMap<>();
-					header.put(Constant.HEADER_APP_KEY, appId);
-					header.put(Constant.HEADER_APP_AUTH, "Bearer" + " " + accessToken);
-
-					HttpResponse responsePostAsynCmd = httpsUtil.doPostJson(urlPostAsynCmd, header, jsonRequest);
-
-					String responseBody = httpsUtil.getHttpResponseBody(responsePostAsynCmd);
-					CommFunc.result(Constant.SUCCESS, responseBody);
-					System.out.println("isdata : 下发成功");
-
-				}
-			}
-
-			JSONObject json = new JSONObject();
-			json.put("notifyType", notifyType);
-			json.put("deviceId", deviceId);
-			json.put("gatewayId", gatewayId);
-			json.put("serviceId", serviceId);
-//			json.put("serviceId", totalpack);
-			json.put("serviceType", serviceType);
-			json.put("eventTime", eventTime);
-			json.put("broke", broke);
-			json.put("magnetic_disturb", magnetic_disturb);
-			json.put("photo", photoByte);
-//			json.put("packnum", packnum);
-			json.put("packnum", isdata);
-
-//			System.out.println(LocalDateTime.now() + "    recvDataChangeNotify  : " + messageMap.toString());
 			System.out.println();
 		} catch (Exception e) {
-			Log4jUtils.getError().error("deviceDataChanged处理消息异常");
+			Log4jUtils.getError().error("updateDeviceData处理消息异常");
 			e.printStackTrace();
 		}
 
 		return new ResponseEntity<>(HttpStatus.OK);
 
-	}
-
-	/**
-	 * 缓存中不存在，放入缓存
-	 * 
-	 * @param deviceId
-	 * @param totalpack
-	 * @param packnum
-	 * @param photoByte
-	 */
-	public void insertDevicePhoto(String deviceId, int totalpack, int packnum, byte[] photoByte) {
-		LinkedHashMap<String, byte[]> photoMap = new LinkedHashMap<String, byte[]>(totalpack);
-		for (int i = 0; i < totalpack; i++) {
-			photoMap.put(toStr((i + 1)), new byte[0]);
-		}
-		photoMap.put(toStr(packnum), photoByte);
-		JSONObject photoJson = new JSONObject();
-		photoJson.put("packnum", packnum);
-		photoJson.put("data", photoMap);
-		jedisUtils.set(deviceId, photoJson, 60 * 60 * 2);
-	}
-
-	public boolean generateImage(LinkedHashMap<String, byte[]> photoMap, String deviceId) {
-
-		try {
-			String filePath = "d://" + deviceId + "_" + LocalDateTime.now().getNano() + ".jpeg";
-			byte[] tmp = new byte[0];
-			Iterator<Entry<String, byte[]>> iterator = photoMap.entrySet().iterator();
-
-			while (iterator.hasNext()) {
-				Entry<String, byte[]> entry = iterator.next();
-				byte[] photoByte = entry.getValue();
-				if (photoByte.length != 0) {
-					System.out.println(entry.getKey() + "    " + photoByte.length);
-					tmp = CommFunc.byteMerger(tmp, photoByte);
-				} else {
-					return false;
-				}
-			}
-			CommFunc.byte2image(tmp, filePath);
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-			String date = sdf.format(new Date());
-			FileUtils.upload(Constant.UPLOADIMAGEURL, filePath, date, deviceId);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return true;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -406,14 +250,20 @@ public class CallBackController {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "reportCmdExecResult", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HttpStatus> recvReportCmdExeCResultDNotify(
+	public ResponseEntity<HttpStatus> reportCmdExecResult(
 			@RequestBody Object reportCmdExecResult_NotifyMessage) throws IOException {
 
-		System.out.println(LocalDateTime.now());
-		String resulr = JsonUtil.jsonObj2Sting(reportCmdExecResult_NotifyMessage.toString());
-		System.out.println("recvDeviceDatasChangeDNotify   " + resulr);
-		System.out.println();
+		Map<String, String> messageMap = new HashMap<String, String>();
+		messageMap = JsonUtil.jsonString2SimpleObj(reportCmdExecResult_NotifyMessage, messageMap.getClass());
+		String deviceId = toStr(messageMap.get("deviceId"));
+		Object service = messageMap.get("service");
+
+		Map<String, String> commandMap = new HashMap<String, String>();
+		commandMap = JsonUtil.jsonString2SimpleObj(service, commandMap.getClass());
+		String commandName = toStr(commandMap.get("serviceId"));
+		commandContext.parseCommand(commandName, deviceId, commandMap);
 
 		return new ResponseEntity<>(HttpStatus.OK);
 

@@ -16,7 +16,7 @@ import java.util.Map;
 public class AuthenticationUtils {
 	
 	@SuppressWarnings({"unchecked" })
-	public static String getAccessToken(HttpsUtil httpsUtil) {
+	public static String getAccessToken(IotHttpsUtil httpsUtil) {
 		String accessToken = "";
 		
 		String appId = Constant.APPID;

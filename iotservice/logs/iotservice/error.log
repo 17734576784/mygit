@@ -1,29 +1,58 @@
-2018-09-10 09:54:09,116 - 注册直连设备异常,入参：{} ERROR [error 66 com.iot.controller.RegisterDeviceController.registerDevice(RegisterDeviceController.java:66)] 
-2018-09-10 10:22:08,364 - 注册直连设备异常,入参：{} ERROR [error 64 com.iot.controller.RegisterDeviceController.registerDevice(RegisterDeviceController.java:64)] 
-2018-09-10 10:22:36,959 - 注册直连设备异常,入参：{} ERROR [error 64 com.iot.controller.RegisterDeviceController.registerDevice(RegisterDeviceController.java:64)] 
-2018-09-10 10:33:11,352 - 注册直连设备异常,入参：{} ERROR [error 72 com.iot.controller.RegisterDeviceController.registerDevice(RegisterDeviceController.java:72)] 
-2018-09-10 10:46:49,589 - 注册直连设备异常,入参：null ERROR [error ? com.iot.controller.RegisterDeviceController.registerDevice(?:?)] 
-2018-09-10 10:47:13,679 - 注册直连设备异常,入参：null ERROR [error ? com.iot.controller.RegisterDeviceController.registerDevice(?:?)] 
-2018-09-10 10:48:18,452 - 注册直连设备异常,入参：null ERROR [error 68 com.iot.controller.RegisterDeviceController.registerDevice(RegisterDeviceController.java:68)] 
-2018-09-10 10:50:38,729 - 注册直连设备异常,入参：{} ERROR [error 69 com.iot.controller.RegisterDeviceController.registerDevice(RegisterDeviceController.java:69)] 
-2018-09-10 11:02:20,558 - 注册直连设备异常,入参：java.lang.Object@3b92c6d6 ERROR [error 67 com.iot.controller.RegisterDeviceController.registerDevice(RegisterDeviceController.java:67)] 
-2018-09-10 15:44:06,168 - deviceDataChanged处理消息异常 ERROR [error 229 com.iot.controller.CallBackController.recvDataChangeNotify(CallBackController.java:229)] 
-2018-09-10 15:44:06,168 - deviceDataChanged处理消息异常 ERROR [error 229 com.iot.controller.CallBackController.recvDataChangeNotify(CallBackController.java:229)] 
-2018-09-10 15:44:06,467 - deviceDataChanged处理消息异常 ERROR [error 229 com.iot.controller.CallBackController.recvDataChangeNotify(CallBackController.java:229)] 
-2018-09-10 15:44:06,732 - deviceDataChanged处理消息异常 ERROR [error 229 com.iot.controller.CallBackController.recvDataChangeNotify(CallBackController.java:229)] 
-2018-09-10 15:44:06,935 - deviceDataChanged处理消息异常 ERROR [error 229 com.iot.controller.CallBackController.recvDataChangeNotify(CallBackController.java:229)] 
-2018-09-10 15:44:07,309 - deviceDataChanged处理消息异常 ERROR [error 229 com.iot.controller.CallBackController.recvDataChangeNotify(CallBackController.java:229)] 
-2018-09-10 15:44:11,351 - deviceDataChanged处理消息异常 ERROR [error 229 com.iot.controller.CallBackController.recvDataChangeNotify(CallBackController.java:229)] 
-2018-09-10 15:44:12,585 - deviceDataChanged处理消息异常 ERROR [error 229 com.iot.controller.CallBackController.recvDataChangeNotify(CallBackController.java:229)] 
-2018-09-10 15:44:12,726 - deviceDataChanged处理消息异常 ERROR [error 229 com.iot.controller.CallBackController.recvDataChangeNotify(CallBackController.java:229)] 
-2018-09-10 15:44:13,740 - deviceDataChanged处理消息异常 ERROR [error 229 com.iot.controller.CallBackController.recvDataChangeNotify(CallBackController.java:229)] 
-2018-09-10 15:44:24,741 - deviceDataChanged处理消息异常 ERROR [error 229 com.iot.controller.CallBackController.recvDataChangeNotify(CallBackController.java:229)] 
-2018-09-14 10:35:28,374 - 创建设备命令异常，入参：null ERROR [error 82 com.iot.controller.PostAsynCommandController.asynCommand(PostAsynCommandController.java:82)] 
-2018-09-17 11:14:04,315 - 创建设备命令异常，入参：null ERROR [error 82 com.iot.controller.PostAsynCommandController.asynCommand(PostAsynCommandController.java:82)] 
-2018-09-17 11:19:52,806 - 创建设备命令异常，入参：null ERROR [error 82 com.iot.controller.PostAsynCommandController.asynCommand(PostAsynCommandController.java:82)] 
-2018-09-17 12:29:21,204 - 创建设备命令异常，入参：null ERROR [error 82 com.iot.controller.PostAsynCommandController.asynCommand(PostAsynCommandController.java:82)] 
-2018-09-17 14:07:49,764 - 创建设备命令异常，入参：null ERROR [error 82 com.iot.controller.PostAsynCommandController.asynCommand(PostAsynCommandController.java:82)] 
-2018-09-17 14:11:19,227 - 创建设备命令异常，入参：null ERROR [error 82 com.iot.controller.PostAsynCommandController.asynCommand(PostAsynCommandController.java:82)] 
-2018-09-17 14:53:49,684 - 创建设备命令异常，入参：null ERROR [error 82 com.iot.controller.PostAsynCommandController.asynCommand(PostAsynCommandController.java:82)] 
-2018-09-21 15:21:07,843 - deviceDataChanged处理消息异常 ERROR [error 250 com.iot.controller.CallBackController.recvDataChangeNotify(CallBackController.java:250)] 
-2018-09-21 15:22:07,904 - deviceDataChanged处理消息异常 ERROR [error 250 com.iot.controller.CallBackController.recvDataChangeNotify(CallBackController.java:250)] 
+2018-10-25 17:05:49,129 - 服务运行异常 ERROR [error 80 com.iot.exception.WebExceptionHandle.handleException(WebExceptionHandle.java:80)] 
+java.lang.ArithmeticException: / by zero
+	at com.iot.serviceimpl.TestServiceImpl.test(TestServiceImpl.java:38)
+	at com.iot.controller.CallBackController.test(CallBackController.java:44)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:209)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:136)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:102)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:877)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:783)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:991)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:925)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:974)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:877)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:661)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:851)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:742)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.HttpPutFormContentFilter.doFilterInternal(HttpPutFormContentFilter.java:109)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:198)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:496)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:140)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:803)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:790)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1468)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)

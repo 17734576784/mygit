@@ -27,6 +27,8 @@ public class DateUtils {
 	public static String TIMESTAMP_PATTERN = "yyyy-MM-dd HH:mm:ss";
 	public static String TIMES_PATTERN = "HH:mm:ss";
 	public static String NOCHAR_PATTERN = "yyyyMMddHHmmss";
+	public static String DATE_PATTERN = "yyyyMMdd";
+	public static String TIME_PATTERN = "HHmmss";
 
 	/**
 	 * 获取当前时间戳
@@ -101,6 +103,26 @@ public class DateUtils {
 	 */
 	public static String formatNoCharDate(Date date) {
 		return formatDateByFormat(date, NOCHAR_PATTERN);
+	}
+	
+	/**
+	 * 转换为时分秒格式(yyyyMMdd)的日期字符串
+	 * @param date
+	 * @return
+	 */
+	public static String curDate() {
+		Date date = new Date();
+		return formatDateByFormat(date, DATE_PATTERN);
+	}
+	
+	/**
+	 * 转换为时分秒格式(yyyyMMdd)的日期字符串
+	 * @param date
+	 * @return
+	 */
+	public static String curTime() {
+		Date date = new Date();
+		return formatDateByFormat(date, TIME_PATTERN);
 	}
 
 	/**

@@ -154,10 +154,20 @@ public class Constant {
     public static final int SUCCESS = 0;
     public static final int ERROR = -1;
     
-	public static final String PHOTOSERVICE = "PhotoData";
-	public static final String ALARMSERVICE = "Alarm1";
-	public static final String CHECKSERVICE = "Check";
+	public static final String UPLOAD_PIC = "1";
+	/** 上传图片url */
+	public static final String UPLOAD_IMAGE_URL = "nbNotifyAction!notifyToWeb.action";
 
-	public static final String UPLOADIMAGEURL = "http://127.0.0.1:8091/Enterprise_EnnGas/enngas/message/nbNotifyAction!notifyToWeb.action";
-    
+	/** 上传告警 */
+	public static final String UPLOAD_ALARM_URL = "nbNotifyAction!notifyAlarm.action";
+
+	/** 警开关开闭命令响应 */
+	public static final String UPLOAD_ALARMCOMMAND_URL = "nbNotifyAction!notifyAlarmConfigResult.action";
+
+	/** 上传设定时间命令响应 */
+	public static final String UPLOAD_TIMECOMMAND_URL = "nbNotifyAction!notifyReadTimeResult.action";
+
+	/** 上传主动查询 */
+	public static final String UPLOAD_CHECK_URL = "nbNotifyAction!checkExistOrders.action";
+
 }

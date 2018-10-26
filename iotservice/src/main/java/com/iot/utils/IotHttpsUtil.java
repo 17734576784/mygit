@@ -38,7 +38,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.springframework.util.ResourceUtils;
 
 @SuppressWarnings("deprecation")
-public class HttpsUtil extends DefaultHttpClient {
+public class IotHttpsUtil extends DefaultHttpClient {
 	public final static String HTTPGET = "GET";
 
 	public final static String HTTPPUT = "PUT";

@@ -37,9 +37,9 @@ public class FileUtils {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public static boolean upload(String url, String filePath, String date,String deviceId) throws ClientProtocolException, IOException {
+	public static boolean upload(String url, String filePath, String date,String deviceId,String time) throws ClientProtocolException, IOException {
 		boolean flag = false;
-		Log4jUtils.getInfo().info("上传图片：" + filePath);
+		Log4jUtils.getInfo().info("上传图片：deviceId : " + deviceId + " ,filePath:" + filePath);
 		try {
 			CloseableHttpClient httpClient = HttpClientBuilder.create().build();
 			CloseableHttpResponse httpResponse = null;
@@ -57,6 +57,8 @@ public class FileUtils {
 			JSONObject dataInfo = new JSONObject();
 			dataInfo.put("deviceId", deviceId);
 			dataInfo.put("date", date);
+			dataInfo.put("time", time);
+
 
 			multipartEntityBuilder.addTextBody("param", dataInfo.toJSONString());
 			HttpEntity httpEntity = multipartEntityBuilder.build();
@@ -73,7 +75,6 @@ public class FileUtils {
 					buffer.append(str);
 				}
 
-//				System.out.println(buffer.toString());
 				flag = true;
 			}
 

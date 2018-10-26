@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.iot.utils.Constant;
-import com.iot.utils.HttpsUtil;
+import com.iot.utils.IotHttpsUtil;
 import com.iot.utils.JsonUtil;
 import com.iot.utils.StreamClosedHttpResponse;
 
@@ -18,7 +18,7 @@ public class Authentication {
     public static void main(String args[]) throws Exception {
 
         // Two-Way Authentication
-        HttpsUtil httpsUtil = new HttpsUtil();
+        IotHttpsUtil httpsUtil = new IotHttpsUtil();
         httpsUtil.initSSLConfigForTwoWay();
 
         String appId = Constant.APPID;
