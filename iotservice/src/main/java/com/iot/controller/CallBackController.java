@@ -254,6 +254,8 @@ public class CallBackController {
 	public ResponseEntity<HttpStatus> reportCmdExecResult(
 			@RequestBody Object reportCmdExecResult_NotifyMessage) throws IOException {
 
+		System.out.println("reportCmdExecResult_NotifyMessage : "+ reportCmdExecResult_NotifyMessage);
+
 		Map<String, String> messageMap = new HashMap<String, String>();
 		messageMap = JsonUtil.jsonString2SimpleObj(reportCmdExecResult_NotifyMessage, messageMap.getClass());
 		String deviceId = toStr(messageMap.get("deviceId"));
@@ -261,6 +263,7 @@ public class CallBackController {
 
 		Map<String, String> commandMap = new HashMap<String, String>();
 		commandMap = JsonUtil.jsonString2SimpleObj(service, commandMap.getClass());
+		System.out.println("commandMap : "+ commandMap);
 		String commandName = toStr(commandMap.get("serviceId"));
 		commandContext.parseCommand(commandName, deviceId, commandMap);
 
