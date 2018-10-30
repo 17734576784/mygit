@@ -1,23 +1,12 @@
 package com.iot.test;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.alibaba.fastjson.JSONObject;
 import com.iot.IotserviceApplication;
 import com.iot.utils.JedisUtils;
-import com.iot.utils.Log4jUtils;
-
 /**
  * @author dbr
  *

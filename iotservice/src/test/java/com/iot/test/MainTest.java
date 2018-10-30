@@ -1,24 +1,9 @@
 package com.iot.test;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.Map;
-
-import org.apache.commons.codec.binary.Base64;
 import org.apache.http.client.ClientProtocolException;
-import org.springframework.util.ResourceUtils;
-
-import com.iot.utils.CommFunc;
-import com.iot.utils.Constant;
-import com.iot.utils.FileUtils;
-import com.iot.utils.HttpsUtils;
 
 public class MainTest {
 
