@@ -75,16 +75,25 @@ public class WebExceptionHandle {
     /**
      * 500 - Internal Server Error
      */
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @SuppressWarnings("unchecked")
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
-    public ResultBean<?> handleException(Exception e) {
+	public <T> T handleException(Exception e) {
+    	T result = null;
     	Log4jUtils.getError().error("服务运行异常", e);
         e.printStackTrace();
-        System.out.println(e.getLocalizedMessage());
-    	ResultBean<String> resultBean = new ResultBean<String>();
-    	resultBean.setStatus(ErrorCodeEnum.FAILED.getStatus());
-		resultBean.setError(e.getMessage());
-		return resultBean;         
+        
+        StackTraceElement stackTraceElement= e.getStackTrace()[0];// 得到异常棧的首个元素
+        String className = stackTraceElement.getClassName();
+        if (className.equals("com.iot.controller.CallBackController")) {
+			result = (T) new ResponseEntity<>(HttpStatus.OK);
+		}else {
+			ResultBean<String> resultBean = new ResultBean<String>();
+	    	resultBean.setStatus(ErrorCodeEnum.FAILED.getStatus());
+			resultBean.setError(e.getMessage());
+			result = (T) resultBean;
+		}
+		return result;         
     }
     
 }

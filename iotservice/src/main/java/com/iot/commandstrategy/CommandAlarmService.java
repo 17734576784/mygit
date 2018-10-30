@@ -43,7 +43,7 @@ public class CommandAlarmService implements ICommandService {
 	@Override
 	public void parse(String deviceId, Map<String, String> commandMap) {
 		Log4jUtils.getInfo().info("设置告警命令回复，设备id：" + deviceId + " ,告警内容：" + commandMap.toString());
-
+		System.out.println("设置告警命令回复，设备id：" + deviceId + " ,告警内容：" + commandMap.toString());
 		String slope = toStr(commandMap.get("slope"));
 		String magnetic = toStr(commandMap.get("magnetic"));
 		String alarmtype = toStr(commandMap.get("alarmtype"));
