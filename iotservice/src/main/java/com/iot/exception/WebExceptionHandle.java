@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.iot.utils.Log4jUtils;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 /** 
 * @ClassName: WebExceptionHandle 
@@ -79,10 +80,11 @@ public class WebExceptionHandle {
     public ResultBean<?> handleException(Exception e) {
     	Log4jUtils.getError().error("服务运行异常", e);
         e.printStackTrace();
-
+        System.out.println(e.getLocalizedMessage());
     	ResultBean<String> resultBean = new ResultBean<String>();
     	resultBean.setStatus(ErrorCodeEnum.FAILED.getStatus());
 		resultBean.setError(e.getMessage());
 		return resultBean;         
     }
+    
 }

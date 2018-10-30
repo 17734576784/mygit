@@ -1,6 +1,5 @@
 package com.iot.controller;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.iot.commandstrategy.CommandContext;
-import com.iot.exception.ResultBean;
 import com.iot.servicestrategy.ServiceContext;
 import com.iot.utils.Constant;
 import com.iot.utils.JedisUtils;
@@ -33,49 +31,36 @@ public class CallBackController {
 	@Autowired
 	private CommandContext commandContext;
 	
-	@RequestMapping("test")
-	public ResultBean<?> test() {
-//		testService.test();
-		System.out.println(3234);
-		return new ResultBean<>();
-	}
-	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "addDevice", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HttpStatus> recvAddDeviceNotify(@RequestBody Object addDevice_NotifyMessage)
-			throws IOException {
+	public ResponseEntity<HttpStatus> recvAddDeviceNotify(@RequestBody Object addDevice_NotifyMessage) {
 
 		Log4jUtils.getInfo().info("接收addDevice" + addDevice_NotifyMessage);
-		try {
-			Map<String, String> MessageMap = new HashMap<String, String>();
-			MessageMap = JsonUtil.jsonString2SimpleObj(addDevice_NotifyMessage, MessageMap.getClass());
-			String notifyType = toStr(MessageMap.get("notifyType"));
-			String deviceId = toStr(MessageMap.get("deviceId"));
-			String gatewayId = toStr(MessageMap.get("gatewayId"));
-			Object deviceInfo = MessageMap.get("deviceInfo");
+		Map<String, String> MessageMap = new HashMap<String, String>();
+		MessageMap = JsonUtil.jsonString2SimpleObj(addDevice_NotifyMessage, MessageMap.getClass());
+		String notifyType = toStr(MessageMap.get("notifyType"));
+		String deviceId = toStr(MessageMap.get("deviceId"));
+		String gatewayId = toStr(MessageMap.get("gatewayId"));
+		Object deviceInfo = MessageMap.get("deviceInfo");
 
-			Map<String, String> dataMap = new HashMap<String, String>();
-			dataMap = JsonUtil.jsonString2SimpleObj(deviceInfo, dataMap.getClass());
-			String manufacturerId = toStr(dataMap.get("manufacturerId"));
-			String manufacturerName = toStr(dataMap.get("manufacturerName"));
-			String model = toStr(dataMap.get("model"));
-			String deviceType = toStr(dataMap.get("deviceType"));
+		Map<String, String> dataMap = new HashMap<String, String>();
+		dataMap = JsonUtil.jsonString2SimpleObj(deviceInfo, dataMap.getClass());
+		String manufacturerId = toStr(dataMap.get("manufacturerId"));
+		String manufacturerName = toStr(dataMap.get("manufacturerName"));
+		String model = toStr(dataMap.get("model"));
+		String deviceType = toStr(dataMap.get("deviceType"));
 
-			JSONObject json = new JSONObject();
-			json.put("notifyType", notifyType);
-			json.put("deviceId", deviceId);
-			json.put("gatewayId", gatewayId);
-			json.put("manufacturerId", manufacturerId);
-			json.put("manufacturerName", manufacturerName);
-			json.put("model", model);
-			json.put("deviceType", deviceType);
+		JSONObject json = new JSONObject();
+		json.put("notifyType", notifyType);
+		json.put("deviceId", deviceId);
+		json.put("gatewayId", gatewayId);
+		json.put("manufacturerId", manufacturerId);
+		json.put("manufacturerName", manufacturerName);
+		json.put("model", model);
+		json.put("deviceType", deviceType);
 
-			System.out.println(LocalDateTime.now() + "  recvAddDeviceNotify : " + MessageMap.toString());
-			System.out.println();
-		} catch (Exception e) {
-			Log4jUtils.getError().error("addDevice 处理消息异常");
-			e.printStackTrace();
-		}
+		System.out.println(LocalDateTime.now() + "  recvAddDeviceNotify : " + MessageMap.toString());
+		System.out.println();
 
 		return new ResponseEntity<>(HttpStatus.OK);
 
@@ -83,41 +68,35 @@ public class CallBackController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "updateDeviceInfo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HttpStatus> recvInfoChangeNotify(@RequestBody Object updateDeviceInfo_NotifyMessage)
-			throws IOException {
+	public ResponseEntity<HttpStatus> recvInfoChangeNotify(@RequestBody Object updateDeviceInfo_NotifyMessage) {
 
 		Log4jUtils.getInfo().info("接收deviceInfoChanged" + updateDeviceInfo_NotifyMessage);
 
-		try {
-			Map<String, String> messageMap = new HashMap<String, String>();
-			messageMap = JsonUtil.jsonString2SimpleObj(updateDeviceInfo_NotifyMessage, messageMap.getClass());
-			String notifyType = toStr(messageMap.get("notifyType"));
-			String deviceId = toStr(messageMap.get("deviceId"));
-			String gatewayId = toStr(messageMap.get("gatewayId"));
-			Object deviceInfo = messageMap.get("deviceInfo");
+		Map<String, String> messageMap = new HashMap<String, String>();
+		messageMap = JsonUtil.jsonString2SimpleObj(updateDeviceInfo_NotifyMessage, messageMap.getClass());
+		String notifyType = toStr(messageMap.get("notifyType"));
+		String deviceId = toStr(messageMap.get("deviceId"));
+		String gatewayId = toStr(messageMap.get("gatewayId"));
+		Object deviceInfo = messageMap.get("deviceInfo");
 
-			Map<String, String> dataMap = new HashMap<String, String>();
-			dataMap = JsonUtil.jsonString2SimpleObj(deviceInfo, dataMap.getClass());
-			String manufacturerId = toStr(dataMap.get("manufacturerId"));
-			String manufacturerName = toStr(dataMap.get("manufacturerName"));
-			String model = toStr(dataMap.get("model"));
-			String deviceType = toStr(dataMap.get("deviceType"));
+		Map<String, String> dataMap = new HashMap<String, String>();
+		dataMap = JsonUtil.jsonString2SimpleObj(deviceInfo, dataMap.getClass());
+		String manufacturerId = toStr(dataMap.get("manufacturerId"));
+		String manufacturerName = toStr(dataMap.get("manufacturerName"));
+		String model = toStr(dataMap.get("model"));
+		String deviceType = toStr(dataMap.get("deviceType"));
 
-			JSONObject json = new JSONObject();
-			json.put("notifyType", notifyType);
-			json.put("deviceId", deviceId);
-			json.put("gatewayId", gatewayId);
-			json.put("manufacturerId", manufacturerId);
-			json.put("manufacturerName", manufacturerName);
-			json.put("model", model);
-			json.put("deviceType", deviceType);
+		JSONObject json = new JSONObject();
+		json.put("notifyType", notifyType);
+		json.put("deviceId", deviceId);
+		json.put("gatewayId", gatewayId);
+		json.put("manufacturerId", manufacturerId);
+		json.put("manufacturerName", manufacturerName);
+		json.put("model", model);
+		json.put("deviceType", deviceType);
 
-			System.out.println(LocalDateTime.now() + "  DeviceInfoChanged   " + messageMap.toString());
-			System.out.println();
-		} catch (Exception e) {
-			Log4jUtils.getError().error("deviceInfoChanged处理消息异常");
-			e.printStackTrace();
-		}
+		System.out.println(LocalDateTime.now() + "  DeviceInfoChanged   " + messageMap.toString());
+		System.out.println();
 
 		return new ResponseEntity<>(HttpStatus.OK);
 
@@ -125,26 +104,20 @@ public class CallBackController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "updateDeviceData", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HttpStatus> recvDataChangeNotify(@RequestBody Object updateDeviceData_NotifyMessage)
-			throws IOException {
+	public ResponseEntity<HttpStatus> recvDataChangeNotify(@RequestBody Object updateDeviceData_NotifyMessage) {
 
 		Log4jUtils.getInfo().info("接收updateDeviceData:" + updateDeviceData_NotifyMessage);
-		try {
-			Map<String, String> messageMap = new HashMap<String, String>();
-			messageMap = JsonUtil.jsonString2SimpleObj(updateDeviceData_NotifyMessage, messageMap.getClass());
-			String deviceId = toStr(messageMap.get("deviceId"));
-			Object service = messageMap.get("service");
+		Map<String, String> messageMap = new HashMap<String, String>();
+		messageMap = JsonUtil.jsonString2SimpleObj(updateDeviceData_NotifyMessage, messageMap.getClass());
+		String deviceId = toStr(messageMap.get("deviceId"));
+		Object service = messageMap.get("service");
 
-			Map<String, String> serviceMap = new HashMap<String, String>();
-			serviceMap = JsonUtil.jsonString2SimpleObj(service, serviceMap.getClass());
-			String serviceId = toStr(serviceMap.get("serviceId"));
-			serviceContext.parseService(serviceId, deviceId, serviceMap);
+		Map<String, String> serviceMap = new HashMap<String, String>();
+		serviceMap = JsonUtil.jsonString2SimpleObj(service, serviceMap.getClass());
+		String serviceId = toStr(serviceMap.get("serviceId"));
+		serviceContext.parseService(serviceId, deviceId, serviceMap);
 
-			System.out.println();
-		} catch (Exception e) {
-			Log4jUtils.getError().error("updateDeviceData处理消息异常");
-			e.printStackTrace();
-		}
+		System.out.println();
 
 		return new ResponseEntity<>(HttpStatus.OK);
 
@@ -152,8 +125,7 @@ public class CallBackController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "deletedDevice", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HttpStatus> recvDeleteDeviceNotify(@RequestBody Object deletedDevice_NotifyMessage)
-			throws IOException {
+	public ResponseEntity<HttpStatus> recvDeleteDeviceNotify(@RequestBody Object deletedDevice_NotifyMessage) {
 
 		Map<String, String> data = new HashMap<String, String>();
 		data = JsonUtil.jsonString2SimpleObj(deletedDevice_NotifyMessage, data.getClass());
@@ -173,8 +145,7 @@ public class CallBackController {
 	}
 
 	@RequestMapping(value = "commandConfirmData", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HttpStatus> recvMessageConfirmNotify(@RequestBody Object messageConfirm_NotifyMessage)
-			throws IOException {
+	public ResponseEntity<HttpStatus> recvMessageConfirmNotify(@RequestBody Object messageConfirm_NotifyMessage) {
 
 		System.out.println(LocalDateTime.now());
 		String resulr = JsonUtil.jsonObj2Sting(messageConfirm_NotifyMessage.toString());
@@ -186,8 +157,8 @@ public class CallBackController {
 	}
 
 	@RequestMapping(value = "updateServiceInfo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HttpStatus> recvServiceInfoChangedNotify(@RequestBody Object updateServiceInfo_NotifyMessage)
-			throws IOException {
+	public ResponseEntity<HttpStatus> recvServiceInfoChangedNotify(
+			@RequestBody Object updateServiceInfo_NotifyMessage) {
 
 		System.out.println(LocalDateTime.now());
 		String resulr = JsonUtil.jsonObj2Sting(updateServiceInfo_NotifyMessage.toString());
@@ -199,8 +170,7 @@ public class CallBackController {
 	}
 
 	@RequestMapping(value = "commandRspData", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HttpStatus> recvCommandRspdNotify(@RequestBody Object commandRspData_NotifyMessage)
-			throws IOException {
+	public ResponseEntity<HttpStatus> recvCommandRspdNotify(@RequestBody Object commandRspData_NotifyMessage) {
 
 		System.out.println(LocalDateTime.now());
 		String resulr = JsonUtil.jsonObj2Sting(commandRspData_NotifyMessage.toString());
@@ -212,8 +182,7 @@ public class CallBackController {
 	}
 
 	@RequestMapping(value = "deviceEvent", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HttpStatus> recvDeviceEventNotify(@RequestBody Object deviceEvent_NotifyMessage)
-			throws IOException {
+	public ResponseEntity<HttpStatus> recvDeviceEventNotify(@RequestBody Object deviceEvent_NotifyMessage) {
 
 		System.out.println(LocalDateTime.now());
 		String resulr = JsonUtil.jsonObj2Sting(deviceEvent_NotifyMessage.toString());
@@ -225,8 +194,7 @@ public class CallBackController {
 	}
 
 	@RequestMapping(value = "ruleEvent", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HttpStatus> recvRuleEventNotify(@RequestBody Object ruleEvent_NotifyMessage)
-			throws IOException {
+	public ResponseEntity<HttpStatus> recvRuleEventNotify(@RequestBody Object ruleEvent_NotifyMessage) {
 
 		System.out.println(LocalDateTime.now());
 		String resulr = JsonUtil.jsonObj2Sting(ruleEvent_NotifyMessage.toString());
@@ -238,8 +206,8 @@ public class CallBackController {
 	}
 
 	@RequestMapping(value = "updateDeviceDatas", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HttpStatus> recvDeviceDatasChangeDNotify(@RequestBody Object updateDeviceDatas_NotifyMessage)
-			throws IOException {
+	public ResponseEntity<HttpStatus> recvDeviceDatasChangeDNotify(
+			@RequestBody Object updateDeviceDatas_NotifyMessage) {
 
 		System.out.println(LocalDateTime.now());
 		String resulr = JsonUtil.jsonObj2Sting(updateDeviceDatas_NotifyMessage.toString());
@@ -253,8 +221,7 @@ public class CallBackController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "reportCmdExecResult", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HttpStatus> reportCmdExecResult(
-			@RequestBody Object reportCmdExecResult_NotifyMessage) throws IOException {
+	public ResponseEntity<HttpStatus> reportCmdExecResult(@RequestBody Object reportCmdExecResult_NotifyMessage) {
 
 		Map<String, String> messageMap = new HashMap<String, String>();
 		messageMap = JsonUtil.jsonString2SimpleObj(reportCmdExecResult_NotifyMessage, messageMap.getClass());
@@ -278,13 +245,11 @@ public class CallBackController {
 		}
 
 		return new ResponseEntity<>(HttpStatus.OK);
-
 	}
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "deviceBind", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HttpStatus> recvDeviceBindNotify(@RequestBody Object deviceBind_NotifyMessage)
-			throws IOException {
+	public ResponseEntity<HttpStatus> recvDeviceBindNotify(@RequestBody Object deviceBind_NotifyMessage) {
 
 		Map<String, String> messageMap = new HashMap<String, String>();
 		messageMap = JsonUtil.jsonString2SimpleObj(deviceBind_NotifyMessage, messageMap.getClass());
