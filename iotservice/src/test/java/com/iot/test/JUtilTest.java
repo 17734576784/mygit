@@ -23,7 +23,7 @@ import com.iot.utils.Log4jUtils;
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = { IotserviceApplication.class })
+@SpringBootTest(classes = {IotserviceApplication.class })
 public class JUtilTest {
 
 
