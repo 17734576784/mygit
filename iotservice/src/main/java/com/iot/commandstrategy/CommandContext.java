@@ -13,8 +13,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.iot.utils.CommFunc;
 import com.iot.utils.Log4jUtils;
 
 /** 

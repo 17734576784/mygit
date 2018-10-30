@@ -23,5 +23,5 @@ public interface ICommandService {
 	 * @param 
 	 * @param serviceMap
 	 */
-	public void parse(String deviceId, Map<String, String> serviceMap);
+	public void parse(String deviceId, Map<String, String> commandMap);
 }

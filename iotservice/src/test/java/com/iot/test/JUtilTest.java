@@ -26,12 +26,10 @@ import com.iot.utils.Log4jUtils;
 @SpringBootTest(classes = { IotserviceApplication.class })
 public class JUtilTest {
 
-	@Autowired
-	private JedisUtils jedisUtils;
 
 	@Test
 	public void StrategyTest() {
-		jedisUtils.set("a", 111, 120);
+		JedisUtils.set("a", 111, 120);
 		try {
 			Thread.sleep(50000);
 		} catch (InterruptedException e) {
@@ -39,10 +37,10 @@ public class JUtilTest {
 			e.printStackTrace();
 		}
 		
-		long expireTime = jedisUtils.getExpire("a");
+		long expireTime = JedisUtils.getExpire("a");
 		System.out.println("expireTime ：" + expireTime);
 		
-		jedisUtils.set("a", 222, expireTime);
+		JedisUtils.set("a", 222, expireTime);
 		
 		try {
 			Thread.sleep(20000);
@@ -50,7 +48,7 @@ public class JUtilTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		expireTime = jedisUtils.getExpire("a");
+		expireTime = JedisUtils.getExpire("a");
 		System.out.println("expireTime ：" + expireTime);
 		
 	}

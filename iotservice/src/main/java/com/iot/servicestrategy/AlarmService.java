@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import com.alibaba.fastjson.JSONObject;
 import com.iot.utils.Constant;
 import com.iot.utils.HttpsUtils;
+import com.iot.utils.JsonUtil;
 import com.iot.utils.Log4jUtils;
 
 /**   
@@ -32,15 +33,20 @@ public class AlarmService implements IServiceStrategy{
 	/* (non-Javadoc)
 	 * @see com.iot.strategy.IServiceStrategy#parse(java.lang.String, java.util.Map)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
 
 		Log4jUtils.getInfo().info("上传告警:设备id：" + deviceId + " ,告警内容：" + serviceMap.toString());
 		String apiUrl = baseUrl + Constant.UPLOAD_ALARM_URL;
+		
+		Object data = serviceMap.get("data");
+		Map<String, String> dataMap = new HashMap<String, String>();
+		dataMap = JsonUtil.jsonString2SimpleObj(data, dataMap.getClass());
 
-		String slope = toStr(serviceMap.get("slope"));
-		String magnetic = toStr(serviceMap.get("magnetic"));
-		String alarmtype = toStr(serviceMap.get("alarmtype"));
+		String slope = toStr(dataMap.get("slope"));
+		String magnetic = toStr(dataMap.get("magnetic"));
+		String alarmtype = toStr(dataMap.get("alarmtype"));
 
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("slope", slope);

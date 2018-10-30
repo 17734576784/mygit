@@ -8,14 +8,8 @@ import static com.iot.utils.ConverterUtils.toStr;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.http.HttpResponse;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.iot.utils.AuthenticationUtils;
-import com.iot.utils.CommFunc;
-import com.iot.utils.Constant;
-import com.iot.utils.IotHttpsUtil;
 import com.iot.utils.JsonUtil;
 
 /**   
@@ -31,10 +25,16 @@ public class CheckService implements IServiceStrategy {
 	/* (non-Javadoc)
 	 * @see com.iot.strategy.IServiceStrategy#parse(java.lang.String, java.util.Map)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
 		try {
-			String check = toStr(serviceMap.get("check"));
+			
+			Object data = serviceMap.get("data");
+			Map<String, String> dataMap = new HashMap<String, String>();
+			dataMap = JsonUtil.jsonString2SimpleObj(data, dataMap.getClass());
+			
+			String check = toStr(dataMap.get("check"));
 			System.out.println("check : "+ check);
 //			if (isdata.equals(Constant.UPLOADPIC)) {
 //				IotHttpsUtil httpsUtil = new IotHttpsUtil();

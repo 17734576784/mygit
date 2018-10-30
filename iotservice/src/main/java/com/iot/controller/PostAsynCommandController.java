@@ -7,11 +7,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.http.HttpResponse;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.iot.exception.ResultBean;
@@ -19,6 +21,7 @@ import com.iot.utils.AuthenticationUtils;
 import com.iot.utils.Constant;
 import com.iot.utils.ConverterUtils;
 import com.iot.utils.IotHttpsUtil;
+import com.iot.utils.JedisUtils;
 import com.iot.utils.JsonUtil;
 import com.iot.utils.Log4jUtils;
 
@@ -32,6 +35,9 @@ import com.iot.utils.Log4jUtils;
 @RestController
 public class PostAsynCommandController {
 
+	@Value("${commandExpireTime}")
+	private int commandExpireTime;
+	
 	/**
 	 * @param command{"deviceId":"8c23b6b4-ea68-48fb-9c2f-90452a81ebb1","serviceId":"WaterMeter",
 	 *        "method": "SET_TEMPERATURE_READ_PERIOD","param":"{\"value\":\"12\"}" }
@@ -76,7 +82,11 @@ public class PostAsynCommandController {
 
 		HttpResponse responsePostAsynCmd = httpsUtil.doPostJson(urlPostAsynCmd, header, jsonRequest);
 		String responseBody = httpsUtil.getHttpResponseBody(responsePostAsynCmd);
-
+		
+		JSONObject responseJson = JSON.parseObject(responseBody);
+		String commandId = responseJson.getString("commandId");
+		JedisUtils.set(commandId, serviceId, commandExpireTime);
+		
 		ResultBean<String> result = new ResultBean<String>();
 		result.setData(responseBody);
 		

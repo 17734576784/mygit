@@ -19,6 +19,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.iot.commandstrategy.CommandContext;
 import com.iot.exception.ResultBean;
 import com.iot.servicestrategy.ServiceContext;
+import com.iot.utils.Constant;
+import com.iot.utils.JedisUtils;
 import com.iot.utils.JsonUtil;
 import com.iot.utils.Log4jUtils;
 import static com.iot.utils.ConverterUtils.*;
@@ -254,18 +256,26 @@ public class CallBackController {
 	public ResponseEntity<HttpStatus> reportCmdExecResult(
 			@RequestBody Object reportCmdExecResult_NotifyMessage) throws IOException {
 
-		System.out.println("reportCmdExecResult_NotifyMessage : "+ reportCmdExecResult_NotifyMessage);
-
 		Map<String, String> messageMap = new HashMap<String, String>();
 		messageMap = JsonUtil.jsonString2SimpleObj(reportCmdExecResult_NotifyMessage, messageMap.getClass());
 		String deviceId = toStr(messageMap.get("deviceId"));
-		Object service = messageMap.get("service");
+		String commandId = toStr(messageMap.get("commandId"));
+		Object result = messageMap.get("result");
+		
+		Map<String, String> dataMap = new HashMap<String, String>();
+		dataMap = JsonUtil.jsonString2SimpleObj(result, dataMap.getClass());
+		String resultCode = toStr(dataMap.get("resultCode"));
+		Object resultDetail = dataMap.get("resultDetail");
+		System.out.println(deviceId + "  " + commandId + "  resultCode : " + resultCode);
+		if (resultCode.equals(Constant.COMMAND_SUCCESS)) {
+			String serviceName = toStr(JedisUtils.get(commandId));
+			Map<String, String> commandMap = new HashMap<String, String>();
+			commandMap = JsonUtil.jsonString2SimpleObj(resultDetail, dataMap.getClass());
+			commandContext.parseCommand(serviceName, deviceId, commandMap);
 
-		Map<String, String> commandMap = new HashMap<String, String>();
-		commandMap = JsonUtil.jsonString2SimpleObj(service, commandMap.getClass());
-		System.out.println("commandMap : "+ commandMap);
-		String commandName = toStr(commandMap.get("serviceId"));
-		commandContext.parseCommand(commandName, deviceId, commandMap);
+		} else if (resultCode.equals(Constant.COMMAND_FAILED) || resultCode.equals(Constant.COMMAND_TIMEOUT)) {
+			JedisUtils.del(commandId);
+		}
 
 		return new ResponseEntity<>(HttpStatus.OK);
 

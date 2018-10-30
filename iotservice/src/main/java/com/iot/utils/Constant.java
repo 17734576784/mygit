@@ -27,7 +27,7 @@ public class Constant {
      *IP and port of callback url.
      *please replace the IP and Port of your Application deployment environment address, when you use the demo.
      */
-    public static final String CALLBACK_BASE_URL = "https://222.222.60.180:8443";
+    public static final String CALLBACK_BASE_URL = "https://129.28.69.163:8443";
 
     /*
      * complete callback url锛�
@@ -170,4 +170,18 @@ public class Constant {
 	/** 上传主动查询 */
 	public static final String UPLOAD_CHECK_URL = "nbNotifyAction!checkExistOrders.action";
 
+	/** 命令发送 */
+	public static final String COMMAND_SEND = "SEND";
+
+	/** 命令交付 */
+	public static final String COMMAND_DELIVERED = "DELIVERED";
+
+	/** 命令发送 */
+	public static final String COMMAND_TIMEOUT = "TIMEOUT";
+
+	/** 命令成功 */
+	public static final String COMMAND_SUCCESS = "SUCCESSFUL";
+	
+	/** 命令失败 */
+	public static final String COMMAND_FAILED = "FAILED";
 }

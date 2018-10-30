@@ -8,12 +8,12 @@ import static com.iot.utils.ConverterUtils.toStr;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +23,7 @@ import com.iot.utils.Constant;
 import com.iot.utils.DateUtils;
 import com.iot.utils.FileUtils;
 import com.iot.utils.JedisUtils;
+import com.iot.utils.JsonUtil;
 import com.iot.utils.Log4jUtils;
 
 /**   
@@ -35,48 +36,54 @@ import com.iot.utils.Log4jUtils;
 @Component
 public class PhotoService implements IServiceStrategy {
 
-	@Autowired
-	private JedisUtils jedisUtils;
-	
 	@Value("${website.baseurl}")
 	private String baseUrl;
+	
+	@Value("${imageurl}")
+	private String imageUrl;
+	
+	@Value("${photoExpireTime}")
+	private int photoExpireTime;
 	
 	/* (non-Javadoc)
 	 * @see com.iot.strategy.IServiceStrategy#parse(java.lang.String, java.util.Map)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
 		String photo = "";
 		byte[] photoByte = null;
 		try {
+			Object data = serviceMap.get("data");
+			Map<String, String> dataMap = new HashMap<String, String>();
+			dataMap = JsonUtil.jsonString2SimpleObj(data, dataMap.getClass());
 			// 当前包号
-			int packnum = toInt(serviceMap.get("packnum"));
+			int packnum = toInt(dataMap.get("packnum"));
 			// 消息总包数
-			int totalpack = toInt(serviceMap.get("totalpack"));
+			int totalpack = toInt(dataMap.get("totalpack"));
 			// 照片数据
-			photo = toStr(serviceMap.get("rawdata"));
+			photo = toStr(dataMap.get("rawdata"));
 			photoByte = CommFunc.decode(photo);
 			System.out.println(" packnum : " + packnum + "  totalpack : " + totalpack + " deviceId :/" + deviceId);
 
 			Log4jUtils.getError().info(" packnum : " + packnum + "  totalpack : " + totalpack + " deviceId :/" + deviceId);
 
-			if (jedisUtils.hasKey(deviceId)) {
+			if (JedisUtils.hasKey(deviceId)) {
 				JSONObject photoJson = new JSONObject();
 				// 获取该设备之前获取的数据
-				photoJson = (JSONObject) jedisUtils.get(deviceId);
+				photoJson = (JSONObject) JedisUtils.get(deviceId);
 				// 获取该设备之前获取的照片数据
-				@SuppressWarnings("unchecked")
 				LinkedHashMap<String, byte[]> photoMap = (LinkedHashMap<String, byte[]>) photoJson.get("data");
 				if (totalpack == photoMap.size()) {
 					photoMap.put(toStr(packnum), photoByte);
 					photoJson.put("packnum", packnum);
-					long expireTime = jedisUtils.getExpire(deviceId);
-					jedisUtils.set(deviceId, photoJson, expireTime);
+					long expireTime = JedisUtils.getExpire(deviceId);
+					JedisUtils.set(deviceId, photoJson, expireTime);
 					if (generateImage(photoMap, deviceId)) {
-						jedisUtils.del(deviceId);
+						JedisUtils.del(deviceId);
 					}
 				} else {
-					jedisUtils.del(deviceId);
+					JedisUtils.del(deviceId);
 					insertDevicePhoto(deviceId, totalpack, packnum, photoByte);
 				}
 			} else {
@@ -91,7 +98,7 @@ public class PhotoService implements IServiceStrategy {
 	private boolean generateImage(LinkedHashMap<String, byte[]> photoMap, String deviceId) {
 
 		try {
-			String filePath = "d://" + deviceId + "_" + LocalDateTime.now().getNano() + ".jpeg";
+			String filePath = imageUrl + deviceId + "_" + LocalDateTime.now().getNano() + ".jpeg";
 			byte[] tmp = new byte[0];
 			Iterator<Entry<String, byte[]>> iterator = photoMap.entrySet().iterator();
 
@@ -99,7 +106,7 @@ public class PhotoService implements IServiceStrategy {
 				Entry<String, byte[]> entry = iterator.next();
 				byte[] photoByte = entry.getValue();
 				if (photoByte.length != 0) {
-					System.out.println(entry.getKey() + "    " + photoByte.length);
+//					System.out.println(entry.getKey() + "    " + photoByte.length);
 					tmp = CommFunc.byteMerger(tmp, photoByte);
 				} else {
 					return false;
@@ -132,7 +139,7 @@ public class PhotoService implements IServiceStrategy {
 		JSONObject photoJson = new JSONObject();
 		photoJson.put("packnum", packnum);
 		photoJson.put("data", photoMap);
-		jedisUtils.set(deviceId, photoJson, 60 * 60 * 2);
+		JedisUtils.set(deviceId, photoJson, photoExpireTime);
 	}
 
 }

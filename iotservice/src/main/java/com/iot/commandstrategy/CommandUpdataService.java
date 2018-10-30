@@ -30,7 +30,7 @@ public class CommandUpdataService implements ICommandService {
 	* @see com.iot.commandstrategy.ICommandService#parse(java.lang.String, java.util.Map) 
 	*/
 	@Override
-	public void parse(String deviceId, Map<String, String> serviceMap) {
+	public void parse(String deviceId, Map<String, String> commandMap) {
 		// TODO Auto-generated method stub
 
 	}
