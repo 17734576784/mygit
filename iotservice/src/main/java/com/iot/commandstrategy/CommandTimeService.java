@@ -37,22 +37,16 @@ public class CommandTimeService implements ICommandService {
 	
 	/**
 	 * (非 Javadoc)
-	 * <p>
 	 * Title: parse
-	 * </p>
-	 * <p>
 	 * Description:
-	 * </p>
-	 * 
 	 * @param deviceId
 	 * @param serviceMap
-	 * @see com.iot.commandstrategy.ICommandService#parse(java.lang.String,
-	 *      java.util.Map)
+	 * @see com.iot.commandstrategy.ICommandService#parse(java.lang.String, java.util.Map)
 	 */
 	@Override
 	public void parse(String deviceId, Map<String, String> commandMap) {
 		// TODO Auto-generated method stub
-		Log4jUtils.getInfo().info("设置上传周期命令回复，设备id：" + deviceId + " ,告警内容：" + commandMap.toString());
+		Log4jUtils.getInfo().info("设置上传周期命令回复，设备id：" + deviceId + " ,回复内容：" + commandMap.toString());
 
 		String timetype = toStr(commandMap.get("timetype"));
 		String time = toStr(commandMap.get("time"));
@@ -68,7 +62,7 @@ public class CommandTimeService implements ICommandService {
 
 		JSONObject httpResult = HttpsUtils.doPost(apiUrl, paramMap);
 		if (httpResult.getInteger("status") == Constant.ERROR) {
-			Log4jUtils.getInfo().info("推送设置上传周期命令回复失败，设备id：" + deviceId + " ,告警内容：" + commandMap.toString());
+			Log4jUtils.getInfo().info("推送设置上传周期命令回复失败，设备id：" + deviceId + "，回复内容：" + commandMap.toString());
 		}
 	}
 
