@@ -113,7 +113,7 @@ public class PileServiceImpl implements IPileService{
 			rtnJson.put("pileStatus", pileState);
 			rtnJson.put("rows", arrayItem);
 			
-			Log4jUtil.getInfo().info("请求获取充电桩状态,返回结果 ： "+rtnJson.toString());
+			Log4jUtil.getInfo().info("请求获取充电桩状态,返回结果 ： " + rtnJson.toString());
 			
 		} catch (Exception e) {
 			rtnJson = errorInfo(Constant.Err, "获取指定充电桩状态异常");
@@ -126,7 +126,7 @@ public class PileServiceImpl implements IPileService{
 	
 	public JSONObject getPileGps(String queryJsonStr) {
 		JSONObject rtnJson = new JSONObject();
-		Log4jUtil.getInfo().info("请求获取充电桩GPS ： "+queryJsonStr);
+		Log4jUtil.getInfo().info("请求获取充电桩GPS ： " + queryJsonStr);
 		try {
 			JSONObject json = JSONObject.fromObject(queryJsonStr);
 			String pileNo = json.optString("pileNo");
@@ -144,9 +144,9 @@ public class PileServiceImpl implements IPileService{
 			rtnJson = errorInfo(Constant.OK, "");
 			rtnJson.put("lng", objToDbl(pileGps.get("longitude")));
 			rtnJson.put("lat", objToDbl(pileGps.get("latitude")));
+			Log4jUtil.getInfo().info("请求获取充电桩GPS,返回结果： " + rtnJson);
 			
 		} catch (Exception e) {
-			// TODO: handle exception
 			rtnJson = errorInfo(Constant.Err, "获取指定充电桩Gps异常");
 			e.printStackTrace();
 			Log4jUtil.getError().error("获取指定充电桩Gps异常" + queryJsonStr, e);
@@ -159,9 +159,8 @@ public class PileServiceImpl implements IPileService{
 	 * @see com.wo.service.IPileService#getPileRate(java.lang.String)
 	 */
 	public JSONObject getPileRate(String queryJsonStr) {
-		// TODO Auto-generated method stub
 		JSONObject rtnJson = new JSONObject();
-		Log4jUtil.getInfo().info("请求获取充电桩费率 ： "+queryJsonStr);
+		Log4jUtil.getInfo().info("请求获取充电桩费率 ： " + queryJsonStr);
 		try {
 			JSONObject json = JSONObject.fromObject(queryJsonStr);
 			String pileNo = json.optString("pileNo");
@@ -199,7 +198,8 @@ public class PileServiceImpl implements IPileService{
 			rtnJson.put("ValleyRate", ValleyRate);
 			rtnJson.put("ServiceCharge", roundTosString(objToDbl(pileRate.get("ServiceCharge")), 2));
 			
-			
+			Log4jUtil.getInfo().info("请求获取充电桩费率 ,返回结果： " + rtnJson);
+
 		} catch (Exception e) {
 			rtnJson = errorInfo(Constant.Err, "获取指定充电桩费率异常");
 			e.printStackTrace();

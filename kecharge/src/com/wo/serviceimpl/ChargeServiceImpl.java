@@ -1,6 +1,5 @@
 package com.wo.serviceimpl;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -154,13 +153,13 @@ public class ChargeServiceImpl implements IChargeService{
 			} else {
 				rtnJson = errorInfo(Constant.Err, "当前充电枪状态不允许充电");
 			}
+			Log4jUtil.getChargeinfo().info("流水号 ：" + payserialNumber + "请求充电成功！");
 		} catch (Exception e) {
 			rtnJson = errorInfo(Constant.Err, "请求开始充电异常");
 			Log4jUtil.getError().error("请求开始充电异常" + queryJsonStr, e);
 			e.printStackTrace();
 		}
 		
-		Log4jUtil.getChargeinfo().info("流水号 ：" + payserialNumber + "请求充电成功！");
 		return rtnJson;
 	}
 	
@@ -196,6 +195,7 @@ public class ChargeServiceImpl implements IChargeService{
 		order.setChargeState(Constant.CHARGINGSTATE_V2_PAYSUCCESS);
 		order.setAppFlag(Constant.CLIENTTYPE_INTERFACE);
 		
+		order.setPayMoney((int) (objToDbl(chargeMoney) * 100));
 		order.setPayWasteno(payserialNumber);
 		order.setPayYmd(nowDateInt());
 		order.setPayHms(nowTimeInt());
@@ -341,13 +341,13 @@ public class ChargeServiceImpl implements IChargeService{
 			}else{
 				rtnJson = errorInfo(Constant.OK, "");
 			}
+			Log4jUtil.getChargeinfo().info("流水号：" + paySerialNumber + "请求结束充电成功");
 		} catch (Exception e) {
 			Log4jUtil.getError().error("请求充电结束异常，请求内容：" + queryJsonStr);
 			rtnJson = errorInfo("-1", "请求充电结束异常");
 			e.printStackTrace();
 		}
 		
-		Log4jUtil.getChargeinfo().info("流水号：" + paySerialNumber + "请求结束充电成功");
 		return rtnJson;
 	}
 
@@ -421,9 +421,8 @@ public class ChargeServiceImpl implements IChargeService{
 			rtnJson.put("BCurrent",BCurrent);
 			rtnJson.put("CCurrent",CCurrent);
 			
-			Log4jUtil.getChargeinfo().info("获取充电过程请求结束 : "+ rtnJson.toString());
+			Log4jUtil.getChargeinfo().info("获取充电过程请求结束 ,返回结果: " + rtnJson.toString());
 		} catch (Exception e) {
-			// TODO: handle exception
 			Log4jUtil.getError().error("获取充电过程信息异常" + queryJsonStr);
 			rtnJson = errorInfo(Constant.Err, "获取充电过程信息异常");
 			e.printStackTrace();
@@ -435,7 +434,7 @@ public class ChargeServiceImpl implements IChargeService{
 	/* (non-Javadoc)
 	 * @see com.wo.service.IChargeService#SendChargOverRequest(net.sf.json.JSONObject)
 	 */
-	public boolean SendChargOverRequest(JSONObject json,int retry) {
+	public boolean SendChargOverRequest(JSONObject json, int retry) {
 		boolean flag = false;
 		
 		Map<String, String> param = new HashMap<String, String>();
@@ -494,7 +493,7 @@ public class ChargeServiceImpl implements IChargeService{
 				WebConfig.initLoginToken(partnerId);
 				SendChargOverRequest(json,retry);
 			}
-		} catch (UnsupportedEncodingException e) {
+		} catch (Exception e) {
 			Log4jUtil.getError().error("发送充电结束请求异常,发送内容："+json.toString());
 			flag = false;
 			e.printStackTrace();
@@ -569,7 +568,7 @@ public class ChargeServiceImpl implements IChargeService{
 				WebConfig.initLoginToken(partnerId);
 				SendChargStartRequest(json,retry);
 			}
-		} catch (UnsupportedEncodingException e1) {
+		} catch (Exception e1) {
 			Log4jUtil.getError().error("发送充电开始消息异常，发送内容："+json.toString());
 			e1.printStackTrace();
 		}
@@ -806,7 +805,7 @@ public class ChargeServiceImpl implements IChargeService{
 				WebConfig.initLoginToken(partnerId);
 				SendDCChargInfoRequest(json,retry);
 			}
-		} catch (UnsupportedEncodingException e) {
+		} catch (Exception e) {
 			Log4jUtil.getError().error("发送直流充电信息请求异常,发送内容："+json.toString());
 			flag = false;
 			e.printStackTrace();

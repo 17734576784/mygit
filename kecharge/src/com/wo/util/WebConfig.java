@@ -175,6 +175,11 @@ public class WebConfig {
 				return flag;
 			}
 			JSONObject urlJson = new JSONObject();
+			String loginUrl = partnerConfig.getLoginUrl();
+			if (null == loginUrl || loginUrl.isEmpty()) {
+				return flag;
+			}
+			
 			urlJson.put("loginUrl", partnerConfig.getLoginUrl());
 			urlJson.put("userName", partnerConfig.getUsername());
 			urlJson.put("passWord", partnerConfig.getPassword());

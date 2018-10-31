@@ -88,7 +88,12 @@ public class LoginServiceImpl implements ILoginService{
 		param.put("queryJsonStr", json.toString());
 
 		try {
-			String rtnJson = HttpUtil.doPost(jsonPara.optString("loginUrl"),param);
+			String sendLoginUrl = jsonPara.optString("loginUrl");
+			if (sendLoginUrl.isEmpty()) {
+				return token;
+			}
+			
+			String rtnJson = HttpUtil.doPost(sendLoginUrl,param);
 			json = JSONObject.fromObject(rtnJson);
 			
 			if(json.getInt("status") == Constant.STATUS_OK){

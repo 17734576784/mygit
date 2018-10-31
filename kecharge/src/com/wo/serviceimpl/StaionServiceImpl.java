@@ -23,7 +23,9 @@ import com.wo.util.Log4jUtil;
 @Service
 public class StaionServiceImpl implements IStaionService{
 	
-	@Resource StationMapper stationMapper;
+	@Resource
+	private StationMapper stationMapper;
+
 	/* (non-Javadoc)
 	 * @see com.wo.service.IStaionService#listStationGPS(java.lang.Integer)
 	 */

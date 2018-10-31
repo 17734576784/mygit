@@ -195,7 +195,7 @@ Date.prototype.DatePart = function(interval)
 //| 取得当前日期所在月的最大天数   
 //+---------------------------------------------------   
 Date.prototype.MaxDayOfDate = function() 
-{
+{ 
 　　var myDate = this; 
 　　var ary = myDate.toArray(); 
 　　var date1 = (new Date(ary[0],ary[1],1));

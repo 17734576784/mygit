@@ -36,6 +36,14 @@ public class TestMain {
 	private static final int a = 0;
 	public static void main(String[] args) throws IOException {
 		
+		int[] b = new int[]{0,0XA,0,0};
+
+		int a =  (int) ((b[0] & 0xff) | ((b[1] & 0xff) << 8)
+				| ((b[2] & 0xff) << 16) | ((b[3] & 0xff) << 24));
+		System.out.println("a  : "+ a );
+		System.out.println(((b[1] & 0xff) << 8));
+		
+		
 		String serialNumber = "009800000001";
 		
 		System.out.println(CommFunc.objToLong(serialNumber));

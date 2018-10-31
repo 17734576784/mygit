@@ -108,7 +108,8 @@ public class PartnerConfigServiceImpl implements IPartnerConfigService {
 				json.put("login_url", objToStr(map.get("login_url")));
 				json.put("charge_start_url", objToStr(map.get("charge_start_url")));
 				json.put("charge_over_url", objToStr(map.get("charge_over_url")));
-				
+				json.put("charge_dc_info_url", objToStr(map.get("charge_dc_info_url")));
+
 				arrays.add(json);
 				json.clear();
 			}

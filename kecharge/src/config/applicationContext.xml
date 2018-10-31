@@ -19,7 +19,7 @@
 	   <property name="url" value="jdbc:mysql://192.168.19.8:3306/CPPARA?useUnicode=true&amp;characterEncoding=UTF-8" />
        <!-- <property name="url" value="jdbc:sqlserver://192.168.19.10:1433;database=ydpara;integratedSecurity=false;" />-->
 		<property name="username" value="root" />
-		<property name="password" value="123456" />
+		<property name="password" value="keyd*%@#1095" />
 
 		<!-- 配置初始化大小、最小、最大 -->
 		<property name="initialSize" value="10" />
