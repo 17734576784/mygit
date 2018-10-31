@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wo.mapper.YysCarownerOrderMapper">
+
+  <resultMap id="BaseResultMap" type="com.wo.model.YysCarownerOrder">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="carowner_id" jdbcType="INTEGER" property="carownerId" />
+    <result column="yys_id" jdbcType="INTEGER" property="yysId" />
+    <result column="charge_state" jdbcType="TINYINT" property="chargeState" />
+    <result column="charge_wasteno" jdbcType="VARCHAR" property="chargeWasteno" />
+    <result column="app_flag" jdbcType="TINYINT" property="appFlag" />
+    <result column="pay_wasteno" jdbcType="VARCHAR" property="payWasteno" />
+    <result column="pay_rewasteno" jdbcType="VARCHAR" property="payRewasteno" />
+    <result column="sourcetype" jdbcType="TINYINT" property="sourcetype" />
+    <result column="pay_ymd" jdbcType="INTEGER" property="payYmd" />
+    <result column="pay_hms" jdbcType="INTEGER" property="payHms" />
+    <result column="trade_bymd" jdbcType="INTEGER" property="tradeBymd" />
+    <result column="trade_bhms" jdbcType="INTEGER" property="tradeBhms" />
+    <result column="trade_eymd" jdbcType="INTEGER" property="tradeEymd" />
+    <result column="trade_ehms" jdbcType="INTEGER" property="tradeEhms" />
+    <result column="refund_ymd" jdbcType="INTEGER" property="refundYmd" />
+    <result column="refund_hms" jdbcType="INTEGER" property="refundHms" />
+    <result column="station_id" jdbcType="INTEGER" property="stationId" />
+    <result column="pile_id" jdbcType="INTEGER" property="pileId" />
+    <result column="gun_flag" jdbcType="TINYINT" property="gunFlag" />
+    <result column="charge_min" jdbcType="INTEGER" property="chargeMin" />
+    <result column="charge_dl" jdbcType="DOUBLE" property="chargeDl" />
+    <result column="charge_money" jdbcType="INTEGER" property="chargeMoney" />
+    <result column="soc" jdbcType="INTEGER" property="soc" />
+    <result column="remain_tm" jdbcType="INTEGER" property="remainTm" />
+    <result column="pay_money" jdbcType="INTEGER" property="payMoney" />
+    <result column="trade_money" jdbcType="INTEGER" property="tradeMoney" />
+    <result column="discount_money" jdbcType="INTEGER" property="discountMoney" />
+    <result column="sourcetrade_money" jdbcType="INTEGER" property="sourcetradeMoney" />
+    <result column="remain_money" jdbcType="INTEGER" property="remainMoney" />
+    <result column="reserve1" jdbcType="INTEGER" property="reserve1" />
+    <result column="reserve2" jdbcType="INTEGER" property="reserve2" />
+    <result column="reserve3" jdbcType="DOUBLE" property="reserve3" />
+    <result column="reserve4" jdbcType="DOUBLE" property="reserve4" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    id, carowner_id, yys_id, charge_state, charge_wasteno, app_flag, pay_wasteno, pay_rewasteno, 
+    sourcetype, pay_ymd, pay_hms, trade_bymd, trade_bhms, trade_eymd, trade_ehms, refund_ymd, 
+    refund_hms, station_id, pile_id, gun_flag, charge_min, charge_dl, charge_money, soc, 
+    remain_tm, pay_money, trade_money, discount_money, sourcetrade_money, remain_money, 
+    reserve1, reserve2, reserve3, reserve4
+  </sql>
+  
+  <select id="getYysCarownerOrder" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from yys_carowner_order
+    where pay_wasteno = #{serialNumber,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteYysCarownerOrder" parameterType="java.lang.Integer">
+    delete from yys_carowner_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertYysCarownerOrder" parameterType="com.wo.model.YysCarownerOrder">
+    insert into yys_carowner_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="carownerId != null">
+        carowner_id,
+      </if>
+      <if test="yysId != null">
+        yys_id,
+      </if>
+      <if test="chargeState != null">
+        charge_state,
+      </if>
+      <if test="chargeWasteno != null">
+        charge_wasteno,
+      </if>
+      <if test="appFlag != null">
+        app_flag,
+      </if>
+      <if test="payWasteno != null">
+        pay_wasteno,
+      </if>
+      <if test="payRewasteno != null">
+        pay_rewasteno,
+      </if>
+      <if test="sourcetype != null">
+        sourcetype,
+      </if>
+      <if test="payYmd != null">
+        pay_ymd,
+      </if>
+      <if test="payHms != null">
+        pay_hms,
+      </if>
+      <if test="tradeBymd != null">
+        trade_bymd,
+      </if>
+      <if test="tradeBhms != null">
+        trade_bhms,
+      </if>
+      <if test="tradeEymd != null">
+        trade_eymd,
+      </if>
+      <if test="tradeEhms != null">
+        trade_ehms,
+      </if>
+      <if test="refundYmd != null">
+        refund_ymd,
+      </if>
+      <if test="refundHms != null">
+        refund_hms,
+      </if>
+      <if test="stationId != null">
+        station_id,
+      </if>
+      <if test="pileId != null">
+        pile_id,
+      </if>
+      <if test="gunFlag != null">
+        gun_flag,
+      </if>
+      <if test="chargeMin != null">
+        charge_min,
+      </if>
+      <if test="chargeDl != null">
+        charge_dl,
+      </if>
+      <if test="chargeMoney != null">
+        charge_money,
+      </if>
+      <if test="soc != null">
+        soc,
+      </if>
+      <if test="remainTm != null">
+        remain_tm,
+      </if>
+      <if test="payMoney != null">
+        pay_money,
+      </if>
+      <if test="tradeMoney != null">
+        trade_money,
+      </if>
+      <if test="discountMoney != null">
+        discount_money,
+      </if>
+      <if test="sourcetradeMoney != null">
+        sourcetrade_money,
+      </if>
+      <if test="remainMoney != null">
+        remain_money,
+      </if>
+      <if test="reserve1 != null">
+        reserve1,
+      </if>
+      <if test="reserve2 != null">
+        reserve2,
+      </if>
+      <if test="reserve3 != null">
+        reserve3,
+      </if>
+      <if test="reserve4 != null">
+        reserve4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="carownerId != null">
+        #{carownerId,jdbcType=INTEGER},
+      </if>
+      <if test="yysId != null">
+        #{yysId,jdbcType=INTEGER},
+      </if>
+      <if test="chargeState != null">
+        #{chargeState,jdbcType=TINYINT},
+      </if>
+      <if test="chargeWasteno != null">
+        #{chargeWasteno,jdbcType=VARCHAR},
+      </if>
+      <if test="appFlag != null">
+        #{appFlag,jdbcType=TINYINT},
+      </if>
+      <if test="payWasteno != null">
+        #{payWasteno,jdbcType=VARCHAR},
+      </if>
+      <if test="payRewasteno != null">
+        #{payRewasteno,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcetype != null">
+        #{sourcetype,jdbcType=TINYINT},
+      </if>
+      <if test="payYmd != null">
+        #{payYmd,jdbcType=INTEGER},
+      </if>
+      <if test="payHms != null">
+        #{payHms,jdbcType=INTEGER},
+      </if>
+      <if test="tradeBymd != null">
+        #{tradeBymd,jdbcType=INTEGER},
+      </if>
+      <if test="tradeBhms != null">
+        #{tradeBhms,jdbcType=INTEGER},
+      </if>
+      <if test="tradeEymd != null">
+        #{tradeEymd,jdbcType=INTEGER},
+      </if>
+      <if test="tradeEhms != null">
+        #{tradeEhms,jdbcType=INTEGER},
+      </if>
+      <if test="refundYmd != null">
+        #{refundYmd,jdbcType=INTEGER},
+      </if>
+      <if test="refundHms != null">
+        #{refundHms,jdbcType=INTEGER},
+      </if>
+      <if test="stationId != null">
+        #{stationId,jdbcType=INTEGER},
+      </if>
+      <if test="pileId != null">
+        #{pileId,jdbcType=INTEGER},
+      </if>
+      <if test="gunFlag != null">
+        #{gunFlag,jdbcType=TINYINT},
+      </if>
+      <if test="chargeMin != null">
+        #{chargeMin,jdbcType=INTEGER},
+      </if>
+      <if test="chargeDl != null">
+        #{chargeDl,jdbcType=DOUBLE},
+      </if>
+      <if test="chargeMoney != null">
+        #{chargeMoney,jdbcType=INTEGER},
+      </if>
+      <if test="soc != null">
+        #{soc,jdbcType=INTEGER},
+      </if>
+      <if test="remainTm != null">
+        #{remainTm,jdbcType=INTEGER},
+      </if>
+      <if test="payMoney != null">
+        #{payMoney,jdbcType=INTEGER},
+      </if>
+      <if test="tradeMoney != null">
+        #{tradeMoney,jdbcType=INTEGER},
+      </if>
+      <if test="discountMoney != null">
+        #{discountMoney,jdbcType=INTEGER},
+      </if>
+      <if test="sourcetradeMoney != null">
+        #{sourcetradeMoney,jdbcType=INTEGER},
+      </if>
+      <if test="remainMoney != null">
+        #{remainMoney,jdbcType=INTEGER},
+      </if>
+      <if test="reserve1 != null">
+        #{reserve1,jdbcType=INTEGER},
+      </if>
+      <if test="reserve2 != null">
+        #{reserve2,jdbcType=INTEGER},
+      </if>
+      <if test="reserve3 != null">
+        #{reserve3,jdbcType=DOUBLE},
+      </if>
+      <if test="reserve4 != null">
+        #{reserve4,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateYysCarownerOrder" parameterType="com.wo.model.YysCarownerOrder">
+    update yys_carowner_order
+    <set>
+      <if test="carownerId != null">
+        carowner_id = #{carownerId,jdbcType=INTEGER},
+      </if>
+      <if test="yysId != null">
+        yys_id = #{yysId,jdbcType=INTEGER},
+      </if>
+      <if test="chargeState != null">
+        charge_state = #{chargeState,jdbcType=TINYINT},
+      </if>
+      <if test="chargeWasteno != null">
+        charge_wasteno = #{chargeWasteno,jdbcType=VARCHAR},
+      </if>
+      <if test="appFlag != null">
+        app_flag = #{appFlag,jdbcType=TINYINT},
+      </if>
+      <if test="payWasteno != null">
+        pay_wasteno = #{payWasteno,jdbcType=VARCHAR},
+      </if>
+      <if test="payRewasteno != null">
+        pay_rewasteno = #{payRewasteno,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcetype != null">
+        sourcetype = #{sourcetype,jdbcType=TINYINT},
+      </if>
+      <if test="payYmd != null">
+        pay_ymd = #{payYmd,jdbcType=INTEGER},
+      </if>
+      <if test="payHms != null">
+        pay_hms = #{payHms,jdbcType=INTEGER},
+      </if>
+      <if test="tradeBymd != null">
+        trade_bymd = #{tradeBymd,jdbcType=INTEGER},
+      </if>
+      <if test="tradeBhms != null">
+        trade_bhms = #{tradeBhms,jdbcType=INTEGER},
+      </if>
+      <if test="tradeEymd != null">
+        trade_eymd = #{tradeEymd,jdbcType=INTEGER},
+      </if>
+      <if test="tradeEhms != null">
+        trade_ehms = #{tradeEhms,jdbcType=INTEGER},
+      </if>
+      <if test="refundYmd != null">
+        refund_ymd = #{refundYmd,jdbcType=INTEGER},
+      </if>
+      <if test="refundHms != null">
+        refund_hms = #{refundHms,jdbcType=INTEGER},
+      </if>
+      <if test="stationId != null">
+        station_id = #{stationId,jdbcType=INTEGER},
+      </if>
+      <if test="pileId != null">
+        pile_id = #{pileId,jdbcType=INTEGER},
+      </if>
+      <if test="gunFlag != null">
+        gun_flag = #{gunFlag,jdbcType=TINYINT},
+      </if>
+      <if test="chargeMin != null">
+        charge_min = #{chargeMin,jdbcType=INTEGER},
+      </if>
+      <if test="chargeDl != null">
+        charge_dl = #{chargeDl,jdbcType=DOUBLE},
+      </if>
+      <if test="chargeMoney != null">
+        charge_money = #{chargeMoney,jdbcType=INTEGER},
+      </if>
+      <if test="soc != null">
+        soc = #{soc,jdbcType=INTEGER},
+      </if>
+      <if test="remainTm != null">
+        remain_tm = #{remainTm,jdbcType=INTEGER},
+      </if>
+      <if test="payMoney != null">
+        pay_money = #{payMoney,jdbcType=INTEGER},
+      </if>
+      <if test="tradeMoney != null">
+        trade_money = #{tradeMoney,jdbcType=INTEGER},
+      </if>
+      <if test="discountMoney != null">
+        discount_money = #{discountMoney,jdbcType=INTEGER},
+      </if>
+      <if test="sourcetradeMoney != null">
+        sourcetrade_money = #{sourcetradeMoney,jdbcType=INTEGER},
+      </if>
+      <if test="remainMoney != null">
+        remain_money = #{remainMoney,jdbcType=INTEGER},
+      </if>
+      <if test="reserve1 != null">
+        reserve1 = #{reserve1,jdbcType=INTEGER},
+      </if>
+      <if test="reserve2 != null">
+        reserve2 = #{reserve2,jdbcType=INTEGER},
+      </if>
+      <if test="reserve3 != null">
+        reserve3 = #{reserve3,jdbcType=DOUBLE},
+      </if>
+      <if test="reserve4 != null">
+        reserve4 = #{reserve4,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getPileInfo" resultType="map" parameterType="string">
+  	SELECT y.id yysId,s.id stationId,p.id pileId,pp.id partnerId from
+	pileyys y,station s,pilepara p,partnerpara pp,partnerrrankbound pr
+	where s.yys_id = y.id and p.station_id = s.id AND p.pile_code = #{pileNo,jdbcType=VARCHAR} 
+	and pr.PARTNER_ID = pp.id and pr.PILEYYS_ID = y.id
+  </select>
+   
+   <select id="getPaySerialNumber" resultType="string" parameterType="string">
+   		SELECT pay_wasteno from yys_carowner_order 
+   		where charge_wasteno = #{serialNumber,jdbcType=VARCHAR}
+   </select>
+   
+     <select id="getChargeSerialNumber" resultType="string" parameterType="string">
+   		SELECT charge_wasteno from yys_carowner_order 
+   		where  pay_wasteno = #{serialNumber,jdbcType=VARCHAR}
+   </select>
+   
+</mapper>

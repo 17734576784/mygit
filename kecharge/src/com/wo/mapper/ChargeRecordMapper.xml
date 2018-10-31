@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wo.mapper.ChargeRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.wo.model.ChargeRecord" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="serialnumber" property="serialnumber" jdbcType="VARCHAR" />
+    <result column="charge_money" property="chargeMoney" jdbcType="INTEGER" />
+    <result column="pile_code" property="pileCode" jdbcType="VARCHAR" />
+    <result column="gun_id" property="gunId" jdbcType="INTEGER" />
+    <result column="start_date" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="start_receive_time" property="startReceiveTime" jdbcType="TIMESTAMP" />
+    <result column="start_flag" property="startFlag" jdbcType="TINYINT" />
+    <result column="start_push" property="startPush" jdbcType="TINYINT" />
+    <result column="start_push_time" property="startPushTime" jdbcType="TIMESTAMP" />
+    <result column="end_date" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="end_receive_time" property="endReceiveTime" jdbcType="TIMESTAMP" />
+    <result column="end_push" property="endPush" jdbcType="TINYINT" />
+    <result column="end_push_time" property="endPushTime" jdbcType="TIMESTAMP" />
+    <result column="soc_push" property="socPush" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, serialnumber, charge_money, pile_code, gun_id, start_date, start_receive_time, 
+    start_flag, start_push, start_push_time, end_date, end_receive_time, end_push, end_push_time,soc_push
+  </sql>
+  <select id="getChargeRecord" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from charge_record
+    where serialnumber = #{serialNumber,jdbcType=VARCHAR}
+  </select>
+  
+  <select id ="listChargeRecord" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from charge_record where start_push = 0 or end_push = 0    
+  </select>
+  
+  <delete id="deleteChargeRecord" parameterType="java.lang.Integer" >
+    delete from charge_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertChargeRecord" parameterType="com.wo.model.ChargeRecord" >
+    insert into charge_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="serialnumber != null" >
+        serialnumber,
+      </if>
+      <if test="chargeMoney != null" >
+        charge_money,
+      </if>
+      <if test="pileCode != null" >
+        pile_code,
+      </if>
+      <if test="gunId != null" >
+        gun_id,
+      </if>
+      <if test="startDate != null" >
+        start_date,
+      </if>
+      <if test="startReceiveTime != null" >
+        start_receive_time,
+      </if>
+      <if test="startFlag != null" >
+        start_flag,
+      </if>
+      <if test="startPush != null" >
+        start_push,
+      </if>
+      <if test="startPushTime != null" >
+        start_push_time,
+      </if>
+      <if test="endDate != null" >
+        end_date,
+      </if>
+      <if test="endReceiveTime != null" >
+        end_receive_time,
+      </if>
+      <if test="endPush != null" >
+        end_push,
+      </if>
+      <if test="endPushTime != null" >
+        end_push_time,
+      </if>
+      <if test="socPush != null" >
+        soc_push,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="serialnumber != null" >
+        #{serialnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeMoney != null" >
+        #{chargeMoney,jdbcType=INTEGER},
+      </if>
+      <if test="pileCode != null" >
+        #{pileCode,jdbcType=INTEGER},
+      </if>
+      <if test="gunId != null" >
+        #{gunId,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startReceiveTime != null" >
+        #{startReceiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startFlag != null" >
+        #{startFlag,jdbcType=TINYINT},
+      </if>
+      <if test="startPush != null" >
+        #{startPush,jdbcType=TINYINT},
+      </if>
+      <if test="startPushTime != null" >
+        #{startPushTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endReceiveTime != null" >
+        #{endReceiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endPush != null" >
+        #{endPush,jdbcType=TINYINT},
+      </if>
+      <if test="endPushTime != null" >
+        #{endPushTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="socPush != null" >
+        #{socPush,jdbcType=TINYINT},
+      </if>
+      
+    </trim>
+  </insert>
+  <update id="updateChargeRecord" parameterType="com.wo.model.ChargeRecord" >
+    update charge_record
+    <set >
+      <if test="chargeMoney != null" >
+        charge_money = #{chargeMoney,jdbcType=INTEGER},
+      </if>
+      <if test="pileCode != null" >
+        pile_code = #{pileCode,jdbcType=INTEGER},
+      </if>
+      <if test="gunId != null" >
+        gun_id = #{gunId,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null" >
+        start_date = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startReceiveTime != null" >
+        start_receive_time = #{startReceiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startFlag != null" >
+        start_flag = #{startFlag,jdbcType=TINYINT},
+      </if>
+      <if test="startPush != null" >
+        start_push = #{startPush,jdbcType=TINYINT},
+      </if>
+      <if test="startPushTime != null" >
+        start_push_time = #{startPushTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        end_date = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endReceiveTime != null" >
+        end_receive_time = #{endReceiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endPush != null" >
+        end_push = #{endPush,jdbcType=TINYINT},
+      </if>
+      <if test="endPushTime != null" >
+        end_push_time = #{endPushTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="socPush != null" >
+        soc_push = #{socPush,jdbcType=TINYINT}
+      </if>
+    </set>
+    where serialnumber = #{serialnumber,jdbcType=VARCHAR}
+  </update>
+  
+  <insert id ="backupChargeRecord" parameterType="map">
+   <![CDATA[
+    insert ${tableName}
+    select * from cppara.charge_record 
+    where  DATE_FORMAT(start_date,'%Y%m%d') < #{ymd}
+    and ((end_push_time is not null and end_push = 1) or (start_flag = 0 and start_push = 1))
+    ]]>
+  </insert>
+  
+  <delete id="deleteChargeRecords"  parameterType="map">
+ 	 <![CDATA[
+      delete from cppara.charge_record 
+      where  DATE_FORMAT(start_date,'%Y%m%d') < #{ymd}
+      and ((end_push_time is not null and end_push = 1) or (start_flag = 0 and start_push = 1))
+      ]]>
+  </delete>
+  
+  <insert id ="backupChargeOrder" parameterType="map">
+   <![CDATA[
+    INSERT ${tableName}
+	(
+	id,carowner_id,yys_id,charge_state ,charge_wasteno,app_flag      		
+	,pay_wasteno,pay_rewasteno,sourcetype,pay_ymd,pay_hms,trade_bymd	  		
+	,trade_bhms,trade_eymd,trade_ehms,refund_ymd,refund_hms,station_id   			
+	,pile_id,gun_flag,pay_money,trade_money,discount_money,sourcetrade_money
+	,remain_money
+	)
+	select 	id,carowner_id,yys_id,charge_state ,charge_wasteno,app_flag      		
+	,pay_wasteno,pay_rewasteno,sourcetype,pay_ymd,pay_hms,trade_bymd	  		
+	,trade_bhms,trade_eymd,trade_ehms,refund_ymd,refund_hms,station_id   			
+	,pile_id,gun_flag,pay_money,trade_money,discount_money,sourcetrade_money
+	,remain_money from cppara.yys_carowner_order
+	where trade_eymd < #{ymd} and app_flag = 3 and charge_state = 6
+    ]]>
+  </insert>
+  
+  <delete id="deleteChargeOrder"  parameterType="map">
+ 	 <![CDATA[
+      	delete from cppara.yys_carowner_order
+		where trade_eymd < #{ymd} and app_flag = 3 and charge_state = 6
+      ]]>
+  </delete>
+  
+  <select id="listChargeRecordMonitor" parameterType="map" resultMap="BaseResultMap">
+    SELECT r.* from charge_record r,station s,pilepara p,partnerrrankbound pr,pileyys y,partnerpara pa
+        where  r.pile_code = p.pile_code and p.station_id = s.id and s.yys_id= y.id and y.id = pr.PILEYYS_ID and pr.PARTNER_ID = pa.id
+	and DATE_FORMAT(start_date,'%Y%m%d') BETWEEN #{beginDate}  AND #{endDate}
+	<if test="partnerId !=-1 and partnerId !=null">
+	and pr.PARTNER_ID = #{partnerId}
+	</if> 
+	<if test="serialnumber !=''">
+	and r.serialnumber like CONCAT('%',#{serialnumber},'%')
+	</if> 
+	union
+	SELECT r.* from ${tableName} r,station s,pilepara p,partnerrrankbound pr,pileyys y,partnerpara pa
+        where  r.pile_code = p.pile_code and p.station_id = s.id and s.yys_id= y.id and y.id = pr.PILEYYS_ID and pr.PARTNER_ID = pa.id
+    and DATE_FORMAT(start_date,'%Y%m%d') BETWEEN #{beginDate}  AND #{endDate}
+    <if test="partnerId !=-1 and partnerId !=null">
+    and pr.PARTNER_ID = #{partnerId}
+    </if> 
+    <if test="serialnumber !=''">
+    and r.serialnumber like CONCAT('%',#{serialnumber},'%')
+    </if> 
+    
+    <if test="lastTableName != ''">
+        union
+	    SELECT r.* from ${lastTableName} r,station s,pilepara p,partnerrrankbound pr,pileyys y,partnerpara pa
+	    where  r.pile_code = p.pile_code and p.station_id = s.id and s.yys_id= y.id and y.id = pr.PILEYYS_ID and pr.PARTNER_ID = pa.id
+	    and DATE_FORMAT(start_date,'%Y%m%d') BETWEEN #{beginDate}AND #{endDate}
+	    <if test="partnerId !=-1 and partnerId !=null">
+	       and pr.PARTNER_ID = #{partnerId}
+	    </if> 
+	    <if test="serialnumber !=''">
+	       and r.serialnumber like CONCAT('%',#{serialnumber},'%')
+        </if> 
+    </if>
+	
+  </select>
+  
+  <select id="getEndCause" parameterType="integer"  resultType="string">
+        SELECT item_name from diction  where type_no = 770 
+        AND value = #{endCause,jdbcType=VARCHAR}
+    </select>
+</mapper>

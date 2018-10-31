@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wo.mapper.ChargeMapper" >
+	<select id="checkWasteno" parameterType="java.lang.String" resultType="boolean">
+		select count('X') from charge_record
+		where serialnumber = #{serialNumber,jdbcType=VARCHAR}
+    </select>
+    
+    <select id="checkGunType" parameterType="map" resultType="boolean">
+        select count('X') from gun_state ps,pilepara p
+		where ps.station_id = p.station_id and ps.pile_id = p.id
+		and p.pile_code = #{pileNo,jdbcType=VARCHAR} 
+		and ps.gun_id = #{gunNo,jdbcType=TINYINT}
+		and ps.gun_id &lt;= p.gun_num
+    </select>
+    
+    <select id="getGunState" parameterType="map" resultType="integer">
+       select gun_state from gun_state ps,pilepara p
+	   where ps.station_id = p.station_id and ps.pile_id = p.id
+	   and p.pile_code = #{pileNo,jdbcType=VARCHAR} 
+	   and ps.gun_id = #{gunNo,jdbcType=TINYINT}
+    </select>
+    
+    <!-- 根据桩体号查询所属终端和通道参数  -->
+    <select id="queryRtuParaByPileNo" parameterType="string" resultType="map">
+        select rtu.id, rtu.prot_type, rtu.rtu_model, c.timeout
+        from rtupara as rtu, chanpara as c, pilepara as p 
+        where rtu.chan_main = c.id and rtu.id = p.rtu_id
+        and p.pile_code = #{pileNo,jdbcType=VARCHAR} 
+    </select>
+    
+    <select id="getChargeData" parameterType="string" resultType="map">
+        select gun_state,charge_state,charg_total_electricity,charg_high_electricity,
+        charg_flat_electricity,charg_low_electricity, charg_tip_electricity,
+        a_voltage,b_voltage,c_voltage,a_current,b_current,c_current
+        from gun_state WHERE waste_no = #{serialNumber,jdbcType=VARCHAR}
+    </select>
+    
+    <select id="loadPileCPFlag" parameterType="map" resultType="java.lang.Byte">
+    	select cp_flag from pilepara where pile_code = #{pileNo,jdbcType=VARCHAR}
+    </select>
+    
+    <select id="getPileChargeRcd" parameterType="map" resultType="map">
+ 		SELECT wasteno,trade_bymd,trade_bhms,trade_eymd,trade_ehms,
+		trade_money,(end_bd - start_bd) trade_dl ,end_cause
+		from ${nowTableName} r,cppara.pilepara p
+		where p.id = r.pile_id and p.pile_code = #{pileNo,jdbcType=VARCHAR}
+		and r.mp_id =#{gunNo,jdbcType=TINYINT} AND wasteno =  #{serialNumber,jdbcType=VARCHAR}
+		and hideflag = 0
+		union
+		SELECT wasteno,trade_bymd,trade_bhms,trade_eymd,trade_ehms,
+		trade_money,(end_bd - start_bd) trade_dl ,end_cause
+		from ${lastTableName} r,cppara.pilepara p
+		where p.id = r.pile_id and p.pile_code = #{pileNo,jdbcType=VARCHAR}
+		and r.mp_id =#{gunNo,jdbcType=TINYINT} AND wasteno =  #{serialNumber,jdbcType=VARCHAR}
+		and hideflag = 0
+    </select>
+    
+    <select id="listPileChargeRcd"  parameterType="map" resultType="map">
+    	select ymd,wasteno,s.id stationId,pile_id,mp_id,trade_bymd,trade_bhms,trade_eymd,trade_ehms,
+		trade_money,(end_bd - start_bd) trade_dl ,end_cause from partnerpara p ,pileyys y,station s,
+		partnerrrankbound pr,${nowTableName} rcd
+		where p.id =pr.PARTNER_ID and y.id = pr.PILEYYS_ID
+		and s.yys_id  = y.id AND rcd.station_id = s.id  and end_bd is not NULL
+		and p.id = #{partnerId,jdbcType=SMALLINT} and hideflag = 0  and sync_flag = 0 
+		
+		<if test="nowTableName != lastTableName">
+			union
+			select ymd,wasteno,s.id stationId,pile_id,mp_id,trade_bymd,trade_bhms,trade_eymd,trade_ehms,
+			trade_money,(end_bd - start_bd) trade_dl ,end_cause from partnerpara p ,pileyys y,station s,
+			partnerrrankbound pr,${lastTableName} rcd
+			where p.id =pr.PARTNER_ID and y.id = pr.PILEYYS_ID
+			and s.yys_id  = y.id AND rcd.station_id = s.id  and end_bd is not NULL
+			and p.id = #{partnerId,jdbcType=SMALLINT} and hideflag = 0  and sync_flag = 0 
+		</if>
+    </select>
+    
+    
+    <select id="getPileChargeRecord"  parameterType="map" resultType="map">
+        select ymd,wasteno,s.id stationId,pile_id,mp_id,trade_bymd,trade_bhms,trade_eymd,trade_ehms,
+        trade_money,(end_bd - start_bd) trade_dl,park_money,end_cause from partnerpara p ,pileyys y,station s,
+        partnerrrankbound pr,${nowTableName} rcd
+        where p.id =pr.PARTNER_ID and y.id = pr.PILEYYS_ID
+        and s.yys_id = y.id AND rcd.station_id = s.id  and end_bd is not NULL
+        and rcd.wasteno = #{serialNumber,jdbcType=VARCHAR} and hideflag = 0  
+        
+        <if test="nowTableName != lastTableName">
+            union
+            select ymd,wasteno,s.id stationId,pile_id,mp_id,trade_bymd,trade_bhms,trade_eymd,trade_ehms,
+            trade_money,(end_bd - start_bd) trade_dl ,park_money,end_cause from partnerpara p ,pileyys y,station s,
+            partnerrrankbound pr,${lastTableName} rcd
+            where p.id =pr.PARTNER_ID and y.id = pr.PILEYYS_ID
+            and s.yys_id  = y.id AND rcd.station_id = s.id  and end_bd is not NULL
+            and rcd.wasteno = #{serialNumber,jdbcType=VARCHAR} and hideflag = 0 
+        </if>
+        
+    </select>
+    
+    <select id="getPileNoById" parameterType="map" resultType="string">
+		SELECT pile_code from pilepara 
+		where station_id =#{stationId,jdbcType=INTEGER} and id = #{pileId,jdbcType=SMALLINT}
+    </select>
+    
+    <update id="updateChargeRcd" parameterType="map">
+    	update ${tableName} set sync_flag = 1 where wasteno= #{serialNumber,jdbcType=VARCHAR}
+    </update>
+    
+    <select id="getChargeRealData"  parameterType="string"  resultType="map">
+		select p.pile_code pileNo, g.gun_flag gunNo, p.cur_type pileType ,g.charge_state,
+		g.charge_money chargeMoney,g.charge_min chargeSecond,g.charge_dl chargElectricity,
+		g.soc SOC,g.remain_tm remainSecond 
+		from yys_carowner_order g,pilepara p 
+		where g.pile_id = p.id and g.station_id = p.station_id
+		and g.pay_wasteno = #{serialNumber,jdbcType=VARCHAR}
+    </select>
+    
+    <select id="getPartnerIdBySerialNumber" parameterType="string"  resultType="integer">
+	    select p.id from partnerpara p ,pileyys y,station s,
+		pilepara pile,partnerrrankbound pr,charge_record c
+		where p.id =pr.partner_id and y.id = pr.pileyys_id
+		and s.yys_id = y.id and pile.station_id = s.id and c.pile_code  = pile.pile_code   
+		and c.serialnumber =  #{serialNumber,jdbcType=VARCHAR}
+    </select>
+    
+</mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wo.mapper.InterceptorMapper" >
+    <select id="isPileOfPartner" parameterType="map" resultType="boolean">
+		<![CDATA[
+		select count('X') from partnerpara p ,pileyys y,station s,
+		pilepara pile,partnerrrankbound pr
+		where p.id =pr.partner_id and y.id = pr.pileyys_id
+		and s.yys_id = y.id and pile.station_id = s.id
+		and pile.pile_code = #{pileNo,jdbcType=VARCHAR}
+		and p.id = #{partnerId,jdbcType=SMALLINT}
+		]]>
+    </select>
+</mapper>
