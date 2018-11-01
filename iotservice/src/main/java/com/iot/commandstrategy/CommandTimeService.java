@@ -55,7 +55,7 @@ public class CommandTimeService implements ICommandService {
 
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("cycle", timetype);
-		paramMap.put("time", time);
+		paramMap.put("devicetime", time);
 		paramMap.put("status", status);
 		paramMap.put("date", DateUtils.curDate());
 		paramMap.put("time", DateUtils.curTime());

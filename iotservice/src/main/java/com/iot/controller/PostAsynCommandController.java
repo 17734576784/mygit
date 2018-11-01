@@ -84,10 +84,18 @@ public class PostAsynCommandController {
 		String responseBody = httpsUtil.getHttpResponseBody(responsePostAsynCmd);
 		
 		JSONObject responseJson = JSON.parseObject(responseBody);
-		String commandId = responseJson.getString("commandId");
-		JedisUtils.set(commandId, serviceId, commandExpireTime);
-		
+		String commandId = ConverterUtils.toStr(responseJson.getString("commandId"));
 		ResultBean<String> result = new ResultBean<String>();
+		
+		if (commandId.isEmpty()) {
+			result.setStatus(Constant.ERROR);
+			result.setError(responseBody);
+
+		}else {
+			JedisUtils.set(commandId, serviceId, commandExpireTime);
+		}
+
+		
 		result.setData(responseBody);
 		
 		return result;

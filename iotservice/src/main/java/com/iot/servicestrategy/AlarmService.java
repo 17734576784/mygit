@@ -38,6 +38,7 @@ public class AlarmService implements IServiceStrategy{
 	public void parse(String deviceId, Map<String, String> serviceMap) {
 
 		Log4jUtils.getInfo().info("上传告警:设备id：" + deviceId + " ,告警内容：" + serviceMap.toString());
+		System.out.println("上传告警:设备id：" + deviceId + " ,告警内容：" + serviceMap.toString());
 		String apiUrl = baseUrl + Constant.UPLOAD_ALARM_URL;
 		
 		Object data = serviceMap.get("data");

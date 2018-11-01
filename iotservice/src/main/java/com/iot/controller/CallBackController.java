@@ -223,6 +223,8 @@ public class CallBackController {
 	@RequestMapping(value = "reportCmdExecResult", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<HttpStatus> reportCmdExecResult(@RequestBody Object reportCmdExecResult_NotifyMessage){
 
+		Log4jUtils.getInfo().info("接受命令响应：" + reportCmdExecResult_NotifyMessage);
+
 		Map<String, String> messageMap = new HashMap<String, String>();
 		messageMap = JsonUtil.jsonString2SimpleObj(reportCmdExecResult_NotifyMessage, messageMap.getClass());
 		String deviceId = toStr(messageMap.get("deviceId"));
