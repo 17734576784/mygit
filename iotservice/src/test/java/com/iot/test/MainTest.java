@@ -5,10 +5,13 @@ import java.util.HashMap;
 import java.util.Map;
 import org.apache.http.client.ClientProtocolException;
 
+import com.iot.utils.CommFunc;
+import com.iot.utils.Constant;
+
 public class MainTest {
 
 	public static void main(String[] args) throws ClientProtocolException, IOException {
-		
+		System.out.println(CommFunc.getCertPath(Constant.SELFCERTPATH));
 		
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("slope", 1);

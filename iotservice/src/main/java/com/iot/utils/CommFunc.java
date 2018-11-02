@@ -3,12 +3,17 @@
  */
 package com.iot.utils;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
+
 import javax.imageio.stream.FileImageInputStream;
 import javax.imageio.stream.FileImageOutputStream;
+
+import org.springframework.core.io.ClassPathResource;
 
 import com.alibaba.fastjson.JSONObject;
 
@@ -20,25 +25,36 @@ import com.alibaba.fastjson.JSONObject;
  * 
  */
 public class CommFunc {
-	
-	
-	//首字母转小写
-	public static String toLowerCaseFirstOne(String s){
-	  if(Character.isLowerCase(s.charAt(0)))
-	    return s;
-	  else
-	    return (new StringBuilder()).append(Character.toLowerCase(s.charAt(0))).append(s.substring(1)).toString();
+
+	public static String getCertPath(String path) throws IOException {
+		ClassPathResource resource = new ClassPathResource(path);
+		BufferedReader br = new BufferedReader(new InputStreamReader(resource.getInputStream()));
+		String result = "";
+		String line = null;
+		while ((line = br.readLine()) != null) {
+			result += line;
+		}
+		br.close();
+		
+		return result;
 	}
 
-
-	//首字母转大写
-	public static String toUpperCaseFirstOne(String s){
-	  if(Character.isUpperCase(s.charAt(0)))
-	    return s;
-	  else
-	    return (new StringBuilder()).append(Character.toUpperCase(s.charAt(0))).append(s.substring(1)).toString();
+	// 首字母转小写
+	public static String toLowerCaseFirstOne(String s) {
+		if (Character.isLowerCase(s.charAt(0)))
+			return s;
+		else
+			return (new StringBuilder()).append(Character.toLowerCase(s.charAt(0))).append(s.substring(1)).toString();
 	}
-	
+
+	// 首字母转大写
+	public static String toUpperCaseFirstOne(String s) {
+		if (Character.isUpperCase(s.charAt(0)))
+			return s;
+		else
+			return (new StringBuilder()).append(Character.toUpperCase(s.charAt(0))).append(s.substring(1)).toString();
+	}
+
 	/**
 	 * @param errorCode
 	 * @param errorMsg
@@ -138,7 +154,7 @@ public class CommFunc {
 		}
 		return "0x" + sb.toString().toUpperCase();
 	}
-	
+
 	// System.arraycopy()方法
 	public static byte[] byteMerger(byte[] bt1, byte[] bt2) {
 		byte[] bt3 = new byte[bt1.length + bt2.length];
