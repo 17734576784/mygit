@@ -19,24 +19,24 @@ public class JUtilTest {
 	@Test
 	public void StrategyTest() {
 		JedisUtils.set("a", 111, 120);
-		try {
-			Thread.sleep(50000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			Thread.sleep(50000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 		long expireTime = JedisUtils.getExpire("a");
 		System.out.println("expireTime ：" + expireTime);
 		
 		JedisUtils.set("a", 222, expireTime);
-		
-		try {
-			Thread.sleep(20000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		
+//		try {
+//			Thread.sleep(20000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		expireTime = JedisUtils.getExpire("a");
 		System.out.println("expireTime ：" + expireTime);
 		
