@@ -55,8 +55,8 @@ public class Constant {
 	public static String realBasepath = new File(Constant.class.getResource("/").getPath()).getParent();
 
 	//Paths of certificates.
-	public static String SELFCERTPATH = "cert\\CertwithKey.pkcs12";
-	public static String TRUSTCAPATH = "cert\\ca.jks";
+	public static String SELFCERTPATH = "classpath:cert\\CertwithKey.pkcs12";
+	public static String TRUSTCAPATH = "classpath:cert\\ca.jks";
     
     //Password of certificates."classpath:cert\\outgoing.CertwithKey.pkcs12"
     public static String SELFCERTPWD = "IoM@1234";

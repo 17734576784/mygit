@@ -42,23 +42,23 @@
     </appender>
 
     <!--不同业务逻辑的日志打印到不同文件-->
-    <appender name="baitiaoUserAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>logs/iotservice/bt.log</File>
-        <append>true</append>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>INFO</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>logs/iotservice/bt.log.%d</fileNamePattern>
-            <maxHistory>180</maxHistory>
-        </rollingPolicy>
-        <encoder charset="UTF-8">
-            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] %level [%thread] %file:%line - %msg%n</pattern>
-            <charset>UTF-8</charset>
-        </encoder>
-    </appender>
+<!--     <appender name="baitiaoUserAppender" class="ch.qos.logback.core.rolling.RollingFileAppender"> -->
+<!--         <File>logs/iotservice/bt.log</File> -->
+<!--         <append>true</append> -->
+<!--         <filter class="ch.qos.logback.classic.filter.LevelFilter"> -->
+<!--             <level>INFO</level> -->
+<!--             <onMatch>ACCEPT</onMatch> -->
+<!--             <onMismatch>DENY</onMismatch> -->
+<!--         </filter> -->
+<!--         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"> -->
+<!--             <fileNamePattern>logs/iotservice/bt.log.%d</fileNamePattern> -->
+<!--             <maxHistory>180</maxHistory> -->
+<!--         </rollingPolicy> -->
+<!--         <encoder charset="UTF-8"> -->
+<!--             <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] %level [%thread] %file:%line - %msg%n</pattern> -->
+<!--             <charset>UTF-8</charset> -->
+<!--         </encoder> -->
+<!--     </appender> -->
 
     <appender name="CallBackAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <File>logs/iotservice/callback.log</File>
