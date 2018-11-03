@@ -13,7 +13,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.iot.utils.Log4jUtils;
+import com.iot.logger.LogName;
+import com.iot.logger.LoggerUtils;
 
 /** 
 * @ClassName: CommandContext 
@@ -35,7 +36,7 @@ public class CommandContext {
 		if (null != service) {
 			service.parse(deviceId, commandMap);
 		} else {
-			Log4jUtils.getInfo().info("不存在服务：" + commandName);
+			LoggerUtils.Logger(LogName.INFO).info("不存在服务：" + commandName);
 			System.out.println("不存在服务：" + commandName);
 		}
 	}

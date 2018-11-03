@@ -12,10 +12,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONObject;
+import com.iot.logger.LogName;
+import com.iot.logger.LoggerUtils;
 import com.iot.utils.Constant;
 import com.iot.utils.HttpsUtils;
 import com.iot.utils.JsonUtil;
-import com.iot.utils.Log4jUtils;
 
 /**   
  * @ClassName:  AlarmService   
@@ -37,7 +38,7 @@ public class AlarmService implements IServiceStrategy{
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
 
-		Log4jUtils.getInfo().info("上传告警:设备id：" + deviceId + " ,告警内容：" + serviceMap.toString());
+		LoggerUtils.Logger(LogName.CALLBACK).info("上传告警:设备id：" + deviceId + " ,告警内容：" + serviceMap.toString());
 		System.out.println("上传告警:设备id：" + deviceId + " ,告警内容：" + serviceMap.toString());
 		String apiUrl = baseUrl + Constant.UPLOAD_ALARM_URL;
 		
@@ -56,7 +57,7 @@ public class AlarmService implements IServiceStrategy{
 
 		JSONObject httpResult = HttpsUtils.doPost(apiUrl, paramMap);
 		if (httpResult.getInteger("status") == Constant.ERROR) {
-			Log4jUtils.getInfo().info("上传告警失败：设备id：" + deviceId + " ,告警内容：" + serviceMap.toString());
+			LoggerUtils.Logger(LogName.CALLBACK).info("上传告警失败：设备id：" + deviceId + " ,告警内容：" + serviceMap.toString());
 		}
 	}
 

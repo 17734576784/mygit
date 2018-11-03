@@ -18,13 +18,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONObject;
+import com.iot.logger.LogName;
+import com.iot.logger.LoggerUtils;
 import com.iot.utils.CommFunc;
 import com.iot.utils.Constant;
 import com.iot.utils.DateUtils;
 import com.iot.utils.FileUtils;
 import com.iot.utils.JedisUtils;
 import com.iot.utils.JsonUtil;
-import com.iot.utils.Log4jUtils;
 
 /**   
  * @ClassName:  PhotoService   
@@ -66,7 +67,7 @@ public class PhotoService implements IServiceStrategy {
 			photoByte = CommFunc.decode(photo);
 			System.out.println(" packnum : " + packnum + "  totalpack : " + totalpack + " deviceId :/" + deviceId);
 
-			Log4jUtils.getError().info(" packnum : " + packnum + "  totalpack : " + totalpack + " deviceId :/" + deviceId);
+			LoggerUtils.Logger(LogName.CALLBACK).info(" packnum : " + packnum + "  totalpack : " + totalpack + " deviceId :/" + deviceId);
 
 			if (JedisUtils.hasKey(deviceId)) {
 				JSONObject photoJson = new JSONObject();

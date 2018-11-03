@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 import com.iot.exception.ResultBean;
+import com.iot.logger.LogName;
+import com.iot.logger.LoggerUtils;
 import com.iot.utils.AuthenticationUtils;
 import com.iot.utils.Constant;
 import com.iot.utils.ConverterUtils;
 import com.iot.utils.IotHttpsUtil;
 import com.iot.utils.JsonUtil;
-import com.iot.utils.Log4jUtils;
 import com.iot.utils.StreamClosedHttpResponse;
 
 /**
@@ -40,7 +41,7 @@ public class ModifyDeviceInfoController {
 	@RequestMapping(value = "modifyDeviceInfo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResultBean<?> modifyDeviceInfo(String deviceInfo) throws Exception {
 		
-		Log4jUtils.getInfo().info("接收修改设备信息请求：" + deviceInfo);
+		LoggerUtils.Logger(LogName.INFO).info("接收修改设备信息请求：" + deviceInfo);
 		JSONObject paramModifyDevice = new JSONObject();
 		paramModifyDevice = JSONObject.parseObject(deviceInfo);
 	

@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.iot.utils.Log4jUtils;
-
+import com.iot.logger.LogName;
+import com.iot.logger.LoggerUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -39,7 +39,7 @@ public class WebExceptionHandle {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(HttpMessageNotReadableException.class)
 	public ResultBean<?> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
-		Log4jUtils.getError().error("参数解析失败", e);
+		LoggerUtils.Logger(LogName.ERROR).error("参数解析失败", e);
 		ResultBean<String> resultBean = new ResultBean<String>();
 		resultBean.setStatus(ErrorCodeEnum.FAILED.getStatus());
 		resultBean.setError("could_not_read_json");
@@ -52,7 +52,7 @@ public class WebExceptionHandle {
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResultBean<?> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
-    	Log4jUtils.getError().error("不支持当前请求方法", e);
+    	LoggerUtils.Logger(LogName.ERROR).error("不支持当前请求方法", e);
         ResultBean<String> resultBean = new ResultBean<String>();
 		resultBean.setStatus(ErrorCodeEnum.FAILED.getStatus());
 		resultBean.setError("不支持当前请求方法");
@@ -65,7 +65,7 @@ public class WebExceptionHandle {
 	@ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
 	@ExceptionHandler(HttpMediaTypeNotSupportedException.class)
 	public ResultBean<?> handleHttpMediaTypeNotSupportedException(Exception e) {
-		Log4jUtils.getError().error("不支持当前媒体类型", e);
+		LoggerUtils.Logger(LogName.ERROR).error("不支持当前媒体类型", e);
 		ResultBean<String> resultBean = new ResultBean<String>();
 		resultBean.setStatus(ErrorCodeEnum.FAILED.getStatus());
 		resultBean.setError("不支持当前媒体类型");
@@ -80,7 +80,7 @@ public class WebExceptionHandle {
     @ExceptionHandler(Exception.class)
 	public <T> T handleException(Exception e) {
     	T result = null;
-    	Log4jUtils.getError().error("服务运行异常", e);
+    	LoggerUtils.Logger(LogName.ERROR).error("服务运行异常", e);
         e.printStackTrace();
         
         StackTraceElement stackTraceElement= e.getStackTrace()[0];// 得到异常棧的首个元素

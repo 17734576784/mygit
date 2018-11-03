@@ -17,10 +17,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONObject;
+import com.iot.logger.LogName;
+import com.iot.logger.LoggerUtils;
 import com.iot.utils.Constant;
 import com.iot.utils.DateUtils;
 import com.iot.utils.HttpsUtils;
-import com.iot.utils.Log4jUtils;
 
 /** 
 * @ClassName: CommandAlarmService 
@@ -44,7 +45,7 @@ public class CommandAlarmService implements ICommandService {
 	*/
 	@Override
 	public void parse(String deviceId, Map<String, String> commandMap) {
-		Log4jUtils.getInfo().info("设置告警命令回复，设备id：" + deviceId + " ,告警内容：" + commandMap.toString());
+		LoggerUtils.Logger(LogName.INFO).info("设置告警命令回复，设备id：" + deviceId + " ,告警内容：" + commandMap.toString());
 		System.out.println("设置告警命令回复，设备id：" + deviceId + " ,告警内容：" + commandMap.toString());
 		String slope = toStr(commandMap.get("slopestatus"));
 		String magnetic = toStr(commandMap.get("magneticstatus"));
@@ -58,7 +59,7 @@ public class CommandAlarmService implements ICommandService {
 
 		JSONObject httpResult = HttpsUtils.doPost(apiUrl, paramMap);
 		if (httpResult.getInteger("status") == Constant.ERROR) {
-			Log4jUtils.getInfo().info("推送设置告警命令回复失败，设备id：" + deviceId + " ,告警内容：" + commandMap.toString());
+			LoggerUtils.Logger(LogName.INFO).info("推送设置告警命令回复失败，设备id：" + deviceId + " ,告警内容：" + commandMap.toString());
 		}
 	}
 

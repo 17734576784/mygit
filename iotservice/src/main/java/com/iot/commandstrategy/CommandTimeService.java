@@ -17,10 +17,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONObject;
+import com.iot.logger.LogName;
+import com.iot.logger.LoggerUtils;
 import com.iot.utils.Constant;
 import com.iot.utils.DateUtils;
 import com.iot.utils.HttpsUtils;
-import com.iot.utils.Log4jUtils;
 
 /**
  * @ClassName: CommandTimeService
@@ -46,7 +47,7 @@ public class CommandTimeService implements ICommandService {
 	@Override
 	public void parse(String deviceId, Map<String, String> commandMap) {
 		// TODO Auto-generated method stub
-		Log4jUtils.getInfo().info("设置上传周期命令回复，设备id：" + deviceId + " ,回复内容：" + commandMap.toString());
+		LoggerUtils.Logger(LogName.INFO).info("设置上传周期命令回复，设备id：" + deviceId + " ,回复内容：" + commandMap.toString());
 
 		String timetype = toStr(commandMap.get("timetype"));
 		String time = toStr(commandMap.get("time"));
@@ -62,7 +63,7 @@ public class CommandTimeService implements ICommandService {
 
 		JSONObject httpResult = HttpsUtils.doPost(apiUrl, paramMap);
 		if (httpResult.getInteger("status") == Constant.ERROR) {
-			Log4jUtils.getInfo().info("推送设置上传周期命令回复失败，设备id：" + deviceId + "，回复内容：" + commandMap.toString());
+			LoggerUtils.Logger(LogName.INFO).info("推送设置上传周期命令回复失败，设备id：" + deviceId + "，回复内容：" + commandMap.toString());
 		}
 	}
 

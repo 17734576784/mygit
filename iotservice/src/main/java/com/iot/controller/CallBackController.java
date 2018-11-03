@@ -16,11 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.iot.commandstrategy.CommandContext;
+import com.iot.logger.LogName;
+import com.iot.logger.LoggerUtils;
 import com.iot.servicestrategy.ServiceContext;
 import com.iot.utils.Constant;
 import com.iot.utils.JedisUtils;
 import com.iot.utils.JsonUtil;
-import com.iot.utils.Log4jUtils;
 import static com.iot.utils.ConverterUtils.*;
 
 @RestController
@@ -35,7 +36,7 @@ public class CallBackController {
 	@RequestMapping(value = "addDevice", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<HttpStatus> recvAddDeviceNotify(@RequestBody Object addDevice_NotifyMessage) {
 
-		Log4jUtils.getInfo().info("接收addDevice" + addDevice_NotifyMessage);
+		LoggerUtils.Logger(LogName.CALLBACK).info("接收addDevice" + addDevice_NotifyMessage);
 		Map<String, String> MessageMap = new HashMap<String, String>();
 		MessageMap = JsonUtil.jsonString2SimpleObj(addDevice_NotifyMessage, MessageMap.getClass());
 		String notifyType = toStr(MessageMap.get("notifyType"));
@@ -70,7 +71,7 @@ public class CallBackController {
 	@RequestMapping(value = "updateDeviceInfo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<HttpStatus> recvInfoChangeNotify(@RequestBody Object updateDeviceInfo_NotifyMessage) {
 
-		Log4jUtils.getInfo().info("接收deviceInfoChanged" + updateDeviceInfo_NotifyMessage);
+		LoggerUtils.Logger(LogName.CALLBACK).info("接收deviceInfoChanged" + updateDeviceInfo_NotifyMessage);
 
 		Map<String, String> messageMap = new HashMap<String, String>();
 		messageMap = JsonUtil.jsonString2SimpleObj(updateDeviceInfo_NotifyMessage, messageMap.getClass());
@@ -106,7 +107,7 @@ public class CallBackController {
 	@RequestMapping(value = "updateDeviceData", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<HttpStatus> recvDataChangeNotify(@RequestBody Object updateDeviceData_NotifyMessage) {
 
-		Log4jUtils.getInfo().info("接收updateDeviceData:" + updateDeviceData_NotifyMessage);
+		LoggerUtils.Logger(LogName.CALLBACK).info("接收updateDeviceData:" + updateDeviceData_NotifyMessage);
 		Map<String, String> messageMap = new HashMap<String, String>();
 		messageMap = JsonUtil.jsonString2SimpleObj(updateDeviceData_NotifyMessage, messageMap.getClass());
 		String deviceId = toStr(messageMap.get("deviceId"));
@@ -223,7 +224,7 @@ public class CallBackController {
 	@RequestMapping(value = "reportCmdExecResult", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<HttpStatus> reportCmdExecResult(@RequestBody Object reportCmdExecResult_NotifyMessage){
 
-		Log4jUtils.getInfo().info("接受命令响应：" + reportCmdExecResult_NotifyMessage);
+		LoggerUtils.Logger(LogName.CALLBACK).info("接受命令响应：" + reportCmdExecResult_NotifyMessage);
 
 		Map<String, String> messageMap = new HashMap<String, String>();
 		messageMap = JsonUtil.jsonString2SimpleObj(reportCmdExecResult_NotifyMessage, messageMap.getClass());

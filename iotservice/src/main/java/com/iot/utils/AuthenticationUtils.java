@@ -6,6 +6,9 @@ package com.iot.utils;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.iot.logger.LogName;
+import com.iot.logger.LoggerUtils;
+
 /**
  * @ClassName: AuthenticationUtils
  * @Description:鉴权工具类
@@ -34,7 +37,7 @@ public class AuthenticationUtils {
 			accessToken = data.get("accessToken");
 		} catch (Exception e) {
 			e.printStackTrace();
-			Log4jUtils.getError().error("鉴权异常");
+			LoggerUtils.Logger(LogName.ERROR).error("鉴权异常");
 		}
 
 		return accessToken;

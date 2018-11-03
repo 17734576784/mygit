@@ -19,6 +19,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 
 import com.alibaba.fastjson.JSONObject;
+import com.iot.logger.LogName;
+import com.iot.logger.LoggerUtils;
 
 /**
  * @ClassName: FileUtils
@@ -39,7 +41,7 @@ public class FileUtils {
 	 */
 	public static boolean upload(String url, String filePath, String date,String deviceId,String time) throws ClientProtocolException, IOException {
 		boolean flag = false;
-		Log4jUtils.getInfo().info("上传图片：deviceId : " + deviceId + " ,filePath:" + filePath);
+		LoggerUtils.Logger(LogName.CALLBACK).info("上传图片：deviceId : " + deviceId + " ,filePath:" + filePath);
 		try {
 			CloseableHttpClient httpClient = HttpClientBuilder.create().build();
 			CloseableHttpResponse httpResponse = null;
@@ -84,7 +86,7 @@ public class FileUtils {
 			}
 		} catch (Exception e) {
 			flag = false;
-			Log4jUtils.getInfo().error("上传图片异常:" + filePath);
+			LoggerUtils.Logger(LogName.CALLBACK).error("上传图片异常:" + filePath);
 			e.printStackTrace();
 		}
 

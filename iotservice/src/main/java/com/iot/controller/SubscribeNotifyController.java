@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iot.exception.ResultBean;
+import com.iot.logger.LogName;
+import com.iot.logger.LoggerUtils;
 import com.iot.utils.AuthenticationUtils;
 import com.iot.utils.Constant;
 import com.iot.utils.IotHttpsUtil;
-import com.iot.utils.Log4jUtils;
 
 /**
  * @ClassName: SubscribeNotifyController
@@ -36,7 +37,7 @@ public class SubscribeNotifyController {
 	@RequestMapping(value = "subscribeNotify", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResultBean<?> subscribeNotify(String  notify) throws Exception {
 		
-		Log4jUtils.getInfo().info("接收订阅请求:" + notify);
+		LoggerUtils.Logger(LogName.INFO).info("接收订阅请求:" + notify);
 		IotHttpsUtil httpsUtil = new IotHttpsUtil();
 		httpsUtil.initSSLConfigForTwoWay();
 

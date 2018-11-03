@@ -17,13 +17,14 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.iot.exception.ResultBean;
+import com.iot.logger.LogName;
+import com.iot.logger.LoggerUtils;
 import com.iot.utils.AuthenticationUtils;
 import com.iot.utils.Constant;
 import com.iot.utils.ConverterUtils;
 import com.iot.utils.IotHttpsUtil;
 import com.iot.utils.JedisUtils;
 import com.iot.utils.JsonUtil;
-import com.iot.utils.Log4jUtils;
 
 /**
  * @ClassName: PostAsynCommandController
@@ -47,7 +48,7 @@ public class PostAsynCommandController {
 	@RequestMapping(value = "asynCommand", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResultBean<?> asynCommand(String command) throws Exception {
 		
-		Log4jUtils.getInfo().info("接收下发命令请求：" + command);
+		LoggerUtils.Logger(LogName.INFO).info("接收下发命令请求：" + command);
 		JSONObject paramAsynCommand = new JSONObject();
 		paramAsynCommand = JSONObject.parseObject(command);
 

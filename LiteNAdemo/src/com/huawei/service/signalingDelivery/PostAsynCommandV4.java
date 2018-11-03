@@ -58,17 +58,17 @@ public class PostAsynCommandV4 {
         String appId = Constant.APPID;
 
         //please replace the deviceId, when you use the demo.
-        String deviceId = "9cc08c4d-e56d-4021-a043-66a3d7132ee9";
+        String deviceId = "f6a04fd0-a97a-4058-ac3c-73c7f80fb013";
 //        String callbackUrl = Constant.REPORT_CMD_EXEC_RESULT_CALLBACK_URL;
-        String callbackUrl = "https://222.222.60.180:8443/commandRspData";
+        String callbackUrl = "https://129.28.69.163:8443/reportCmdExecResult";
 
         //please replace the following parameter values, when you use the demo.
         //And those parameter values must be consistent with the content of profile that have been preset to IoT platform.
         //The following parameter values of this demo are use the watermeter profile that already initialized to IoT platform.
-        String serviceId = "PhotoData";
-        String method = "SendPhoto_once";
+        String serviceId = "PhotoService";
+        String method = "sendohotoonce";
         
-        ObjectNode paras = JsonUtil.convertObject2ObjectNode("{\"value\":\"0\"}");
+        ObjectNode paras = JsonUtil.convertObject2ObjectNode("{\"value\":\"1\"}");
       
         Map<String, Object> paramCommand = new HashMap<>();
         paramCommand.put("serviceId", serviceId);

@@ -9,10 +9,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iot.exception.ResultBean;
+import com.iot.logger.LogName;
+import com.iot.logger.LoggerUtils;
 import com.iot.utils.AuthenticationUtils;
 import com.iot.utils.Constant;
 import com.iot.utils.IotHttpsUtil;
-import com.iot.utils.Log4jUtils;
 import com.iot.utils.StreamClosedHttpResponse;
 
 @RestController
@@ -20,7 +21,7 @@ public class DeleteDeviceController {
 	
 	@RequestMapping(value = "deleteDevice", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResultBean<?> deleteDevice(String deviceId) throws Exception {
-		Log4jUtils.getInfo().info("接收设备删除请求:" + deviceId);
+		LoggerUtils.Logger(LogName.INFO).info("接收设备删除请求:" + deviceId);
 		
 		IotHttpsUtil httpsUtil = new IotHttpsUtil();
 		httpsUtil.initSSLConfigForTwoWay();
