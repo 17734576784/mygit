@@ -15,6 +15,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.iot.logger.LogName;
 import com.iot.logger.LoggerUtils;
 import com.iot.utils.Constant;
+import com.iot.utils.DateUtils;
 import com.iot.utils.HttpsUtils;
 import com.iot.utils.JsonUtil;
 
@@ -50,14 +51,16 @@ public class AlarmService implements IServiceStrategy{
 			String magnetic = toStr(dataMap.get("magnetic"));
 			String alarmtype = toStr(dataMap.get("alarmtype"));
 
-			JSONObject paramJson = new JSONObject();
+			Map<String,Object> paramJson = new HashMap<>();
 			paramJson.put("slope", slope);
 			paramJson.put("magnetic", magnetic);
 			paramJson.put("alarmtype", alarmtype);
 			paramJson.put("deviceId", deviceId);
-			
+			paramJson.put("date",DateUtils.curDate() );
+			paramJson.put("time", DateUtils.curTime());
+
 			Map<String, Object> paramMap = new HashMap<>();
-			paramMap.put("param", paramJson.toString());
+			paramMap.put("param", paramJson);
 			JSONObject httpResult = HttpsUtils.doPost(apiUrl, paramMap);
 			if (httpResult != null && !httpResult.isEmpty()) {
 				if (httpResult.getInteger("status") == Constant.ERROR) {

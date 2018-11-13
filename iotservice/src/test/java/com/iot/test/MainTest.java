@@ -5,74 +5,62 @@ import java.util.HashMap;
 import java.util.Map;
 import org.apache.http.client.ClientProtocolException;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.iot.logger.LogName;
+import com.iot.logger.LoggerUtils;
 import com.iot.utils.CommFunc;
 import com.iot.utils.Constant;
+import com.iot.utils.DateUtils;
+import com.iot.utils.HttpsUtils;
 
 public class MainTest {
 
-	public static void main(String[] args) throws ClientProtocolException, IOException {
-		System.out.println(CommFunc.getCertPath(Constant.SELFCERTPATH));
+	public static void main(String[] args) throws ClientProtocolException, IOException { 
+		String base =  "http://222.222.60.178:18130/Enterprise_EnnGas/enngas/message/";
+		String apiUrl = base + Constant.UPLOAD_ALARMCOMMAND_URL;
+
+		Map<String, Object> paramJson =  new HashMap<>();
+		paramJson.put("slope", 1);
+		paramJson.put("magnetic", 1);
+		paramJson.put("alarmtype", 1);
 		
-		Map<String,Object> paramMap = new HashMap<>();
-		paramMap.put("slope", 1);
-		paramMap.put("magnetic", 2);
-		paramMap.put("alarmtype", 3);
+		paramJson.put("date", DateUtils.curDate());
+		paramJson.put("time", DateUtils.curTime());
+		paramJson.put("deviceId", "6e3dfa04-a0ef-4a8a-9475-f6b65605467e");
 		
-		System.out.println(paramMap.toString());
-//		String apiUrl = "http://127.0.0.1:8443/test";
-//		System.out.println(HttpsUtils.doPost(apiUrl));
-//		String str = "photoService";
-//		System.out.println(CommFunc.toLowerCaseFirstOne(str));
-		// TODO Auto-generated method stub
-//		String str = "ASNFZ4mrze8BI0VniavN7wEjRWeJq83vASNFZ4mrze8BI0VniavN7wEjRWeJq83vASNFZ4mrze8BI0VniavN7wEjRWeJq83vASNFZ4mrze8BI0VniavN7wEjRWeJq83vAAAAAA==";
-//		byte[] result = decode(str);
-//		for (byte b : result) {
-//			System.out.print(b + " ");
-//		}
+		apiUrl = base + "nbNotifyAction!notifyAlarm.action";
 		
-//		System.out.println(LocalDateTime.now().getNano());
-//		String fileName = "d://c446472e-207d-4c53-a676-4fd3873b6406.jpeg";
-//		byte[] a = new byte[10];
-//		for (int i = 0; i < a.length; i++) {
-//			a[i] = (byte)i;
-//		}
+//		paramJson.put("cycle", 0);
+//		paramJson.put("devicetime", 13);
+//		paramJson.put("status", 0);
+//		paramJson.put("date", DateUtils.curDate());
+//		paramJson.put("time", DateUtils.curTime());
+//		paramJson.put("deviceId", "6e3dfa04-a0ef-4a8a-9475-f6b65605467e");
+//		apiUrl = base + Constant.UPLOAD_TIMECOMMAND_URL;
+		
+//		paramJson.put("check", 0);
+//		paramJson.put("date", DateUtils.curDate());
+//		paramJson.put("time", DateUtils.curTime());
+//		paramJson.put("deviceId", "6e3dfa04-a0ef-4a8a-9475-f6b65605467e");
+//		apiUrl = base + "nbNotifyAction!checkExistOrders.action";
+
+		Map<String, Object> urlMap = new HashMap<>();
+		urlMap.put("param", paramJson.toString());
+		try {
+			JSONObject httpResult = HttpsUtils.doPost(apiUrl, urlMap);
+			System.out.println(httpResult);
+			if (httpResult != null && !httpResult.isEmpty()) {
+				if (httpResult.getInteger("status") == Constant.ERROR) {
+					LoggerUtils.Logger(LogName.INFO).info("推送设置告警命令回复失败，设备id：" );
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		
+//		String txt="{\"status\":0,\"error\":\"\"}";
 //		
-//		CommFunc.byte2image(a, fileName);
-		
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//		System.out.println(sdf.format(new Date()));
-//		String selfcertpath =  ResourceUtils.getFile(Constant.SELFCERTPATH).getAbsolutePath();
-//System.out.println("selfcertpath");
-//		new FileInputStream(selfcertpath);
-//		System.out.println(	new FileInputStream(file)+"  "+file.getAbsolutePath());
-//		FileUtils.upload(Constant.UPLOADIMAGEURL, "d:/cee8649d-c079-4424-aa76-a05a085881d6_40000000.jpeg", "20180912", "cee8649d-c079-4424-aa76-a05a085881d6");
-
+//		System.out.println(JSON.parseObject(txt));
 	}
-	
-	/**  
-	    * 编码  
-	    * @param bstr  
-	    * @return String  
-	    */    
-	   public static String encode(byte[] bstr){    
-	   return new sun.misc.BASE64Encoder().encode(bstr);    
-	   }    
-	   
-	   /**  
-	    * 解码  
-	    * @param str  
-	    * @return string  
-	    */    
-	   public static byte[] decode(String str){    
-	   byte[] bt = null;    
-	   try {    
-	       sun.misc.BASE64Decoder decoder = new sun.misc.BASE64Decoder();    
-	       bt = decoder.decodeBuffer( str );    
-	   } catch (IOException e) {    
-	       e.printStackTrace();    
-	   }    
-	   
-	       return bt;    
-	   }
-
 }

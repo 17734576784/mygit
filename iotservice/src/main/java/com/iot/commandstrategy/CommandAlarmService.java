@@ -51,7 +51,7 @@ public class CommandAlarmService implements ICommandService {
 		String magnetic = toStr(commandMap.get("magneticstatus"));
 		String apiUrl = baseUrl + Constant.UPLOAD_ALARMCOMMAND_URL;
 
-		JSONObject paramJson = new JSONObject();
+		Map<String, Object> paramJson =  new HashMap<>();
 		paramJson.put("slope", slope);
 		paramJson.put("magnetic", magnetic);
 		paramJson.put("date", DateUtils.curDate());
@@ -59,7 +59,7 @@ public class CommandAlarmService implements ICommandService {
 		paramJson.put("deviceId", deviceId);
 
 		Map<String, Object> urlMap = new HashMap<>();
-		urlMap.put("param", paramJson);
+		urlMap.put("param", paramJson.toString());
 		try {
 			JSONObject httpResult = HttpsUtils.doPost(apiUrl, urlMap);
 			if (httpResult != null && !httpResult.isEmpty()) {

@@ -48,7 +48,7 @@ public class CommandTimeService implements ICommandService {
 	public void parse(String deviceId, Map<String, String> commandMap) {
 		// TODO Auto-generated method stub
 		LoggerUtils.Logger(LogName.INFO).info("设置上传周期命令回复，设备id：" + deviceId + " ,回复内容：" + commandMap.toString());
-
+		System.out.println("设置上传周期命令回复，设备id：" + deviceId + " ,回复内容：" + commandMap.toString());
 		String timetype = toStr(commandMap.get("timetype"));
 		String time = toStr(commandMap.get("time"));
 		String status = toStr(commandMap.get("status"));
@@ -56,7 +56,7 @@ public class CommandTimeService implements ICommandService {
 
 		Map<String, Object> paramJson = new HashMap<String, Object>();
 		paramJson.put("cycle", timetype);
-//		paramJson.put("devicetime", time);
+		paramJson.put("devicetime", time);
 		paramJson.put("status", status);
 		paramJson.put("date", DateUtils.curDate());
 		paramJson.put("time", DateUtils.curTime());

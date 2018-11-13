@@ -45,10 +45,9 @@ import com.alibaba.fastjson.JSONObject;
  *      
  */
 public class HttpsUtils {
-	private static PoolingHttpClientConnectionManager	connMgr;
-	private static RequestConfig				requestConfig;
-	private static final int				MAX_TIMEOUT	= 20000;
- 
+	private static PoolingHttpClientConnectionManager connMgr;
+	private static RequestConfig requestConfig;
+	private static final int MAX_TIMEOUT = 200000;
  
 	static {
 		// 设置连接池
@@ -151,7 +150,8 @@ public class HttpsUtils {
 		String httpStr = null;
 		HttpPost httpPost = new HttpPost(apiUrl);
 		CloseableHttpResponse response = null;
- 
+		JSONObject rtnJson = new JSONObject();
+
 		try {
 			httpPost.setConfig(requestConfig);
 			List<NameValuePair> pairList = new ArrayList<>(params.size());
@@ -163,7 +163,10 @@ public class HttpsUtils {
 			response = httpClient.execute(httpPost);
 			HttpEntity entity = response.getEntity();
 			httpStr = EntityUtils.toString(entity, "UTF-8");
-		} catch (IOException e) {
+			httpStr = httpStr.replace("\\\"", "'").replace("\"", "");
+			rtnJson = JSONObject.parseObject(httpStr);
+			
+		} catch (Exception e) {
 //			LoggerUtils.error(logger, e, e.getMessage());
 //			throw new ServiceException(e.getMessage());
 			e.printStackTrace();
@@ -174,11 +177,12 @@ public class HttpsUtils {
 				} catch (IOException e) {
 //					LoggerUtils.error(logger, e, e.getMessage());
 //					throw new ServiceException(e.getMessage());
+					System.out.println(22);
 					e.printStackTrace();
 				}
 			}
 		}
-		return JSON.parseObject(httpStr);
+		return rtnJson;
 	}
  
 	/**
