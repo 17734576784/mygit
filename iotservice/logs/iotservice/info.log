@@ -271,3 +271,4 @@
 [2018-11-13 11:24:03.848] INFO [https-jsse-nio-8443-exec-4] CommandTimeService.java:50 - 设置上传周期命令回复，设备id：5a5e816b-1c88-4bf1-a00e-e66f860afad2 ,回复内容：{timetype=0, time= , status=0}
 [2018-11-13 11:30:05.859] INFO [https-jsse-nio-8443-exec-9] CommandTimeService.java:50 - 设置上传周期命令回复，设备id：5a5e816b-1c88-4bf1-a00e-e66f860afad2 ,回复内容：{timetype=0, time= , status=0}
 [2018-11-13 11:36:06.255] INFO [https-jsse-nio-8443-exec-5] CommandTimeService.java:50 - 设置上传周期命令回复，设备id：5a5e816b-1c88-4bf1-a00e-e66f860afad2 ,回复内容：{timetype=0, time= , status=0}
+[2018-11-13 11:42:05.742] INFO [https-jsse-nio-8443-exec-1] CommandTimeService.java:50 - 设置上传周期命令回复，设备id：5a5e816b-1c88-4bf1-a00e-e66f860afad2 ,回复内容：{timetype=0, time= , status=0}
