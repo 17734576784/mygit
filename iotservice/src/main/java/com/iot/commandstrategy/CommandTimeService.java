@@ -54,12 +54,16 @@ public class CommandTimeService implements ICommandService {
 		String status = toStr(commandMap.get("status"));
 		String apiUrl = baseUrl + Constant.UPLOAD_TIMECOMMAND_URL;
 
+		JSONObject paramJson = new JSONObject();
+		paramJson.put("cycle", timetype);
+		paramJson.put("devicetime", time);
+		paramJson.put("status", status);
+		paramJson.put("date", DateUtils.curDate());
+		paramJson.put("time", DateUtils.curTime());
+		paramJson.put("deviceId", deviceId);
+
 		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("cycle", timetype);
-		paramMap.put("devicetime", time);
-		paramMap.put("status", status);
-		paramMap.put("date", DateUtils.curDate());
-		paramMap.put("time", DateUtils.curTime());
+		paramMap.put("param", paramJson.toString());
 
 		JSONObject httpResult = HttpsUtils.doPost(apiUrl, paramMap);
 		if (httpResult.getInteger("status") == Constant.ERROR) {

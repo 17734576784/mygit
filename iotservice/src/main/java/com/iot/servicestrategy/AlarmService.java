@@ -50,11 +50,14 @@ public class AlarmService implements IServiceStrategy{
 		String magnetic = toStr(dataMap.get("magnetic"));
 		String alarmtype = toStr(dataMap.get("alarmtype"));
 
+		JSONObject paramJson = new JSONObject();
+		paramJson.put("slope", slope);
+		paramJson.put("magnetic", magnetic);
+		paramJson.put("alarmtype", alarmtype);
+		paramJson.put("deviceId", deviceId);
+		
 		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("slope", slope);
-		paramMap.put("magnetic", magnetic);
-		paramMap.put("alarmtype", alarmtype);
-
+		paramMap.put("param", paramJson.toString());
 		JSONObject httpResult = HttpsUtils.doPost(apiUrl, paramMap);
 		if (httpResult.getInteger("status") == Constant.ERROR) {
 			LoggerUtils.Logger(LogName.CALLBACK).info("上传告警失败：设备id：" + deviceId + " ,告警内容：" + serviceMap.toString());

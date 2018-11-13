@@ -51,13 +51,17 @@ public class CommandAlarmService implements ICommandService {
 		String magnetic = toStr(commandMap.get("magneticstatus"));
 		String apiUrl = baseUrl + Constant.UPLOAD_ALARMCOMMAND_URL;
 
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("slope", slope);
-		paramMap.put("magnetic", magnetic);
-		paramMap.put("date", DateUtils.curDate());
-		paramMap.put("time", DateUtils.curTime());
+		JSONObject paramJson = new JSONObject();
+		paramJson.put("slope", slope);
+		paramJson.put("magnetic", magnetic);
+		paramJson.put("date", DateUtils.curDate());
+		paramJson.put("time", DateUtils.curTime());
+		paramJson.put("deviceId", deviceId);
 
-		JSONObject httpResult = HttpsUtils.doPost(apiUrl, paramMap);
+		Map<String, Object> urlMap = new HashMap<>();
+		urlMap.put("param", paramJson.toString());
+
+		JSONObject httpResult = HttpsUtils.doPost(apiUrl, urlMap);
 		if (httpResult.getInteger("status") == Constant.ERROR) {
 			LoggerUtils.Logger(LogName.INFO).info("推送设置告警命令回复失败，设备id：" + deviceId + " ,告警内容：" + commandMap.toString());
 		}
