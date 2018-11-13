@@ -272,3 +272,8 @@
 [2018-11-13 11:30:05.859] INFO [https-jsse-nio-8443-exec-9] CommandTimeService.java:50 - 设置上传周期命令回复，设备id：5a5e816b-1c88-4bf1-a00e-e66f860afad2 ,回复内容：{timetype=0, time= , status=0}
 [2018-11-13 11:36:06.255] INFO [https-jsse-nio-8443-exec-5] CommandTimeService.java:50 - 设置上传周期命令回复，设备id：5a5e816b-1c88-4bf1-a00e-e66f860afad2 ,回复内容：{timetype=0, time= , status=0}
 [2018-11-13 11:42:05.742] INFO [https-jsse-nio-8443-exec-1] CommandTimeService.java:50 - 设置上传周期命令回复，设备id：5a5e816b-1c88-4bf1-a00e-e66f860afad2 ,回复内容：{timetype=0, time= , status=0}
+[2018-11-13 11:43:07.129] INFO [https-jsse-nio-8443-exec-8] RegisterDeviceController.java:42 - 接收设备注册请求:{"verifyCode":"869029030105323","nodeId":"869029030105323","timeout":"0"}
+[2018-11-13 11:43:45.512] INFO [https-jsse-nio-8443-exec-1] ModifyDeviceInfoController.java:44 - 接收修改设备信息请求：{"deviceId":"6e3dfa04-a0ef-4a8a-9475-f6b65605467e","name":"869029030105323","manufacturerId":"XL","manufacturerName":"XL","deviceType":"WaterMeter","model":"12345","protocolType":"CoAP"}
+[2018-11-13 11:44:33.632] INFO [https-jsse-nio-8443-exec-4] PostAsynCommandController.java:51 - 接收下发命令请求：{"deviceId":"6e3dfa04-a0ef-4a8a-9475-f6b65605467e","serviceId":"PhotoService","method":"sendphotoonce","param":{"value":"1"}}
+[2018-11-13 11:48:05.613] INFO [https-jsse-nio-8443-exec-10] CommandTimeService.java:50 - 设置上传周期命令回复，设备id：5a5e816b-1c88-4bf1-a00e-e66f860afad2 ,回复内容：{timetype=0, time= , status=0}
+[2018-11-13 11:49:12.092] INFO [https-jsse-nio-8443-exec-10] CommandTimeService.java:50 - 设置上传周期命令回复，设备id：5a5e816b-1c88-4bf1-a00e-e66f860afad2 ,回复内容：{timetype=0, time= , status=0}
