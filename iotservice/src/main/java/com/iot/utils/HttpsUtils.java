@@ -136,10 +136,8 @@ public class HttpsUtils {
 	/**
 	 * 发送 POST 请求，K-V形式
 	 * 
-	 * @param apiUrl
-	 *            API接口URL
-	 * @param params
-	 *            参数map
+	 * @param apiUrl API接口URL
+	 * @param params 参数map
 	 * @return
 	 */
 	public static JSONObject doPost(String apiUrl, Map<String, Object> params) {

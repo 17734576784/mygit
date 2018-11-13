@@ -66,8 +66,10 @@ public class CommandTimeService implements ICommandService {
 		paramMap.put("param", paramJson.toString());
 
 		JSONObject httpResult = HttpsUtils.doPost(apiUrl, paramMap);
-		if (httpResult.getInteger("status") == Constant.ERROR) {
-			LoggerUtils.Logger(LogName.INFO).info("推送设置上传周期命令回复失败，设备id：" + deviceId + "，回复内容：" + commandMap.toString());
+		if (httpResult != null && !httpResult.isEmpty()) {
+			if (httpResult.getInteger("status") == Constant.ERROR) {
+				LoggerUtils.Logger(LogName.INFO).info("推送设置上传周期命令回复失败，设备id：" + deviceId + "，回复内容：" + commandMap.toString());
+			}
 		}
 	}
 

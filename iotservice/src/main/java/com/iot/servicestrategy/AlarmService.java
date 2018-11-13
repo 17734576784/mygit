@@ -59,8 +59,10 @@ public class AlarmService implements IServiceStrategy{
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("param", paramJson.toString());
 		JSONObject httpResult = HttpsUtils.doPost(apiUrl, paramMap);
-		if (httpResult.getInteger("status") == Constant.ERROR) {
-			LoggerUtils.Logger(LogName.CALLBACK).info("上传告警失败：设备id：" + deviceId + " ,告警内容：" + serviceMap.toString());
+		if (httpResult != null && !httpResult.isEmpty()) {
+			if (httpResult.getInteger("status") == Constant.ERROR) {
+				LoggerUtils.Logger(LogName.CALLBACK).info("上传告警失败：设备id：" + deviceId + " ,告警内容：" + serviceMap.toString());
+			}
 		}
 	}
 
