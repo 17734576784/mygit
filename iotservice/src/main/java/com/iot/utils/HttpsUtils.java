@@ -47,7 +47,7 @@ import com.alibaba.fastjson.JSONObject;
 public class HttpsUtils {
 	private static PoolingHttpClientConnectionManager	connMgr;
 	private static RequestConfig				requestConfig;
-	private static final int				MAX_TIMEOUT	= 7000;
+	private static final int				MAX_TIMEOUT	= 20000;
  
  
 	static {

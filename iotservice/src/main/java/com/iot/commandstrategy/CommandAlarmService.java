@@ -59,15 +59,17 @@ public class CommandAlarmService implements ICommandService {
 		paramJson.put("deviceId", deviceId);
 
 		Map<String, Object> urlMap = new HashMap<>();
-		urlMap.put("param", paramJson.toString());
-
-		JSONObject httpResult = HttpsUtils.doPost(apiUrl, urlMap);
-		if (httpResult != null && !httpResult.isEmpty()) {
-			if (httpResult.getInteger("status") == Constant.ERROR) {
-				LoggerUtils.Logger(LogName.INFO).info("推送设置告警命令回复失败，设备id：" + deviceId + " ,告警内容：" + commandMap.toString());
+		urlMap.put("param", paramJson);
+		try {
+			JSONObject httpResult = HttpsUtils.doPost(apiUrl, urlMap);
+			if (httpResult != null && !httpResult.isEmpty()) {
+				if (httpResult.getInteger("status") == Constant.ERROR) {
+					LoggerUtils.Logger(LogName.INFO).info("推送设置告警命令回复失败，设备id：" + deviceId + " ,告警内容：" + commandMap.toString());
+				}
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
 	}
 
 }

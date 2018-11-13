@@ -54,7 +54,7 @@ public class CommandTimeService implements ICommandService {
 		String status = toStr(commandMap.get("status"));
 		String apiUrl = baseUrl + Constant.UPLOAD_TIMECOMMAND_URL;
 
-		JSONObject paramJson = new JSONObject();
+		Map<String, Object> paramJson = new HashMap<String, Object>();
 		paramJson.put("cycle", timetype);
 		paramJson.put("devicetime", time);
 		paramJson.put("status", status);
@@ -63,14 +63,19 @@ public class CommandTimeService implements ICommandService {
 		paramJson.put("deviceId", deviceId);
 
 		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("param", paramJson.toString());
+		paramMap.put("param", paramJson);
 
-		JSONObject httpResult = HttpsUtils.doPost(apiUrl, paramMap);
-		if (httpResult != null && !httpResult.isEmpty()) {
-			if (httpResult.getInteger("status") == Constant.ERROR) {
-				LoggerUtils.Logger(LogName.INFO).info("推送设置上传周期命令回复失败，设备id：" + deviceId + "，回复内容：" + commandMap.toString());
+		try {
+			JSONObject httpResult = HttpsUtils.doPost(apiUrl, paramMap);
+			if (httpResult != null && !httpResult.isEmpty()) {
+				if (httpResult.getInteger("status") == Constant.ERROR) {
+					LoggerUtils.Logger(LogName.INFO).info("推送设置上传周期命令回复失败，设备id：" + deviceId + "，回复内容：" + commandMap.toString());
+				}
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		
 	}
 
 }

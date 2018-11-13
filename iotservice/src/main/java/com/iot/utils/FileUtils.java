@@ -185,7 +185,7 @@ public class FileUtils {
         return by;
     }
     
-    private static byte[] byteMergerAll(byte[]... values) {
+	public static byte[] byteMergerAll(byte[]... values) {
         int length_byte = 0;
             for (int i = 0; i < values.length; i++) {
                 length_byte += values[i].length;
