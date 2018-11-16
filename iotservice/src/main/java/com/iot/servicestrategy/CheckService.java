@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
+import com.iot.utils.ConverterUtils;
 import com.iot.utils.JsonUtil;
 
 /**   
@@ -36,9 +37,10 @@ public class CheckService implements IServiceStrategy {
 			
 			String check = toStr(dataMap.get("check"));	
 			String version = toStr(dataMap.get("ver"));
-			String date = toStr(dataMap.get("data"));
+			int dateTen = ConverterUtils.toInt(dataMap.get("data"));
+	        String dateHex = String.format("%08x",dateTen);
 			
-			System.out.println("check : " + check + "  version : " + version + " date: " + date);
+			System.out.println("check : " + check + "  version : " + version + " date: " + dateHex);
 //			if (isdata.equals(Constant.UPLOADPIC)) {
 //				IotHttpsUtil httpsUtil = new IotHttpsUtil();
 //				httpsUtil.initSSLConfigForTwoWay();

@@ -19,7 +19,6 @@ public class MainTest {
 	public static void main(String[] args) throws ClientProtocolException, IOException { 
 		String base =  "http://222.222.60.178:18130/Enterprise_EnnGas/enngas/message/";
 		String apiUrl = base + Constant.UPLOAD_ALARMCOMMAND_URL;
-String a="ddddddddddddddddd";
 		Map<String, Object> paramJson =  new HashMap<>();
 		paramJson.put("slope", 1);
 		paramJson.put("magnetic", 1);
