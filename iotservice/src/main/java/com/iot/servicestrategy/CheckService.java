@@ -34,8 +34,11 @@ public class CheckService implements IServiceStrategy {
 			Map<String, String> dataMap = new HashMap<String, String>();
 			dataMap = JsonUtil.jsonString2SimpleObj(data, dataMap.getClass());
 			
-			String check = toStr(dataMap.get("check"));
-			System.out.println("check : "+ check);
+			String check = toStr(dataMap.get("check"));	
+			String version = toStr(dataMap.get("ver"));
+			String date = toStr(dataMap.get("data"));
+			
+			System.out.println("check : " + check + "  version : " + version + " date: " + date);
 //			if (isdata.equals(Constant.UPLOADPIC)) {
 //				IotHttpsUtil httpsUtil = new IotHttpsUtil();
 //				httpsUtil.initSSLConfigForTwoWay();
