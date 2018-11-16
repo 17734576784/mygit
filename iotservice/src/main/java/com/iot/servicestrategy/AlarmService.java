@@ -15,6 +15,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.iot.logger.LogName;
 import com.iot.logger.LoggerUtils;
 import com.iot.utils.Constant;
+import com.iot.utils.DateUtils;
 import com.iot.utils.HttpsUtils;
 import com.iot.utils.JsonUtil;
 
@@ -41,24 +42,33 @@ public class AlarmService implements IServiceStrategy{
 		LoggerUtils.Logger(LogName.CALLBACK).info("上传告警:设备id：" + deviceId + " ,告警内容：" + serviceMap.toString());
 		System.out.println("上传告警:设备id：" + deviceId + " ,告警内容：" + serviceMap.toString());
 		String apiUrl = baseUrl + Constant.UPLOAD_ALARM_URL;
-		
-		Object data = serviceMap.get("data");
-		Map<String, String> dataMap = new HashMap<String, String>();
-		dataMap = JsonUtil.jsonString2SimpleObj(data, dataMap.getClass());
+		try {
+			Object data = serviceMap.get("data");
+			Map<String, String> dataMap = new HashMap<String, String>();
+			dataMap = JsonUtil.jsonString2SimpleObj(data, dataMap.getClass());
 
-		String slope = toStr(dataMap.get("slope"));
-		String magnetic = toStr(dataMap.get("magnetic"));
-		String alarmtype = toStr(dataMap.get("alarmtype"));
+			String slope = toStr(dataMap.get("slope"));
+			String magnetic = toStr(dataMap.get("magnetic"));
+			String alarmtype = toStr(dataMap.get("alarmtype"));
 
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("slope", slope);
-		paramMap.put("magnetic", magnetic);
-		paramMap.put("alarmtype", alarmtype);
+			Map<String,Object> paramJson = new HashMap<>();
+			paramJson.put("slope", slope);
+			paramJson.put("magnetic", magnetic);
+			paramJson.put("alarmtype", alarmtype);
+			paramJson.put("deviceId", deviceId);
+			paramJson.put("date",DateUtils.curDate() );
+			paramJson.put("time", DateUtils.curTime());
 
-		JSONObject httpResult = HttpsUtils.doPost(apiUrl, paramMap);
-		if (httpResult.getInteger("status") == Constant.ERROR) {
-			LoggerUtils.Logger(LogName.CALLBACK).info("上传告警失败：设备id：" + deviceId + " ,告警内容：" + serviceMap.toString());
+			Map<String, Object> paramMap = new HashMap<>();
+			paramMap.put("param", paramJson);
+			JSONObject httpResult = HttpsUtils.doPost(apiUrl, paramMap);
+			if (httpResult != null && !httpResult.isEmpty()) {
+				if (httpResult.getInteger("status") == Constant.ERROR) {
+					LoggerUtils.Logger(LogName.CALLBACK).info("上传告警失败：设备id：" + deviceId + " ,告警内容：" + serviceMap.toString());
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
-
 }

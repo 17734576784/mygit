@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [2018-11-12 09:47:56.622] INFO [main] AbstractApplicationContext.java:590 - Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@20f5281c: startup date [Mon Nov 12 09:47:56 CST 2018]; root of context hierarchy
 [2018-11-12 09:47:58.143] INFO [main] RepositoryConfigurationDelegate.java:163 - Multiple Spring Data modules found, entering strict repository configuration mode!
 [2018-11-12 09:47:59.538] INFO [main] TomcatWebServer.java:91 - Tomcat initialized with port(s): 8443 (https)
@@ -74,3 +75,28 @@
 [2018-11-12 16:30:23.963] INFO [main] AbstractUrlHandlerMapping.java:373 - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
 [2018-11-12 16:30:24.063] INFO [main] ExceptionHandlerExceptionResolver.java:288 - Detected @ExceptionHandler methods in webExceptionHandle
 [2018-11-12 16:30:28.814] INFO [Thread-2] AbstractApplicationContext.java:993 - Closing org.springframework.web.context.support.GenericWebApplicationContext@7ac296f6: startup date [Mon Nov 12 16:30:08 CST 2018]; root of context hierarchy
+=======
+[2018-11-15 09:14:16.987] INFO [https-jsse-nio-8443-exec-3] PostAsynCommandController.java:51 - 接收下发命令请求：null
+[2018-11-15 09:15:22.440] INFO [https-jsse-nio-8443-exec-7] PostAsynCommandController.java:51 - 接收下发命令请求：{"method":"commandUpTimeService","param":"{\"timetype\":0,\"time\":15}","serviceId":"TimeService","deviceId":"e66d45c5-cdcb-41bd-b2a4-74032bf4c46e"}
+[2018-11-15 09:16:43.668] INFO [https-jsse-nio-8443-exec-1] PostAsynCommandController.java:51 - 接收下发命令请求：{"method":"commandUpTimeService","param":"{\"timetype\":0,\"time\":15}","serviceId":"TimeService","deviceId":"91f41ce7-859a-4e68-b009-c48970d3ba35"}
+[2018-11-15 09:44:06.468] INFO [https-jsse-nio-8443-exec-6] RegisterDeviceController.java:42 - 接收设备注册请求:{"verifyCode":"1","nodeId":"1","timeout":"0"}
+[2018-11-15 09:44:29.180] INFO [https-jsse-nio-8443-exec-4] ModifyDeviceInfoController.java:44 - 接收修改设备信息请求：{"deviceId":"","name":"1","manufacturerId":"XL","manufacturerName":"XL","deviceType":"WaterMeter","model":"12345","protocolType":"CoAP"}
+[2018-11-15 09:44:32.599] INFO [https-jsse-nio-8443-exec-8] RegisterDeviceController.java:42 - 接收设备注册请求:{"verifyCode":"1","nodeId":"1","timeout":"0"}
+[2018-11-15 09:44:54.055] INFO [https-jsse-nio-8443-exec-2] ModifyDeviceInfoController.java:44 - 接收修改设备信息请求：{"deviceId":"","name":"1","manufacturerId":"XL","manufacturerName":"XL","deviceType":"WaterMeter","model":"12345","protocolType":"CoAP"}
+[2018-11-15 09:47:38.132] INFO [https-jsse-nio-8443-exec-9] RegisterDeviceController.java:42 - 接收设备注册请求:{"verifyCode":"1","nodeId":"1","timeout":"0"}
+[2018-11-15 09:47:59.571] INFO [https-jsse-nio-8443-exec-10] ModifyDeviceInfoController.java:44 - 接收修改设备信息请求：{"deviceId":"","name":"1","manufacturerId":"XL","manufacturerName":"XL","deviceType":"WaterMeter","model":"12345","protocolType":"CoAP"}
+[2018-11-15 09:48:24.108] INFO [https-jsse-nio-8443-exec-7] PostAsynCommandController.java:51 - 接收下发命令请求：{"deviceId":"","serviceId":"PhotoService","method":"sendphotoonce","param":{"value":"1"}}
+[2018-11-15 09:50:43.947] INFO [https-jsse-nio-8443-exec-4] RegisterDeviceController.java:42 - 接收设备注册请求:{"verifyCode":"1","nodeId":"1","timeout":"0"}
+[2018-11-15 09:51:05.219] INFO [https-jsse-nio-8443-exec-8] ModifyDeviceInfoController.java:44 - 接收修改设备信息请求：{"deviceId":"","name":"1","manufacturerId":"XL","manufacturerName":"XL","deviceType":"WaterMeter","model":"12345","protocolType":"CoAP"}
+[2018-11-15 09:51:27.685] INFO [https-jsse-nio-8443-exec-6] PostAsynCommandController.java:51 - 接收下发命令请求：{"deviceId":"","serviceId":"PhotoService","method":"sendphotoonce","param":{"value":"1"}}
+[2018-11-15 09:56:25.591] INFO [https-jsse-nio-8443-exec-1] PostAsynCommandController.java:51 - 接收下发命令请求：{"deviceId":"","serviceId":"CameraService","method":"adjustcamera","param":{"direction":1,"value":7}}
+[2018-11-15 10:35:38.428] INFO [https-jsse-nio-8443-exec-10] PostAsynCommandController.java:51 - 接收下发命令请求：{"deviceId":"","serviceId":"ActivateService","method":"activatecmd","param":{"value":"1"}}
+[2018-11-15 10:40:24.286] INFO [https-jsse-nio-8443-exec-7] PostAsynCommandController.java:51 - 接收下发命令请求：{"deviceId":"","serviceId":"ActivateService","method":"activatecmd","param":{"value":"1"}}
+[2018-11-15 10:40:35.960] INFO [https-jsse-nio-8443-exec-9] PostAsynCommandController.java:51 - 接收下发命令请求：{"deviceId":"","serviceId":"ActivateService","method":"activatecmd","param":{"value":"1"}}
+[2018-11-15 11:17:38.210] INFO [https-jsse-nio-8443-exec-3] RegisterDeviceController.java:42 - 接收设备注册请求:{"verifyCode":"1","nodeId":"1","timeout":"0"}
+[2018-11-15 11:17:59.559] INFO [https-jsse-nio-8443-exec-5] ModifyDeviceInfoController.java:44 - 接收修改设备信息请求：{"deviceId":"","name":"1","manufacturerId":"XL","manufacturerName":"XL","deviceType":"WaterMeter","model":"12345","protocolType":"CoAP"}
+[2018-11-15 11:18:22.123] INFO [https-jsse-nio-8443-exec-2] PostAsynCommandController.java:51 - 接收下发命令请求：{"deviceId":"","serviceId":"PhotoService","method":"sendphotoonce","param":{"value":"1"}}
+[2018-11-15 15:49:37.456] INFO [https-jsse-nio-8443-exec-1] PostAsynCommandController.java:51 - 接收下发命令请求：{"method":"commandUpTimeService","param":"{\"timetype\":0,\"time\":15}","serviceId":"TimeService","deviceId":"5e91387e-80f3-4f15-8afd-3091d06e572a"}
+[2018-11-15 15:50:15.594] INFO [https-jsse-nio-8443-exec-3] PostAsynCommandController.java:51 - 接收下发命令请求：{"method":"sendphotoonce","param":"{\"value\":1}","serviceId":"PhotoService","deviceId":"5e91387e-80f3-4f15-8afd-3091d06e572a"}
+[2018-11-15 16:08:41.515] INFO [https-jsse-nio-8443-exec-9] PostAsynCommandController.java:51 - 接收下发命令请求：{"method":"sendphotoonce","param":"{\"value\":1}","serviceId":"PhotoService","deviceId":"5e91387e-80f3-4f15-8afd-3091d06e572a"}
+>>>>>>> branch 'master' of https://github.com/17734576784/mygit.git

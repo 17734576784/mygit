@@ -116,8 +116,13 @@ public class CallBackController {
 		Map<String, String> serviceMap = new HashMap<String, String>();
 		serviceMap = JsonUtil.jsonString2SimpleObj(service, serviceMap.getClass());
 		String serviceId = toStr(serviceMap.get("serviceId"));
-		serviceContext.parseService(serviceId, deviceId, serviceMap);
+		try {
+			serviceContext.parseService(serviceId, deviceId, serviceMap);
 
+		} catch (Exception e) {
+			System.out.println("上报服务异常");
+			e.printStackTrace();
+		}
 		System.out.println();
 
 		return new ResponseEntity<>(HttpStatus.OK);

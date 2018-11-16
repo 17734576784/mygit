@@ -51,15 +51,24 @@ public class CommandAlarmService implements ICommandService {
 		String magnetic = toStr(commandMap.get("magneticstatus"));
 		String apiUrl = baseUrl + Constant.UPLOAD_ALARMCOMMAND_URL;
 
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("slope", slope);
-		paramMap.put("magnetic", magnetic);
-		paramMap.put("date", DateUtils.curDate());
-		paramMap.put("time", DateUtils.curTime());
+		Map<String, Object> paramJson =  new HashMap<>();
+		paramJson.put("slope", slope);
+		paramJson.put("magnetic", magnetic);
+		paramJson.put("date", DateUtils.curDate());
+		paramJson.put("time", DateUtils.curTime());
+		paramJson.put("deviceId", deviceId);
 
-		JSONObject httpResult = HttpsUtils.doPost(apiUrl, paramMap);
-		if (httpResult.getInteger("status") == Constant.ERROR) {
-			LoggerUtils.Logger(LogName.INFO).info("推送设置告警命令回复失败，设备id：" + deviceId + " ,告警内容：" + commandMap.toString());
+		Map<String, Object> urlMap = new HashMap<>();
+		urlMap.put("param", paramJson.toString());
+		try {
+			JSONObject httpResult = HttpsUtils.doPost(apiUrl, urlMap);
+			if (httpResult != null && !httpResult.isEmpty()) {
+				if (httpResult.getInteger("status") == Constant.ERROR) {
+					LoggerUtils.Logger(LogName.INFO).info("推送设置告警命令回复失败，设备id：" + deviceId + " ,告警内容：" + commandMap.toString());
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
