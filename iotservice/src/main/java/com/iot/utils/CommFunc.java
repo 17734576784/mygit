@@ -73,6 +73,7 @@ public class CommFunc {
 	 * @param bstr
 	 * @return String
 	 */
+	@SuppressWarnings("restriction")
 	public static String encode(byte[] bstr) {
 		return new sun.misc.BASE64Encoder().encode(bstr);
 	}
@@ -83,6 +84,7 @@ public class CommFunc {
 	 * @param str
 	 * @return string
 	 */
+	@SuppressWarnings("restriction")
 	public static byte[] decode(String str) {
 		byte[] bt = null;
 		try {
