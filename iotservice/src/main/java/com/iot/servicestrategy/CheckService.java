@@ -38,7 +38,7 @@ public class CheckService implements IServiceStrategy {
 			String check = toStr(dataMap.get("check"));	
 			String version = toStr(dataMap.get("ver"));
 			int dateTen = ConverterUtils.toInt(dataMap.get("data"));
-	        String dateHex = String.format("%08x",dateTen);
+	        String dateHex = String.format("%06x",dateTen);
 			
 			System.out.println("check : " + check + "  version : " + version + " date: " + dateHex);
 //			if (isdata.equals(Constant.UPLOADPIC)) {

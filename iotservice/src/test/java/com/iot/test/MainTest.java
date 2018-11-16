@@ -17,6 +17,11 @@ import com.iot.utils.HttpsUtils;
 public class MainTest {
 
 	public static void main(String[] args) throws ClientProtocolException, IOException { 
+		
+        String dateHex = String.format("%06x",1577237);
+        System.out.println(dateHex);
+
+        
 		String base =  "http://222.222.60.178:18130/Enterprise_EnnGas/enngas/message/";
 		String apiUrl = base + Constant.UPLOAD_ALARMCOMMAND_URL;
 		Map<String, Object> paramJson =  new HashMap<>();
