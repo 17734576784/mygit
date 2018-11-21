@@ -69,7 +69,7 @@
 <!--             <onMismatch>DENY</onMismatch> -->
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>logs/iotservice/xjk.log.%d</fileNamePattern>
+            <fileNamePattern>logs/iotservice/callback.log.%d</fileNamePattern>
             <maxHistory>12</maxHistory>
         </rollingPolicy>
         <encoder charset="UTF-8">
