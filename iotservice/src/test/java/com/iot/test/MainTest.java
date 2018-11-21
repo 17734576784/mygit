@@ -23,23 +23,37 @@ public class MainTest {
 		
 //        String dateHex = String.format("%06x",1577237);
 //        System.out.println(dateHex);
-		byte[] start = BytesUtils.getBytes((char) 0X68); // 一个字节
+		byte[] start = BytesUtils.getBytes((byte) 0X68); // 一个字节
 		byte[] dataLen = BytesUtils.getBytes((short) 2000);// 2个字节
-		byte[] fileFlag = BytesUtils.getBytes((char) 0x00);// 一个字节
-		byte[] fileAttr = BytesUtils.getBytes((char) 0x01);// 一个字节
+		byte[] fileFlag = BytesUtils.getBytes((byte) 0x00);// 一个字节
+		byte[] fileAttr = BytesUtils.getBytes((byte) 0x01);// 一个字节
 		byte[] totalPack = BytesUtils.getBytes((short) 35);// 2个字节
 		byte[] curPack = BytesUtils.getBytes((short)3);
 		byte[] data = new byte[256];		
-		byte[] cs = BytesUtils.getBytes((char)2); // 2个字节
-		byte[] end = BytesUtils.getBytes((char) 0X16);// 2个字节
+		byte[] cs = BytesUtils.getBytes((byte)2); // 2个字节
+		byte[] end = BytesUtils.getBytes((byte) 0X16);// 2个字节
 		
-		byte[] tmp = BytesUtils.byteMergerAll(start,dataLen,fileFlag,fileAttr,totalPack,curPack,data,cs,end);
+		byte[] tmp = BytesUtils.byteMergerAll(start, dataLen, fileFlag, fileAttr, totalPack, curPack, data, cs, end);
 		
-		System.out.println(tmp.length);
-		for (byte b : tmp) {
-			System.out.print(b +"  ");	
-		}
-        
+//		System.out.println(tmp.length);
+//		for (byte b : tmp) {
+//			System.out.print(b +"  ");	
+//		}
+        int length = 0;
+		byte[] rstart = new byte[1];
+		System.arraycopy(tmp, 0, rstart, 0, rstart.length);
+		length += rstart.length;
+		System.out.println(BytesUtils.bytesToHex(rstart));
+		
+		byte[] rdataLen = new byte[2];
+		System.arraycopy(tmp, length, rdataLen, 0, rdataLen.length);
+		length += rdataLen.length;
+		short dataLenr = BytesUtils.getShort(rdataLen);
+		System.out.println(dataLenr);
+		
+		
+		
+		
 		String base =  "http://222.222.60.178:18130/Enterprise_EnnGas/enngas/message/";
 		String apiUrl = base + Constant.UPLOAD_ALARMCOMMAND_URL;
 		Map<String, Object> paramJson =  new HashMap<>();

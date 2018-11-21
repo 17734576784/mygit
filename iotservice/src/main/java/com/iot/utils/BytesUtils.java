@@ -49,11 +49,24 @@ public class BytesUtils {
 	 * @return
 	 */
 	public static byte[] getBytes(char data) {
+		byte[] bytes = new byte[2];
+		bytes[0] = (byte) (data >> 8);
+		bytes[1] = (byte) (data);
+		return bytes;
+	}
+
+	/**
+	 * 将byte转换为字节数组
+	 * 
+	 * @param data
+	 * @return
+	 */
+	public static byte[] getBytes(byte data) {
 		byte[] bytes = new byte[1];
 		bytes[0] = (byte) (data);
 		return bytes;
 	}
-
+	
 	/**
 	 * 将布尔值转换为字节数组
 	 * 
@@ -194,6 +207,16 @@ public class BytesUtils {
 	 */
 	public static char getChar(byte[] bytes) {
 		return (char) ((0xff00 & (bytes[0] << 8)) | (0xff & bytes[1]));
+	}
+	
+	/**
+	 * 将字节数组前转换为byte
+	 * 
+	 * @param bytes
+	 * @return
+	 */
+	public static byte getByte(byte[] bytes) {
+		return (byte) (0xff & bytes[0]);
 	}
 
 	/**
