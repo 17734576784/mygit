@@ -21,7 +21,6 @@ import com.iot.logger.LogName;
 import com.iot.logger.LoggerUtils;
 import com.iot.utils.AuthenticationUtils;
 import com.iot.utils.Constant;
-import com.iot.utils.ConverterUtils;
 import com.iot.utils.IotHttpsUtil;
 import com.iot.utils.JsonUtil;
 

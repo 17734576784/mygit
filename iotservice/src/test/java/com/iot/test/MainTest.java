@@ -4,14 +4,17 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.http.client.ClientProtocolException;
+import org.springframework.data.redis.util.ByteUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.iot.logger.LogName;
 import com.iot.logger.LoggerUtils;
+import com.iot.utils.BytesUtils;
 import com.iot.utils.CommFunc;
 import com.iot.utils.Constant;
 import com.iot.utils.DateUtils;
+import com.iot.utils.FileUtils;
 import com.iot.utils.HttpsUtils;
 
 public class MainTest {
@@ -20,12 +23,22 @@ public class MainTest {
 		
 //        String dateHex = String.format("%06x",1577237);
 //        System.out.println(dateHex);
+		byte[] start = BytesUtils.getBytes((char) 0X68); // 一个字节
+		byte[] dataLen = BytesUtils.getBytes((short) 2000);// 2个字节
+		byte[] fileFlag = BytesUtils.getBytes((char) 0x00);// 一个字节
+		byte[] fileAttr = BytesUtils.getBytes((char) 0x01);// 一个字节
+		byte[] totalPack = BytesUtils.getBytes((short) 35);// 2个字节
+		byte[] curPack = BytesUtils.getBytes((short)3);
+		byte[] data = new byte[256];		
+		byte[] cs = BytesUtils.getBytes((char)2); // 2个字节
+		byte[] end = BytesUtils.getBytes((char) 0X16);// 2个字节
 		
-		String time ="181121111123";
-		String photoDate = "20" + time.substring(0, 6);
-		String photoTime = time.substring(6);
+		byte[] tmp = BytesUtils.byteMergerAll(start,dataLen,fileFlag,fileAttr,totalPack,curPack,data,cs,end);
 		
-		System.out.println(photoDate +"  "+ photoTime);
+		System.out.println(tmp.length);
+		for (byte b : tmp) {
+			System.out.print(b +"  ");	
+		}
         
 		String base =  "http://222.222.60.178:18130/Enterprise_EnnGas/enngas/message/";
 		String apiUrl = base + Constant.UPLOAD_ALARMCOMMAND_URL;
@@ -57,13 +70,13 @@ public class MainTest {
 		Map<String, Object> urlMap = new HashMap<>();
 		urlMap.put("param", paramJson.toString());
 		try {
-			JSONObject httpResult = HttpsUtils.doPost(apiUrl, urlMap);
-			System.out.println(httpResult);
-			if (httpResult != null && !httpResult.isEmpty()) {
-				if (httpResult.getInteger("status") == Constant.ERROR) {
-					LoggerUtils.Logger(LogName.INFO).info("推送设置告警命令回复失败，设备id：" );
-				}
-			}
+//			JSONObject httpResult = HttpsUtils.doPost(apiUrl, urlMap);
+//			System.out.println(httpResult);
+//			if (httpResult != null && !httpResult.isEmpty()) {
+//				if (httpResult.getInteger("status") == Constant.ERROR) {
+//					LoggerUtils.Logger(LogName.INFO).info("推送设置告警命令回复失败，设备id：" );
+//				}
+//			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	

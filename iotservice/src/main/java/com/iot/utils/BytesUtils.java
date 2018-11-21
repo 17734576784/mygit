@@ -49,9 +49,8 @@ public class BytesUtils {
 	 * @return
 	 */
 	public static byte[] getBytes(char data) {
-		byte[] bytes = new byte[2];
-		bytes[0] = (byte) (data >> 8);
-		bytes[1] = (byte) (data);
+		byte[] bytes = new byte[1];
+		bytes[0] = (byte) (data);
 		return bytes;
 	}
 
@@ -840,5 +839,28 @@ public class BytesUtils {
 		}
 		return count;
 	}
+	
+	/** 
+	* @Title: byteMergerAll 
+	* @Description: 合并多个byte[]
+	* @param @param values
+	* @param @return    设定文件 
+	* @return byte[]    返回类型 
+	* @throws 
+	*/
+	public static byte[] byteMergerAll(byte[]... values) {
+        int length_byte = 0;
+            for (int i = 0; i < values.length; i++) {
+                length_byte += values[i].length;
+            }
+            byte[] all_byte = new byte[length_byte];
+            int countLength = 0;
+            for (int i = 0; i < values.length; i++) {
+                byte[] b = values[i];
+                System.arraycopy(b, 0, all_byte, countLength, b.length);
+                countLength += b.length;
+            }
+            return all_byte;
+        }
     
 }
