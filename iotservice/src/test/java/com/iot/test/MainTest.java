@@ -1,5 +1,9 @@
 package com.iot.test;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,23 +38,51 @@ public class MainTest {
 		byte[] end = BytesUtils.getBytes((byte) 0X16);// 2个字节
 		
 		byte[] tmp = BytesUtils.byteMergerAll(start, dataLen, fileFlag, fileAttr, totalPack, curPack, data, cs, end);
+		for (byte b : tmp) {
+			System.out.print(b +" ");
+		}
+		System.out.println();
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		DataOutputStream dos = new DataOutputStream(baos);
 		
-//		System.out.println(tmp.length);
-//		for (byte b : tmp) {
-//			System.out.print(b +"  ");	
-//		}
-        int length = 0;
-		byte[] rstart = new byte[1];
-		System.arraycopy(tmp, 0, rstart, 0, rstart.length);
-		length += rstart.length;
-		System.out.println(BytesUtils.bytesToHex(rstart));
+		dos.writeByte(0X68);
+		dos.writeShort(2000);
+		dos.writeByte(0x00);
+		dos.writeByte(0x01);
+		dos.writeShort(35);
+		dos.writeShort(3);
+		dos.write(data);
+		dos.writeByte(2);
+		dos.writeByte(0X16);
+		tmp = baos.toByteArray();
+
+		for (byte b : tmp) {
+			System.out.print(b +" ");
+		}
 		
-		byte[] rdataLen = new byte[2];
-		System.arraycopy(tmp, length, rdataLen, 0, rdataLen.length);
-		length += rdataLen.length;
-		short dataLenr = BytesUtils.getShort(rdataLen);
-		System.out.println(dataLenr);
 		
+		DataInputStream dis=new DataInputStream(new ByteArrayInputStream(baos.toByteArray()));
+		
+		System.out.println(dis.readByte());
+		System.out.println(dis.readShort());
+		System.out.println(dis.readByte());
+		System.out.println(dis.readByte());
+		System.out.println(dis.readShort());
+		System.out.println(dis.readShort());
+
+		
+//        int length = 0;
+//		byte[] rstart = new byte[1];
+//		System.arraycopy(tmp, 0, rstart, 0, rstart.length);
+//		length += rstart.length;
+//		System.out.println(BytesUtils.bytesToHex(rstart));
+//		
+//		byte[] rdataLen = new byte[2];
+//		System.arraycopy(tmp, length, rdataLen, 0, rdataLen.length);
+//		length += rdataLen.length;
+//		short dataLenr = BytesUtils.getShort(rdataLen);
+//		System.out.println(dataLenr);
+//		
 		
 		
 		
