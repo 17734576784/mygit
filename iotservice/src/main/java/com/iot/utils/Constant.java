@@ -160,7 +160,7 @@ public class Constant {
 
 	/** 上传告警 */
 	public static final String UPLOAD_ALARM_URL = "nbNotifyAction!notifyAlarm.action";
-
+	
 	/** 警开关开闭命令响应 */
 	public static final String UPLOAD_ALARMCOMMAND_URL = "nbNotifyAction!notifyAlarmConfigResult.action";
 
@@ -190,5 +190,13 @@ public class Constant {
 
 	/** 删除设备 设备不存在 */
 	public static final int STATUS_404 = 404;
+	
+	/** 升级标志 0：不升级 1：升级 */
+	public static final int UPGRADE = 1;
+	
+	/** redis 设备升级进度key前缀 */
+	public static final String PROGRESS = "progress_";
+	
+	
 
 }

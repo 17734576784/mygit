@@ -38,9 +38,9 @@ public class AlarmService implements IServiceStrategy{
 	@SuppressWarnings("unchecked")
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
-
-		LoggerUtils.Logger(LogName.CALLBACK).info("上传告警:设备id：" + deviceId + " ,告警内容：" + serviceMap.toString());
-		System.out.println("上传告警:设备id：" + deviceId + " ,告警内容：" + serviceMap.toString());
+		String logInfo = "上传告警:设备id：" + deviceId + " ,告警内容：" + serviceMap.toString();
+		LoggerUtils.Logger(LogName.CALLBACK).info(logInfo);
+		System.out.println(logInfo);
 		String apiUrl = baseUrl + Constant.UPLOAD_ALARM_URL;
 		try {
 			Object data = serviceMap.get("data");
@@ -64,7 +64,7 @@ public class AlarmService implements IServiceStrategy{
 			JSONObject httpResult = HttpsUtils.doPost(apiUrl, paramMap);
 			if (httpResult != null && !httpResult.isEmpty()) {
 				if (httpResult.getInteger("status") == Constant.ERROR) {
-					LoggerUtils.Logger(LogName.CALLBACK).info("上传告警失败：设备id：" + deviceId + " ,告警内容：" + serviceMap.toString());
+					LoggerUtils.Logger(LogName.CALLBACK).info("上传告警失败：" + logInfo);
 				}
 			}
 		} catch (Exception e) {

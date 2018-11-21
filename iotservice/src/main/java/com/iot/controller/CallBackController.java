@@ -38,30 +38,35 @@ public class CallBackController {
 
 		LoggerUtils.Logger(LogName.CALLBACK).info("接收addDevice" + addDevice_NotifyMessage);
 		Map<String, String> MessageMap = new HashMap<String, String>();
-		MessageMap = JsonUtil.jsonString2SimpleObj(addDevice_NotifyMessage, MessageMap.getClass());
-		String notifyType = toStr(MessageMap.get("notifyType"));
-		String deviceId = toStr(MessageMap.get("deviceId"));
-		String gatewayId = toStr(MessageMap.get("gatewayId"));
-		Object deviceInfo = MessageMap.get("deviceInfo");
+		try {
+			MessageMap = JsonUtil.jsonString2SimpleObj(addDevice_NotifyMessage, MessageMap.getClass());
+			String notifyType = toStr(MessageMap.get("notifyType"));
+			String deviceId = toStr(MessageMap.get("deviceId"));
+			String gatewayId = toStr(MessageMap.get("gatewayId"));
+			Object deviceInfo = MessageMap.get("deviceInfo");
 
-		Map<String, String> dataMap = new HashMap<String, String>();
-		dataMap = JsonUtil.jsonString2SimpleObj(deviceInfo, dataMap.getClass());
-		String manufacturerId = toStr(dataMap.get("manufacturerId"));
-		String manufacturerName = toStr(dataMap.get("manufacturerName"));
-		String model = toStr(dataMap.get("model"));
-		String deviceType = toStr(dataMap.get("deviceType"));
+			Map<String, String> dataMap = new HashMap<String, String>();
+			dataMap = JsonUtil.jsonString2SimpleObj(deviceInfo, dataMap.getClass());
+			String manufacturerId = toStr(dataMap.get("manufacturerId"));
+			String manufacturerName = toStr(dataMap.get("manufacturerName"));
+			String model = toStr(dataMap.get("model"));
+			String deviceType = toStr(dataMap.get("deviceType"));
 
-		JSONObject json = new JSONObject();
-		json.put("notifyType", notifyType);
-		json.put("deviceId", deviceId);
-		json.put("gatewayId", gatewayId);
-		json.put("manufacturerId", manufacturerId);
-		json.put("manufacturerName", manufacturerName);
-		json.put("model", model);
-		json.put("deviceType", deviceType);
+			JSONObject json = new JSONObject();
+			json.put("notifyType", notifyType);
+			json.put("deviceId", deviceId);
+			json.put("gatewayId", gatewayId);
+			json.put("manufacturerId", manufacturerId);
+			json.put("manufacturerName", manufacturerName);
+			json.put("model", model);
+			json.put("deviceType", deviceType);
 
-		System.out.println(LocalDateTime.now() + "  recvAddDeviceNotify : " + MessageMap.toString());
-		System.out.println();
+			System.out.println(LocalDateTime.now() + "  recvAddDeviceNotify : " + MessageMap.toString());
+			System.out.println();
+		} catch (Exception e) {
+			LoggerUtils.Logger(LogName.CALLBACK).error("接收addDevice异常," + addDevice_NotifyMessage);
+			e.printStackTrace();
+		}
 
 		return new ResponseEntity<>(HttpStatus.OK);
 
@@ -74,30 +79,35 @@ public class CallBackController {
 		LoggerUtils.Logger(LogName.CALLBACK).info("接收deviceInfoChanged" + updateDeviceInfo_NotifyMessage);
 
 		Map<String, String> messageMap = new HashMap<String, String>();
-		messageMap = JsonUtil.jsonString2SimpleObj(updateDeviceInfo_NotifyMessage, messageMap.getClass());
-		String notifyType = toStr(messageMap.get("notifyType"));
-		String deviceId = toStr(messageMap.get("deviceId"));
-		String gatewayId = toStr(messageMap.get("gatewayId"));
-		Object deviceInfo = messageMap.get("deviceInfo");
+		try {
+			messageMap = JsonUtil.jsonString2SimpleObj(updateDeviceInfo_NotifyMessage, messageMap.getClass());
+			String notifyType = toStr(messageMap.get("notifyType"));
+			String deviceId = toStr(messageMap.get("deviceId"));
+			String gatewayId = toStr(messageMap.get("gatewayId"));
+			Object deviceInfo = messageMap.get("deviceInfo");
 
-		Map<String, String> dataMap = new HashMap<String, String>();
-		dataMap = JsonUtil.jsonString2SimpleObj(deviceInfo, dataMap.getClass());
-		String manufacturerId = toStr(dataMap.get("manufacturerId"));
-		String manufacturerName = toStr(dataMap.get("manufacturerName"));
-		String model = toStr(dataMap.get("model"));
-		String deviceType = toStr(dataMap.get("deviceType"));
+			Map<String, String> dataMap = new HashMap<String, String>();
+			dataMap = JsonUtil.jsonString2SimpleObj(deviceInfo, dataMap.getClass());
+			String manufacturerId = toStr(dataMap.get("manufacturerId"));
+			String manufacturerName = toStr(dataMap.get("manufacturerName"));
+			String model = toStr(dataMap.get("model"));
+			String deviceType = toStr(dataMap.get("deviceType"));
 
-		JSONObject json = new JSONObject();
-		json.put("notifyType", notifyType);
-		json.put("deviceId", deviceId);
-		json.put("gatewayId", gatewayId);
-		json.put("manufacturerId", manufacturerId);
-		json.put("manufacturerName", manufacturerName);
-		json.put("model", model);
-		json.put("deviceType", deviceType);
+			JSONObject json = new JSONObject();
+			json.put("notifyType", notifyType);
+			json.put("deviceId", deviceId);
+			json.put("gatewayId", gatewayId);
+			json.put("manufacturerId", manufacturerId);
+			json.put("manufacturerName", manufacturerName);
+			json.put("model", model);
+			json.put("deviceType", deviceType);
 
-		System.out.println(LocalDateTime.now() + "  DeviceInfoChanged   " + messageMap.toString());
-		System.out.println();
+			System.out.println(LocalDateTime.now() + "  DeviceInfoChanged   " + messageMap.toString());
+			System.out.println();
+		} catch (Exception e) {
+			LoggerUtils.Logger(LogName.CALLBACK).error("接收deviceInfoChanged异常," + updateDeviceInfo_NotifyMessage);
+			e.printStackTrace();
+		}
 
 		return new ResponseEntity<>(HttpStatus.OK);
 
@@ -109,21 +119,19 @@ public class CallBackController {
 
 		LoggerUtils.Logger(LogName.CALLBACK).info("接收updateDeviceData:" + updateDeviceData_NotifyMessage);
 		Map<String, String> messageMap = new HashMap<String, String>();
-		messageMap = JsonUtil.jsonString2SimpleObj(updateDeviceData_NotifyMessage, messageMap.getClass());
-		String deviceId = toStr(messageMap.get("deviceId"));
-		Object service = messageMap.get("service");
-
-		Map<String, String> serviceMap = new HashMap<String, String>();
-		serviceMap = JsonUtil.jsonString2SimpleObj(service, serviceMap.getClass());
-		String serviceId = toStr(serviceMap.get("serviceId"));
 		try {
-			serviceContext.parseService(serviceId, deviceId, serviceMap);
+			messageMap = JsonUtil.jsonString2SimpleObj(updateDeviceData_NotifyMessage, messageMap.getClass());
+			String deviceId = toStr(messageMap.get("deviceId"));
+			Object service = messageMap.get("service");
 
+			Map<String, String> serviceMap = new HashMap<String, String>();
+			serviceMap = JsonUtil.jsonString2SimpleObj(service, serviceMap.getClass());
+			String serviceId = toStr(serviceMap.get("serviceId"));
+			serviceContext.parseService(serviceId, deviceId, serviceMap);
 		} catch (Exception e) {
-			System.out.println("上报服务异常");
+			LoggerUtils.Logger(LogName.CALLBACK).error("接收updateDeviceData异常," + updateDeviceData_NotifyMessage);
 			e.printStackTrace();
 		}
-		System.out.println();
 
 		return new ResponseEntity<>(HttpStatus.OK);
 
@@ -133,19 +141,25 @@ public class CallBackController {
 	@RequestMapping(value = "deletedDevice", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<HttpStatus> recvDeleteDeviceNotify(@RequestBody Object deletedDevice_NotifyMessage) {
 
+		LoggerUtils.Logger(LogName.CALLBACK).info("接收deletedDevice:" + deletedDevice_NotifyMessage);
 		Map<String, String> data = new HashMap<String, String>();
-		data = JsonUtil.jsonString2SimpleObj(deletedDevice_NotifyMessage, data.getClass());
-		String notifyType = data.get("notifyType");
-		String deviceId = data.get("deviceId");
-		String gatewayId = data.get("gatewayId");
+		try {
+			data = JsonUtil.jsonString2SimpleObj(deletedDevice_NotifyMessage, data.getClass());
+			String notifyType = data.get("notifyType");
+			String deviceId = data.get("deviceId");
+			String gatewayId = data.get("gatewayId");
 
-		JSONObject json = new JSONObject();
-		json.put("notifyType", notifyType);
-		json.put("deviceId", deviceId);
-		json.put("gatewayId", gatewayId);
+			JSONObject json = new JSONObject();
+			json.put("notifyType", notifyType);
+			json.put("deviceId", deviceId);
+			json.put("gatewayId", gatewayId);
 
-		System.out.println(LocalDateTime.now() + "    deviceDeleted  : " + json.toJSONString());
-		System.out.println();
+			System.out.println(LocalDateTime.now() + "    deviceDeleted  : " + json.toJSONString());
+			System.out.println();
+		} catch (Exception e) {
+			LoggerUtils.Logger(LogName.CALLBACK).error("接收deletedDevice异常," + deletedDevice_NotifyMessage);
+			e.printStackTrace();
+		}
 
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
@@ -230,28 +244,32 @@ public class CallBackController {
 	public ResponseEntity<HttpStatus> reportCmdExecResult(@RequestBody Object reportCmdExecResult_NotifyMessage){
 
 		LoggerUtils.Logger(LogName.CALLBACK).info("接受命令响应：" + reportCmdExecResult_NotifyMessage);
-
 		Map<String, String> messageMap = new HashMap<String, String>();
-		messageMap = JsonUtil.jsonString2SimpleObj(reportCmdExecResult_NotifyMessage, messageMap.getClass());
-		String deviceId = toStr(messageMap.get("deviceId"));
-		String commandId = toStr(messageMap.get("commandId"));
-		Object result = messageMap.get("result");
-		
-		Map<String, String> dataMap = new HashMap<String, String>();
-		dataMap = JsonUtil.jsonString2SimpleObj(result, dataMap.getClass());
-		String resultCode = toStr(dataMap.get("resultCode"));
-		Object resultDetail = dataMap.get("resultDetail");
-		System.out.println(deviceId + "  " + commandId + "  resultCode : " + resultCode);
-		if (resultCode.equals(Constant.COMMAND_SUCCESS)) {
-			String serviceName = toStr(JedisUtils.get(commandId));
-			Map<String, String> commandMap = new HashMap<String, String>();
-			commandMap = JsonUtil.jsonString2SimpleObj(resultDetail, dataMap.getClass());
-			commandContext.parseCommand(serviceName, deviceId, commandMap);
+		try {
+			messageMap = JsonUtil.jsonString2SimpleObj(reportCmdExecResult_NotifyMessage, messageMap.getClass());
+			String deviceId = toStr(messageMap.get("deviceId"));
+			String commandId = toStr(messageMap.get("commandId"));
+			Object result = messageMap.get("result");
+			
+			Map<String, String> dataMap = new HashMap<String, String>();
+			dataMap = JsonUtil.jsonString2SimpleObj(result, dataMap.getClass());
+			String resultCode = toStr(dataMap.get("resultCode"));
+			Object resultDetail = dataMap.get("resultDetail");
+			System.out.println(deviceId + "  " + commandId + "  resultCode : " + resultCode);
+			if (resultCode.equals(Constant.COMMAND_SUCCESS)) {
+				String serviceName = toStr(JedisUtils.get(commandId));
+				Map<String, String> commandMap = new HashMap<String, String>();
+				commandMap = JsonUtil.jsonString2SimpleObj(resultDetail, dataMap.getClass());
+				commandContext.parseCommand(serviceName, deviceId, commandMap);
 
-		} else if (resultCode.equals(Constant.COMMAND_FAILED) || resultCode.equals(Constant.COMMAND_TIMEOUT)) {
-			JedisUtils.del(commandId);
+			} else if (resultCode.equals(Constant.COMMAND_FAILED) || resultCode.equals(Constant.COMMAND_TIMEOUT)) {
+				JedisUtils.del(commandId);
+			}
+		} catch (Exception e) {
+			LoggerUtils.Logger(LogName.CALLBACK).error("接受命令响应异常," + reportCmdExecResult_NotifyMessage);
+			e.printStackTrace();
 		}
-
+		
 		return new ResponseEntity<>(HttpStatus.OK);
 
 	}

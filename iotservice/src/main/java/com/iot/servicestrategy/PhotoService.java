@@ -22,7 +22,6 @@ import com.iot.logger.LogName;
 import com.iot.logger.LoggerUtils;
 import com.iot.utils.CommFunc;
 import com.iot.utils.Constant;
-import com.iot.utils.DateUtils;
 import com.iot.utils.FileUtils;
 import com.iot.utils.JedisUtils;
 import com.iot.utils.JsonUtil;
@@ -65,40 +64,47 @@ public class PhotoService implements IServiceStrategy {
 			// 照片数据
 			photo = toStr(dataMap.get("rawdata"));
 			photoByte = CommFunc.decode(photo);
-			System.out.println(" packnum : " + packnum + "  totalpack : " + totalpack + " deviceId :/" + deviceId);
-
-			LoggerUtils.Logger(LogName.CALLBACK).info(" packnum : " + packnum + "  totalpack : " + totalpack + " deviceId :/" + deviceId);
-
-			if (JedisUtils.hasKey(deviceId)) {
+			
+			String time = toStr(dataMap.get("time"));
+			String logInfo = " packnum : " + packnum + "  totalpack : " + totalpack + " deviceId :/" + deviceId
+					+ "  time : " + time;
+			LoggerUtils.Logger(LogName.CALLBACK).info(logInfo);
+			System.out.println(logInfo);
+			
+			String devicePhotoKey = deviceId + "_" + time;
+			
+			if (JedisUtils.hasKey(devicePhotoKey)) {
 				JSONObject photoJson = new JSONObject();
 				// 获取该设备之前获取的数据
-				photoJson = (JSONObject) JedisUtils.get(deviceId);
+				photoJson = (JSONObject) JedisUtils.get(devicePhotoKey);
 				// 获取该设备之前获取的照片数据
 				LinkedHashMap<String, byte[]> photoMap = (LinkedHashMap<String, byte[]>) photoJson.get("data");
 				if (totalpack == photoMap.size()) {
 					photoMap.put(toStr(packnum), photoByte);
 					photoJson.put("packnum", packnum);
-					long expireTime = JedisUtils.getExpire(deviceId);
-					JedisUtils.set(deviceId, photoJson, expireTime);
-					if (generateImage(photoMap, deviceId)) {
-						JedisUtils.del(deviceId);
+					long expireTime = JedisUtils.getExpire(devicePhotoKey);
+					JedisUtils.set(devicePhotoKey, photoJson, expireTime);
+					if (generateImage(photoMap, deviceId,time)) {
+						JedisUtils.del(devicePhotoKey);
 					}
 				} else {
-					JedisUtils.del(deviceId);
-					insertDevicePhoto(deviceId, totalpack, packnum, photoByte);
+					JedisUtils.del(devicePhotoKey);
+					insertDevicePhoto(devicePhotoKey, totalpack, packnum, photoByte);
 				}
 			} else {
 				/** 不存在 该包存入redis */
-				insertDevicePhoto(deviceId, totalpack, packnum, photoByte);
+				insertDevicePhoto(devicePhotoKey, totalpack, packnum, photoByte);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	private boolean generateImage(LinkedHashMap<String, byte[]> photoMap, String deviceId) {
+	private boolean generateImage(LinkedHashMap<String, byte[]> photoMap, String deviceId, String time) {
 
 		try {
+			String photoDate = "20" + time.substring(0, 6);
+			String photoTime = time.substring(6);
 			String filePath = imageUrl + deviceId + "_" + LocalDateTime.now().getNano() + ".jpeg";
 			byte[] tmp = new byte[0];
 			Iterator<Entry<String, byte[]>> iterator = photoMap.entrySet().iterator();
@@ -107,7 +113,6 @@ public class PhotoService implements IServiceStrategy {
 				Entry<String, byte[]> entry = iterator.next();
 				byte[] photoByte = entry.getValue();
 				if (photoByte.length != 0) {
-//					System.out.println(entry.getKey() + "    " + photoByte.length);
 					tmp = CommFunc.byteMerger(tmp, photoByte);
 				} else {
 					return false;
@@ -115,7 +120,7 @@ public class PhotoService implements IServiceStrategy {
 			}
 			CommFunc.byte2image(tmp, filePath);
 			String url = baseUrl + Constant.UPLOAD_IMAGE_URL;
-			FileUtils.upload(url, filePath, DateUtils.curDate(), deviceId,DateUtils.curTime());
+			FileUtils.upload(url, filePath, photoDate, deviceId,photoTime);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -131,7 +136,7 @@ public class PhotoService implements IServiceStrategy {
 	 * @param packnum
 	 * @param photoByte
 	 */
-	private void insertDevicePhoto(String deviceId, int totalpack, int packnum, byte[] photoByte) {
+	private void insertDevicePhoto(String devicePhotoKey, int totalpack, int packnum, byte[] photoByte) {
 		LinkedHashMap<String, byte[]> photoMap = new LinkedHashMap<String, byte[]>(totalpack);
 		for (int i = 0; i < totalpack; i++) {
 			photoMap.put(toStr((i + 1)), new byte[0]);
@@ -140,7 +145,7 @@ public class PhotoService implements IServiceStrategy {
 		JSONObject photoJson = new JSONObject();
 		photoJson.put("packnum", packnum);
 		photoJson.put("data", photoMap);
-		JedisUtils.set(deviceId, photoJson, photoExpireTime);
+		JedisUtils.set(devicePhotoKey, photoJson, photoExpireTime);
 	}
 
 }

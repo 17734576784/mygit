@@ -8,9 +8,16 @@ import static com.iot.utils.ConverterUtils.toStr;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.iot.utils.ConverterUtils;
+import com.alibaba.fastjson.JSONObject;
+import com.iot.logger.LogName;
+import com.iot.logger.LoggerUtils;
+import com.iot.utils.Constant;
+import com.iot.utils.FileUtils;
+import com.iot.utils.HttpsUtils;
+import com.iot.utils.JedisUtils;
 import com.iot.utils.JsonUtil;
 
 /**   
@@ -23,60 +30,112 @@ import com.iot.utils.JsonUtil;
 @Component
 public class CheckService implements IServiceStrategy {
 
+	/** 网站对接服务地址 */
+	@Value("${website.baseurl}")
+	private String baseUrl;
+	
+	/** 升级文件基目录 */
+	@Value("${basefilepath}")
+	private String baseFilePath;
+	
+	/** 升级文件每帧大小 */
+	@Value("${packsize}")
+	private int packSize;
+	
 	/* (non-Javadoc)
 	 * @see com.iot.strategy.IServiceStrategy#parse(java.lang.String, java.util.Map)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
+		
+		String logInfo = "上传check:设备id：" + deviceId + " ,内容：" + serviceMap.toString();
+		LoggerUtils.Logger(LogName.CALLBACK).info(logInfo);
+		System.out.println(logInfo);
+		String apiUrl = baseUrl + Constant.UPLOAD_CHECK_URL;
 		try {
-			
 			Object data = serviceMap.get("data");
 			Map<String, String> dataMap = new HashMap<String, String>();
 			dataMap = JsonUtil.jsonString2SimpleObj(data, dataMap.getClass());
-			
-			String check = toStr(dataMap.get("check"));	
 			String version = toStr(dataMap.get("ver"));
-			int dateTen = ConverterUtils.toInt(dataMap.get("data"));
-	        String dateHex = String.format("%06x",dateTen);
-			
-			System.out.println("check : " + check + "  version : " + version + " date: " + dateHex);
-//			if (isdata.equals(Constant.UPLOADPIC)) {
-//				IotHttpsUtil httpsUtil = new IotHttpsUtil();
-//				httpsUtil.initSSLConfigForTwoWay();
-//				String accessToken = AuthenticationUtils.getAccessToken(httpsUtil);
-//
-//				String urlPostAsynCmd = Constant.POST_ASYN_CMD;
-//				String appId = Constant.APPID;
-//				String callbackUrl = Constant.REPORT_CMD_EXEC_RESULT_CALLBACK_URL;
-//				
-//		        ObjectNode paras = JsonUtil.convertObject2ObjectNode("{\"value\":\"1\"}");
-//
-//				Map<String, Object> paramCommand = new HashMap<>();
-//				paramCommand.put("serviceId", "PhotoData");
-//				paramCommand.put("method", "SendPhoto_once");
-//				paramCommand.put("paras", paras);
-//				
-//				Map<String, Object> paramPostAsynCmd = new HashMap<>();
-//				paramPostAsynCmd.put("deviceId", deviceId);
-//				paramPostAsynCmd.put("command", paramCommand);
-//				paramPostAsynCmd.put("callbackUrl", callbackUrl);
-//
-//				String jsonRequest = JsonUtil.jsonObj2Sting(paramPostAsynCmd);
-//				Map<String, String> header = new HashMap<>();
-//				header.put(Constant.HEADER_APP_KEY, appId);
-//				header.put(Constant.HEADER_APP_AUTH, "Bearer" + " " + accessToken);
-//
-//				HttpResponse responsePostAsynCmd = httpsUtil.doPostJson(urlPostAsynCmd, header, jsonRequest);
-//
-//				String responseBody = httpsUtil.getHttpResponseBody(responsePostAsynCmd);
-//				CommFunc.result(Constant.SUCCESS, responseBody);
-//				System.out.println("isdata : 下发成功");
-//
-//			}	
+
+			Map<String, Object> paramJson = new HashMap<>();
+			paramJson.put("version", version);
+			paramJson.put("deviceId", deviceId);
+
+			Map<String, Object> paramMap = new HashMap<>();
+			paramMap.put("param", paramJson);
+			JSONObject response = HttpsUtils.doPost(apiUrl, paramMap);
+			if (response != null && !response.isEmpty()) {
+				if (response.getInteger("status") == Constant.SUCCESS) {
+					int upgradeFlag = response.getIntValue("flag");
+					/** 判断设备是否升级 */
+					if (upgradeFlag == Constant.UPGRADE) {
+						String filePath = response.getString("filePath");
+						String newVersion = response.getString("version");
+						deviceUpgrade(deviceId, filePath, newVersion);
+					}
+				} 
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	
 	}
+	
+	public void deviceUpgrade(String deviceId, String filePath, String version) {
+		try {
+			/** 获取升级文件 */
+			JSONObject upgradeFileJson = loadUpgradeFile(deviceId, filePath, version);
+			if (upgradeFileJson != null && !upgradeFileJson.isEmpty()) {
+				/** 下发命令 */
+				
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			LoggerUtils.Logger(LogName.CALLBACK).error("开始设备升级异常，" + deviceId + "," + filePath + "," + version);
+		}
+	}
+	
+	/** 
+	* @Title: loadUpgradeFile 
+	* @Description: 加载升级文件
+	* @param @param filePath
+	* @param @param version
+	* @param @return    设定文件 
+	* @return JSONObject    返回类型 
+	* @throws 
+	*/
+	public JSONObject loadUpgradeFile(String deviceId, String filePath, String version) {
+		JSONObject json = new JSONObject();
+		String fileKey = filePath + "_" + version;
+		/** 设备升级缓存key */
+		String deviceProgress = Constant.PROGRESS + deviceId;
+		try {
+			if (JedisUtils.hasKey(deviceProgress)) {
+				/**存在设备升级缓存，对比当前升级信息和缓存升级信息是否一致*/
+				JSONObject progress = (JSONObject) JedisUtils.get(deviceProgress);
+				String progressVersion = progress.getString("version");
+				/** 升级信息不一致，删除该设备缓存升级进程信息 */
+				if (!fileKey.equals(progressVersion)) {
+					JedisUtils.del(deviceProgress);
+				}
+			}
+			
+			/** 存在直接返回 */
+			if (JedisUtils.hasKey(fileKey)) {
+				json = (JSONObject) JedisUtils.get(fileKey);
+				return json;
+			} 
+			
+			json = FileUtils.parseUpgradeFile(filePath, version, filePath, packSize);
+			
+		} catch (Exception e) {
+			LoggerUtils.Logger(LogName.CALLBACK).error("加载升级文件异常！" + fileKey);
+			e.printStackTrace();
+		}
 
+		return json;
+	}
+	
 }

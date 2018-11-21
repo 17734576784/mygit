@@ -18,9 +18,14 @@ public class MainTest {
 
 	public static void main(String[] args) throws ClientProtocolException, IOException { 
 		
-        String dateHex = String.format("%06x",1577237);
-        System.out.println(dateHex);
-
+//        String dateHex = String.format("%06x",1577237);
+//        System.out.println(dateHex);
+		
+		String time ="181121111123";
+		String photoDate = "20" + time.substring(0, 6);
+		String photoTime = time.substring(6);
+		
+		System.out.println(photoDate +"  "+ photoTime);
         
 		String base =  "http://222.222.60.178:18130/Enterprise_EnnGas/enngas/message/";
 		String apiUrl = base + Constant.UPLOAD_ALARMCOMMAND_URL;

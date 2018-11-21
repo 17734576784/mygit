@@ -169,7 +169,8 @@ public class FileUtils {
     public static byte[] getFileToByte(File file) {
         byte[] by = new byte[(int) file.length()];
         try {
-            InputStream is = new FileInputStream(file);
+            @SuppressWarnings("resource")
+			InputStream is = new FileInputStream(file);
             ByteArrayOutputStream bytestream = new ByteArrayOutputStream();
             byte[] bb = new byte[2048];
             int ch;
@@ -231,5 +232,45 @@ public class FileUtils {
 			System.out.println("countLength: "+countLength);
 		}
 		CommFunc.byte2image(all_byte, "D://dbr.txt");
+    }
+    
+    /** 
+    * @Title: parseUpgradeFile 
+    * @Description:解析升级文件，存入redis
+    * @param @param filePath
+    * @param @param version
+    * @param @param baseFilePath
+    * @param @param packSize
+    * @param @return    设定文件 
+    * @return JSONObject    返回类型 
+    * @throws 
+    */
+    public static JSONObject parseUpgradeFile(String filePath, String version,String baseFilePath,int packSize) {
+		String fileKey = filePath + "_" + version;
+		JSONObject json = new JSONObject();
+		try {
+			/** 不存在则解析文件，存入redis */
+			File file = new File(baseFilePath + filePath);
+			byte[] fileByte = FileUtils.fileToBinArray(file);
+
+			int fileLength = fileByte.length;
+			int packNum = fileLength / packSize;
+			System.out.println("升级文件总包数 : " + packNum);
+
+			Map<String, Object> fileMap = new LinkedHashMap<String, Object>(packNum);
+			for (int i = 0; i <= packNum; i++) {
+				int packlength = (int) ((i + 1) * packSize > fileLength ? fileLength : (i + 1) * packSize);
+				byte[] tmp = Arrays.copyOfRange(fileByte, packSize * i, packlength);
+				fileMap.put(String.valueOf(i), tmp);
+			}
+
+			json.put("packNum", packNum);
+			json.put("data", fileMap);
+			JedisUtils.set(fileKey, json);
+		} catch (Exception e) {
+			LoggerUtils.Logger(LogName.CALLBACK).error("解析升级文件异常", e);
+			e.printStackTrace();
+		}
+    	return json;
     }
 }
