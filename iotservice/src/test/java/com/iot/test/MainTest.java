@@ -41,34 +41,60 @@ public class MainTest {
 		byte[] end = BytesUtils.getBytes((byte) 0X16);// 2个字节
 		
 		byte[] tmp = BytesUtils.byteMergerAll(start, dataLen, fileFlag, fileAttr, totalPack, curPack, data, cs, end);
-		for (byte b : tmp) {
-			System.out.print(b +" ");
-		}
-		
+//		for (byte b : tmp) {
+//			System.out.print(b +" ");
+//		}
+//		
 
 		
 		System.out.println();
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		DataOutputStream dos = new DataOutputStream(baos);
 		
-		dos.writeByte(0X68);
-		dos.writeShort(2000);
-		dos.writeByte(0x00);
-		dos.writeByte(0x01);
-		dos.writeShort(35);
-		dos.writeShort(3);
-		dos.write(data);
-		dos.writeByte(2);
-		dos.writeByte(0X16);
-		tmp = baos.toByteArray();
-		int crc = getCRC(tmp);
-		System.out.println("CRC : " + crc);
+//		dos.writeByte(1);
+//		dos.writeByte(2);
+//		int crc =getCRC(baos.toByteArray());
+//		System.out.println((crc>>1) &0XFF);
+//		System.out.println(crc&0XFF);
+//		tmp = baos.toByteArray();
+//		for (byte b : tmp) {
+//			System.out.print(BytesUtils.byteToHex(b) +" ");
+//		}
+//		System.out.println("crc : "+ crc);
+//		dos.writeShort(crc);
+//		System.out.println();
+//		tmp = baos.toByteArray();
+//		for (byte b : tmp) {
+//			System.out.print(BytesUtils.byteToHex(b) +" ");
+//		}
 		
-		dos.writeShort(crc);
+//		dos.writeByte(0X68);
+		dos.writeShort(2000);
+//		dos.writeByte(0x00);
+//		dos.writeByte(0x01);
+//		dos.writeShort(35);
+//		dos.writeShort(3);
+//		dos.write(data);
+//		dos.writeByte(2);
+//		dos.writeByte(0X16);
+//		tmp = baos.toByteArray();
+//		int crc = getCRC(tmp);
+//		System.out.println("CRC : " + crc);
+//		
+//		dos.writeShort(crc);
 		tmp = baos.toByteArray();
 
 		for (byte b : tmp) {
-			System.out.print(b + " ");
+			System.out.print(BytesUtils.byteToHex(b) + " ");
+		}
+		
+		System.out.println();
+		dataLen = BytesUtils.getBytes((short) 2000);// 2个字节
+		
+		System.out.println(BytesUtils.byteToHex((byte)((2000)&0XFF)));
+		System.out.println(BytesUtils.byteToHex((byte)(2000 >>8&0XFF)));
+		for (byte b : dataLen) {
+			System.out.print(BytesUtils.byteToHex(b) + " ");
 		}
 //		
 //		
@@ -168,6 +194,7 @@ public class MainTest {
 //        return Integer.toHexString(CRC);
 //    }
 
+
     /**
      * 计算CRC16校验码
      *
@@ -191,6 +218,13 @@ public class MainTest {
             }
         }
         return CRC;
+    }
+    
+    public int CRC(byte[] bytes) {
+    	
+    	
+    	
+    	return 2;
     }
     
     /**

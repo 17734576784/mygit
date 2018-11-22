@@ -119,12 +119,20 @@ public class UpGradeUtil {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		DataOutputStream dos = new DataOutputStream(baos);
 
+		int dateLength = data.length;
 		dos.writeByte(fileFlag);
 		dos.writeByte(fileAttribute);
-		dos.writeShort(packNum);
-		dos.writeShort(sendedPack);
-		dos.writeShort(data.length);
+		dos.writeByte(packNum & 0XFF);
+		dos.writeByte(packNum >> 8 & 0XFF);
+		
+		dos.writeByte(sendedPack & 0XFF);
+		dos.writeByte(sendedPack >> 8 & 0XFF);
+		dos.writeByte(dateLength & 0XFF);
+		dos.writeByte(dateLength >> 8 & 0XFF);
+		
 		dos.write(data);
+		int crc = getCRC(baos.toByteArray());
+		dos.writeShort(crc);
 
 		JSONObject param = new JSONObject();
 		param.put("rawdata", baos);
@@ -136,5 +144,30 @@ public class UpGradeUtil {
 		command.put("method", "updatacmd");
 		command.put("param", param.toString());
 		return command.toString();
+	}
+	
+	 /**
+     * 计算CRC16校验码
+     *
+     * @param bytes 字节数组
+     * @return {@link String} 校验码
+     * @since 1.0
+     */
+	public static int getCRC(byte[] bytes) {
+		int CRC = 0x0000ffff;
+		int POLYNOMIAL = 0x0000a001;
+		int i, j;
+		for (i = 0; i < bytes.length; i++) {
+			CRC ^= ((int) bytes[i] & 0x000000ff);
+			for (j = 0; j < 8; j++) {
+				if ((CRC & 0x00000001) != 0) {
+					CRC >>= 1;
+					CRC ^= POLYNOMIAL;
+				} else {
+					CRC >>= 1;
+				}
+			}
+		}
+		return CRC;
 	}
 }
