@@ -8,7 +8,7 @@
 */
 package com.iot.commandstrategy;
 
-import static com.iot.utils.ConverterUtils.toInt;
+import static com.iot.utils.ConverterUtils.toShort;
 
 import java.util.Map;
 
@@ -44,7 +44,7 @@ public class CommandUpdataService implements ICommandService {
 		LoggerUtils.Logger(LogName.INFO).info(logInfo);
 		System.out.println(logInfo);
 		try {
-			int receivedPackNum = toInt(commandMap.get("result"));
+			short receivedPackNum = toShort(commandMap.get("result"));
 			
 			/** 设备升级缓存key */
 			String deviceProgress = Constant.PROGRESS + deviceId;
@@ -52,8 +52,8 @@ public class CommandUpdataService implements ICommandService {
 				JSONObject progressBody = (JSONObject) JedisUtils.get(deviceProgress);
 				
 				String fileKey = progressBody.getString("fileKey");
-				int packNum = progressBody.getIntValue("packNum");
-				int sendedPack = progressBody.getIntValue("sendedPack");
+				short packNum = progressBody.getShortValue("packNum");
+				short sendedPack = progressBody.getShortValue("sendedPack");
 				
 				/** 错误重传 */
 				if (receivedPackNum == 0XFFFF) {

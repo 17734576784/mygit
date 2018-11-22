@@ -31,7 +31,7 @@ public class BytesUtils {
 
 	/**
 	 * 将short整型数值转换为字节数组
-	 * 
+	 * 高位在前，低位在后
 	 * @param data
 	 * @return
 	 */
@@ -39,6 +39,19 @@ public class BytesUtils {
 		byte[] bytes = new byte[2];
 		bytes[0] = (byte) ((data & 0xff00) >> 8);
 		bytes[1] = (byte) (data & 0xff);
+		return bytes;
+	}
+	
+	/**
+	 * 将short整型数值转换为字节数组
+	 * 低位在前，高位在后
+	 * @param data
+	 * @return
+	 */
+	public static byte[] getBytesReserve(short data) {
+		byte[] bytes = new byte[2];
+		bytes[0] = (byte) (data & 0xff);
+		bytes[1] = (byte) ((data & 0xff00) >> 8);
 		return bytes;
 	}
 

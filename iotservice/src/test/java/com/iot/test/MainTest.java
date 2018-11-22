@@ -92,7 +92,7 @@ public class MainTest {
 		dataLen = BytesUtils.getBytes((short) 2000);// 2个字节
 		
 		System.out.println(BytesUtils.byteToHex((byte)((2000)&0XFF)));
-		System.out.println(BytesUtils.byteToHex((byte)(2000 >>8&0XFF)));
+		System.out.println(BytesUtils.byteToHex((byte) ((2000 & 0xff00) >> 8)));
 		for (byte b : dataLen) {
 			System.out.print(BytesUtils.byteToHex(b) + " ");
 		}

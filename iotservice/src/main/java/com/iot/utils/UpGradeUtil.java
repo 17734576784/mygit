@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.http.HttpResponse;
+import static com.iot.utils.BytesUtils.getBytesReserve;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -100,7 +101,7 @@ public class UpGradeUtil {
 	* @return String    返回类型 
 	* @throws 
 	*/
-	public static String getCommandParam(String deviceId, String fileKey, int packNum, int sendedPack, JSONObject upgradeFile)
+	public static String getCommandParam(String deviceId, String fileKey, short packNum, short sendedPack, JSONObject upgradeFile)
 			throws IOException {
 		@SuppressWarnings("unchecked")
 		Map<String, byte[]> fileMap = (Map<String, byte[]>) upgradeFile.get("data");
@@ -119,17 +120,13 @@ public class UpGradeUtil {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		DataOutputStream dos = new DataOutputStream(baos);
 
-		int dateLength = data.length;
+		short dateLength = (short) data.length;
 		dos.writeByte(fileFlag);
 		dos.writeByte(fileAttribute);
-		dos.writeByte(packNum & 0XFF);
-		dos.writeByte(packNum >> 8 & 0XFF);
-		
-		dos.writeByte(sendedPack & 0XFF);
-		dos.writeByte(sendedPack >> 8 & 0XFF);
-		dos.writeByte(dateLength & 0XFF);
-		dos.writeByte(dateLength >> 8 & 0XFF);
-		
+		dos.write(getBytesReserve(packNum));
+		dos.write(getBytesReserve(sendedPack));
+		dos.write(getBytesReserve(dateLength));
+
 		dos.write(data);
 		int crc = getCRC(baos.toByteArray());
 		dos.writeShort(crc);

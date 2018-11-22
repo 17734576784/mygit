@@ -59,8 +59,8 @@ public class CommandUpversionService implements ICommandService {
 					JSONObject progressBody = (JSONObject) JedisUtils.get(deviceProgress);
 					
 					String fileKey = progressBody.getString("fileKey");
-					int packNum = progressBody.getIntValue("packNum");
-					int sendedPack = progressBody.getIntValue("sendedPack");
+					short packNum = progressBody.getShortValue("packNum");
+					short sendedPack = progressBody.getShortValue("sendedPack");
 					
 					JSONObject upgradeFile = (JSONObject) JedisUtils.get(fileKey);
 					if (upgradeFile == null || upgradeFile.isEmpty()) {
