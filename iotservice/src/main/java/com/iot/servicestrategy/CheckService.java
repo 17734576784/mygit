@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import com.alibaba.fastjson.JSONObject;
 import com.iot.logger.LogName;
 import com.iot.logger.LoggerUtils;
+import com.iot.utils.UpGradeUtil;
 import com.iot.utils.Constant;
 import com.iot.utils.FileUtils;
 import com.iot.utils.HttpsUtils;
@@ -57,7 +58,7 @@ public class CheckService implements IServiceStrategy {
 			Object data = serviceMap.get("data");
 			Map<String, String> dataMap = new HashMap<String, String>();
 			dataMap = JsonUtil.jsonString2SimpleObj(data, dataMap.getClass());
-			String version = toStr(dataMap.get("ver"));
+			String version = toStr(dataMap.get("version"));
 
 			Map<String, Object> paramJson = new HashMap<>();
 			paramJson.put("version", version);
@@ -69,33 +70,33 @@ public class CheckService implements IServiceStrategy {
 			if (response != null && !response.isEmpty()) {
 				if (response.getInteger("status") == Constant.SUCCESS) {
 					int upgradeFlag = response.getIntValue("flag");
-					/** 判断设备是否升级 */
-					if (upgradeFlag == Constant.UPGRADE) {
+					/** 判断设备是否升级 0：升级 1：不升级 */
+					if (upgradeFlag == Constant.UPGRADE_SUCCESS) {
 						String filePath = response.getString("filePath");
 						String newVersion = response.getString("version");
-						deviceUpgrade(deviceId, filePath, newVersion);
+						loadUpgradeFile(deviceId, filePath, newVersion);
 					}
+					
+					JSONObject param= new JSONObject();
+					param.put("value", upgradeFlag);
+					param.put("version", version);
+					
+					/**下发版本验证命令*/
+					JSONObject command = new JSONObject();
+					command.put("deviceId", deviceId);
+					command.put("serviceId","UpversionService");
+					command.put("method","upversion");	
+					command.put("param", param.toString());
+					UpGradeUtil.asynCommand(command.toString());
 				} 
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			LoggerUtils.Logger(LogName.CALLBACK).error("上传check处理异常," + serviceMap.toString(), e);
 		}	
 	}
 	
-	public void deviceUpgrade(String deviceId, String filePath, String version) {
-		try {
-			/** 获取升级文件 */
-			JSONObject upgradeFileJson = loadUpgradeFile(deviceId, filePath, version);
-			if (upgradeFileJson != null && !upgradeFileJson.isEmpty()) {
-				/** 下发命令 */
-				
-				
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			LoggerUtils.Logger(LogName.CALLBACK).error("开始设备升级异常，" + deviceId + "," + filePath + "," + version);
-		}
-	}
+	
 	
 	/** 
 	* @Title: loadUpgradeFile 
@@ -106,36 +107,60 @@ public class CheckService implements IServiceStrategy {
 	* @return JSONObject    返回类型 
 	* @throws 
 	*/
-	public JSONObject loadUpgradeFile(String deviceId, String filePath, String version) {
-		JSONObject json = new JSONObject();
-		String fileKey = filePath + "_" + version;
-		/** 设备升级缓存key */
-		String deviceProgress = Constant.PROGRESS + deviceId;
+	public void loadUpgradeFile(String deviceId, String filePath, String version) {
 		try {
+			/** 获取升级文件 */
+			String fileKey = filePath + "_" + version;
+			JSONObject upgradeFile = new JSONObject();
+			/** 判断升级文件是否已经缓存，未缓存生成缓存*/
+			if (!JedisUtils.hasKey(fileKey)) {
+				upgradeFile = FileUtils.parseUpgradeFile(filePath, version, filePath, packSize);
+			} else {
+				upgradeFile = (JSONObject) JedisUtils.get(fileKey);
+			}
+			int packNum = upgradeFile.getIntValue("packNum");
+			
+			/** 设备升级缓存key */
+			String deviceProgress = Constant.PROGRESS + deviceId;
 			if (JedisUtils.hasKey(deviceProgress)) {
-				/**存在设备升级缓存，对比当前升级信息和缓存升级信息是否一致*/
+				/** 存在设备升级缓存，对比当前升级信息和缓存升级信息是否一致 */
 				JSONObject progress = (JSONObject) JedisUtils.get(deviceProgress);
 				String progressVersion = progress.getString("version");
 				/** 升级信息不一致，删除该设备缓存升级进程信息 */
 				if (!fileKey.equals(progressVersion)) {
+					/** 删除过期升级进度缓存 */
 					JedisUtils.del(deviceProgress);
+					/** 创建新升级进度缓存 */
+					insertDeviceProgress(deviceId, fileKey, packNum);
 				}
+			} else {
+				/** 创建新升级进度缓存 */
+				insertDeviceProgress(deviceId, fileKey, packNum);
 			}
-			
-			/** 存在直接返回 */
-			if (JedisUtils.hasKey(fileKey)) {
-				json = (JSONObject) JedisUtils.get(fileKey);
-				return json;
-			} 
-			
-			json = FileUtils.parseUpgradeFile(filePath, version, filePath, packSize);
-			
 		} catch (Exception e) {
-			LoggerUtils.Logger(LogName.CALLBACK).error("加载升级文件异常！" + fileKey);
 			e.printStackTrace();
+			LoggerUtils.Logger(LogName.CALLBACK).error("获取设备升级异常，" + deviceId + "," + filePath + "," + version);
 		}
-
-		return json;
 	}
 	
+	/** 
+	* @Title: insertDeviceProgress 
+	* @Description: 插入设备升级进度缓存
+	* @param @param deviceId
+	* @param @param fileKey
+	* @param @param packNum    设定文件 
+	* @return void    返回类型 
+	* @throws 
+	*/
+	private void insertDeviceProgress(String deviceId, String fileKey, int packNum) {
+		/** 设备升级缓存key */
+		String deviceProgress = Constant.PROGRESS + deviceId;
+		JSONObject progressBody = new JSONObject();
+		progressBody.put("deviceId", deviceId);
+		progressBody.put("fileKey", fileKey);
+		progressBody.put("packNum", packNum);
+		progressBody.put("sendedPack", 0);
+
+		JedisUtils.set(deviceProgress, progressBody);
+	}
 }

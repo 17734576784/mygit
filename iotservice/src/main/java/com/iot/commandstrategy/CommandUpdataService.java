@@ -8,22 +8,18 @@
 */
 package com.iot.commandstrategy;
 
-import static com.iot.utils.ConverterUtils.toStr;
+import static com.iot.utils.ConverterUtils.toInt;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.http.HttpResponse;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.alibaba.fastjson.JSONObject;
 import com.iot.logger.LogName;
 import com.iot.logger.LoggerUtils;
-import com.iot.utils.AuthenticationUtils;
+import com.iot.utils.UpGradeUtil;
 import com.iot.utils.Constant;
-import com.iot.utils.IotHttpsUtil;
-import com.iot.utils.JsonUtil;
-
+import com.iot.utils.JedisUtils;
 /** 
 * @ClassName: CommandUpdataService 
 * @Description: 远程升级上行解析服务
@@ -47,47 +43,48 @@ public class CommandUpdataService implements ICommandService {
 		String logInfo = "升级命令回复，设备id：" + deviceId + ",内容：" + commandMap.toString();
 		LoggerUtils.Logger(LogName.INFO).info(logInfo);
 		System.out.println(logInfo);
-		String slope = toStr(commandMap.get("slopestatus"));
-		String magnetic = toStr(commandMap.get("magneticstatus"));
-		
-		
-	}
-	
-	public void sendUpgradeData(String deviceId) {
 		try {
-			IotHttpsUtil httpsUtil = new IotHttpsUtil();
-			httpsUtil.initSSLConfigForTwoWay();
-		
-			String accessToken = AuthenticationUtils.getAccessToken(httpsUtil);
-			String urlPostAsynCmd = Constant.POST_ASYN_CMD;
-			String appId = Constant.APPID;
-			String callbackUrl = Constant.REPORT_CMD_EXEC_RESULT_CALLBACK_URL;
-	
-			String serviceId = "serviceName";
-			String method = "method";
-			ObjectNode paras = JsonUtil.convertObject2ObjectNode("");// "{\"value\":\"12\"}"
-	
-			Map<String, Object> paramCommand = new HashMap<>();
-			paramCommand.put("serviceId", serviceId);
-			paramCommand.put("method", method);
-			paramCommand.put("paras", paras);
-	
-			Map<String, Object> paramPostAsynCmd = new HashMap<>();
-			paramPostAsynCmd.put("deviceId", deviceId);
-			paramPostAsynCmd.put("command", paramCommand);
-			paramPostAsynCmd.put("callbackUrl", callbackUrl);
-	
-			String jsonRequest = JsonUtil.jsonObj2Sting(paramPostAsynCmd);
-	
-			Map<String, String> header = new HashMap<>();
-			header.put(Constant.HEADER_APP_KEY, appId);
-			header.put(Constant.HEADER_APP_AUTH, "Bearer" + " " + accessToken);
-	
-			HttpResponse responsePostAsynCmd = httpsUtil.doPostJson(urlPostAsynCmd, header, jsonRequest);
-			String responseBody = httpsUtil.getHttpResponseBody(responsePostAsynCmd);
+			int receivedPackNum = toInt(commandMap.get("result"));
+			
+			/** 设备升级缓存key */
+			String deviceProgress = Constant.PROGRESS + deviceId;
+			if (JedisUtils.hasKey(deviceProgress)) {
+				JSONObject progressBody = (JSONObject) JedisUtils.get(deviceProgress);
+				
+				String fileKey = progressBody.getString("fileKey");
+				int packNum = progressBody.getIntValue("packNum");
+				int sendedPack = progressBody.getIntValue("sendedPack");
+				
+				/** 错误重传 */
+				if (receivedPackNum == 0XFFFF) {
+					receivedPackNum = sendedPack;
+				} else {
+					progressBody.put("sendedPack", receivedPackNum);
+					receivedPackNum += 1;
+				}
+				
+				progressBody.put("sendedPack", receivedPackNum);
+				
+				JSONObject upgradeFile = (JSONObject) JedisUtils.get(fileKey);
+				if (upgradeFile == null || upgradeFile.isEmpty()) {
+					LoggerUtils.Logger(LogName.CALLBACK).info("升级文件：" + fileKey + "不存在");
+					return;
+				} 
+				
+				String command = UpGradeUtil.getCommandParam(deviceId, fileKey, packNum, receivedPackNum, upgradeFile);
+				if (null == command || command.isEmpty()) {
+					LoggerUtils.Logger(LogName.CALLBACK).info("组建命令参数失败：" + commandMap);
+					return;
+				}
+				UpGradeUtil.asynCommand(command.toString());
+				System.out.println("在设备：" + deviceId + "发送升级命令成功，" + command);
+			} else {
+				LoggerUtils.Logger(LogName.INFO).info("不存在设备：" + deviceId + ",升级进度缓存");
+				System.out.println("不存在设备：" + deviceId + ",升级进度缓存");
+			}
+
 		} catch (Exception e) {
-			e.printStackTrace();
+			// TODO: handle exception
 		}
 	}
-
 }

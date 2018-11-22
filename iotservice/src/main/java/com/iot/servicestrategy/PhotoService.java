@@ -65,7 +65,10 @@ public class PhotoService implements IServiceStrategy {
 			photo = toStr(dataMap.get("rawdata"));
 			photoByte = CommFunc.decode(photo);
 			
-			String time = toStr(dataMap.get("time"));
+			String packdate = toStr(dataMap.get("packdate"));
+			String packtime = toStr(dataMap.get("packtime"));
+			String time = packdate + packtime;
+
 			String logInfo = " packnum : " + packnum + "  totalpack : " + totalpack + " deviceId :/" + deviceId
 					+ "  time : " + time;
 			LoggerUtils.Logger(LogName.CALLBACK).info(logInfo);
@@ -103,8 +106,8 @@ public class PhotoService implements IServiceStrategy {
 	private boolean generateImage(LinkedHashMap<String, byte[]> photoMap, String deviceId, String time) {
 
 		try {
-			String photoDate = "20" + time.substring(0, 6);
-			String photoTime = time.substring(6);
+			String photoDate =time.substring(0, 8);
+			String photoTime = time.substring(8);
 			String filePath = imageUrl + deviceId + "_" + LocalDateTime.now().getNano() + ".jpeg";
 			byte[] tmp = new byte[0];
 			Iterator<Entry<String, byte[]>> iterator = photoMap.entrySet().iterator();

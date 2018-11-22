@@ -169,6 +169,9 @@ public class Constant {
 
 	/** 上传主动查询 */
 	public static final String UPLOAD_CHECK_URL = "nbNotifyAction!checkExistOrders.action";
+	
+	/** 上传升级成功地址 */
+	public static final String UPLOAD_UPGRADERESULT_URL = "nbNotifyAction!notifyUploadResult.action";
 
 	/** 命令发送 */
 	public static final String COMMAND_SEND = "SEND";
@@ -191,8 +194,11 @@ public class Constant {
 	/** 删除设备 设备不存在 */
 	public static final int STATUS_404 = 404;
 	
-	/** 升级标志 0：不升级 1：升级 */
-	public static final int UPGRADE = 1;
+	/** 升级标志 0：升级 1：不升级 */
+	public static final int UPGRADE_SUCCESS = 0;
+	
+	/** 升级标志 0：升级 1：不升级 */
+	public static final int UPGRADE_FAILED = 1;
 	
 	/** redis 设备升级进度key前缀 */
 	public static final String PROGRESS = "progress_";
