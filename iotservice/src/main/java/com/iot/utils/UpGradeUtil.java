@@ -137,8 +137,8 @@ public class UpGradeUtil {
 		/** 下发版本验证命令 */
 		JSONObject command = new JSONObject();
 		command.put("deviceId", deviceId);
-		command.put("serviceId", "UpdataService");
-		command.put("method", "updatacmd");
+		command.put("serviceId", Constant.UPDATASERVICE);
+		command.put("method", Constant.UPDATACMD);
 		command.put("param", param.toString());
 		return command.toString();
 	}

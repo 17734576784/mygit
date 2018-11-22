@@ -84,18 +84,18 @@ public class MainTest {
 //		dos.writeShort(crc);
 		tmp = baos.toByteArray();
 
-		for (byte b : tmp) {
-			System.out.print(BytesUtils.byteToHex(b) + " ");
-		}
+//		for (byte b : tmp) {
+//			System.out.print(BytesUtils.byteToHex(b) + " ");
+//		}
 		
 		System.out.println();
 		dataLen = BytesUtils.getBytes((short) 2000);// 2个字节
 		
-		System.out.println(BytesUtils.byteToHex((byte)((2000)&0XFF)));
-		System.out.println(BytesUtils.byteToHex((byte) ((2000 & 0xff00) >> 8)));
-		for (byte b : dataLen) {
-			System.out.print(BytesUtils.byteToHex(b) + " ");
-		}
+//		System.out.println(BytesUtils.byteToHex((byte)((2000)&0XFF)));
+//		System.out.println(BytesUtils.byteToHex((byte) ((2000 & 0xff00) >> 8)));
+		int packNum = (int) Math.ceil(1.00 * 1100 / 256);
+		System.out.println("升级文件总包数 : " + packNum);
+
 //		
 //		
 //		DataInputStream dis=new DataInputStream(new ByteArrayInputStream(baos.toByteArray()));

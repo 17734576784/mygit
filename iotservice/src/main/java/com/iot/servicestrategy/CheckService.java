@@ -4,10 +4,8 @@
 package com.iot.servicestrategy;
 
 import static com.iot.utils.ConverterUtils.toStr;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -69,8 +67,8 @@ public class CheckService implements IServiceStrategy {
 			JSONObject response = HttpsUtils.doPost(apiUrl, paramMap);
 			if (response != null && !response.isEmpty()) {
 				if (response.getInteger("status") == Constant.SUCCESS) {
+					/** 判断设备是否升级 0:升级 1：不升级 */
 					int upgradeFlag = response.getIntValue("flag");
-					/** 判断设备是否升级 0：升级 1：不升级 */
 					if (upgradeFlag == Constant.UPGRADE_SUCCESS) {
 						String filePath = response.getString("filePath");
 						String newVersion = response.getString("version");
@@ -81,14 +79,16 @@ public class CheckService implements IServiceStrategy {
 					param.put("value", upgradeFlag);
 					param.put("version", version);
 					
-					/**下发版本验证命令*/
+					/**下发询问设备是否升级命令*/
 					JSONObject command = new JSONObject();
 					command.put("deviceId", deviceId);
-					command.put("serviceId","UpversionService");
-					command.put("method","upversion");	
+					command.put("serviceId",Constant.UPVERSIONSERVICE);
+					command.put("method",Constant.UPVERSION);	
 					command.put("param", param.toString());
 					UpGradeUtil.asynCommand(command.toString());
 				} 
+			} else {
+				LoggerUtils.Logger(LogName.CALLBACK).info("发送主动查询解析服务返回结果为空，" + serviceMap);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -118,6 +118,7 @@ public class CheckService implements IServiceStrategy {
 			} else {
 				upgradeFile = (JSONObject) JedisUtils.get(fileKey);
 			}
+			/** 升级文件总包数 */
 			int packNum = upgradeFile.getIntValue("packNum");
 			
 			/** 设备升级缓存key */
@@ -159,7 +160,7 @@ public class CheckService implements IServiceStrategy {
 		progressBody.put("deviceId", deviceId);
 		progressBody.put("fileKey", fileKey);
 		progressBody.put("packNum", packNum);
-		progressBody.put("sendedPack", 0);
+		progressBody.put("sendedPack", -1);
 
 		JedisUtils.set(deviceProgress, progressBody);
 	}

@@ -63,8 +63,6 @@ public class CommandUpdataService implements ICommandService {
 					receivedPackNum += 1;
 				}
 				
-				progressBody.put("sendedPack", receivedPackNum);
-				
 				JSONObject upgradeFile = (JSONObject) JedisUtils.get(fileKey);
 				if (upgradeFile == null || upgradeFile.isEmpty()) {
 					LoggerUtils.Logger(LogName.CALLBACK).info("升级文件：" + fileKey + "不存在");

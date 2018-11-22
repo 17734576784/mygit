@@ -239,11 +239,11 @@ public class FileUtils {
 			byte[] fileByte = FileUtils.fileToBinArray(file);
 
 			int fileLength = fileByte.length;
-			int packNum = fileLength / packSize;
+			int packNum = (int) Math.ceil(1.00 * fileLength / packSize);
 			System.out.println("升级文件总包数 : " + packNum);
 
 			Map<String, byte[]> fileMap = new LinkedHashMap<String, byte[]>(packNum);
-			for (int i = 0; i <= packNum; i++) {
+			for (int i = 0; i < packNum; i++) {
 				int packlength = (int) ((i + 1) * packSize > fileLength ? fileLength : (i + 1) * packSize);
 				byte[] tmp = Arrays.copyOfRange(fileByte, packSize * i, packlength);
 				fileMap.put(String.valueOf(i), tmp);
