@@ -78,7 +78,7 @@ public class UpGradeUtil {
 				return false;
 			}
 
-			JedisUtils.set(commandId, serviceId, 172800);
+			JedisUtils.set(Constant.COMMAND + commandId, serviceId, 172800);
 		} catch (Exception e) {
 			LoggerUtils.Logger(LogName.INFO).error("工具类接收下发命令异常：" + command);
 			e.printStackTrace();
@@ -132,7 +132,7 @@ public class UpGradeUtil {
 		dos.writeShort(crc);
 
 		JSONObject param = new JSONObject();
-		param.put("rawdata", baos);
+		param.put("rawdata", baos.toByteArray());
 
 		/** 下发版本验证命令 */
 		JSONObject command = new JSONObject();

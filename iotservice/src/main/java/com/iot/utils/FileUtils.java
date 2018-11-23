@@ -12,10 +12,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
@@ -187,36 +185,36 @@ public class FileUtils {
     }
     
     public static void main(String[] args){
-        File file = new File("D://新建文本文档.txt");
+//        File file = new File("D://新建文本文档.txt");
 //        String fileName = file.getName();
 //        binToFile(fileToBinStr(file),fileName,"D://测试byte");
 //        getFileToByte(file);
-        
-        byte[] fileByte = fileToBinArray(file);
-        System.out.println(fileByte.length);
-        int fileLength = fileByte.length;
-        int length = 16;
-        int packNum = fileLength/length;
-        System.out.println(packNum);
-        
-        Map<String,Object> fileMap = new LinkedHashMap<String,Object>(packNum);
-        for (int i = 0; i <= (packNum); i++) {
-        	int blen = (int) ((i + 1) * length > fileLength ? fileLength : (i + 1) * length);
-			byte[] b = Arrays.copyOfRange(fileByte, length * i, blen);
-			fileMap.put(String.valueOf(i), b);
-		}
-        
-        byte[] all_byte = new byte[fileLength];
-        Iterator<Entry<String, Object>> it = fileMap.entrySet().iterator();
-		int countLength = 0;
-		while (it.hasNext()) {
-			Entry<String, Object> entry = it.next();
-			byte[] b = (byte[]) entry.getValue();
-			System.arraycopy(b, 0, all_byte, countLength, b.length);
-			countLength += b.length;
-			System.out.println("countLength: "+countLength);
-		}
-		CommFunc.byte2image(all_byte, "D://dbr.txt");
+//        
+//        byte[] fileByte = fileToBinArray(file);
+//        System.out.println(fileByte.length);
+//        int fileLength = fileByte.length;
+//        int length = 16;
+//        int packNum = fileLength/length;
+//        System.out.println(packNum);
+//        
+//        Map<String,Object> fileMap = new LinkedHashMap<String,Object>(packNum);
+//        for (int i = 0; i <= (packNum); i++) {
+//        	int blen = (int) ((i + 1) * length > fileLength ? fileLength : (i + 1) * length);
+//			byte[] b = Arrays.copyOfRange(fileByte, length * i, blen);
+//			fileMap.put(String.valueOf(i), b);
+//		}
+//        
+//        byte[] all_byte = new byte[fileLength];
+//        Iterator<Entry<String, Object>> it = fileMap.entrySet().iterator();
+//		int countLength = 0;
+//		while (it.hasNext()) {
+//			Entry<String, Object> entry = it.next();
+//			byte[] b = (byte[]) entry.getValue();
+//			System.arraycopy(b, 0, all_byte, countLength, b.length);
+//			countLength += b.length;
+//			System.out.println("countLength: "+countLength);
+//		}
+//		CommFunc.byte2image(all_byte, "D://dbr.txt");
     }
     
     /** 

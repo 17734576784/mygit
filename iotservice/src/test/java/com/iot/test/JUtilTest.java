@@ -1,12 +1,21 @@
 package com.iot.test;
 
+import java.io.IOException;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.alibaba.fastjson.JSONObject;
 import com.iot.IotserviceApplication;
+import com.iot.logger.LogName;
+import com.iot.logger.LoggerUtils;
+import com.iot.servicestrategy.CheckService;
+import com.iot.utils.FileUtils;
 import com.iot.utils.JedisUtils;
+import com.iot.utils.UpGradeUtil;
 /**
  * @author dbr
  *
@@ -15,30 +24,19 @@ import com.iot.utils.JedisUtils;
 @SpringBootTest(classes = {IotserviceApplication.class })
 public class JUtilTest {
 
-
+	@Autowired
+	private CheckService checkService; 
 	@Test
-	public void StrategyTest() {
-		JedisUtils.set("a", 111, 120);
-//		try {
-//			Thread.sleep(50000);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-		long expireTime = JedisUtils.getExpire("a");
-		System.out.println("expireTime ：" + expireTime);
-		
-		JedisUtils.set("a", 222, expireTime);
-//		
-//		try {
-//			Thread.sleep(20000);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		expireTime = JedisUtils.getExpire("a");
-		System.out.println("expireTime ：" + expireTime);
-		
+	public void StrategyTest() throws Exception {
+//		System.out.println(FileUtils.parseUpgradeFile("a.bin", "1.00", "C://", 256));;
+//		checkService.loadUpgradeFile("5e81d9d4-a8f1-49f6-885f-3f02d60769e2", "a.bin", "1.00");
+		JSONObject upgradeFile = (JSONObject) JedisUtils.get("a.bin_1.00");
+		String command = UpGradeUtil.getCommandParam("02b80974-eedb-423e-a1b3-75f43328d4e8", "a.bin_1.00", (short)101, (short)1, upgradeFile);
+		if (null == command || command.isEmpty()) {
+//			LoggerUtils.Logger(LogName.CALLBACK).info("组建命令参数失败：" + commandMap);
+			return;
+		}
+		UpGradeUtil.asynCommand(command.toString());
+//		System.out.println("在设备：" + deviceId + "发送升级命令成功，" + command);
 	}
 }

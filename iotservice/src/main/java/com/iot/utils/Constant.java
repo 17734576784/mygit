@@ -203,6 +203,9 @@ public class Constant {
 	/** redis 设备升级进度key前缀 */
 	public static final String PROGRESS = "progress_";
 	
+	/** redis 命令idkey前缀 */
+	public static final String COMMAND = "command_";
+	
 	/**询问设备是否升级服务名*/
 	public static String UPVERSIONSERVICE = "UpversionService";
 	

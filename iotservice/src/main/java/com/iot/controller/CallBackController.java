@@ -257,13 +257,13 @@ public class CallBackController {
 			Object resultDetail = dataMap.get("resultDetail");
 			System.out.println(deviceId + "  " + commandId + "  resultCode : " + resultCode);
 			if (resultCode.equals(Constant.COMMAND_SUCCESS)) {
-				String serviceName = toStr(JedisUtils.get(commandId));
+				String serviceName = toStr(JedisUtils.get(Constant.COMMAND + commandId));
 				Map<String, String> commandMap = new HashMap<String, String>();
 				commandMap = JsonUtil.jsonString2SimpleObj(resultDetail, dataMap.getClass());
 				commandContext.parseCommand(serviceName, deviceId, commandMap);
 
 			} else if (resultCode.equals(Constant.COMMAND_FAILED) || resultCode.equals(Constant.COMMAND_TIMEOUT)) {
-				JedisUtils.del(commandId);
+				JedisUtils.del(Constant.COMMAND + commandId);
 			}
 		} catch (Exception e) {
 			LoggerUtils.Logger(LogName.CALLBACK).error("接受命令响应异常," + reportCmdExecResult_NotifyMessage);

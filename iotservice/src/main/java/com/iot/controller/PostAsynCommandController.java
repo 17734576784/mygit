@@ -93,7 +93,7 @@ public class PostAsynCommandController {
 			result.setError(responseBody);
 
 		}else {
-			JedisUtils.set(commandId, serviceId, commandExpireTime);
+			JedisUtils.set(Constant.COMMAND + commandId, serviceId, commandExpireTime);
 		}
 
 		
