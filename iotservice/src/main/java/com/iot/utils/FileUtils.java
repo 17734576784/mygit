@@ -228,12 +228,12 @@ public class FileUtils {
     * @return JSONObject    返回类型 
     * @throws 
     */
-    public static JSONObject parseUpgradeFile(String filePath, String version,String baseFilePath,int packSize) {
-		String fileKey = filePath + "_" + version;
+    public static JSONObject parseUpgradeFile(String fileName, String version,String filePath,int packSize) {
+		String fileKey = fileName + "_" + version;
 		JSONObject json = new JSONObject();
 		try {
 			/** 不存在则解析文件，存入redis */
-			File file = new File(baseFilePath + filePath);
+			File file = new File(filePath);
 			byte[] fileByte = FileUtils.fileToBinArray(file);
 
 			int fileLength = fileByte.length;

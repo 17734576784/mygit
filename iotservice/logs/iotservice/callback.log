@@ -19,3 +19,4 @@
 [2018-11-23 15:29:42.139] INFO [https-jsse-nio-8443-exec-8] CallBackController.java:246 - 接受命令响应：{deviceId=5e81d9d4-a8f1-49f6-885f-3f02d60769e2, commandId=ac27c6b175ea4b22ab9603704e949738, result={resultCode=SENT, resultDetail=null}}
 [2018-11-23 15:32:13.781] INFO [https-jsse-nio-8443-exec-4] CallBackController.java:246 - 接受命令响应：{deviceId=5e81d9d4-a8f1-49f6-885f-3f02d60769e2, commandId=ac27c6b175ea4b22ab9603704e949738, result={resultCode=TIMEOUT, resultDetail=null}}
 [2018-11-23 15:44:05.192] INFO [https-jsse-nio-8443-exec-6] CallBackController.java:246 - 接受命令响应：{deviceId=5e81d9d4-a8f1-49f6-885f-3f02d60769e2, commandId=3f6d368f51a04b15b8d154eb6dba551b, result={resultCode=DELIVERED, resultDetail=null}}
+[2018-11-23 16:59:26.306] INFO [https-jsse-nio-8443-exec-3] CallBackController.java:246 - 接受命令响应：{deviceId=5e81d9d4-a8f1-49f6-885f-3f02d60769e2, commandId=6e2374c5620e4fa1b752c6755d6504f0, result={resultCode=DELIVERED, resultDetail=null}}

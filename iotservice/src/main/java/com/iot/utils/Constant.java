@@ -218,4 +218,5 @@ public class Constant {
 	/** 升级服务方法名 */
 	public static String UPDATACMD = "updatacmd";
 
+	public static String BaseFilePath = "c://";
 }
