@@ -107,12 +107,12 @@ public class UpGradeUtil {
 		Map<String, byte[]> fileMap = (Map<String, byte[]>) upgradeFile.get("data");
 		byte[] data = fileMap.get(String.valueOf(sendedPack));
 
-		byte fileFlag = 0X00; // 文件标识
-		byte fileAttribute = 0x00;// 文件属性
+		byte fileFlag = 0X00; // 文件标识 0x00 清除传输文件，恢复到升级前状态
+		byte fileAttribute = 0x00;// 文件属性 0x00 起始 中间帧 0X01 结束帧
 		if (sendedPack > 0) {
 			fileFlag = 0X01;
 		}
-
+		/** 结束帧发生0X01 */
 		if ((sendedPack + 1) == packNum) {
 			fileAttribute = 0X01;
 		}

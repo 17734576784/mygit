@@ -33,7 +33,7 @@ public class MainTest {
 //        String dateHex = String.format("%06x",1577237);
 //        System.out.println(dateHex);
 		
-		String a="AQBlAAEAAAEAAAAATwIACAAAAABPAgAIAAAAAAAAAABPAgAITwIACE8CAAhPAgAITwIACE8CAAhPAgAIAAAAAAAAAAAAAAAAgQcACE8CAAhPAgAIAAAAAE8CAAhPAgAITwIACE8CAAhPAgAITwIACE8CAAgAAAAATwIACE8CAAgAAAAAAAAAAE8CAAhPAgAITwIACADwAvgA8EH4CqCQ6AAMgkSDRKrxAQfaRQHRAPA2+K/yCQ666A8AE/ABDxi/+xpD8AEDGEc0YgAAVGIAABA6JL94yHjB+thSByS/MMgwwUS/BGgMYHBHAAAAIwAkACUAJhA6KL94wfvYUgcovzDBSL8LYHBHO6I=";
+		String a = "AQBlAAEAAAEAAAAATwIACAAAAABPAgAIAAAAAAAAAABPAgAITwIACE8CAAhPAgAITwIACE8CAAhPAgAIAAAAAAAAAAAAAAAAgQcACE8CAAhPAgAIAAAAAE8CAAhPAgAITwIACE8CAAhPAgAITwIACE8CAAgAAAAATwIACE8CAAgAAAAAAAAAAE8CAAhPAgAITwIACADwAvgA8EH4CqCQ6AAMgkSDRKrxAQfaRQHRAPA2+K/yCQ666A8AE/ABDxi/+xpD8AEDGEc0YgAAVGIAABA6JL94yHjB+thSByS/MMgwwUS/BGgMYHBHAAAAIwAkACUAJhA6KL94wfvYUgcovzDBSL8LYHBHO6I=";
 		System.out.println(a.length());
 		byte[] base64 = CommFunc.decode(a);
 		for (byte b : base64) {
@@ -42,8 +42,9 @@ public class MainTest {
 		System.out.println();
 		
 		System.out.println(CommFunc.encode(base64));
-		
-		byte[] test = new byte[] {1,2,3,4};
+
+		byte[] test = new byte[] { 1, 2, 3, 4, 6 };
+		System.out.println(CommFunc.encode(test));
 		JSONObject jsontest = new JSONObject();
 		jsontest.put("a", test);
 		
@@ -51,7 +52,6 @@ public class MainTest {
 		for (byte b : test) {
 			System.out.print(BytesUtils.byteToHex(b) + " ");
 		}
-		
 		
  			
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
