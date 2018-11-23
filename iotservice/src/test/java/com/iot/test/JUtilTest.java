@@ -31,7 +31,7 @@ public class JUtilTest {
 //		System.out.println(FileUtils.parseUpgradeFile("a.bin", "1.00", "C://", 256));;
 //		checkService.loadUpgradeFile("5e81d9d4-a8f1-49f6-885f-3f02d60769e2", "a.bin", "1.00");
 		JSONObject upgradeFile = (JSONObject) JedisUtils.get("a.bin_1.00");
-		String command = UpGradeUtil.getCommandParam("02b80974-eedb-423e-a1b3-75f43328d4e8", "a.bin_1.00", (short)101, (short)1, upgradeFile);
+		String command = UpGradeUtil.getCommandParam("5e81d9d4-a8f1-49f6-885f-3f02d60769e2", "a.bin_1.00", (short)101, (short)1, upgradeFile);
 		if (null == command || command.isEmpty()) {
 //			LoggerUtils.Logger(LogName.CALLBACK).info("组建命令参数失败：" + commandMap);
 			return;

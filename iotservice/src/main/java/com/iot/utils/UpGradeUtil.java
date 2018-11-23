@@ -132,7 +132,8 @@ public class UpGradeUtil {
 		dos.writeShort(crc);
 
 		JSONObject param = new JSONObject();
-		param.put("rawdata", baos.toByteArray());
+		byte[] rawdata = baos.toByteArray();
+		param.put("rawdata", rawdata);
 
 		/** 下发版本验证命令 */
 		JSONObject command = new JSONObject();
