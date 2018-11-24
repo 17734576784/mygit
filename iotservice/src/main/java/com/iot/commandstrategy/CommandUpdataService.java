@@ -8,7 +8,7 @@
 */
 package com.iot.commandstrategy;
 
-import static com.iot.utils.ConverterUtils.toShort;
+import static com.iot.utils.ConverterUtils.*;
 
 import java.util.Map;
 
@@ -44,13 +44,12 @@ public class CommandUpdataService implements ICommandService {
 		LoggerUtils.Logger(LogName.INFO).info(logInfo);
 		System.out.println(logInfo);
 		try {
-			short receivedPackNum = toShort(commandMap.get("result"));
+			int receivedPackNum = toInt(commandMap.get("result"));
 			
 			/** 设备升级缓存key */
 			String deviceProgress = Constant.PROGRESS + deviceId;
 			if (JedisUtils.hasKey(deviceProgress)) {
 				JSONObject progressBody = (JSONObject) JedisUtils.get(deviceProgress);
-				
 				String fileKey = progressBody.getString("fileKey");
 				short packNum = progressBody.getShortValue("packNum");
 				short sendedPack = progressBody.getShortValue("sendedPack");
@@ -58,10 +57,14 @@ public class CommandUpdataService implements ICommandService {
 				/** 错误重传 */
 				if (receivedPackNum == 0XFFFF) {
 					receivedPackNum = sendedPack;
+					receivedPackNum = receivedPackNum == -1 ? 0 : receivedPackNum;
 				} else {
 					progressBody.put("sendedPack", receivedPackNum);
+					JedisUtils.set(deviceProgress, progressBody);
 					receivedPackNum += 1;
 				}
+				
+				System.out.println(progressBody);
 				
 				JSONObject upgradeFile = (JSONObject) JedisUtils.get(fileKey);
 				if (upgradeFile == null || upgradeFile.isEmpty()) {
@@ -69,13 +72,13 @@ public class CommandUpdataService implements ICommandService {
 					return;
 				} 
 				
-				String command = UpGradeUtil.getCommandParam(deviceId, fileKey, packNum, receivedPackNum, upgradeFile);
+				String command = UpGradeUtil.getCommandParam(deviceId, fileKey, packNum, (short)receivedPackNum, upgradeFile);
 				if (null == command || command.isEmpty()) {
 					LoggerUtils.Logger(LogName.CALLBACK).info("组建命令参数失败：" + commandMap);
 					return;
 				}
 				UpGradeUtil.asynCommand(command.toString());
-				System.out.println("在设备：" + deviceId + "发送升级命令成功，" + command);
+//				System.out.println("在设备：" + deviceId + "发送升级命令成功，" + command);
 			} else {
 				LoggerUtils.Logger(LogName.INFO).info("不存在设备：" + deviceId + ",升级进度缓存");
 				System.out.println("不存在设备：" + deviceId + ",升级进度缓存");
@@ -83,6 +86,7 @@ public class CommandUpdataService implements ICommandService {
 
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 }

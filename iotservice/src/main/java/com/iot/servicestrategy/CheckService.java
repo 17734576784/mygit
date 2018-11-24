@@ -109,8 +109,9 @@ public class CheckService implements IServiceStrategy {
 	*/
 	public void loadUpgradeFile(String deviceId, String filePath, String version) {
 		try {
-			String temp[] = filePath.split("\\\\"); /**split里面必须是正则表达式，"\\"的作用是对字符串转义*/  
-	        String fileName = temp[temp.length-1];
+			/** split里面必须是正则表达式，"\\"的作用是对字符串转义 */
+			String temp[] = filePath.split("\\\\"); 
+			String fileName = temp[temp.length - 1];
 	        
 			filePath = baseFilePath + filePath;
 			/** 获取升级文件 */
@@ -118,7 +119,7 @@ public class CheckService implements IServiceStrategy {
 			JSONObject upgradeFile = new JSONObject();
 			/** 判断升级文件是否已经缓存，未缓存生成缓存*/
 			if (!JedisUtils.hasKey(fileKey)) {
-				upgradeFile = FileUtils.parseUpgradeFile(fileName, version, filePath, packSize);
+				upgradeFile = FileUtils.parseUpgradeFile(fileKey, filePath, packSize);
 			} else {
 				upgradeFile = (JSONObject) JedisUtils.get(fileKey);
 			}

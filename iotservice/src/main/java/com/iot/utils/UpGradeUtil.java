@@ -128,8 +128,8 @@ public class UpGradeUtil {
 		dos.write(getBytesReserve(dateLength));
 
 		dos.write(data);
-		int crc = getCRC(baos.toByteArray());
-		dos.writeShort(crc);
+		short crc = (short) getCRC(baos.toByteArray());
+		dos.write(getBytesReserve(crc));
 
 		JSONObject param = new JSONObject();
 		byte[] rawdata = baos.toByteArray();

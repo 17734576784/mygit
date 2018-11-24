@@ -228,8 +228,7 @@ public class FileUtils {
     * @return JSONObject    返回类型 
     * @throws 
     */
-    public static JSONObject parseUpgradeFile(String fileName, String version,String filePath,int packSize) {
-		String fileKey = fileName + "_" + version;
+	public static JSONObject parseUpgradeFile(String fileKey, String filePath, int packSize) {
 		JSONObject json = new JSONObject();
 		try {
 			/** 不存在则解析文件，存入redis */

@@ -33,25 +33,38 @@ public class MainTest {
 //        String dateHex = String.format("%06x",1577237);
 //        System.out.println(dateHex);
 		
-		String a = "AQBlAAEAAAEAAAAATwIACAAAAABPAgAIAAAAAAAAAABPAgAITwIACE8CAAhPAgAITwIACE8CAAhPAgAIAAAAAAAAAAAAAAAAgQcACE8CAAhPAgAIAAAAAE8CAAhPAgAITwIACE8CAAhPAgAITwIACE8CAAgAAAAATwIACE8CAAgAAAAAAAAAAE8CAAhPAgAITwIACADwAvgA8EH4CqCQ6AAMgkSDRKrxAQfaRQHRAPA2+K/yCQ666A8AE/ABDxi/+xpD8AEDGEc0YgAAVGIAABA6JL94yHjB+thSByS/MMgwwUS/BGgMYHBHAAAAIwAkACUAJhA6KL94wfvYUgcovzDBSL8LYHBHO6I=";
+		String a = "AQBlAAcAAAEAgCBGvegQQP/3jr0BSRggq77+5yYAAgBwRwFGAfAPAgsRA+uDAwLrQwLQsnBHAL/+5wAAAL8PSABowPOAcDixCCANSUlpQUALSlFhAL8Av0/0ABAJSQloAUCBQgHRASEA4AAhKbFP9AAQBEkIYAC/AL9wRwACAUAABABIFAQBQAC1//fX/wC98LUDRgxG/yX/JhlGCeAIeIDqBQJJHApIgFyA6gYFCUiGXCAepPEBB7yy8NEIeKhCAtFIeLBCAdD/IPC9ACD854thAAiLYgAI8LUCRgtG/yT/JRBGCeAGeIbqBAFAHAdOdlyG6gUEBk51XB4eo/EBBzuy8NEEcEAc78k";
+		
 		System.out.println(a.length());
 		byte[] base64 = CommFunc.decode(a);
 		for (byte b : base64) {
 			System.out.print(BytesUtils.byteToHex(b) + " ");
 		}
 		System.out.println();
-		
-		System.out.println(CommFunc.encode(base64));
 
-		byte[] test = new byte[] { 1, 2, 3, 4, 6 };
-		System.out.println(CommFunc.encode(test));
-		JSONObject jsontest = new JSONObject();
-		jsontest.put("a", test);
-		
-		test = (byte[]) jsontest.get("a");
-		for (byte b : test) {
-			System.out.print(BytesUtils.byteToHex(b) + " ");
+		for (byte b : base64) {
+			System.out.print(b + " ");
 		}
+		
+		
+		System.out.println();
+
+		long crc1 = getCRC(base64);
+		System.out.println(crc1);
+		
+		System.out.println();
+		
+//		System.out.println(CommFunc.encode(base64));
+//
+//		byte[] test = new byte[] { 1, 2, 3, 4, 6 };
+//		System.out.println(CommFunc.encode(test));
+//		JSONObject jsontest = new JSONObject();
+//		jsontest.put("a", test);
+//		
+//		test = (byte[]) jsontest.get("a");
+//		for (byte b : test) {
+//			System.out.print(BytesUtils.byteToHex(b) + " ");
+//		}
 		
  			
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
