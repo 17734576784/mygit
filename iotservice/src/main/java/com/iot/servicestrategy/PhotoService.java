@@ -7,6 +7,7 @@ import static com.iot.utils.ConverterUtils.toInt;
 import static com.iot.utils.ConverterUtils.toStr;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -65,8 +66,8 @@ public class PhotoService implements IServiceStrategy {
 			photo = toStr(dataMap.get("rawdata"));
 			photoByte = CommFunc.decode(photo);
 			
-			String packdate = toStr(dataMap.get("packdate"));
-			String packtime = toStr(dataMap.get("packtime"));
+			String packdate = new BigInteger(toStr(dataMap.get("packdate")), 16).toString(10);
+			String packtime = new BigInteger(toStr(dataMap.get("packtime")), 16).toString(10);
 			String time = packdate + packtime;
 
 			String logInfo = " packnum : " + packnum + "  totalpack : " + totalpack + " deviceId :/" + deviceId
