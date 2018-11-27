@@ -243,7 +243,7 @@ public class CallBackController {
 	@RequestMapping(value = "reportCmdExecResult", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<HttpStatus> reportCmdExecResult(@RequestBody Object reportCmdExecResult_NotifyMessage){
 
-		LoggerUtils.Logger(LogName.CALLBACK).info("接受命令响应：" + reportCmdExecResult_NotifyMessage);
+		LoggerUtils.Logger(LogName.CALLBACK).info("接收命令响应：" + reportCmdExecResult_NotifyMessage);
 		Map<String, String> messageMap = new HashMap<String, String>();
 		try {
 			messageMap = JsonUtil.jsonString2SimpleObj(reportCmdExecResult_NotifyMessage, messageMap.getClass());
@@ -255,7 +255,7 @@ public class CallBackController {
 			dataMap = JsonUtil.jsonString2SimpleObj(result, dataMap.getClass());
 			String resultCode = toStr(dataMap.get("resultCode"));
 			Object resultDetail = dataMap.get("resultDetail");
-			System.out.println(deviceId + "  " + commandId + "  resultCode : " + resultCode);
+//			System.out.println(deviceId + "  " + commandId + "  resultCode : " + resultCode);
 			if (resultCode.equals(Constant.COMMAND_SUCCESS)) {
 				String serviceName = toStr(JedisUtils.get(Constant.COMMAND + commandId));
 				Map<String, String> commandMap = new HashMap<String, String>();
@@ -266,7 +266,7 @@ public class CallBackController {
 				JedisUtils.del(Constant.COMMAND + commandId);
 			}
 		} catch (Exception e) {
-			LoggerUtils.Logger(LogName.CALLBACK).error("接受命令响应异常," + reportCmdExecResult_NotifyMessage);
+			LoggerUtils.Logger(LogName.CALLBACK).error("接收命令响应异常," + reportCmdExecResult_NotifyMessage);
 			e.printStackTrace();
 		}
 		

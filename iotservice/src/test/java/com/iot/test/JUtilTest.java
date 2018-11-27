@@ -29,8 +29,8 @@ public class JUtilTest {
 	private CheckService checkService; 
 	@Test
 	public void StrategyTest() throws Exception {
-//		System.out.println(FileUtils.parseUpgradeFile("a.bin", "1.00", "C://", 256));;
-//		checkService.loadUpgradeFile("5e81d9d4-a8f1-49f6-885f-3f02d60769e2", "a.bin", "1.00");
+		System.out.println(FileUtils.parseUpgradeFile("a.bin_1.00", "C:\\softversion\\a.bin", 256));;
+		checkService.loadUpgradeFile("81a8a1e9-0870-48e1-ad7a-57ad16e5b0d1", "a.bin", "1.00");
 		
 		JSONObject param= new JSONObject();
 		param.put("value", 0);
@@ -38,7 +38,7 @@ public class JUtilTest {
 		
 		/**下发询问设备是否升级命令*/
 		JSONObject command = new JSONObject();
-		command.put("deviceId", "5e81d9d4-a8f1-49f6-885f-3f02d60769e2");
+		command.put("deviceId", "81a8a1e9-0870-48e1-ad7a-57ad16e5b0d1");
 		command.put("serviceId",Constant.UPVERSIONSERVICE);
 		command.put("method",Constant.UPVERSION);	
 		command.put("param", param.toString());

@@ -7,8 +7,6 @@ import static com.iot.utils.ConverterUtils.toInt;
 import static com.iot.utils.ConverterUtils.toStr;
 
 import java.io.IOException;
-import java.math.BigInteger;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -23,6 +21,7 @@ import com.iot.logger.LogName;
 import com.iot.logger.LoggerUtils;
 import com.iot.utils.CommFunc;
 import com.iot.utils.Constant;
+import com.iot.utils.ConverterUtils;
 import com.iot.utils.FileUtils;
 import com.iot.utils.JedisUtils;
 import com.iot.utils.JsonUtil;
@@ -66,8 +65,12 @@ public class PhotoService implements IServiceStrategy {
 			photo = toStr(dataMap.get("rawdata"));
 			photoByte = CommFunc.decode(photo);
 			
-			String packdate = new BigInteger(toStr(dataMap.get("packdate")), 16).toString(10);
-			String packtime = new BigInteger(toStr(dataMap.get("packtime")), 16).toString(10);
+			int dateTen = ConverterUtils.toInt(dataMap.get("packdate"));
+	        String packdate = String.format("%08x",dateTen);
+	        
+	        int timeTen = ConverterUtils.toInt(dataMap.get("packtime"));
+	        String packtime = String.format("%06x",timeTen);
+			
 			String time = packdate + packtime;
 
 			String logInfo = " packnum : " + packnum + "  totalpack : " + totalpack + " deviceId :/" + deviceId
@@ -109,7 +112,7 @@ public class PhotoService implements IServiceStrategy {
 		try {
 			String photoDate =time.substring(0, 8);
 			String photoTime = time.substring(8);
-			String filePath = imageUrl + deviceId + "_" + LocalDateTime.now().getNano() + ".jpeg";
+			String filePath = imageUrl + deviceId + "_" + time + ".jpeg";
 			byte[] tmp = new byte[0];
 			Iterator<Entry<String, byte[]>> iterator = photoMap.entrySet().iterator();
 
@@ -124,7 +127,7 @@ public class PhotoService implements IServiceStrategy {
 			}
 			CommFunc.byte2image(tmp, filePath);
 			String url = baseUrl + Constant.UPLOAD_IMAGE_URL;
-			FileUtils.upload(url, filePath, photoDate, deviceId,photoTime);
+			FileUtils.upload(url, filePath, photoDate, deviceId, photoTime);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

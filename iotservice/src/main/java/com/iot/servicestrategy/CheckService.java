@@ -110,7 +110,7 @@ public class CheckService implements IServiceStrategy {
 	public void loadUpgradeFile(String deviceId, String filePath, String version) {
 		try {
 			/** split里面必须是正则表达式，"\\"的作用是对字符串转义 */
-			String temp[] = filePath.split("\\\\"); 
+			String temp[] = filePath.split("/"); 
 			String fileName = temp[temp.length - 1];
 	        
 			filePath = baseFilePath + filePath;

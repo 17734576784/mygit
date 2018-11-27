@@ -44,8 +44,7 @@ public class CommandUpdataService implements ICommandService {
 		LoggerUtils.Logger(LogName.INFO).info(logInfo);
 		System.out.println(logInfo);
 		try {
-			int receivedPackNum = toInt(commandMap.get("result"));
-			
+			int receivedPackNum = toInt(commandMap.get("result")); 
 			/** 设备升级缓存key */
 			String deviceProgress = Constant.PROGRESS + deviceId;
 			if (JedisUtils.hasKey(deviceProgress)) {
@@ -53,6 +52,11 @@ public class CommandUpdataService implements ICommandService {
 				String fileKey = progressBody.getString("fileKey");
 				short packNum = progressBody.getShortValue("packNum");
 				short sendedPack = progressBody.getShortValue("sendedPack");
+
+				System.out.println("receivedPackNum : " + receivedPackNum + "  sendedPack :" + sendedPack);
+				if (receivedPackNum < sendedPack) {
+					return;
+				}
 				
 				/** 错误重传 */
 				if (receivedPackNum == 0XFFFF) {
@@ -64,14 +68,15 @@ public class CommandUpdataService implements ICommandService {
 					receivedPackNum += 1;
 				}
 				
-				System.out.println(progressBody);
+//				System.out.println(progressBody);
 				
 				JSONObject upgradeFile = (JSONObject) JedisUtils.get(fileKey);
 				if (upgradeFile == null || upgradeFile.isEmpty()) {
 					LoggerUtils.Logger(LogName.CALLBACK).info("升级文件：" + fileKey + "不存在");
 					return;
 				} 
-				
+				Thread.sleep(3000);
+
 				String command = UpGradeUtil.getCommandParam(deviceId, fileKey, packNum, (short)receivedPackNum, upgradeFile);
 				if (null == command || command.isEmpty()) {
 					LoggerUtils.Logger(LogName.CALLBACK).info("组建命令参数失败：" + commandMap);

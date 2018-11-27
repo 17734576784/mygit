@@ -115,7 +115,7 @@ public class MainTest {
 //		System.out.println(dateInt);
 //		System.out.println(bcd2Str(str2Bcd(date)));
 
-        int dateTen = ConverterUtils.toInt("336726808");
+        int dateTen = ConverterUtils.toInt("538448166");
         String dateHex = String.format("%08x",dateTen);
         
         System.out.println(dateHex);
@@ -124,14 +124,14 @@ public class MainTest {
 
         System.out.println(str);
 		
-//		String a = "AQBlAAcAAAEAgCBGvegQQP/3jr0BSRggq77+5yYAAgBwRwFGAfAPAgsRA+uDAwLrQwLQsnBHAL/+5wAAAL8PSABowPOAcDixCCANSUlpQUALSlFhAL8Av0/0ABAJSQloAUCBQgHRASEA4AAhKbFP9AAQBEkIYAC/AL9wRwACAUAABABIFAQBQAC1//fX/wC98LUDRgxG/yX/JhlGCeAIeIDqBQJJHApIgFyA6gYFCUiGXCAepPEBB7yy8NEIeKhCAtFIeLBCAdD/IPC9ACD854thAAiLYgAI8LUCRgtG/yT/JRBGCeAGeIbqBAFAHAdOdlyG6gUEBk51XB4eo/EBBzuy8NEEcEAc78k";
+		String a = "AQFlAGQAVADIAQAIVGQACEAAACB4WAAA5AEACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJPQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADiaQ==";
 //		
-//		System.out.println(a.length());
-//		byte[] base64 = CommFunc.decode(a);
-//		for (byte b : base64) {
-//			System.out.print(BytesUtils.byteToHex(b) + " ");
-//		}
-//		System.out.println();
+		System.out.println(a.length());
+		byte[] base64 = CommFunc.decode(a);
+		for (byte b : base64) {
+			System.out.print(BytesUtils.byteToHex(b) + " ");
+		}
+		System.out.println();
 //
 //		for (byte b : base64) {
 //			System.out.print(b + " ");

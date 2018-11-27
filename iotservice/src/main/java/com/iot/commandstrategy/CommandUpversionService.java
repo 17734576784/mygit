@@ -67,6 +67,7 @@ public class CommandUpversionService implements ICommandService {
 						LoggerUtils.Logger(LogName.CALLBACK).info("升级文件：" + fileKey + "不存在");
 						return;
 					} 
+					
 					/** 发送缓存已发送成功包的下一包数据 */
 					sendedPack += 1;
 					String command = UpGradeUtil.getCommandParam(deviceId, fileKey, packNum, sendedPack, upgradeFile);
