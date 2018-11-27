@@ -42,9 +42,9 @@ public class CommandUpdataService implements ICommandService {
 		
 		String logInfo = "升级命令回复，设备id：" + deviceId + ",内容：" + commandMap.toString();
 		LoggerUtils.Logger(LogName.INFO).info(logInfo);
-		System.out.println(logInfo);
 		try {
 			int receivedPackNum = toInt(commandMap.get("result")); 
+			
 			/** 设备升级缓存key */
 			String deviceProgress = Constant.PROGRESS + deviceId;
 			if (JedisUtils.hasKey(deviceProgress)) {
@@ -57,10 +57,14 @@ public class CommandUpdataService implements ICommandService {
 				if (receivedPackNum < sendedPack) {
 					return;
 				}
+				if (receivedPackNum == packNum - 1) {
+					JedisUtils.del(deviceProgress);
+					return;
+				}
 				
 				/** 错误重传 */
 				if (receivedPackNum == 0XFFFF) {
-					receivedPackNum = sendedPack;
+					receivedPackNum = sendedPack + 1;
 					receivedPackNum = receivedPackNum == -1 ? 0 : receivedPackNum;
 				} else {
 					progressBody.put("sendedPack", receivedPackNum);
@@ -68,8 +72,10 @@ public class CommandUpdataService implements ICommandService {
 					receivedPackNum += 1;
 				}
 				
-//				System.out.println(progressBody);
-				
+				if (receivedPackNum >= packNum || receivedPackNum < 0) {
+					return;
+				}
+
 				JSONObject upgradeFile = (JSONObject) JedisUtils.get(fileKey);
 				if (upgradeFile == null || upgradeFile.isEmpty()) {
 					LoggerUtils.Logger(LogName.CALLBACK).info("升级文件：" + fileKey + "不存在");

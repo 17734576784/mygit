@@ -29,8 +29,12 @@ public class JUtilTest {
 	private CheckService checkService; 
 	@Test
 	public void StrategyTest() throws Exception {
-		System.out.println(FileUtils.parseUpgradeFile("a.bin_1.00", "C:\\softversion\\a.bin", 256));;
+//		System.out.println(FileUtils.parseUpgradeFile("a.bin_1.00", "C:\\softversion\\a.bin", 256));;
 		checkService.loadUpgradeFile("81a8a1e9-0870-48e1-ad7a-57ad16e5b0d1", "a.bin", "1.00");
+		
+//		JSONObject progressBody = (JSONObject) JedisUtils.get("progress_81a8a1e9-0870-48e1-ad7a-57ad16e5b0d1");
+//		progressBody.put("sendedPack", 99);
+//		JedisUtils.set("progress_81a8a1e9-0870-48e1-ad7a-57ad16e5b0d1", progressBody);
 		
 		JSONObject param= new JSONObject();
 		param.put("value", 0);
@@ -40,7 +44,7 @@ public class JUtilTest {
 		JSONObject command = new JSONObject();
 		command.put("deviceId", "81a8a1e9-0870-48e1-ad7a-57ad16e5b0d1");
 		command.put("serviceId",Constant.UPVERSIONSERVICE);
-		command.put("method",Constant.UPVERSION);	
+		command.put("method",Constant.UPVERSION);
 		command.put("param", param.toString());
 		UpGradeUtil.asynCommand(command.toString());
 		
