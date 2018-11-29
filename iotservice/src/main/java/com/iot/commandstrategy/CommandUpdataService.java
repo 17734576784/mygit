@@ -98,6 +98,7 @@ public class CommandUpdataService implements ICommandService {
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+			LoggerUtils.Logger(LogName.CALLBACK).error("升级包异常" + commandMap + deviceId);
 		}
 	}
 }
