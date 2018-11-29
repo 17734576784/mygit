@@ -10,6 +10,7 @@ package com.iot.commandstrategy;
 
 import static com.iot.utils.ConverterUtils.*;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
@@ -53,10 +54,12 @@ public class CommandUpdataService implements ICommandService {
 				short packNum = progressBody.getShortValue("packNum");
 				short sendedPack = progressBody.getShortValue("sendedPack");
 
-				System.out.println("receivedPackNum : " + receivedPackNum + "  sendedPack :" + sendedPack);
+				System.out.println(LocalDateTime.now() + "  " + deviceId + "   receivedPackNum : " + receivedPackNum
+						+ "  sendedPack :" + sendedPack);
 				if (receivedPackNum < sendedPack) {
 					return;
 				}
+				
 				if (receivedPackNum == packNum - 1) {
 					JedisUtils.del(deviceProgress);
 					return;
@@ -81,7 +84,7 @@ public class CommandUpdataService implements ICommandService {
 					LoggerUtils.Logger(LogName.CALLBACK).info("升级文件：" + fileKey + "不存在");
 					return;
 				} 
-				Thread.sleep(3000);
+				Thread.sleep(2000);
 
 				String command = UpGradeUtil.getCommandParam(deviceId, fileKey, packNum, (short)receivedPackNum, upgradeFile);
 				if (null == command || command.isEmpty()) {

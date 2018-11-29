@@ -96,8 +96,6 @@ public class PostAsynCommandController {
 			JedisUtils.set(Constant.COMMAND + commandId, serviceId, commandExpireTime);
 		}
 
-		Thread.sleep(500);
-
 		result.setData(responseBody);
 		
 		return result;

@@ -46,7 +46,6 @@ public class UpresultService implements IServiceStrategy {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
-		// TODO Auto-generated method stub
 		String logInfo = "上传升级结果:设备id：" + deviceId + " ,内容：" + serviceMap.toString();
 		LoggerUtils.Logger(LogName.CALLBACK).info(logInfo);
 		System.out.println(logInfo);

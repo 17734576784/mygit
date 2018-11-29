@@ -41,6 +41,9 @@ public class CheckService implements IServiceStrategy {
 	@Value("${packsize}")
 	private int packSize;
 	
+	/** 升级文件每帧大小 */
+	@Value("${checkTime}")
+	private int checkTime;
 	/* (non-Javadoc)
 	 * @see com.iot.strategy.IServiceStrategy#parse(java.lang.String, java.util.Map)
 	 */
@@ -51,6 +54,13 @@ public class CheckService implements IServiceStrategy {
 		String logInfo = "上传check:设备id：" + deviceId + " ,内容：" + serviceMap.toString();
 		LoggerUtils.Logger(LogName.CALLBACK).info(logInfo);
 		System.out.println(logInfo);
+		String checkKey = Constant.CHECK + "_" + deviceId;
+		if (JedisUtils.hasKey(checkKey)) {
+			return;
+		} else {
+			JedisUtils.set(checkKey, checkKey, checkTime);
+		}
+		
 		String apiUrl = baseUrl + Constant.UPLOAD_CHECK_URL;
 		try {
 			Object data = serviceMap.get("data");

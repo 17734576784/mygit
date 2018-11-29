@@ -79,7 +79,6 @@ public class UpGradeUtil {
 			}
 
 			JedisUtils.set(Constant.COMMAND + commandId, serviceId, 172800);
-			Thread.sleep(500);
 		} catch (Exception e) {
 			LoggerUtils.Logger(LogName.INFO).error("工具类接收下发命令异常：" + command);
 			e.printStackTrace();
