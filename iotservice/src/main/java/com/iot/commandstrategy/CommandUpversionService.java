@@ -10,6 +10,7 @@ package com.iot.commandstrategy;
 
 import static com.iot.utils.ConverterUtils.*;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -75,8 +76,11 @@ public class CommandUpversionService implements ICommandService {
 						LoggerUtils.Logger(LogName.CALLBACK).info("组建命令参数失败：" + commandMap);
 						return;
 					}
+					progressBody.put("sendTime", LocalDateTime.now());
+					progressBody.put("retryCount", 0);				
 					UpGradeUtil.asynCommand(command.toString());
-					System.out.println("在设备：" + deviceId + "发送升级命令成功，" + command);
+					JedisUtils.set(deviceProgress, progressBody);
+					
 				} else {
 					LoggerUtils.Logger(LogName.INFO).info("不存在设备：" + deviceId + ",升级进度缓存");
 					System.out.println("不存在设备：" + deviceId + ",升级进度缓存");

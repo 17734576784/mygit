@@ -34,7 +34,9 @@ public class JUtilTest {
 		
 //		JSONObject progressBody = (JSONObject) JedisUtils.get("progress_81a8a1e9-0870-48e1-ad7a-57ad16e5b0d1");
 //		progressBody.put("sendedPack", 99);softversion/KE-STM32L4_BIOS-V1.00-V1.01.bin
-//		JedisUtils.set("progress_81a8a1e9-0870-48e1-ad7a-57ad16e5b0d1", progressBody);
+//		JedisUtils.set("progress_81a8a1e9-0870-48e1-ad7a-57ad16e5b0d1", progressBody);e
+//		
+		System.out.println(JedisUtils.getKeys("progress_*"));
 		
 		JSONObject param= new JSONObject();
 		param.put("value", 0);
@@ -42,7 +44,7 @@ public class JUtilTest {
 		
 		/**下发询问设备是否升级命令*/
 		JSONObject command = new JSONObject();
-		command.put("deviceId", "434ff6cb-89bc-498b-a7c3-9f21f55afc96");
+		command.put("deviceId", "81a8a1e9-0870-48e1-ad7a-57ad16e5b0d1");
 		command.put("serviceId",Constant.UPVERSIONSERVICE);
 		command.put("method",Constant.UPVERSION);
 		command.put("param", param.toString());

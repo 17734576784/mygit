@@ -36,6 +36,17 @@ public class JedisUtils {
 		jedisUtils.redisTemplate = this.redisTemplate;
 
 	}
+	
+	public static Set<String> getKeys(String pattern){
+		Set<String> keys = null;
+		try {
+			keys = jedisUtils.redisTemplate.keys(pattern);
+			return keys;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 	// =============================common============================
 	/**

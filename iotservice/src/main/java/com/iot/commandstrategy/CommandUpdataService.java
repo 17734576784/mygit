@@ -71,9 +71,9 @@ public class CommandUpdataService implements ICommandService {
 					receivedPackNum = receivedPackNum == -1 ? 0 : receivedPackNum;
 				} else {
 					progressBody.put("sendedPack", receivedPackNum);
-					JedisUtils.set(deviceProgress, progressBody);
 					receivedPackNum += 1;
 				}
+
 				
 				if (receivedPackNum >= packNum || receivedPackNum < 0) {
 					return;
@@ -91,8 +91,12 @@ public class CommandUpdataService implements ICommandService {
 					LoggerUtils.Logger(LogName.CALLBACK).info("组建命令参数失败：" + commandMap);
 					return;
 				}
+				
+				progressBody.put("sendTime", LocalDateTime.now());
+				progressBody.put("retryCount", 0);				
 				UpGradeUtil.asynCommand(command.toString());
-//				System.out.println("在设备：" + deviceId + "发送升级命令成功，" + command);
+				JedisUtils.set(deviceProgress, progressBody);
+				System.out.println("在设备：" + deviceId + "发送升级命令成功，" + command);
 			} else {
 				LoggerUtils.Logger(LogName.INFO).info("不存在设备：" + deviceId + ",升级进度缓存");
 				System.out.println("不存在设备：" + deviceId + ",升级进度缓存");

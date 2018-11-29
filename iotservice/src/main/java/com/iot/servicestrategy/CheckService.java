@@ -4,6 +4,8 @@
 package com.iot.servicestrategy;
 
 import static com.iot.utils.ConverterUtils.toStr;
+
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Value;
@@ -176,6 +178,8 @@ public class CheckService implements IServiceStrategy {
 		progressBody.put("fileKey", fileKey);
 		progressBody.put("packNum", packNum);
 		progressBody.put("sendedPack", -1);
+		progressBody.put("sendTime", LocalDateTime.now());
+		progressBody.put("retryCount", 0);
 
 		JedisUtils.set(deviceProgress, progressBody);
 	}
