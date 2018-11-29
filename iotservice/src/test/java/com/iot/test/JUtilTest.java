@@ -30,7 +30,7 @@ public class JUtilTest {
 	@Test
 	public void StrategyTest() throws Exception {
 //		System.out.println(FileUtils.parseUpgradeFile("a.bin_1.00", "C:\\softversion\\a.bin", 256));;
-		checkService.loadUpgradeFile("81a8a1e9-0870-48e1-ad7a-57ad16e5b0d1", "a.bin", "1.00");
+//		checkService.loadUpgradeFile("81a8a1e9-0870-48e1-ad7a-57ad16e5b0d1", "a.bin", "1.00");
 		
 //		JSONObject progressBody = (JSONObject) JedisUtils.get("progress_81a8a1e9-0870-48e1-ad7a-57ad16e5b0d1");
 //		progressBody.put("sendedPack", 99);
@@ -38,7 +38,7 @@ public class JUtilTest {
 		
 		JSONObject param= new JSONObject();
 		param.put("value", 0);
-		param.put("version", "1.00");
+		param.put("version", "1.001.0018112103110000");
 		
 		/**下发询问设备是否升级命令*/
 		JSONObject command = new JSONObject();

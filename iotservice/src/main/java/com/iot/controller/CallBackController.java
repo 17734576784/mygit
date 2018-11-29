@@ -255,13 +255,13 @@ public class CallBackController {
 			dataMap = JsonUtil.jsonString2SimpleObj(result, dataMap.getClass());
 			String resultCode = toStr(dataMap.get("resultCode"));
 			Object resultDetail = dataMap.get("resultDetail");
-			System.out.println(deviceId + "  " + commandId + "  resultCode : " + resultCode);
+//			System.out.println(deviceId + "  " + commandId + "  resultCode : " + resultCode);
 			if (resultCode.equals(Constant.COMMAND_SUCCESS)) {
 				String serviceName = toStr(JedisUtils.get(Constant.COMMAND + commandId));
 				Map<String, String> commandMap = new HashMap<String, String>();
 				commandMap = JsonUtil.jsonString2SimpleObj(resultDetail, dataMap.getClass());
 				commandContext.parseCommand(serviceName, deviceId, commandMap);
-
+				JedisUtils.del(Constant.COMMAND + commandId);
 			} else if (resultCode.equals(Constant.COMMAND_FAILED) || resultCode.equals(Constant.COMMAND_TIMEOUT)) {
 				JedisUtils.del(Constant.COMMAND + commandId);
 			}
