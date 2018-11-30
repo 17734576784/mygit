@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="lib"/>
 	<classpathentry kind="lib" path="D:/develop/workspace/LiteNAdemo_https/Open source components/httpclient-4.5.2.jar"/>
 	<classpathentry kind="lib" path="D:/develop/workspace/LiteNAdemo_https/Open source components/httpcore-4.4.4.jar"/>
 	<classpathentry kind="lib" path="D:/develop/workspace/LiteNAdemo_https/Open source components/httpmime-4.5.2.jar"/>
@@ -12,5 +13,7 @@
 	<classpathentry kind="lib" path="D:/develop/workspace/LiteNAdemo_https/Open source components/jackson-databind-2.5.4.jar"/>
 	<classpathentry kind="lib" path="D:/develop/workspace/LiteNAdemo_https/Open source components/json-lib-2.4-jdk15.jar"/>
 	<classpathentry kind="lib" path="src/fastjson-1.2.39.jar"/>
+	<classpathentry kind="lib" path="lib/commons-net-3.6.jar"/>
+	<classpathentry kind="lib" path="lib/thumbnailator-0.4.8.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
