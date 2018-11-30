@@ -1,5 +1,6 @@
 package com.iot.task;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -34,6 +35,15 @@ public class QuartzTask {
 					continue;
 				}
 				
+				LocalDateTime sendTime = (LocalDateTime) progressBody.get("sendTime");
+				Duration duration = Duration.between(sendTime, LocalDateTime.now());
+				long timeDiff = duration.toMinutes();
+				System.out.println("timeDiff :" + timeDiff);
+				if (timeDiff < 1) {
+					continue;
+				}
+				
+				System.out.println("自动任务" + progressBody);
 				String fileKey = progressBody.getString("fileKey");
 				short packNum = progressBody.getShortValue("packNum");
 				short sendedPack = progressBody.getShortValue("sendedPack");
