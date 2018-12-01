@@ -3,7 +3,7 @@
  */
 package com.iot.servicestrategy;
 
-import static com.iot.utils.ConverterUtils.toStr;
+import static com.iot.utils.ConverterUtils.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +15,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.iot.logger.LogName;
 import com.iot.logger.LoggerUtils;
 import com.iot.utils.Constant;
-import com.iot.utils.DateUtils;
 import com.iot.utils.HttpsUtils;
 import com.iot.utils.JsonUtil;
 
@@ -46,7 +45,11 @@ public class AlarmService implements IServiceStrategy{
 			Object data = serviceMap.get("data");
 			Map<String, String> dataMap = new HashMap<String, String>();
 			dataMap = JsonUtil.jsonString2SimpleObj(data, dataMap.getClass());
-
+			
+			String evnetTime = serviceMap.get("eventTime");
+			String date = evnetTime.substring(0, 8); 
+			String time = toStr(toInt(evnetTime.substring(9, 15)) + 80000);
+			
 			String slope = toStr(dataMap.get("slope"));
 			String magnetic = toStr(dataMap.get("magnetic"));
 			String alarmtype = toStr(dataMap.get("alarmtype"));
@@ -56,8 +59,8 @@ public class AlarmService implements IServiceStrategy{
 			paramJson.put("magnetic", magnetic);
 			paramJson.put("alarmtype", alarmtype);
 			paramJson.put("deviceId", deviceId);
-			paramJson.put("date",DateUtils.curDate() );
-			paramJson.put("time", DateUtils.curTime());
+			paramJson.put("date", date);
+			paramJson.put("time", time);
 
 			Map<String, Object> paramMap = new HashMap<>();
 			paramMap.put("param", paramJson);

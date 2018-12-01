@@ -20,6 +20,7 @@ import com.iot.logger.LogName;
 import com.iot.logger.LoggerUtils;
 import com.iot.utils.UpGradeUtil;
 import com.iot.utils.Constant;
+import com.iot.utils.ConverterUtils;
 import com.iot.utils.JedisUtils;
 /** 
 * @ClassName: CommandUpdataService 
@@ -84,7 +85,7 @@ public class CommandUpdataService implements ICommandService {
 					LoggerUtils.Logger(LogName.CALLBACK).info("升级文件：" + fileKey + "不存在");
 					return;
 				} 
-				Thread.sleep(2000);
+				Thread.sleep(3000);
 
 				String command = UpGradeUtil.getCommandParam(deviceId, fileKey, packNum, (short)receivedPackNum, upgradeFile);
 				if (null == command || command.isEmpty()) {
@@ -92,11 +93,11 @@ public class CommandUpdataService implements ICommandService {
 					return;
 				}
 				
-				progressBody.put("sendTime", LocalDateTime.now());
+				progressBody.put("sendTime", ConverterUtils.toStr(LocalDateTime.now()));
 				progressBody.put("retryCount", 0);				
 				UpGradeUtil.asynCommand(command.toString());
 				JedisUtils.set(deviceProgress, progressBody);
-				System.out.println("在设备：" + deviceId + "发送升级命令成功，" + command);
+//				System.out.println("在设备：" + deviceId + "发送升级命令成功，" + command);
 			} else {
 				LoggerUtils.Logger(LogName.INFO).info("不存在设备：" + deviceId + ",升级进度缓存");
 				System.out.println("不存在设备：" + deviceId + ",升级进度缓存");

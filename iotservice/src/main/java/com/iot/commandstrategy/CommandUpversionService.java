@@ -22,6 +22,7 @@ import com.iot.logger.LogName;
 import com.iot.logger.LoggerUtils;
 import com.iot.utils.UpGradeUtil;
 import com.iot.utils.Constant;
+import com.iot.utils.ConverterUtils;
 import com.iot.utils.HttpsUtils;
 import com.iot.utils.JedisUtils;
 
@@ -76,7 +77,7 @@ public class CommandUpversionService implements ICommandService {
 						LoggerUtils.Logger(LogName.CALLBACK).info("组建命令参数失败：" + commandMap);
 						return;
 					}
-					progressBody.put("sendTime", LocalDateTime.now());
+					progressBody.put("sendTime", ConverterUtils.toStr(LocalDateTime.now()));
 					progressBody.put("retryCount", 0);				
 					UpGradeUtil.asynCommand(command.toString());
 					JedisUtils.set(deviceProgress, progressBody);

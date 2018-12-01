@@ -77,6 +77,8 @@ public class CheckService implements IServiceStrategy {
 			Map<String, Object> paramMap = new HashMap<>();
 			paramMap.put("param", paramJson);
 			JSONObject response = HttpsUtils.doPost(apiUrl, paramMap);
+			System.out.println("response ： "+ response);
+			LoggerUtils.Logger(LogName.INFO).info("response: "+response);
 			if (response != null && !response.isEmpty()) {
 				if (response.getInteger("status") == Constant.SUCCESS) {
 					/** 判断设备是否升级 0:升级 1：不升级 */
@@ -178,7 +180,7 @@ public class CheckService implements IServiceStrategy {
 		progressBody.put("fileKey", fileKey);
 		progressBody.put("packNum", packNum);
 		progressBody.put("sendedPack", -1);
-		progressBody.put("sendTime", LocalDateTime.now());
+		progressBody.put("sendTime", toStr(LocalDateTime.now()));
 		progressBody.put("retryCount", 0);
 
 		JedisUtils.set(deviceProgress, progressBody);

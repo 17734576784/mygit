@@ -8,9 +8,21 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoField;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.Map;import javax.print.attribute.standard.Chromaticity;
+
 import org.apache.http.client.ClientProtocolException;
 import org.springframework.data.redis.util.ByteUtils;
 
@@ -107,31 +119,106 @@ public class MainTest {
  		return bbt;
  	}
 
+ 	public static void dateformate(String time) {
+ 		//此方法是将2017-11-18T07:12:06.615Z格式的时间转化为秒为单位的Long类型。
+// 		time = "2017-11-30T10:41:44.651Z";
+ 		time = time.replace("Z", " UTC");//UTC是本地时间
+ 		SimpleDateFormat format =new SimpleDateFormat("yyyyMMdd'T'HHmmss Z");
+ 		Date d = null;
+ 		try {
+ 		d = format.parse(time);
+ 		} catch (ParseException e) {
+ 		// TODO Auto-generated catch block
+ 		e.printStackTrace();
+ 		}
+ 		//此处是将date类型装换为字符串类型，比如：Sat Nov 18 15:12:06 CST 2017转换为2017-11-18 15:12:06
+ 		SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd HHmmss");
+ 		String date = sf.format(d);
+ 		System.out.println(d);//这里输出的是date类型的时间
+ 		System.out.println(d.getTime()/1000);//这里输出的是以秒为单位的long类型的时间。如果需要一毫秒为单位，可以不用除1000.
+ 		        System.out.println(sf.format(d));//这里输出的是字符串类型的时间
+ 	}
 
 	public static void main(String[] args) throws ClientProtocolException, IOException { 
+		String eventTime = "20181129T124539Z";
+		String date11 = eventTime.substring(0, 8); 
+		String time11 = eventTime.substring(9, 15);
+		System.out.println(date11 + "  " + time11);
+//		dateformate(eventTime);
+		System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+		
+		JSONObject s = new JSONObject();
+		String dd =ConverterUtils.toStr(LocalDateTime.now());
+		s.put("a", ConverterUtils.toStr(LocalDateTime.now()));
+		
+		System.out.println(s.get("a"));
 		
 //		String date  = "20181124";
 //		int dateInt = BytesUtils.getInt(str2Bcd(date));
 //		System.out.println(dateInt);
 //		System.out.println(bcd2Str(str2Bcd(date)));
 
-        int dateTen = ConverterUtils.toInt("538448166");
-        String dateHex = String.format("%08x",dateTen);
-        
-        System.out.println(dateHex);
+//        int dateTen = ConverterUtils.toInt("538448166");
+//        String dateHex = String.format("%08x",dateTen);
+//        
+//        System.out.println(dateHex);
 
-        String str = new BigInteger("133F086", 16).toString(10);
+//        String str = new BigInteger("133F086", 16).toString(10);
 
-        System.out.println(str);
+//        System.out.println(str);
 		
-		String a = "AQFlAGQAVADIAQAIVGQACEAAACB4WAAA5AEACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJPQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADiaQ==";
-//		
-		System.out.println(a.length());
-		byte[] base64 = CommFunc.decode(a);
-		for (byte b : base64) {
-			System.out.print(BytesUtils.byteToHex(b) + " ");
-		}
-		System.out.println();
+//		String a = "AQFlAGQAVADIAQAIVGQACEAAACB4WAAA5AEACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJPQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADiaQ==";
+//		System.out.println(a.length());
+//		byte[] base64 = CommFunc.decode(a);
+//		for (byte b : base64) {
+//			System.out.print(BytesUtils.byteToHex(b) + " ");
+//		}
+//		System.out.println();
+		
+		LocalDate date = LocalDate.of(2016, 11, 29);
+		
+//		System.out.println(date.getYear());
+//		System.out.println(date.getMonth());
+//		System.out.println(date.getDayOfMonth());
+//		System.out.println(date.getDayOfWeek());
+//		System.out.println(date.lengthOfMonth());
+//		System.out.println(date.isLeapYear());
+		
+		LocalDate today = LocalDate.now();
+//		System.out.println(today);
+		
+//		System.out.println(date.get(ChronoField.YEAR));
+//		System.out.println(date.get(ChronoField.MONTH_OF_YEAR));
+//		System.out.println(date.get(ChronoField.DAY_OF_MONTH));
+		
+		LocalTime time = LocalTime.of(18, 55, 45);
+//		System.out.println(time.getHour());
+//		System.out.println(time.getMinute());
+//		System.out.println(time.getSecond());
+		
+		date = LocalDate.parse("2015-10-25");
+		time = LocalTime.parse("08:57:03");
+		
+		LocalDateTime dt1 = LocalDateTime.of(2018, Month.NOVEMBER, 30, 8, 28,45);
+		LocalDateTime dt2 = LocalDateTime.of(date, time);
+		LocalDateTime dt3 = date.atTime(13, 45);
+		LocalDateTime dt4 = date.atTime(time);
+		LocalDateTime dt5 = time.atDate(date);
+		
+//		System.out.println(dt1);
+//		System.out.println(dt2);
+//		System.out.println(dt3);
+//		System.out.println(dt4);
+//		System.out.println(dt5);
+
+		
+		DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy年MM月dd日 ");
+		LocalDate date1 = LocalDate.now();
+//		System.out.println(date1.format(df));
+
+//		Duration duration = Duration.between(dt1, LocalDateTime.now());
+//		long timeDiff = duration.getSeconds();
+//		System.out.println("timeDiff :" + timeDiff);
 //
 //		for (byte b : base64) {
 //			System.out.print(b + " ");

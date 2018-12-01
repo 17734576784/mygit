@@ -218,8 +218,14 @@ public class Constant {
 	/** 升级服务方法名 */
 	public static String UPDATACMD = "updatacmd";
 	
+	/** CHECK上报缓存键前缀 */
 	public static String CHECK = "CHECK";
 
-
+	/** 升级文件根目录 */
 	public static String BaseFilePath = "c://";
+	
+	/** 升级文件根目录 */
+	public static int FILETIMEOUT = 60 * 60 * 24 * 180;	
+	
+	
 }
