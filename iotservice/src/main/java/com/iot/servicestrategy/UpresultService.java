@@ -48,7 +48,6 @@ public class UpresultService implements IServiceStrategy {
 	public void parse(String deviceId, Map<String, String> serviceMap) {
 		String logInfo = "上传升级结果:设备id：" + deviceId + " ,内容：" + serviceMap.toString();
 		LoggerUtils.Logger(LogName.CALLBACK).info(logInfo);
-		System.out.println(logInfo);
 		String apiUrl = baseUrl + Constant.UPLOAD_UPGRADERESULT_URL;
 		try {
 			Object data = serviceMap.get("data");
@@ -67,14 +66,14 @@ public class UpresultService implements IServiceStrategy {
 			JSONObject response = HttpsUtils.doPost(apiUrl, paramMap);
 			if (response != null && !response.isEmpty()) {
 				if (response.getInteger("status") == Constant.SUCCESS) {
-					LoggerUtils.Logger(LogName.CALLBACK).info("升级成功发送成功，内容：" + serviceMap.toString());
+					LoggerUtils.Logger(LogName.CALLBACK).info("升级成功发送成功，内容：" + logInfo);
 				} else {
-					LoggerUtils.Logger(LogName.CALLBACK).info("升级成功发送失败，内容：" + serviceMap.toString());
+					LoggerUtils.Logger(LogName.CALLBACK).info("升级成功发送失败，内容：" + logInfo);
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			LoggerUtils.Logger(LogName.CALLBACK).error("升级成功发送异常，内容：" + serviceMap.toString());
+			LoggerUtils.Logger(LogName.CALLBACK).error("升级成功发送异常，内容：" + logInfo);
 		}	
 	}
 	

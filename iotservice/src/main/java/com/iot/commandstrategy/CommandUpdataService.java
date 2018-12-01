@@ -55,8 +55,8 @@ public class CommandUpdataService implements ICommandService {
 				short packNum = progressBody.getShortValue("packNum");
 				short sendedPack = progressBody.getShortValue("sendedPack");
 
-				System.out.println(LocalDateTime.now() + "  " + deviceId + "   receivedPackNum : " + receivedPackNum
-						+ "  sendedPack :" + sendedPack);
+//				System.out.println(LocalDateTime.now() + "  " + deviceId + "   receivedPackNum : " + receivedPackNum
+//						+ "  sendedPack :" + sendedPack);
 				if (receivedPackNum < sendedPack) {
 					return;
 				}
@@ -97,14 +97,12 @@ public class CommandUpdataService implements ICommandService {
 				progressBody.put("retryCount", 0);				
 				UpGradeUtil.asynCommand(command.toString());
 				JedisUtils.set(deviceProgress, progressBody);
-//				System.out.println("在设备：" + deviceId + "发送升级命令成功，" + command);
 			} else {
 				LoggerUtils.Logger(LogName.INFO).info("不存在设备：" + deviceId + ",升级进度缓存");
 				System.out.println("不存在设备：" + deviceId + ",升级进度缓存");
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 			LoggerUtils.Logger(LogName.CALLBACK).error("升级包异常" + commandMap + deviceId);
 		}

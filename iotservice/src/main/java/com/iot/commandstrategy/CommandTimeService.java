@@ -46,9 +46,7 @@ public class CommandTimeService implements ICommandService {
 	 */
 	@Override
 	public void parse(String deviceId, Map<String, String> commandMap) {
-		// TODO Auto-generated method stub
 		LoggerUtils.Logger(LogName.INFO).info("设置上传周期命令回复，设备id：" + deviceId + " ,回复内容：" + commandMap.toString());
-		System.out.println("设置上传周期命令回复，设备id：" + deviceId + " ,回复内容：" + commandMap.toString());
 		String timetype = toStr(commandMap.get("timetype"));
 		String time = toStr(commandMap.get("time"));
 		String status = toStr(commandMap.get("status"));
@@ -74,6 +72,7 @@ public class CommandTimeService implements ICommandService {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			LoggerUtils.Logger(LogName.ERROR).error("上传周期命令回复执行异常", e);
 		}
 		
 	}

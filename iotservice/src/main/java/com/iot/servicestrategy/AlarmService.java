@@ -39,7 +39,6 @@ public class AlarmService implements IServiceStrategy{
 	public void parse(String deviceId, Map<String, String> serviceMap) {
 		String logInfo = "上传告警:设备id：" + deviceId + " ,告警内容：" + serviceMap.toString();
 		LoggerUtils.Logger(LogName.CALLBACK).info(logInfo);
-		System.out.println(logInfo);
 		String apiUrl = baseUrl + Constant.UPLOAD_ALARM_URL;
 		try {
 			Object data = serviceMap.get("data");
@@ -72,6 +71,7 @@ public class AlarmService implements IServiceStrategy{
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			LoggerUtils.Logger(LogName.ERROR).error("上传告警执行失败," + logInfo, e);
 		}
 	}
 }

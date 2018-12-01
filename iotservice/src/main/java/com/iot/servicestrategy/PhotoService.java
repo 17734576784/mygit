@@ -76,7 +76,7 @@ public class PhotoService implements IServiceStrategy {
 			String logInfo = " packnum : " + packnum + "  totalpack : " + totalpack + " deviceId :/" + deviceId
 					+ "  time : " + time;
 			LoggerUtils.Logger(LogName.CALLBACK).info(logInfo);
-			System.out.println(logInfo);
+//			System.out.println(logInfo);
 			
 			String devicePhotoKey = deviceId + "_" + time;
 			
@@ -104,6 +104,7 @@ public class PhotoService implements IServiceStrategy {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			LoggerUtils.Logger(LogName.ERROR).error("上报照片解析服务异常" + deviceId + "," + serviceMap, e);
 		}
 	}
 	
@@ -130,6 +131,7 @@ public class PhotoService implements IServiceStrategy {
 			FileUtils.upload(url, filePath, photoDate, deviceId, photoTime);
 		} catch (IOException e) {
 			e.printStackTrace();
+			LoggerUtils.Logger(LogName.ERROR).error("生成图片异常", e);
 		}
 
 		return true;

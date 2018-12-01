@@ -50,7 +50,6 @@ public class CommandUpversionService implements ICommandService {
 	@Override
 	public void parse(String deviceId, Map<String, String> commandMap) {
 		LoggerUtils.Logger(LogName.INFO).info("下发升级版本回复，设备id：" + deviceId + " ,内容：" + commandMap.toString());
-		System.out.println("下发升级版本回复，设备id：" + deviceId + " ,内容：" + commandMap.toString());
 		try {
 			/** 0:升级 1：拒绝升级 */
 			int result = toInt(commandMap.get("result"));
@@ -116,7 +115,7 @@ public class CommandUpversionService implements ICommandService {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			LoggerUtils.Logger(LogName.CALLBACK).error("升级成功发送异常，设备id：" + deviceId);
+			LoggerUtils.Logger(LogName.CALLBACK).error("下发升级版本回复，设备id：" + deviceId);
 		}
 	}
 	

@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 /** 
 * @ClassName: LoggerUtils 
-* @Description: TODO(这里用一句话描述这个类的作用) 
+* @Description: 日志工具类 
 * @author dbr
 * @date 2018年11月2日 上午10:24:57 
 *  

@@ -55,7 +55,6 @@ public class CheckService implements IServiceStrategy {
 		
 		String logInfo = "上传check:设备id：" + deviceId + " ,内容：" + serviceMap.toString();
 		LoggerUtils.Logger(LogName.CALLBACK).info(logInfo);
-		System.out.println(logInfo);
 		String checkKey = Constant.CHECK + "_" + deviceId;
 		if (JedisUtils.hasKey(checkKey)) {
 			return;
@@ -102,11 +101,11 @@ public class CheckService implements IServiceStrategy {
 					UpGradeUtil.asynCommand(command.toString());
 				} 
 			} else {
-				LoggerUtils.Logger(LogName.CALLBACK).info("发送主动查询解析服务返回结果为空，" + serviceMap);
+				LoggerUtils.Logger(LogName.CALLBACK).info("发送主动查询解析服务返回结果为空，" + logInfo);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			LoggerUtils.Logger(LogName.CALLBACK).error("上传check处理异常," + serviceMap.toString(), e);
+			LoggerUtils.Logger(LogName.CALLBACK).error("上传check处理异常," + logInfo, e);
 		}	
 	}
 	

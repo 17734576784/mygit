@@ -46,7 +46,6 @@ public class CommandAlarmService implements ICommandService {
 	@Override
 	public void parse(String deviceId, Map<String, String> commandMap) {
 		LoggerUtils.Logger(LogName.INFO).info("设置告警命令回复，设备id：" + deviceId + " ,告警内容：" + commandMap.toString());
-		System.out.println("设置告警命令回复，设备id：" + deviceId + " ,告警内容：" + commandMap.toString());
 		String slope = toStr(commandMap.get("slopestatus"));
 		String magnetic = toStr(commandMap.get("magneticstatus"));
 		String apiUrl = baseUrl + Constant.UPLOAD_ALARMCOMMAND_URL;
@@ -69,6 +68,7 @@ public class CommandAlarmService implements ICommandService {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			LoggerUtils.Logger(LogName.ERROR).error("告警命令回复执行异常", e);
 		}
 	}
 

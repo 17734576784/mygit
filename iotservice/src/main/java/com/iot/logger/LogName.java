@@ -10,16 +10,14 @@ package com.iot.logger;
 
 /**
  * @ClassName: LogFileName
- * @Description: TODO(这里用一句话描述这个类的作用)
+ * @Description: 日志枚举类
  * @author dbr
  * @date 2018年11月3日 下午1:32:35
  * 
  */
 public enum LogName {
-	// 配置到logback.xml中的logger name="vipUser"
-	CALLBACK("CALLBACK"), 
-	INFO("INFO"),
-	ERROR("ERROR");
+	// 配置到logback.xml中的logger name="CALLBACK"
+	CALLBACK("CALLBACK"), INFO("INFO"), ERROR("ERROR");
 
 	private String logFileName;
 
