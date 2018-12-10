@@ -3,7 +3,7 @@
  */
 package com.iot.servicestrategy;
 
-import static com.iot.utils.ConverterUtils.toStr;
+import static com.iot.utils.ConverterUtils.*;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import com.alibaba.fastjson.JSONObject;
 import com.iot.logger.LogName;
 import com.iot.logger.LoggerUtils;
+import com.iot.model.DeviceProgress;
 import com.iot.utils.UpGradeUtil;
 import com.iot.utils.Constant;
 import com.iot.utils.FileUtils;
@@ -86,6 +87,7 @@ public class CheckService implements IServiceStrategy {
 						String filePath = response.getString("filePath");
 						String newVersion = response.getString("version");
 						loadUpgradeFile(deviceId, filePath, newVersion);
+						version = newVersion;
 					}
 					
 					JSONObject param= new JSONObject();
@@ -137,14 +139,14 @@ public class CheckService implements IServiceStrategy {
 				upgradeFile = (JSONObject) JedisUtils.get(fileKey);
 			}
 			/** 升级文件总包数 */
-			int packNum = upgradeFile.getIntValue("packNum");
+			short packNum = upgradeFile.getShortValue("packNum");
 			
 			/** 设备升级缓存key */
 			String deviceProgress = Constant.PROGRESS + deviceId;
 			if (JedisUtils.hasKey(deviceProgress)) {
 				/** 存在设备升级缓存，对比当前升级信息和缓存升级信息是否一致 */
-				JSONObject progress = (JSONObject) JedisUtils.get(deviceProgress);
-				String progressVersion = progress.getString("version");
+				DeviceProgress progress = (DeviceProgress) JedisUtils.get(deviceProgress);
+				String progressVersion = progress.getFileKey();
 				/** 升级信息不一致，删除该设备缓存升级进程信息 */
 				if (!fileKey.equals(progressVersion)) {
 					/** 删除过期升级进度缓存 */
@@ -171,17 +173,17 @@ public class CheckService implements IServiceStrategy {
 	* @return void    返回类型 
 	* @throws 
 	*/
-	private void insertDeviceProgress(String deviceId, String fileKey, int packNum) {
+	private void insertDeviceProgress(String deviceId, String fileKey, short packNum) {
 		/** 设备升级缓存key */
 		String deviceProgress = Constant.PROGRESS + deviceId;
-		JSONObject progressBody = new JSONObject();
-		progressBody.put("deviceId", deviceId);
-		progressBody.put("fileKey", fileKey);
-		progressBody.put("packNum", packNum);
-		progressBody.put("sendedPack", -1);
-		progressBody.put("sendTime", toStr(LocalDateTime.now()));
-		progressBody.put("retryCount", 0);
+		DeviceProgress progress =  new DeviceProgress(); 
+		progress.setDeviceId(deviceId);
+		progress.setFileKey(fileKey);
+		progress.setPackNum(packNum);
+		progress.setSendedPack(toShort(-1));
+		progress.setSendTime(toStr(LocalDateTime.now()));
+		progress.setRetryCount(0);
 
-		JedisUtils.set(deviceProgress, progressBody);
+		JedisUtils.set(deviceProgress, progress);
 	}
 }

@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 import com.alibaba.fastjson.JSONObject;
 import com.iot.logger.LogName;
 import com.iot.logger.LoggerUtils;
+import com.iot.model.DeviceProgress;
 import com.iot.utils.UpGradeUtil;
 import com.iot.utils.Constant;
 import com.iot.utils.ConverterUtils;
@@ -53,15 +54,16 @@ public class CommandUpversionService implements ICommandService {
 		try {
 			/** 0:升级 1：拒绝升级 */
 			int result = toInt(commandMap.get("result"));
+			System.out.println("result : " + result);
 			if (result == Constant.UPGRADE_SUCCESS) {
 				/** 设备升级缓存key */
 				String deviceProgress = Constant.PROGRESS + deviceId;
 				if (JedisUtils.hasKey(deviceProgress)) {
-					JSONObject progressBody = (JSONObject) JedisUtils.get(deviceProgress);
+					DeviceProgress progressBody = (DeviceProgress) JedisUtils.get(deviceProgress);
 					
-					String fileKey = progressBody.getString("fileKey");
-					short packNum = progressBody.getShortValue("packNum");
-					short sendedPack = progressBody.getShortValue("sendedPack");
+					String fileKey = progressBody.getFileKey();
+					short packNum = progressBody.getPackNum();
+					short sendedPack = progressBody.getSendedPack();
 					
 					JSONObject upgradeFile = (JSONObject) JedisUtils.get(fileKey);
 					if (upgradeFile == null || upgradeFile.isEmpty()) {
@@ -76,8 +78,8 @@ public class CommandUpversionService implements ICommandService {
 						LoggerUtils.Logger(LogName.CALLBACK).info("组建命令参数失败：" + commandMap);
 						return;
 					}
-					progressBody.put("sendTime", ConverterUtils.toStr(LocalDateTime.now()));
-					progressBody.put("retryCount", 0);				
+					progressBody.setSendTime(ConverterUtils.toStr(LocalDateTime.now()));
+					progressBody.setRetryCount(0);
 					UpGradeUtil.asynCommand(command.toString());
 					JedisUtils.set(deviceProgress, progressBody);
 					

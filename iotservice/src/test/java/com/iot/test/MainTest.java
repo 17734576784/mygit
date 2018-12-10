@@ -167,13 +167,14 @@ public class MainTest {
 
 //        System.out.println(str);
 		
-//		String a = "AQFlAGQAVADIAQAIVGQACEAAACB4WAAA5AEACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJPQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADiaQ==";
-//		System.out.println(a.length());
-//		byte[] base64 = CommFunc.decode(a);
-//		for (byte b : base64) {
-//			System.out.print(BytesUtils.byteToHex(b) + " ");
-//		}
-//		System.out.println();
+		String a = "AQBqAAYAAAEBQACRAL8AvwC/HUgAaED0gHAbSQhgAL8B8NT7YLsAvxZIkDAAaED0gDAUScH4kAAAvwC/CEbQ+JAAIPSAMMH4kAAAvwC/CEbQ+JAAQPABAMH4kAAAvwC/AfC0+wEo+9EAAgZJkDEJaCH0QHEBQwNKwviQEAC/AL8IvQAAABACQABwAEBwtQRGACYAJbT1gD8H00/2/3C0+/DxAPsRRgYlAeAmRgQlFEgB8AT8AL8SSIBoIPSAYBBJiGAAvwC/AL8NSMBowPOAAAAo+NAAvwpIQGlv8w8AMEMHSUhhAL8AvwhGgGgg8AcAKEOIYAC/CEYB8OX7cL0AAAAoAEAt6fBBBrE=";
+		String bb = "AQBqAAYAAAEBQACRAL8AvwC/HUgAaED0gHAbSQhgAL8B8NT7YLsAvxZIkDAAaED0gDAUScH4kAAAvwC/CEbQ+JAAIPSAMMH4kAAAvwC/CEbQ+JAAQPABAMH4kAAAvwC/AfC0+wEo+9EAAgZJkDEJaCH0QHEBQwNKwviQEAC/AL8IvQAAABACQABwAEBwtQRGACYAJbT1gD8H00/2/3C0+/DxAPsRRgYlAeAmRgQlFEgB8AT8AL8SSIBoIPSAYBBJiGAAvwC/AL8NSMBowPOAAAAo+NAAvwpIQGlv8w8AMEMHSUhhAL8AvwhGgGgg8AcAKEOIYAC/CEYB8OX7cL0AAAAoAEAt6fBBBrE=";
+		System.out.println(a.equals(bb));
+		byte[] base64 = CommFunc.decode(a);
+		for (byte b : base64) {
+			System.out.print(BytesUtils.byteToHex(b) + " ");
+		}
+		System.out.println();
 		
 		LocalDate date = LocalDate.of(2016, 11, 29);
 		

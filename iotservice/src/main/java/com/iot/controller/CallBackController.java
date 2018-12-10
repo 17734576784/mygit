@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.iot.commandstrategy.CommandContext;
 import com.iot.logger.LogName;
 import com.iot.logger.LoggerUtils;
+import com.iot.model.DeviceProgress;
 import com.iot.servicestrategy.ServiceContext;
+import com.iot.task.QuartzTask;
 import com.iot.utils.Constant;
 import com.iot.utils.JedisUtils;
 import com.iot.utils.JsonUtil;
@@ -27,6 +29,9 @@ import static com.iot.utils.ConverterUtils.*;
 public class CallBackController {
 	@Resource
 	private ServiceContext serviceContext;
+	
+	@Autowired
+	private QuartzTask quartzTask;
 	
 	@Autowired
 	private CommandContext commandContext;
@@ -257,15 +262,28 @@ public class CallBackController {
 			dataMap = JsonUtil.jsonString2SimpleObj(result, dataMap.getClass());
 			String resultCode = toStr(dataMap.get("resultCode"));
 			Object resultDetail = dataMap.get("resultDetail");
-			System.out.println(LocalDateTime.now()+"  "+deviceId + "  " + commandId + "  resultCode : " + resultCode);
-			if (resultCode.equals(Constant.COMMAND_SUCCESS)) {
+//			System.out.println(LocalDateTime.now()+"  "+deviceId + "  " + commandId + "  resultCode : " + resultCode);
+//			if (resultCode.equals(Constant.COMMAND_DELIVERED)) {
+//				if (JedisUtils.hasKey(Constant.UPGRADE + commandId)) {
+//					String deviceProgress = Constant.PROGRESS + deviceId;
+//					DeviceProgress progressBody = (DeviceProgress) JedisUtils.get(deviceProgress);
+//					progressBody.setReceiveFlag(true);
+//					JedisUtils.set(deviceProgress, progressBody);
+//					
+//					int timeOut = 0;
+//					quartzTask.sendUpgradePack(deviceProgress, timeOut);
+//					delCommand(commandId);
+//				}
+//			} else
+				if (resultCode.equals(Constant.COMMAND_SUCCESS)) {
 				String serviceName = toStr(JedisUtils.get(Constant.COMMAND + commandId));
 				Map<String, String> commandMap = new HashMap<String, String>();
 				commandMap = JsonUtil.jsonString2SimpleObj(resultDetail, dataMap.getClass());
 				commandContext.parseCommand(serviceName, deviceId, commandMap);
-				JedisUtils.del(Constant.COMMAND + commandId);
+				
+				delCommand(commandId);
 			} else if (resultCode.equals(Constant.COMMAND_FAILED) || resultCode.equals(Constant.COMMAND_TIMEOUT)) {
-				JedisUtils.del(Constant.COMMAND + commandId);
+				delCommand(commandId);
 			}
 		} catch (Exception e) {
 			LoggerUtils.Logger(LogName.CALLBACK).error("接收命令响应异常," + reportCmdExecResult_NotifyMessage);
@@ -274,6 +292,10 @@ public class CallBackController {
 		
 		return new ResponseEntity<>(HttpStatus.OK);
 
+	}
+	
+	public void delCommand(String commandId) {
+		JedisUtils.del(Constant.COMMAND + commandId);
 	}
 
 	@RequestMapping(value = "deviceBind", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)

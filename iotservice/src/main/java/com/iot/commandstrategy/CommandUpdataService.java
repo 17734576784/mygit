@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 import com.alibaba.fastjson.JSONObject;
 import com.iot.logger.LogName;
 import com.iot.logger.LoggerUtils;
+import com.iot.model.DeviceProgress;
 import com.iot.utils.UpGradeUtil;
 import com.iot.utils.Constant;
 import com.iot.utils.ConverterUtils;
@@ -50,13 +51,13 @@ public class CommandUpdataService implements ICommandService {
 			/** 设备升级缓存key */
 			String deviceProgress = Constant.PROGRESS + deviceId;
 			if (JedisUtils.hasKey(deviceProgress)) {
-				JSONObject progressBody = (JSONObject) JedisUtils.get(deviceProgress);
-				String fileKey = progressBody.getString("fileKey");
-				short packNum = progressBody.getShortValue("packNum");
-				short sendedPack = progressBody.getShortValue("sendedPack");
+				DeviceProgress progressBody = (DeviceProgress) JedisUtils.get(deviceProgress);
+				String fileKey = progressBody.getFileKey();
+				short packNum = progressBody.getPackNum();
+				short sendedPack = progressBody.getSendedPack();
 
-//				System.out.println(LocalDateTime.now() + "  " + deviceId + "   receivedPackNum : " + receivedPackNum
-//						+ "  sendedPack :" + sendedPack);
+				System.out.println(LocalDateTime.now() + "  " + deviceId + "   receivedPackNum : " + receivedPackNum
+						+ "  sendedPack :" + sendedPack);
 				if (receivedPackNum < sendedPack) {
 					return;
 				}
@@ -66,16 +67,22 @@ public class CommandUpdataService implements ICommandService {
 					return;
 				}
 				
+
 				/** 错误重传 */
 				if (receivedPackNum == 0XFFFF) {
-					receivedPackNum = sendedPack + 1;
-					receivedPackNum = receivedPackNum == -1 ? 0 : receivedPackNum;
+					if (sendedPack == 0) {
+						receivedPackNum = 0;	
+					}else {
+						receivedPackNum = (short) (sendedPack + 1);
+						receivedPackNum = receivedPackNum == -1 ? 0 : receivedPackNum;
+					}
 				} else {
-					progressBody.put("sendedPack", receivedPackNum);
+					progressBody.setSendedPack((short)receivedPackNum);
 					receivedPackNum += 1;
 				}
 
-				
+				progressBody.setReceiveFlag(true);
+
 				if (receivedPackNum >= packNum || receivedPackNum < 0) {
 					return;
 				}
@@ -93,8 +100,8 @@ public class CommandUpdataService implements ICommandService {
 					return;
 				}
 				
-				progressBody.put("sendTime", ConverterUtils.toStr(LocalDateTime.now()));
-				progressBody.put("retryCount", 0);				
+				progressBody.setSendTime(ConverterUtils.toStr(LocalDateTime.now()));
+				progressBody.setRetryCount(0);				
 				UpGradeUtil.asynCommand(command.toString());
 				JedisUtils.set(deviceProgress, progressBody);
 			} else {
