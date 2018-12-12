@@ -12,6 +12,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.iot.IotserviceApplication;
 import com.iot.logger.LogName;
 import com.iot.logger.LoggerUtils;
+import com.iot.model.DeviceProgress;
 import com.iot.servicestrategy.CheckService;
 import com.iot.utils.Constant;
 import com.iot.utils.FileUtils;
@@ -29,8 +30,8 @@ public class JUtilTest {
 	private CheckService checkService; 
 	@Test
 	public void StrategyTest() throws Exception {
-//		System.out.println(FileUtils.parseUpgradeFile("KE-STM32L4_BIOS-V1.00-V1.03.bin_1.001.0318112103110000", "C:\\softversion\\KE-STM32L4_BIOS-V1.00-V1.03.bin", 256));;
-		checkService.loadUpgradeFile("434ff6cb-89bc-498b-a7c3-9f21f55afc96", "KE-STM32L4_BIOS-V1.00-V1.03.bin", "1.001.0318112103110000");
+		System.out.println(FileUtils.parseUpgradeFile("KE-STM32L4_BIOS-V1.00-V1.03.bin_1.001.0318112103110000", "C:\\softversion\\KE-STM32L4_BIOS-V1.00-V1.03.bin", 256));;
+//		checkService.loadUpgradeFile("434ff6cb-89bc-498b-a7c3-9f21f55afc96", "KE-STM32L4_BIOS-V1.00-V1.03.bin", "1.001.0318112103110000");
 		
 //		JSONObject progressBody = (JSONObject) JedisUtils.get("progress_81a8a1e9-0870-48e1-ad7a-57ad16e5b0d1");
 //		progressBody.put("sendedPack", 99);softversion/KE-STM32L4_BIOS-V1.00-V1.01.bin
@@ -48,7 +49,16 @@ public class JUtilTest {
 		command.put("serviceId",Constant.UPVERSIONSERVICE);
 		command.put("method",Constant.UPVERSION);
 		command.put("param", param.toString());
-		UpGradeUtil.asynCommand(command.toString());
+//		UpGradeUtil.asynCommand(command.toString());
+		
+//		JedisUtils.get("progress_32f53caa-7985-4a0c-b074-3cd242179d53");
+		
+//		DeviceProgress progress = new DeviceProgress();
+//		progress.setDeviceId("32f53caa-7985-4a0c-b074-3cd242179d53");
+//		JedisUtils.set("progress_32f53caa-7985-4a0c-b074-3cd242179d53", progress);
+		
+//		DeviceProgress progressBody = (DeviceProgress) JedisUtils.get("progress_32f53caa-7985-4a0c-b074-3cd242179d53");
+//		progressBody.setReceiveFlag(true);
 		
 		
 //		JSONObject upgradeFile = (JSONObject) JedisUtils.get("a.bin_1.00");

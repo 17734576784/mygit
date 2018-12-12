@@ -7,7 +7,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-@PropertySource({ "classpath:config.properties" })
+@PropertySource({"classpath:config.properties" })
 public class IotserviceApplication {
 
 	public static void main(String[] args) {

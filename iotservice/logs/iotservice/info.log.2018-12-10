@@ -1,0 +1,2 @@
+[2018-12-10 11:10:10.047] INFO [https-jsse-nio-8443-exec-3] CheckService.java:81 - response: {"flag":1,"filePath":"","error":"无此设备升级队列","version":"","status":0}
+[2018-12-10 11:10:10.051] INFO [https-jsse-nio-8443-exec-3] UpGradeUtil.java:37 - 工具类接收下发命令请求：{"method":"upversion","param":"{\"value\":1,\"version\":\"1.001.0818120803110000\"}","serviceId":"UpversionService","deviceId":"434ff6cb-89bc-498b-a7c3-9f21f55afc96"}

@@ -78,7 +78,10 @@ public class UpGradeUtil {
 				return false;
 			}
 
-			JedisUtils.set(Constant.COMMAND + commandId, serviceId, 172800);
+			JedisUtils.set(Constant.COMMAND + commandId, serviceId, 60 * 10 * 3);
+//			if (serviceId.equals(Constant.UPDATASERVICE)) {
+//				JedisUtils.set(Constant.UPGRADE + commandId, serviceId, 60 * 10);
+//			}
 		} catch (Exception e) {
 			LoggerUtils.Logger(LogName.INFO).error("工具类接收下发命令异常：" + command);
 			e.printStackTrace();
@@ -103,6 +106,12 @@ public class UpGradeUtil {
 	*/
 	public static String getCommandParam(String deviceId, String fileKey, short packNum, short sendedPack, JSONObject upgradeFile)
 			throws IOException {
+		if (packNum <= sendedPack) {
+			return null;
+		}
+		if (sendedPack < 0) {
+			sendedPack = 0;
+		}
 		@SuppressWarnings("unchecked")
 		Map<String, byte[]> fileMap = (Map<String, byte[]>) upgradeFile.get("data");
 		byte[] data = fileMap.get(String.valueOf(sendedPack));

@@ -227,5 +227,4 @@ public class Constant {
 	/** 升级文件根目录 */
 	public static int FILETIMEOUT = 60 * 60 * 24 * 180;	
 	
-	
 }
