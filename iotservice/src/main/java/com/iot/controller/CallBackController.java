@@ -31,9 +31,6 @@ public class CallBackController {
 	private ServiceContext serviceContext;
 	
 	@Autowired
-	private QuartzTask quartzTask;
-	
-	@Autowired
 	private CommandContext commandContext;
 	
 	@RequestMapping(value = "addDevice", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -275,13 +272,14 @@ public class CallBackController {
 //					delCommand(commandId);
 //				}
 //			} else
-				if (resultCode.equals(Constant.COMMAND_SUCCESS)) {
+			if (resultCode.equals(Constant.COMMAND_SUCCESS)) {
 				String serviceName = toStr(JedisUtils.get(Constant.COMMAND + commandId));
-				Map<String, String> commandMap = new HashMap<String, String>();
-				commandMap = JsonUtil.jsonString2SimpleObj(resultDetail, dataMap.getClass());
-				commandContext.parseCommand(serviceName, deviceId, commandMap);
-				
-				delCommand(commandId);
+				if (!serviceName.isEmpty()) {
+					Map<String, String> commandMap = new HashMap<String, String>();
+					commandMap = JsonUtil.jsonString2SimpleObj(resultDetail, dataMap.getClass());
+					commandContext.parseCommand(serviceName, deviceId, commandMap);
+					delCommand(commandId);
+				}
 			} else if (resultCode.equals(Constant.COMMAND_FAILED) || resultCode.equals(Constant.COMMAND_TIMEOUT)) {
 				delCommand(commandId);
 			}

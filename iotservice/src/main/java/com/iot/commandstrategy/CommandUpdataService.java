@@ -56,8 +56,7 @@ public class CommandUpdataService implements ICommandService {
 				short packNum = progressBody.getPackNum();
 				short sendedPack = progressBody.getSendedPack();
 
-				System.out.println(LocalDateTime.now() + "  " + deviceId + "   receivedPackNum : " + receivedPackNum
-						+ "  sendedPack :" + sendedPack);
+				System.out.println(LocalDateTime.now() + "  " + deviceId + "   收到： " + receivedPackNum+ "  sendedPack :" + sendedPack);
 				if (receivedPackNum < sendedPack) {
 					return;
 				}
@@ -92,7 +91,8 @@ public class CommandUpdataService implements ICommandService {
 					LoggerUtils.Logger(LogName.CALLBACK).info("升级文件：" + fileKey + "不存在");
 					return;
 				} 
-				Thread.sleep(3000);
+				Thread.sleep(4000);
+//				System.out.println(LocalDateTime.now() + "  下发 : " + receivedPackNum );
 
 				String command = UpGradeUtil.getCommandParam(deviceId, fileKey, packNum, (short)receivedPackNum, upgradeFile);
 				if (null == command || command.isEmpty()) {

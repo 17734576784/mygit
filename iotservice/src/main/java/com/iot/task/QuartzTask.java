@@ -98,7 +98,6 @@ public class QuartzTask {
 			progressBody.setRetryCount(retryCount);
 			UpGradeUtil.asynCommand(command.toString());
 			
-			progressBody.setSendedPack(sendedPack);
 			JedisUtils.set(deviceProgress, progressBody);
 			LoggerUtils.Logger(LogName.INFO).info("自动任务发送命令：" + progressBody.toString());
 			System.out.println("自动任务:" + progressBody.toString());
