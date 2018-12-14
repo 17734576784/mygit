@@ -13,6 +13,5 @@
 	<classpathentry kind="lib" path="D:/develop/workspace/LiteNAdemo_https/Open source components/json-lib-2.4-jdk15.jar"/>
 	<classpathentry kind="lib" path="D:/develop/workspace/LiteNAdemo_https/Open source components/spring-core-4.1.6.RELEASE.jar"/>
 	<classpathentry kind="lib" path="D:/develop/workspace/LiteNAdemo_https/Open source components/spring-web-4.1.6.RELEASE.jar"/>
-	<classpathentry kind="lib" path="D:/360安全浏览器下载/fastjson-1.2.51.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
