@@ -140,18 +140,40 @@ public class MainTest {
  	}
 
 	public static void main(String[] args) throws ClientProtocolException, IOException { 
-		String eventTime = "20181129T124539Z";
-		String date11 = eventTime.substring(0, 8); 
-		String time11 = eventTime.substring(9, 15);
-		System.out.println(date11 + "  " + time11);
-//		dateformate(eventTime);
-		System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+		String apiUrl = "http://127.0.0.1:11028/Enterprise_EnnGas/enngas/message/" + Constant.UPLOAD_UPGRADERESULT_URL;
+		try {
+			Map<String, Object> paramJson = new HashMap<>();
+			paramJson.put("status", Constant.UPGRADE_FAILED);
+			paramJson.put("version", "1");
+			paramJson.put("deviceId", "434ff6cb-89bc-498b-a7c3-9f21f55afc96");
+
+			Map<String, Object> paramMap = new HashMap<>();
+			paramMap.put("param", paramJson);
+			JSONObject response = HttpsUtils.doPost(apiUrl, paramMap);
+			if (response != null && !response.isEmpty()) {
+				if (response.getInteger("status") == Constant.SUCCESS) {
+					LoggerUtils.Logger(LogName.CALLBACK).info("434ff6cb-89bc-498b-a7c3-9f21f55afc96" + "升级失败发送成功");
+				} else {
+					LoggerUtils.Logger(LogName.CALLBACK).info("434ff6cb-89bc-498b-a7c3-9f21f55afc96" + "升级失败发送失败：");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			LoggerUtils.Logger(LogName.CALLBACK).error("下发升级版本回复，设备id：" + "434ff6cb-89bc-498b-a7c3-9f21f55afc96");
+		}
 		
-		JSONObject s = new JSONObject();
-		String dd =ConverterUtils.toStr(LocalDateTime.now());
-		s.put("a", ConverterUtils.toStr(LocalDateTime.now()));
-		
-		System.out.println(s.get("a"));
+//		String eventTime = "20181129T124539Z";
+//		String date11 = eventTime.substring(0, 8); 
+//		String time11 = eventTime.substring(9, 15);
+//		System.out.println(date11 + "  " + time11);
+////		dateformate(eventTime);
+//		System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+//		
+//		JSONObject s = new JSONObject();
+//		String dd =ConverterUtils.toStr(LocalDateTime.now());
+//		s.put("a", ConverterUtils.toStr(LocalDateTime.now()));
+//		
+//		System.out.println(s.get("a"));
 		
 //		String date  = "20181124";
 //		int dateInt = BytesUtils.getInt(str2Bcd(date));
@@ -167,16 +189,16 @@ public class MainTest {
 
 //        System.out.println(str);
 		
-		String a = "AQBqAAYAAAEBQACRAL8AvwC/HUgAaED0gHAbSQhgAL8B8NT7YLsAvxZIkDAAaED0gDAUScH4kAAAvwC/CEbQ+JAAIPSAMMH4kAAAvwC/CEbQ+JAAQPABAMH4kAAAvwC/AfC0+wEo+9EAAgZJkDEJaCH0QHEBQwNKwviQEAC/AL8IvQAAABACQABwAEBwtQRGACYAJbT1gD8H00/2/3C0+/DxAPsRRgYlAeAmRgQlFEgB8AT8AL8SSIBoIPSAYBBJiGAAvwC/AL8NSMBowPOAAAAo+NAAvwpIQGlv8w8AMEMHSUhhAL8AvwhGgGgg8AcAKEOIYAC/CEYB8OX7cL0AAAAoAEAt6fBBBrE=";
-		String bb = "AQBqAAYAAAEBQACRAL8AvwC/HUgAaED0gHAbSQhgAL8B8NT7YLsAvxZIkDAAaED0gDAUScH4kAAAvwC/CEbQ+JAAIPSAMMH4kAAAvwC/CEbQ+JAAQPABAMH4kAAAvwC/AfC0+wEo+9EAAgZJkDEJaCH0QHEBQwNKwviQEAC/AL8IvQAAABACQABwAEBwtQRGACYAJbT1gD8H00/2/3C0+/DxAPsRRgYlAeAmRgQlFEgB8AT8AL8SSIBoIPSAYBBJiGAAvwC/AL8NSMBowPOAAAAo+NAAvwpIQGlv8w8AMEMHSUhhAL8AvwhGgGgg8AcAKEOIYAC/CEYB8OX7cL0AAAAoAEAt6fBBBrE=";
-		System.out.println(a.equals(bb));
-		byte[] base64 = CommFunc.decode(a);
-		for (byte b : base64) {
-			System.out.print(BytesUtils.byteToHex(b) + " ");
-		}
-		System.out.println();
-		
-		LocalDate date = LocalDate.of(2016, 11, 29);
+//		String a = "AQBqAAYAAAEBQACRAL8AvwC/HUgAaED0gHAbSQhgAL8B8NT7YLsAvxZIkDAAaED0gDAUScH4kAAAvwC/CEbQ+JAAIPSAMMH4kAAAvwC/CEbQ+JAAQPABAMH4kAAAvwC/AfC0+wEo+9EAAgZJkDEJaCH0QHEBQwNKwviQEAC/AL8IvQAAABACQABwAEBwtQRGACYAJbT1gD8H00/2/3C0+/DxAPsRRgYlAeAmRgQlFEgB8AT8AL8SSIBoIPSAYBBJiGAAvwC/AL8NSMBowPOAAAAo+NAAvwpIQGlv8w8AMEMHSUhhAL8AvwhGgGgg8AcAKEOIYAC/CEYB8OX7cL0AAAAoAEAt6fBBBrE=";
+//		String bb = "AQBqAAYAAAEBQACRAL8AvwC/HUgAaED0gHAbSQhgAL8B8NT7YLsAvxZIkDAAaED0gDAUScH4kAAAvwC/CEbQ+JAAIPSAMMH4kAAAvwC/CEbQ+JAAQPABAMH4kAAAvwC/AfC0+wEo+9EAAgZJkDEJaCH0QHEBQwNKwviQEAC/AL8IvQAAABACQABwAEBwtQRGACYAJbT1gD8H00/2/3C0+/DxAPsRRgYlAeAmRgQlFEgB8AT8AL8SSIBoIPSAYBBJiGAAvwC/AL8NSMBowPOAAAAo+NAAvwpIQGlv8w8AMEMHSUhhAL8AvwhGgGgg8AcAKEOIYAC/CEYB8OX7cL0AAAAoAEAt6fBBBrE=";
+//		System.out.println(a.equals(bb));
+//		byte[] base64 = CommFunc.decode(a);
+//		for (byte b : base64) {
+//			System.out.print(BytesUtils.byteToHex(b) + " ");
+//		}
+//		System.out.println();
+//		
+//		LocalDate date = LocalDate.of(2016, 11, 29);
 		
 //		System.out.println(date.getYear());
 //		System.out.println(date.getMonth());
@@ -197,14 +219,14 @@ public class MainTest {
 //		System.out.println(time.getMinute());
 //		System.out.println(time.getSecond());
 		
-		date = LocalDate.parse("2015-10-25");
-		time = LocalTime.parse("08:57:03");
-		
-		LocalDateTime dt1 = LocalDateTime.of(2018, Month.NOVEMBER, 30, 8, 28,45);
-		LocalDateTime dt2 = LocalDateTime.of(date, time);
-		LocalDateTime dt3 = date.atTime(13, 45);
-		LocalDateTime dt4 = date.atTime(time);
-		LocalDateTime dt5 = time.atDate(date);
+//		date = LocalDate.parse("2015-10-25");
+//		time = LocalTime.parse("08:57:03");
+//		
+//		LocalDateTime dt1 = LocalDateTime.of(2018, Month.NOVEMBER, 30, 8, 28,45);
+//		LocalDateTime dt2 = LocalDateTime.of(date, time);
+//		LocalDateTime dt3 = date.atTime(13, 45);
+//		LocalDateTime dt4 = date.atTime(time);
+//		LocalDateTime dt5 = time.atDate(date);
 		
 //		System.out.println(dt1);
 //		System.out.println(dt2);
@@ -293,20 +315,20 @@ public class MainTest {
 //		System.out.println(dataLenr);
 //		
 		
-		
-		
-		String base =  "http://222.222.60.178:18130/Enterprise_EnnGas/enngas/message/";
-		String apiUrl = base + Constant.UPLOAD_ALARMCOMMAND_URL;
-		Map<String, Object> paramJson =  new HashMap<>();
-		paramJson.put("slope", 1);
-		paramJson.put("magnetic", 1);
-		paramJson.put("alarmtype", 1);
-		
-		paramJson.put("date", DateUtils.curDate());
-		paramJson.put("time", DateUtils.curTime());
-		paramJson.put("deviceId", "6e3dfa04-a0ef-4a8a-9475-f6b65605467e");
-		
-		apiUrl = base + "nbNotifyAction!notifyAlarm.action";
+//		
+//		
+//		String base =  "http://222.222.60.178:18130/Enterprise_EnnGas/enngas/message/";
+//		String apiUrl = base + Constant.UPLOAD_ALARMCOMMAND_URL;
+//		Map<String, Object> paramJson =  new HashMap<>();
+//		paramJson.put("slope", 1);
+//		paramJson.put("magnetic", 1);
+//		paramJson.put("alarmtype", 1);
+//		
+//		paramJson.put("date", DateUtils.curDate());
+//		paramJson.put("time", DateUtils.curTime());
+//		paramJson.put("deviceId", "6e3dfa04-a0ef-4a8a-9475-f6b65605467e");
+//		
+//		apiUrl = base + "nbNotifyAction!notifyAlarm.action";
 		
 //		paramJson.put("cycle", 0);
 //		paramJson.put("devicetime", 13);
@@ -322,8 +344,8 @@ public class MainTest {
 //		paramJson.put("deviceId", "6e3dfa04-a0ef-4a8a-9475-f6b65605467e");
 //		apiUrl = base + "nbNotifyAction!checkExistOrders.action";
 
-		Map<String, Object> urlMap = new HashMap<>();
-		urlMap.put("param", paramJson.toString());
+//		Map<String, Object> urlMap = new HashMap<>();
+//		urlMap.put("param", paramJson.toString());
 		try {
 //			JSONObject httpResult = HttpsUtils.doPost(apiUrl, urlMap);
 //			System.out.println(httpResult);

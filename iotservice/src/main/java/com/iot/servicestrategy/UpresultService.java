@@ -67,9 +67,9 @@ public class UpresultService implements IServiceStrategy {
 			JSONObject response = HttpsUtils.doPost(apiUrl, paramMap);
 			if (response != null && !response.isEmpty()) {
 				if (response.getInteger("status") == Constant.SUCCESS) {
-					LoggerUtils.Logger(LogName.CALLBACK).info("升级成功发送成功，内容：" + logInfo);
+					LoggerUtils.Logger(LogName.CALLBACK).info("升级成功发送成功，response：" + response);
 				} else {
-					LoggerUtils.Logger(LogName.CALLBACK).info("升级成功发送失败，内容：" + logInfo);
+					LoggerUtils.Logger(LogName.CALLBACK).info("升级成功发送失败，response：" + response);
 				}
 			}
 		} catch (Exception e) {
