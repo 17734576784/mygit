@@ -51,15 +51,15 @@ public class HttpClientUtil {
 		String url = HTTPS_URL + "test";
 		
 		JSONObject json = new JSONObject();
-		json.put("deviceId","81a8a1e9-0870-48e1-ad7a-57ad16e5b0d1");
-//		json.put("serviceId","PhotoService");
-//		json.put("method","sendphotoonce");
+		json.put("deviceId","0fa12276-690c-4a0b-b092-6a7b6556960e");
+		json.put("serviceId","PhotoService");
+		json.put("method","sendphotoonce");
 //		
 //		json.put("serviceId","AlarmService");
 //		json.put("method","openalarm");
 //		
-		json.put("serviceId","TimeService");
-		json.put("method","commandUpTimeService");
+//		json.put("serviceId","TimeService");
+//		json.put("method","commandUpTimeService");
 //		  
 //		json.put("serviceId","CameraService");
 //		json.put("method","adjustcamera");
@@ -68,17 +68,34 @@ public class HttpClientUtil {
 //		json.put("method","updata");
 		
 		JSONObject paramJson = new JSONObject();
-//		paramJson.put("value", 1);
+		paramJson.put("value", 1);
 		
 //		paramJson.put("openslope", 0);
 //		paramJson.put("openmagnetic", 1);
 //		
-		paramJson.put("timetype", 2);
-		paramJson.put("time", 13);
+//		paramJson.put("timetype", 2);
+//		paramJson.put("time", 13);
 		
 //		paramJson.put("direction", 1);
 //		paramJson.put("value", 10);
+//		paramJson.put("verifyCode","869029030051873");
+//		paramJson.put("nodeId","869029030051873");
+//		paramJson.put("timeout","0");
+
+//		{"deviceId":"8c23b6b4-ea68-48fb-9c2f-90452a81ebb1",
+//			"manufacturerId":"XLXX",
+//			"manufacturerName":"XLXX",
+//			"deviceType":"GasMeter",
+//			"model":"XL0001",
+//			"protocolType":"CoAP"}
 		
+//		paramJson.put("deviceId", "98eb6118-a684-4dbb-9894-62ea69c1a335");
+//		paramJson.put("manufacturerId", "XLXX");
+//		paramJson.put("manufacturerName", "XLXX");
+//		paramJson.put("deviceType", "GasMeter");
+//		paramJson.put("model", "XL0001");
+//		paramJson.put("protocolType", "CoAP");
+
 		json.put("param", paramJson.toString());
         
 		Map param = new HashMap();
@@ -90,7 +107,7 @@ public class HttpClientUtil {
         String charset="utf-8";
 		String url1 ="https://129.28.69.163:8443/asynCommand";
 //		String url1 ="https://129.28.69.163:8443/test";
-//		url1 = "https://129.28.69.163:8443/registerDevice";
+//		url1 = "https://129.28.69.163:8443/modifyDeviceInfo";
 
         doSSLPost(url1, param,  charset);
 //        uploadHttpClient(url1,"kafka-0.0.1-SNAPSHOT.jar");

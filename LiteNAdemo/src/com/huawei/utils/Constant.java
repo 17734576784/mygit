@@ -26,7 +26,7 @@ public class Constant {
      *IP and port of callback url.
      *please replace the IP and Port of your Application deployment environment address, when you use the demo.
      */
-    public static final String CALLBACK_BASE_URL = "http://192.88.88.88:9999";
+    public static final String CALLBACK_BASE_URL = "http://129.28.69.163:8443";
 
     /*
      * complete callback url：
