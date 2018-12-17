@@ -10,4 +10,7 @@
 <a href="dodel.html" target="_blank">del</a><br/>
 <a href="doupdate.html" target="_blank">update</a><br/>
 <a href="doget.html" target="_blank">get</a><br/></body>
+<a href="dotest1.html" target="_blank">test1</a><br/></body>
+<a href="dotest2.html" target="_blank">test2</a><br/></body>
+
 </html>
