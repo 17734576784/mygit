@@ -79,7 +79,7 @@ public class QuartzTask {
 				return;
 			}
 			
-			sendedPack = (short) (progressBody.isReceiveFlag() ? sendedPack + 1 : 0);
+			sendedPack = (short) (progressBody.isReceiveFlag() ? sendedPack + 1 : 0); 
 			/** 发送缓存已发送成功包的下一包数据 */
 			if (sendedPack == packNum) {
 				progressBody.setRetryCount(retrycount);

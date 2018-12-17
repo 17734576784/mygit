@@ -55,9 +55,10 @@ public class CommandUpversionService implements ICommandService {
 			/** 0:升级 1：拒绝升级 */
 			int result = toInt(commandMap.get("result"));
 			System.out.println("result : " + result);
+			String deviceProgress = Constant.PROGRESS + deviceId;
+
 			if (result == Constant.UPGRADE_SUCCESS) {
 				/** 设备升级缓存key */
-				String deviceProgress = Constant.PROGRESS + deviceId;
 				if (JedisUtils.hasKey(deviceProgress)) {
 					DeviceProgress progressBody = (DeviceProgress) JedisUtils.get(deviceProgress);
 					
@@ -88,8 +89,10 @@ public class CommandUpversionService implements ICommandService {
 					System.out.println("不存在设备：" + deviceId + ",升级进度缓存");
 				}
 			} else {
+				JedisUtils.del(deviceProgress);
 				//推送升级失败
 				sendUpResult(deviceId);
+				
 			}
 		} catch (Exception e) {
 			LoggerUtils.Logger(LogName.INFO).error("下发升级版本回复处理异常，设备id：" + deviceId + " ,内容：" + commandMap.toString());
@@ -102,7 +105,7 @@ public class CommandUpversionService implements ICommandService {
 		try {
 			Map<String, Object> paramJson = new HashMap<>();
 			paramJson.put("status", Constant.UPGRADE_FAILED);
-			paramJson.put("version", "");
+			paramJson.put("version", "1");
 			paramJson.put("deviceId", deviceId);
 
 			Map<String, Object> paramMap = new HashMap<>();
