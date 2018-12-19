@@ -35,8 +35,7 @@ public class ShiroService {
     public void doLogin(String username, String password) throws Exception {
         Subject currentUser = SecurityUtils.getSubject();
         if (!currentUser.isAuthenticated()) {
-            UsernamePasswordToken token =
-                    new UsernamePasswordToken(username, password);
+            UsernamePasswordToken token = new UsernamePasswordToken(username, password);
             token.setRememberMe(true);//是否记住用户
             try {
                 currentUser.login(token);//执行登录

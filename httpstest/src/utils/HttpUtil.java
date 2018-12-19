@@ -228,6 +228,9 @@ public class HttpUtil {
 //		url ="http://127.0.0.1:8080/test";
 		url = "http://129.28.69.163:11028/Enterprise_EnnGas/enngas/message/nbNotifyAction!notifyUploadResult.action";
 		url = "http://127.0.0.1:8082/login";
+		url ="http://127.0.0.1:8080/ShiroWeb/login.html";
+//		url ="http://127.0.0.1:8080/ShiroWeb/doadd.html";
+
 
 		Map<String, Object> paramJson = new HashMap<>();
 		paramJson.put("version", "1.001.0018112103110000");
@@ -237,7 +240,7 @@ public class HttpUtil {
 		Map<String, String> paramMap = new HashMap<>();
 //		paramMap.put("param", paramJson.toString());
 		paramMap.put("username", "test");
-		paramMap.put("password", "1234563");
+		paramMap.put("password", "123456");
 		
 		String result = HttpUtil.doPost(url, paramMap);
 		System.out.println("result = " + result);

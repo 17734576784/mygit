@@ -78,7 +78,6 @@
 		</property>
     </bean>
 
-
 	<bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
 		<constructor-arg value="rememberMeShiro" /><!-- 浏览器中cookie的名字 -->
 		<property name="httpOnly" value="true" /><!--document对象中就看不到cookie了 -->

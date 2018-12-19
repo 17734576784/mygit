@@ -26,13 +26,13 @@ public class MyShiroRealm extends AuthorizingRealm {
     public void setShiroService(ShiroService shiroService) {
         this.shiroService = shiroService;
     }
+    
+    
 
     @Override
-    protected AuthorizationInfo doGetAuthorizationInfo
-                 (PrincipalCollection principalCollection) {
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         //根据自己的需求编写获取授权信息，这里简化代码获取了用户对应的所有权限
-        String username = 
-        (String) principalCollection.fromRealm(getName()).iterator().next();
+        String username = (String) principalCollection.fromRealm(getName()).iterator().next();
         if (username != null) {
             List<String> perms = shiroService.getPermissionByUserName(username);
             if (perms != null && !perms.isEmpty()) {

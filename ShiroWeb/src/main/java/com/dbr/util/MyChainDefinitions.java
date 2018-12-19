@@ -50,11 +50,11 @@ public class MyChainDefinitions implements FactoryBean<Ini.Section> {
 		// urls可以从数据库查出来，此处省略代码，直接模拟几条数据
 		Set<String> urls = new LinkedHashSet<>();
 		urls.add("/dotest1.html");
-		urls.add("/dotest2.html");
+		urls.add("/test/dotest2.html");
 		// 每个url对应的权限也可以从数据库中查出来，这里模拟几条数据
 		Map<String, String[]> permsMap = new HashMap<>();
 		permsMap.put("/dotest1.html", new String[] { "perm1", "admin" });
-		permsMap.put("/dotest2.html", new String[] { "perm1" });
+		permsMap.put("/test/dotest2.html", new String[] { "perm1" });
 
 		// 加载配置默认的过滤链
 		Ini ini = new Ini();
