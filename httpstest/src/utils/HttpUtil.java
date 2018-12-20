@@ -54,7 +54,7 @@ public class HttpUtil {
 			conn.setRequestProperty("Content-Type","application/x-www-form-urlencoded;charset="+ requestCharset);
 			conn.setRequestMethod(method);// 鎻愪氦妯″紡
 			conn.setUseCaches(false);
-			conn.setReadTimeout(20000);//璇诲彇瓒呮椂 鍗曚綅姣
+			conn.setReadTimeout(20000000);//璇诲彇瓒呮椂 鍗曚綅姣
 			conn.setDoOutput(true);// 鏄惁杈撳叆鍙傛暟
 			conn.setDoInput(true);
 
@@ -227,6 +227,10 @@ public class HttpUtil {
 		url = "http://129.28.69.163:11028/Enterprise_EnnGas/enngas/message/nbNotifyAction!checkExistOrders.action";
 //		url ="http://127.0.0.1:8080/test";
 		url = "http://129.28.69.163:11028/Enterprise_EnnGas/enngas/message/nbNotifyAction!notifyUploadResult.action";
+		url = "http://127.0.0.1:8082/login";
+		url ="http://127.0.0.1:8080/ShiroWeb/login.html";
+//		url ="http://127.0.0.1:8080/ShiroWeb/doadd.html";
+
 
 		Map<String, Object> paramJson = new HashMap<>();
 		paramJson.put("version", "1.001.0018112103110000");
@@ -234,7 +238,9 @@ public class HttpUtil {
 		paramJson.put("status", "0");
 
 		Map<String, String> paramMap = new HashMap<>();
-		paramMap.put("param", paramJson.toString());
+//		paramMap.put("param", paramJson.toString());
+		paramMap.put("username", "test");
+		paramMap.put("password", "123456");
 		
 		String result = HttpUtil.doPost(url, paramMap);
 		System.out.println("result = " + result);

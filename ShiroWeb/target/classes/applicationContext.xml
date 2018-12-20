@@ -34,7 +34,27 @@
 
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="myShiroRealm"/>
+        <!--加入rememberMe的设置-->
+   	    <property name="rememberMeManager" ref="rememberMeManager"/>
+   	    <!--将缓存管理器，交给安全管理器-->
+<!--         <property name="cacheManager" ref="customCacheManager"/> -->
     </bean>
+    
+    
+    <bean id="myChainDefinitions" class="com.dbr.util.MyChainDefinitions">
+		<!--静态的条件 -->
+		<property name="filterChainDefinitions">
+			<value>
+			/gologin.html = anon
+			/login.html = anon
+			/doadd.html = authc, perms[perm1,perm2]
+			/doget.html = authc, perms[admin]
+			/doupdate.html = authc, perms[perm1]
+			/dodel.html = authc, perms[perm2]
+			/logout.html=user
+			</value>
+		</property>
+	</bean>
     
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
@@ -47,19 +67,30 @@
         <!--定义过滤的规则-->
         <!--复杂的系统中，url和权限都可以从数据库中读取-->
         <!--anon是不需要验证，authc时需要验证，perms[admin]代表要admin权限-->
-        <property name="filterChainDefinitions">
-            <value>
-                gologin.html = anon
-                login.html = anon
-			<!--                 /** = authc, perms[create] -->
-				/doadd.html = authc, perms[create]
-				/doget.html = authc, perms[admin]
-				/doupdate.html = authc, perms[update]
-				/dodel.html = authc, perms[update]
-            </value>
-        </property>
+        <property name="filterChainDefinitionMap" ref="myChainDefinitions"/>
+	    <!--修改后的过滤规则，从and变成or-->
+		<property name="filters">
+			<map>
+				<entry key="perms">
+					<bean class="com.dbr.util.MyShiroPermFilter" />
+				</entry>
+			</map>
+		</property>
     </bean>
-    
+
+	<bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<constructor-arg value="rememberMeShiro" /><!-- 浏览器中cookie的名字 -->
+		<property name="httpOnly" value="true" /><!--document对象中就看不到cookie了 -->
+		<property name="maxAge" value="2592000" /><!-- 30天 -->
+	</bean>
+
+	<!-- rememberMe管理器 -->
+	<bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+		<!--秘钥要16位，24位或32位的Base64。这个解密后是1234567890abcdef -->
+		<property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('MTIzNDU2Nzg5MGFiY2RlZg==')}" />
+		<property name="cookie" ref="rememberMeCookie" />
+	</bean>
+
       <!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 
@@ -71,4 +102,5 @@
     <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
         <property name="securityManager" ref="securityManager"/>
     </bean>
+    
 </beans>

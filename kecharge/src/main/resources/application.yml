@@ -1,0 +1,57 @@
+#默认为443，可以修改为自己需要的端口
+server:
+  port: 8080
+  servlet:
+    context-path: /kecharge
+  
+logging:
+  level: 
+    learning: debug
+
+# REDIS (RedisProperties)
+spring:
+  redis:
+    # Redis数据库索引（默认为0）
+    database: 0  
+    # Redis服务器地址
+    host: localhost
+    # Redis服务器连接端口
+    port: 6379  
+    # Redis服务器连接密码（默认为空）
+    password: 123456
+    # 连接池最大连接数（使用负值表示没有限制）
+    jedis:
+      pool:
+        max-active: 20 
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        # 连接池中的最大空闲连接
+        max-idle: 10  
+        # 连接池中的最小空闲连接
+        min-idle: 5 
+      # 连接超时时间（毫秒）
+    timeout: 5000
+    
+  datasource: 
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.jdbc.Driver
+    platform: mysql
+    url: jdbc:mysql://127.0.0.1:3306/cppara?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: 123456
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT1FROMDUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    filters: stat,wall,log4j
+    logSlowSql: true
+        
+interceptor: 
+  urls: /test,/test1
+  
