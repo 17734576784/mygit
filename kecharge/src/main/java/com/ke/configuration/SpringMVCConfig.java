@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
@@ -34,12 +35,11 @@ public class SpringMVCConfig implements WebMvcConfigurer{
 	@Autowired
 	private AccessInterceptor accessInterceptor;
 	
-	@Value("${interceptor.urls}")
-	private String urls;
+	@Value("#{'${interceptor.urls}'.split(',')}")
+	private List<String> urlList;
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		String[] urlList = urls.split(",");
 		WebMvcConfigurer.super.addInterceptors(registry);
 		registry.addInterceptor(accessInterceptor).excludePathPatterns(urlList).addPathPatterns("/**");
 	}
@@ -64,5 +64,17 @@ public class SpringMVCConfig implements WebMvcConfigurer{
 		converters.add(fastConverter);
 	}
 
+
+	@Override
+	public void configurePathMatch(PathMatchConfigurer configurer) {
+		// 开启路径后缀匹配
+		WebMvcConfigurer.super.configurePathMatch(configurer);
+		configurer.setUseRegisteredSuffixPatternMatch(true);
+		// setUseSuffixPatternMatch 后缀模式匹配
+		configurer.setUseSuffixPatternMatch(true);
+		// setUseTrailingSlashMatch 自动后缀路径模式匹配
+		configurer.setUseTrailingSlashMatch(true);
+	}
+	
 	
 }

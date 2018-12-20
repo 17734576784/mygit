@@ -51,7 +51,7 @@ spring:
     testOnReturn: false
     filters: stat,wall,log4j
     logSlowSql: true
-        
+       
 interceptor: 
-  urls: /test,/test1
+  urls: /test.action,/test1.action
   
