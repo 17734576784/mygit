@@ -2,12 +2,11 @@ package com.ke;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.DispatcherServlet;
 
-@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+@SpringBootApplication
 public class KechargeApplication {
 
 	public static void main(String[] args) {
@@ -15,15 +14,14 @@ public class KechargeApplication {
 	}
 
 	/**
-	  * 设置匹配*.action后缀请求
+	  * 设置匹配*.json后缀请求
      * @param dispatcherServlet
      * @return
      */
-    @Bean
-    public ServletRegistrationBean<DispatcherServlet> servletRegistrationBean(DispatcherServlet dispatcherServlet) {
-        ServletRegistrationBean<DispatcherServlet> servletServletRegistrationBean = new ServletRegistrationBean<>(dispatcherServlet);
-        servletServletRegistrationBean.addUrlMappings("*.json");
-        return servletServletRegistrationBean;
-    }
+//    @Bean
+//    public ServletRegistrationBean<DispatcherServlet> servletRegistrationBean(DispatcherServlet dispatcherServlet) {
+//        ServletRegistrationBean<DispatcherServlet> servletServletRegistrationBean = new ServletRegistrationBean<>(dispatcherServlet);
+//        servletServletRegistrationBean.addUrlMappings("*.html");
+//        return servletServletRegistrationBean;
+//    }
 }
-
