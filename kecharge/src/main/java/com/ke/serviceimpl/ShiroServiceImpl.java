@@ -21,8 +21,14 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.ke.mapper.ShiroMapper;
+import com.ke.model.LogEnum;
+import com.ke.model.LoginUser;
 import com.ke.service.IShiroService;
+import com.ke.utils.Constant;
+import com.ke.utils.JedisUtils;
+import com.ke.utils.LoggerUtils;
 
 /** 
 * @ClassName: ShiroServiceImpl 
@@ -71,25 +77,45 @@ public class ShiroServiceImpl implements IShiroService {
 	* @see com.ke.service.IShiroService#doLogin(java.lang.String, java.lang.String) 
 	*/
 	@Override
-	public void doLogin(String username, String password) throws Exception {
-		// TODO Auto-generated method stub
-		   Subject currentUser = SecurityUtils.getSubject();
-	        if (!currentUser.isAuthenticated()) {
-	            UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-	            token.setRememberMe(true);//是否记住用户
-	            try {
-	                currentUser.login(token);//执行登录
-	            } catch (UnknownAccountException uae) {
-	                throw new Exception("账户不存在");
-	            } catch (IncorrectCredentialsException ice) {
-	                throw new Exception("密码不正确");
-	            } catch (LockedAccountException lae) {
-	                throw new Exception("用户被锁定了 ");
-	            } catch (AuthenticationException ae) {
-	                ae.printStackTrace();
-	                throw new Exception("未知错误");
-	            }
-	        }
+	public JSONObject doLogin(String username, String password) {
+		JSONObject rtnJson = new JSONObject();
+		Subject currentUser = SecurityUtils.getSubject();
+		if (!currentUser.isAuthenticated()) {
+			UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+			token.setRememberMe(true);// 是否记住用户
+			try {
+				currentUser.login(token);// 执行登录
+				
+				rtnJson.put("token", "123456789");
+				rtnJson.put("username", username);
+				rtnJson.put("password", password);
+				List<String> perms = getPermissionByUserName(username);
+
+				LoginUser loginUser = new LoginUser();
+				loginUser.setLoginName(username);
+				loginUser.setPermList(perms);
+
+				JedisUtils.set(Constant.TOKEN + "123456789", loginUser);
+			} catch (UnknownAccountException uae) {
+				rtnJson.put(Constant.RESULT_CODE, Constant.REQUEST_BAD);
+				rtnJson.put(Constant.RESULT_DETAIL, "账户不存在");
+			} catch (IncorrectCredentialsException ice) {
+				rtnJson.put(Constant.RESULT_CODE, Constant.REQUEST_BAD);
+				rtnJson.put(Constant.RESULT_DETAIL, "密码不正确");
+			} catch (LockedAccountException lae) {
+				rtnJson.put(Constant.RESULT_CODE, Constant.REQUEST_BAD);
+				rtnJson.put(Constant.RESULT_DETAIL, "用户被锁定了 ");
+			} catch (AuthenticationException ae) {
+				ae.printStackTrace();
+				rtnJson.put(Constant.RESULT_CODE, Constant.REQUEST_BAD);
+				rtnJson.put(Constant.RESULT_DETAIL, "未知错误");
+			} catch (Exception e) {
+				LoggerUtils.Logger(LogEnum.ERROR).error("登录异常" + e.getMessage());
+				rtnJson.put(Constant.RESULT_CODE, Constant.REQUEST_BAD);
+				rtnJson.put(Constant.RESULT_DETAIL, "请求错误");
+			}
+		}
+		return rtnJson;
 	}
 
 }

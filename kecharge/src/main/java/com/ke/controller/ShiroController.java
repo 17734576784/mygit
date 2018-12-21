@@ -1,5 +1,6 @@
 package com.ke.controller;
 
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 /**   
@@ -18,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ke.service.IShiroService;
-import com.ke.utils.JedisUtils;
 
 
 @Controller
@@ -56,12 +56,7 @@ public class ShiroController {
 	public JSONObject login(String username, String password) {
 		JSONObject json = new JSONObject();
 		try {
-			shiroService.doLogin(username, password);
-			json.put("token", "123456789");
-			json.put("username", username);
-			json.put("password", password);
-
-			JedisUtils.set("123456789", json);
+			json = shiroService.doLogin(username, password);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

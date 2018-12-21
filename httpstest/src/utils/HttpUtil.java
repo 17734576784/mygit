@@ -238,7 +238,7 @@ public class HttpUtil {
 
 		Map<String, String> paramMap = new HashMap<>();
 //		paramMap.put("param", paramJson.toString());
-		paramMap.put("username", "admin");
+		paramMap.put("username", "test");
 		paramMap.put("password", "123456");
 		paramMap.put("token", "123456789");
 

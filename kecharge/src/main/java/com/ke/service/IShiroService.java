@@ -10,6 +10,8 @@ package com.ke.service;
 
 import java.util.List;
 
+import com.alibaba.fastjson.JSONObject;
+
 /**
  * @ClassName: IShiroService
  * @Description: TODO(这里用一句话描述这个类的作用)
@@ -21,5 +23,6 @@ public interface IShiroService {
 	List<String> getPermissionByUserName(String username);
 
 	String getPasswordByUserName(String username);
-	void doLogin(String username, String password) throws Exception;
+
+	JSONObject doLogin(String username, String password);
 }
