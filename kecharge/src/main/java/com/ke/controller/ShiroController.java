@@ -13,9 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.ke.service.IShiroService;
+import com.ke.utils.JedisUtils;
 
 
 @Controller
@@ -27,15 +30,42 @@ public class ShiroController {
 	public String goLogin() {
 		return "login";
 	}
+	
+	@ResponseBody
+	@RequestMapping("/error.json")
+	public JSONObject error() {
+		JSONObject json = new JSONObject();
+		json.put("status", -1);
+		json.put("error", "请求错误！");
+		return json;
+
+	}
 
 	@RequestMapping("/login.html")
-	public ModelAndView login(String username, String password) {
+	public ModelAndView login1(String username, String password) {
 		try {
 			shiroService.doLogin(username, password);
 		} catch (Exception e) {
 			return new ModelAndView("error", "msg", e.getMessage());
 		}
 		return new ModelAndView("index");
+	}
+	
+	@ResponseBody
+	@RequestMapping("/login.json")
+	public JSONObject login(String username, String password) {
+		JSONObject json = new JSONObject();
+		try {
+			shiroService.doLogin(username, password);
+			json.put("token", "123456789");
+			json.put("username", username);
+			json.put("password", password);
+
+			JedisUtils.set("123456789", json);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return json;
 	}
 
 	@RequestMapping("/logout.html")

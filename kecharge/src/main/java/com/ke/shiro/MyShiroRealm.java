@@ -24,19 +24,19 @@ public class MyShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         //根据自己的需求编写获取授权信息，这里简化代码获取了用户对应的所有权限
-        String username = (String) principalCollection.fromRealm(getName()).iterator().next();
-        if (username != null) {
-            List<String> perms = shiroService.getPermissionByUserName(username);
-            if (perms != null && !perms.isEmpty()) {
-                SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-                for (String each : perms) {
-                    //将权限资源添加到用户信息中
-                    info.addStringPermission(each);
-                }
-                return info;
-            }
-        }
-        return null;
+		String username = (String) principalCollection.fromRealm(getName()).iterator().next();
+		if (username != null) {
+			List<String> perms = shiroService.getPermissionByUserName(username);
+			if (perms != null && !perms.isEmpty()) {
+				SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+				for (String each : perms) {
+					// 将权限资源添加到用户信息中
+					info.addStringPermission(each);
+				}
+				return info;
+			}
+		}
+		return null;
     }
 
     @Override
@@ -49,7 +49,7 @@ public class MyShiroRealm extends AuthorizingRealm {
             //查询密码
             String password = shiroService.getPasswordByUserName(username);
             if (password != null) {
-                return new SimpleAuthenticationInfo(username, password, getName());
+				return new SimpleAuthenticationInfo(username, password, getName());
             }
         }
         return null;

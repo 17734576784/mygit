@@ -1,6 +1,5 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
-encoding//src/main/java/com/ke/shiro/MyChainDefinitions.java=UTF-8
 encoding//src/main/java/com/ke/shiro/MyShiroPermFilter.java=UTF-8
 encoding//src/main/java/com/ke/shiro/MyShiroRealm.java=UTF-8
 encoding//src/main/resources=UTF-8

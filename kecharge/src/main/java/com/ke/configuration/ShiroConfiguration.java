@@ -27,7 +27,6 @@ import org.springframework.web.filter.DelegatingFilterProxy;
 import com.ke.shiro.MyShiroPermFilter;
 import com.ke.shiro.MyShiroRealm;
 import com.ke.mapper.ShiroMapper;
-import com.ke.shiro.MyChainDefinitions;
 
 /** 
 * @ClassName: ShiroConfiguration 
@@ -48,12 +47,6 @@ public class ShiroConfiguration {
 		return myShiroPermFilter;
 	}
 
-	@Bean
-	public MyChainDefinitions myChainDefinitions() {
-		MyChainDefinitions myChainDefinitions = new MyChainDefinitions();
-		return myChainDefinitions;
-	}
-	
 	// 将自己的验证方式加入容器
 	@Bean
 	public MyShiroRealm myShiroRealm() {
@@ -93,16 +86,12 @@ public class ShiroConfiguration {
 
 		// URL过滤
 	    Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-//	    List<UrlFilter> urlFilterList = urlFilterService.selectAll();
-//	    for (UrlFilter filter : urlFilterList) {
-//	        filterChainDefinitionMap.put(filter.getFilterUrl(),
-//	                filter.getFilterList());
-//	    }
-	    
 	    //登出
 	    filterChainDefinitionMap.put("/gologin.html","anon");
 	    filterChainDefinitionMap.put("/login.html","anon");
-	    
+	    filterChainDefinitionMap.put("/login.json","anon");
+	    filterChainDefinitionMap.put("/error.json","anon");
+
 		List<Map<String,String>> list = shiroMapper.listUrlPermission();
 		for (Map<String, String> map : list){
 			filterChainDefinitionMap.put(map.get("url"), "perms["+map.get("permission")+"]");
@@ -118,11 +107,11 @@ public class ShiroConfiguration {
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
         //登录
-        shiroFilterFactoryBean.setLoginUrl("/gologin.html");
+        shiroFilterFactoryBean.setLoginUrl("/error.json");
         //首页
         shiroFilterFactoryBean.setSuccessUrl("/index.html");
         //错误页面，认证不通过跳转
-        shiroFilterFactoryBean.setUnauthorizedUrl("/error.jsp");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/error.json");
         return shiroFilterFactoryBean;
     }
 

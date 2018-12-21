@@ -24,13 +24,12 @@ public class TestController {
 //	@Value("${dbr.list}")
 //	private String port;
 	
-	@RequestMapping("/test")
-	public String test() {
-//		System.out.println(port);
-		return "ok";
-	}
+//	@RequestMapping("/login.json")
+//	public String login() {
+//		return "ok";
+//	}
 	
-	@RequestMapping("/test2")
+	@RequestMapping("/list.json")
 	public String test2() {
 //		System.out.println(port);
 		return "test2";

@@ -1,4 +1,4 @@
-package utils;
+package com.ke.utils;
 
 
 import java.io.BufferedReader;
@@ -9,7 +9,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +18,7 @@ import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 
 /**
- * http宸ュ叿绫�
+ * http工具类
  */
 public class HttpUtil {
 	private static String boundary = "--------httppost123";
@@ -50,16 +49,16 @@ public class HttpUtil {
 			
 			URL openurl = new URL(url);
 			conn = (HttpURLConnection) openurl.openConnection();
-			// 缂栫爜
+			// 编码
 			conn.setRequestProperty("Content-Type","application/x-www-form-urlencoded;charset="+ requestCharset);
-			conn.setRequestMethod(method);// 鎻愪氦妯″紡
+			conn.setRequestMethod(method);// 提交模式
 			conn.setUseCaches(false);
-			conn.setReadTimeout(20000000);//璇诲彇瓒呮椂 鍗曚綅姣
-			conn.setDoOutput(true);// 鏄惁杈撳叆鍙傛暟
+//			 conn.setReadTimeout(5000);//读取超时 单位毫秒
+			conn.setDoOutput(true);// 是否输入参数
 			conn.setDoInput(true);
 
 	        StringBuffer p = new StringBuffer();
-	        // 琛ㄥ崟鍙傛暟涓巊et褰㈠紡涓�鏍�
+	        // 表单参数与get形式一样
 	        if(params != null){
 	        	String key=null;
 		        Iterator<String> it = params.keySet().iterator();
@@ -70,10 +69,10 @@ public class HttpUtil {
 		        p.append("wap=1");
 		        byte[] bypes = p.toString().getBytes();
 		        conn.setRequestProperty("Content-Length",String.valueOf(bypes.length)); 
-		        conn.getOutputStream().write(bypes);// 杈撳叆鍙傛暟
+		        conn.getOutputStream().write(bypes);// 输入参数
 		        
 	        }
-	        //杩斿洖淇℃伅
+	        //返回信息
 			BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), responseCharset));
 			StringBuffer buf = new StringBuffer();
 			String temp = null;
@@ -84,12 +83,12 @@ public class HttpUtil {
 		} catch (Exception e) {
 			e.printStackTrace();
 			if (conn != null) {
-				conn.disconnect(); // 涓柇杩炴帴
+				conn.disconnect(); // 中断连接
 			}
 			return null;
 		} finally {
 			if (conn != null) {
-				conn.disconnect(); // 涓柇杩炴帴
+				conn.disconnect(); // 中断连接
 			}
 		}
 	}
@@ -105,14 +104,14 @@ public class HttpUtil {
 		HttpURLConnection    conn = (HttpURLConnection) new URL(url).openConnection();  
 	    conn.setDoOutput(true);  
 	    conn.setUseCaches(false);  
-	    conn.setConnectTimeout(10000); //杩炴帴瓒呮椂涓�10绉�  
+	    conn.setConnectTimeout(10000); //连接超时为10秒  
 	    conn.setRequestMethod("POST");  
 	    conn.setRequestProperty("Content-Type",  
 	                "multipart/form-data; boundary=" + boundary);  
 	    DataOutputStream ds = new DataOutputStream(conn.getOutputStream());
 	    
 	    
-        //鏂囦欢鍙傛暟
+        //文件参数
         KeyValue kv;
         byte[] buf = new byte[10240];
         for (int i=0; i<fileParams.size(); i++) {  
@@ -132,7 +131,7 @@ public class HttpUtil {
             ds.flush();
             fis.close();
         }  
-        //鏂囨湰鍙傛暟
+        //文本参数
         for (int i=0; i<stringParams.size(); i++) {  
             kv = stringParams.get(i);
             String value = kv.getValue();  
@@ -142,10 +141,10 @@ public class HttpUtil {
             ds.writeBytes("\r\n");  
             ds.writeBytes(encode(value) + "\r\n");  
         }  
-        //娣诲姞缁撳熬鏁版嵁  
+        //添加结尾数据  
         ds.writeBytes("--" + boundary + "--" + "\r\n");  
         ds.writeBytes("\r\n");  
-        //杩斿洖淇℃伅
+        //返回信息
 		BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(),"utf-8"));
 		StringBuffer sbuf = new StringBuffer();
 		String temp = null;
@@ -158,10 +157,10 @@ public class HttpUtil {
 	 private static String encode(String value) throws Exception{  
 	        return URLEncoder.encode(value, "UTF-8");  
 	    } 
-	 //鑾峰彇鏂囦欢鐨勪笂浼犵被鍨嬶紝鍥剧墖鏍煎紡涓篿mage/png,image/jpg绛夈�傞潪鍥剧墖涓篴pplication/octet-stream  
+	 //获取文件的上传类型，图片格式为image/png,image/jpg等。非图片为application/octet-stream  
     private static String getContentType(File f) throws Exception {  
           
-//      return "application/octet-stream";  // 姝よ涓嶅啀缁嗗垎鏄惁涓哄浘鐗囷紝鍏ㄩ儴浣滀负application/octet-stream 绫诲瀷  
+//      return "application/octet-stream";  // 此行不再细分是否为图片，全部作为application/octet-stream 类型  
         ImageInputStream imagein = ImageIO.createImageInputStream(f);  
         if (imagein == null) {  
             return "application/octet-stream";  
@@ -172,7 +171,7 @@ public class HttpUtil {
             return "application/octet-stream";  
         }  
         imagein.close();  
-        return "image/" + it.next().getFormatName().toLowerCase();//灏咶ormatName杩斿洖鐨勫�艰浆鎹㈡垚灏忓啓锛岄粯璁や负澶у啓  
+        return "image/" + it.next().getFormatName().toLowerCase();//将FormatName返回的值转换成小写，默认为大写  
   
     }  
 	public static class KeyValue{
@@ -201,18 +200,18 @@ public class HttpUtil {
 	public static void main(String[] args) throws Exception{
 		/*Map<String,String> params = new HashMap<String,String>();
 		params.put("userid", "2");
-		params.put("user.name", "浜哄憳2");
+		params.put("user.name", "人员2");
 		params.put("user.mobileCode", "139028389394");
 		System.out.println(HttpUtil.doPost("http://127.0.0.1:8082/pspt/user/user!add.action", params));*/
 		/*Map<String,String> params = new HashMap<String,String>();
 		params.put("userid", "2");
-		params.put("user.name", "浜哄憳2");
+		params.put("user.name", "人员2");
 		params.put("user.mobileCode", "139028389394");
 		System.out.println(HttpUtil.doPost("http://127.0.0.1/pspt/user/user!add.action", params));*/
 		
-		//System.out.println(new String("盲潞潞氓聭聵1".getBytes("iso-8859-1"),"utf-8"));
+		//System.out.println(new String("äººå1".getBytes("iso-8859-1"),"utf-8"));
 		
-		//鏂囦欢涓婁紶
+		//文件上传
 		/*List<KeyValue> stringParams = new ArrayList<KeyValue>();
 		List<KeyValue> fileParams = new ArrayList<KeyValue>();
 		 stringParams.add(new KeyValue("carid","2"));
@@ -224,29 +223,8 @@ public class HttpUtil {
 		 String str = upload("http://127.0.0.1:8082/pspt/driver/driver!upload.action",stringParams,fileParams);
 		 System.out.println(str);*/
 		String url = "http://59.49.18.116:8008/sxwwpt_wai/inquire/illegalAction!carInquire.action?type=1&hpzl=02&csjcKey=140000&vioViolation.hphm=A708V1&clsbdm=096513&authCode=4869&authCode2=4869&pagination.currentPage=1";
-		url = "http://129.28.69.163:11028/Enterprise_EnnGas/enngas/message/nbNotifyAction!checkExistOrders.action";
-//		url ="http://127.0.0.1:8080/test";
-		url = "http://129.28.69.163:11028/Enterprise_EnnGas/enngas/message/nbNotifyAction!notifyUploadResult.action";
-		url = "http://127.0.0.1:8082/login";
-//		url ="http://127.0.0.1:8080/ShiroWeb/doadd.html";
-
-
-		Map<String, Object> paramJson = new HashMap<>();
-		paramJson.put("version", "1.001.0018112103110000");
-		paramJson.put("deviceId", "81a8a1e9-0870-48e1-ad7a-57ad16e5b0d1");
-		paramJson.put("status", "0");
-
-		Map<String, String> paramMap = new HashMap<>();
-//		paramMap.put("param", paramJson.toString());
-		paramMap.put("username", "admin");
-		paramMap.put("password", "123456");
-		paramMap.put("token", "123456789");
-
-		url ="http://127.0.0.1:8080/login.json";
-		url ="http://127.0.0.1:8080/list.json";
-//		url ="http://127.0.0.1:8080/error.json";
-
-		String result = HttpUtil.doPost(url, paramMap);
+		url = "http://127.0.0.1:8080/manage/listPointAll.json?token=7C8C2A9C78F6F939CC3BCA51181C9359D21A01E3B11D623E7BA69D8E19B7A97E&queryJsonStr={%22station%22:%20%22100001%22}";
+		String result = HttpUtil.doGet(url, null);
 		System.out.println("result = " + result);
 	}
 }
