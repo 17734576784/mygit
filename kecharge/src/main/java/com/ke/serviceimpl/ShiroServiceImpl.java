@@ -29,6 +29,7 @@ import com.ke.service.IShiroService;
 import com.ke.utils.Constant;
 import com.ke.utils.JedisUtils;
 import com.ke.utils.LoggerUtils;
+import com.ke.utils.SerializeUtils;
 
 /** 
 * @ClassName: ShiroServiceImpl 
@@ -52,6 +53,7 @@ public class ShiroServiceImpl implements IShiroService {
 	@Override
 	public List<String> getPermissionByUserName(String username) {
 		// TODO Auto-generated method stub
+		System.out.println("数据库读取");
 		return shiroMapper.getPermissionByUserName(username);
 	}
 
@@ -95,7 +97,7 @@ public class ShiroServiceImpl implements IShiroService {
 				loginUser.setLoginName(username);
 				loginUser.setPermList(perms);
 
-				JedisUtils.set(Constant.TOKEN + "123456789", loginUser);
+				JedisUtils.set((Constant.TOKEN_PREFIX + "123456789").getBytes(), SerializeUtils.serialize(loginUser));
 			} catch (UnknownAccountException uae) {
 				rtnJson.put(Constant.RESULT_CODE, Constant.REQUEST_BAD);
 				rtnJson.put(Constant.RESULT_DETAIL, "账户不存在");

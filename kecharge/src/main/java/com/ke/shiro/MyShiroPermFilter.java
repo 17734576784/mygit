@@ -20,6 +20,7 @@ import com.ke.model.LoginUser;
 import com.ke.utils.Constant;
 import com.ke.utils.ConverterUtils;
 import com.ke.utils.JedisUtils;
+import com.ke.utils.SerializeUtils;
 
 /**
  * @ClassName: MyShiroPermFilter
@@ -52,7 +53,8 @@ public class MyShiroPermFilter extends AuthorizationFilter {
 		
 		/**接口使用，web不必*/
 		String token = ConverterUtils.toStr(request.getParameter("token"));
-		LoginUser loginUser = (LoginUser) JedisUtils.get(Constant.TOKEN + token);
+		byte[] value = JedisUtils.get((Constant.TOKEN_PREFIX + token).getBytes());
+		LoginUser loginUser = (LoginUser) SerializeUtils.deserialize(value);
 		if (null != loginUser) {
 			List<String> prems = loginUser.getPermList();
 			for (String prem : prems) {

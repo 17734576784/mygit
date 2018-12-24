@@ -16,17 +16,23 @@ package com.huawei.utils;
 public class Constant {
 
     //please replace the IP and Port, when you use the demo.
-    public static final String BASE_URL = "https://180.101.147.89:8743";
+//    public static final String BASE_URL = "https://180.101.147.89:8743";
+	
+    public static final String BASE_URL = "https://58.240.96.46:8743";
+
 
     //please replace the appId and secret, when you use the demo.
-    public static final String APPID = "fn5I2QJuIRFJxsrXXbUzWXn0S3Ya";
-    public static final String SECRET = "9IL8rmcruUPIbth4gRP1XGAns2Ya";
+//    public static final String APPID = "fn5I2QJuIRFJxsrXXbUzWXn0S3Ya";
+//    public static final String SECRET = "9IL8rmcruUPIbth4gRP1XGAns2Ya";
+    
+    public static final String APPID = "YXnpwWndC3ioc15OGALXZvHLB1oa";
+    public static final String SECRET = "uOL_C0yP6pl4Gals5dJkrfF1vSka";
 
     /*
      *IP and port of callback url.
      *please replace the IP and Port of your Application deployment environment address, when you use the demo.
      */
-    public static final String CALLBACK_BASE_URL = "http://129.28.69.163:8443";
+    public static final String CALLBACK_BASE_URL = "http://129.28.69.163:443";
 
     /*
      * complete callback url：

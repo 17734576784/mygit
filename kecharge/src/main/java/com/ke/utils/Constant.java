@@ -17,11 +17,20 @@ package com.ke.utils;
 */
 public class Constant {
 
-	/**用户权限redis前缀*/
-	public static String USER_PERMS ="perms_";
+	/**cache redis前缀*/
+	public static String CACHE_PREFIX ="cache:";
+	
+	/**cache redis 缓存有效期*/
+	public static int CACHE_TIME_OUT = 7200;
+
+	/**session redis前缀*/
+	public static String SESSION_PREFIX ="session:";
+	
+	/**session redis 缓存有效期*/
+	public static int SESSION_TIME_OUT = 7200;
 	
 	/**Token redis前缀*/
-	public static String TOKEN ="token_"; 
+	public static String TOKEN_PREFIX ="token:"; 
 	
 	/** 返回结果码描述 */
 	public static String RESULT_CODE = "status";

@@ -36,9 +36,11 @@ public class TestSubscribeAllNotification {
         List<String> notifyTypes = NotifyType.getNotifyTypes();
         for (String notifyType : notifyTypes) {
             
-            Map<String, Object> paramSubscribe = new HashMap<>();
-            paramSubscribe.put("notifyType", notifyType);
-            paramSubscribe.put("callbackurl", callbackurl);
+			Map<String, Object> paramSubscribe = new HashMap<>();
+			paramSubscribe.put("notifyType", notifyType);
+			String callbackurl1 = callbackurl + "/" + notifyType;
+			System.out.println("callbackurl1 : "+ callbackurl1);
+			paramSubscribe.put("callbackurl", callbackurl1);
             
             String jsonRequest = JsonUtil.jsonObj2Sting(paramSubscribe);
             

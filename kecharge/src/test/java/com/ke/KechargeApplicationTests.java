@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.ke.mapper.PileparaMapper;
 import com.ke.model.PileparaKey;
 import com.ke.service.IShiroService;
+import com.ke.utils.JedisUtils;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -19,8 +20,13 @@ public class KechargeApplicationTests {
 	private IShiroService shiroService;
 	@Test
 	public void contextLoads() {
-        String password = shiroService.getPasswordByUserName("test");
-        System.out.println("password : "+ password);
+//        String password = shiroService.getPasswordByUserName("test");
+//        System.out.println("password : "+ password);
+		
+		JedisUtils.set("a", "123");
+		System.out.println(JedisUtils.get("a"));
+		JedisUtils.del("a");
+		
 	}
 
 }

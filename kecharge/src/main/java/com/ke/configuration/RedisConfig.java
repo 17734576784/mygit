@@ -9,6 +9,10 @@
 package com.ke.configuration;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -17,6 +21,12 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ke.model.LogEnum;
+import com.ke.utils.JedisUtils;
+import com.ke.utils.LoggerUtils;
+
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
 
 /** 
 * @ClassName: RedisConfig 
@@ -25,7 +35,47 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 * @date 2018年12月19日 上午10:17:25 
 */
 @Configuration
+@ConditionalOnClass(JedisUtils.class)
 public class RedisConfig {
+	@Value("${spring.redis.host}")
+	private String host;
+	
+	@Value("${spring.redis.port}")
+	private int port;
+	
+	@Value("${spring.redis.password}")
+	private String password;
+	
+	@Value("${spring.redis.jedis.pool.max-active}")
+	private int maxActive;
+	
+	@Value("${spring.redis.jedis.pool.max-idle}")
+	private int maxIdle;
+	 
+	@Value("${spring.redis.jedis.pool.min-idle}")
+	private int minIdle;
+	
+	@Value("${spring.redis.timeout}")
+	private int timeout;
+	
+	@Bean(name = "jedisPool")
+	public JedisPool jedisPool() {
+		JedisPoolConfig config = new JedisPoolConfig();
+		config.setMaxTotal(maxActive);
+		config.setMaxIdle(maxIdle);
+		config.setMaxWaitMillis(timeout);
+		return new JedisPool(config, host, port,timeout, password);
+	}
+
+//	@Bean
+//	@ConditionalOnMissingBean(JedisUtils.class)
+//	public JedisUtils redisClient(@Qualifier("jedisPool") JedisPool pool) {
+//		LoggerUtils.Logger(LogEnum.INFO).info("初始化……Redis Client==Host={},Port={}", host, port);
+//		JedisUtils jedisUtils = new JedisUtils();
+//		jedisUtils.setJedisPool(pool);
+//		return jedisUtils;
+//	}
+
 	@Bean
 	@SuppressWarnings("all")
 	public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
