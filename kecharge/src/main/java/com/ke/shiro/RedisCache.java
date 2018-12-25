@@ -8,7 +8,6 @@
 */
 package com.ke.shiro;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Set;
 
@@ -30,13 +29,12 @@ import com.ke.utils.SerializeUtils;
 @Component
 public class RedisCache<K, V> implements Cache<K, V> {
 
-	
 	private byte[] getByteKey(K k){
 	    if(k instanceof String){
 			String key = Constant.CACHE_PREFIX + k;
 	        return key.getBytes();
 	    }else {
-	        return SerializeUtils.serialize((Serializable) k);
+	        return SerializeUtils.serialize(k);
 	    }
 	}
 	/** (非 Javadoc) 
@@ -110,6 +108,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
 	* @throws CacheException 
 	* @see org.apache.shiro.cache.Cache#remove(java.lang.Object) 
 	*/
+	@SuppressWarnings("unchecked")
 	@Override
 	public V remove(K k) throws CacheException {
 		// TODO Auto-generated method stub

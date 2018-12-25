@@ -238,14 +238,15 @@ public class HttpUtil {
 
 		Map<String, String> paramMap = new HashMap<>();
 //		paramMap.put("param", paramJson.toString());
-//		paramMap.put("username", "admin");
-//		paramMap.put("password", "123456");
-//		paramMap.put("token", "123456789");
+		paramMap.put("username", "admin");
+		paramMap.put("password", "123456");
+		paramMap.put("queryJsonStr", "123456789");
+		paramMap.put("token", "123456789");
 
 		url ="http://127.0.0.1:8080/login.json";
 		url ="http://127.0.0.1:8080/list.json";
-		url ="http://129.28.69.163:443/modifyDeviceInfo";
-		paramMap.put("deviceInfo", ""); 
+//		url ="http://129.28.69.163:443/modifyDeviceInfo";
+//		paramMap.put("deviceInfo", ""); 
 		String result = HttpUtil.doPost(url, paramMap);
 		System.out.println("result = " + result);
 	}

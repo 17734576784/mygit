@@ -44,7 +44,6 @@ public class MyShiroPermFilter extends AuthorizationFilter {
 	@Override
 	protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue)
 			throws Exception {
-		
 		Subject subject = getSubject(request, response);
 		String[] permsArray = (String[]) mappedValue;
 		if (permsArray == null || permsArray.length == 0) { // 没有权限限制
@@ -54,8 +53,8 @@ public class MyShiroPermFilter extends AuthorizationFilter {
 		/**接口使用，web不必*/
 		String token = ConverterUtils.toStr(request.getParameter("token"));
 		byte[] value = JedisUtils.get((Constant.TOKEN_PREFIX + token).getBytes());
-		LoginUser loginUser = (LoginUser) SerializeUtils.deserialize(value);
-		if (null != loginUser) {
+		if (null != value) {
+			LoginUser loginUser = (LoginUser) SerializeUtils.deserialize(value);
 			List<String> prems = loginUser.getPermList();
 			for (String prem : prems) {
 				if (Arrays.asList(permsArray).contains(prem)) {

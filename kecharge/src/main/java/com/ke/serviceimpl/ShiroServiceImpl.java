@@ -53,7 +53,6 @@ public class ShiroServiceImpl implements IShiroService {
 	@Override
 	public List<String> getPermissionByUserName(String username) {
 		// TODO Auto-generated method stub
-		System.out.println("数据库读取");
 		return shiroMapper.getPermissionByUserName(username);
 	}
 
@@ -96,8 +95,9 @@ public class ShiroServiceImpl implements IShiroService {
 				LoginUser loginUser = new LoginUser();
 				loginUser.setLoginName(username);
 				loginUser.setPermList(perms);
-
-				JedisUtils.set((Constant.TOKEN_PREFIX + "123456789").getBytes(), SerializeUtils.serialize(loginUser));
+				byte[] key = (Constant.TOKEN_PREFIX + "123456789").getBytes();
+				JedisUtils.set(key, SerializeUtils.serialize(loginUser));
+				JedisUtils.expire(key, Constant.CACHE_TIME_OUT);
 			} catch (UnknownAccountException uae) {
 				rtnJson.put(Constant.RESULT_CODE, Constant.REQUEST_BAD);
 				rtnJson.put(Constant.RESULT_DETAIL, "账户不存在");
@@ -112,6 +112,7 @@ public class ShiroServiceImpl implements IShiroService {
 				rtnJson.put(Constant.RESULT_CODE, Constant.REQUEST_BAD);
 				rtnJson.put(Constant.RESULT_DETAIL, "未知错误");
 			} catch (Exception e) {
+				e.printStackTrace();
 				LoggerUtils.Logger(LogEnum.ERROR).error("登录异常" + e.getMessage());
 				rtnJson.put(Constant.RESULT_CODE, Constant.REQUEST_BAD);
 				rtnJson.put(Constant.RESULT_DETAIL, "请求错误");

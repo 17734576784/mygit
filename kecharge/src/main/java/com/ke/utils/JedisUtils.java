@@ -387,6 +387,19 @@ public class JedisUtils {
 		return false;
 	} 
 	
+	public static Set<byte[]> keys(String key){
+		Jedis jedis = null;
+		try {
+			jedis = getResource();
+			return jedis.keys(key.getBytes());
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			returnRource(jedis);
+		}
+		return null;  
+	}
+	
 	 /** 
      * 设置超期时间 
      * @param key 

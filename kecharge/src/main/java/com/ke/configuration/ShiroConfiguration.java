@@ -19,15 +19,16 @@ import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
-import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.DelegatingFilterProxy;
 
+import com.ke.shiro.CustomSessionManager;
 import com.ke.shiro.MyShiroPermFilter;
 import com.ke.shiro.MyShiroRealm;
 import com.ke.shiro.RedisCacheManager;
+import com.ke.shiro.RedisSessionDao;
 import com.ke.mapper.ShiroMapper;
 
 /** 
@@ -62,23 +63,24 @@ public class ShiroConfiguration {
 		return redisCacheManager;
 	}
 	
-
 	@Bean
-	public DefaultWebSessionManager configWebSessionManager() {
-		DefaultWebSessionManager manager = new DefaultWebSessionManager();
-		manager.setCacheManager(redisCacheManager());// 换成Redis的缓存管理器
-		manager.setDeleteInvalidSessions(true);
-		manager.setSessionValidationSchedulerEnabled(true);
-
-		return manager;
+	public RedisSessionDao redisSessionDao() {
+		RedisSessionDao redisSessionDao = new RedisSessionDao();
+		return redisSessionDao;
 	}
-
+	@Bean
+	public CustomSessionManager customSessionManager() {
+		CustomSessionManager  customSessionManager = new CustomSessionManager();
+		customSessionManager.setSessionDAO(redisSessionDao());
+		return customSessionManager;
+	}
+	
 	// 权限管理，配置主要是Realm的管理认证
 	@Bean
 	public SecurityManager securityManager() {
 		DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
 		securityManager.setRealm(myShiroRealm());
-		securityManager.setSessionManager(configWebSessionManager());
+		securityManager.setSessionManager(customSessionManager());
 		securityManager.setCacheManager(redisCacheManager());
 		return securityManager;
 	}

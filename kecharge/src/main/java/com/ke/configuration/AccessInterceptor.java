@@ -10,10 +10,14 @@ package com.ke.configuration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.alibaba.fastjson.JSONObject;
+import com.ke.utils.Constant;
+import com.ke.utils.ConverterUtils;
+import com.ke.utils.JedisUtils;
 /** 
 * @ClassName: AccessInterceptor 
 * @Description: 自定义拦截器 
@@ -28,13 +32,41 @@ public class AccessInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		String requestPath = request.getServletPath();
-//		String queryJsonStr = request.getParameter("queryJsonStr");
-//		String token = request.getParameter("token");
+		String queryJsonStr = ConverterUtils.toStr(request.getParameter("queryJsonStr"));
+		String token = ConverterUtils.toStr(request.getParameter("token"));
+		
+		boolean result = true;
+		JSONObject rtnJson = new JSONObject();
+		
+		if (!token.isEmpty()) {
+			byte[] key = (Constant.TOKEN_PREFIX + token).getBytes();
+			if (JedisUtils.exists(key)) {
+
+			} else {
+
+			}
+
+		}
+//		else if (token.isEmpty() && queryJsonStr.isEmpty()) {
+//			result = false;
+//			rtnJson.put(Constant.RESULT_CODE, -2);
+//			rtnJson.put(Constant.RESULT_DETAIL, "登录超时");
+//		} 
+		if (requestPath.contains("error")) {
+			result = false;
+			rtnJson.put(Constant.RESULT_CODE, -2);
+			rtnJson.put(Constant.RESULT_DETAIL, "登录超时或无权限访问");
+		}
 		
 		System.out.println("requestPath :" + requestPath);
 
-		
-		return HandlerInterceptor.super.preHandle(request, response, handler);
+		if (result == false) {
+			response.setContentType("application/json");
+			response.setCharacterEncoding("utf-8");
+			response.getWriter().write(rtnJson.toString());
+			
+		}
+		return result;
 	}
 
 	@Override

@@ -27,7 +27,7 @@ public class Constant {
 	public static String SESSION_PREFIX ="session:";
 	
 	/**session redis 缓存有效期*/
-	public static int SESSION_TIME_OUT = 7200;
+	public static int SESSION_TIME_OUT = 600;
 	
 	/**Token redis前缀*/
 	public static String TOKEN_PREFIX ="token:"; 

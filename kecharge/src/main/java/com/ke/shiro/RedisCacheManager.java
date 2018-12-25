@@ -13,8 +13,6 @@ import javax.annotation.Resource;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
 import org.apache.shiro.cache.CacheManager;
-import org.springframework.beans.factory.annotation.Autowired;
-
 /** 
 * @ClassName: RedisCacheManager 
 * @Description: TODO(这里用一句话描述这个类的作用) 
@@ -24,7 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 */
 public class RedisCacheManager implements CacheManager{
 
-	@Autowired
+    @SuppressWarnings("rawtypes")
+	@Resource
 	private RedisCache redisCache;
 	/** (非 Javadoc) 
 	* <p>Title: getCache</p> 
