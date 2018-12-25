@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    
+    <appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>logs/kecharge/info.log</File>
+        <append>true</append>
+        <!--过滤器,只打INFO级别的日志-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/kecharge/info.log.%d</fileNamePattern>
+            <maxHistory>180</maxHistory>
+        </rollingPolicy>
+
+        <encoder charset="UTF-8">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] %level [%thread] %file:%line - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>logs/kecharge/error.log</File>
+        <append>true</append>
+        <!--过滤器,只打ERROR级别的日志-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/kecharge/error.log.%d</fileNamePattern>
+            <maxHistory>180</maxHistory>
+        </rollingPolicy>
+
+        <encoder charset="UTF-8">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] %level [%thread] %file:%line - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!--不同业务逻辑的日志打印到不同文件-->
+<!--     <appender name="baitiaoUserAppender" class="ch.qos.logback.core.rolling.RollingFileAppender"> -->
+<!--         <File>logs/kecharge/bt.log</File> -->
+<!--         <append>true</append> -->
+<!--         <filter class="ch.qos.logback.classic.filter.LevelFilter"> -->
+<!--             <level>INFO</level> -->
+<!--             <onMatch>ACCEPT</onMatch> -->
+<!--             <onMismatch>DENY</onMismatch> -->
+<!--         </filter> -->
+<!--         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"> -->
+<!--             <fileNamePattern>logs/kecharge/bt.log.%d</fileNamePattern> -->
+<!--             <maxHistory>180</maxHistory> -->
+<!--         </rollingPolicy> -->
+<!--         <encoder charset="UTF-8"> -->
+<!--             <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] %level [%thread] %file:%line - %msg%n</pattern> -->
+<!--             <charset>UTF-8</charset> -->
+<!--         </encoder> -->
+<!--     </appender> -->
+
+    <appender name="ChargeAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>logs/kecharge/chargeinfo.log</File>
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+<!--             <onMatch>ACCEPT</onMatch> -->
+<!--             <onMismatch>DENY</onMismatch> -->
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/kecharge/chargeinfo.log.%d</fileNamePattern>
+            <maxHistory>12</maxHistory>
+        </rollingPolicy>
+        <encoder charset="UTF-8">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] %level [%thread] %file:%line - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <logger name="CHARGE" additivity="false" level="INFO">
+        <appender-ref ref="ChargeAppender"/>
+    </logger>
+
+    <logger name="com.ke" level="INFO"/>
+    <logger name="com.ke" level="ERROR"/>
+
+	<!--info和error分开打印 -->
+	<root level="INFO">
+		<appender-ref ref="INFO" />
+		<appender-ref ref="ERROR" />
+	</root>
+
+</configuration>
