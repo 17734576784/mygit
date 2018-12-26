@@ -138,8 +138,7 @@ public class HttpsUtil extends DefaultHttpClient {
 		HttpPost request = new HttpPost(url);
 		addRequestHeader(request, headerMap);
 
-		request.setEntity(new StringEntity(content,
-				ContentType.APPLICATION_JSON));
+		request.setEntity(new StringEntity(content, ContentType.APPLICATION_JSON));
 
 		return executeHttpRequest(request);
 	}
