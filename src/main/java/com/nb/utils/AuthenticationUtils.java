@@ -22,9 +22,9 @@ public class AuthenticationUtils {
 	public static String getAccessToken(IotHttpsUtil httpsUtil) {
 		String accessToken = "";
 		
-		String appId = Constant.APPID;
-		String secret = Constant.SECRET;
-		String urlLogin = Constant.APP_AUTH;
+		String appId = Constant.CHINA_TELECOM_APPID;
+		String secret = Constant.CHINA_TELECOM_SECRET;
+		String urlLogin = Constant.CHINA_TELECOM_APP_AUTH;
 
 		Map<String, String> paramLogin = new HashMap<>();
 		paramLogin.put("appId", appId);

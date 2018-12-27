@@ -65,17 +65,17 @@ public class IotHttpsUtil extends DefaultHttpClient {
 	public void initSSLConfigForTwoWay() throws Exception {
 		// 1 Import your own certificate
 //		String demo_base_Path = "";//System.getProperty("user.dir");
-		String selfcertpath =  ResourceUtils.getFile(Constant.SELFCERTPATH).getAbsolutePath();
-		String trustcapath = ResourceUtils.getFile(Constant.TRUSTCAPATH).getAbsolutePath();
+		String selfcertpath =  ResourceUtils.getFile(Constant.CHINA_TELECOM_SELFCERTPATH).getAbsolutePath();
+		String trustcapath = ResourceUtils.getFile(Constant.CHINA_TELECOM_TRUSTCAPATH).getAbsolutePath();
 		
 		KeyStore selfCert = KeyStore.getInstance("pkcs12");
-		selfCert.load(new FileInputStream(selfcertpath),Constant.SELFCERTPWD.toCharArray());
+		selfCert.load(new FileInputStream(selfcertpath),Constant.CHINA_TELECOM_SELFCERTPWD.toCharArray());
 		KeyManagerFactory kmf = KeyManagerFactory.getInstance("sunx509");
-		kmf.init(selfCert, Constant.SELFCERTPWD.toCharArray());
+		kmf.init(selfCert, Constant.CHINA_TELECOM_SELFCERTPWD.toCharArray());
 
 		// 2 Import the CA certificate of the server,
 		KeyStore caCert = KeyStore.getInstance("jks");
-		caCert.load(new FileInputStream(trustcapath), Constant.TRUSTCAPWD.toCharArray());
+		caCert.load(new FileInputStream(trustcapath), Constant.CHINA_TELECOM_TRUSTCAPWD.toCharArray());
 		TrustManagerFactory tmf = TrustManagerFactory.getInstance("sunx509");
 		tmf.init(caCert);
 
