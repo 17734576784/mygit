@@ -79,6 +79,14 @@ public class HttpsClientUtil {
 	public final static String CHARSET_UTF8 = "UTF-8";
 	
 	
+	/** 
+	* @Title: sslClient 
+	* @Description: 创建 HttpClient
+	* @param @return
+	* @param @throws Exception    设定文件 
+	* @return HttpClient    返回类型 
+	* @throws 
+	*/
 	public HttpClient sslClient() throws Exception {
 		// 1 Import your own certificate
 		String demo_base_Path = System.getProperty("user.dir");
@@ -93,11 +101,11 @@ public class HttpsClientUtil {
 		// 2 Import the CA certificate of the server,
 		KeyStore caCert = KeyStore.getInstance("jks");
 		caCert.load(new FileInputStream(trustcapath), Constant.TRUSTCAPWD.toCharArray());
-		TrustManagerFactory tmf = TrustManagerFactory.getInstance("sunx509");
-		tmf.init(caCert);
+		TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance("sunx509");
+		trustManagerFactory.init(caCert);
 
 		SSLContext sslcontext = SSLContext.getInstance("TLS");
-		sslcontext.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
+		sslcontext.init(kmf.getKeyManagers(), trustManagerFactory.getTrustManagers(), null);
 
 		SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(sslcontext,
 				NoopHostnameVerifier.INSTANCE);
@@ -106,10 +114,10 @@ public class HttpsClientUtil {
 				.setExpectContinueEnabled(Boolean.TRUE)
 				.setTargetPreferredAuthSchemes(Arrays.asList(AuthSchemes.NTLM, AuthSchemes.DIGEST))
 				.setProxyPreferredAuthSchemes(Arrays.asList(AuthSchemes.BASIC)).build();
+		
   		// 设置协议http和https对应的处理socket链接工厂的对象
 		Registry<ConnectionSocketFactory> socketFactoryRegistry = RegistryBuilder.<ConnectionSocketFactory>create()
-				.register("http", PlainConnectionSocketFactory.INSTANCE)
-				.register("https", socketFactory).build();
+				.register("http", PlainConnectionSocketFactory.INSTANCE).register("https", socketFactory).build();
 		// 创建ConnectionManager，添加Connection配置信息
 		PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager(
 				socketFactoryRegistry);
@@ -169,15 +177,6 @@ public class HttpsClientUtil {
 		return (StreamClosedHttpResponse) response;
 	}
 
-	public HttpResponse doPutJson(String url, Map<String, String> headerMap, String content) {
-		HttpPut request = new HttpPut(url);
-		addRequestHeader(request, headerMap);
-
-		request.setEntity(new StringEntity(content, ContentType.APPLICATION_JSON));
-
-		return executeHttpRequest(request);
-	}
-	
 	public StreamClosedHttpResponse doPostMultipartFile(String url, Map<String, String> headerMap, File file) {
 		HttpPost request = new HttpPost(url);
 		addRequestHeader(request, headerMap);
@@ -189,6 +188,15 @@ public class HttpsClientUtil {
 		request.setEntity(reqEntity);
 
 		return (StreamClosedHttpResponse) executeHttpRequest(request);
+	}
+	
+	public HttpResponse doPutJson(String url, Map<String, String> headerMap, String content) {
+		HttpPut request = new HttpPut(url);
+		addRequestHeader(request, headerMap);
+
+		request.setEntity(new StringEntity(content, ContentType.APPLICATION_JSON));
+
+		return executeHttpRequest(request);
 	}
 	
 	public HttpResponse doPut(String url, Map<String, String> headerMap) {

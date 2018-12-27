@@ -3,11 +3,13 @@ package com.huawei.service.deviceManagement;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSONObject;
 import com.huawei.utils.Constant;
 import com.huawei.utils.HttpsClientUtil;
 import com.huawei.utils.HttpsUtil;
 import com.huawei.utils.JsonUtil;
 import com.huawei.utils.StreamClosedHttpResponse;
+
 
 /**
  * Register Directly Connected Device :
@@ -49,7 +51,11 @@ public class RegisterDirectlyConnectedDevice2 {
 //        header.put(Constant.HEADER_APP_KEY, appId);
 //        header.put(Constant.HEADER_APP_AUTH, "Bearer" + " " + accessToken);
 
-        StreamClosedHttpResponse responseReg = httpsUtil.doPostJsonGetStatusLine(urlReg, paramReg.toString());
+        JSONObject json = new JSONObject();
+        json.put("username", "test");
+        json.put("password", "123456");
+        StreamClosedHttpResponse responseReg = httpsUtil.doPostJsonGetStatusLine(urlReg, jsonRequest);
+//        StreamClosedHttpResponse responseReg = httpsUtil.doPostFormUrlEncodedGetStatusLine(urlReg, paramReg);
 
         System.out.println("RegisterDirectlyConnectedDevice, response content:");
         System.out.print(responseReg.getStatusLine());

@@ -34,7 +34,7 @@ public class AccessInterceptor implements HandlerInterceptor {
 		String requestPath = request.getServletPath();
 		String queryJsonStr = ConverterUtils.toStr(request.getParameter("queryJsonStr"));
 		String token = ConverterUtils.toStr(request.getParameter("token"));
-		
+		System.out.println(request.getParameterMap().size());
 		boolean result = true;
 		JSONObject rtnJson = new JSONObject();
 		
