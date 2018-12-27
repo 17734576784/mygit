@@ -17,22 +17,22 @@ import java.io.File;
 public class Constant {
 
 	/** 中国移动平台地址 */
-	public static final String CHINA_MOBILE_BASE_URL = "https://180.101.147.89:8743";
+	public static final String CHINA_MOBILE_BASE_URL = "";
 	/** 中国联通平台地址 */
-	public static final String CHINA_UNICOM_BASE_URL = "https://180.101.147.89:8743";
+	public static final String CHINA_UNICOM_BASE_URL = "https://58.240.96.46:8743";
 	/** 中国电信平台地址 */
 	public static final String CHINA_TELECOM_BASE_URL = "https://180.101.147.89:8743";
 
 	// please replace the appId and secret, when you use the demo.
 	/** 中国移动平台APPID */
-	public static final String CHINA_MOBILE_APPID = "fn5I2QJuIRFJxsrXXbUzWXn0S3Ya";
+	public static final String CHINA_MOBILE_APPID = "WKcUHaxTTLP=Pu07rtYYR5IXLac=";
 	/** 中国移动平台SECRET */
-	public static final String CHINA_MOBILE_SECRET = "9IL8rmcruUPIbth4gRP1XGAns2Ya";
+	public static final String CHINA_MOBILE_SECRET = "";
 
 	/** 中国联通平台APPID */
-	public static final String CHINA_UNICOM_APPID = "fn5I2QJuIRFJxsrXXbUzWXn0S3Ya";
+	public static final String CHINA_UNICOM_APPID = "YXnpwWndC3ioc15OGALXZvHLB1oa";
 	/** 中国联通平台SECRET */
-	public static final String CHINA_UNICOM_SECRET = "9IL8rmcruUPIbth4gRP1XGAns2Ya";
+	public static final String CHINA_UNICOM_SECRET = "uOL_C0yP6pl4Gals5dJkrfF1vSka";
 
 	/** 中国电信平台APPID */
 	public static final String CHINA_TELECOM_APPID = "fn5I2QJuIRFJxsrXXbUzWXn0S3Ya";
