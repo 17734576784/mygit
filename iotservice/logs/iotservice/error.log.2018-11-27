@@ -1,1 +1,0 @@
-[2018-11-27 10:22:06.418] ERROR [https-jsse-nio-8443-exec-10] UpGradeUtil.java:83 - 工具类接收下发命令异常：{"method":"updatacmd","param":"{\"rawdata\":\"AQFlAGQAVADIAQAIVGQACEAAACB4WAAA5AEACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJPQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADiaQ==\"}","serviceId":"UpdataService","deviceId":"81a8a1e9-0870-48e1-ad7a-57ad16e5b0d1"}
