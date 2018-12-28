@@ -33,9 +33,10 @@ public class CallBackController {
 	@Autowired
 	private CommandContext commandContext;
 	
-	@RequestMapping(value = "addDevice", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "deviceAdded", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<HttpStatus> recvAddDeviceNotify(@RequestBody Object addDevice_NotifyMessage) {
 
+		System.out.println("接收addDevice" + addDevice_NotifyMessage);
 		LoggerUtils.Logger(LogName.CALLBACK).info("接收addDevice" + addDevice_NotifyMessage);
 //		Map<String, String> MessageMap = new HashMap<String, String>();
 //		try {
@@ -72,7 +73,7 @@ public class CallBackController {
 
 	}
 
-	@RequestMapping(value = "updateDeviceInfo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "deviceInfoChanged", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<HttpStatus> recvInfoChangeNotify(@RequestBody Object updateDeviceInfo_NotifyMessage) {
 
 		LoggerUtils.Logger(LogName.CALLBACK).info("接收deviceInfoChanged" + updateDeviceInfo_NotifyMessage);
@@ -112,7 +113,7 @@ public class CallBackController {
 	}
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "updateDeviceData", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "deviceDataChanged", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<HttpStatus> recvDataChangeNotify(@RequestBody Object updateDeviceData_NotifyMessage) {
 
 		LoggerUtils.Logger(LogName.CALLBACK).info("接收updateDeviceData:" + updateDeviceData_NotifyMessage);
@@ -134,7 +135,7 @@ public class CallBackController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "deletedDevice", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "deviceDeleted", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<HttpStatus> recvDeleteDeviceNotify(@RequestBody Object deletedDevice_NotifyMessage) {
 
 		LoggerUtils.Logger(LogName.CALLBACK).info("接收deletedDevice:" + deletedDevice_NotifyMessage);
@@ -160,7 +161,7 @@ public class CallBackController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "commandConfirmData", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "commandRsp", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<HttpStatus> recvMessageConfirmNotify(@RequestBody Object messageConfirm_NotifyMessage) {
 
 		LoggerUtils.Logger(LogName.CALLBACK).info("接收commandConfirmData:" + messageConfirm_NotifyMessage);
@@ -228,7 +229,7 @@ public class CallBackController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "updateDeviceDatas", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "deviceDatasChanged", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<HttpStatus> recvDeviceDatasChangeDNotify(
 			@RequestBody Object updateDeviceDatas_NotifyMessage) {
 
