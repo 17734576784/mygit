@@ -58,9 +58,9 @@ public class PostAsynCommandV4 {
         String appId = Constant.APPID;
 
         //please replace the deviceId, when you use the demo.
-        String deviceId = "f6a04fd0-a97a-4058-ac3c-73c7f80fb013";
+        String deviceId = "2274dc6a-d5a3-4c81-ad20-5437e90dc944";
 //        String callbackUrl = Constant.REPORT_CMD_EXEC_RESULT_CALLBACK_URL;
-        String callbackUrl = "https://129.28.69.163:8443/reportCmdExecResult";
+        String callbackUrl = "https://129.28.69.163:443/reportCmdExecResult";
 
         //please replace the following parameter values, when you use the demo.
         //And those parameter values must be consistent with the content of profile that have been preset to IoT platform.

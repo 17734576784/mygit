@@ -11,9 +11,12 @@ import org.apache.shiro.subject.Subject;
  *      
  */
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -53,7 +56,7 @@ public class ShiroController {
 	
 	@ResponseBody
 	@RequestMapping("/login.json")
-	public JSONObject login(String username, String password) {
+	public JSONObject login(@RequestBody String username, @RequestBody String password) {
 		JSONObject json = new JSONObject();
 		try {
 			json = shiroService.doLogin(username, password);
