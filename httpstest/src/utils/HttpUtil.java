@@ -18,6 +18,10 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 
+import com.alibaba.fastjson.JSONObject;
+import httpUtil.HttpsClientUtil;
+import httpUtil.StreamClosedHttpResponse;
+
 /**
  * http宸ュ叿绫�
  */
@@ -231,23 +235,37 @@ public class HttpUtil {
 //		url ="http://127.0.0.1:8080/ShiroWeb/doadd.html";
 
 
-		Map<String, Object> paramJson = new HashMap<>();
-		paramJson.put("version", "1.001.0018112103110000");
-		paramJson.put("deviceId", "81a8a1e9-0870-48e1-ad7a-57ad16e5b0d1");
-		paramJson.put("status", "0");
-
+		JSONObject paramJson = new JSONObject();
+		paramJson.put("verifyCode", "99999");
+		paramJson.put("nodeId", "99999");
+		paramJson.put("timeout", "0");
+		
+		
+		JSONObject json = new JSONObject();
+		json.put("userName", "zhongjie");
+		json.put("passWord", "E10ADC3949BA59ABBE56E057F20F883E");
 		Map<String, String> paramMap = new HashMap<>();
-//		paramMap.put("param", paramJson.toString());
-		paramMap.put("username", "admin");
-		paramMap.put("password", "123456");
+		paramMap.put("deviceInfo", paramJson.toString());
+		
 //		paramMap.put("queryJsonStr", "123456789");
 //		paramMap.put("token", "123456789");
 
 		url ="http://127.0.0.1:8080/login.json";
 //		url ="http://127.0.0.1:8080/list.json";
 //		url ="http://129.28.69.163:443/modifyDeviceInfo";
+		url = "https://129.28.69.163:443/registerDevice";
 //		paramMap.put("deviceInfo", ""); 
-		String result = HttpUtil.doPost(url, paramMap);
-		System.out.println("result = " + result);
+//		String result = HttpUtil.doPost(url, paramMap);
+//		HttpsUtil.doSSLPost(url, paramMap, "UTF-8");
+		HttpsClientUtil httpsclientutil = new HttpsClientUtil();
+        String jsonRequest = JsonUtil.jsonObj2Sting(paramMap);
+
+		StreamClosedHttpResponse responseReg = httpsclientutil.doPostJsonGetStatusLine(url, jsonRequest);
+
+        System.out.println("RegisterDirectlyConnectedDevice, response content:");
+        System.out.print(responseReg.getStatusLine());
+        System.out.println(responseReg.getContent());
+        System.out.println();
+//		System.out.println("result = " + result);
 	}
 }

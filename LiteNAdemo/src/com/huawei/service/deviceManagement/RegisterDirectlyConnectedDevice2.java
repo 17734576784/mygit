@@ -1,5 +1,6 @@
 package com.huawei.service.deviceManagement;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,11 +52,41 @@ public class RegisterDirectlyConnectedDevice2 {
 //        header.put(Constant.HEADER_APP_KEY, appId);
 //        header.put(Constant.HEADER_APP_AUTH, "Bearer" + " " + accessToken);
 
+        urlReg="http://api.heclouds.com/devices";
+        String masterKey ="WKcUHaxTTLP=Pu07rtYYR5IXLac=";
+        Map<String, String> header = new HashMap<>();
+        header.put("api-key", masterKey);
+        header.put("Content-Type", "application/json");
+        
+        
         JSONObject json = new JSONObject();
-        json.put("username", "test");
-        json.put("password", "123456");
-        StreamClosedHttpResponse responseReg = httpsUtil.doPostJsonGetStatusLine(urlReg, jsonRequest);
+        json.put("title", "mydevice");
+        json.put("desc", "Ke Test Device");
+        String[] tags = new String[] {"china", "mobile"}; 
+        json.put("tags",tags);
+        json.put("protocol","LWM2M");
+        JSONObject location= new JSONObject();
+        location.put("lon", 106);
+        location.put("lat", 29);
+        location.put("ele", 370);
+        json.put("location",location);
+       
+        JSONObject auth_info= new JSONObject();
+        auth_info.put("1234", "3242");
+        json.put("auth_info",auth_info);
+        
+        json.put("private",true);
+        
+        JSONObject other= new JSONObject();
+        other.put("version",  "1.0.0");
+        other.put("manu",  "china mobile");
+        json.put("other",other);
+        json.put("chip", 1);
+
+//        StreamClosedHttpResponse responseReg = httpsUtil.doPostJsonGetStatusLine(urlReg, jsonRequest);
 //        StreamClosedHttpResponse responseReg = httpsUtil.doPostFormUrlEncodedGetStatusLine(urlReg, paramReg);
+        
+        StreamClosedHttpResponse responseReg = httpsUtil.doPostJsonGetStatusLine(urlReg, header, json.toJSONString());
 
         System.out.println("RegisterDirectlyConnectedDevice, response content:");
         System.out.print(responseReg.getStatusLine());
