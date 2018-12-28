@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+    <context:component-scan base-package="com.dbr"/>
+
+    <!--读取配置文件-->
+    <context:property-placeholder location="classpath:db.properties" ignore-unresolvable="true"/>
+    <!--从配置文件中获取数据源-->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+    <!-- 配置Jdbc模板 -->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <bean id="shiroDAO" class="com.dbr.dao.ShiroDAO">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+    <bean id="shiroService" class="com.dbr.service.ShiroService">
+        <property name="shiroDAO" ref="shiroDAO"/>
+    </bean>
+    <bean id="myShiroRealm" class="com.dbr.util.MyShiroRealm">
+        <property name="shiroService" ref="shiroService"/>
+    </bean>
+
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="myShiroRealm"/>
+        <!--加入rememberMe的设置-->
+   	    <property name="rememberMeManager" ref="rememberMeManager"/>
+   	    <!--将缓存管理器，交给安全管理器-->
+<!--         <property name="cacheManager" ref="customCacheManager"/> -->
+    </bean>
+    
+    
+    <bean id="myChainDefinitions" class="com.dbr.util.MyChainDefinitions">
+		<!--静态的条件 -->
+		<property name="filterChainDefinitions">
+			<value>
+			/gologin.html = anon
+			/login.html = anon
+			/doadd.html = authc, perms[perm1,perm2]
+			/doget.html = authc, perms[admin]
+			/doupdate.html = authc, perms[perm1]
+			/dodel.html = authc, perms[perm2]
+			/logout.html=user
+			</value>
+		</property>
+	</bean>
+    
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <!--去登录的地址-->
+        <property name="loginUrl" value="/gologin.html"/>
+        <!--登录成功的跳转地址-->
+        <property name="successUrl" value="/index.html"/>
+        <!--验证失败的跳转地址-->
+        <property name="unauthorizedUrl" value="/error.jsp"/>
+        <!--定义过滤的规则-->
+        <!--复杂的系统中，url和权限都可以从数据库中读取-->
+        <!--anon是不需要验证，authc时需要验证，perms[admin]代表要admin权限-->
+        <property name="filterChainDefinitionMap" ref="myChainDefinitions"/>
+	    <!--修改后的过滤规则，从and变成or-->
+		<property name="filters">
+			<map>
+				<entry key="perms">
+					<bean class="com.dbr.util.MyShiroPermFilter" />
+				</entry>
+			</map>
+		</property>
+    </bean>
+
+	<bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<constructor-arg value="rememberMeShiro" /><!-- 浏览器中cookie的名字 -->
+		<property name="httpOnly" value="true" /><!--document对象中就看不到cookie了 -->
+		<property name="maxAge" value="2592000" /><!-- 30天 -->
+	</bean>
+
+	<!-- rememberMe管理器 -->
+	<bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+		<!--秘钥要16位，24位或32位的Base64。这个解密后是1234567890abcdef -->
+		<property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('MTIzNDU2Nzg5MGFiY2RlZg==')}" />
+		<property name="cookie" ref="rememberMeCookie" />
+	</bean>
+
+      <!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+    <!-- AOP式方法级权限检查  -->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor">
+        <property name="proxyTargetClass" value="true"/>
+    </bean>
+
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+    
+</beans>

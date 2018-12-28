@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ke.mapper.PileparaMapper" >
+
+    <resultMap id="BaseResultMap" type="com.ke.model.Pilepara" >
+        <id column="station_id" property="stationId" jdbcType="INTEGER" />
+        <id column="id" property="id" jdbcType="SMALLINT" />
+        <result column="describ" property="describ" jdbcType="VARCHAR" />
+        <result column="pile_code" property="pileCode" jdbcType="VARCHAR" />
+        <result column="rtu_id" property="rtuId" jdbcType="INTEGER" />
+        <result column="comm_no" property="commNo" jdbcType="SMALLINT" />
+        <result column="use_flag" property="useFlag" jdbcType="TINYINT" />
+        <result column="addr" property="addr" jdbcType="VARCHAR" />
+        <result column="cur_type" property="curType" jdbcType="TINYINT" />
+        <result column="charge_type" property="chargeType" jdbcType="TINYINT" />
+        <result column="gun_num" property="gunNum" jdbcType="TINYINT" />
+        <result column="gun_flag" property="gunFlag" jdbcType="TINYINT" />
+        <result column="pile_type" property="pileType" jdbcType="TINYINT" />
+        <result column="rate_id" property="rateId" jdbcType="SMALLINT" />
+        <result column="rateperiod_id" property="rateperiodId" jdbcType="INTEGER" />
+        <result column="ct_numerator" property="ctNumerator" jdbcType="INTEGER" />
+        <result column="ct_denominator" property="ctDenominator" jdbcType="INTEGER" />
+        <result column="ct_ratio" property="ctRatio" jdbcType="DOUBLE" />
+        <result column="rp" property="rp" jdbcType="DOUBLE" />
+        <result column="alarm_p" property="alarmP" jdbcType="DOUBLE" />
+        <result column="limit_p" property="limitP" jdbcType="DOUBLE" />
+        <result column="rv" property="rv" jdbcType="DOUBLE" />
+        <result column="ri" property="ri" jdbcType="DOUBLE" />
+        <result column="mi" property="mi" jdbcType="DOUBLE" />
+        <result column="wiring_mode" property="wiringMode" jdbcType="TINYINT" />
+        <result column="inf_code1" property="infCode1" jdbcType="VARCHAR" />
+        <result column="inf_code2" property="infCode2" jdbcType="VARCHAR" />
+        <result column="inf_code3" property="infCode3" jdbcType="VARCHAR" />
+        <result column="reserve1" property="reserve1" jdbcType="VARCHAR" />
+        <result column="bikegun_num" property="bikegunNum" jdbcType="TINYINT" />
+        <result column="cp_flag" property="cpFlag" jdbcType="TINYINT" />
+        <result column="comm_state" property="commState" jdbcType="TINYINT" />
+        <result column="v_ceil" property="vCeil" jdbcType="SMALLINT" />
+        <result column="v_floor" property="vFloor" jdbcType="SMALLINT" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        station_id, id, describ, pile_code, rtu_id, comm_no, use_flag, addr, cur_type, charge_type, 
+        gun_num, gun_flag, pile_type, rate_id, rateperiod_id, ct_numerator, ct_denominator, 
+        ct_ratio, rp, alarm_p, limit_p, rv, ri, mi, wiring_mode, inf_code1, inf_code2, inf_code3, 
+        reserve1, bikegun_num, cp_flag, comm_state, v_ceil, v_floor
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.ke.model.PileparaKey" >
+        select 
+        <include refid="Base_Column_List" />
+        from pilepara
+        where station_id = #{stationId,jdbcType=INTEGER}
+          and id = #{id,jdbcType=SMALLINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="com.ke.model.PileparaKey" >
+        delete from pilepara
+        where station_id = #{stationId,jdbcType=INTEGER}
+          and id = #{id,jdbcType=SMALLINT}
+    </delete>
+
+    <insert id="insert" parameterType="com.ke.model.Pilepara" >
+        insert into pilepara (station_id, id, describ, 
+            pile_code, rtu_id, comm_no, 
+            use_flag, addr, cur_type, 
+            charge_type, gun_num, gun_flag, 
+            pile_type, rate_id, rateperiod_id, 
+            ct_numerator, ct_denominator, ct_ratio, 
+            rp, alarm_p, limit_p, 
+            rv, ri, mi, wiring_mode, 
+            inf_code1, inf_code2, inf_code3, 
+            reserve1, bikegun_num, cp_flag, 
+            comm_state, v_ceil, v_floor
+            )
+        values (#{stationId,jdbcType=INTEGER}, #{id,jdbcType=SMALLINT}, #{describ,jdbcType=VARCHAR}, 
+            #{pileCode,jdbcType=VARCHAR}, #{rtuId,jdbcType=INTEGER}, #{commNo,jdbcType=SMALLINT}, 
+            #{useFlag,jdbcType=TINYINT}, #{addr,jdbcType=VARCHAR}, #{curType,jdbcType=TINYINT}, 
+            #{chargeType,jdbcType=TINYINT}, #{gunNum,jdbcType=TINYINT}, #{gunFlag,jdbcType=TINYINT}, 
+            #{pileType,jdbcType=TINYINT}, #{rateId,jdbcType=SMALLINT}, #{rateperiodId,jdbcType=INTEGER}, 
+            #{ctNumerator,jdbcType=INTEGER}, #{ctDenominator,jdbcType=INTEGER}, #{ctRatio,jdbcType=DOUBLE}, 
+            #{rp,jdbcType=DOUBLE}, #{alarmP,jdbcType=DOUBLE}, #{limitP,jdbcType=DOUBLE}, 
+            #{rv,jdbcType=DOUBLE}, #{ri,jdbcType=DOUBLE}, #{mi,jdbcType=DOUBLE}, #{wiringMode,jdbcType=TINYINT}, 
+            #{infCode1,jdbcType=VARCHAR}, #{infCode2,jdbcType=VARCHAR}, #{infCode3,jdbcType=VARCHAR}, 
+            #{reserve1,jdbcType=VARCHAR}, #{bikegunNum,jdbcType=TINYINT}, #{cpFlag,jdbcType=TINYINT}, 
+            #{commState,jdbcType=TINYINT}, #{vCeil,jdbcType=SMALLINT}, #{vFloor,jdbcType=SMALLINT}
+            )
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.ke.model.Pilepara" >
+        insert into pilepara
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="stationId != null" >
+                station_id,
+            </if>
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="describ != null" >
+                describ,
+            </if>
+            <if test="pileCode != null" >
+                pile_code,
+            </if>
+            <if test="rtuId != null" >
+                rtu_id,
+            </if>
+            <if test="commNo != null" >
+                comm_no,
+            </if>
+            <if test="useFlag != null" >
+                use_flag,
+            </if>
+            <if test="addr != null" >
+                addr,
+            </if>
+            <if test="curType != null" >
+                cur_type,
+            </if>
+            <if test="chargeType != null" >
+                charge_type,
+            </if>
+            <if test="gunNum != null" >
+                gun_num,
+            </if>
+            <if test="gunFlag != null" >
+                gun_flag,
+            </if>
+            <if test="pileType != null" >
+                pile_type,
+            </if>
+            <if test="rateId != null" >
+                rate_id,
+            </if>
+            <if test="rateperiodId != null" >
+                rateperiod_id,
+            </if>
+            <if test="ctNumerator != null" >
+                ct_numerator,
+            </if>
+            <if test="ctDenominator != null" >
+                ct_denominator,
+            </if>
+            <if test="ctRatio != null" >
+                ct_ratio,
+            </if>
+            <if test="rp != null" >
+                rp,
+            </if>
+            <if test="alarmP != null" >
+                alarm_p,
+            </if>
+            <if test="limitP != null" >
+                limit_p,
+            </if>
+            <if test="rv != null" >
+                rv,
+            </if>
+            <if test="ri != null" >
+                ri,
+            </if>
+            <if test="mi != null" >
+                mi,
+            </if>
+            <if test="wiringMode != null" >
+                wiring_mode,
+            </if>
+            <if test="infCode1 != null" >
+                inf_code1,
+            </if>
+            <if test="infCode2 != null" >
+                inf_code2,
+            </if>
+            <if test="infCode3 != null" >
+                inf_code3,
+            </if>
+            <if test="reserve1 != null" >
+                reserve1,
+            </if>
+            <if test="bikegunNum != null" >
+                bikegun_num,
+            </if>
+            <if test="cpFlag != null" >
+                cp_flag,
+            </if>
+            <if test="commState != null" >
+                comm_state,
+            </if>
+            <if test="vCeil != null" >
+                v_ceil,
+            </if>
+            <if test="vFloor != null" >
+                v_floor,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="stationId != null" >
+                #{stationId,jdbcType=INTEGER},
+            </if>
+            <if test="id != null" >
+                #{id,jdbcType=SMALLINT},
+            </if>
+            <if test="describ != null" >
+                #{describ,jdbcType=VARCHAR},
+            </if>
+            <if test="pileCode != null" >
+                #{pileCode,jdbcType=VARCHAR},
+            </if>
+            <if test="rtuId != null" >
+                #{rtuId,jdbcType=INTEGER},
+            </if>
+            <if test="commNo != null" >
+                #{commNo,jdbcType=SMALLINT},
+            </if>
+            <if test="useFlag != null" >
+                #{useFlag,jdbcType=TINYINT},
+            </if>
+            <if test="addr != null" >
+                #{addr,jdbcType=VARCHAR},
+            </if>
+            <if test="curType != null" >
+                #{curType,jdbcType=TINYINT},
+            </if>
+            <if test="chargeType != null" >
+                #{chargeType,jdbcType=TINYINT},
+            </if>
+            <if test="gunNum != null" >
+                #{gunNum,jdbcType=TINYINT},
+            </if>
+            <if test="gunFlag != null" >
+                #{gunFlag,jdbcType=TINYINT},
+            </if>
+            <if test="pileType != null" >
+                #{pileType,jdbcType=TINYINT},
+            </if>
+            <if test="rateId != null" >
+                #{rateId,jdbcType=SMALLINT},
+            </if>
+            <if test="rateperiodId != null" >
+                #{rateperiodId,jdbcType=INTEGER},
+            </if>
+            <if test="ctNumerator != null" >
+                #{ctNumerator,jdbcType=INTEGER},
+            </if>
+            <if test="ctDenominator != null" >
+                #{ctDenominator,jdbcType=INTEGER},
+            </if>
+            <if test="ctRatio != null" >
+                #{ctRatio,jdbcType=DOUBLE},
+            </if>
+            <if test="rp != null" >
+                #{rp,jdbcType=DOUBLE},
+            </if>
+            <if test="alarmP != null" >
+                #{alarmP,jdbcType=DOUBLE},
+            </if>
+            <if test="limitP != null" >
+                #{limitP,jdbcType=DOUBLE},
+            </if>
+            <if test="rv != null" >
+                #{rv,jdbcType=DOUBLE},
+            </if>
+            <if test="ri != null" >
+                #{ri,jdbcType=DOUBLE},
+            </if>
+            <if test="mi != null" >
+                #{mi,jdbcType=DOUBLE},
+            </if>
+            <if test="wiringMode != null" >
+                #{wiringMode,jdbcType=TINYINT},
+            </if>
+            <if test="infCode1 != null" >
+                #{infCode1,jdbcType=VARCHAR},
+            </if>
+            <if test="infCode2 != null" >
+                #{infCode2,jdbcType=VARCHAR},
+            </if>
+            <if test="infCode3 != null" >
+                #{infCode3,jdbcType=VARCHAR},
+            </if>
+            <if test="reserve1 != null" >
+                #{reserve1,jdbcType=VARCHAR},
+            </if>
+            <if test="bikegunNum != null" >
+                #{bikegunNum,jdbcType=TINYINT},
+            </if>
+            <if test="cpFlag != null" >
+                #{cpFlag,jdbcType=TINYINT},
+            </if>
+            <if test="commState != null" >
+                #{commState,jdbcType=TINYINT},
+            </if>
+            <if test="vCeil != null" >
+                #{vCeil,jdbcType=SMALLINT},
+            </if>
+            <if test="vFloor != null" >
+                #{vFloor,jdbcType=SMALLINT},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.ke.model.Pilepara" >
+        update pilepara
+        <set >
+            <if test="describ != null" >
+                describ = #{describ,jdbcType=VARCHAR},
+            </if>
+            <if test="pileCode != null" >
+                pile_code = #{pileCode,jdbcType=VARCHAR},
+            </if>
+            <if test="rtuId != null" >
+                rtu_id = #{rtuId,jdbcType=INTEGER},
+            </if>
+            <if test="commNo != null" >
+                comm_no = #{commNo,jdbcType=SMALLINT},
+            </if>
+            <if test="useFlag != null" >
+                use_flag = #{useFlag,jdbcType=TINYINT},
+            </if>
+            <if test="addr != null" >
+                addr = #{addr,jdbcType=VARCHAR},
+            </if>
+            <if test="curType != null" >
+                cur_type = #{curType,jdbcType=TINYINT},
+            </if>
+            <if test="chargeType != null" >
+                charge_type = #{chargeType,jdbcType=TINYINT},
+            </if>
+            <if test="gunNum != null" >
+                gun_num = #{gunNum,jdbcType=TINYINT},
+            </if>
+            <if test="gunFlag != null" >
+                gun_flag = #{gunFlag,jdbcType=TINYINT},
+            </if>
+            <if test="pileType != null" >
+                pile_type = #{pileType,jdbcType=TINYINT},
+            </if>
+            <if test="rateId != null" >
+                rate_id = #{rateId,jdbcType=SMALLINT},
+            </if>
+            <if test="rateperiodId != null" >
+                rateperiod_id = #{rateperiodId,jdbcType=INTEGER},
+            </if>
+            <if test="ctNumerator != null" >
+                ct_numerator = #{ctNumerator,jdbcType=INTEGER},
+            </if>
+            <if test="ctDenominator != null" >
+                ct_denominator = #{ctDenominator,jdbcType=INTEGER},
+            </if>
+            <if test="ctRatio != null" >
+                ct_ratio = #{ctRatio,jdbcType=DOUBLE},
+            </if>
+            <if test="rp != null" >
+                rp = #{rp,jdbcType=DOUBLE},
+            </if>
+            <if test="alarmP != null" >
+                alarm_p = #{alarmP,jdbcType=DOUBLE},
+            </if>
+            <if test="limitP != null" >
+                limit_p = #{limitP,jdbcType=DOUBLE},
+            </if>
+            <if test="rv != null" >
+                rv = #{rv,jdbcType=DOUBLE},
+            </if>
+            <if test="ri != null" >
+                ri = #{ri,jdbcType=DOUBLE},
+            </if>
+            <if test="mi != null" >
+                mi = #{mi,jdbcType=DOUBLE},
+            </if>
+            <if test="wiringMode != null" >
+                wiring_mode = #{wiringMode,jdbcType=TINYINT},
+            </if>
+            <if test="infCode1 != null" >
+                inf_code1 = #{infCode1,jdbcType=VARCHAR},
+            </if>
+            <if test="infCode2 != null" >
+                inf_code2 = #{infCode2,jdbcType=VARCHAR},
+            </if>
+            <if test="infCode3 != null" >
+                inf_code3 = #{infCode3,jdbcType=VARCHAR},
+            </if>
+            <if test="reserve1 != null" >
+                reserve1 = #{reserve1,jdbcType=VARCHAR},
+            </if>
+            <if test="bikegunNum != null" >
+                bikegun_num = #{bikegunNum,jdbcType=TINYINT},
+            </if>
+            <if test="cpFlag != null" >
+                cp_flag = #{cpFlag,jdbcType=TINYINT},
+            </if>
+            <if test="commState != null" >
+                comm_state = #{commState,jdbcType=TINYINT},
+            </if>
+            <if test="vCeil != null" >
+                v_ceil = #{vCeil,jdbcType=SMALLINT},
+            </if>
+            <if test="vFloor != null" >
+                v_floor = #{vFloor,jdbcType=SMALLINT},
+            </if>
+        </set>
+        where station_id = #{stationId,jdbcType=INTEGER}
+          and id = #{id,jdbcType=SMALLINT}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.ke.model.Pilepara" >
+        update pilepara
+        set describ = #{describ,jdbcType=VARCHAR},
+            pile_code = #{pileCode,jdbcType=VARCHAR},
+            rtu_id = #{rtuId,jdbcType=INTEGER},
+            comm_no = #{commNo,jdbcType=SMALLINT},
+            use_flag = #{useFlag,jdbcType=TINYINT},
+            addr = #{addr,jdbcType=VARCHAR},
+            cur_type = #{curType,jdbcType=TINYINT},
+            charge_type = #{chargeType,jdbcType=TINYINT},
+            gun_num = #{gunNum,jdbcType=TINYINT},
+            gun_flag = #{gunFlag,jdbcType=TINYINT},
+            pile_type = #{pileType,jdbcType=TINYINT},
+            rate_id = #{rateId,jdbcType=SMALLINT},
+            rateperiod_id = #{rateperiodId,jdbcType=INTEGER},
+            ct_numerator = #{ctNumerator,jdbcType=INTEGER},
+            ct_denominator = #{ctDenominator,jdbcType=INTEGER},
+            ct_ratio = #{ctRatio,jdbcType=DOUBLE},
+            rp = #{rp,jdbcType=DOUBLE},
+            alarm_p = #{alarmP,jdbcType=DOUBLE},
+            limit_p = #{limitP,jdbcType=DOUBLE},
+            rv = #{rv,jdbcType=DOUBLE},
+            ri = #{ri,jdbcType=DOUBLE},
+            mi = #{mi,jdbcType=DOUBLE},
+            wiring_mode = #{wiringMode,jdbcType=TINYINT},
+            inf_code1 = #{infCode1,jdbcType=VARCHAR},
+            inf_code2 = #{infCode2,jdbcType=VARCHAR},
+            inf_code3 = #{infCode3,jdbcType=VARCHAR},
+            reserve1 = #{reserve1,jdbcType=VARCHAR},
+            bikegun_num = #{bikegunNum,jdbcType=TINYINT},
+            cp_flag = #{cpFlag,jdbcType=TINYINT},
+            comm_state = #{commState,jdbcType=TINYINT},
+            v_ceil = #{vCeil,jdbcType=SMALLINT},
+            v_floor = #{vFloor,jdbcType=SMALLINT}
+        where station_id = #{stationId,jdbcType=INTEGER}
+          and id = #{id,jdbcType=SMALLINT}
+    </update>
+</mapper>
