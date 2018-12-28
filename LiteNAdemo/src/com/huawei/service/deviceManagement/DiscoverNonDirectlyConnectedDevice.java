@@ -21,7 +21,7 @@ public class DiscoverNonDirectlyConnectedDevice {
         HttpsUtil httpsUtil = new HttpsUtil();
         httpsUtil.initSSLConfigForTwoWay();
 
-        // Authentication£¬get token
+        // Authenticationï¿½ï¿½get token
         String accessToken = login(httpsUtil);
 
         //Please make sure that the following parameter values have been modified in the Constant file.
@@ -80,7 +80,7 @@ public class DiscoverNonDirectlyConnectedDevice {
 
 
     /**
-     * Authentication£¬get token
+     * Authenticationï¿½ï¿½get token
      * */
     @SuppressWarnings("unchecked")
     public static String login(HttpsUtil httpsUtil) throws Exception {
