@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    
+    <appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>logs/iotservice/info.log</File>
+        <append>true</append>
+        <!--过滤器,只打INFO级别的日志-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/iotservice/info.log.%d</fileNamePattern>
+            <maxHistory>180</maxHistory>
+        </rollingPolicy>
+
+        <encoder charset="UTF-8">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] %level [%thread] %file:%line - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>logs/iotservice/error.log</File>
+        <append>true</append>
+        <!--过滤器,只打ERROR级别的日志-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/iotservice/error.log.%d</fileNamePattern>
+            <maxHistory>180</maxHistory>
+        </rollingPolicy>
+
+        <encoder charset="UTF-8">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] %level [%thread] %file:%line - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!--不同业务逻辑的日志打印到不同文件-->
+<!--     <appender name="baitiaoUserAppender" class="ch.qos.logback.core.rolling.RollingFileAppender"> -->
+<!--         <File>logs/iotservice/bt.log</File> -->
+<!--         <append>true</append> -->
+<!--         <filter class="ch.qos.logback.classic.filter.LevelFilter"> -->
+<!--             <level>INFO</level> -->
+<!--             <onMatch>ACCEPT</onMatch> -->
+<!--             <onMismatch>DENY</onMismatch> -->
+<!--         </filter> -->
+<!--         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"> -->
+<!--             <fileNamePattern>logs/iotservice/bt.log.%d</fileNamePattern> -->
+<!--             <maxHistory>180</maxHistory> -->
+<!--         </rollingPolicy> -->
+<!--         <encoder charset="UTF-8"> -->
+<!--             <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] %level [%thread] %file:%line - %msg%n</pattern> -->
+<!--             <charset>UTF-8</charset> -->
+<!--         </encoder> -->
+<!--     </appender> -->
+
+    <appender name="CallBackAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>logs/iotservice/callback.log</File>
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+<!--             <onMatch>ACCEPT</onMatch> -->
+<!--             <onMismatch>DENY</onMismatch> -->
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/iotservice/callback.log.%d</fileNamePattern>
+            <maxHistory>12</maxHistory>
+        </rollingPolicy>
+        <encoder charset="UTF-8">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] %level [%thread] %file:%line - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <logger name="CALLBACK" additivity="false" level="INFO">
+        <appender-ref ref="CallBackAppender"/>
+    </logger>
+
+    <logger name="com.iot" level="INFO"/>
+    <logger name="com.iot" level="ERROR"/>
+
+	<!--info和error分开打印 -->
+	<root level="INFO">
+		<appender-ref ref="INFO" />
+		<appender-ref ref="ERROR" />
+	</root>
+
+</configuration>
