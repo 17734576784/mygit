@@ -3,6 +3,9 @@
  */
 package com.nb.utils;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,4 +45,34 @@ public class AuthenticationUtils {
 
 		return accessToken;
 	}
+	
+	/** 
+	* @Title: verificationToken 
+	* @Description: 移动平台token验证 
+	* @param @param msg
+	* @param @param nonce
+	* @param @param signature
+	* @param @return    设定文件 
+	* @return String    返回类型 
+	* @throws 
+	*/
+	public static String verificationToken(String msg, String nonce, String signature) {
+		String context = Constant.CHINA_MOBILE_TOKEN + nonce + msg;
+		String MD5Context = CommFunc.getMD5(context);
+		final Base64.Encoder encoder = Base64.getEncoder();
+		String Base64Context = encoder.encodeToString(MD5Context.getBytes());
+		try {
+			String URLDecoderContext = URLDecoder.decode(Base64Context, "UTF-8");
+			if (URLDecoderContext.equals(signature)) {
+				return msg;
+			}
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return Constant.EMPTY;
+	}
+
+
 }

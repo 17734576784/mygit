@@ -281,6 +281,8 @@ public class Constant {
 	/** redis 命令idkey前缀 */
 	public static final String COMMAND = "command_";
 
+	public static final String EMPTY = "";
+
 	/** 询问设备是否升级服务名 */
 	public static String UPVERSIONSERVICE = "UpversionService";
 
