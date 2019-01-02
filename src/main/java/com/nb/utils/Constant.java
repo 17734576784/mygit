@@ -18,6 +18,10 @@ public class Constant {
 
 	/** 中国移动平台地址 */
 	public static final String CHINA_MOBILE_BASE_URL = "";
+
+	/** 中国移动平台认证token */
+	public static final String CHINA_MOBILE_TOKEN = "kldq";
+
 	/** 中国联通平台地址 */
 	public static final String CHINA_UNICOM_BASE_URL = "https://58.240.96.46:8743";
 	/** 中国电信平台地址 */
