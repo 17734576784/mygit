@@ -3,11 +3,13 @@
  */
 package com.nb.utils;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.Base64;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.Security;
 import java.util.HashMap;
 import java.util.Map;
+import org.apache.tomcat.util.codec.binary.Base64;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
@@ -21,6 +23,17 @@ import com.nb.logger.LoggerUtils;
  */
 public class AuthenticationUtils {
 	
+	  private static MessageDigest mdInst;
+
+	    static {
+	        try {
+	            mdInst = MessageDigest.getInstance("MD5");
+	            Security.addProvider(new BouncyCastleProvider());
+	        } catch (NoSuchAlgorithmException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    
 	@SuppressWarnings({"unchecked" })
 	public static String getAccessToken(IotHttpsUtil httpsUtil) {
 		String accessToken = "";
@@ -57,22 +70,19 @@ public class AuthenticationUtils {
 	* @throws 
 	*/
 	public static String verificationToken(String msg, String nonce, String signature) {
-		String context = Constant.CHINA_MOBILE_TOKEN + nonce + msg;
-		String MD5Context = CommFunc.getMD5(context);
-		final Base64.Encoder encoder = Base64.getEncoder();
-		String Base64Context = encoder.encodeToString(MD5Context.getBytes());
-		try {
-			String URLDecoderContext = URLDecoder.decode(Base64Context, "UTF-8");
-			if (URLDecoderContext.equals(signature)) {
-				return msg;
-			}
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		// 计算接受到的消息的摘要
+		// token长度 + 8B随机字符串长度 + 消息长度
+		String token = Constant.CHINA_MOBILE_TOKEN;
+		byte[] signatures = new byte[token.length() + 8 + msg.length()];
+		System.arraycopy(token.getBytes(), 0, signatures, 0, token.length());
+		System.arraycopy(nonce.getBytes(), 0, signatures, token.length(), 8);
+		System.arraycopy(msg.getBytes(), 0, signatures, token.length() + 8, msg.length());
+		String calSig = Base64.encodeBase64String(mdInst.digest(signatures));
+		if (calSig.equals(signature)) {
+			return msg;
 		}
 
 		return Constant.EMPTY;
 	}
-
 
 }
