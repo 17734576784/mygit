@@ -30,22 +30,22 @@ public class JUtilTest {
 	private CheckService checkService; 
 	@Test
 	public void StrategyTest() throws Exception {
-//		System.out.println(FileUtils.parseUpgradeFile("KE-STM32L4_BIOS-V1.00-V1.03.bin_1.001.0318112103110000", "C:\\softversion\\KE-STM32L4_BIOS-V1.00-V1.03.bin", 256));;
-//		checkService.loadUpgradeFile("434ff6cb-89bc-498b-a7c3-9f21f55afc96", "KE-STM32L4_BIOS-V1.00-V1.03.bin", "1.001.0318112103110000");
+		System.out.println(FileUtils.parseUpgradeFile("1.001.2418122903110000", "C:\\softversion\\1.001.2418122903110000_20181229.bin", 256));;
+		checkService.loadUpgradeFile("65a81542-11cd-49bf-8f34-6ece6abfbfd2", "softversion\\1.001.2418122903110000_20181229.bin", "1.001.2418122903110000");
 		
 //		JSONObject progressBody = (JSONObject) JedisUtils.get("progress_81a8a1e9-0870-48e1-ad7a-57ad16e5b0d1");
 //		progressBody.put("sendedPack", 99);softversion/KE-STM32L4_BIOS-V1.00-V1.01.bin
-//		JedisUtils.set("progress_81a8a1e9-0870-48e1-ad7a-57ad16e5b0d1", progressBody);e
+//		JedisUtils.set("progress_81a8a1e9-0870-48e1-ad7a-57ad16e5b0d1", progressBody);
 //		
 //		System.out.println(JedisUtils.getKeys("progress_*"));
 		
 		JSONObject param= new JSONObject();
 		param.put("value", 0);
-		param.put("version", "1.001.1218112103110000");
+		param.put("version", "1.001.2418122903110000");
 		
 		/**下发询问设备是否升级命令*/
 		JSONObject command = new JSONObject();
-		command.put("deviceId", "32f53caa-7985-4a0c-b074-3cd242179d53");
+		command.put("deviceId", "65a81542-11cd-49bf-8f34-6ece6abfbfd2");
 		command.put("serviceId",Constant.UPVERSIONSERVICE);
 		command.put("method",Constant.UPVERSION);
 		command.put("param", param.toString());
