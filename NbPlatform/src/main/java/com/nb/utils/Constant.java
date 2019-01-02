@@ -229,6 +229,9 @@ public class Constant {
 	public static final int SUCCESS = 0;
 	public static final int ERROR = -1;
 
+	public static final String OK = "ok";
+
+	
 	public static final String UPLOAD_PIC = "1";
 	/** 上传图片url */
 	public static final String UPLOAD_IMAGE_URL = "nbNotifyAction!notifyToWeb.action";

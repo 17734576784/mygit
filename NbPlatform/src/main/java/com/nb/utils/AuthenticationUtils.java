@@ -69,7 +69,7 @@ public class AuthenticationUtils {
 	* @return String    返回类型 
 	* @throws 
 	*/
-	public static String verificationToken(String msg, String nonce, String signature) {
+	public static boolean verificationToken(String msg, String nonce, String signature) {
 		// 计算接受到的消息的摘要
 		// token长度 + 8B随机字符串长度 + 消息长度
 		String token = Constant.CHINA_MOBILE_TOKEN;
@@ -78,11 +78,8 @@ public class AuthenticationUtils {
 		System.arraycopy(nonce.getBytes(), 0, signatures, token.length(), 8);
 		System.arraycopy(msg.getBytes(), 0, signatures, token.length() + 8, msg.length());
 		String calSig = Base64.encodeBase64String(mdInst.digest(signatures));
-		if (calSig.equals(signature)) {
-			return msg;
-		}
 
-		return Constant.EMPTY;
+		return calSig.equals(signature);
 	}
 
 }
