@@ -8,9 +8,11 @@
 */
 package com.nb.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 import javax.websocket.server.PathParam;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -124,7 +126,6 @@ public class ChinaMobileCommandController {
 		return result;
 	}
 
-	
 	@RequestMapping(value = "/offlineesource", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResultBean<?> offlineReadDeviceResources(@PathParam("commandInfo") String commandInfo) throws Exception {
 
@@ -140,7 +141,7 @@ public class ChinaMobileCommandController {
 
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/offlineesource", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResultBean<?> offlineWriteDeviceResources(@RequestBody JSONObject commandInfo) throws Exception {
 		ResultBean<?> result = null;
@@ -152,7 +153,7 @@ public class ChinaMobileCommandController {
 
 		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 		url = HttpsClientUtil.setcompleteUrl(url, params);
-		
+
 		StreamClosedHttpResponse response = httpsClientUtil.doPostJsonGetStatusLine(url,
 				CommFunc.getChinaMobileHeader(), commandInfo.toJSONString());
 
@@ -160,7 +161,7 @@ public class ChinaMobileCommandController {
 
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/offlinecommand", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResultBean<?> offlineSendCommand(@RequestBody JSONObject commandInfo) throws Exception {
 		ResultBean<?> result = null;
@@ -177,6 +178,40 @@ public class ChinaMobileCommandController {
 				CommFunc.getChinaMobileHeader(), commandInfo.toJSONString());
 
 		result = new ResultBean<>(response.getContent());
+
+		return result;
+	}
+	
+	@RequestMapping(value = "/listOfflineCommand", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResultBean<?> listOfflineCommand(@PathParam("commandInfo") String commandInfo) throws Exception {
+
+		String url = Constant.CHINA_MOBILE_BASE_URL + "nbiot/offline/history";
+		@SuppressWarnings("unchecked")
+		Map<String, Object> params = JSONObject.toJavaObject(JSONObject.parseObject(commandInfo), Map.class);
+
+		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
+		url = HttpsClientUtil.setcompleteUrl(url, params);
+		StreamClosedHttpResponse response = httpsClientUtil.doGetWithParasGetStatusLine(url, null,
+				CommFunc.getChinaMobileHeader());
+
+		ResultBean<?> result = new ResultBean<>(response.getContent());
+
+		return result;
+	}
+	
+	@RequestMapping(value = "/getOfflineCommand/{uuid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResultBean<?> getOfflineCommand(@PathVariable String uuid, @PathParam("imei") String imei)
+			throws Exception {
+
+		String url = Constant.CHINA_MOBILE_BASE_URL + "nbiot/offline/history/" + uuid;
+		Map<String, String> params = new HashMap<>();
+		params.put("imei", imei);
+
+		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
+		StreamClosedHttpResponse response = httpsClientUtil.doGetWithParasGetStatusLine(url, params,
+				CommFunc.getChinaMobileHeader());
+
+		ResultBean<?> result = new ResultBean<>(response.getContent());
 
 		return result;
 	}
