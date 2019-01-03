@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.nb.utils;
+package com.nb.http;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -36,7 +36,8 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.http.util.EntityUtils;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject; 
+import com.alibaba.fastjson.JSONObject;
+import com.nb.utils.StreamUtil; 
 /**   
  * @ClassName:  HttpsUtils   
  * @Description:TODO(这里用一句话描述这个类的作用)   

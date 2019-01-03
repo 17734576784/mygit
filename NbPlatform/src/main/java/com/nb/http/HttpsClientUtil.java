@@ -1,4 +1,4 @@
-package com.nb.utils;
+package com.nb.http;
 
 /**   
 * @Title: HTTPSClientUtil.java 
@@ -21,6 +21,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
@@ -56,6 +57,9 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicNameValuePair;
+
+import com.nb.model.StreamClosedHttpResponse;
+import com.nb.utils.Constant;
 
 /**
  * @ClassName: HTTPSClientUtil
@@ -526,6 +530,22 @@ public class HttpsClientUtil {
 		}
 
 		return response;
+	}
+	
+	public static String setcompleteUrl(String url, Map<String, Object> params) {
+		// TODO Auto-generated method stub
+		if (params != null) {
+			url += "?";
+			Set<Entry<String, Object>> entrys = params.entrySet();
+			int size = entrys.size();
+			int index = 0;
+			for (Entry<String, Object> entry : entrys) {
+				url += entry.getKey() + "=" + entry.getValue();
+				if (++index < size)
+					url += "&";
+			}
+		}
+		return url;
 	}
 
 }

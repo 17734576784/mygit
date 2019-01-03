@@ -1,0 +1,881 @@
+[2019-01-03 09:22:28.109] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 10568 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 09:22:28.121] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 09:22:29.594] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 09:22:29.601] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 09:22:29.691] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 62ms. Found 0 repository interfaces.
+[2019-01-03 09:22:30.945] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 09:22:30.969] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 09:22:30.978] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 09:22:31.119] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 09:22:31.123] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 09:22:31.124] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 09:22:31.147] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 09:22:31.407] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 09:22:31.407] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 2945 ms
+[2019-01-03 09:22:32.525] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 09:22:33.045] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 09:22:33.528] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 09:22:33.551] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 09:22:33.573] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 09:22:33.579] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 6.512 seconds (JVM running for 9.303)
+[2019-01-03 09:28:07.893] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 20324 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 09:28:07.903] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 09:28:09.405] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 09:28:09.413] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 09:28:09.524] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 72ms. Found 0 repository interfaces.
+[2019-01-03 09:28:10.951] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 09:28:10.980] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 09:28:10.993] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 09:28:11.016] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 09:28:11.022] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 09:28:11.023] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 09:28:11.168] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 09:28:11.454] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 09:28:11.455] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3438 ms
+[2019-01-03 09:28:12.830] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 09:28:13.417] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 09:28:13.730] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 09:28:13.754] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 09:28:13.773] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 09:28:13.778] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 6.702 seconds (JVM running for 8.012)
+[2019-01-03 09:28:27.865] INFO [http-nio-8080-exec-2] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-01-03 09:28:27.866] INFO [http-nio-8080-exec-2] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-01-03 09:28:27.881] INFO [http-nio-8080-exec-2] FrameworkServlet.java:546 - Completed initialization in 15 ms
+[2019-01-03 09:29:37.140] INFO [http-nio-8080-exec-1] DirectJDKLog.java:175 - Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level.
+java.lang.IllegalArgumentException: Invalid character found in method name. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:414)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:294)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:791)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1417)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-01-03 09:51:40.463] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 28916 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 09:51:40.483] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 09:51:41.848] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 09:51:41.854] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 09:51:41.952] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 67ms. Found 0 repository interfaces.
+[2019-01-03 09:51:43.202] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 09:51:43.227] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 09:51:43.235] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 09:51:43.254] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 09:51:43.366] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 09:51:43.367] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 09:51:43.392] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 09:51:43.605] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 09:51:43.605] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3021 ms
+[2019-01-03 09:51:44.918] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 09:51:45.542] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 09:51:45.883] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 09:51:45.910] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 09:51:45.931] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 09:51:45.940] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 6.213 seconds (JVM running for 7.616)
+[2019-01-03 09:51:48.788] INFO [http-nio-8080-exec-2] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-01-03 09:51:48.789] INFO [http-nio-8080-exec-2] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-01-03 09:51:48.802] INFO [http-nio-8080-exec-2] FrameworkServlet.java:546 - Completed initialization in 13 ms
+[2019-01-03 10:00:25.458] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 35688 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 10:00:25.466] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 10:00:26.830] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 10:00:26.836] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 10:00:26.941] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 73ms. Found 0 repository interfaces.
+[2019-01-03 10:00:28.316] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 10:00:28.347] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 10:00:28.358] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 10:00:28.538] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 10:00:28.542] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 10:00:28.543] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 10:00:28.567] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 10:00:28.808] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 10:00:28.808] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3247 ms
+[2019-01-03 10:00:30.152] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 10:00:30.745] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 10:00:31.077] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 10:00:31.105] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 10:00:31.130] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 10:00:31.138] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 6.498 seconds (JVM running for 7.852)
+[2019-01-03 10:00:49.689] INFO [http-nio-8080-exec-2] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-01-03 10:00:49.690] INFO [http-nio-8080-exec-2] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-01-03 10:00:49.703] INFO [http-nio-8080-exec-2] FrameworkServlet.java:546 - Completed initialization in 13 ms
+[2019-01-03 10:05:09.138] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 31044 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 10:05:09.150] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 10:05:10.531] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 10:05:10.536] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 10:05:10.636] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 68ms. Found 0 repository interfaces.
+[2019-01-03 10:05:11.937] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 10:05:11.970] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 10:05:11.982] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 10:05:12.003] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 10:05:12.145] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 10:05:12.146] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 10:05:12.172] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 10:05:12.399] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 10:05:12.400] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3159 ms
+[2019-01-03 10:05:13.673] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 10:05:14.245] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 10:05:14.592] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 10:05:14.619] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 10:05:14.637] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 10:05:14.643] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 6.274 seconds (JVM running for 7.643)
+[2019-01-03 10:05:28.821] INFO [http-nio-8080-exec-1] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-01-03 10:05:28.822] INFO [http-nio-8080-exec-1] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-01-03 10:05:28.834] INFO [http-nio-8080-exec-1] FrameworkServlet.java:546 - Completed initialization in 12 ms
+[2019-01-03 10:09:32.623] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 23564 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 10:09:32.633] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 10:09:34.085] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 10:09:34.093] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 10:09:34.196] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 62ms. Found 0 repository interfaces.
+[2019-01-03 10:09:35.549] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 10:09:35.580] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 10:09:35.588] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 10:09:35.608] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 10:09:35.613] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 10:09:35.614] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 10:09:35.746] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 10:09:35.983] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 10:09:35.984] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3269 ms
+[2019-01-03 10:09:37.246] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 10:09:37.809] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 10:09:38.121] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 10:09:38.150] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 10:09:38.170] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 10:09:38.176] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 6.269 seconds (JVM running for 7.585)
+[2019-01-03 10:09:48.428] INFO [http-nio-8080-exec-3] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-01-03 10:09:48.428] INFO [http-nio-8080-exec-3] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-01-03 10:09:48.447] INFO [http-nio-8080-exec-3] FrameworkServlet.java:546 - Completed initialization in 18 ms
+[2019-01-03 10:10:36.313] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 35836 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 10:10:36.323] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 10:10:37.769] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 10:10:37.776] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 10:10:37.874] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 65ms. Found 0 repository interfaces.
+[2019-01-03 10:10:39.214] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 10:10:39.239] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 10:10:39.246] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 10:10:39.412] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 10:10:39.417] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 10:10:39.418] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 10:10:39.446] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 10:10:39.670] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 10:10:39.670] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3251 ms
+[2019-01-03 10:10:40.930] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 10:10:41.464] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 10:10:41.825] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 10:10:41.853] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 10:10:41.917] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 10:10:41.925] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 6.425 seconds (JVM running for 7.855)
+[2019-01-03 10:10:48.069] INFO [http-nio-8080-exec-1] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-01-03 10:10:48.070] INFO [http-nio-8080-exec-1] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-01-03 10:10:48.088] INFO [http-nio-8080-exec-1] FrameworkServlet.java:546 - Completed initialization in 18 ms
+[2019-01-03 10:11:58.865] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 41536 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 10:11:58.871] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 10:12:00.326] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 10:12:00.332] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 10:12:00.433] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 69ms. Found 0 repository interfaces.
+[2019-01-03 10:12:01.909] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 10:12:01.942] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 10:12:01.953] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 10:12:01.977] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 10:12:02.111] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 10:12:02.113] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 10:12:02.148] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 10:12:02.407] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 10:12:02.407] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3434 ms
+[2019-01-03 10:12:03.776] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 10:12:04.377] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 10:12:04.732] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 10:12:04.758] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 10:12:04.780] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 10:12:04.788] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 6.636 seconds (JVM running for 7.998)
+[2019-01-03 10:12:09.406] INFO [https-jsse-nio-443-exec-7] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-01-03 10:12:09.406] INFO [https-jsse-nio-443-exec-7] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-01-03 10:12:09.423] INFO [https-jsse-nio-443-exec-7] FrameworkServlet.java:546 - Completed initialization in 16 ms
+[2019-01-03 10:13:18.784] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 39096 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 10:13:18.793] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 10:13:20.211] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 10:13:20.217] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 10:13:20.322] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 76ms. Found 0 repository interfaces.
+[2019-01-03 10:13:21.673] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 10:13:21.700] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 10:13:21.708] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 10:13:21.856] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 10:13:21.861] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 10:13:21.862] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 10:13:21.887] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 10:13:22.109] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 10:13:22.109] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3228 ms
+[2019-01-03 10:13:23.372] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 10:13:23.976] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 10:13:24.275] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 10:13:24.303] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 10:13:24.336] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 10:13:24.343] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 6.376 seconds (JVM running for 7.911)
+[2019-01-03 10:13:49.510] INFO [https-jsse-nio-443-exec-4] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-01-03 10:13:49.510] INFO [https-jsse-nio-443-exec-4] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-01-03 10:13:49.521] INFO [https-jsse-nio-443-exec-4] FrameworkServlet.java:546 - Completed initialization in 11 ms
+[2019-01-03 10:19:10.007] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 46596 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 10:19:10.012] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 10:19:16.483] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 42660 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 10:19:16.493] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 10:19:17.926] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 10:19:17.936] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 10:19:18.062] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 87ms. Found 0 repository interfaces.
+[2019-01-03 10:19:19.435] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 10:19:19.459] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 10:19:19.467] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 10:19:19.615] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 10:19:19.621] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 10:19:19.621] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 10:19:19.646] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 10:19:19.860] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 10:19:19.860] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3271 ms
+[2019-01-03 10:19:21.031] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 10:19:21.549] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 10:19:21.867] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 10:19:21.890] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 10:19:21.906] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 10:19:21.911] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 6.226 seconds (JVM running for 7.549)
+[2019-01-03 10:19:43.576] INFO [https-jsse-nio-443-exec-8] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-01-03 10:19:43.576] INFO [https-jsse-nio-443-exec-8] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-01-03 10:19:43.589] INFO [https-jsse-nio-443-exec-8] FrameworkServlet.java:546 - Completed initialization in 12 ms
+[2019-01-03 10:24:05.377] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 42844 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 10:24:05.386] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 10:24:06.951] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 10:24:06.961] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 10:24:07.067] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 73ms. Found 0 repository interfaces.
+[2019-01-03 10:24:08.380] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 10:24:08.407] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 10:24:08.416] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 10:24:08.436] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 10:24:08.596] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 10:24:08.596] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 10:24:08.629] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 10:24:08.901] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 10:24:08.902] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3405 ms
+[2019-01-03 10:24:10.083] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 10:24:10.691] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 10:24:11.000] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 10:24:11.024] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 10:24:11.040] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 10:24:11.046] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 6.558 seconds (JVM running for 8.18)
+[2019-01-03 10:24:21.670] INFO [https-jsse-nio-443-exec-7] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-01-03 10:24:21.670] INFO [https-jsse-nio-443-exec-7] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-01-03 10:24:21.685] INFO [https-jsse-nio-443-exec-7] FrameworkServlet.java:546 - Completed initialization in 15 ms
+[2019-01-03 10:26:33.631] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 44564 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 10:26:33.641] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 10:26:35.063] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 10:26:35.070] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 10:26:35.163] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 63ms. Found 0 repository interfaces.
+[2019-01-03 10:26:36.465] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 10:26:36.497] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 10:26:36.507] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 10:26:36.528] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 10:26:36.635] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 10:26:36.636] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 10:26:36.661] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 10:26:36.877] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 10:26:36.878] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3147 ms
+[2019-01-03 10:26:38.126] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 10:26:38.701] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 10:26:39.026] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 10:26:39.051] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 10:26:39.084] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 10:26:39.090] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 6.221 seconds (JVM running for 7.591)
+[2019-01-03 10:26:44.989] INFO [https-jsse-nio-443-exec-7] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-01-03 10:26:44.989] INFO [https-jsse-nio-443-exec-7] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-01-03 10:26:45.006] INFO [https-jsse-nio-443-exec-7] FrameworkServlet.java:546 - Completed initialization in 15 ms
+[2019-01-03 10:29:53.669] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 47584 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 10:29:53.677] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 10:29:55.047] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 10:29:55.053] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 10:29:55.151] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 69ms. Found 0 repository interfaces.
+[2019-01-03 10:29:56.457] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 10:29:56.486] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 10:29:56.495] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 10:29:56.626] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 10:29:56.632] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 10:29:56.633] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 10:29:56.658] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 10:29:56.875] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 10:29:56.875] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3085 ms
+[2019-01-03 10:29:58.144] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 10:29:58.702] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 10:29:59.024] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 10:29:59.048] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 10:29:59.069] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 10:29:59.075] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 6.145 seconds (JVM running for 7.426)
+[2019-01-03 10:30:15.587] INFO [https-jsse-nio-443-exec-9] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-01-03 10:30:15.587] INFO [https-jsse-nio-443-exec-9] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-01-03 10:30:15.603] INFO [https-jsse-nio-443-exec-9] FrameworkServlet.java:546 - Completed initialization in 15 ms
+[2019-01-03 10:42:46.119] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 44984 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 10:42:46.130] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 10:42:47.686] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 10:42:47.692] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 10:42:47.787] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 65ms. Found 0 repository interfaces.
+[2019-01-03 10:42:49.221] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 10:42:49.252] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 10:42:49.261] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 10:42:49.389] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 10:42:49.398] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 10:42:49.398] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 10:42:49.420] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 10:42:49.679] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 10:42:49.680] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3443 ms
+[2019-01-03 10:42:50.943] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 10:42:51.516] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 10:42:51.867] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 10:42:51.894] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 10:42:51.920] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 10:42:51.933] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 6.608 seconds (JVM running for 7.943)
+[2019-01-03 10:42:59.957] INFO [https-jsse-nio-443-exec-6] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-01-03 10:42:59.958] INFO [https-jsse-nio-443-exec-6] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-01-03 10:42:59.974] INFO [https-jsse-nio-443-exec-6] FrameworkServlet.java:546 - Completed initialization in 16 ms
+[2019-01-03 11:20:38.141] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 19956 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 11:20:38.150] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 11:20:39.694] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 11:20:39.701] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 11:20:39.810] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 81ms. Found 0 repository interfaces.
+[2019-01-03 11:20:41.106] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 11:20:41.135] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 11:20:41.146] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 11:20:41.171] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 11:20:41.292] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 11:20:41.293] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 11:20:41.317] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 11:20:41.552] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 11:20:41.552] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3323 ms
+[2019-01-03 11:20:42.695] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 11:20:43.269] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 11:20:43.272] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 11:20:43.273] INFO [main] DirectJDKLog.java:173 - Stopping ProtocolHandler ["http-nio-8080"]
+[2019-01-03 11:20:43.274] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 11:20:43.275] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 11:20:43.287] INFO [main] DirectJDKLog.java:173 - Pausing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 11:20:43.287] INFO [main] DirectJDKLog.java:173 - Pausing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 11:20:43.287] INFO [main] DirectJDKLog.java:173 - Stopping service [Tomcat]
+[2019-01-03 11:20:43.303] INFO [main] DirectJDKLog.java:173 - The stop() method was called on component [StandardServer[-1]] after stop() had already been called. The second call will be ignored.
+[2019-01-03 11:20:43.303] INFO [main] DirectJDKLog.java:173 - Stopping ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 11:20:43.304] INFO [main] DirectJDKLog.java:173 - Destroying ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 11:20:43.304] INFO [main] DirectJDKLog.java:173 - Stopping ProtocolHandler ["http-nio-8080"]
+[2019-01-03 11:20:43.305] INFO [main] DirectJDKLog.java:173 - Destroying ProtocolHandler ["http-nio-8080"]
+[2019-01-03 11:20:43.310] INFO [main] ConditionEvaluationReportLoggingListener.java:142 - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+[2019-01-03 11:20:43.320] INFO [main] ExecutorConfigurationSupport.java:208 - Shutting down ExecutorService 'applicationTaskExecutor'
+[2019-01-03 11:23:16.753] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 28280 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 11:23:16.763] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 11:23:18.146] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 11:23:18.152] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 11:23:18.219] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 42ms. Found 0 repository interfaces.
+[2019-01-03 11:23:19.497] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 11:23:19.521] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 11:23:19.530] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 11:23:19.678] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 11:23:19.683] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 11:23:19.683] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 11:23:19.702] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 11:23:19.906] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 11:23:19.906] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3053 ms
+[2019-01-03 11:23:21.032] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 11:23:21.535] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 11:23:21.857] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 11:23:21.878] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 11:23:21.895] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 11:23:21.902] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 5.924 seconds (JVM running for 7.198)
+[2019-01-03 11:23:25.674] INFO [https-jsse-nio-443-exec-7] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-01-03 11:23:25.674] INFO [https-jsse-nio-443-exec-7] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-01-03 11:23:25.687] INFO [https-jsse-nio-443-exec-7] FrameworkServlet.java:546 - Completed initialization in 13 ms
+[2019-01-03 11:27:05.276] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 26344 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 11:27:05.287] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 11:27:06.696] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 11:27:06.704] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 11:27:06.798] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 52ms. Found 0 repository interfaces.
+[2019-01-03 11:27:08.340] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 11:27:08.365] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 11:27:08.373] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 11:27:08.498] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 11:27:08.503] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 11:27:08.504] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 11:27:08.527] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 11:27:08.813] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 11:27:08.813] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3413 ms
+[2019-01-03 11:27:10.032] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 11:27:10.599] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 11:27:10.910] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 11:27:10.935] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 11:27:10.951] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 11:27:10.956] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 6.504 seconds (JVM running for 8.015)
+[2019-01-03 11:27:14.517] INFO [https-jsse-nio-443-exec-7] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-01-03 11:27:14.517] INFO [https-jsse-nio-443-exec-7] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-01-03 11:27:14.531] INFO [https-jsse-nio-443-exec-7] FrameworkServlet.java:546 - Completed initialization in 14 ms
+[2019-01-03 11:31:07.921] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 20460 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 11:31:07.927] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 11:31:09.397] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 11:31:09.406] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 11:31:09.504] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 60ms. Found 0 repository interfaces.
+[2019-01-03 11:31:10.783] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 11:31:10.805] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 11:31:10.814] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 11:31:10.945] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 11:31:10.950] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 11:31:10.951] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 11:31:10.969] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 11:31:11.189] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 11:31:11.190] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3174 ms
+[2019-01-03 11:31:12.381] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 11:31:12.944] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 11:31:13.230] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 11:31:13.281] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 11:31:13.313] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 11:31:13.322] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 6.155 seconds (JVM running for 7.498)
+[2019-01-03 11:31:16.178] INFO [https-jsse-nio-443-exec-10] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-01-03 11:31:16.179] INFO [https-jsse-nio-443-exec-10] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-01-03 11:31:16.189] INFO [https-jsse-nio-443-exec-10] FrameworkServlet.java:546 - Completed initialization in 10 ms
+[2019-01-03 11:36:52.614] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 32188 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 11:36:52.623] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 11:36:54.078] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 11:36:54.084] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 11:36:54.179] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 64ms. Found 0 repository interfaces.
+[2019-01-03 11:36:55.490] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 11:36:55.513] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 11:36:55.521] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 11:36:55.657] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 11:36:55.662] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 11:36:55.662] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 11:36:55.686] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 11:36:55.908] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 11:36:55.909] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3178 ms
+[2019-01-03 11:36:57.088] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 11:36:57.605] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 11:36:57.959] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 11:36:57.981] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 11:36:58.004] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 11:36:58.014] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 6.151 seconds (JVM running for 7.538)
+[2019-01-03 11:37:37.437] INFO [https-jsse-nio-443-exec-3] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-01-03 11:37:37.438] INFO [https-jsse-nio-443-exec-3] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-01-03 11:37:37.455] INFO [https-jsse-nio-443-exec-3] FrameworkServlet.java:546 - Completed initialization in 17 ms
+[2019-01-03 13:52:03.681] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 38156 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 13:52:03.694] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 13:52:05.411] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 13:52:05.421] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 13:52:05.547] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 89ms. Found 0 repository interfaces.
+[2019-01-03 13:52:06.994] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 13:52:07.025] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 13:52:07.035] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 13:52:07.158] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 13:52:07.163] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 13:52:07.164] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 13:52:07.189] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 13:52:07.403] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 13:52:07.403] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3580 ms
+[2019-01-03 13:52:08.603] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 13:52:09.164] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 13:52:09.465] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 13:52:09.488] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 13:52:09.507] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 13:52:09.512] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 6.804 seconds (JVM running for 8.247)
+[2019-01-03 13:52:23.870] INFO [https-jsse-nio-443-exec-9] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-01-03 13:52:23.870] INFO [https-jsse-nio-443-exec-9] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-01-03 13:52:23.884] INFO [https-jsse-nio-443-exec-9] FrameworkServlet.java:546 - Completed initialization in 13 ms
+[2019-01-03 14:01:04.966] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 43496 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 14:01:04.975] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 14:01:06.527] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 14:01:06.532] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 14:01:06.635] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 71ms. Found 0 repository interfaces.
+[2019-01-03 14:01:08.089] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 14:01:08.114] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 14:01:08.122] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 14:01:08.301] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 14:01:08.308] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 14:01:08.309] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 14:01:08.331] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 14:01:08.562] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 14:01:08.563] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3505 ms
+[2019-01-03 14:01:09.750] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 14:01:10.332] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 14:01:10.335] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 14:01:10.337] INFO [main] DirectJDKLog.java:173 - Stopping ProtocolHandler ["http-nio-8080"]
+[2019-01-03 14:01:10.338] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 14:01:10.340] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 14:01:10.353] INFO [main] DirectJDKLog.java:173 - Pausing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 14:01:10.353] INFO [main] DirectJDKLog.java:173 - Pausing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 14:01:10.354] INFO [main] DirectJDKLog.java:173 - Stopping service [Tomcat]
+[2019-01-03 14:01:10.396] INFO [main] DirectJDKLog.java:173 - The stop() method was called on component [StandardServer[-1]] after stop() had already been called. The second call will be ignored.
+[2019-01-03 14:01:10.396] INFO [main] DirectJDKLog.java:173 - Stopping ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 14:01:10.396] INFO [main] DirectJDKLog.java:173 - Destroying ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 14:01:10.397] INFO [main] DirectJDKLog.java:173 - Stopping ProtocolHandler ["http-nio-8080"]
+[2019-01-03 14:01:10.397] INFO [main] DirectJDKLog.java:173 - Destroying ProtocolHandler ["http-nio-8080"]
+[2019-01-03 14:01:10.401] INFO [main] ConditionEvaluationReportLoggingListener.java:142 - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+[2019-01-03 14:01:10.416] INFO [main] ExecutorConfigurationSupport.java:208 - Shutting down ExecutorService 'applicationTaskExecutor'
+[2019-01-03 14:01:29.364] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 42188 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 14:01:29.405] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 14:01:30.785] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 14:01:30.791] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 14:01:30.869] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 48ms. Found 0 repository interfaces.
+[2019-01-03 14:01:32.204] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 14:01:32.227] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 14:01:32.235] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 14:01:32.339] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 14:01:32.344] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 14:01:32.345] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 14:01:32.366] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 14:01:32.569] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 14:01:32.569] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3074 ms
+[2019-01-03 14:01:33.801] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 14:01:34.391] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 14:01:34.713] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 14:01:34.740] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 14:01:34.760] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 14:01:34.768] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 6.159 seconds (JVM running for 7.425)
+[2019-01-03 14:03:02.970] INFO [https-jsse-nio-443-exec-9] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-01-03 14:03:02.971] INFO [https-jsse-nio-443-exec-9] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-01-03 14:03:02.986] INFO [https-jsse-nio-443-exec-9] FrameworkServlet.java:546 - Completed initialization in 15 ms
+[2019-01-03 14:10:36.761] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 39452 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 14:10:36.766] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 14:10:38.141] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 14:10:38.146] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 14:10:38.249] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 68ms. Found 0 repository interfaces.
+[2019-01-03 14:10:39.584] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 14:10:39.611] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 14:10:39.618] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 14:10:39.827] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 14:10:39.832] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 14:10:39.832] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 14:10:39.855] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 14:10:40.062] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 14:10:40.062] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3204 ms
+[2019-01-03 14:10:41.300] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 14:10:41.924] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 14:10:42.234] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 14:10:42.258] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 14:10:42.277] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 14:10:42.283] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 6.36 seconds (JVM running for 7.685)
+[2019-01-03 14:10:42.964] INFO [https-jsse-nio-443-exec-9] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-01-03 14:10:42.965] INFO [https-jsse-nio-443-exec-9] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-01-03 14:10:42.979] INFO [https-jsse-nio-443-exec-9] FrameworkServlet.java:546 - Completed initialization in 14 ms
+[2019-01-03 14:15:07.637] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 37368 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 14:15:07.648] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 14:15:08.965] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 14:15:08.973] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 14:15:09.076] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 71ms. Found 0 repository interfaces.
+[2019-01-03 14:15:10.381] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 14:15:10.411] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 14:15:10.420] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 14:15:10.541] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 14:15:10.546] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 14:15:10.547] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 14:15:10.570] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 14:15:10.813] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 14:15:10.814] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3083 ms
+[2019-01-03 14:15:12.014] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 14:15:12.610] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 14:15:12.961] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 14:15:12.985] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 14:15:13.006] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 14:15:13.012] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 6.201 seconds (JVM running for 7.618)
+[2019-01-03 14:15:13.678] INFO [https-jsse-nio-443-exec-7] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-01-03 14:15:13.679] INFO [https-jsse-nio-443-exec-7] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-01-03 14:15:13.690] INFO [https-jsse-nio-443-exec-7] FrameworkServlet.java:546 - Completed initialization in 11 ms
+[2019-01-03 14:47:32.060] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 29468 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 14:47:32.071] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 14:47:33.538] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 14:47:33.546] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 14:47:33.638] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 62ms. Found 0 repository interfaces.
+[2019-01-03 14:47:35.051] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 14:47:35.090] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 14:47:35.100] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 14:47:35.233] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 14:47:35.237] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 14:47:35.237] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 14:47:35.267] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 14:47:35.525] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 14:47:35.525] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3349 ms
+[2019-01-03 14:47:36.706] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 14:47:37.277] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 14:47:37.591] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 14:47:37.619] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 14:47:37.642] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 14:47:37.653] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 6.428 seconds (JVM running for 7.892)
+[2019-01-03 14:47:58.015] INFO [https-jsse-nio-443-exec-9] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-01-03 14:47:58.015] INFO [https-jsse-nio-443-exec-9] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-01-03 14:47:58.031] INFO [https-jsse-nio-443-exec-9] FrameworkServlet.java:546 - Completed initialization in 16 ms
+[2019-01-03 14:54:21.685] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 32000 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 14:54:21.700] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 14:54:23.113] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 14:54:23.120] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 14:54:23.233] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 76ms. Found 0 repository interfaces.
+[2019-01-03 14:54:24.642] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 14:54:24.673] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 14:54:24.684] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 14:54:24.820] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 14:54:24.825] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 14:54:24.825] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 14:54:24.858] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 14:54:25.113] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 14:54:25.115] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3319 ms
+[2019-01-03 14:54:26.390] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 14:54:26.958] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 14:54:27.358] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 14:54:27.385] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 14:54:27.409] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 14:54:27.417] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 6.741 seconds (JVM running for 8.388)
+[2019-01-03 14:54:29.430] INFO [https-jsse-nio-443-exec-4] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-01-03 14:54:29.431] INFO [https-jsse-nio-443-exec-4] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-01-03 14:54:29.448] INFO [https-jsse-nio-443-exec-4] FrameworkServlet.java:546 - Completed initialization in 17 ms
+[2019-01-03 15:06:22.996] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 28844 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 15:06:23.005] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 15:06:24.561] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 15:06:24.568] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 15:06:24.693] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 90ms. Found 0 repository interfaces.
+[2019-01-03 15:06:26.050] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 15:06:26.076] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 15:06:26.085] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 15:06:26.211] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 15:06:26.215] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 15:06:26.215] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 15:06:26.236] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 15:06:26.488] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 15:06:26.489] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3382 ms
+[2019-01-03 15:06:27.636] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 15:06:28.211] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 15:06:28.539] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 15:06:28.593] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 15:06:28.614] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 15:06:28.621] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 6.433 seconds (JVM running for 7.864)
+[2019-01-03 15:06:29.806] INFO [https-jsse-nio-443-exec-5] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-01-03 15:06:29.806] INFO [https-jsse-nio-443-exec-5] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-01-03 15:06:29.819] INFO [https-jsse-nio-443-exec-5] FrameworkServlet.java:546 - Completed initialization in 13 ms
+[2019-01-03 15:11:11.988] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 43980 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 15:11:11.992] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 15:11:12.947] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 15:11:12.952] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 15:11:13.032] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 61ms. Found 0 repository interfaces.
+[2019-01-03 15:11:14.082] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 15:11:14.101] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 15:11:14.108] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 15:11:14.125] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 15:11:14.128] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 15:11:14.129] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 15:11:14.144] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 15:11:14.350] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 15:11:14.351] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 2283 ms
+[2019-01-03 15:11:21.636] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 42756 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 15:11:21.649] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 15:11:23.120] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 15:11:23.127] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 15:11:23.222] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 64ms. Found 0 repository interfaces.
+[2019-01-03 15:11:24.550] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 15:11:24.579] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 15:11:24.587] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 15:11:24.609] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 15:11:24.792] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 15:11:24.792] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 15:11:24.823] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 15:11:25.133] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 15:11:25.135] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3375 ms
+[2019-01-03 15:11:26.354] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 15:11:26.946] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 15:11:27.259] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 15:11:27.315] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 15:11:27.339] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 15:11:27.349] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 6.543 seconds (JVM running for 8.041)
+[2019-01-03 15:11:58.192] INFO [https-jsse-nio-443-exec-6] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-01-03 15:11:58.192] INFO [https-jsse-nio-443-exec-6] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-01-03 15:11:58.206] INFO [https-jsse-nio-443-exec-6] FrameworkServlet.java:546 - Completed initialization in 14 ms
+[2019-01-03 15:18:06.629] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 41416 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 15:18:06.636] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 15:18:08.143] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 15:18:08.149] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 15:18:08.257] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 75ms. Found 0 repository interfaces.
+[2019-01-03 15:18:09.599] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 15:18:09.634] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 15:18:09.645] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 15:18:09.800] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 15:18:09.806] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 15:18:09.807] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 15:18:09.833] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 15:18:10.080] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 15:18:10.081] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3358 ms
+[2019-01-03 15:18:11.282] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 15:18:11.879] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 15:18:12.163] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 15:18:12.187] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 15:18:12.202] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 15:18:12.207] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 6.329 seconds (JVM running for 7.858)
+[2019-01-03 15:18:13.019] INFO [https-jsse-nio-443-exec-9] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-01-03 15:18:13.019] INFO [https-jsse-nio-443-exec-9] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-01-03 15:18:13.034] INFO [https-jsse-nio-443-exec-9] FrameworkServlet.java:546 - Completed initialization in 15 ms
+[2019-01-03 15:21:55.571] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 39508 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 15:21:55.575] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 15:21:56.633] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 15:21:56.638] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 15:21:56.729] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 70ms. Found 0 repository interfaces.
+[2019-01-03 15:21:57.770] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 15:21:57.790] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 15:21:57.801] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 15:21:57.818] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 15:21:57.821] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 15:21:57.822] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 15:21:57.838] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 15:21:58.054] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 15:21:58.054] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 2408 ms
+[2019-01-03 15:21:58.963] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 15:21:59.358] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 15:21:59.718] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 15:21:59.736] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 15:21:59.754] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 15:21:59.760] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 4.74 seconds (JVM running for 5.505)
+[2019-01-03 15:22:03.626] INFO [https-jsse-nio-443-exec-6] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-01-03 15:22:03.626] INFO [https-jsse-nio-443-exec-6] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-01-03 15:22:03.636] INFO [https-jsse-nio-443-exec-6] FrameworkServlet.java:546 - Completed initialization in 10 ms
+[2019-01-03 15:23:18.959] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 41540 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 15:23:18.967] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 15:23:20.687] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 15:23:20.693] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 15:23:20.806] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 77ms. Found 0 repository interfaces.
+[2019-01-03 15:23:22.170] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 15:23:22.195] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 15:23:22.203] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 15:23:22.361] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 15:23:22.367] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 15:23:22.368] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 15:23:22.397] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 15:23:22.639] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 15:23:22.639] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3570 ms
+[2019-01-03 15:23:23.919] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 15:23:24.538] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 15:23:24.841] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 15:23:24.889] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 15:23:24.923] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 15:23:24.932] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 6.832 seconds (JVM running for 8.232)
+[2019-01-03 15:23:25.747] INFO [https-jsse-nio-443-exec-9] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-01-03 15:23:25.748] INFO [https-jsse-nio-443-exec-9] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-01-03 15:23:25.760] INFO [https-jsse-nio-443-exec-9] FrameworkServlet.java:546 - Completed initialization in 12 ms
+[2019-01-03 15:28:14.473] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 50732 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 15:28:14.481] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 15:28:15.895] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 15:28:15.902] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 15:28:16.036] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 91ms. Found 0 repository interfaces.
+[2019-01-03 15:28:17.418] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 15:28:17.446] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 15:28:17.458] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 15:28:17.630] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 15:28:17.635] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 15:28:17.635] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 15:28:17.658] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 15:28:17.889] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 15:28:17.889] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3307 ms
+[2019-01-03 15:28:19.194] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 15:28:19.841] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 15:28:19.844] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 15:28:19.845] INFO [main] DirectJDKLog.java:173 - Stopping ProtocolHandler ["http-nio-8080"]
+[2019-01-03 15:28:19.846] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 15:28:19.849] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 15:28:19.862] INFO [main] DirectJDKLog.java:173 - Pausing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 15:28:19.862] INFO [main] DirectJDKLog.java:173 - Pausing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 15:28:19.862] INFO [main] DirectJDKLog.java:173 - Stopping service [Tomcat]
+[2019-01-03 15:28:19.877] INFO [main] DirectJDKLog.java:173 - The stop() method was called on component [StandardServer[-1]] after stop() had already been called. The second call will be ignored.
+[2019-01-03 15:28:19.877] INFO [main] DirectJDKLog.java:173 - Stopping ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 15:28:19.877] INFO [main] DirectJDKLog.java:173 - Destroying ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 15:28:19.878] INFO [main] DirectJDKLog.java:173 - Stopping ProtocolHandler ["http-nio-8080"]
+[2019-01-03 15:28:19.878] INFO [main] DirectJDKLog.java:173 - Destroying ProtocolHandler ["http-nio-8080"]
+[2019-01-03 15:28:19.882] INFO [main] ConditionEvaluationReportLoggingListener.java:142 - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+[2019-01-03 15:28:19.890] INFO [main] ExecutorConfigurationSupport.java:208 - Shutting down ExecutorService 'applicationTaskExecutor'
+[2019-01-03 15:40:37.735] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 2756 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 15:40:37.764] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 15:40:39.201] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 15:40:39.207] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 15:40:39.305] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 69ms. Found 0 repository interfaces.
+[2019-01-03 15:40:40.682] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 15:40:40.710] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 15:40:40.722] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 15:40:40.742] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 15:40:40.853] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 15:40:40.854] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 15:40:40.881] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 15:40:41.105] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 15:40:41.105] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3247 ms
+[2019-01-03 15:40:42.303] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 15:40:42.845] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 15:40:43.166] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 15:40:43.227] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 15:40:43.248] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 15:40:43.257] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 6.342 seconds (JVM running for 7.719)
+[2019-01-03 15:40:51.139] INFO [https-jsse-nio-443-exec-8] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-01-03 15:40:51.141] INFO [https-jsse-nio-443-exec-8] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-01-03 15:40:51.159] INFO [https-jsse-nio-443-exec-8] FrameworkServlet.java:546 - Completed initialization in 18 ms
+[2019-01-03 15:46:52.287] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 13396 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 15:46:52.294] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 15:46:53.254] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 15:46:53.259] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 15:46:53.343] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 62ms. Found 0 repository interfaces.
+[2019-01-03 15:46:54.415] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 15:46:54.434] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 15:46:54.443] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 15:46:54.461] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 15:46:54.464] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 15:46:54.465] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 15:46:54.480] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 15:46:54.651] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 15:46:54.652] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 2290 ms
+[2019-01-03 15:46:55.627] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 15:46:56.001] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 15:46:56.329] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 15:46:56.348] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 15:46:56.366] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 15:46:56.371] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 4.598 seconds (JVM running for 5.427)
+[2019-01-03 15:47:02.287] INFO [https-jsse-nio-443-exec-7] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-01-03 15:47:02.288] INFO [https-jsse-nio-443-exec-7] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-01-03 15:47:02.298] INFO [https-jsse-nio-443-exec-7] FrameworkServlet.java:546 - Completed initialization in 10 ms
+[2019-01-03 15:49:47.719] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 36224 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 15:49:47.731] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 15:49:49.160] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 15:49:49.166] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 15:49:49.264] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 67ms. Found 0 repository interfaces.
+[2019-01-03 15:49:50.670] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 15:49:50.697] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 15:49:50.705] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 15:49:50.726] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 15:49:50.850] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 15:49:50.850] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 15:49:50.880] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 15:49:51.191] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 15:49:51.192] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3351 ms
+[2019-01-03 15:49:52.433] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 15:49:53.082] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 15:49:53.383] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 15:49:53.409] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 15:49:53.435] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 15:49:53.440] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 6.551 seconds (JVM running for 7.895)
+[2019-01-03 15:50:14.441] INFO [https-jsse-nio-443-exec-9] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-01-03 15:50:14.441] INFO [https-jsse-nio-443-exec-9] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-01-03 15:50:14.456] INFO [https-jsse-nio-443-exec-9] FrameworkServlet.java:546 - Completed initialization in 13 ms
+[2019-01-03 15:53:36.104] INFO [main] StartupInfoLogger.java:50 - Starting NbPlatformApplication on 10_163_100_16 with PID 8432 (C:\github\mygit\NbPlatform\target\classes started by Administrator in C:\github\mygit\NbPlatform)
+[2019-01-03 15:53:36.112] INFO [main] SpringApplication.java:675 - No active profile set, falling back to default profiles: default
+[2019-01-03 15:53:37.608] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-01-03 15:53:37.615] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-01-03 15:53:37.729] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 74ms. Found 0 repository interfaces.
+[2019-01-03 15:53:39.021] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 443 (https) 8080 (http)
+[2019-01-03 15:53:39.047] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 15:53:39.056] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-01-03 15:53:39.079] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 15:53:39.084] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-01-03 15:53:39.084] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-01-03 15:53:39.265] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_131/bin/server;C:/Program Files/Java/jre1.8.0_131/bin;C:/Program Files/Java/jre1.8.0_131/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\cygwinroot\usr\local\bin;C:\cygwinroot\bin;C:\cygwinroot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ldaptools;C:\Program Files\QCloud\Monitor\Barad;C:\Program Files\apache-maven-3.6.0\bin\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;;C:\Program Files\sts-bundle\sts-3.9.6.RELEASE;;.]
+[2019-01-03 15:53:39.500] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-01-03 15:53:39.500] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3291 ms
+[2019-01-03 15:53:40.737] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-01-03 15:53:41.313] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-443"]
+[2019-01-03 15:53:41.590] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-01-03 15:53:41.613] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-01-03 15:53:41.635] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 443 (https) 8080 (http) with context path ''
+[2019-01-03 15:53:41.642] INFO [main] StartupInfoLogger.java:59 - Started NbPlatformApplication in 6.279 seconds (JVM running for 7.592)
+[2019-01-03 15:53:50.096] INFO [https-jsse-nio-443-exec-8] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-01-03 15:53:50.096] INFO [https-jsse-nio-443-exec-8] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-01-03 15:53:50.107] INFO [https-jsse-nio-443-exec-8] FrameworkServlet.java:546 - Completed initialization in 11 ms

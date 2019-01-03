@@ -10,6 +10,9 @@ package com.nb.exception;
 
 import java.io.Serializable;
 
+import com.alibaba.fastjson.JSONObject;
+import com.nb.utils.ConverterUtils;
+
 /** 
 * @ClassName: ResultBean 
 * @Description: 返回结果类
@@ -76,6 +79,24 @@ public class ResultBean<T> implements Serializable{
 		super();
 		this.status = ErrorCodeEnum.SUCCESS.getStatus();
 		this.error = ErrorCodeEnum.SUCCESS.getError();
+	}
+	
+	/** 
+	* <p>Title: </p> 
+	* <p>Description: </p>  
+	*/
+	@SuppressWarnings("unchecked")
+	public ResultBean(String response) {
+		super();
+		JSONObject jsonObj = JSONObject.parseObject(response);
+		int errno = ConverterUtils.toInt(jsonObj.get("errno"));
+		this.status = errno == 0 ? 0 : -1;
+		this.error = ConverterUtils.toStr(jsonObj.get("error"));
+		
+		if (jsonObj.containsKey("data")) {
+			this.data = (T) jsonObj.get("data");
+		}
+		
 	}
 	
 	/** 

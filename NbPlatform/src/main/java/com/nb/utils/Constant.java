@@ -17,7 +17,7 @@ import java.io.File;
 public class Constant {
 
 	/** 中国移动平台地址 */
-	public static final String CHINA_MOBILE_BASE_URL = "";
+	public static final String CHINA_MOBILE_BASE_URL = "https://api.heclouds.com/";
 
 	/** 中国移动平台认证token */
 	public static final String CHINA_MOBILE_TOKEN = "kldq";
@@ -29,7 +29,7 @@ public class Constant {
 
 	// please replace the appId and secret, when you use the demo.
 	/** 中国移动平台APPID */
-	public static final String CHINA_MOBILE_APPID = "WKcUHaxTTLP=Pu07rtYYR5IXLac=";
+	public static final String CHINA_MOBILE_MASTERKEY = "WKcUHaxTTLP=Pu07rtYYR5IXLac=";
 	/** 中国移动平台SECRET */
 	public static final String CHINA_MOBILE_SECRET = "";
 

@@ -11,8 +11,10 @@ import java.util.Map;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
+import com.nb.http.IotHttpsUtil;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
+import com.nb.model.StreamClosedHttpResponse;
 
 /**
  * @ClassName: AuthenticationUtils

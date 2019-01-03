@@ -1,4 +1,4 @@
-package com.nb.utils;
+package com.nb.http;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -36,6 +36,10 @@ import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.springframework.util.ResourceUtils;
+
+import com.nb.model.StreamClosedHttpResponse;
+import com.nb.utils.Constant;
+import com.nb.utils.StreamUtil;
 
 @SuppressWarnings("deprecation")
 public class IotHttpsUtil extends DefaultHttpClient {

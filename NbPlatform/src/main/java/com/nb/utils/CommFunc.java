@@ -10,6 +10,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.security.MessageDigest;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.imageio.stream.FileImageInputStream;
 import javax.imageio.stream.FileImageOutputStream;
@@ -229,5 +231,12 @@ public class CommFunc {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public static Map<String, String> getChinaMobileHeader() {
+		Map<String, String> header = new HashMap<String, String>(2);
+		header.put("api-key", Constant.CHINA_MOBILE_MASTERKEY);
+		header.put("Content-Type", "application/json");
+		return header;
 	}
 }

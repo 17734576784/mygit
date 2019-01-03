@@ -20,6 +20,7 @@ import static com.nb.utils.BytesUtils.getBytesReserve;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.nb.http.IotHttpsUtil;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
 
