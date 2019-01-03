@@ -374,7 +374,9 @@ public class HttpsClientUtil {
 	public HttpResponse doGetWithParas(String url, Map<String, String> queryParams, Map<String, String> headerMap)
 			throws Exception {
 		HttpGet request = new HttpGet();
-		addRequestHeader(request, headerMap);
+		if (headerMap != null) {
+			addRequestHeader(request, headerMap);
+		}
 
 		URIBuilder builder;
 		try {
