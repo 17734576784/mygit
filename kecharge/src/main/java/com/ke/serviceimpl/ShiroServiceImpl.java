@@ -8,6 +8,7 @@
 */
 package com.ke.serviceimpl;
 
+import java.security.MessageDigest;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -22,12 +23,15 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.ke.common.CommFunc;
 import com.ke.common.Constant;
 import com.ke.logger.LogName;
 import com.ke.logger.LoggerUtil;
 import com.ke.mapper.ShiroMapper;
 import com.ke.model.LoginUser;
 import com.ke.service.IShiroService;
+import com.ke.utils.BytesUtil;
+import com.ke.utils.GenerateToken;
 import com.ke.utils.JedisUtil;
 import com.ke.utils.SerializeUtil;
 
@@ -78,26 +82,33 @@ public class ShiroServiceImpl implements IShiroService {
 	* @see com.ke.service.IShiroService#doLogin(java.lang.String, java.lang.String) 
 	*/
 	@Override
-	public JSONObject doLogin(String username, String password) {
+	public JSONObject doLogin(String queryJsonStr) {
+		
+		JSONObject param = JSONObject.parseObject(queryJsonStr);
+		String userName = param.getString("userName");
+		String passWord = param.getString("passWord");
+		
 		JSONObject rtnJson = new JSONObject();
 		Subject currentUser = SecurityUtils.getSubject();
 		if (!currentUser.isAuthenticated()) {
-			UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+			UsernamePasswordToken token = new UsernamePasswordToken(userName, passWord);
 			token.setRememberMe(true);// 是否记住用户
 			try {
 				currentUser.login(token);// 执行登录
 				
-				rtnJson.put("token", "123456789");
-				rtnJson.put("username", username);
-				rtnJson.put("password", password);
-				List<String> perms = getPermissionByUserName(username);
+				String userToken = GenerateToken.generageToken(userName + System.currentTimeMillis());
+				rtnJson = CommFunc.errorInfo(Constant.SUCCESS, "");
+				rtnJson.put("token", userToken);
 
+				List<String> perms = getPermissionByUserName(userName);
 				LoginUser loginUser = new LoginUser();
-				loginUser.setLoginName(username);
+				loginUser.setLoginName(userName);
 				loginUser.setPermList(perms);
-				byte[] key = (Constant.TOKEN_PREFIX + "123456789").getBytes();
+				
+				byte[] key = (Constant.TOKEN_PREFIX + userToken).getBytes();
 				JedisUtil.set(key, SerializeUtil.serialize(loginUser));
 				JedisUtil.expire(key, Constant.CACHE_TIME_OUT);
+				
 			} catch (UnknownAccountException uae) {
 				rtnJson.put(Constant.RESULT_CODE, Constant.REQUEST_BAD);
 				rtnJson.put(Constant.RESULT_DETAIL, "账户不存在");

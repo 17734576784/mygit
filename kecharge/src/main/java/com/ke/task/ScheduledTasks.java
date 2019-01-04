@@ -9,8 +9,6 @@
 package com.ke.task;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -18,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @ClassName: ScheduledTasks
- * @Description: TODO(这里用一句话描述这个类的作用)
+ * @Description: 定时任务类
  * @author dbr
  * @date 2018年12月21日 下午4:42:17
  * 

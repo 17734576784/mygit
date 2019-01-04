@@ -165,4 +165,17 @@ public class CommFunc {
 		System.arraycopy(bt2, 0, bt3, bt1.length, bt2.length);
 		return bt3;
 	}
+	
+	/**
+	 * 根据错误码将错误信息以json格式返回
+	 * @param errorCode
+	 * @return {@link JSONObject}
+	 * */
+	public static JSONObject errorInfo(int errorCode,String errorInfo) {
+		JSONObject json = new JSONObject();
+		json.put("status", errorCode);
+		json.put("error", errorInfo);
+		
+		return json;
+	}
 }

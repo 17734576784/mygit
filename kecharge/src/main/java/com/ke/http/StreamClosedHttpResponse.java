@@ -20,8 +20,6 @@ import org.apache.http.ProtocolVersion;
 import org.apache.http.StatusLine;
 import org.apache.http.params.HttpParams;
 
-import com.ke.utils.StreamUtil;
-
 @SuppressWarnings("deprecation")
 public class StreamClosedHttpResponse implements HttpResponse
 {

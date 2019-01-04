@@ -24,5 +24,5 @@ public interface IShiroService {
 
 	String getPasswordByUserName(String username);
 
-	JSONObject doLogin(String username, String password);
+	JSONObject doLogin(String queryJsonStr);
 }

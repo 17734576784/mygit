@@ -8,12 +8,14 @@
  *      criminal penalties, and will be prosecuted to the maximum extent
  *      possible under the law.
  */
-package com.ke.utils;
+package com.ke.http;
 
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+
+import com.ke.utils.StringUtil;
 
 
 public class StreamUtil
