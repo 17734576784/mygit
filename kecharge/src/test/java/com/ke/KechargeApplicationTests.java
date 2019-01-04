@@ -7,8 +7,6 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.ke.mapper.PileparaMapper;
-import com.ke.model.PileparaKey;
 import com.ke.service.IShiroService;
 import com.ke.utils.JedisUtil;
 
