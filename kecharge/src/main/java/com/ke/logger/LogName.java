@@ -6,7 +6,7 @@
 * @date 2018年11月3日 下午1:32:35 
 * @version V1.0   
 */
-package com.ke.model;
+package com.ke.logger;
 
 /**
  * @ClassName: LogFileName
@@ -15,13 +15,13 @@ package com.ke.model;
  * @date 2018年11月3日 下午1:32:35
  * 
  */
-public enum LogEnum {
+public enum LogName {
 	// 配置到logback.xml中的logger name="CALLBACK"
 	CHARGE("CHARGE"), INFO("INFO"), ERROR("ERROR");
 
 	private String logFileName;
 
-	LogEnum(String fileName) {
+	LogName(String fileName) {
 		this.logFileName = fileName;
 	}
 
@@ -33,9 +33,9 @@ public enum LogEnum {
 		this.logFileName = logFileName;
 	}
 
-	public static LogEnum getAwardTypeEnum(String value) {
-		LogEnum[] arr = values();
-		for (LogEnum item : arr) {
+	public static LogName getAwardTypeEnum(String value) {
+		LogName[] arr = values();
+		for (LogName item : arr) {
 			if (null != item && item.logFileName.isEmpty()) {
 				return item;
 			}

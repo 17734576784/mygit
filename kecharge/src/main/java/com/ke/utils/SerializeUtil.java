@@ -13,7 +13,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import com.ke.model.LogEnum;
+
+import com.ke.logger.LogName;
+import com.ke.logger.LoggerUtil;
 
 /**
  * @ClassName: ObjectTranscoder
@@ -32,7 +34,7 @@ public class SerializeUtil {
 	
 	public static byte[] serialize(Object value) {
 		if (value == null) {
-			LoggerUtil.Logger(LogEnum.ERROR).error("不能序列化NULL");
+			LoggerUtil.Logger(LogName.ERROR).error("不能序列化NULL");
 			throw new NullPointerException("不能序列化NULL");
 		}
 		byte[] rv = null;
@@ -46,7 +48,7 @@ public class SerializeUtil {
 			bos.close();
 			rv = bos.toByteArray();
 		} catch (IOException e) {
-			LoggerUtil.Logger(LogEnum.ERROR).error("不能序列化对象", e);
+			LoggerUtil.Logger(LogName.ERROR).error("不能序列化对象", e);
 			throw new IllegalArgumentException("不能序列化对象", e);
 		} finally {
 			try {
@@ -77,7 +79,7 @@ public class SerializeUtil {
 				bis.close();
 			}
 		} catch (Exception e) {
-			LoggerUtil.Logger(LogEnum.ERROR).error("反序列化异常", e);
+			LoggerUtil.Logger(LogName.ERROR).error("反序列化异常", e);
 			e.printStackTrace();
 		} finally {
 			try {

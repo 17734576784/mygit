@@ -23,12 +23,12 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ke.common.Constant;
+import com.ke.logger.LogName;
+import com.ke.logger.LoggerUtil;
 import com.ke.mapper.ShiroMapper;
-import com.ke.model.LogEnum;
 import com.ke.model.LoginUser;
 import com.ke.service.IShiroService;
 import com.ke.utils.JedisUtil;
-import com.ke.utils.LoggerUtil;
 import com.ke.utils.SerializeUtil;
 
 /** 
@@ -113,7 +113,7 @@ public class ShiroServiceImpl implements IShiroService {
 				rtnJson.put(Constant.RESULT_DETAIL, "未知错误");
 			} catch (Exception e) {
 				e.printStackTrace();
-				LoggerUtil.Logger(LogEnum.ERROR).error("登录异常" + e.getMessage());
+				LoggerUtil.Logger(LogName.ERROR).error("登录异常" + e.getMessage());
 				rtnJson.put(Constant.RESULT_CODE, Constant.REQUEST_BAD);
 				rtnJson.put(Constant.RESULT_DETAIL, "请求错误");
 			}

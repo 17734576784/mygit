@@ -6,11 +6,9 @@
 * @date 2018年11月2日 上午10:24:57 
 * @version V1.0   
 */
-package com.ke.utils;
+package com.ke.logger;
 
 import org.slf4j.LoggerFactory;
-
-import com.ke.model.LogEnum;
 
 /** 
 * @ClassName: LoggerUtils 
@@ -30,7 +28,7 @@ public class LoggerUtil {
 	     * @param desc 日志文件名称
 	     * @return
 	     */
-	    public static org.slf4j.Logger Logger(LogEnum logEnum) {
-	        return LoggerFactory.getLogger(logEnum.getLogFileName());
+	    public static org.slf4j.Logger Logger(LogName logName) {
+	        return LoggerFactory.getLogger(logName.getLogFileName());
 	    }
 }

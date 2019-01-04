@@ -34,6 +34,7 @@ import redis.clients.jedis.ScanResult;
  * @date 2018年1月24日 上午11:46:08
  * 
  */
+@SuppressWarnings("deprecation")
 @Component
 public class JedisUtil {
 
