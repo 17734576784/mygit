@@ -17,9 +17,10 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.UnknownSessionException;
 import org.apache.shiro.session.mgt.eis.AbstractSessionDAO;
-import com.ke.utils.Constant;
-import com.ke.utils.JedisUtils;
-import com.ke.utils.SerializeUtils;
+
+import com.ke.common.Constant;
+import com.ke.utils.JedisUtil;
+import com.ke.utils.SerializeUtil;
 
 /** 
 * @ClassName: RedisSessionDao 
@@ -59,7 +60,7 @@ public class RedisSessionDao extends AbstractSessionDAO{
 			return;
 		}
 		byte[] key = getKey(session.getId().toString());
-		JedisUtils.del(key);
+		JedisUtil.del(key);
 	}
 
 	/** (非 Javadoc) 
@@ -70,14 +71,14 @@ public class RedisSessionDao extends AbstractSessionDAO{
 	*/
 	@Override
 	public Collection<Session> getActiveSessions() {
-		Set<byte[]> keys = JedisUtils.keys(Constant.SESSION_PREFIX + "*");
+		Set<byte[]> keys = JedisUtil.keys(Constant.SESSION_PREFIX + "*");
 		Set<Session> sessions = new HashSet<Session>();
 		if (CollectionUtils.isEmpty(keys)) {
 			return sessions;
 		}
 		
 		for (byte[] key : keys) {
-			Session session = (Session) SerializeUtils.deserialize(JedisUtils.get(key));
+			Session session = (Session) SerializeUtil.deserialize(JedisUtil.get(key));
 			sessions.add(session);
 		}
 		return sessions;
@@ -101,9 +102,9 @@ public class RedisSessionDao extends AbstractSessionDAO{
 	private void saveSession(Session session) {
 		if(session != null && session.getId() != null) {
 			byte[] key = getKey(session.getId().toString());
-			byte[] value = SerializeUtils.serialize(session);
-			JedisUtils.set(key, value);
-			JedisUtils.expire(key, Constant.SESSION_TIME_OUT);
+			byte[] value = SerializeUtil.serialize(session);
+			JedisUtil.set(key, value);
+			JedisUtil.expire(key, Constant.SESSION_TIME_OUT);
 		}
 	}
 
@@ -122,8 +123,8 @@ public class RedisSessionDao extends AbstractSessionDAO{
 		
 		System.out.println("read session");
 		byte[] key = getKey(sessionId.toString());
-		byte[] value = JedisUtils.get(key);
-		return (Session) SerializeUtils.deserialize(value);
+		byte[] value = JedisUtil.get(key);
+		return (Session) SerializeUtil.deserialize(value);
 	}
 
 }

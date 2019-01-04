@@ -21,18 +21,18 @@ import com.ke.model.LogEnum;
  * @author dbr
  * @date 2018年1月24日 下午1:32:44
  */
-public class SerializeUtils {
+public class SerializeUtil {
 
 	/**
 	 * 通过私有构造器强化不可实例化的能力
 	 */
-	private SerializeUtils() {
+	private SerializeUtil() {
 		throw new AssertionError();
 	}
 	
 	public static byte[] serialize(Object value) {
 		if (value == null) {
-			LoggerUtils.Logger(LogEnum.ERROR).error("不能序列化NULL");
+			LoggerUtil.Logger(LogEnum.ERROR).error("不能序列化NULL");
 			throw new NullPointerException("不能序列化NULL");
 		}
 		byte[] rv = null;
@@ -46,7 +46,7 @@ public class SerializeUtils {
 			bos.close();
 			rv = bos.toByteArray();
 		} catch (IOException e) {
-			LoggerUtils.Logger(LogEnum.ERROR).error("不能序列化对象", e);
+			LoggerUtil.Logger(LogEnum.ERROR).error("不能序列化对象", e);
 			throw new IllegalArgumentException("不能序列化对象", e);
 		} finally {
 			try {
@@ -77,7 +77,7 @@ public class SerializeUtils {
 				bis.close();
 			}
 		} catch (Exception e) {
-			LoggerUtils.Logger(LogEnum.ERROR).error("反序列化异常", e);
+			LoggerUtil.Logger(LogEnum.ERROR).error("反序列化异常", e);
 			e.printStackTrace();
 		} finally {
 			try {

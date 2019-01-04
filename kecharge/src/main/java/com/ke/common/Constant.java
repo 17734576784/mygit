@@ -6,7 +6,7 @@
 * @date 2018年12月21日 上午10:14:07 
 * @version V1.0   
 */
-package com.ke.utils;
+package com.ke.common;
 
 /** 
 * @ClassName: Constant 
@@ -17,6 +17,15 @@ package com.ke.utils;
 */
 public class Constant {
 
+	public static String SELFCERTPATH = "";
+	
+	public static String TRUSTCAPATH = "";
+	
+	public static String SELFCERTPWD = "";
+	
+	public static String TRUSTCAPWD = "";
+
+	
 	/**cache redis前缀*/
 	public static String CACHE_PREFIX ="cache:";
 	

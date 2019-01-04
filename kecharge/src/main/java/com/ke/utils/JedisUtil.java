@@ -35,7 +35,7 @@ import redis.clients.jedis.ScanResult;
  * 
  */
 @Component
-public class JedisUtils {
+public class JedisUtil {
 
 	/** 
      * 成功,"OK" 
@@ -61,7 +61,7 @@ public class JedisUtils {
 	@Autowired
 	public JedisPool jedisPool;
 	
-	public static JedisUtils jedisUtils;
+	public static JedisUtil jedisUtils;
 
 	@PostConstruct
 	private void init() {
@@ -775,7 +775,7 @@ public class JedisUtils {
 		Long length = 0L;
 		try {
 			jedis = getResource();
-			length = jedis.lpush(key.getBytes(), SerializeUtils.serialize(value));
+			length = jedis.lpush(key.getBytes(), SerializeUtil.serialize(value));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -816,7 +816,7 @@ public class JedisUtils {
 		Long size = 0L;
 		try {
 			jedis = getResource();
-			size = jedis.lpush(key.getBytes(), SerializeUtils.serialize(values));
+			size = jedis.lpush(key.getBytes(), SerializeUtil.serialize(values));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -841,7 +841,7 @@ public class JedisUtils {
 			jedis = getResource();
 			List<byte[]> value = jedis.lrange(key.getBytes(), start, end);
 			for (byte[] bs : value) {
-				list.add(SerializeUtils.deserialize(bs));
+				list.add(SerializeUtil.deserialize(bs));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -864,7 +864,7 @@ public class JedisUtils {
 		try {
 			jedis = getResource();
 			byte[] value = jedis.lindex(key.getBytes(), index);
-			object = SerializeUtils.deserialize(value);
+			object = SerializeUtil.deserialize(value);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -905,7 +905,7 @@ public class JedisUtils {
 		Long length = 0L;
 		try {
 			jedis = getResource();
-			length = jedis.linsert(key.getBytes(), where, pivot.getBytes(), SerializeUtils.serialize(value));
+			length = jedis.linsert(key.getBytes(), where, pivot.getBytes(), SerializeUtil.serialize(value));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -925,7 +925,7 @@ public class JedisUtils {
 		Long length = 0L;
 		try {
 			jedis = getResource();
-			length = jedis.lpushx(key.getBytes(), SerializeUtils.serialize(value));
+			length = jedis.lpushx(key.getBytes(), SerializeUtil.serialize(value));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -945,7 +945,7 @@ public class JedisUtils {
 		Long length = 0L;
 		try {
 			jedis = getResource();
-			length = jedis.lpushx(key.getBytes(), SerializeUtils.serialize(values));
+			length = jedis.lpushx(key.getBytes(), SerializeUtil.serialize(values));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -969,7 +969,7 @@ public class JedisUtils {
 		Long length = 0L;
 		try {
 			jedis = getResource();
-			length = jedis.lrem(key.getBytes(), count, SerializeUtils.serialize(value));
+			length = jedis.lrem(key.getBytes(), count, SerializeUtil.serialize(value));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -990,7 +990,7 @@ public class JedisUtils {
 		String statusCode = "";
 		try {
 			jedis = getResource();
-			statusCode = jedis.lset(key.getBytes(), index, SerializeUtils.serialize(value));
+			statusCode = jedis.lset(key.getBytes(), index, SerializeUtil.serialize(value));
 			if (SUCCESS_OK.equalsIgnoreCase(statusCode)) {
 				return true;
 			}
@@ -1041,7 +1041,7 @@ public class JedisUtils {
 		try {
 			jedis = getResource();
 			byte[] tempValue= jedis.lpop(key.getBytes());
-			value = SerializeUtils.deserialize(tempValue);
+			value = SerializeUtil.deserialize(tempValue);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -1061,7 +1061,7 @@ public class JedisUtils {
 		try {
 			jedis = getResource();
 			byte[] tempValue= jedis.rpop(key.getBytes());
-			value = SerializeUtils.deserialize(tempValue);
+			value = SerializeUtil.deserialize(tempValue);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -1081,7 +1081,7 @@ public class JedisUtils {
 		Long length = 0L;
 		try {
 			jedis = getResource();
-			length = jedis.rpush(key.getBytes(),SerializeUtils.serialize(value));
+			length = jedis.rpush(key.getBytes(),SerializeUtil.serialize(value));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -1101,7 +1101,7 @@ public class JedisUtils {
 		Long length = 0L;
 		try {
 			jedis = getResource();
-			length = jedis.rpush(key.getBytes(), SerializeUtils.serialize(values));
+			length = jedis.rpush(key.getBytes(), SerializeUtil.serialize(values));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -1121,7 +1121,7 @@ public class JedisUtils {
 		Long length = 0L;
 		try {
 			jedis = getResource();
-			length = jedis.rpushx(key.getBytes(), SerializeUtils.serialize(value));
+			length = jedis.rpushx(key.getBytes(), SerializeUtil.serialize(value));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -1143,7 +1143,7 @@ public class JedisUtils {
 		try {
 			jedis = getResource();
 			byte[] tempValue= jedis.rpoplpush(sourceKey.getBytes(), targetKey.getBytes());
-			value = SerializeUtils.deserialize(tempValue);
+			value = SerializeUtil.deserialize(tempValue);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -1191,7 +1191,7 @@ public class JedisUtils {
 		try {
 			jedis = getResource();
 			byte[] tmpValue = jedis.brpoplpush(sourceKey.getBytes(), targetKey.getBytes(), timeout);
-			value = SerializeUtils.deserialize(tmpValue);
+			value = SerializeUtil.deserialize(tmpValue);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

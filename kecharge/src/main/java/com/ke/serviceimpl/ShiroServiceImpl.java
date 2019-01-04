@@ -22,14 +22,14 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.ke.common.Constant;
 import com.ke.mapper.ShiroMapper;
 import com.ke.model.LogEnum;
 import com.ke.model.LoginUser;
 import com.ke.service.IShiroService;
-import com.ke.utils.Constant;
-import com.ke.utils.JedisUtils;
-import com.ke.utils.LoggerUtils;
-import com.ke.utils.SerializeUtils;
+import com.ke.utils.JedisUtil;
+import com.ke.utils.LoggerUtil;
+import com.ke.utils.SerializeUtil;
 
 /** 
 * @ClassName: ShiroServiceImpl 
@@ -96,8 +96,8 @@ public class ShiroServiceImpl implements IShiroService {
 				loginUser.setLoginName(username);
 				loginUser.setPermList(perms);
 				byte[] key = (Constant.TOKEN_PREFIX + "123456789").getBytes();
-				JedisUtils.set(key, SerializeUtils.serialize(loginUser));
-				JedisUtils.expire(key, Constant.CACHE_TIME_OUT);
+				JedisUtil.set(key, SerializeUtil.serialize(loginUser));
+				JedisUtil.expire(key, Constant.CACHE_TIME_OUT);
 			} catch (UnknownAccountException uae) {
 				rtnJson.put(Constant.RESULT_CODE, Constant.REQUEST_BAD);
 				rtnJson.put(Constant.RESULT_DETAIL, "账户不存在");
@@ -113,7 +113,7 @@ public class ShiroServiceImpl implements IShiroService {
 				rtnJson.put(Constant.RESULT_DETAIL, "未知错误");
 			} catch (Exception e) {
 				e.printStackTrace();
-				LoggerUtils.Logger(LogEnum.ERROR).error("登录异常" + e.getMessage());
+				LoggerUtil.Logger(LogEnum.ERROR).error("登录异常" + e.getMessage());
 				rtnJson.put(Constant.RESULT_CODE, Constant.REQUEST_BAD);
 				rtnJson.put(Constant.RESULT_DETAIL, "请求错误");
 			}

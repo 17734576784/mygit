@@ -22,8 +22,8 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ke.model.LogEnum;
-import com.ke.utils.JedisUtils;
-import com.ke.utils.LoggerUtils;
+import com.ke.utils.JedisUtil;
+import com.ke.utils.LoggerUtil;
 
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -35,7 +35,7 @@ import redis.clients.jedis.JedisPoolConfig;
 * @date 2018年12月19日 上午10:17:25 
 */
 @Configuration
-@ConditionalOnClass(JedisUtils.class)
+@ConditionalOnClass(JedisUtil.class)
 public class RedisConfig {
 	@Value("${spring.redis.host}")
 	private String host;

@@ -15,9 +15,9 @@ import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
 import org.springframework.stereotype.Component;
 
-import com.ke.utils.Constant;
-import com.ke.utils.JedisUtils;
-import com.ke.utils.SerializeUtils;
+import com.ke.common.Constant;
+import com.ke.utils.JedisUtil;
+import com.ke.utils.SerializeUtil;
 
 /** 
 * @ClassName: RedisCache 
@@ -34,7 +34,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
 			String key = Constant.CACHE_PREFIX + k;
 	        return key.getBytes();
 	    }else {
-	        return SerializeUtils.serialize(k);
+	        return SerializeUtil.serialize(k);
 	    }
 	}
 	/** (非 Javadoc) 
@@ -62,9 +62,9 @@ public class RedisCache<K, V> implements Cache<K, V> {
 	public V get(K k) throws CacheException {
 		// TODO Auto-generated method stub
 		System.out.println("redis读取");
-		byte[] value = JedisUtils.get(getByteKey(k));
+		byte[] value = JedisUtil.get(getByteKey(k));
 		if (value != null) {
-			return (V) SerializeUtils.deserialize(value);
+			return (V) SerializeUtil.deserialize(value);
 		}
 		return null;
 	}
@@ -94,9 +94,9 @@ public class RedisCache<K, V> implements Cache<K, V> {
 	public V put(K k, V v) throws CacheException {
 		// TODO Auto-generated method stub
 		byte[] key = getByteKey(k);
-		byte[] value = SerializeUtils.serialize(v);
-		JedisUtils.set(key, value);
-		JedisUtils.expire(key, Constant.CACHE_TIME_OUT);
+		byte[] value = SerializeUtil.serialize(v);
+		JedisUtil.set(key, value);
+		JedisUtil.expire(key, Constant.CACHE_TIME_OUT);
 		return v;
 	}
 
@@ -113,10 +113,10 @@ public class RedisCache<K, V> implements Cache<K, V> {
 	public V remove(K k) throws CacheException {
 		// TODO Auto-generated method stub
 		byte[] key = getByteKey(k);
-		byte[] value = JedisUtils.get(key);
-		JedisUtils.del(key);
+		byte[] value = JedisUtil.get(key);
+		JedisUtil.del(key);
 		if(value != null) {
-			return (V) SerializeUtils.deserialize(value);
+			return (V) SerializeUtil.deserialize(value);
 		}
 		return null;
 	}

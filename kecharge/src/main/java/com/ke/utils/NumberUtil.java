@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 * @date 2018年4月21日 上午9:55:09 
 *  
 */
-public class NumberUtils {
+public class NumberUtil {
 	/**
 	 * 判断当前值是否为整数
 	 * @param value
@@ -57,7 +57,7 @@ public class NumberUtils {
 	 */
 	public static String formatNumber(Object value, Integer precision) {
 		Double number = 0.0;
-		if (NumberUtils.isDigit(value)) {
+		if (NumberUtil.isDigit(value)) {
 			number = new Double(value.toString());
 		}
 		precision = (precision == null || precision < 0) ? 2 : precision;
@@ -71,7 +71,7 @@ public class NumberUtils {
 	 * @return
 	 */
 	public static String formatNumber(Object value) {
-		return NumberUtils.formatNumber(value, 2);
+		return NumberUtil.formatNumber(value, 2);
 	}
 
 	/**
@@ -82,7 +82,7 @@ public class NumberUtils {
 	 * @return
 	 */
 	public static Integer parseInteger(Object value, Integer replace) {
-		if (!NumberUtils.isInteger(value)) {
+		if (!NumberUtil.isInteger(value)) {
 			return replace;
 		}
 		return new Integer(value.toString());
@@ -95,7 +95,7 @@ public class NumberUtils {
 	 * @return
 	 */
 	public static Integer parseInteger(Object value) {
-		return NumberUtils.parseInteger(value, 0);
+		return NumberUtil.parseInteger(value, 0);
 	}
 
 	/**
@@ -107,7 +107,7 @@ public class NumberUtils {
 	 * @return
 	 */
 	public static Long parseLong(Object value, Long replace) {
-		if (!NumberUtils.isInteger(value)) {
+		if (!NumberUtil.isInteger(value)) {
 			return replace;
 		}
 		return new Long(value.toString());
@@ -120,7 +120,7 @@ public class NumberUtils {
 	 * @return
 	 */
 	public static Long parseLong(Object value) {
-		return NumberUtils.parseLong(value, 0L);
+		return NumberUtil.parseLong(value, 0L);
 	}
 
 	/**
@@ -132,7 +132,7 @@ public class NumberUtils {
 	 * @return
 	 */
 	public static Double parseDouble(Object value, Double replace) {
-		if (!NumberUtils.isDigit(value)) {
+		if (!NumberUtil.isDigit(value)) {
 			return replace;
 		}
 		return new Double(value.toString());
@@ -145,7 +145,7 @@ public class NumberUtils {
 	 * @return
 	 */
 	public static Double parseDouble(Object value) {
-		return NumberUtils.parseDouble(value, 0.0);
+		return NumberUtil.parseDouble(value, 0.0);
 	}
 
 	/**
@@ -214,7 +214,7 @@ public class NumberUtils {
 	 *            需要插入的值
 	 */
 	public static void insert(int index, byte[] values, short value) {
-		byte[] bt = NumberUtils.toBytes(value);
+		byte[] bt = NumberUtil.toBytes(value);
 		System.arraycopy(bt, 0, values, index, 2);
 	}
 
@@ -229,7 +229,7 @@ public class NumberUtils {
 	 *            需要插入的值
 	 */
 	public static void insert(int index, byte[] values, int value) {
-		byte[] bt = NumberUtils.toBytes(value);
+		byte[] bt = NumberUtil.toBytes(value);
 		System.arraycopy(bt, 0, values, index, 4);
 	}
 
@@ -244,7 +244,7 @@ public class NumberUtils {
 	 *            需要插入的值
 	 */
 	public static void insert(int index, byte[] values, long value) {
-		byte[] bt = NumberUtils.toBytes(value);
+		byte[] bt = NumberUtil.toBytes(value);
 		System.arraycopy(bt, 0, values, index, 8);
 	}
 

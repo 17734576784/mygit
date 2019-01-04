@@ -19,7 +19,7 @@ import java.util.Map;
  * @date 2018年4月21日 上午9:34:01
  * 
  */
-public class ConverterUtils {
+public class ConverterUtil {
 	
 	/**
 	 * <将obj转换为string，如果obj为null则返回defaultVal>

@@ -19,7 +19,7 @@ import com.ke.model.LogEnum;
 * @date 2018年11月2日 上午10:24:57 
 *  
 */
-public class LoggerUtils {
+public class LoggerUtil {
 	  public static <T> org.slf4j.Logger Logger(Class<T> clazz) {
 	        return LoggerFactory.getLogger(clazz);
 	    }

@@ -26,7 +26,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import com.ke.model.LogEnum;
-import com.ke.utils.LoggerUtils;
+import com.ke.utils.LoggerUtil;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.Properties;
@@ -132,7 +132,7 @@ public class DruidConfig {
 		try {
 			datasource.setFilters(filters);
 		} catch (SQLException e) {
-			LoggerUtils.Logger(LogEnum.ERROR).error("druid configuration initialization filter", e);
+			LoggerUtil.Logger(LogEnum.ERROR).error("druid configuration initialization filter", e);
 		}
 		return datasource;
 	}
@@ -156,7 +156,7 @@ public class DruidConfig {
 		VFS.addImplClass(SpringBootVFS.class);
 		PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
 		sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath:com/ke/mapper/*/*.xml"));
-		LoggerUtils.Logger(LogEnum.INFO).info("dao层扫描包为:com/ke/mapper/*/*.xml");
+		LoggerUtil.Logger(LogEnum.INFO).info("dao层扫描包为:com/ke/mapper/*/*.xml");
 		return sqlSessionFactoryBean.getObject();
 	}
 

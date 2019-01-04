@@ -16,11 +16,12 @@ import javax.servlet.ServletResponse;
 
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authz.AuthorizationFilter;
+
+import com.ke.common.Constant;
 import com.ke.model.LoginUser;
-import com.ke.utils.Constant;
-import com.ke.utils.ConverterUtils;
-import com.ke.utils.JedisUtils;
-import com.ke.utils.SerializeUtils;
+import com.ke.utils.ConverterUtil;
+import com.ke.utils.JedisUtil;
+import com.ke.utils.SerializeUtil;
 
 /**
  * @ClassName: MyShiroPermFilter
@@ -51,10 +52,10 @@ public class MyShiroPermFilter extends AuthorizationFilter {
 		}
 		
 		/**接口使用，web不必*/
-		String token = ConverterUtils.toStr(request.getParameter("token"));
-		byte[] value = JedisUtils.get((Constant.TOKEN_PREFIX + token).getBytes());
+		String token = ConverterUtil.toStr(request.getParameter("token"));
+		byte[] value = JedisUtil.get((Constant.TOKEN_PREFIX + token).getBytes());
 		if (null != value) {
-			LoginUser loginUser = (LoginUser) SerializeUtils.deserialize(value);
+			LoginUser loginUser = (LoginUser) SerializeUtil.deserialize(value);
 			List<String> prems = loginUser.getPermList();
 			for (String prem : prems) {
 				if (Arrays.asList(permsArray).contains(prem)) {

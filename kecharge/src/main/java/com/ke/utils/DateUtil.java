@@ -19,7 +19,7 @@ import java.util.Date;
  * @date 2018年4月21日 上午9:28:00
  * 
  */
-public class DateUtils {
+public class DateUtil {
 
 	public static String FILE_NAME = "MMddHHmmssSSS";
 	public static String DEFAULT_PATTERN = "yyyy-MM-dd";

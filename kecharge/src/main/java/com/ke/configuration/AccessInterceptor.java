@@ -15,9 +15,9 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
-import com.ke.utils.Constant;
-import com.ke.utils.ConverterUtils;
-import com.ke.utils.JedisUtils;
+import com.ke.common.Constant;
+import com.ke.utils.ConverterUtil;
+import com.ke.utils.JedisUtil;
 /** 
 * @ClassName: AccessInterceptor 
 * @Description: 自定义拦截器 
@@ -32,15 +32,15 @@ public class AccessInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		String requestPath = request.getServletPath();
-		String queryJsonStr = ConverterUtils.toStr(request.getParameter("queryJsonStr"));
-		String token = ConverterUtils.toStr(request.getParameter("token"));
+		String queryJsonStr = ConverterUtil.toStr(request.getParameter("queryJsonStr"));
+		String token = ConverterUtil.toStr(request.getParameter("token"));
 		System.out.println(request.getParameterMap().size());
 		boolean result = true;
 		JSONObject rtnJson = new JSONObject();
 		
 		if (!token.isEmpty()) {
 			byte[] key = (Constant.TOKEN_PREFIX + token).getBytes();
-			if (JedisUtils.exists(key)) {
+			if (JedisUtil.exists(key)) {
 
 			} else {
 

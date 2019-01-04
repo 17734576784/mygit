@@ -1,4 +1,4 @@
-package com.ke.utils;
+package com.ke.common;
 
 /**
  * 
