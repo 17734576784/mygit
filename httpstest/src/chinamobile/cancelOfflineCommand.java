@@ -25,7 +25,7 @@ import httpUtil.StreamClosedHttpResponse;
 * @date 2019年1月3日 上午9:56:12 
 *  
 */
-public class getOfflineCommand {
+public class cancelOfflineCommand {
 
 	/**
 	 * @throws Exception  
@@ -37,14 +37,15 @@ public class getOfflineCommand {
 	*/
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-			String urlReg="https://118.24.175.15:443/chinamobile/getOfflineCommand/70a26709-6188-5e09-a09a-ba821825966b";
+			String url="https://118.24.175.15:443/chinamobile/cancelOfflineCommand/70a26709-6188-5e09-a09a-ba821825966b";
 
-			Map<String, String> param = new HashMap<String, String>(1);
+			JSONObject param = new JSONObject();
 			param.put("imei", "000001956811234");
+//			param.put("uuid", "70a26709-6188-5e09-a09a-ba821825966b");
 			
 
 	       HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
-	       StreamClosedHttpResponse responseReg = httpsClientUtil.doGetWithParasGetStatusLine(urlReg, param, null);
+	       StreamClosedHttpResponse responseReg = httpsClientUtil.doPutJsonGetStatusLine(url, null, param.toJSONString());
 
 	       System.out.println("RegisterDirectlyConnectedDevice, response content:");
 	       System.out.print(responseReg.getStatusLine());

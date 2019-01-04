@@ -8,8 +8,6 @@
 */
 package chinamobile;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +23,7 @@ import httpUtil.StreamClosedHttpResponse;
 * @date 2019年1月3日 上午9:56:12 
 *  
 */
-public class getOfflineCommand {
+public class listDeviceStatus {
 
 	/**
 	 * @throws Exception  
@@ -37,19 +35,22 @@ public class getOfflineCommand {
 	*/
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-			String urlReg="https://118.24.175.15:443/chinamobile/getOfflineCommand/70a26709-6188-5e09-a09a-ba821825966b";
+		String urlReg = "https://118.24.175.15:443/chinamobile/deviceStatus";
 
-			Map<String, String> param = new HashMap<String, String>(1);
-			param.put("imei", "000001956811234");
+		Map<String, String> params = new HashMap<String, String>();
+
+		JSONObject json = new JSONObject();
+		json.put("devIds", "513635226");
+		
+		params.put("devIds", json.toJSONString());
 			
+		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
+		StreamClosedHttpResponse responseReg = httpsClientUtil.doGetWithParasGetStatusLine(urlReg, params, null);
 
-	       HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
-	       StreamClosedHttpResponse responseReg = httpsClientUtil.doGetWithParasGetStatusLine(urlReg, param, null);
-
-	       System.out.println("RegisterDirectlyConnectedDevice, response content:");
-	       System.out.print(responseReg.getStatusLine());
-	       System.out.println(responseReg.getContent());
-	       System.out.println();
+		System.out.println("RegisterDirectlyConnectedDevice, response content:");
+		System.out.print(responseReg.getStatusLine());
+		System.out.println(responseReg.getContent());
+		System.out.println();
 	}
 
 }

@@ -25,7 +25,7 @@ import httpUtil.StreamClosedHttpResponse;
 * @date 2019年1月3日 上午9:56:12 
 *  
 */
-public class getOfflineCommand {
+public class getDeviceDatapoint {
 
 	/**
 	 * @throws Exception  
@@ -37,10 +37,17 @@ public class getOfflineCommand {
 	*/
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-			String urlReg="https://118.24.175.15:443/chinamobile/getOfflineCommand/70a26709-6188-5e09-a09a-ba821825966b";
+			String urlReg="https://118.24.175.15:443/chinamobile/datapoints/513635226";
 
+			JSONObject json = new JSONObject();
+			json.put("datastream_id", "3,5,4");
+			json.put("start", "2018-01-01T08:00:35");
+			json.put("end", "2018-01-10T08:00:35");
+			json.put("limit", "10");
+//			json.put("cursor", "12");
+	
 			Map<String, String> param = new HashMap<String, String>(1);
-			param.put("imei", "000001956811234");
+			param.put("param", json.toJSONString());
 			
 
 	       HttpsClientUtil httpsClientUtil = new HttpsClientUtil();

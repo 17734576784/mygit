@@ -8,8 +8,6 @@
 */
 package chinamobile;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +23,7 @@ import httpUtil.StreamClosedHttpResponse;
 * @date 2019年1月3日 上午9:56:12 
 *  
 */
-public class getOfflineCommand {
+public class getDeviceInfoByIMEI {
 
 	/**
 	 * @throws Exception  
@@ -37,11 +35,13 @@ public class getOfflineCommand {
 	*/
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-			String urlReg="https://118.24.175.15:443/chinamobile/getOfflineCommand/70a26709-6188-5e09-a09a-ba821825966b";
-
-			Map<String, String> param = new HashMap<String, String>(1);
-			param.put("imei", "000001956811234");
+			String urlReg="https://118.24.175.15:443/chinamobile/devices";
+	       
+			JSONObject json = new JSONObject();
+			json.put("imei", "869976039227823");
 			
+			Map<String, String> param = new HashMap<String, String>(1);
+			param.put("imei", json.toJSONString());
 
 	       HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 	       StreamClosedHttpResponse responseReg = httpsClientUtil.doGetWithParasGetStatusLine(urlReg, param, null);
