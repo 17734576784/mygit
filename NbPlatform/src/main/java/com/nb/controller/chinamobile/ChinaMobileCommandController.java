@@ -6,7 +6,7 @@
 * @date 2019年1月3日 上午8:44:58 
 * @version V1.0   
 */
-package com.nb.controller;
+package com.nb.controller.chinamobile;
 
 import java.util.HashMap;
 import java.util.Map;
