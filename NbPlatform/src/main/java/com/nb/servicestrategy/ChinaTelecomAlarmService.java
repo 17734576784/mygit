@@ -26,7 +26,7 @@ import com.nb.utils.JsonUtil;
  *      
  */
 @Component
-public class AlarmService implements IServiceStrategy{
+public class ChinaTelecomAlarmService implements IServiceStrategy{
 
 	@Value("${website.baseurl}")
 	private String baseUrl;

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
 import com.nb.utils.CommFunc;
+import com.nb.utils.Constant;
 
 /**   
  * @ClassName:  ServiceContext   
@@ -21,14 +22,14 @@ import com.nb.utils.CommFunc;
  *      
  */
 @Service
-public class ServiceContext {
+public class ChinaTelecomServiceContext {
 
 	/** 装载策略对象集合 */
 	@Autowired
 	private Map<String,IServiceStrategy> serviceStrategy = new HashMap<String,IServiceStrategy>();
 	
 	public void parseService(String serviceName, String deviceId, Map<String, String> serviceMap) {
-		serviceName = CommFunc.toLowerCaseFirstOne(serviceName);
+		serviceName = Constant.China_TELECOM_SERVICE + serviceName;
 		IServiceStrategy service = serviceStrategy.get(serviceName);
 		if (null != service) {
 			service.parse(deviceId, serviceMap);

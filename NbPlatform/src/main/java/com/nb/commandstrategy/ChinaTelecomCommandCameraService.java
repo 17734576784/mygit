@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 *  
 */
 @Component
-public class CommandCameraService implements ICommandService {
+public class ChinaTelecomCommandCameraService implements ICommandService {
 
 	/** (非 Javadoc) 
 	* <p>Title: parse</p> 

@@ -31,7 +31,7 @@ import com.nb.utils.JsonUtil;
 *  
 */
 @Component
-public class UpresultService implements IServiceStrategy {
+public class ChinaTelecomUpresultService implements IServiceStrategy {
 	/** 网站对接服务地址 */
 	@Value("${website.baseurl}")
 	private String baseUrl;

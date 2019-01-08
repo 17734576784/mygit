@@ -278,8 +278,13 @@ public class Constant {
 	/** 升级标志 0：升级 1：不升级 */
 	public static final int UPGRADE_FAILED = 1;
 
-	/** redis 设备升级进度key前缀 */
-	public static final String PROGRESS = "progress_";
+	/** redis 中国电信设备升级进度key前缀 */
+	public static final String PROGRESS_CHINA_TELECOM = "progress_china_telecom_";
+	
+	/** redis 中国联通设备升级进度key前缀 */
+	public static final String PROGRESS_CHINA_UNICOM= "progress_china_unicom_";
+
+	
 
 	/** redis 命令idkey前缀 */
 	public static final String COMMAND = "command_";
@@ -307,4 +312,16 @@ public class Constant {
 	/** 升级文件根目录 */
 	public static int FILETIMEOUT = 60 * 60 * 24 * 180;
 
+	/** 中国电信服务前缀 */
+	public static String China_TELECOM_SERVICE ="chinaTelecom";
+	
+	/** 中国联通服务前缀 */
+	public static String China_UNICOM_SERVICE ="chinaUnicom";
+	
+	/** 中国电信服务前缀 */
+	public static String China_TELECOM_COMMAND ="chinaTelecomCommand";
+	
+	/** 中国联通服务前缀 */
+	public static String China_UNICOM_COMMAND ="chinaUnicomCommand";
+	
 }

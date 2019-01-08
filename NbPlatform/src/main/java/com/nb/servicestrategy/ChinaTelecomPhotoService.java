@@ -34,7 +34,7 @@ import com.nb.utils.JsonUtil;
  *      
  */
 @Component
-public class PhotoService implements IServiceStrategy {
+public class ChinaTelecomPhotoService implements IServiceStrategy {
 
 	@Value("${website.baseurl}")
 	private String baseUrl;

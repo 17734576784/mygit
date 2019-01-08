@@ -15,6 +15,7 @@ import com.nb.model.DeviceProgress;
 import com.nb.utils.ConverterUtils;
 import com.nb.utils.JedisUtils;
 import com.nb.utils.ChinaTelecomUpGradeUtil;
+import com.nb.utils.Constant;
 
 /**
  * @ClassName: QuartzTask
@@ -33,12 +34,18 @@ public class QuartzTask {
 	@Value("${retrycount}")
 	private int retrycount;
 
-	/** 每分钟启动 */  
+	/** 
+	* @Title: reSendChinaTelecomUpgrade 
+	* @Description: 中国电信升级命令重复 每分钟启动 
+	* @param     设定文件 
+	* @return void    返回类型 
+	* @throws 
+	*/
 	@Scheduled(cron = "0 */1 * * * ?")
 	public void reSendChinaTelecomUpgrade() {
 
 		try {
-			Set<String> keys = JedisUtils.getKeys("progress_*");
+			Set<String> keys = JedisUtils.getKeys(Constant.PROGRESS_CHINA_TELECOM + "*");
 			for (String deviceProgress : keys) {
 				sendChinaTelecomUpgrade(deviceProgress);
 			}

@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nb.commandstrategy.CommandContext;
+import com.nb.commandstrategy.ChinaTelecomCommandContext;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
-import com.nb.servicestrategy.ServiceContext;
+import com.nb.servicestrategy.ChinaTelecomServiceContext;
 import com.nb.utils.Constant;
 import com.nb.utils.JedisUtils;
 import com.nb.utils.JsonUtil;
@@ -26,10 +26,10 @@ import static com.nb.utils.ConverterUtils.*;
 @RequestMapping("/chinatelecom")
 public class ChinaTelecomCallBackController {
 	@Resource
-	private ServiceContext serviceContext;
+	private ChinaTelecomServiceContext serviceContext;
 	
 	@Autowired
-	private CommandContext commandContext;
+	private ChinaTelecomCommandContext commandContext;
 	
 	@RequestMapping(value = "deviceAdded", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<HttpStatus> recvAddDeviceNotify(@RequestBody Object addDevice_NotifyMessage) {

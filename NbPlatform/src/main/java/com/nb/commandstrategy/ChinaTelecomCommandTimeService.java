@@ -31,7 +31,7 @@ import com.nb.http.HttpsUtils;
  * 
  */
 @Component
-public class CommandTimeService implements ICommandService {
+public class ChinaTelecomCommandTimeService implements ICommandService {
 
 	@Value("${website.baseurl}")
 	private String baseUrl;

@@ -31,7 +31,7 @@ import com.nb.utils.JedisUtils;
 *  
 */
 @Component
-public class CommandUpdataService implements ICommandService {
+public class ChinaTelecomCommandUpdataService implements ICommandService {
 
 	/** (非 Javadoc) 
 	* <p>Title: parse</p> 
@@ -49,7 +49,7 @@ public class CommandUpdataService implements ICommandService {
 			int receivedPackNum = toInt(commandMap.get("result")); 
 			
 			/** 设备升级缓存key */
-			String deviceProgress = Constant.PROGRESS + deviceId;
+			String deviceProgress = Constant.PROGRESS_CHINA_TELECOM + deviceId;
 			if (JedisUtils.hasKey(deviceProgress)) {
 				DeviceProgress progressBody = (DeviceProgress) JedisUtils.get(deviceProgress);
 				String fileKey = progressBody.getFileKey();
