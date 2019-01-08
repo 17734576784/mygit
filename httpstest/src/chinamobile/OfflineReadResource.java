@@ -39,13 +39,14 @@ public class OfflineReadResource {
 		// TODO Auto-generated method stub
 			String urlReg="https://118.24.175.15:443/chinamobile/offlineesource";
 			JSONObject json = new JSONObject();
-			json.put("imei", "000001956811234");
-			json.put("obj_id", "1");
-			json.put("obj_inst_id", "1");
-			json.put("res_id", "1");
+			json.put("imei", "869976030167556");
+			json.put("obj_id", "3200");
+			json.put("obj_inst_id", "0");
+			json.put("res_id", "5750");
+			
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 			Calendar c = Calendar.getInstance();
-			c.add(Calendar.DATE, 1);
+			c.add(Calendar.MINUTE, 3);
 			json.put("valid_time", sdf.format(c.getTime()));
 			c.add(Calendar.DATE, 10);
 			json.put("expired_time", sdf.format(c.getTime()));

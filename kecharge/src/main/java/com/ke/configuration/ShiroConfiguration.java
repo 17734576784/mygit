@@ -130,9 +130,9 @@ public class ShiroConfiguration {
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
         //登录
-        shiroFilterFactoryBean.setLoginUrl("/error.json");
+//        shiroFilterFactoryBean.setLoginUrl("/login.json");
         //首页
-        shiroFilterFactoryBean.setSuccessUrl("/index.html");
+//        shiroFilterFactoryBean.setSuccessUrl("/index.html");
         //错误页面，认证不通过跳转
         shiroFilterFactoryBean.setUnauthorizedUrl("/error.json");
         return shiroFilterFactoryBean;

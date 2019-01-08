@@ -38,10 +38,10 @@ public class InstantSendCommand {
 		// TODO Auto-generated method stub
 			String urlReg="https://118.24.175.15:443/chinamobile/instantcommand";
 			JSONObject json = new JSONObject();
-			json.put("imei", "000001956811234");
-			json.put("obj_id", "1");
-			json.put("obj_inst_id", "1");
-			json.put("res_id", "2");
+			json.put("imei", "869976030167556");
+			json.put("obj_id", "3200");
+			json.put("obj_inst_id", "0");
+			json.put("res_id", "5750");
 			
 			json.put("args", "234323");
 			
