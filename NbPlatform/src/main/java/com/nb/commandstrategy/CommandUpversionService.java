@@ -21,7 +21,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
 import com.nb.model.DeviceProgress;
-import com.nb.utils.UpGradeUtil;
+import com.nb.utils.ChinaTelecomUpGradeUtil;
 import com.nb.utils.Constant;
 import com.nb.utils.ConverterUtils;
 import com.nb.http.HttpsUtils;
@@ -74,14 +74,14 @@ public class CommandUpversionService implements ICommandService {
 					
 					/** 发送缓存已发送成功包的下一包数据 */
 					sendedPack += 1;
-					String command = UpGradeUtil.getCommandParam(deviceId, fileKey, packNum, sendedPack, upgradeFile);
+					String command = ChinaTelecomUpGradeUtil.getCommandParam(deviceId, fileKey, packNum, sendedPack, upgradeFile);
 					if (null == command || command.isEmpty()) {
 						LoggerUtils.Logger(LogName.CALLBACK).info("组建命令参数失败：" + commandMap);
 						return;
 					}
 					progressBody.setSendTime(ConverterUtils.toStr(LocalDateTime.now()));
 					progressBody.setRetryCount(0);
-					UpGradeUtil.asynCommand(command.toString());
+					ChinaTelecomUpGradeUtil.asynCommand(command.toString());
 					JedisUtils.set(deviceProgress, progressBody);
 					
 				} else {

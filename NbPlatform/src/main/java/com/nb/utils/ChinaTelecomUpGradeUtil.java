@@ -31,7 +31,7 @@ import com.nb.logger.LoggerUtils;
  * @date 2018年11月22日 上午9:19:26
  * 
  */
-public class UpGradeUtil {
+public class ChinaTelecomUpGradeUtil {
 
 	public static boolean asynCommand(String command) throws Exception {
 

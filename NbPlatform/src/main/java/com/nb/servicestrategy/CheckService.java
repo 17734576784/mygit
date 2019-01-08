@@ -16,7 +16,7 @@ import com.nb.http.HttpsUtils;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
 import com.nb.model.DeviceProgress;
-import com.nb.utils.UpGradeUtil;
+import com.nb.utils.ChinaTelecomUpGradeUtil;
 import com.nb.utils.Constant;
 import com.nb.utils.FileUtils;
 import com.nb.utils.JedisUtils;
@@ -100,7 +100,7 @@ public class CheckService implements IServiceStrategy {
 					command.put("serviceId",Constant.UPVERSIONSERVICE);
 					command.put("method",Constant.UPVERSION);	
 					command.put("param", param.toString());
-					UpGradeUtil.asynCommand(command.toString());
+					ChinaTelecomUpGradeUtil.asynCommand(command.toString());
 				} 
 			} else {
 				LoggerUtils.Logger(LogName.CALLBACK).info("发送主动查询解析服务返回结果为空，" + logInfo);

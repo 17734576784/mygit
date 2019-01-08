@@ -14,7 +14,7 @@ import com.nb.logger.LoggerUtils;
 import com.nb.model.DeviceProgress;
 import com.nb.utils.ConverterUtils;
 import com.nb.utils.JedisUtils;
-import com.nb.utils.UpGradeUtil;
+import com.nb.utils.ChinaTelecomUpGradeUtil;
 
 /**
  * @ClassName: QuartzTask
@@ -35,12 +35,12 @@ public class QuartzTask {
 
 	/** 每分钟启动 */  
 	@Scheduled(cron = "0 */1 * * * ?")
-	public void reSendUpgrade() {
+	public void reSendChinaTelecomUpgrade() {
 
 		try {
 			Set<String> keys = JedisUtils.getKeys("progress_*");
 			for (String deviceProgress : keys) {
-				sendUpgradePack(deviceProgress);
+				sendChinaTelecomUpgrade(deviceProgress);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -48,7 +48,9 @@ public class QuartzTask {
 		}
 	}
 	
-	public void sendUpgradePack(String deviceProgress) {
+	
+	
+	public void sendChinaTelecomUpgrade(String deviceProgress) {
 		try {
 			Thread.sleep(3000);
 
@@ -86,7 +88,7 @@ public class QuartzTask {
 				JedisUtils.set(deviceProgress, progressBody);
 				return;
 			}
-			String command = UpGradeUtil.getCommandParam(deviceId, fileKey, packNum, sendedPack, upgradeFile);
+			String command = ChinaTelecomUpGradeUtil.getCommandParam(deviceId, fileKey, packNum, sendedPack, upgradeFile);
 			if (null == command || command.isEmpty()) {
 				LoggerUtils.Logger(LogName.CALLBACK).info("从发任务组建命令参数失败：");
 				return;
@@ -96,7 +98,7 @@ public class QuartzTask {
 			
 			progressBody.setSendTime(ConverterUtils.toStr(LocalDateTime.now()));
 			progressBody.setRetryCount(retryCount);
-			UpGradeUtil.asynCommand(command.toString());
+			ChinaTelecomUpGradeUtil.asynCommand(command.toString());
 			
 			JedisUtils.set(deviceProgress, progressBody);
 			LoggerUtils.Logger(LogName.INFO).info("自动任务发送命令：" + progressBody.toString());

@@ -19,7 +19,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
 import com.nb.model.DeviceProgress;
-import com.nb.utils.UpGradeUtil;
+import com.nb.utils.ChinaTelecomUpGradeUtil;
 import com.nb.utils.Constant;
 import com.nb.utils.ConverterUtils;
 import com.nb.utils.JedisUtils;
@@ -94,7 +94,7 @@ public class CommandUpdataService implements ICommandService {
 				Thread.sleep(4000);
 //				System.out.println(LocalDateTime.now() + "  下发 : " + receivedPackNum );
 
-				String command = UpGradeUtil.getCommandParam(deviceId, fileKey, packNum, (short)receivedPackNum, upgradeFile);
+				String command = ChinaTelecomUpGradeUtil.getCommandParam(deviceId, fileKey, packNum, (short)receivedPackNum, upgradeFile);
 				if (null == command || command.isEmpty()) {
 					LoggerUtils.Logger(LogName.CALLBACK).info("组建命令参数失败：" + commandMap);
 					return;
@@ -102,7 +102,7 @@ public class CommandUpdataService implements ICommandService {
 				
 				progressBody.setSendTime(ConverterUtils.toStr(LocalDateTime.now()));
 				progressBody.setRetryCount(0);				
-				UpGradeUtil.asynCommand(command.toString());
+				ChinaTelecomUpGradeUtil.asynCommand(command.toString());
 				JedisUtils.set(deviceProgress, progressBody);
 			} else {
 				LoggerUtils.Logger(LogName.INFO).info("不存在设备：" + deviceId + ",升级进度缓存");
