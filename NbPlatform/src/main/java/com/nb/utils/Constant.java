@@ -17,7 +17,7 @@ import java.io.File;
 public class Constant {
 
 	/** 中国移动平台地址 */
-	public static final String CHINA_MOBILE_BASE_URL = "https://api.heclouds.com/";
+	public static final String CHINA_MOBILE_BASE_URL = "http://api.heclouds.com/";
 
 	/** 中国移动平台认证token */
 	public static final String CHINA_MOBILE_TOKEN = "kldq";
