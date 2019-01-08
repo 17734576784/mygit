@@ -42,7 +42,7 @@ import com.nb.utils.Constant;
 import com.nb.utils.StreamUtil;
 
 @SuppressWarnings("deprecation")
-public class IotHttpsUtil extends DefaultHttpClient {
+public class ChinaTelecomIotHttpsUtil extends DefaultHttpClient {
 	public final static String HTTPGET = "GET";
 
 	public final static String HTTPPUT = "PUT";

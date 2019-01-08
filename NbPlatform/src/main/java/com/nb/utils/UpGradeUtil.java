@@ -20,7 +20,7 @@ import static com.nb.utils.BytesUtils.getBytesReserve;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.nb.http.IotHttpsUtil;
+import com.nb.http.ChinaTelecomIotHttpsUtil;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
 
@@ -40,9 +40,9 @@ public class UpGradeUtil {
 		try {
 			paramAsynCommand = JSONObject.parseObject(command);
 
-			IotHttpsUtil httpsUtil = new IotHttpsUtil();
+			ChinaTelecomIotHttpsUtil httpsUtil = new ChinaTelecomIotHttpsUtil();
 			httpsUtil.initSSLConfigForTwoWay();
-			String accessToken = AuthenticationUtils.getAccessToken(httpsUtil);
+			String accessToken = AuthenticationUtils.getChinaTelecomAccessToken(httpsUtil);
 
 			String urlPostAsynCmd = Constant.CHINA_TELECOM_POST_ASYN_CMD;
 			String appId = Constant.CHINA_TELECOM_APPID;

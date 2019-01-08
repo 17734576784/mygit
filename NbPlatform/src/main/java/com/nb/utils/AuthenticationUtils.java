@@ -6,7 +6,7 @@ package com.nb.utils;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.nb.http.IotHttpsUtil;
+import com.nb.http.ChinaTelecomIotHttpsUtil;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
 import com.nb.model.StreamClosedHttpResponse;
@@ -21,7 +21,7 @@ import com.nb.model.StreamClosedHttpResponse;
 public class AuthenticationUtils {
 	
 	@SuppressWarnings({"unchecked" })
-	public static String getAccessToken(IotHttpsUtil httpsUtil) {
+	public static String getChinaTelecomAccessToken(ChinaTelecomIotHttpsUtil httpsUtil) {
 		String accessToken = "";
 		
 		String appId = Constant.CHINA_TELECOM_APPID;
