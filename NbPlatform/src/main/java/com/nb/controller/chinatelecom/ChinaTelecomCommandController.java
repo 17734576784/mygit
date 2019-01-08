@@ -48,7 +48,7 @@ public class ChinaTelecomCommandController {
 
 		String urlPostAsynCmd = Constant.CHINA_TELECOM_POST_ASYN_CMD;
 		String appId = Constant.CHINA_TELECOM_APPID;
-		String callbackUrl = Constant.REPORT_CMD_EXEC_RESULT_CALLBACK_URL;
+		String callbackUrl = Constant.CHINA_TELECOM_REPORT_CMD_EXEC_RESULT_CALLBACK_URL;
 
 		String deviceId = ConverterUtils.toStr(paramAsynCommand.get("deviceId"));// "8c23b6b4-ea68-48fb-9c2f-90452a81ebb1";
 		String serviceId = ConverterUtils.toStr(paramAsynCommand.get("serviceId"));// "WaterMeter";

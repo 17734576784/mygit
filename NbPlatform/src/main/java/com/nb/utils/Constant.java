@@ -69,7 +69,7 @@ public class Constant {
 	 *
 	 * please replace uri, when you use the demo.
 	 */
-	public static final String REPORT_CMD_EXEC_RESULT_CALLBACK_URL = CALLBACK_BASE_URL + "/reportCmdExecResult";
+	public static final String CHINA_TELECOM_REPORT_CMD_EXEC_RESULT_CALLBACK_URL = CALLBACK_BASE_URL + "/reportCmdExecResult";
 
 	public static String realBasepath = new File(Constant.class.getResource("/").getPath()).getParent();
 
