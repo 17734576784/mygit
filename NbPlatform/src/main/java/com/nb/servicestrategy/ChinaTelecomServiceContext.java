@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
-import com.nb.utils.CommFunc;
 import com.nb.utils.Constant;
 
 /**   
