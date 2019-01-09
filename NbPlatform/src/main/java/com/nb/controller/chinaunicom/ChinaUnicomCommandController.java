@@ -22,6 +22,13 @@ import com.nb.utils.ConverterUtils;
 import com.nb.utils.JedisUtils;
 import com.nb.utils.JsonUtil;
 
+/** 
+* @ClassName: ChinaUnicomCommandController 
+* @Description: 中国联通命令管理 
+* @author dbr
+* @date 2019年1月9日 上午10:03:16 
+*  
+*/
 @RestController
 @RequestMapping("/chinaunicom")
 public class ChinaUnicomCommandController {

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.nb.servicestrategy;
+package com.nb.servicestrategy.chinaunicom;
 
 import static com.nb.utils.ConverterUtils.*;
 
@@ -16,6 +16,7 @@ import com.nb.http.HttpsUtils;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
 import com.nb.model.DeviceProgress;
+import com.nb.servicestrategy.IServiceStrategy;
 import com.nb.utils.ChinaTelecomUpGradeUtil;
 import com.nb.utils.Constant;
 import com.nb.utils.FileUtils;
@@ -30,7 +31,7 @@ import com.nb.utils.JsonUtil;
  *      
  */
 @Component
-public class ChinaTelecomCheckService implements IServiceStrategy {
+public class ChinaUnicomCheckService implements IServiceStrategy {
 
 	/** 网站对接服务地址 */
 	@Value("${website.baseurl}")
@@ -142,7 +143,7 @@ public class ChinaTelecomCheckService implements IServiceStrategy {
 			short packNum = upgradeFile.getShortValue("packNum");
 			
 			/** 设备升级缓存key */
-			String deviceProgress = Constant.PROGRESS_CHINA_TELECOM + deviceId;
+			String deviceProgress = Constant.PROGRESS_CHINA_UNICOM + deviceId;
 			if (JedisUtils.hasKey(deviceProgress)) {
 				/** 存在设备升级缓存，对比当前升级信息和缓存升级信息是否一致 */
 				DeviceProgress progress = (DeviceProgress) JedisUtils.get(deviceProgress);
@@ -175,7 +176,7 @@ public class ChinaTelecomCheckService implements IServiceStrategy {
 	*/
 	private void insertDeviceProgress(String deviceId, String fileKey, short packNum) {
 		/** 设备升级缓存key */
-		String deviceProgress = Constant.PROGRESS_CHINA_TELECOM + deviceId;
+		String deviceProgress = Constant.PROGRESS_CHINA_UNICOM + deviceId;
 		DeviceProgress progress =  new DeviceProgress(); 
 		progress.setDeviceId(deviceId);
 		progress.setFileKey(fileKey);

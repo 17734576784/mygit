@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nb.commandstrategy.ChinaUnicomCommandContext;
+import com.nb.commandstrategy.chinaunicom.ChinaUnicomCommandContext;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
-import com.nb.servicestrategy.ChinaUnicomServiceContext;
+import com.nb.servicestrategy.chinaunicom.ChinaUnicomServiceContext;
 import com.nb.utils.Constant;
 import com.nb.utils.JedisUtils;
 import com.nb.utils.JsonUtil;

@@ -6,7 +6,7 @@
 * @date 2018年10月25日 下午2:37:00 
 * @version V1.0   
 */
-package com.nb.commandstrategy;
+package com.nb.commandstrategy.chinatelecom;
 
 import static com.nb.utils.ConverterUtils.*;
 
@@ -16,6 +16,7 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONObject;
+import com.nb.commandstrategy.ICommandService;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
 import com.nb.model.DeviceProgress;

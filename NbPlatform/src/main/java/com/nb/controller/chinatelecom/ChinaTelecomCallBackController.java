@@ -13,15 +13,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nb.commandstrategy.ChinaTelecomCommandContext;
+import com.nb.commandstrategy.chinatelecom.ChinaTelecomCommandContext;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
-import com.nb.servicestrategy.ChinaTelecomServiceContext;
+import com.nb.servicestrategy.chinatelecom.ChinaTelecomServiceContext;
 import com.nb.utils.Constant;
 import com.nb.utils.JedisUtils;
 import com.nb.utils.JsonUtil;
 import static com.nb.utils.ConverterUtils.*;
 
+/** 
+* @ClassName: ChinaTelecomCallBackController 
+* @Description: 中国电信平台回调管理 
+* @author dbr
+* @date 2019年1月9日 上午10:04:13 
+*  
+*/
 @RestController
 @RequestMapping("/chinatelecom")
 public class ChinaTelecomCallBackController {

@@ -6,7 +6,7 @@
 * @date 2018年11月22日 上午8:52:48 
 * @version V1.0   
 */
-package com.nb.servicestrategy;
+package com.nb.servicestrategy.chinatelecom;
 
 import static com.nb.utils.ConverterUtils.toStr;
 
@@ -20,6 +20,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.nb.http.HttpsUtils;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
+import com.nb.servicestrategy.IServiceStrategy;
 import com.nb.utils.Constant;
 import com.nb.utils.JsonUtil;
 
@@ -31,7 +32,7 @@ import com.nb.utils.JsonUtil;
 *  
 */
 @Component
-public class ChinaUnicomUpresultService implements IServiceStrategy {
+public class ChinaTelecomUpresultService implements IServiceStrategy {
 	/** 网站对接服务地址 */
 	@Value("${website.baseurl}")
 	private String baseUrl;

@@ -6,7 +6,7 @@
 * @date 2018年11月22日 上午9:08:53 
 * @version V1.0   
 */
-package com.nb.commandstrategy;
+package com.nb.commandstrategy.chinatelecom;
 
 import static com.nb.utils.ConverterUtils.*;
 
@@ -24,6 +24,7 @@ import com.nb.model.DeviceProgress;
 import com.nb.utils.ChinaTelecomUpGradeUtil;
 import com.nb.utils.Constant;
 import com.nb.utils.ConverterUtils;
+import com.nb.commandstrategy.ICommandService;
 import com.nb.http.HttpsUtils;
 import com.nb.utils.JedisUtils;
 
@@ -35,7 +36,7 @@ import com.nb.utils.JedisUtils;
 *  
 */
 @Component
-public class ChinaUnicomCommandUpversionService implements ICommandService {
+public class ChinaTelecomCommandUpversionService implements ICommandService {
 	
 	/** 网站对接服务地址 */
 	@Value("${website.baseurl}")
@@ -55,7 +56,7 @@ public class ChinaUnicomCommandUpversionService implements ICommandService {
 			/** 0:升级 1：拒绝升级 */
 			int result = toInt(commandMap.get("result"));
 			System.out.println("result : " + result);
-			String deviceProgress = Constant.PROGRESS_CHINA_UNICOM + deviceId;
+			String deviceProgress = Constant.PROGRESS_CHINA_TELECOM + deviceId;
 
 			if (result == Constant.UPGRADE_SUCCESS) {
 				/** 设备升级缓存key */

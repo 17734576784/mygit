@@ -6,7 +6,7 @@
 * @date 2018年10月25日 下午2:35:10 
 * @version V1.0   
 */
-package com.nb.commandstrategy;
+package com.nb.commandstrategy.chinaunicom;
 
 import static com.nb.utils.ConverterUtils.toStr;
 
@@ -21,6 +21,7 @@ import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
 import com.nb.utils.Constant;
 import com.nb.utils.DateUtils;
+import com.nb.commandstrategy.ICommandService;
 import com.nb.http.HttpsUtils;
 
 /**
@@ -31,7 +32,7 @@ import com.nb.http.HttpsUtils;
  * 
  */
 @Component
-public class ChinaTelecomCommandTimeService implements ICommandService {
+public class ChinaUnicomCommandTimeService implements ICommandService {
 
 	@Value("${website.baseurl}")
 	private String baseUrl;

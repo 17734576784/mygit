@@ -6,7 +6,7 @@
 * @date 2018年10月25日 下午4:30:49 
 * @version V1.0   
 */
-package com.nb.commandstrategy;
+package com.nb.commandstrategy.chinatelecom;
 
 import static com.nb.utils.ConverterUtils.toStr;
 
@@ -21,6 +21,7 @@ import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
 import com.nb.utils.Constant;
 import com.nb.utils.DateUtils;
+import com.nb.commandstrategy.ICommandService;
 import com.nb.http.HttpsUtils;
 
 /** 

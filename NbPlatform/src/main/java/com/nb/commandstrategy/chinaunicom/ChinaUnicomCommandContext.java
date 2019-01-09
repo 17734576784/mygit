@@ -6,13 +6,15 @@
 * @date 2018年10月25日 下午2:37:43 
 * @version V1.0   
 */
-package com.nb.commandstrategy;
+package com.nb.commandstrategy.chinaunicom;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.nb.commandstrategy.ICommandService;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
 import com.nb.utils.Constant;
@@ -25,14 +27,14 @@ import com.nb.utils.Constant;
 *  
 */
 @Service
-public class ChinaTelecomCommandContext {
+public class ChinaUnicomCommandContext {
 
 	/** 装载策略对象集合 */
 	@Autowired
 	private Map<String,ICommandService> commandStrategys = new HashMap<String,ICommandService>();
 	
 	public void parseCommand(String commandName, String deviceId, Map<String, String> commandMap) {
-		commandName = Constant.CHINA_TELECOM_COMMAND + commandName;
+		commandName = Constant.CHINA_UNICOM_COMMAND + commandName;
 		ICommandService service = commandStrategys.get(commandName);
 		if (null != service) {
 			service.parse(deviceId, commandMap);
