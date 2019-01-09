@@ -28,7 +28,7 @@ public class ChinaTelecomServiceContext {
 	private Map<String,IServiceStrategy> serviceStrategy = new HashMap<String,IServiceStrategy>();
 	
 	public void parseService(String serviceName, String deviceId, Map<String, String> serviceMap) {
-		serviceName = Constant.China_TELECOM_SERVICE + serviceName;
+		serviceName = Constant.CHINA_TELECOM_SERVICE + serviceName;
 		IServiceStrategy service = serviceStrategy.get(serviceName);
 		if (null != service) {
 			service.parse(deviceId, serviceMap);

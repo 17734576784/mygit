@@ -71,6 +71,8 @@ public class Constant {
 	 */
 	public static final String CHINA_TELECOM_REPORT_CMD_EXEC_RESULT_CALLBACK_URL = CALLBACK_BASE_URL + "/reportCmdExecResult";
 
+	public static final String CHINA_UNICOM_REPORT_CMD_EXEC_RESULT_CALLBACK_URL = CALLBACK_BASE_URL + "/reportCmdExecResult";
+
 	public static String realBasepath = new File(Constant.class.getResource("/").getPath()).getParent();
 
 	// Paths of certificates.
@@ -313,15 +315,15 @@ public class Constant {
 	public static int FILETIMEOUT = 60 * 60 * 24 * 180;
 
 	/** 中国电信服务前缀 */
-	public static String China_TELECOM_SERVICE ="chinaTelecom";
+	public static String CHINA_TELECOM_SERVICE ="chinaTelecom";
 	
 	/** 中国联通服务前缀 */
-	public static String China_UNICOM_SERVICE ="chinaUnicom";
+	public static String CHINA_UNICOM_SERVICE ="chinaUnicom";
 	
 	/** 中国电信服务前缀 */
-	public static String China_TELECOM_COMMAND ="chinaTelecomCommand";
+	public static String CHINA_TELECOM_COMMAND ="chinaTelecomCommand";
 	
 	/** 中国联通服务前缀 */
-	public static String China_UNICOM_COMMAND ="chinaUnicomCommand";
+	public static String CHINA_UNICOM_COMMAND ="chinaUnicomCommand";
 	
 }

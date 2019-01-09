@@ -32,7 +32,7 @@ public class ChinaTelecomCommandContext {
 	private Map<String,ICommandService> commandStrategys = new HashMap<String,ICommandService>();
 	
 	public void parseCommand(String commandName, String deviceId, Map<String, String> commandMap) {
-		commandName = Constant.China_TELECOM_COMMAND + commandName;
+		commandName = Constant.CHINA_TELECOM_COMMAND + commandName;
 		ICommandService service = commandStrategys.get(commandName);
 		if (null != service) {
 			service.parse(deviceId, commandMap);

@@ -26,10 +26,10 @@ import static com.nb.utils.ConverterUtils.*;
 @RequestMapping("/chinatelecom")
 public class ChinaTelecomCallBackController {
 	@Resource
-	private ChinaTelecomServiceContext serviceContext;
+	private ChinaTelecomServiceContext chinaTelecomServiceContext;
 	
 	@Autowired
-	private ChinaTelecomCommandContext commandContext;
+	private ChinaTelecomCommandContext chinaTelecomCommandContext;
 	
 	@RequestMapping(value = "deviceAdded", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<HttpStatus> recvAddDeviceNotify(@RequestBody Object addDevice_NotifyMessage) {
@@ -124,7 +124,7 @@ public class ChinaTelecomCallBackController {
 			Map<String, String> serviceMap = new HashMap<String, String>();
 			serviceMap = JsonUtil.jsonString2SimpleObj(service, serviceMap.getClass());
 			String serviceId = toStr(serviceMap.get("serviceId"));
-			serviceContext.parseService(serviceId, deviceId, serviceMap);
+			chinaTelecomServiceContext.parseService(serviceId, deviceId, serviceMap);
 		} catch (Exception e) {
 			LoggerUtils.Logger(LogName.CALLBACK).error("接收updateDeviceData异常," + updateDeviceData_NotifyMessage);
 			e.printStackTrace();
@@ -276,7 +276,7 @@ public class ChinaTelecomCallBackController {
 				if (!serviceName.isEmpty()) {
 					Map<String, String> commandMap = new HashMap<String, String>();
 					commandMap = JsonUtil.jsonString2SimpleObj(resultDetail, dataMap.getClass());
-					commandContext.parseCommand(serviceName, deviceId, commandMap);
+					chinaTelecomCommandContext.parseCommand(serviceName, deviceId, commandMap);
 					delCommand(commandId);
 				}
 			} else if (resultCode.equals(Constant.COMMAND_FAILED) || resultCode.equals(Constant.COMMAND_TIMEOUT)) {
