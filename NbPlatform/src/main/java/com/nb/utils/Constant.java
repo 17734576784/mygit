@@ -18,9 +18,10 @@ public class Constant {
 
 	/** 中国移动平台地址 */
 	public static final String CHINA_MOBILE_BASE_URL = "http://api.heclouds.com/";
-
 	/** 中国移动平台认证token */
 	public static final String CHINA_MOBILE_TOKEN = "kldq";
+	
+	
 
 	/** 中国联通平台地址 */
 	public static final String CHINA_UNICOM_BASE_URL = "https://58.240.96.46:8743";
@@ -91,7 +92,7 @@ public class Constant {
 	public static String CHINA_TELECOM_TRUSTCAPATH = "cert/ca.jks";
 
 	// Password of certificates."classpath:cert\\outgoing.CertwithKey.pkcs12"
-	/** 中国联通证书密码 */
+	/** 中国电信证书密码 */
 	public static String CHINA_TELECOM_SELFCERTPWD = "IoM@1234";
 	public static String CHINA_TELECOM_TRUSTCAPWD = "Huawei@123";
 		
