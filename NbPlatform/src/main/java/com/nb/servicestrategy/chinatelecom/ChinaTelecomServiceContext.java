@@ -15,7 +15,7 @@ import com.nb.servicestrategy.IServiceStrategy;
 import com.nb.utils.Constant;
 
 /**   
- * @ClassName:  ServiceContext   
+ * @ClassName:  ChinaTelecomServiceContext   
  * @Description:TODO(这里用一句话描述这个类的作用)   
  * @author: dbr 
  * @date:   2018年10月22日 下午2:05:28   

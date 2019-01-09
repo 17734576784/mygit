@@ -28,7 +28,7 @@ import com.nb.utils.JedisUtils;
 import com.nb.utils.JsonUtil;
 
 /**   
- * @ClassName:  PhotoService   
+ * @ClassName:  ChinaTelecomPhotoService   
  * @Description:主动上报照片解析服务   
  * @author: dbr 
  * @date:   2018年10月22日 下午1:55:11   

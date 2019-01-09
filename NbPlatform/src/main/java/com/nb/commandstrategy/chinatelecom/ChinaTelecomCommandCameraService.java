@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import com.nb.commandstrategy.ICommandService;
 
 /** 
-* @ClassName: CommandCameraService 
+* @ClassName: ChinaTelecomCommandCameraService 
 * @Description: 摄像头窗口调整上行服务 
 * @author dbr
 * @date 2018年10月25日 下午2:36:30 

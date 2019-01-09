@@ -25,7 +25,7 @@ import com.nb.commandstrategy.ICommandService;
 import com.nb.http.HttpsUtils;
 
 /**
- * @ClassName: CommandTimeService
+ * @ClassName: ChinaUnicomCommandTimeService
  * @Description: 设定上传周期以及时间上行解析服务
  * @author dbr
  * @date 2018年10月25日 下午2:35:10

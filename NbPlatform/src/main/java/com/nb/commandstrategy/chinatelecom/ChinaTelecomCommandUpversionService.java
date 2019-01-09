@@ -29,7 +29,7 @@ import com.nb.http.HttpsUtils;
 import com.nb.utils.JedisUtils;
 
 /** 
-* @ClassName: CommandUpversionService 
+* @ClassName: ChinaTelecomCommandUpversionService 
 * @Description: 升级版本确认命令回复 
 * @author dbr
 * @date 2018年11月22日 上午9:08:53 

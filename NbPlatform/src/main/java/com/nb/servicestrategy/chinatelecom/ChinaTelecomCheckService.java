@@ -24,7 +24,7 @@ import com.nb.utils.JedisUtils;
 import com.nb.utils.JsonUtil;
 
 /**   
- * @ClassName:  CheckService   
+ * @ClassName:  ChinaTelecomCheckService   
  * @Description:主动查询解析服务   
  * @author: dbr 
  * @date:   2018年10月22日 下午2:02:14   

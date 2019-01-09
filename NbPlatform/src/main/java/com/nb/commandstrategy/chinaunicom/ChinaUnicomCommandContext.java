@@ -20,7 +20,7 @@ import com.nb.logger.LoggerUtils;
 import com.nb.utils.Constant;
 
 /** 
-* @ClassName: CommandContext 
+* @ClassName: ChinaUnicomCommandContext 
 * @Description: TODO(这里用一句话描述这个类的作用) 
 * @author dbr
 * @date 2018年10月25日 下午2:37:43 

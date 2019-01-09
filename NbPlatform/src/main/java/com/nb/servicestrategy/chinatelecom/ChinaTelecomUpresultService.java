@@ -25,7 +25,7 @@ import com.nb.utils.Constant;
 import com.nb.utils.JsonUtil;
 
 /** 
-* @ClassName: UpresultService 
+* @ClassName: ChinaTelecomUpresultService 
 * @Description: TODO(这里用一句话描述这个类的作用) 
 * @author dbr
 * @date 2018年11月22日 上午8:52:48 

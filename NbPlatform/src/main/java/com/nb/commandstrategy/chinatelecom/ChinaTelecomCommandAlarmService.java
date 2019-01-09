@@ -25,7 +25,7 @@ import com.nb.commandstrategy.ICommandService;
 import com.nb.http.HttpsUtils;
 
 /** 
-* @ClassName: CommandAlarmService 
+* @ClassName: ChinaTelecomCommandAlarmService 
 * @Description: 告警命令上行解析服务
 * @author dbr
 * @date 2018年10月25日 下午4:30:49 

@@ -20,7 +20,7 @@ import com.nb.utils.Constant;
 import com.nb.utils.JsonUtil;
 
 /**   
- * @ClassName:  AlarmService   
+ * @ClassName:  ChinaUnicomAlarmService   
  * @Description:主动上报告警解析服务 
  * @author: dbr 
  * @date:   2018年10月22日 下午1:59:29   

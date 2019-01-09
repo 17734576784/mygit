@@ -25,7 +25,7 @@ import com.nb.utils.Constant;
 import com.nb.utils.ConverterUtils;
 import com.nb.utils.JedisUtils;
 /** 
-* @ClassName: CommandUpdataService 
+* @ClassName: ChinaTelecomCommandUpdataService 
 * @Description: 远程升级上行解析服务
 * @author dbr
 * @date 2018年10月25日 下午2:37:00 

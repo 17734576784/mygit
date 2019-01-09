@@ -22,6 +22,13 @@ import com.nb.utils.JedisUtils;
 import com.nb.utils.JsonUtil;
 import static com.nb.utils.ConverterUtils.*;
 
+/** 
+* @ClassName: ChinaUnicomCallBackController 
+* @Description: 中国联通平台回调管理
+* @author dbr
+* @date 2019年1月9日 上午10:25:08 
+*  
+*/
 @RestController
 @RequestMapping("/chinaunicom")
 public class ChinaUnicomCallBackController {

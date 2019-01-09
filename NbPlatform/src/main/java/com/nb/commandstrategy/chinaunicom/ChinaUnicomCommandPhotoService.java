@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import com.nb.commandstrategy.ICommandService;
 
 /** 
-* @ClassName: CommandPhotoService 
+* @ClassName: ChinaUnicomCommandPhotoService 
 * @Description: 上传照片命令上行解析服务
 * @author dbr
 * @date 2018年10月25日 下午2:36:02 
