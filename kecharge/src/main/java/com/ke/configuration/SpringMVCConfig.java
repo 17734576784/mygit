@@ -41,7 +41,7 @@ public class SpringMVCConfig implements WebMvcConfigurer{
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		WebMvcConfigurer.super.addInterceptors(registry);
-		registry.addInterceptor(accessInterceptor).excludePathPatterns(urlList).addPathPatterns("/**");
+		registry.addInterceptor(accessInterceptor).excludePathPatterns(urlList).addPathPatterns("/*.json");
 	}
 
 

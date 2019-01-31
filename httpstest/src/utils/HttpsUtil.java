@@ -43,7 +43,7 @@ public class HttpsUtil {
 	private static final String KEY_STORE_TYPE_P12 = "PKCS12";
 	private static final String SCHEME_HTTPS = "https";
 	private static final int HTTPS_PORT = 443;
-	private static final String HTTPS_URL = "https://129.28.69.163:443/modifyDeviceInfo";
+	private static final String HTTPS_URL = "https://129.28.69.163:8443/asynCommand";
 	private static final String KEY_STORE_CLIENT_PATH = "c://client.p12";
 	private static final String KEY_STORE_TRUST_PATH = "c://client.truststore";
 	private static final String KEY_STORE_PASSWORD = "1029384756";
@@ -56,14 +56,13 @@ public class HttpsUtil {
 //        params.put("data","证书1");
         
         JSONObject json = new JSONObject();
-		json.put("deviceId", "2274dc6a-d5a3-4c81-ad20-5437e90dc944");
-		json.put("manufacturerId", "XLXX");
-		json.put("manufacturerName", "XLXX");
-		json.put("deviceType", "GasMeter");
-		json.put("model", "XL0001");
-		json.put("protocolType", "CoAP");
-
-		params.put("deviceInfo", json.toString());
+		json.put("deviceId", "45bc6b50-5f15-43ad-8eff-0a636f1e4efc");
+		json.put("serviceId", "PhotoService");
+		json.put("method", "sendphotoonce");
+		JSONObject param = new JSONObject();
+		param.put("value", 1);
+		json.put("param", param);
+		params.put("command", json.toString());
 		
         String charset="utf-8";
         doSSLPostByCer( url, params,  charset);

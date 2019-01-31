@@ -12,6 +12,8 @@ logging:
 
 # REDIS (RedisProperties)
 spring:
+  resources: 
+     static-locations: ["/templates/","/static/"]
   http: 
     encoding:
       charset: UTF-8
@@ -62,7 +64,8 @@ spring:
       view:
         prefix: /WEB-INF/jsp/
         suffix: .jsp
-
+       
+    
 interceptor: 
   urls: /test.action,/test1.action
   
