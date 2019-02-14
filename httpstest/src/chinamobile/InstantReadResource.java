@@ -44,6 +44,8 @@ public class InstantReadResource {
 			
 			Map<String, String> param = new HashMap<String, String>(1);
 			param.put("commandInfo", json.toJSONString());
+			param.put("aa", json.toJSONString());
+
 
 	       HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 	       StreamClosedHttpResponse responseReg = httpsClientUtil.doGetWithParasGetStatusLine(urlReg, param, null);

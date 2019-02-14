@@ -46,7 +46,7 @@ public class MainTest {
      * @param str 10进制数字 String.valueOf(int number);将10进制数字转成字符串传入此参数
      * @return bcd码
      */
-     public static String DecimaltoBcd(String str){     
+     public static String DecimaltoBcd(String str){   
             String b_num="";
             for (int i = 0; i < str.length(); i++) {
 
@@ -140,6 +140,10 @@ public class MainTest {
  	}
 
 	public static void main(String[] args) throws ClientProtocolException, IOException { 
+		
+   	 byte a = (byte) 234;
+
+   	 System.out.println(a);
 		String apiUrl = "http://127.0.0.1:11028/Enterprise_EnnGas/enngas/message/" + Constant.UPLOAD_UPGRADERESULT_URL;
 		try {
 			Map<String, Object> paramJson = new HashMap<>();
