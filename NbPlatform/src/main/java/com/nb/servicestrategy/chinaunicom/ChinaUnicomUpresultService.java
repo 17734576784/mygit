@@ -17,9 +17,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONObject;
-import com.nb.http.HttpsUtils;
+import com.nb.http.HttpsClientUtil;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
+import com.nb.model.StreamClosedHttpResponse;
 import com.nb.servicestrategy.IServiceStrategy;
 import com.nb.utils.Constant;
 import com.nb.utils.JsonUtil;
@@ -58,14 +59,20 @@ public class ChinaUnicomUpresultService implements IServiceStrategy {
 			String version = toStr(dataMap.get("version"));
 			String status = toStr(dataMap.get("status"));
 
-			Map<String, Object> paramJson = new HashMap<>();
+			JSONObject paramJson = new JSONObject();
 			paramJson.put("status", status);
 			paramJson.put("version", version);
 			paramJson.put("deviceId", deviceId);
 
-			Map<String, Object> paramMap = new HashMap<>();
-			paramMap.put("param", paramJson);
-			JSONObject response = HttpsUtils.doPost(apiUrl, paramMap);
+//			Map<String, Object> paramMap = new HashMap<>();
+//			paramMap.put("param", paramJson);
+//			JSONObject response = HttpsUtils.doPost(apiUrl, paramMap);
+			
+			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
+			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostJsonGetStatusLine(apiUrl,
+			paramJson.toJSONString());
+			JSONObject response = JSONObject.parseObject(httpResponse.getContent());
+			
 			if (response != null && !response.isEmpty()) {
 				if (response.getInteger("status") == Constant.SUCCESS) {
 					LoggerUtils.Logger(LogName.CALLBACK).info("升级成功发送成功，response：" + response);

@@ -20,11 +20,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 /** 
 * @ClassName: WebExceptionHandle 
-* @Description: TODO(这里用一句话描述这个类的作用) 
+* @Description: 全局统一处理异常 
 * @author dbr
 * @date 2018年10月24日 下午5:24:55 
 *  
@@ -75,25 +74,40 @@ public class WebExceptionHandle {
     /**
      * 500 - Internal Server Error
      */
-    @SuppressWarnings("unchecked")
+//    @SuppressWarnings("unchecked")
+//	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//    @ExceptionHandler(Exception.class)
+//	public <T> T handleException(Exception e) {
+//    	T result = null;
+//    	LoggerUtils.Logger(LogName.ERROR).error("服务运行异常", e);
+//        e.printStackTrace();
+//        
+//        StackTraceElement stackTraceElement= e.getStackTrace()[0];// 得到异常棧的首个元素
+//        String className = stackTraceElement.getClassName();
+//        if (className.equals("com.iot.controller.CallBackController")) {
+//			result = (T) new ResponseEntity<>(HttpStatus.OK);
+//		}else {
+//			ResultBean<String> resultBean = new ResultBean<String>();
+//	    	resultBean.setStatus(ErrorCodeEnum.FAILED.getStatus());
+//			resultBean.setError(e.getMessage());
+//			result = (T) resultBean;
+//		}
+//		return result;         
+//    }
+	/**
+     * 500 - Internal Server Error
+     */
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(Exception.class)
-	public <T> T handleException(Exception e) {
-    	T result = null;
-    	LoggerUtils.Logger(LogName.ERROR).error("服务运行异常", e);
-        e.printStackTrace();
-        
-        StackTraceElement stackTraceElement= e.getStackTrace()[0];// 得到异常棧的首个元素
-        String className = stackTraceElement.getClassName();
-        if (className.equals("com.iot.controller.CallBackController")) {
-			result = (T) new ResponseEntity<>(HttpStatus.OK);
-		}else {
-			ResultBean<String> resultBean = new ResultBean<String>();
-	    	resultBean.setStatus(ErrorCodeEnum.FAILED.getStatus());
-			resultBean.setError(e.getMessage());
-			result = (T) resultBean;
-		}
-		return result;         
-    }
+	@ExceptionHandler(Exception.class)
+	public ResultBean<String> handleException(Exception e) {
+		LoggerUtils.Logger(LogName.ERROR).error("服务运行异常", e);
+		e.printStackTrace();
+
+		ResultBean<String> resultBean = new ResultBean<String>();
+		resultBean.setStatus(ErrorCodeEnum.FAILED.getStatus());
+		String error = e.getMessage() == null ? "请求错误" : e.getMessage();
+		resultBean.setError(error);
+		return resultBean;
+	}
     
 }

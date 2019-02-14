@@ -10,7 +10,6 @@ package com.nb.commandstrategy.chinatelecom;
 
 import static com.nb.utils.ConverterUtils.toStr;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -19,10 +18,11 @@ import org.springframework.stereotype.Component;
 import com.alibaba.fastjson.JSONObject;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
+import com.nb.model.StreamClosedHttpResponse;
 import com.nb.utils.Constant;
 import com.nb.utils.DateUtils;
 import com.nb.commandstrategy.ICommandService;
-import com.nb.http.HttpsUtils;
+import com.nb.http.HttpsClientUtil;
 
 /**
  * @ClassName: ChinaTelecomCommandTimeService
@@ -53,7 +53,7 @@ public class ChinaTelecomCommandTimeService implements ICommandService {
 		String status = toStr(commandMap.get("status"));
 		String apiUrl = baseUrl + Constant.UPLOAD_TIMECOMMAND_URL;
 
-		Map<String, Object> paramJson = new HashMap<String, Object>();
+		JSONObject paramJson = new JSONObject();
 		paramJson.put("cycle", timetype);
 		paramJson.put("devicetime", time);
 		paramJson.put("status", status);
@@ -61,11 +61,15 @@ public class ChinaTelecomCommandTimeService implements ICommandService {
 		paramJson.put("time", DateUtils.curTime());
 		paramJson.put("deviceId", deviceId);
 
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("param", paramJson);
+//		Map<String, Object> paramMap = new HashMap<>();
+//		paramMap.put("param", paramJson);
 
 		try {
-			JSONObject httpResult = HttpsUtils.doPost(apiUrl, paramMap);
+			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
+			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostJsonGetStatusLine(apiUrl,
+					paramJson.toJSONString());
+			JSONObject httpResult = JSONObject.parseObject(httpResponse.getContent());
+//			JSONObject httpResult = HttpsUtils.doPost(apiUrl, paramMap);
 			if (httpResult != null && !httpResult.isEmpty()) {
 				if (httpResult.getInteger("status") == Constant.ERROR) {
 					LoggerUtils.Logger(LogName.INFO).info("推送设置上传周期命令回复失败，设备id：" + deviceId + "，回复内容：" + commandMap.toString());

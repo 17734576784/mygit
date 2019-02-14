@@ -10,8 +10,15 @@ package com.nb;
 
 import static org.assertj.core.api.Assertions.contentOf;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.alibaba.fastjson.JSONObject;
+import com.nb.http.HttpsClientUtil;
+import com.nb.model.StreamClosedHttpResponse;
+import com.nb.utils.DateUtils;
 
 /** 
 * @ClassName: MainTest 
@@ -31,43 +38,22 @@ public class MainTest {
 	*/
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Map<String,Map<String,Object>> command =  new HashMap<String,Map<String,Object>>();
 		
-		Map<String,Object> TimeServiceMap = new HashMap<String,Object>();
-		TimeServiceMap.put("serviceId", "TimeService");
-		TimeServiceMap.put("method", "commandUpTimeService");		
-		command.put("1001", TimeServiceMap);
-		command.put("2001", TimeServiceMap);
-		
-		Map<String,Object> AlarmServiceMap = new HashMap<String,Object>();
-		AlarmServiceMap.put("serviceId", "AlarmService");
-		AlarmServiceMap.put("method", "openalarm");		
-		command.put("1002", AlarmServiceMap);
-		command.put("2002", AlarmServiceMap);
-		
-		
-		Map<String,Object> PhotoServiceMap = new HashMap<String,Object>();
-		PhotoServiceMap.put("serviceId", "PhotoService");
-		PhotoServiceMap.put("method", "sendphotoonce");		
-		command.put("1003", PhotoServiceMap);
-		command.put("2003", PhotoServiceMap);
-		
-		
-		Map<String,Object> CameraServiceMap = new HashMap<String,Object>();
-		CameraServiceMap.put("serviceId", "CameraService");
-		CameraServiceMap.put("method", "adjustcamera ");		
-		command.put("1004", CameraServiceMap);
-		command.put("2004", CameraServiceMap);
-		
-		
-		Map<String,Object> TimeServiceMapMobile = new HashMap<String,Object>();
-		TimeServiceMapMobile.put("obj_id", "1");
-		TimeServiceMapMobile.put("obj_inst_id", "2");
-		TimeServiceMapMobile.put("res_id", "3");
-		command.put("3001", TimeServiceMapMobile);
-		
-		System.out.println(command);
-	 
+		JSONObject paramJson = new JSONObject();
+		paramJson.put("nbType", 1);
+		paramJson.put("version", 2);
+		paramJson.put("deviceId", 3);
+
+		String apiUrl = "http://127.0.0.1:8080/api/register";
+		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
+		StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostJsonGetStatusLine(apiUrl,
+		paramJson.toJSONString());
+		JSONObject response = JSONObject.parseObject(httpResponse.getContent());
+		System.out.println(response);
+//		String date = DateUtils.stampToDate(1546939347401L);
+//
+//		System.out.println(date.split(" ")[0] + "   " + date.split(" ")[1]);
 	}
+	
 
 }

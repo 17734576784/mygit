@@ -618,5 +618,17 @@ public class DateUtils {
 			return "";
 		}
 	}
+	
+	/*
+	 * 将时间戳转换为时间
+	 */
+	public static String stampToDate(long s) {
+		String res;
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd HHmmss");
+		long lt = new Long(s);
+		Date date = new Date(lt);
+		res = simpleDateFormat.format(date);
+		return res;
+	}
 
 }

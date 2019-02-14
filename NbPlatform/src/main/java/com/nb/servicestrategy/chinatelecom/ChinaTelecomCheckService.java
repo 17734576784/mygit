@@ -12,10 +12,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONObject;
-import com.nb.http.HttpsUtils;
+import com.nb.http.HttpsClientUtil;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
 import com.nb.model.DeviceProgress;
+import com.nb.model.StreamClosedHttpResponse;
 import com.nb.servicestrategy.IServiceStrategy;
 import com.nb.utils.ChinaTelecomUpGradeUtil;
 import com.nb.utils.Constant;
@@ -71,13 +72,15 @@ public class ChinaTelecomCheckService implements IServiceStrategy {
 			dataMap = JsonUtil.jsonString2SimpleObj(data, dataMap.getClass());
 			String version = toStr(dataMap.get("version"));
 
-			Map<String, Object> paramJson = new HashMap<>();
+			JSONObject paramJson = new JSONObject();
 			paramJson.put("version", version);
 			paramJson.put("deviceId", deviceId);
-
-			Map<String, Object> paramMap = new HashMap<>();
-			paramMap.put("param", paramJson);
-			JSONObject response = HttpsUtils.doPost(apiUrl, paramMap);
+			
+			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
+			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostJsonGetStatusLine(apiUrl,
+					paramJson.toJSONString());
+			
+			JSONObject response =  JSONObject.parseObject(httpResponse.getContent());
 			System.out.println("response ： "+ response);
 			LoggerUtils.Logger(LogName.INFO).info("response: "+response);
 			if (response != null && !response.isEmpty()) {

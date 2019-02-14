@@ -10,7 +10,6 @@ package com.nb.commandstrategy.chinaunicom;
 
 import static com.nb.utils.ConverterUtils.toStr;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -19,10 +18,11 @@ import org.springframework.stereotype.Component;
 import com.alibaba.fastjson.JSONObject;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
+import com.nb.model.StreamClosedHttpResponse;
 import com.nb.utils.Constant;
 import com.nb.utils.DateUtils;
 import com.nb.commandstrategy.ICommandService;
-import com.nb.http.HttpsUtils;
+import com.nb.http.HttpsClientUtil;
 
 /** 
 * @ClassName: ChinaUnicomCommandAlarmService 
@@ -51,17 +51,22 @@ public class ChinaUnicomCommandAlarmService implements ICommandService {
 		String magnetic = toStr(commandMap.get("magneticstatus"));
 		String apiUrl = baseUrl + Constant.UPLOAD_ALARMCOMMAND_URL;
 
-		Map<String, Object> paramJson =  new HashMap<>();
+		JSONObject paramJson = new JSONObject();
 		paramJson.put("slope", slope);
 		paramJson.put("magnetic", magnetic);
 		paramJson.put("date", DateUtils.curDate());
 		paramJson.put("time", DateUtils.curTime());
 		paramJson.put("deviceId", deviceId);
 
-		Map<String, Object> urlMap = new HashMap<>();
-		urlMap.put("param", paramJson.toString());
+//		Map<String, Object> urlMap = new HashMap<>();
+//		urlMap.put("param", paramJson.toString());
 		try {
-			JSONObject httpResult = HttpsUtils.doPost(apiUrl, urlMap);
+//			JSONObject httpResult = HttpsUtils.doPost(apiUrl, urlMap);
+			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
+			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostJsonGetStatusLine(apiUrl,
+			paramJson.toJSONString());
+			JSONObject httpResult = JSONObject.parseObject(httpResponse.getContent());
+			
 			if (httpResult != null && !httpResult.isEmpty()) {
 				if (httpResult.getInteger("status") == Constant.ERROR) {
 					LoggerUtils.Logger(LogName.INFO).info("推送设置告警命令回复失败，设备id：" + deviceId + " ,告警内容：" + commandMap.toString());

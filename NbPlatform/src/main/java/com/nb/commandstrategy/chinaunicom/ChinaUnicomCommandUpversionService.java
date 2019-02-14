@@ -11,7 +11,6 @@ package com.nb.commandstrategy.chinaunicom;
 import static com.nb.utils.ConverterUtils.*;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -21,11 +20,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
 import com.nb.model.DeviceProgress;
+import com.nb.model.StreamClosedHttpResponse;
 import com.nb.utils.ChinaTelecomUpGradeUtil;
 import com.nb.utils.Constant;
 import com.nb.utils.ConverterUtils;
 import com.nb.commandstrategy.ICommandService;
-import com.nb.http.HttpsUtils;
+import com.nb.http.HttpsClientUtil;
 import com.nb.utils.JedisUtils;
 
 /** 
@@ -105,14 +105,19 @@ public class ChinaUnicomCommandUpversionService implements ICommandService {
 	public void sendUpResult(String deviceId) {
 		String apiUrl = baseUrl + Constant.UPLOAD_UPGRADERESULT_URL;
 		try {
-			Map<String, Object> paramJson = new HashMap<>();
+			JSONObject paramJson = new JSONObject();
 			paramJson.put("status", Constant.UPGRADE_FAILED);
 			paramJson.put("version", "1");
 			paramJson.put("deviceId", deviceId);
 
-			Map<String, Object> paramMap = new HashMap<>();
-			paramMap.put("param", paramJson);
-			JSONObject response = HttpsUtils.doPost(apiUrl, paramMap);
+//			Map<String, Object> paramMap = new HashMap<>();
+//			paramMap.put("param", paramJson);
+//			JSONObject response = HttpsUtils.doPost(apiUrl, paramMap);
+			
+			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
+			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostJsonGetStatusLine(apiUrl,
+			paramJson.toJSONString());
+			JSONObject response = JSONObject.parseObject(httpResponse.getContent());
 			if (response != null && !response.isEmpty()) {
 				if (response.getInteger("status") == Constant.SUCCESS) {
 					LoggerUtils.Logger(LogName.CALLBACK).info(deviceId + "升级失败发送成功");

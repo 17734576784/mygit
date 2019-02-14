@@ -1,18 +1,24 @@
 package com.nb.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import java.io.UnsupportedEncodingException;
-
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.nb.http.HttpsClientUtil;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
+import com.nb.model.StreamClosedHttpResponse;
 import com.nb.utils.ChinaMobileUtil;
 import com.nb.utils.Constant;
+import com.nb.utils.DateUtils;
 
 /** 
 * @ClassName: ChinaMobileCallBackController 
@@ -24,6 +30,10 @@ import com.nb.utils.Constant;
 @RestController
 public class ChinaMobileCallBackController {
 
+	/** 网站对接服务地址 */
+	@Value("${website.baseurl}")
+	private String baseUrl;
+	
 	/** 
 	* @Title: URLVerification 
 	* @Description:  URL&Token验证接口。如果验证成功返回msg的值，否则返回其他值
@@ -59,16 +69,17 @@ public class ChinaMobileCallBackController {
 			boolean dataRight = ChinaMobileUtil.checkSignature(obj, Constant.CHINA_MOBILE_TOKEN);
 			if (dataRight) {
 				System.out.println("msg :"+ obj.getMsg().toString());
-//				try {
-//					JSONObject msgJson = JSONObject.parseObject(obj.getMsg().toString());
-//					long at = msgJson.getLongValue("at");
-//					String dsId = msgJson.getString("ds_id");
-//					
-//					System.out.println("msgJson : " + msgJson);
-//				} catch (Exception e) {
-//					JSONArray msgArray = JSON.parseArray(obj.getMsg().toString());
-//					System.out.println("msgArray : " + msgArray);
-// 				}
+				try {
+					JSONObject msgJson = JSONObject.parseObject(obj.getMsg().toString());
+					parseMsg(msgJson);
+				} catch (Exception e) {
+					JSONArray msgArray = JSON.parseArray(obj.getMsg().toString());
+					System.out.println("msgArray : " + msgArray);
+					for (Object object : msgArray) {
+						JSONObject msgJson = (JSONObject) object;
+						parseMsg(msgJson);
+					}
+ 				}
  				LoggerUtils.Logger(LogName.INFO).info("data receive: content" + obj.toString());
 			} else {
 				LoggerUtils.Logger(LogName.INFO).info("data receive: signature error");
@@ -80,5 +91,29 @@ public class ChinaMobileCallBackController {
 		return Constant.OK;
 	}
 	
-	
+	private void parseMsg(JSONObject msgJson) {
+
+		//标识消息类型
+		int type = msgJson.getIntValue("type");
+		if (type == Constant.CHINA_MOBILE_DATA_MSG) {
+			
+			long at = msgJson.getLongValue("at");
+			String date = DateUtils.stampToDate(at);
+			String deviceId = msgJson.getString("dev_id");
+			String value = msgJson.getString("value");
+			
+			JSONObject paramJson = new JSONObject();
+			paramJson.put("date", date.split(" ")[0]);
+			paramJson.put("time", date.split(" ")[1]);
+			paramJson.put("deviceId", deviceId);
+			paramJson.put("value", value);
+			
+			String apiUrl = baseUrl + Constant.UPLOAD_DATA_URL;
+			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
+
+			StreamClosedHttpResponse response = httpsClientUtil.doPostJsonGetStatusLine(apiUrl,
+					paramJson.toJSONString());
+			System.out.println("response : " + response.getContent());
+		}
+	}
 }

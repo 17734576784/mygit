@@ -237,7 +237,7 @@ public class Constant {
 	
 	public static final String UPLOAD_PIC = "1";
 	/** 上传图片url */
-	public static final String UPLOAD_IMAGE_URL = "nbNotifyAction!notifyToWeb.action";
+	public static final String UPLOAD_IMAGE_URL = "nbNotifyAction!notifyImage.action";
 
 	/** 上传告警 */
 	public static final String UPLOAD_ALARM_URL = "nbNotifyAction!notifyAlarm.action";
@@ -254,6 +254,10 @@ public class Constant {
 	/** 上传升级成功地址 */
 	public static final String UPLOAD_UPGRADERESULT_URL = "nbNotifyAction!notifyUploadResult.action";
 
+	/** 上传抄表数据地址 */
+	public static final String UPLOAD_DATA_URL = "nbNotifyAction!notifyData.action";
+
+	
 	/** 命令发送 */
 	public static final String COMMAND_SEND = "SEND";
 
@@ -354,4 +358,13 @@ public class Constant {
 	
 	/** 命令类型 redis Key */
 	public static final String COMMAND_TYPE_REIDS = "command_type";
+
+	/** 标识消息类型 1：设备上传数据点消息 */
+	public static final int CHINA_MOBILE_DATA_MSG = 1;
+	/** 标识消息类型 2：设备上下线消息 */
+	public static final int CHINA_MOBILE_DEVICE_MSG = 2;
+	/** 标识消息类型 7：缓存命令下发后结果上报（仅支持NB设备） */
+	public static final int CHINA_MOBILE_COMMAND_MSG = 3;
+	
+	
 }

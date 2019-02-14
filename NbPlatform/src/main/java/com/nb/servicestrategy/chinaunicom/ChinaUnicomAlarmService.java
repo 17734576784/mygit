@@ -12,9 +12,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONObject;
-import com.nb.http.HttpsUtils;
+import com.nb.http.HttpsClientUtil;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
+import com.nb.model.StreamClosedHttpResponse;
 import com.nb.servicestrategy.IServiceStrategy;
 import com.nb.utils.Constant;
 import com.nb.utils.JsonUtil;
@@ -54,7 +55,7 @@ public class ChinaUnicomAlarmService implements IServiceStrategy{
 			String magnetic = toStr(dataMap.get("magnetic"));
 			String alarmtype = toStr(dataMap.get("alarmtype"));
 
-			Map<String,Object> paramJson = new HashMap<>();
+			JSONObject paramJson = new JSONObject();
 			paramJson.put("slope", slope);
 			paramJson.put("magnetic", magnetic);
 			paramJson.put("alarmtype", alarmtype);
@@ -62,9 +63,14 @@ public class ChinaUnicomAlarmService implements IServiceStrategy{
 			paramJson.put("date", date);
 			paramJson.put("time", time);
 
-			Map<String, Object> paramMap = new HashMap<>();
-			paramMap.put("param", paramJson);
-			JSONObject httpResult = HttpsUtils.doPost(apiUrl, paramMap);
+//			Map<String, Object> paramMap = new HashMap<>();
+//			paramMap.put("param", paramJson);
+//			JSONObject httpResult = HttpsUtils.doPost(apiUrl, paramMap);
+			
+			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
+			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostJsonGetStatusLine(apiUrl,
+			paramJson.toJSONString());
+			JSONObject httpResult = JSONObject.parseObject(httpResponse.getContent());
 			if (httpResult != null && !httpResult.isEmpty()) {
 				if (httpResult.getInteger("status") == Constant.ERROR) {
 					LoggerUtils.Logger(LogName.CALLBACK).info("上传告警失败：" + logInfo);
