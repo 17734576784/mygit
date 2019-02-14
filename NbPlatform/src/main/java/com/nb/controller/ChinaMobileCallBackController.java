@@ -3,6 +3,9 @@ package com.nb.controller;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -56,7 +59,7 @@ public class ChinaMobileCallBackController {
 	}
 
 	@RequestMapping(value = "receivingPushMessages", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String URLVerification(@RequestBody String pushMessages) {
+	public String URLVerification(@RequestBody String pushMessages) throws Exception {
 		System.out.println("pushMessages : " + pushMessages);
 		LoggerUtils.Logger(LogName.INFO).info("data receive:  body String --- " + pushMessages);
 		/************************************************
@@ -91,7 +94,7 @@ public class ChinaMobileCallBackController {
 		return Constant.OK;
 	}
 	
-	private void parseMsg(JSONObject msgJson) {
+	private void parseMsg(JSONObject msgJson) throws Exception {
 
 		//标识消息类型
 		int type = msgJson.getIntValue("type");
@@ -109,11 +112,13 @@ public class ChinaMobileCallBackController {
 			paramJson.put("value", value);
 			
 			String apiUrl = baseUrl + Constant.UPLOAD_DATA_URL;
+			
+			Map<String, String> paramMap = new HashMap<String, String>();
+			paramMap.put("param", paramJson.toJSONString());
 			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
+			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostFormUrlEncodedGetStatusLine(apiUrl, paramMap);
 
-			StreamClosedHttpResponse response = httpsClientUtil.doPostJsonGetStatusLine(apiUrl,
-					paramJson.toJSONString());
-			System.out.println("response : " + response.getContent());
+			System.out.println("response : " + httpResponse.getContent());
 		}
 	}
 }

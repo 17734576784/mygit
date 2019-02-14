@@ -201,3 +201,9 @@
 [2019-02-14 14:41:34.916] INFO [http-nio-8080-exec-1] FrameworkServlet.java:546 - Completed initialization in 15 ms
 [2019-02-14 14:41:35.275] INFO [http-nio-8080-exec-1] ChinaTelecomDeviceService.java:47 - 接收设备注册请求:{"nbType":1,"version":2,"deviceId":3}
 [2019-02-14 14:41:58.573] INFO [http-nio-8080-exec-2] ChinaTelecomDeviceService.java:47 - 接收设备注册请求:{"nbType":1,"version":2,"deviceId":3}
+[2019-02-14 15:06:16.156] INFO [main] RetryExec.java:97 - I/O exception (java.net.SocketException) caught when processing request to {}->http://222.222.60.178:18130: Connection reset
+[2019-02-14 15:06:16.171] INFO [main] RetryExec.java:113 - Retrying request to {}->http://222.222.60.178:18130
+[2019-02-14 15:06:17.688] INFO [main] RetryExec.java:97 - I/O exception (java.net.SocketException) caught when processing request to {}->http://222.222.60.178:18130: Connection reset
+[2019-02-14 15:06:17.688] INFO [main] RetryExec.java:113 - Retrying request to {}->http://222.222.60.178:18130
+[2019-02-14 15:06:19.680] INFO [main] RetryExec.java:97 - I/O exception (java.net.SocketException) caught when processing request to {}->http://222.222.60.178:18130: Connection reset
+[2019-02-14 15:06:19.680] INFO [main] RetryExec.java:113 - Retrying request to {}->http://222.222.60.178:18130

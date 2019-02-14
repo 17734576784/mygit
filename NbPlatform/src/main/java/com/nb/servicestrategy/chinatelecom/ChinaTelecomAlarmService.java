@@ -62,10 +62,13 @@ public class ChinaTelecomAlarmService implements IServiceStrategy{
 			paramJson.put("deviceId", deviceId);
 			paramJson.put("date", date);
 			paramJson.put("time", time);
+			
+			Map<String, String> paramMap = new HashMap<String, String>();
+			paramMap.put("param", paramJson.toJSONString());
 
 			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
-			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostJsonGetStatusLine(apiUrl,
-					paramJson.toJSONString());
+			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostFormUrlEncodedGetStatusLine(apiUrl,paramMap);
+
 			JSONObject httpResult =  JSONObject.parseObject(httpResponse.getContent());
 			if (httpResult != null && !httpResult.isEmpty()) {
 				if (httpResult.getInteger("status") == Constant.ERROR) {

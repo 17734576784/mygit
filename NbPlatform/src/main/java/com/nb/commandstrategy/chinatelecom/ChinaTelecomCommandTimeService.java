@@ -10,6 +10,7 @@ package com.nb.commandstrategy.chinatelecom;
 
 import static com.nb.utils.ConverterUtils.toStr;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -60,11 +61,12 @@ public class ChinaTelecomCommandTimeService implements ICommandService {
 		paramJson.put("date", DateUtils.curDate());
 		paramJson.put("time", DateUtils.curTime());
 		paramJson.put("deviceId", deviceId);
-
+		
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("param", paramJson.toJSONString());
 		try {
 			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
-			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostJsonGetStatusLine(apiUrl,
-					paramJson.toJSONString());
+			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostFormUrlEncodedGetStatusLine(apiUrl, paramMap);
 			JSONObject httpResult = JSONObject.parseObject(httpResponse.getContent());
 			if (httpResult != null && !httpResult.isEmpty()) {
 				if (httpResult.getInteger("status") == Constant.ERROR) {

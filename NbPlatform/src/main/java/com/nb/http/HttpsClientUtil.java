@@ -63,7 +63,7 @@ import com.nb.utils.Constant;
 
 /**
  * @ClassName: HTTPSClientUtil
- * @Description: TODO(这里用一句话描述这个类的作用)
+ * @Description: Http工具类
  * @author dbr
  * @date 2018年12月26日 下午4:27:18
  * 

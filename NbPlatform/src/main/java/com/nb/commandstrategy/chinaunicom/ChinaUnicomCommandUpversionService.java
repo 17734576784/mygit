@@ -11,6 +11,7 @@ package com.nb.commandstrategy.chinaunicom;
 import static com.nb.utils.ConverterUtils.*;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -104,15 +105,18 @@ public class ChinaUnicomCommandUpversionService implements ICommandService {
 	
 	public void sendUpResult(String deviceId) {
 		String apiUrl = baseUrl + Constant.UPLOAD_UPGRADERESULT_URL;
-		try {
-			JSONObject paramJson = new JSONObject();
-			paramJson.put("status", Constant.UPGRADE_FAILED);
-			paramJson.put("version", "1");
-			paramJson.put("deviceId", deviceId);
+		JSONObject paramJson = new JSONObject();
+		paramJson.put("status", Constant.UPGRADE_FAILED);
+		paramJson.put("version", "1");
+		paramJson.put("deviceId", deviceId);
 
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("param", paramJson.toJSONString());
+		
+		try {
 			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
-			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostJsonGetStatusLine(apiUrl,
-			paramJson.toJSONString());
+			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostFormUrlEncodedGetStatusLine(apiUrl,paramMap);
+
 			JSONObject response = JSONObject.parseObject(httpResponse.getContent());
 			if (response != null && !response.isEmpty()) {
 				if (response.getInteger("status") == Constant.SUCCESS) {
