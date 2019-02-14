@@ -76,10 +76,6 @@ public class ChinaUnicomCheckService implements IServiceStrategy {
 			paramJson.put("version", version);
 			paramJson.put("deviceId", deviceId);
 
-//			Map<String, Object> paramMap = new HashMap<>();
-//			paramMap.put("param", paramJson);
-//			JSONObject response = HttpsUtils.doPost(apiUrl, paramMap);
-			
 			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostJsonGetStatusLine(apiUrl,
 			paramJson.toJSONString());

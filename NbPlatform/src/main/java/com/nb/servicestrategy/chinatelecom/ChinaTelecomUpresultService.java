@@ -69,10 +69,6 @@ public class ChinaTelecomUpresultService implements IServiceStrategy {
 					paramJson.toJSONString());
 			
 			JSONObject response = JSONObject.parseObject(httpResponse.getContent());
-			
-//			Map<String, Object> paramMap = new HashMap<>();
-//			paramMap.put("param", paramJson);
-//			JSONObject response = HttpsUtils.doPost(apiUrl, paramMap);
 			if (response != null && !response.isEmpty()) {
 				if (response.getInteger("status") == Constant.SUCCESS) {
 					LoggerUtils.Logger(LogName.CALLBACK).info("升级成功发送成功，response：" + response);

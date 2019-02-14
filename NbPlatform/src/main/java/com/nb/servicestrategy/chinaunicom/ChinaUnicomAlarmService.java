@@ -63,10 +63,6 @@ public class ChinaUnicomAlarmService implements IServiceStrategy{
 			paramJson.put("date", date);
 			paramJson.put("time", time);
 
-//			Map<String, Object> paramMap = new HashMap<>();
-//			paramMap.put("param", paramJson);
-//			JSONObject httpResult = HttpsUtils.doPost(apiUrl, paramMap);
-			
 			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostJsonGetStatusLine(apiUrl,
 			paramJson.toJSONString());

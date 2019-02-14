@@ -58,10 +58,7 @@ public class ChinaTelecomCommandAlarmService implements ICommandService {
 		paramJson.put("time", DateUtils.curTime());
 		paramJson.put("deviceId", deviceId);
 
-//		Map<String, Object> urlMap = new HashMap<>();
-//		urlMap.put("param", paramJson.toString());
 		try {
-//			JSONObject httpResult = HttpsUtils.doPost(apiUrl, urlMap);
 			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostJsonGetStatusLine(apiUrl,
 					paramJson.toJSONString());

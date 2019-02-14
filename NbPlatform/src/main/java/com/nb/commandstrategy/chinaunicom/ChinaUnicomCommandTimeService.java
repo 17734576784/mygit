@@ -62,16 +62,12 @@ public class ChinaUnicomCommandTimeService implements ICommandService {
 		paramJson.put("time", DateUtils.curTime());
 		paramJson.put("deviceId", deviceId);
 
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("param", paramJson);
-
 		try {
 			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostJsonGetStatusLine(apiUrl,
 			paramJson.toJSONString());
 			JSONObject httpResult = JSONObject.parseObject(httpResponse.getContent());
 			
-//			JSONObject httpResult = HttpsUtils.doPost(apiUrl, paramMap);
 			if (httpResult != null && !httpResult.isEmpty()) {
 				if (httpResult.getInteger("status") == Constant.ERROR) {
 					LoggerUtils.Logger(LogName.INFO).info("推送设置上传周期命令回复失败，设备id：" + deviceId + "，回复内容：" + commandMap.toString());

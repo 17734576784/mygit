@@ -110,10 +110,6 @@ public class ChinaUnicomCommandUpversionService implements ICommandService {
 			paramJson.put("version", "1");
 			paramJson.put("deviceId", deviceId);
 
-//			Map<String, Object> paramMap = new HashMap<>();
-//			paramMap.put("param", paramJson);
-//			JSONObject response = HttpsUtils.doPost(apiUrl, paramMap);
-			
 			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostJsonGetStatusLine(apiUrl,
 			paramJson.toJSONString());
