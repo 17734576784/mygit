@@ -17,6 +17,7 @@ import com.nb.http.HttpsClientUtil;
 import com.nb.model.StreamClosedHttpResponse;
 import com.nb.utils.CommFunc;
 import com.nb.utils.Constant;
+import com.nb.utils.ConverterUtils;
 
 /**
  * @ClassName: ChinaMobileDeviceController
@@ -90,15 +91,22 @@ public class ChinaMobileCommandService {
 	* @throws 
 	*/
 	public ResultBean<?> asynCommand(JSONObject commandInfo) throws Exception {
-		ResultBean<?> result = null;
+		
+		ResultBean<?> result = new ResultBean<>();
 		String url = Constant.CHINA_MOBILE_BASE_URL + "nbiot/execute";
-
+		
+		int commandType = ConverterUtils.toInt(commandInfo.get("command_type"));
+		Map<String, Object> commandMap = CommFunc.getCommandType(Constant.CHINA_MOBILE, commandType);
+		if (null == commandMap || commandMap.isEmpty()) {
+			result.setStatus(Constant.ERROR);
+			result.setError("命令类型不存在");
+			return result;
+		}
+		
 		Map<String, Object> urlParams = new HashMap<String, Object>();
 		urlParams.put("imei", commandInfo.getString("imei"));
-		urlParams.put("obj_id", commandInfo.getString("serviceId"));
-		urlParams.put("obj_inst_id", commandInfo.getString("method"));
-		urlParams.put("res_id", commandInfo.getString("resourceId"));
-
+		urlParams.putAll(commandMap);
+		
 		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 		url = HttpsClientUtil.setcompleteUrl(url, urlParams);
 

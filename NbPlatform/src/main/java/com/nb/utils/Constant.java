@@ -333,5 +333,25 @@ public class Constant {
 	public static final int CHINA_UNICOM = 2;
 	
 	public static final int ZERO = 0;
-
+	
+	/** 命令类型 抄收图片 */
+	public static final int COMMAND_TYPE_IMAGE = 1;
+	/** 命令类型 抄收数据命令 */
+	public static final int COMMAND_TYPE_DATA = 2;
+	/** 命令类型 开阀命令 */
+	public static final int COMMAND_TYPE_OPEN = 10;
+	/** 命令类型 关阀命令 */
+	public static final int COMMAND_TYPE_CLOSE = 11;
+	/** 命令类型 设置抄表时间命令 */
+	public static final int COMMAND_TYPE_CBTIME = 20;
+	/** 命令类型 设置告警开关命令 */
+	public static final int COMMAND_TYPE_ALARM = 21;
+	/** 命令类型 调整摄像头命令 */
+	public static final int COMMAND_TYPE_CAMERA = 22;
+	/** 命令类型 完成激活命令 */
+	public static final int COMMAND_TYPE_ACTIVATE = 99;
+	
+	
+	/** 命令类型 redis Key */
+	public static final String COMMAND_TYPE_REIDS = "command_type";
 }

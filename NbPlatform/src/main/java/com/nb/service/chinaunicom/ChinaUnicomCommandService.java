@@ -13,6 +13,7 @@ import com.nb.http.ChinaUnicomIotHttpsUtil;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
 import com.nb.utils.AuthenticationUtils;
+import com.nb.utils.CommFunc;
 import com.nb.utils.Constant;
 import com.nb.utils.ConverterUtils;
 import com.nb.utils.JedisUtils;
@@ -49,13 +50,19 @@ public class ChinaUnicomCommandService {
 		String callbackUrl = Constant.CHINA_UNICOM_REPORT_CMD_EXEC_RESULT_CALLBACK_URL;
 
 		String deviceId = ConverterUtils.toStr(command.get("deviceId"));// "8c23b6b4-ea68-48fb-9c2f-90452a81ebb1";
-		String serviceId = ConverterUtils.toStr(command.get("serviceId"));// "WaterMeter";
-		String method = ConverterUtils.toStr(command.get("method"));// "SET_TEMPERATURE_READ_PERIOD";
+		int commandType = ConverterUtils.toInt(command.get("command_type"));
 		ObjectNode paras = JsonUtil.convertObject2ObjectNode(ConverterUtils.toStr(command.get("param")));// "{\"value\":\"12\"}"
+		ResultBean<String> result = new ResultBean<String>();
 
+		Map<String, Object> commandMap = CommFunc.getCommandType(Constant.CHINA_UNICOM, commandType);
+		if (null == commandMap || commandMap.isEmpty()) {
+			result.setStatus(Constant.ERROR);
+			result.setError("命令类型不存在");
+			return result;
+		}
+		
 		Map<String, Object> paramCommand = new HashMap<>();
-		paramCommand.put("serviceId", serviceId);
-		paramCommand.put("method", method);
+		paramCommand.putAll(commandMap);
 		paramCommand.put("paras", paras);
 
 		Map<String, Object> paramPostAsynCmd = new HashMap<>();
@@ -74,14 +81,13 @@ public class ChinaUnicomCommandService {
 		
 		JSONObject responseJson = JSON.parseObject(responseBody);
 		String commandId = ConverterUtils.toStr(responseJson.getString("commandId"));
-		ResultBean<String> result = new ResultBean<String>();
 		
 		if (commandId.isEmpty()) {
 			result.setStatus(Constant.ERROR);
 			result.setError(responseBody);
 
 		}else {
-			JedisUtils.set(Constant.COMMAND + commandId, serviceId, commandExpireTime);
+			JedisUtils.set(Constant.COMMAND + commandId, commandMap.get("serviceId"), commandExpireTime);
 		}
 
 		result.setData(responseBody);

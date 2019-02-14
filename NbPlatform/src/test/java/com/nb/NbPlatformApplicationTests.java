@@ -1,28 +1,33 @@
 package com.nb;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Map;
+import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.alibaba.fastjson.JSONObject;
+import com.nb.service.chinamobile.ChinaMobileCommandService;
+import com.nb.utils.CommFunc;
+import com.nb.utils.Constant;
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
+
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = NbPlatformApplicationTests.class)
+@SpringBootTest(classes = NbPlatformApplication.class)
 @PropertySource({"classpath:config.properties" })
 public class NbPlatformApplicationTests {
 
-	@Value("#{${blog-top-links}}")
-    private Map<String, String> topLinks;
+	@Resource
+	private ChinaMobileCommandService chinaMobileCommandService;
 	
+	 
 	@Test
-	public void contextLoads() {
-		System.out.println(topLinks);
-		System.out.println(11);
+	public void contextLoads() throws Exception {
+//		JSONObject json = new JSONObject();
+//		System.out.println(chinaMobileCommandService.asynCommand(json));
+		System.out.println(CommFunc.getCommandType(Constant.CHINA_TELECOM, Constant.COMMAND_TYPE_CAMERA).get("serviceId"));
 	}
 
 }

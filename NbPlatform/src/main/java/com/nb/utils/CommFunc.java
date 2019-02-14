@@ -239,4 +239,11 @@ public class CommFunc {
 		header.put("Content-Type", "application/json");
 		return header;
 	}
+	
+	public static Map<String, Object> getCommandType(int nbType, int commandType) {
+		@SuppressWarnings("unchecked")
+		Map<String,Map<String,Object>> command =  (Map<String, Map<String, Object>>) JedisUtils.get(Constant.COMMAND_TYPE_REIDS);
+		String commandKey = ConverterUtils.toStr(nbType * 1000 + commandType);
+		return command.get(commandKey);
+	}
 }
