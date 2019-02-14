@@ -12,7 +12,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.nb.service.chinamobile.ChinaMobileCommandService;
 import com.nb.utils.CommFunc;
 import com.nb.utils.Constant;
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = NbPlatformApplication.class)
