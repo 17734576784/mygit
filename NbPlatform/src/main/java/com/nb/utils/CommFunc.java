@@ -233,9 +233,9 @@ public class CommFunc {
 		}
 	}
 	
-	public static Map<String, String> getChinaMobileHeader() {
+	public static Map<String, String> getChinaMobileHeader(JSONObject appInfo) {
 		Map<String, String> header = new HashMap<String, String>(2);
-		header.put("api-key", Constant.CHINA_MOBILE_MASTERKEY);
+		header.put("api-key", appInfo.getString("appId"));
 		header.put("Content-Type", "application/json");
 		return header;
 	}

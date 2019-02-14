@@ -1,0 +1,199 @@
+/**   
+* @Title: CommonController.java 
+* @Package com.nb.controller 
+* @Description: TODO(用一句话描述该文件做什么) 
+* @author dbr
+* @date 2019年2月13日 下午1:56:56 
+* @version V1.0   
+*/
+package com.nb.controller;
+
+import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.alibaba.fastjson.JSONObject;
+import com.nb.exception.ResultBean;
+import com.nb.http.HttpsClientUtil;
+import com.nb.model.StreamClosedHttpResponse;
+import com.nb.service.chinamobile.ChinaMobileCommandService;
+import com.nb.service.chinamobile.ChinaMobileDeviceService;
+import com.nb.service.chinatelecom.ChinaTelecomCommandService;
+import com.nb.service.chinatelecom.ChinaTelecomDeviceService;
+import com.nb.service.chinaunicom.ChinaUnicomCommandService;
+import com.nb.service.chinaunicom.ChinaUnicomDeviceService;
+import com.nb.utils.CommFunc;
+import com.nb.utils.Constant;
+
+/** 
+* @ClassName: CommonController 
+* @Description: 网站访问统一入口 
+* @author dbr
+* @date 2019年2月13日 下午1:56:56 
+*  
+*/
+@RestController
+@RequestMapping("/api")
+public class CommonController {
+	
+	@Autowired
+	private ChinaMobileCommandService chinaMobileCommandService;
+	@Autowired
+	private ChinaMobileDeviceService chinaMobileDeviceService;
+	@Autowired
+	private ChinaTelecomCommandService chinaTelecomCommandService;
+	@Autowired
+	private ChinaTelecomDeviceService chinaTelecomDeviceService;
+	@Autowired
+	private ChinaUnicomDeviceService chinaUnicomDeviceService;
+	@Autowired
+	private ChinaUnicomCommandService chinaUnicomCommandService;
+	
+	
+	/** 
+	* @Title: addDevice 
+	* @Description: 创建设备 
+	* @param @param deviceInfo
+	* @param @return
+	* @param @throws Exception    设定文件 
+	* @return ResultBean<?>    返回类型 
+	* @throws 
+	*/
+	@RequestMapping(value = "register", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResultBean<?> addDevice(@RequestBody JSONObject deviceInfo) throws Exception {
+		ResultBean<?> result = new ResultBean<>();
+		int nbType = deviceInfo.getIntValue("nbType");
+
+		switch (nbType) {
+		case Constant.CHINA_TELECOM:
+			result = this.chinaTelecomDeviceService.registerDevice(deviceInfo);
+			break;
+		case Constant.CHINA_UNICOM:
+			result = this.chinaUnicomDeviceService.registerDevice(deviceInfo);
+			break;
+		case Constant.CHINA_MOBILE:
+			result = this.chinaMobileDeviceService.registerDevice(deviceInfo);
+			break;
+		}
+
+		return result;
+	}
+	
+	/** 
+	* @Title: deleteDevice 
+	* @Description: 删除设备 
+	* @param @param deviceId
+	* @param @return
+	* @param @throws Exception    设定文件 
+	* @return ResultBean<?>    返回类型 
+	* @throws 
+	*/
+	@RequestMapping(value = "deleteDecive", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResultBean<?> deleteDevice(@RequestBody JSONObject deviceInfo) throws Exception {
+
+		ResultBean<?> result = new ResultBean<>();
+		int nbType = deviceInfo.getIntValue("nbType");
+
+		switch (nbType) {
+		case Constant.CHINA_TELECOM:
+			result = this.chinaTelecomDeviceService.deleteDevice(deviceInfo);
+			break;
+		case Constant.CHINA_UNICOM:
+			result = this.chinaUnicomDeviceService.deleteDevice(deviceInfo);
+			break;
+		case Constant.CHINA_MOBILE:
+			result = this.chinaMobileDeviceService.deleteDevice(deviceInfo);
+			break;
+		}
+
+		return result;
+	}
+	
+	/** 
+	* @Title: instantReadDeviceResources 
+	* @Description: 即时命令-读设备资源
+	* @param @param commandInfo
+	* @param @return
+	* @param @throws Exception    设定文件 
+	* @return ResultBean<?>    返回类型 
+	* @throws 
+	*/
+	@RequestMapping(value = "/readresource", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResultBean<?> instantReadDeviceResources(@RequestBody JSONObject commandInfo) throws Exception {
+
+		String url = Constant.CHINA_MOBILE_BASE_URL + "nbiot";
+		@SuppressWarnings("unchecked")
+		Map<String, String> params = JSONObject.toJavaObject(commandInfo, Map.class);
+
+		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
+		StreamClosedHttpResponse response = httpsClientUtil.doGetWithParasGetStatusLine(url, params,
+				CommFunc.getChinaMobileHeader(commandInfo));
+
+		ResultBean<?> result = new ResultBean<>(response.getContent());
+
+		return result;
+	}
+
+	/** 
+	* @Title: 即时命令-写设备资源 
+	* @Description: TODO(这里用一句话描述这个方法的作用) 
+	* @param @param commandInfo
+	* @param @return
+	* @param @throws Exception    设定文件 
+	* @return ResultBean<?>    返回类型 
+	* @throws 
+	*/
+	@RequestMapping(value = "/writeresource", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResultBean<?> instantWriteDeviceResources(@RequestBody JSONObject commandInfo) throws Exception {
+		ResultBean<?> result = null;
+		String url = Constant.CHINA_MOBILE_BASE_URL + "nbiot";
+
+		JSONObject urlJson = (JSONObject) commandInfo.clone();
+		urlJson.remove("data");
+		@SuppressWarnings("unchecked")
+		Map<String, Object> params = JSONObject.toJavaObject(urlJson, Map.class);
+
+		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
+		url = HttpsClientUtil.setcompleteUrl(url, params);
+		StreamClosedHttpResponse response = httpsClientUtil.doPostJsonGetStatusLine(url,
+				CommFunc.getChinaMobileHeader(commandInfo), commandInfo.toJSONString());
+
+		result = new ResultBean<>(response.getContent());
+
+		return result;
+	}
+
+	/** 
+	* @Title: instantSendCommand 
+	* @Description: 即时命令-命令下发 
+	* @param @param commandInfo
+	* @param @return
+	* @param @throws Exception    设定文件 
+	* @return ResultBean<?>    返回类型 
+	* @throws 
+	*/
+	@RequestMapping(value = "/command", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResultBean<?> instantSendCommand(@RequestBody JSONObject commandInfo) throws Exception {
+		ResultBean<?> result = new ResultBean<>();
+		int nbType = commandInfo.getIntValue("nbType");
+
+		switch (nbType) {
+		case Constant.CHINA_TELECOM:
+			result = this.chinaTelecomCommandService.asynCommand(commandInfo);
+			break;
+		case Constant.CHINA_UNICOM:
+			result = this.chinaUnicomCommandService.asynCommand(commandInfo);
+			break;
+		case Constant.CHINA_MOBILE:
+			result = this.chinaMobileCommandService.asynCommand(commandInfo);
+			break;
+		}
+
+		return result;
+	}
+
+}

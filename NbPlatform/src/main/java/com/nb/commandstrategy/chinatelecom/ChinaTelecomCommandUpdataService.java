@@ -103,7 +103,8 @@ public class ChinaTelecomCommandUpdataService implements ICommandService {
 				
 				progressBody.setSendTime(ConverterUtils.toStr(LocalDateTime.now()));
 				progressBody.setRetryCount(0);				
-				ChinaTelecomUpGradeUtil.asynCommand(command.toString());
+				ChinaTelecomUpGradeUtil.asynCommand(command.toString(), progressBody.getAppId(),
+						progressBody.getSecret());
 				JedisUtils.set(deviceProgress, progressBody);
 			} else {
 				LoggerUtils.Logger(LogName.INFO).info("不存在设备：" + deviceId + ",升级进度缓存");

@@ -1,14 +1,10 @@
-package com.nb.controller.chinaunicom;
+package com.nb.service.chinaunicom;
 
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -29,9 +25,8 @@ import com.nb.utils.JsonUtil;
 * @date 2019年1月9日 上午10:03:16 
 *  
 */
-@RestController
-@RequestMapping("/chinaunicom")
-public class ChinaUnicomCommandController {
+@Service
+public class ChinaUnicomCommandService {
 
 	@Value("${commandExpireTime}")
 	private int commandExpireTime;
@@ -42,25 +37,21 @@ public class ChinaUnicomCommandController {
 	 * @return
 	 * @throws Exception 
 	 */
-	@RequestMapping(value = "asynCommand", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResultBean<?> asynCommand(String command) throws Exception {
+	public ResultBean<?> asynCommand(JSONObject command) throws Exception {
 		
 		LoggerUtils.Logger(LogName.INFO).info("接收下发命令请求：" + command);
-		JSONObject paramAsynCommand = new JSONObject();
-		paramAsynCommand = JSONObject.parseObject(command);
-
 		ChinaUnicomIotHttpsUtil httpsUtil = new ChinaUnicomIotHttpsUtil();
 		httpsUtil.initSSLConfigForTwoWay();
-		String accessToken = AuthenticationUtils.getChinaUnicomAccessToken(httpsUtil);
+		String accessToken = AuthenticationUtils.getChinaUnicomAccessToken(httpsUtil, command);
 
 		String urlPostAsynCmd = Constant.CHINA_UNICOM_POST_ASYN_CMD;
-		String appId = Constant.CHINA_UNICOM_APPID;
+		String appId = command.getString("appId");
 		String callbackUrl = Constant.CHINA_UNICOM_REPORT_CMD_EXEC_RESULT_CALLBACK_URL;
 
-		String deviceId = ConverterUtils.toStr(paramAsynCommand.get("deviceId"));// "8c23b6b4-ea68-48fb-9c2f-90452a81ebb1";
-		String serviceId = ConverterUtils.toStr(paramAsynCommand.get("serviceId"));// "WaterMeter";
-		String method = ConverterUtils.toStr(paramAsynCommand.get("method"));// "SET_TEMPERATURE_READ_PERIOD";
-		ObjectNode paras = JsonUtil.convertObject2ObjectNode(ConverterUtils.toStr(paramAsynCommand.get("param")));// "{\"value\":\"12\"}"
+		String deviceId = ConverterUtils.toStr(command.get("deviceId"));// "8c23b6b4-ea68-48fb-9c2f-90452a81ebb1";
+		String serviceId = ConverterUtils.toStr(command.get("serviceId"));// "WaterMeter";
+		String method = ConverterUtils.toStr(command.get("method"));// "SET_TEMPERATURE_READ_PERIOD";
+		ObjectNode paras = JsonUtil.convertObject2ObjectNode(ConverterUtils.toStr(command.get("param")));// "{\"value\":\"12\"}"
 
 		Map<String, Object> paramCommand = new HashMap<>();
 		paramCommand.put("serviceId", serviceId);

@@ -1,4 +1,4 @@
-package com.nb.controller.chinamobile;
+package com.nb.controller;
 
 import org.springframework.http.MediaType;
 import java.io.UnsupportedEncodingException;

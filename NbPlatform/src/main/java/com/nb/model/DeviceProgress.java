@@ -31,6 +31,10 @@ public class DeviceProgress {
 	private int retryCount;
 	/** 收到已送达标志 */
 	private boolean receiveFlag;
+	/**应用ID*/
+	private String appId;
+	/**应用密钥*/
+	private String secret;
 
 	public String getDeviceId() {
 		return deviceId;
@@ -87,13 +91,46 @@ public class DeviceProgress {
 	public void setReceiveFlag(boolean receiveFlag) {
 		this.receiveFlag = receiveFlag;
 	}
+	
+	/**
+	 * @return the appId
+	 */
+	public String getAppId() {
+		return appId;
+	}
 
+	/**
+	 * @param appId the appId to set
+	 */
+	public void setAppId(String appId) {
+		this.appId = appId;
+	}
+
+	/**
+	 * @return the secret
+	 */
+	public String getSecret() {
+		return secret;
+	}
+
+	/**
+	 * @param secret the secret to set
+	 */
+	public void setSecret(String secret) {
+		this.secret = secret;
+	}
+
+	/** (非 Javadoc) 
+	* <p>Title: toString</p> 
+	* <p>Description: </p> 
+	* @return 
+	* @see java.lang.Object#toString() 
+	*/
 	@Override
 	public String toString() {
 		return "DeviceProgress [deviceId=" + deviceId + ", fileKey=" + fileKey + ", packNum=" + packNum
 				+ ", sendedPack=" + sendedPack + ", sendTime=" + sendTime + ", retryCount=" + retryCount
-				+ ", receiveFlag=" + receiveFlag + "]";
+				+ ", receiveFlag=" + receiveFlag + ", appId=" + appId + ", secret=" + secret + "]";
 	}
 
-	
 }

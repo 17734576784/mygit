@@ -84,10 +84,14 @@ public class ChinaTelecomCheckService implements IServiceStrategy {
 				if (response.getInteger("status") == Constant.SUCCESS) {
 					/** 判断设备是否升级 0:升级 1：不升级 */
 					int upgradeFlag = response.getIntValue("flag");
+					String appId = response.getString("appId");
+					String secret = response.getString("secret");
+					
 					if (upgradeFlag == Constant.UPGRADE_SUCCESS) {
 						String filePath = response.getString("filePath");
 						String newVersion = response.getString("version");
-						loadUpgradeFile(deviceId, filePath, newVersion);
+
+						loadUpgradeFile(deviceId, filePath, newVersion, appId, secret);
 						version = newVersion;
 					}
 					
@@ -101,7 +105,7 @@ public class ChinaTelecomCheckService implements IServiceStrategy {
 					command.put("serviceId",Constant.UPVERSIONSERVICE);
 					command.put("method",Constant.UPVERSION);	
 					command.put("param", param.toString());
-					ChinaTelecomUpGradeUtil.asynCommand(command.toString());
+					ChinaTelecomUpGradeUtil.asynCommand(command.toString(), appId, secret);
 				} 
 			} else {
 				LoggerUtils.Logger(LogName.CALLBACK).info("发送主动查询解析服务返回结果为空，" + logInfo);
@@ -123,7 +127,7 @@ public class ChinaTelecomCheckService implements IServiceStrategy {
 	* @return JSONObject    返回类型 
 	* @throws 
 	*/
-	public void loadUpgradeFile(String deviceId, String filePath, String version) {
+	public void loadUpgradeFile(String deviceId, String filePath, String version, String appId, String secret) {
 		try {
 			/** split里面必须是正则表达式，"\\"的作用是对字符串转义 */
 			String temp[] = filePath.split("/"); 
@@ -153,11 +157,11 @@ public class ChinaTelecomCheckService implements IServiceStrategy {
 					/** 删除过期升级进度缓存 */
 					JedisUtils.del(deviceProgress);
 					/** 创建新升级进度缓存 */
-					insertDeviceProgress(deviceId, fileKey, packNum);
+					insertDeviceProgress(deviceId, fileKey, packNum, appId, secret);
 				}
 			} else {
 				/** 创建新升级进度缓存 */
-				insertDeviceProgress(deviceId, fileKey, packNum);
+				insertDeviceProgress(deviceId, fileKey, packNum, appId, secret);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -174,7 +178,7 @@ public class ChinaTelecomCheckService implements IServiceStrategy {
 	* @return void    返回类型 
 	* @throws 
 	*/
-	private void insertDeviceProgress(String deviceId, String fileKey, short packNum) {
+	private void insertDeviceProgress(String deviceId, String fileKey, short packNum, String appId, String secret) {
 		/** 设备升级缓存key */
 		String deviceProgress = Constant.PROGRESS_CHINA_TELECOM + deviceId;
 		DeviceProgress progress =  new DeviceProgress(); 
@@ -184,7 +188,9 @@ public class ChinaTelecomCheckService implements IServiceStrategy {
 		progress.setSendedPack(toShort(-1));
 		progress.setSendTime(toStr(LocalDateTime.now()));
 		progress.setRetryCount(0);
-
+		progress.setAppId(appId);
+		progress.setSecret(secret);
+		
 		JedisUtils.set(deviceProgress, progress);
 	}
 }

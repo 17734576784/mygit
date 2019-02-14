@@ -6,16 +6,12 @@
 * @date 2019年1月3日 上午8:44:58 
 * @version V1.0   
 */
-package com.nb.controller.chinatelecom;
+package com.nb.service.chinatelecom;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONObject;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
@@ -27,8 +23,6 @@ import com.nb.http.ChinaTelecomIotHttpsUtil;
 import com.nb.model.StreamClosedHttpResponse;
 import com.nb.utils.Constant;
 
-import org.springframework.web.bind.annotation.RequestMethod;
-
 /** 
 * @ClassName: ChinaMobileDeviceController 
 * @Description: 中国电信设备管理 
@@ -36,9 +30,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 * @date 2019年1月3日 上午8:44:58 
 *  
 */
-@RestController
-@RequestMapping("/chinatelecom")
-public class ChinaTelecomDeviceController {
+@Service
+public class ChinaTelecomDeviceService {
 	
 	/** 
 	* @Title: registerDevice 
@@ -50,31 +43,36 @@ public class ChinaTelecomDeviceController {
 	* @throws 
 	*/
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "registerDevice", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResultBean<?> registerDevice(@RequestBody String deviceInfo) throws Exception {
+	public ResultBean<?> registerDevice(JSONObject deviceInfo) throws Exception {
 		LoggerUtils.Logger(LogName.INFO).info("接收设备注册请求:" + deviceInfo);
 		
 		ChinaTelecomIotHttpsUtil httpsUtil = new ChinaTelecomIotHttpsUtil();
 		httpsUtil.initSSLConfigForTwoWay();
-		String accessToken = AuthenticationUtils.getChinaTelecomAccessToken(httpsUtil);
+		String accessToken = AuthenticationUtils.getChinaTelecomAccessToken(httpsUtil, deviceInfo);
 
-		String appId = Constant.CHINA_TELECOM_APPID;
+		String appId = deviceInfo.getString("appId");
 		String urlReg = Constant.CHINA_TELECOM_REGISTER_DEVICE;
 
 		Map<String, String> header = new HashMap<>();
 		header.put(Constant.HEADER_APP_KEY, appId);
 		header.put(Constant.HEADER_APP_AUTH, "Bearer" + " " + accessToken);
 		
-		String jsonRequest = deviceInfo;
+		JSONObject registerInfo = new JSONObject();
+		registerInfo.put("verifyCode", deviceInfo.getString("imei"));
+		registerInfo.put("nodeId", deviceInfo.getString("imei"));
+		registerInfo.put("timeout", Constant.ZERO);
+
+		String jsonRequest = registerInfo.toJSONString();
 		StreamClosedHttpResponse responseReg = httpsUtil.doPostJsonGetStatusLine(urlReg, header, jsonRequest);
 		Map<String, Object> responseMap = new HashMap<>();
 		responseMap = JsonUtil.jsonString2SimpleObj(responseReg.getContent(), responseMap.getClass());
 		String deviceId = ConverterUtils.toStr(responseMap.get("deviceId"));
-		
-		ResultBean<String> result = new ResultBean<String>();
-		result.setData(deviceId);
-
-		return result;
+		if (null != deviceId && !deviceId.isEmpty()) {
+			return modifyDeviceInfo(deviceId, deviceInfo);
+		}else {
+			ResultBean<String> result = new ResultBean<String>(Constant.ERROR, "请求错误");
+			return result;
+		}
 	}
 	
 	/** 
@@ -86,21 +84,25 @@ public class ChinaTelecomDeviceController {
 	* @return ResultBean<?>    返回类型 
 	* @throws 
 	*/
-	@RequestMapping(value = "modifyDeviceInfo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResultBean<?> modifyDeviceInfo(String deviceInfo) throws Exception {
+	public ResultBean<?> modifyDeviceInfo(String deviceId,JSONObject deviceInfo) throws Exception {
 		
 		LoggerUtils.Logger(LogName.INFO).info("接收修改设备信息请求：" + deviceInfo);
-		JSONObject paramModifyDevice = new JSONObject();
-		paramModifyDevice = JSONObject.parseObject(deviceInfo);
-	
+ 	
 		ChinaTelecomIotHttpsUtil httpsUtil = new ChinaTelecomIotHttpsUtil();
 		httpsUtil.initSSLConfigForTwoWay();
-		String accessToken = AuthenticationUtils.getChinaTelecomAccessToken(httpsUtil);
+		String accessToken = AuthenticationUtils.getChinaTelecomAccessToken(httpsUtil, deviceInfo);
 	
-		String appId = Constant.CHINA_TELECOM_APPID;
-		String deviceId = ConverterUtils.toStr(paramModifyDevice.get("deviceId"));
-		String urlModifyDeviceInfo = Constant.CHINA_TELECOM_MODIFY_DEVICE_INFO + "/" + deviceId;
+		String appId = deviceInfo.getString("appId");
+ 		String urlModifyDeviceInfo = Constant.CHINA_TELECOM_MODIFY_DEVICE_INFO + "/" + deviceId;
 	
+		JSONObject paramModifyDevice = new JSONObject();
+		paramModifyDevice.put("deviceId", deviceId);
+		paramModifyDevice.put("manufacturerId", deviceInfo.getString("manufacturerId"));
+		paramModifyDevice.put("manufacturerName", deviceInfo.getString("manufacturerName"));
+		paramModifyDevice.put("deviceType", deviceInfo.getString("deviceType"));
+		paramModifyDevice.put("model", deviceInfo.getString("model"));
+		paramModifyDevice.put("protocolType", deviceInfo.getString("protocolType"));
+		
 		String jsonRequest = JsonUtil.jsonObj2Sting(paramModifyDevice);
 	
 		Map<String, String> header = new HashMap<>();
@@ -110,8 +112,14 @@ public class ChinaTelecomDeviceController {
 		StreamClosedHttpResponse responseModifyDeviceInfo = httpsUtil.doPutJsonGetStatusLine(urlModifyDeviceInfo,
 				header, jsonRequest);
  
-		ResultBean<String> result = new ResultBean<String>();
-		result.setData(responseModifyDeviceInfo.getContent());
+		JSONObject response = JSONObject.parseObject(responseModifyDeviceInfo.getContent());
+ 			
+ 		System.out.println(response);
+ 		
+		ResultBean<JSONObject> result = new ResultBean<JSONObject>();
+		JSONObject rtnJson = new JSONObject();
+		rtnJson.put("deviceId", deviceId);
+		result.setData(rtnJson);
 
 		return result;
 	}
@@ -126,15 +134,15 @@ public class ChinaTelecomDeviceController {
 	* @return ResultBean<?>    返回类型 
 	* @throws 
 	*/
-	@RequestMapping(value = "deleteDevice", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResultBean<?> deleteDevice(String deviceId) throws Exception {
-		LoggerUtils.Logger(LogName.INFO).info("接收设备删除请求:" + deviceId);
+	public ResultBean<?> deleteDevice(JSONObject deviceInfo) throws Exception {
+		LoggerUtils.Logger(LogName.INFO).info("接收设备删除请求:" + deviceInfo);
 		
 		ChinaTelecomIotHttpsUtil httpsUtil = new ChinaTelecomIotHttpsUtil();
 		httpsUtil.initSSLConfigForTwoWay();
-		String accessToken = AuthenticationUtils.getChinaTelecomAccessToken(httpsUtil);
+		String accessToken = AuthenticationUtils.getChinaTelecomAccessToken(httpsUtil,deviceInfo);
 
-		String appId = Constant.CHINA_TELECOM_APPID;
+		String appId = deviceInfo.getString("appId");
+		String deviceId = deviceInfo.getString("deviceId");
 		String deleteUrl = Constant.CHINA_TELECOM_DELETE_DEVICE + "/" + deviceId;
 
 		Map<String, String> header = new HashMap<>();

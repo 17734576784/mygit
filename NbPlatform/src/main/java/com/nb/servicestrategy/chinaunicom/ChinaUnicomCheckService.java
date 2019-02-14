@@ -17,7 +17,7 @@ import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
 import com.nb.model.DeviceProgress;
 import com.nb.servicestrategy.IServiceStrategy;
-import com.nb.utils.ChinaTelecomUpGradeUtil;
+import com.nb.utils.ChinaUnicomUpGradeUtil;
 import com.nb.utils.Constant;
 import com.nb.utils.FileUtils;
 import com.nb.utils.JedisUtils;
@@ -84,6 +84,9 @@ public class ChinaUnicomCheckService implements IServiceStrategy {
 				if (response.getInteger("status") == Constant.SUCCESS) {
 					/** 判断设备是否升级 0:升级 1：不升级 */
 					int upgradeFlag = response.getIntValue("flag");
+					String appId = response.getString("appId");
+					String secret = response.getString("secret");
+					
 					if (upgradeFlag == Constant.UPGRADE_SUCCESS) {
 						String filePath = response.getString("filePath");
 						String newVersion = response.getString("version");
@@ -101,7 +104,7 @@ public class ChinaUnicomCheckService implements IServiceStrategy {
 					command.put("serviceId",Constant.UPVERSIONSERVICE);
 					command.put("method",Constant.UPVERSION);	
 					command.put("param", param.toString());
-					ChinaTelecomUpGradeUtil.asynCommand(command.toString());
+					ChinaUnicomUpGradeUtil.asynCommand(command.toString(), appId, secret);
 				} 
 			} else {
 				LoggerUtils.Logger(LogName.CALLBACK).info("发送主动查询解析服务返回结果为空，" + logInfo);

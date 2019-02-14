@@ -1,4 +1,4 @@
-package com.nb.controller.chinaunicom;
+package com.nb.controller;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -35,14 +35,14 @@ public class Constant {
 	public static final String CHINA_MOBILE_SECRET = "";
 
 	/** 中国联通平台APPID */
-	public static final String CHINA_UNICOM_APPID = "YXnpwWndC3ioc15OGALXZvHLB1oa";
+//	public static final String CHINA_UNICOM_APPID = "YXnpwWndC3ioc15OGALXZvHLB1oa";
 	/** 中国联通平台SECRET */
-	public static final String CHINA_UNICOM_SECRET = "uOL_C0yP6pl4Gals5dJkrfF1vSka";
+//	public static final String CHINA_UNICOM_SECRET = "uOL_C0yP6pl4Gals5dJkrfF1vSka";
 
 	/** 中国电信平台APPID */
-	public static final String CHINA_TELECOM_APPID = "fn5I2QJuIRFJxsrXXbUzWXn0S3Ya";
+//	public static final String CHINA_TELECOM_APPID = "fn5I2QJuIRFJxsrXXbUzWXn0S3Ya";
 	/** 中国电信平台SECRET */
-	public static final String CHINA_TELECOM_SECRET = "9IL8rmcruUPIbth4gRP1XGAns2Ya";
+//	public static final String CHINA_TELECOM_SECRET = "9IL8rmcruUPIbth4gRP1XGAns2Ya";
 
 	/*
 	 * IP and port of callback url. please replace the IP and Port of your
@@ -327,4 +327,11 @@ public class Constant {
 	/** 中国联通服务前缀 */
 	public static String CHINA_UNICOM_COMMAND ="chinaUnicomCommand";
 	
+	/** 运营商类型 */
+	public static final int CHINA_MOBILE = 3;
+	public static final int CHINA_TELECOM = 1;
+	public static final int CHINA_UNICOM = 2;
+	
+	public static final int ZERO = 0;
+
 }

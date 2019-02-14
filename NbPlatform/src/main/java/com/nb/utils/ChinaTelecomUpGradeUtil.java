@@ -33,26 +33,35 @@ import com.nb.logger.LoggerUtils;
  */
 public class ChinaTelecomUpGradeUtil {
 
-	public static boolean asynCommand(String command) throws Exception {
+	public static boolean asynCommand(String command,String appId, String secret) throws Exception {
 
 		LoggerUtils.Logger(LogName.INFO).info("工具类接收下发命令请求：" + command);
 		JSONObject paramAsynCommand = new JSONObject();
 		try {
 			paramAsynCommand = JSONObject.parseObject(command);
+			
 
-			ChinaTelecomIotHttpsUtil httpsUtil = new ChinaTelecomIotHttpsUtil();
-			httpsUtil.initSSLConfigForTwoWay();
-			String accessToken = AuthenticationUtils.getChinaTelecomAccessToken(httpsUtil);
-
-			String urlPostAsynCmd = Constant.CHINA_TELECOM_POST_ASYN_CMD;
-			String appId = Constant.CHINA_TELECOM_APPID;
-			String callbackUrl = Constant.CHINA_TELECOM_REPORT_CMD_EXEC_RESULT_CALLBACK_URL;
 
 			String deviceId = ConverterUtils.toStr(paramAsynCommand.get("deviceId"));// "8c23b6b4-ea68-48fb-9c2f-90452a81ebb1";
 			String serviceId = ConverterUtils.toStr(paramAsynCommand.get("serviceId"));// "WaterMeter";
 			String method = ConverterUtils.toStr(paramAsynCommand.get("method"));// "SET_TEMPERATURE_READ_PERIOD";
 			ObjectNode paras = JsonUtil.convertObject2ObjectNode(ConverterUtils.toStr(paramAsynCommand.get("param")));// "{\"value\":\"12\"}"
+			
+//			String deviceProgress = Constant.PROGRESS_CHINA_TELECOM + deviceId;
+//			DeviceProgress progress = (DeviceProgress) JedisUtils.get(deviceProgress);
+			JSONObject appInfo = new JSONObject();
+			appInfo.put("appId", appId);
+			appInfo.put("secret", secret);
 
+			ChinaTelecomIotHttpsUtil httpsUtil = new ChinaTelecomIotHttpsUtil();
+			httpsUtil.initSSLConfigForTwoWay();
+			String accessToken = AuthenticationUtils.getChinaTelecomAccessToken(httpsUtil, appInfo);
+
+			String urlPostAsynCmd = Constant.CHINA_TELECOM_POST_ASYN_CMD;
+			String callbackUrl = Constant.CHINA_TELECOM_REPORT_CMD_EXEC_RESULT_CALLBACK_URL;
+
+			
+			
 			Map<String, Object> paramCommand = new HashMap<>();
 			paramCommand.put("serviceId", serviceId);
 			paramCommand.put("method", method);

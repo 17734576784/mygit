@@ -132,7 +132,7 @@ public class QuartzTask {
 			
 			progressBody.setSendTime(ConverterUtils.toStr(LocalDateTime.now()));
 			progressBody.setRetryCount(retryCount);
-			ChinaUnicomUpGradeUtil.asynCommand(command.toString());
+			ChinaUnicomUpGradeUtil.asynCommand(command.toString(), progressBody.getAppId(), progressBody.getSecret());
 			
 			JedisUtils.set(deviceProgress, progressBody);
 			LoggerUtils.Logger(LogName.INFO).info("自动任务发送命令：" + progressBody.toString());
@@ -200,7 +200,7 @@ public class QuartzTask {
 			
 			progressBody.setSendTime(ConverterUtils.toStr(LocalDateTime.now()));
 			progressBody.setRetryCount(retryCount);
-			ChinaTelecomUpGradeUtil.asynCommand(command.toString());
+			ChinaTelecomUpGradeUtil.asynCommand(command.toString(), progressBody.getAppId(), progressBody.getSecret());
 			
 			JedisUtils.set(deviceProgress, progressBody);
 			LoggerUtils.Logger(LogName.INFO).info("自动任务发送命令：" + progressBody.toString());

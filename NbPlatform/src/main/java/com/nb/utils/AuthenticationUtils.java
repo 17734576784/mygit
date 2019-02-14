@@ -6,6 +6,7 @@ package com.nb.utils;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSONObject;
 import com.nb.http.ChinaTelecomIotHttpsUtil;
 import com.nb.http.ChinaUnicomIotHttpsUtil;
 import com.nb.logger.LogName;
@@ -22,11 +23,11 @@ import com.nb.model.StreamClosedHttpResponse;
 public class AuthenticationUtils {
 	
 	@SuppressWarnings({"unchecked" })
-	public static String getChinaTelecomAccessToken(ChinaTelecomIotHttpsUtil httpsUtil) {
+	public static String getChinaTelecomAccessToken(ChinaTelecomIotHttpsUtil httpsUtil, JSONObject appInfo) {
 		String accessToken = "";
 		
-		String appId = Constant.CHINA_TELECOM_APPID;
-		String secret = Constant.CHINA_TELECOM_SECRET;
+		String appId = appInfo.getString("appId");
+		String secret = appInfo.getString("secret");
 		String urlLogin = Constant.CHINA_TELECOM_APP_AUTH;
 
 		Map<String, String> paramLogin = new HashMap<>();
@@ -47,11 +48,11 @@ public class AuthenticationUtils {
 	}
 	
 	@SuppressWarnings({"unchecked" })
-	public static String getChinaUnicomAccessToken(ChinaUnicomIotHttpsUtil httpsUtil) {
+	public static String getChinaUnicomAccessToken(ChinaUnicomIotHttpsUtil httpsUtil, JSONObject appInfo) {
 		String accessToken = "";
 		
-		String appId = Constant.CHINA_UNICOM_APPID;
-		String secret = Constant.CHINA_UNICOM_SECRET;
+		String appId = appInfo.getString("appId");
+		String secret = appInfo.getString("secret");
 		String urlLogin = Constant.CHINA_UNICOM_APP_AUTH;
 
 		Map<String, String> paramLogin = new HashMap<>();
