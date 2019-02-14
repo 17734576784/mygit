@@ -54,7 +54,7 @@ public class ChinaUnicomCommandService {
 		ObjectNode paras = JsonUtil.convertObject2ObjectNode(ConverterUtils.toStr(command.get("param")));// "{\"value\":\"12\"}"
 		ResultBean<String> result = new ResultBean<String>();
 
-		Map<String, Object> commandMap = CommFunc.getCommandType(Constant.CHINA_UNICOM, commandType);
+		Map<String, String> commandMap = CommFunc.getCommandType(Constant.CHINA_UNICOM, commandType);
 		if (null == commandMap || commandMap.isEmpty()) {
 			result.setStatus(Constant.ERROR);
 			result.setError("命令类型不存在");

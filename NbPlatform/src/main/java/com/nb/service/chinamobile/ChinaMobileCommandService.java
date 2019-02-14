@@ -96,7 +96,7 @@ public class ChinaMobileCommandService {
 		String url = Constant.CHINA_MOBILE_BASE_URL + "nbiot/execute";
 		
 		int commandType = ConverterUtils.toInt(commandInfo.get("command_type"));
-		Map<String, Object> commandMap = CommFunc.getCommandType(Constant.CHINA_MOBILE, commandType);
+		Map<String, String> commandMap = CommFunc.getCommandType(Constant.CHINA_MOBILE, commandType);
 		if (null == commandMap || commandMap.isEmpty()) {
 			result.setStatus(Constant.ERROR);
 			result.setError("命令类型不存在");
@@ -106,7 +106,7 @@ public class ChinaMobileCommandService {
 		Map<String, Object> urlParams = new HashMap<String, Object>();
 		urlParams.put("imei", commandInfo.getString("imei"));
 		urlParams.putAll(commandMap);
-		
+
 		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 		url = HttpsClientUtil.setcompleteUrl(url, urlParams);
 

@@ -56,7 +56,7 @@ public class ChinaTelecomCommandService {
 
 		ObjectNode paras = JsonUtil.convertObject2ObjectNode(ConverterUtils.toStr(command.get("param")));// "{\"value\":\"12\"}"
 		
-		Map<String, Object> commandMap = CommFunc.getCommandType(Constant.CHINA_TELECOM, commandType);
+		Map<String, String> commandMap = CommFunc.getCommandType(Constant.CHINA_TELECOM, commandType);
 		if (null == commandMap || commandMap.isEmpty()) {
 			result.setStatus(Constant.ERROR);
 			result.setError("命令类型不存在");

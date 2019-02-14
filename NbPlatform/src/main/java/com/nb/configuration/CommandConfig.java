@@ -34,10 +34,10 @@ public class CommandConfig {
 
 	@PostConstruct
 	public void init() {
-		Map<String, Map<String, Object>> command = new LinkedHashMap<String, Map<String, Object>>();
+		Map<String, Map<String, String>> command = new LinkedHashMap<String, Map<String, String>>();
 
 		/** 命令类型 抄收图片 */
-		Map<String, Object> photoServiceMap = new HashMap<String, Object>();
+		Map<String, String> photoServiceMap = new HashMap<String, String>();
 		photoServiceMap.put("serviceId", "PhotoService");
 		photoServiceMap.put("method", "sendphotoonce");
 		int commandKey = Constant.CHINA_TELECOM * 1000 + Constant.COMMAND_TYPE_IMAGE;
@@ -48,10 +48,10 @@ public class CommandConfig {
 		command.put(toStr(commandKey), photoServiceMap);
 
 		/** 命令类型 抄收数据命令 */
-		Map<String, Object> dataMap = new HashMap<String, Object>();
-		dataMap.put("obj_id", 1);
-		dataMap.put("obj_inst_id", 2);
-		dataMap.put("res_id", 3);
+		Map<String, String> dataMap = new HashMap<String, String>();
+		dataMap.put("obj_id", "1");
+		dataMap.put("obj_inst_id", "2");
+		dataMap.put("res_id", "3");
 		commandKey = Constant.CHINA_TELECOM * 1000 + Constant.COMMAND_TYPE_DATA;
 		command.put(toStr(commandKey), dataMap);
 		commandKey = Constant.CHINA_UNICOM * 1000 + Constant.COMMAND_TYPE_DATA;
@@ -60,10 +60,10 @@ public class CommandConfig {
 		command.put(toStr(commandKey), dataMap);
 
 		/** 命令类型 开阀命令 */
-		Map<String, Object> openMap = new HashMap<String, Object>();
-		openMap.put("obj_id", 1);
-		openMap.put("obj_inst_id", 2);
-		openMap.put("res_id", 3);
+		Map<String, String> openMap = new HashMap<String, String>();
+		openMap.put("obj_id", "1");
+		openMap.put("obj_inst_id", "2");
+		openMap.put("res_id", "3");
 		commandKey = Constant.CHINA_TELECOM * 1000 + Constant.COMMAND_TYPE_OPEN;
 		command.put(toStr(commandKey), openMap);
 		commandKey = Constant.CHINA_UNICOM * 1000 + Constant.COMMAND_TYPE_OPEN;
@@ -72,10 +72,10 @@ public class CommandConfig {
 		command.put(toStr(commandKey), openMap);
 
 		/** 命令类型 关阀命令 */
-		Map<String, Object> closeMap = new HashMap<String, Object>();
-		closeMap.put("obj_id", 1);
-		closeMap.put("obj_inst_id", 2);
-		closeMap.put("res_id", 3);
+		Map<String, String> closeMap = new HashMap<String, String>();
+		closeMap.put("obj_id", "1");
+		closeMap.put("obj_inst_id", "2");
+		closeMap.put("res_id", "3");
 		commandKey = Constant.CHINA_TELECOM * 1000 + Constant.COMMAND_TYPE_CLOSE;
 		command.put(toStr(commandKey), closeMap);
 		commandKey = Constant.CHINA_UNICOM * 1000 + Constant.COMMAND_TYPE_CLOSE;
@@ -84,7 +84,7 @@ public class CommandConfig {
 		command.put(toStr(commandKey), closeMap);
 
 		/** 命令类型 设置抄表时间命令 */
-		Map<String, Object> timeServiceMap = new HashMap<String, Object>();
+		Map<String, String> timeServiceMap = new HashMap<String, String>();
 		timeServiceMap.put("serviceId", "TimeService");
 		timeServiceMap.put("method", "commandUpTimeService");
 		commandKey = Constant.CHINA_TELECOM * 1000 + Constant.COMMAND_TYPE_DATA;
@@ -95,7 +95,7 @@ public class CommandConfig {
 		command.put(toStr(commandKey), timeServiceMap);
 
 		/** 命令类型 设置告警开关命令 */
-		Map<String, Object> alarmServiceMap = new HashMap<String, Object>();
+		Map<String, String> alarmServiceMap = new HashMap<String, String>();
 		alarmServiceMap.put("serviceId", "AlarmService");
 		alarmServiceMap.put("method", "openalarm");
 		commandKey = Constant.CHINA_TELECOM * 1000 + Constant.COMMAND_TYPE_ALARM;
@@ -106,7 +106,7 @@ public class CommandConfig {
 		command.put(toStr(commandKey), alarmServiceMap);
 
 		/** 命令类型 调整摄像头命令 */
-		Map<String, Object> cameraServiceMap = new HashMap<String, Object>();
+		Map<String, String> cameraServiceMap = new HashMap<String, String>();
 		cameraServiceMap.put("serviceId", "CameraService");
 		cameraServiceMap.put("method", "adjustcamera");
 		commandKey = Constant.CHINA_TELECOM * 1000 + Constant.COMMAND_TYPE_CAMERA;
@@ -117,7 +117,7 @@ public class CommandConfig {
 		command.put(toStr(commandKey), cameraServiceMap);
 
 		/** 命令类型 完成激活命令 */
-		Map<String, Object> activateServiceMap = new HashMap<String, Object>();
+		Map<String, String> activateServiceMap = new HashMap<String, String>();
 		activateServiceMap.put("serviceId", "ActivateService");
 		activateServiceMap.put("method", "activatecmd ");
 		commandKey = Constant.CHINA_TELECOM * 1000 + Constant.COMMAND_TYPE_ACTIVATE;

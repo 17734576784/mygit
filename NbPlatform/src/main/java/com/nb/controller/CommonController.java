@@ -8,6 +8,7 @@
 */
 package com.nb.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -28,6 +29,7 @@ import com.nb.service.chinaunicom.ChinaUnicomCommandService;
 import com.nb.service.chinaunicom.ChinaUnicomDeviceService;
 import com.nb.utils.CommFunc;
 import com.nb.utils.Constant;
+import com.nb.utils.ConverterUtils;
 
 /** 
 * @ClassName: CommonController 
@@ -52,7 +54,6 @@ public class CommonController {
 	private ChinaUnicomDeviceService chinaUnicomDeviceService;
 	@Autowired
 	private ChinaUnicomCommandService chinaUnicomCommandService;
-	
 	
 	/** 
 	* @Title: addDevice 
@@ -92,7 +93,7 @@ public class CommonController {
 	* @return ResultBean<?>    返回类型 
 	* @throws 
 	*/
-	@RequestMapping(value = "deleteDecive", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "deleteDevice", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResultBean<?> deleteDevice(@RequestBody JSONObject deviceInfo) throws Exception {
 
 		ResultBean<?> result = new ResultBean<>();
@@ -126,21 +127,32 @@ public class CommonController {
 	public ResultBean<?> instantReadDeviceResources(@RequestBody JSONObject commandInfo) throws Exception {
 
 		String url = Constant.CHINA_MOBILE_BASE_URL + "nbiot";
-		@SuppressWarnings("unchecked")
-		Map<String, String> params = JSONObject.toJavaObject(commandInfo, Map.class);
+		ResultBean<?> result = new ResultBean<>();
+
+		int commandType = ConverterUtils.toInt(commandInfo.get("command_type"));
+		Map<String, String> commandMap = CommFunc.getCommandType(Constant.CHINA_MOBILE, commandType);
+		if (null == commandMap || commandMap.isEmpty()) {
+			result.setStatus(Constant.ERROR);
+			result.setError("命令类型不存在");
+			return result;
+		}
+		
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("imei", commandInfo.getString("imei"));
+		params.putAll(commandMap);
 
 		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 		StreamClosedHttpResponse response = httpsClientUtil.doGetWithParasGetStatusLine(url, params,
 				CommFunc.getChinaMobileHeader(commandInfo));
 
-		ResultBean<?> result = new ResultBean<>(response.getContent());
+		result = new ResultBean<>(response.getContent());
 
 		return result;
 	}
 
 	/** 
-	* @Title: 即时命令-写设备资源 
-	* @Description: TODO(这里用一句话描述这个方法的作用) 
+	* @Title: instantWriteDeviceResources 
+	* @Description: 即时命令-写设备资源
 	* @param @param commandInfo
 	* @param @return
 	* @param @throws Exception    设定文件 
@@ -149,18 +161,28 @@ public class CommonController {
 	*/
 	@RequestMapping(value = "/writeresource", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResultBean<?> instantWriteDeviceResources(@RequestBody JSONObject commandInfo) throws Exception {
-		ResultBean<?> result = null;
-		String url = Constant.CHINA_MOBILE_BASE_URL + "nbiot";
-
-		JSONObject urlJson = (JSONObject) commandInfo.clone();
-		urlJson.remove("data");
-		@SuppressWarnings("unchecked")
-		Map<String, Object> params = JSONObject.toJavaObject(urlJson, Map.class);
+		ResultBean<?> result = new ResultBean<>();
+		
+		int nbType = commandInfo.getIntValue("nbType");
+		int commandType = commandInfo.getIntValue("command_type");
+		Map<String, String> commandMap = CommFunc.getCommandType(nbType, commandType);
+		if (null == commandMap || commandMap.isEmpty()) {
+			result.setStatus(Constant.ERROR);
+			result.setError("命令类型不存在");
+			return result;
+		}
+		
+		commandMap.remove("res_id");
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("imei", commandInfo.getString("imei"));
+		params.put("mode", commandInfo.getString("mode"));
+		params.putAll(commandMap);
 
 		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
+		String url = Constant.CHINA_MOBILE_BASE_URL + "nbiot";
 		url = HttpsClientUtil.setcompleteUrl(url, params);
 		StreamClosedHttpResponse response = httpsClientUtil.doPostJsonGetStatusLine(url,
-				CommFunc.getChinaMobileHeader(commandInfo), commandInfo.toJSONString());
+				CommFunc.getChinaMobileHeader(commandInfo), commandInfo.getString("data"));
 
 		result = new ResultBean<>(response.getContent());
 
