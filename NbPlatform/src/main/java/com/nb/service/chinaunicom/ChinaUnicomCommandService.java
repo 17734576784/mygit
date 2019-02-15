@@ -50,7 +50,7 @@ public class ChinaUnicomCommandService {
 		String callbackUrl = Constant.CHINA_UNICOM_REPORT_CMD_EXEC_RESULT_CALLBACK_URL;
 
 		String deviceId = ConverterUtils.toStr(command.get("deviceId"));// "8c23b6b4-ea68-48fb-9c2f-90452a81ebb1";
-		int commandType = ConverterUtils.toInt(command.get("command_type"));
+		int commandType = ConverterUtils.toInt(command.get("commandType"));
 		ObjectNode paras = JsonUtil.convertObject2ObjectNode(ConverterUtils.toStr(command.get("param")));// "{\"value\":\"12\"}"
 		ResultBean<String> result = new ResultBean<String>();
 

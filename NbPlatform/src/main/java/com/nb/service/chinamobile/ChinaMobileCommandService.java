@@ -95,7 +95,7 @@ public class ChinaMobileCommandService {
 		ResultBean<?> result = new ResultBean<>();
 		String url = Constant.CHINA_MOBILE_BASE_URL + "nbiot/execute";
 		
-		int commandType = ConverterUtils.toInt(commandInfo.get("command_type"));
+		int commandType = ConverterUtils.toInt(commandInfo.get("commondType"));
 		Map<String, String> commandMap = CommFunc.getCommandType(Constant.CHINA_MOBILE, commandType);
 		if (null == commandMap || commandMap.isEmpty()) {
 			result.setStatus(Constant.ERROR);
@@ -110,8 +110,11 @@ public class ChinaMobileCommandService {
 		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 		url = HttpsClientUtil.setcompleteUrl(url, urlParams);
 
+		String param = commandInfo.getString("param");
+		JSONObject argsJson = new JSONObject();
+		argsJson.put("args", param);
 		StreamClosedHttpResponse response = httpsClientUtil.doPostJsonGetStatusLine(url,
-				CommFunc.getChinaMobileHeader(commandInfo), commandInfo.getString("param"));
+				CommFunc.getChinaMobileHeader(commandInfo), argsJson.toJSONString());
 
 		result = new ResultBean<>(response.getContent());
 

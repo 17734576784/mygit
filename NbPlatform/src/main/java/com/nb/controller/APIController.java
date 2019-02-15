@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
+import com.nb.exception.ErrorCodeEnum;
 import com.nb.exception.ResultBean;
 import com.nb.http.HttpsClientUtil;
 import com.nb.model.StreamClosedHttpResponse;
@@ -78,6 +79,10 @@ public class APIController {
 		case Constant.CHINA_MOBILE:
 			result = this.chinaMobileDeviceService.registerDevice(deviceInfo);
 			break;
+		default:
+			result.setStatus(ErrorCodeEnum.FAILED.getStatus());
+			result.setError("请求参数错误");
+			break;
 		}
 
 		return result;
@@ -108,6 +113,10 @@ public class APIController {
 		case Constant.CHINA_MOBILE:
 			result = this.chinaMobileDeviceService.deleteDevice(deviceInfo);
 			break;
+		default:
+			result.setStatus(ErrorCodeEnum.FAILED.getStatus());
+			result.setError("请求参数错误");
+			break;
 		}
 
 		return result;
@@ -129,7 +138,7 @@ public class APIController {
 		ResultBean<?> result = new ResultBean<>();
 
 		int nbType = commandInfo.getIntValue("nbType");
-		int commandType = commandInfo.getIntValue("command_type");
+		int commandType = commandInfo.getIntValue("commandType");
 		Map<String, String> commandMap = CommFunc.getCommandType(nbType, commandType);
 		if (null == commandMap || commandMap.isEmpty()) {
 			result.setStatus(Constant.ERROR);
@@ -164,7 +173,7 @@ public class APIController {
 		ResultBean<?> result = new ResultBean<>();
 		
 		int nbType = commandInfo.getIntValue("nbType");
-		int commandType = commandInfo.getIntValue("command_type");
+		int commandType = commandInfo.getIntValue("commandType");
 		Map<String, String> commandMap = CommFunc.getCommandType(nbType, commandType);
 		if (null == commandMap || commandMap.isEmpty()) {
 			result.setStatus(Constant.ERROR);

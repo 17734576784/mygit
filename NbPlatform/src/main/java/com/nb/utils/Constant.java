@@ -20,8 +20,6 @@ public class Constant {
 	public static final String CHINA_MOBILE_BASE_URL = "http://api.heclouds.com/";
 	/** 中国移动平台认证token */
 	public static final String CHINA_MOBILE_TOKEN = "kldq";
-	
-	
 
 	/** 中国联通平台地址 */
 	public static final String CHINA_UNICOM_BASE_URL = "https://58.240.96.46:8743";
@@ -70,9 +68,11 @@ public class Constant {
 	 *
 	 * please replace uri, when you use the demo.
 	 */
-	public static final String CHINA_TELECOM_REPORT_CMD_EXEC_RESULT_CALLBACK_URL = CALLBACK_BASE_URL + "/reportCmdExecResult";
+	public static final String CHINA_TELECOM_REPORT_CMD_EXEC_RESULT_CALLBACK_URL = CALLBACK_BASE_URL
+			+ "/reportCmdExecResult";
 
-	public static final String CHINA_UNICOM_REPORT_CMD_EXEC_RESULT_CALLBACK_URL = CALLBACK_BASE_URL + "/reportCmdExecResult";
+	public static final String CHINA_UNICOM_REPORT_CMD_EXEC_RESULT_CALLBACK_URL = CALLBACK_BASE_URL
+			+ "/reportCmdExecResult";
 
 	public static String realBasepath = new File(Constant.class.getResource("/").getPath()).getParent();
 
@@ -85,8 +85,7 @@ public class Constant {
 	/** 中国联通证书密码 */
 	public static String CHINA_UNICOM_SELFCERTPWD = "IoM@1234";
 	public static String CHINA_UNICOM_TRUSTCAPWD = "Huawei@123";
-	
-	
+
 	/** 中国电信证书路径 */
 	public static String CHINA_TELECOM_SELFCERTPATH = "cert/CertwithKey.pkcs12";
 	public static String CHINA_TELECOM_TRUSTCAPATH = "cert/ca.jks";
@@ -95,7 +94,6 @@ public class Constant {
 	/** 中国电信证书密码 */
 	public static String CHINA_TELECOM_SELFCERTPWD = "IoM@1234";
 	public static String CHINA_TELECOM_TRUSTCAPWD = "Huawei@123";
-		
 
 	// *************************** The following constants do not need to be
 	// modified *********************************//
@@ -234,7 +232,6 @@ public class Constant {
 
 	public static final String OK = "ok";
 
-	
 	public static final String UPLOAD_PIC = "1";
 	/** 上传图片url */
 	public static final String UPLOAD_IMAGE_URL = "nbNotifyAction!notifyImage.action";
@@ -257,7 +254,6 @@ public class Constant {
 	/** 上传抄表数据地址 */
 	public static final String UPLOAD_DATA_URL = "nbNotifyAction!notifyData.action";
 
-	
 	/** 命令发送 */
 	public static final String COMMAND_SEND = "SEND";
 
@@ -287,11 +283,9 @@ public class Constant {
 
 	/** redis 中国电信设备升级进度key前缀 */
 	public static final String PROGRESS_CHINA_TELECOM = "progress_china_telecom_";
-	
-	/** redis 中国联通设备升级进度key前缀 */
-	public static final String PROGRESS_CHINA_UNICOM= "progress_china_unicom_";
 
-	
+	/** redis 中国联通设备升级进度key前缀 */
+	public static final String PROGRESS_CHINA_UNICOM = "progress_china_unicom_";
 
 	/** redis 命令idkey前缀 */
 	public static final String COMMAND = "command_";
@@ -320,24 +314,24 @@ public class Constant {
 	public static int FILETIMEOUT = 60 * 60 * 24 * 180;
 
 	/** 中国电信服务前缀 */
-	public static String CHINA_TELECOM_SERVICE ="chinaTelecom";
-	
+	public static String CHINA_TELECOM_SERVICE = "chinaTelecom";
+
 	/** 中国联通服务前缀 */
-	public static String CHINA_UNICOM_SERVICE ="chinaUnicom";
-	
+	public static String CHINA_UNICOM_SERVICE = "chinaUnicom";
+
 	/** 中国电信服务前缀 */
-	public static String CHINA_TELECOM_COMMAND ="chinaTelecomCommand";
-	
+	public static String CHINA_TELECOM_COMMAND = "chinaTelecomCommand";
+
 	/** 中国联通服务前缀 */
-	public static String CHINA_UNICOM_COMMAND ="chinaUnicomCommand";
-	
+	public static String CHINA_UNICOM_COMMAND = "chinaUnicomCommand";
+
 	/** 运营商类型 */
-	public static final int CHINA_MOBILE = 3;
-	public static final int CHINA_TELECOM = 1;
-	public static final int CHINA_UNICOM = 2;
-	
+	public static final int CHINA_MOBILE = 0;
+	public static final int CHINA_TELECOM = 2;
+	public static final int CHINA_UNICOM = 1;
+
 	public static final int ZERO = 0;
-	
+
 	/** 命令类型 抄收图片 */
 	public static final int COMMAND_TYPE_IMAGE = 1;
 	/** 命令类型 抄收数据命令 */
@@ -354,8 +348,7 @@ public class Constant {
 	public static final int COMMAND_TYPE_CAMERA = 22;
 	/** 命令类型 完成激活命令 */
 	public static final int COMMAND_TYPE_ACTIVATE = 99;
-	
-	
+
 	/** 命令类型 redis Key */
 	public static final String COMMAND_TYPE_REIDS = "command_type";
 
@@ -365,6 +358,5 @@ public class Constant {
 	public static final int CHINA_MOBILE_DEVICE_MSG = 2;
 	/** 标识消息类型 7：缓存命令下发后结果上报（仅支持NB设备） */
 	public static final int CHINA_MOBILE_COMMAND_MSG = 3;
-	
-	
+
 }
