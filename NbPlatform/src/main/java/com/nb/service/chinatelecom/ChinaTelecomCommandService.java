@@ -54,7 +54,7 @@ public class ChinaTelecomCommandService {
 		int commandType = command.getIntValue("commandType");
 		ResultBean<String> result = new ResultBean<String>();
 
-		ObjectNode paras = JsonUtil.convertObject2ObjectNode(command.getString("param"));// "{\"value\":\"12\"}"
+		ObjectNode paras = JsonUtil.convertObject2ObjectNode(command.get("param"));// "{\"value\":\"12\"}"
 		
 		Map<String, String> commandMap = CommFunc.getCommandType(Constant.CHINA_TELECOM, commandType);
 		if (null == commandMap || commandMap.isEmpty()) {

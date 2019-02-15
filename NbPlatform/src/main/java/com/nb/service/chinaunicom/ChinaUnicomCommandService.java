@@ -51,7 +51,7 @@ public class ChinaUnicomCommandService {
 
 		String deviceId = command.getString("deviceId");// "8c23b6b4-ea68-48fb-9c2f-90452a81ebb1";
 		int commandType = command.getIntValue("commandType");
-		ObjectNode paras = JsonUtil.convertObject2ObjectNode(ConverterUtils.toStr(command.get("param")));// "{\"value\":\"12\"}"
+		ObjectNode paras = JsonUtil.convertObject2ObjectNode(command.get("param"));// "{\"value\":\"12\"}"
 		ResultBean<String> result = new ResultBean<String>();
 
 		Map<String, String> commandMap = CommFunc.getCommandType(Constant.CHINA_UNICOM, commandType);
