@@ -17,7 +17,6 @@ import com.nb.http.HttpsClientUtil;
 import com.nb.model.StreamClosedHttpResponse;
 import com.nb.utils.CommFunc;
 import com.nb.utils.Constant;
-import com.nb.utils.ConverterUtils;
 
 /**
  * @ClassName: ChinaMobileDeviceController
@@ -95,7 +94,7 @@ public class ChinaMobileCommandService {
 		ResultBean<?> result = new ResultBean<>();
 		String url = Constant.CHINA_MOBILE_BASE_URL + "nbiot/execute";
 		
-		int commandType = ConverterUtils.toInt(commandInfo.get("commondType"));
+		int commandType = commandInfo.getIntValue("commandType");
 		Map<String, String> commandMap = CommFunc.getCommandType(Constant.CHINA_MOBILE, commandType);
 		if (null == commandMap || commandMap.isEmpty()) {
 			result.setStatus(Constant.ERROR);

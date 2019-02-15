@@ -50,11 +50,11 @@ public class ChinaTelecomCommandService {
 		String appId = command.getString("appId");
 		String callbackUrl = Constant.CHINA_TELECOM_REPORT_CMD_EXEC_RESULT_CALLBACK_URL;
 
-		String deviceId = ConverterUtils.toStr(command.get("deviceId"));// "8c23b6b4-ea68-48fb-9c2f-90452a81ebb1";
-		int commandType = ConverterUtils.toInt(command.get("commandType"));
+		String deviceId = command.getString("deviceId");// "8c23b6b4-ea68-48fb-9c2f-90452a81ebb1";
+		int commandType = command.getIntValue("commandType");
 		ResultBean<String> result = new ResultBean<String>();
 
-		ObjectNode paras = JsonUtil.convertObject2ObjectNode(ConverterUtils.toStr(command.get("param")));// "{\"value\":\"12\"}"
+		ObjectNode paras = JsonUtil.convertObject2ObjectNode(command.getString("param"));// "{\"value\":\"12\"}"
 		
 		Map<String, String> commandMap = CommFunc.getCommandType(Constant.CHINA_TELECOM, commandType);
 		if (null == commandMap || commandMap.isEmpty()) {

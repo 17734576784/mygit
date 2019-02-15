@@ -354,3 +354,5 @@
 [2019-02-15 15:27:59.772] INFO [https-jsse-nio-443-exec-5] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
 [2019-02-15 15:27:59.773] INFO [https-jsse-nio-443-exec-5] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
 [2019-02-15 15:27:59.793] INFO [https-jsse-nio-443-exec-5] FrameworkServlet.java:546 - Completed initialization in 20 ms
+[2019-02-15 16:16:00.691] INFO [https-jsse-nio-443-exec-1] ChinaUnicomCommandService.java:43 - 接收下发命令请求：{"param":{"value":"1"},"appId":"YXnpwWndC3ioc15OGALXZvHLB1oa","imei":"869976030076891","secret":"uOL_C0yP6pl4Gals5dJkrfF1vSka","nbType":"1","commondType":"10","deviceId":"517176812"}
+[2019-02-15 16:16:53.362] INFO [https-jsse-nio-443-exec-1] ChinaUnicomCommandService.java:43 - 接收下发命令请求：{"param":{"value":"1"},"appId":"YXnpwWndC3ioc15OGALXZvHLB1oa","imei":"869976030076891","secret":"uOL_C0yP6pl4Gals5dJkrfF1vSka","nbType":"1","commondType":"10","deviceId":"517176812"}
