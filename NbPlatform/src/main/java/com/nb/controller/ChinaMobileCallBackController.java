@@ -59,37 +59,35 @@ public class ChinaMobileCallBackController {
 	}
 
 	@RequestMapping(value = "receivingPushMessages", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String URLVerification(@RequestBody String pushMessages) throws Exception {
-		System.out.println("pushMessages : " + pushMessages);
+	public String URLVerification(@RequestBody String pushMessages) {
 		LoggerUtils.Logger(LogName.INFO).info("data receive:  body String --- " + pushMessages);
-		/************************************************
-		 * 解析数据推送请求，非加密模式。 如果是明文模式使用以下代码
-		 **************************************************/
-		/************* 明文模式 start ****************/
-		ChinaMobileUtil.BodyObj obj = ChinaMobileUtil.resolveBody(pushMessages, false);
-		LoggerUtils.Logger(LogName.INFO).info("data receive:  body Object --- " + obj);
-		if (obj != null) {
-			boolean dataRight = ChinaMobileUtil.checkSignature(obj, Constant.CHINA_MOBILE_TOKEN);
-			if (dataRight) {
-				System.out.println("msg :"+ obj.getMsg().toString());
-				try {
-					JSONObject msgJson = JSONObject.parseObject(obj.getMsg().toString());
-					parseMsg(msgJson);
-				} catch (Exception e) {
-					JSONArray msgArray = JSON.parseArray(obj.getMsg().toString());
-					System.out.println("msgArray : " + msgArray);
-					for (Object object : msgArray) {
-						JSONObject msgJson = (JSONObject) object;
+		try {
+			ChinaMobileUtil.BodyObj obj = ChinaMobileUtil.resolveBody(pushMessages, false);
+			LoggerUtils.Logger(LogName.INFO).info("data receive:  body Object --- " + obj);
+			if (obj != null) {
+				boolean dataRight = ChinaMobileUtil.checkSignature(obj, Constant.CHINA_MOBILE_TOKEN);
+				if (dataRight) {
+					System.out.println("msg :" + obj.getMsg().toString());
+					try {
+						JSONObject msgJson = JSONObject.parseObject(obj.getMsg().toString());
 						parseMsg(msgJson);
+					} catch (Exception e) {
+						JSONArray msgArray = JSON.parseArray(obj.getMsg().toString());
+						System.out.println("msgArray : " + msgArray);
+						for (Object object : msgArray) {
+							JSONObject msgJson = (JSONObject) object;
+							parseMsg(msgJson);
+						}
 					}
- 				}
- 				LoggerUtils.Logger(LogName.INFO).info("data receive: content" + obj.toString());
+					LoggerUtils.Logger(LogName.INFO).info("data receive: content" + obj.toString());
+				} else {
+					LoggerUtils.Logger(LogName.INFO).info("data receive: signature error");
+				}
 			} else {
-				LoggerUtils.Logger(LogName.INFO).info("data receive: signature error");
+				LoggerUtils.Logger(LogName.INFO).info("data receive: body empty error");
 			}
-
-		} else {
-			LoggerUtils.Logger(LogName.INFO).info("data receive: body empty error");
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return Constant.OK;
 	}
@@ -102,20 +100,19 @@ public class ChinaMobileCallBackController {
 			
 			long at = msgJson.getLongValue("at");
 			String date = DateUtils.stampToDate(at);
-			String deviceId = msgJson.getString("dev_id");
-			String value = msgJson.getString("value");
 			
 			JSONObject paramJson = new JSONObject();
 			paramJson.put("date", date.split(" ")[0]);
 			paramJson.put("time", date.split(" ")[1]);
-			paramJson.put("deviceId", deviceId);
-			paramJson.put("value", value);
-			
-			String apiUrl = baseUrl + Constant.UPLOAD_DATA_URL;
+			paramJson.put("deviceId", msgJson.getString("dev_id"));
+			paramJson.put("value", msgJson.getString("value"));
+			paramJson.put("dataStreamId", msgJson.getString("ds_id"));
 			
 			Map<String, String> paramMap = new HashMap<String, String>();
 			paramMap.put("param", paramJson.toJSONString());
+
 			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
+			String apiUrl = baseUrl + Constant.UPLOAD_DATA_URL;
 			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostFormUrlEncodedGetStatusLine(apiUrl, paramMap);
 
 			System.out.println("response : " + httpResponse.getContent());

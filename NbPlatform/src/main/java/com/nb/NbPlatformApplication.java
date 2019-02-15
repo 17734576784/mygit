@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 @SpringBootApplication
 @EnableScheduling
-@PropertySource({"classpath:config.properties" })
+@PropertySource({ "classpath:config.properties" })
 public class NbPlatformApplication {
 
 	@Value("${http.port}")
@@ -26,12 +26,12 @@ public class NbPlatformApplication {
 	@Bean
 	public ServletWebServerFactory servletContainer() {
 		TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();
-		//配置http
+		// 配置http
 		tomcat.addAdditionalTomcatConnectors(createStandardConnector());
 		return tomcat;
 	}
 	
-	//配置http
+	// 配置http
 	private Connector createStandardConnector() {
 		Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
 		connector.setPort(port);

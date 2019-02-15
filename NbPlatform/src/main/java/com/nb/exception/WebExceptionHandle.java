@@ -23,7 +23,7 @@ import org.springframework.http.HttpStatus;
 
 /** 
 * @ClassName: WebExceptionHandle 
-* @Description: 全局统一处理异常 
+* @Description: Spring MVC全局统一处理异常 
 * @author dbr
 * @date 2018年10月24日 下午5:24:55 
 *  
@@ -32,11 +32,11 @@ import org.springframework.http.HttpStatus;
 @ControllerAdvice
 @ResponseBody
 public class WebExceptionHandle {
-    /**
-     * 400 - Bad Request
-     */
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(HttpMessageNotReadableException.class)
+	/**
+	 * 400 - Bad Request
+	 */
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(HttpMessageNotReadableException.class)
 	public ResultBean<?> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
 		LoggerUtils.Logger(LogName.ERROR).error("参数解析失败", e);
 		ResultBean<String> resultBean = new ResultBean<String>();
@@ -45,22 +45,22 @@ public class WebExceptionHandle {
 		return resultBean;
 	}
     
-    /**
-     * 405 - Method Not Allowed
-     */
-    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
-    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    public ResultBean<?> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
-    	LoggerUtils.Logger(LogName.ERROR).error("不支持当前请求方法", e);
-        ResultBean<String> resultBean = new ResultBean<String>();
+	/**
+	 * 405 - Method Not Allowed
+	 */
+	@ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+	public ResultBean<?> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
+		LoggerUtils.Logger(LogName.ERROR).error("不支持当前请求方法", e);
+		ResultBean<String> resultBean = new ResultBean<String>();
 		resultBean.setStatus(ErrorCodeEnum.FAILED.getStatus());
 		resultBean.setError("不支持当前请求方法");
 		return resultBean;
-    }
+	}
 
-    /**
-     * 415 - Unsupported Media Type
-     */
+	/**
+	 * 415 - Unsupported Media Type
+	 */
 	@ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
 	@ExceptionHandler(HttpMediaTypeNotSupportedException.class)
 	public ResultBean<?> handleHttpMediaTypeNotSupportedException(Exception e) {
@@ -95,8 +95,8 @@ public class WebExceptionHandle {
 //		return result;         
 //    }
 	/**
-     * 500 - Internal Server Error
-     */
+	 * 500 - Internal Server Error
+	 */
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	@ExceptionHandler(Exception.class)
 	public ResultBean<String> handleException(Exception e) {

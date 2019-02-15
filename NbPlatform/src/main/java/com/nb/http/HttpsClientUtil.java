@@ -84,11 +84,14 @@ public class HttpsClientUtil {
 
 	public final static String CHARSET_UTF8 = "UTF-8";
 
-	/**
-	 * @Title: sslClientByCert @Description: 创建证书访问的
-	 * HttpClient @param @return @param @throws Exception 设定文件 @return HttpClient
-	 * 返回类型 @throws
-	 */
+	/** 
+	* @Title: sslClientByCert 
+	* @Description: 创建证书访问的https
+	* @param @return
+	* @param @throws Exception    设定文件 
+	* @return HttpClient    返回类型 
+	* @throws 
+	*/
 	public HttpClient sslClientByCert() throws Exception {
 		// 1 Import your own certificate
 		String demo_base_Path = System.getProperty("user.dir");
@@ -128,11 +131,14 @@ public class HttpsClientUtil {
 		return closeableHttpClient;
 	}
 
-	/**
-	 * @Title: sslClient @Description: 创建无证书访问的
-	 * HttpClient @param @return @param @throws Exception 设定文件 @return HttpClient
-	 * 返回类型 @throws
-	 */
+	/** 
+	* @Title: sslClient 
+	* @Description: 创建无证书访问https
+	* @param @return
+	* @param @throws Exception    设定文件 
+	* @return HttpClient    返回类型 
+	* @throws 
+	*/
 	public HttpClient sslClient() throws Exception {
 		CloseableHttpClient closeableHttpClient = null;
 		try {
@@ -532,6 +538,15 @@ public class HttpsClientUtil {
 		return response;
 	}
 	
+	/** 
+	* @Title: setcompleteUrl 
+	* @Description: 将参数绑定到url上组合成url参数 
+	* @param @param url
+	* @param @param params
+	* @param @return    设定文件 
+	* @return String    返回类型 
+	* @throws 
+	*/
 	public static String setcompleteUrl(String url, Map<String, Object> params) {
 		// TODO Auto-generated method stub
 		if (params != null) {

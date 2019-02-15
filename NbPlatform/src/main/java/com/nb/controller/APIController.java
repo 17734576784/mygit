@@ -1,5 +1,5 @@
 /**   
-* @Title: CommonController.java 
+* @Title: APIController.java 
 * @Package com.nb.controller 
 * @Description: TODO(用一句话描述该文件做什么) 
 * @author dbr
@@ -29,18 +29,17 @@ import com.nb.service.chinaunicom.ChinaUnicomCommandService;
 import com.nb.service.chinaunicom.ChinaUnicomDeviceService;
 import com.nb.utils.CommFunc;
 import com.nb.utils.Constant;
-import com.nb.utils.ConverterUtils;
 
 /** 
-* @ClassName: CommonController 
-* @Description: 网站访问统一入口 
+* @ClassName: APIController 
+* @Description: 网站API接入控制器
 * @author dbr
 * @date 2019年2月13日 下午1:56:56 
 *  
 */
 @RestController
 @RequestMapping("/api")
-public class CommonController {
+public class APIController {
 	
 	@Autowired
 	private ChinaMobileCommandService chinaMobileCommandService;
@@ -129,8 +128,9 @@ public class CommonController {
 		String url = Constant.CHINA_MOBILE_BASE_URL + "nbiot";
 		ResultBean<?> result = new ResultBean<>();
 
-		int commandType = ConverterUtils.toInt(commandInfo.get("command_type"));
-		Map<String, String> commandMap = CommFunc.getCommandType(Constant.CHINA_MOBILE, commandType);
+		int nbType = commandInfo.getIntValue("nbType");
+		int commandType = commandInfo.getIntValue("command_type");
+		Map<String, String> commandMap = CommFunc.getCommandType(nbType, commandType);
 		if (null == commandMap || commandMap.isEmpty()) {
 			result.setStatus(Constant.ERROR);
 			result.setError("命令类型不存在");

@@ -9,7 +9,6 @@
 package com.nb.configuration;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -34,7 +33,7 @@ public class CommandConfig {
 
 	@PostConstruct
 	public void init() {
-		Map<String, Map<String, String>> command = new LinkedHashMap<String, Map<String, String>>();
+		Map<String, Map<String, String>> command = new HashMap<String, Map<String, String>>();
 
 		/** 命令类型 抄收图片 */
 		Map<String, String> photoServiceMap = new HashMap<String, String>();
@@ -119,7 +118,7 @@ public class CommandConfig {
 		/** 命令类型 完成激活命令 */
 		Map<String, String> activateServiceMap = new HashMap<String, String>();
 		activateServiceMap.put("serviceId", "ActivateService");
-		activateServiceMap.put("method", "activatecmd ");
+		activateServiceMap.put("method", "activatecmd");
 		commandKey = Constant.CHINA_TELECOM * 1000 + Constant.COMMAND_TYPE_ACTIVATE;
 		command.put(toStr(commandKey), activateServiceMap);
 		commandKey = Constant.CHINA_UNICOM * 1000 + Constant.COMMAND_TYPE_ACTIVATE;

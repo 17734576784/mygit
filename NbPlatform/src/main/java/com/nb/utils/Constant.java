@@ -32,7 +32,7 @@ public class Constant {
 	/** 中国移动平台APPID */
 	public static final String CHINA_MOBILE_MASTERKEY = "WKcUHaxTTLP=Pu07rtYYR5IXLac=";
 	/** 中国移动平台SECRET */
-	public static final String CHINA_MOBILE_SECRET = "";
+	public static final String CHINA_MOBILE_SECRET = "WKcUHaxTTLP=Pu07rtYYR5IXLac=";
 
 	/** 中国联通平台APPID */
 //	public static final String CHINA_UNICOM_APPID = "YXnpwWndC3ioc15OGALXZvHLB1oa";

@@ -31,7 +31,6 @@ public class Test {
 	* @throws 
 	*/
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
 //		String str = "罗长";
 //		byte[] sb = str.getBytes();
 //		for (byte b : sb) {
@@ -50,7 +49,7 @@ public class Test {
 		dos.write(((short) 2));
 		dos.write(((short) 25));
 		byte[] tmp = baos.toByteArray();
-
+		System.out.println("tmp : " + bytesToHexString(tmp));
 		for (byte b : tmp) {
 			System.out.print(b + " ");
 		}
@@ -65,5 +64,19 @@ public class Test {
 				
 		
  	}
-
+	public static String bytesToHexString(byte[] src){   
+	    StringBuilder stringBuilder = new StringBuilder("");   
+	    if (src == null || src.length <= 0) {   
+	        return null;   
+	    }   
+	    for (int i = 0; i < src.length; i++) {   
+	        int v = src[i] & 0xFF;   
+	        String hv = Integer.toHexString(v);   
+	        if (hv.length() < 2) {   
+	            stringBuilder.append(0);   
+	        }   
+	        stringBuilder.append(hv);   
+	    }   
+	    return stringBuilder.toString();   
+	}   
 }
