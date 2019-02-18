@@ -109,9 +109,10 @@ public class ChinaMobileCommandService {
 		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 		url = HttpsClientUtil.setcompleteUrl(url, urlParams);
 
-		String param = commandInfo.getString("param");
+		JSONObject paramJson = commandInfo.getJSONObject("param");
+		
 		JSONObject argsJson = new JSONObject();
-		argsJson.put("args", param);
+		argsJson.put("args", paramJson.getString("args"));
 		StreamClosedHttpResponse response = httpsClientUtil.doPostJsonGetStatusLine(url,
 				CommFunc.getChinaMobileHeader(commandInfo), argsJson.toJSONString());
 

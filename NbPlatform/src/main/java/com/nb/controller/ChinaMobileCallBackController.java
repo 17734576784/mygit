@@ -116,7 +116,7 @@ public class ChinaMobileCallBackController {
 			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 			String apiUrl = baseUrl + Constant.UPLOAD_DATA_URL;
 			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostFormUrlEncodedGetStatusLine(apiUrl, paramMap);
-
+			LoggerUtils.Logger(LogName.INFO).info(httpResponse.getContent());
 		}
 	}
 }

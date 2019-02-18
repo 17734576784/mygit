@@ -72,9 +72,9 @@ public class CommandConfig {
 
 		/** 命令类型 关阀命令 */
 		Map<String, String> closeMap = new HashMap<String, String>();
-		closeMap.put("obj_id", "1");
-		closeMap.put("obj_inst_id", "2");
-		closeMap.put("res_id", "3");
+		closeMap.put("obj_id", "3342");
+		closeMap.put("obj_inst_id", "0");
+		closeMap.put("res_id", "5850");
 //		commandKey = Constant.CHINA_TELECOM * 1000 + Constant.COMMAND_TYPE_CLOSE;
 //		command.put(toStr(commandKey), closeMap);
 //		commandKey = Constant.CHINA_UNICOM * 1000 + Constant.COMMAND_TYPE_CLOSE;
