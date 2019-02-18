@@ -41,20 +41,24 @@ public class MainTest {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		
-		JSONObject paramJson = new JSONObject();
-		paramJson.put("nbType", 1);
-		paramJson.put("version", 2);
-		paramJson.put("deviceId", 2);
-
-		
-		Map<String,String> map = new HashMap<>();
-		map.put("param", paramJson.toJSONString());
-		String apiUrl = "http://222.222.60.178:18130/Enterprise_MeterPay/pay/nbiot/nbNotifyAction!notifyReadTimeResult.action";
-		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
-		StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostFormUrlEncodedGetStatusLine(apiUrl,map);
-		System.out.println(httpResponse.getContent());
-		JSONObject response = JSONObject.parseObject(httpResponse.getContent());
-		System.out.println(response);
+		  String str = "0000024";
+	 
+	      System.out.println(Long.parseLong(str,16));
+//	      
+//		JSONObject paramJson = new JSONObject();
+//		paramJson.put("nbType", 1);
+//		paramJson.put("version", 2);
+//		paramJson.put("deviceId", 2);
+//
+//		
+//		Map<String,String> map = new HashMap<>();
+//		map.put("param", paramJson.toJSONString());
+//		String apiUrl = "http://222.222.60.178:18130/Enterprise_MeterPay/pay/nbiot/nbNotifyAction!notifyReadTimeResult.action";
+//		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
+//		StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostFormUrlEncodedGetStatusLine(apiUrl,map);
+//		System.out.println(httpResponse.getContent());
+//		JSONObject response = JSONObject.parseObject(httpResponse.getContent());
+//		System.out.println(response);
 //		String date = DateUtils.stampToDate(1546939347401L);
 //
 //		System.out.println(date.split(" ")[0] + "   " + date.split(" ")[1]);

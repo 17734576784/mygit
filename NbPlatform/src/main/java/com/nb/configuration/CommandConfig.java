@@ -43,30 +43,30 @@ public class CommandConfig {
 		command.put(toStr(commandKey), photoServiceMap);
 		commandKey = Constant.CHINA_UNICOM * 1000 + Constant.COMMAND_TYPE_IMAGE;
 		command.put(toStr(commandKey), photoServiceMap);
-		commandKey = Constant.CHINA_MOBILE * 1000 + Constant.COMMAND_TYPE_IMAGE;
-		command.put(toStr(commandKey), photoServiceMap);
+//		commandKey = Constant.CHINA_MOBILE * 1000 + Constant.COMMAND_TYPE_IMAGE;
+//		command.put(toStr(commandKey), photoServiceMap);
 
 		/** 命令类型 抄收数据命令 */
 		Map<String, String> dataMap = new HashMap<String, String>();
-		dataMap.put("obj_id", "1");
-		dataMap.put("obj_inst_id", "2");
-		dataMap.put("res_id", "3");
-		commandKey = Constant.CHINA_TELECOM * 1000 + Constant.COMMAND_TYPE_DATA;
-		command.put(toStr(commandKey), dataMap);
-		commandKey = Constant.CHINA_UNICOM * 1000 + Constant.COMMAND_TYPE_DATA;
-		command.put(toStr(commandKey), dataMap);
+		dataMap.put("obj_id", "3200");
+		dataMap.put("obj_inst_id", "0");
+		dataMap.put("res_id", "5750");
+//		commandKey = Constant.CHINA_TELECOM * 1000 + Constant.COMMAND_TYPE_DATA;
+//		command.put(toStr(commandKey), dataMap);
+//		commandKey = Constant.CHINA_UNICOM * 1000 + Constant.COMMAND_TYPE_DATA;
+//		command.put(toStr(commandKey), dataMap);
 		commandKey = Constant.CHINA_MOBILE * 1000 + Constant.COMMAND_TYPE_DATA;
 		command.put(toStr(commandKey), dataMap);
 
-		/** 命令类型 开阀命令 */
+		/** 命令类型 开阀命令*/
 		Map<String, String> openMap = new HashMap<String, String>();
-		openMap.put("obj_id", "1");
-		openMap.put("obj_inst_id", "2");
-		openMap.put("res_id", "3");
-		commandKey = Constant.CHINA_TELECOM * 1000 + Constant.COMMAND_TYPE_OPEN;
-		command.put(toStr(commandKey), openMap);
-		commandKey = Constant.CHINA_UNICOM * 1000 + Constant.COMMAND_TYPE_OPEN;
-		command.put(toStr(commandKey), openMap);
+		openMap.put("obj_id", "3342");
+		openMap.put("obj_inst_id", "0");
+		openMap.put("res_id", "5850");
+//		commandKey = Constant.CHINA_TELECOM * 1000 + Constant.COMMAND_TYPE_OPEN;
+//		command.put(toStr(commandKey), openMap);
+//		commandKey = Constant.CHINA_UNICOM * 1000 + Constant.COMMAND_TYPE_OPEN;
+//		command.put(toStr(commandKey), openMap);
 		commandKey = Constant.CHINA_MOBILE * 1000 + Constant.COMMAND_TYPE_OPEN;
 		command.put(toStr(commandKey), openMap);
 
@@ -75,10 +75,10 @@ public class CommandConfig {
 		closeMap.put("obj_id", "1");
 		closeMap.put("obj_inst_id", "2");
 		closeMap.put("res_id", "3");
-		commandKey = Constant.CHINA_TELECOM * 1000 + Constant.COMMAND_TYPE_CLOSE;
-		command.put(toStr(commandKey), closeMap);
-		commandKey = Constant.CHINA_UNICOM * 1000 + Constant.COMMAND_TYPE_CLOSE;
-		command.put(toStr(commandKey), closeMap);
+//		commandKey = Constant.CHINA_TELECOM * 1000 + Constant.COMMAND_TYPE_CLOSE;
+//		command.put(toStr(commandKey), closeMap);
+//		commandKey = Constant.CHINA_UNICOM * 1000 + Constant.COMMAND_TYPE_CLOSE;
+//		command.put(toStr(commandKey), closeMap);
 		commandKey = Constant.CHINA_MOBILE * 1000 + Constant.COMMAND_TYPE_CLOSE;
 		command.put(toStr(commandKey), closeMap);
 
@@ -90,8 +90,8 @@ public class CommandConfig {
 		command.put(toStr(commandKey), timeServiceMap);
 		commandKey = Constant.CHINA_UNICOM * 1000 + Constant.COMMAND_TYPE_DATA;
 		command.put(toStr(commandKey), timeServiceMap);
-		commandKey = Constant.CHINA_MOBILE * 1000 + Constant.COMMAND_TYPE_DATA;
-		command.put(toStr(commandKey), timeServiceMap);
+//		commandKey = Constant.CHINA_MOBILE * 1000 + Constant.COMMAND_TYPE_DATA;
+//		command.put(toStr(commandKey), timeServiceMap);
 
 		/** 命令类型 设置告警开关命令 */
 		Map<String, String> alarmServiceMap = new HashMap<String, String>();
@@ -101,8 +101,8 @@ public class CommandConfig {
 		command.put(toStr(commandKey), alarmServiceMap);
 		commandKey = Constant.CHINA_UNICOM * 1000 + Constant.COMMAND_TYPE_ALARM;
 		command.put(toStr(commandKey), alarmServiceMap);
-		commandKey = Constant.CHINA_MOBILE * 1000 + Constant.COMMAND_TYPE_ALARM;
-		command.put(toStr(commandKey), alarmServiceMap);
+//		commandKey = Constant.CHINA_MOBILE * 1000 + Constant.COMMAND_TYPE_ALARM;
+//		command.put(toStr(commandKey), alarmServiceMap);
 
 		/** 命令类型 调整摄像头命令 */
 		Map<String, String> cameraServiceMap = new HashMap<String, String>();
@@ -112,8 +112,8 @@ public class CommandConfig {
 		command.put(toStr(commandKey), cameraServiceMap);
 		commandKey = Constant.CHINA_UNICOM * 1000 + Constant.COMMAND_TYPE_CAMERA;
 		command.put(toStr(commandKey), cameraServiceMap);
-		commandKey = Constant.CHINA_MOBILE * 1000 + Constant.COMMAND_TYPE_CAMERA;
-		command.put(toStr(commandKey), cameraServiceMap);
+//		commandKey = Constant.CHINA_MOBILE * 1000 + Constant.COMMAND_TYPE_CAMERA;
+//		command.put(toStr(commandKey), cameraServiceMap);
 
 		/** 命令类型 完成激活命令 */
 		Map<String, String> activateServiceMap = new HashMap<String, String>();
@@ -123,8 +123,8 @@ public class CommandConfig {
 		command.put(toStr(commandKey), activateServiceMap);
 		commandKey = Constant.CHINA_UNICOM * 1000 + Constant.COMMAND_TYPE_ACTIVATE;
 		command.put(toStr(commandKey), activateServiceMap);
-		commandKey = Constant.CHINA_MOBILE * 1000 + Constant.COMMAND_TYPE_ACTIVATE;
-		command.put(toStr(commandKey), activateServiceMap);
+//		commandKey = Constant.CHINA_MOBILE * 1000 + Constant.COMMAND_TYPE_ACTIVATE;
+//		command.put(toStr(commandKey), activateServiceMap);
 
 		JedisUtils.set(Constant.COMMAND_TYPE_REIDS, command);
 		System.out.println("命令加载完毕");

@@ -73,7 +73,7 @@ public class ChinaMobileCallBackController {
 						parseMsg(msgJson);
 					} catch (Exception e) {
 						JSONArray msgArray = JSON.parseArray(obj.getMsg().toString());
-						System.out.println("msgArray : " + msgArray);
+//						System.out.println("msgArray : " + msgArray);
 						for (Object object : msgArray) {
 							JSONObject msgJson = (JSONObject) object;
 							parseMsg(msgJson);
@@ -105,7 +105,9 @@ public class ChinaMobileCallBackController {
 			paramJson.put("date", date.split(" ")[0]);
 			paramJson.put("time", date.split(" ")[1]);
 			paramJson.put("deviceId", msgJson.getString("dev_id"));
-			paramJson.put("value", msgJson.getString("value"));
+			
+			Double value = Long.parseLong(msgJson.getString("value"), 16) * 1.0D / 100;
+			paramJson.put("value", value);
 			paramJson.put("dataStreamId", msgJson.getString("ds_id"));
 			
 			Map<String, String> paramMap = new HashMap<String, String>();
@@ -115,7 +117,6 @@ public class ChinaMobileCallBackController {
 			String apiUrl = baseUrl + Constant.UPLOAD_DATA_URL;
 			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostFormUrlEncodedGetStatusLine(apiUrl, paramMap);
 
-			System.out.println("response : " + httpResponse.getContent());
 		}
 	}
 }
