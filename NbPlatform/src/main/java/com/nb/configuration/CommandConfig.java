@@ -22,7 +22,7 @@ import static com.nb.utils.ConverterUtils.*;
 
 /**
  * @ClassName: CommandConfig
- * @Description: TODO(这里用一句话描述这个类的作用)
+ * @Description: 命令配置类
  * @author dbr
  * @date 2019年2月14日 上午10:04:00
  * 

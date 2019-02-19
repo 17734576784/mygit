@@ -11,6 +11,7 @@ package com.nb;
 import static org.assertj.core.api.Assertions.contentOf;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -44,6 +45,11 @@ public class MainTest {
 		  String str = "0000024";
 	 
 	      System.out.println(Long.parseLong(str,16));
+	      
+	      String date = DateUtils.formatDateByFormat(Calendar.getInstance().getTime(), "yyyy-MM-dd'T'HH:mm:ss");
+	      System.out.println(date);
+	      
+	      
 //	      
 //		JSONObject paramJson = new JSONObject();
 //		paramJson.put("nbType", 1);

@@ -8,8 +8,11 @@
 */
 package com.nb.service.chinamobile;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONObject;
 import com.nb.exception.ResultBean;
@@ -17,6 +20,7 @@ import com.nb.http.HttpsClientUtil;
 import com.nb.model.StreamClosedHttpResponse;
 import com.nb.utils.CommFunc;
 import com.nb.utils.Constant;
+import com.nb.utils.DateUtils;
 
 /**
  * @ClassName: ChinaMobileDeviceController
@@ -27,6 +31,10 @@ import com.nb.utils.Constant;
  */
 @Service
 public class ChinaMobileCommandService {
+	
+	/** 命令缓存时间（天） */
+	@Value("${commandExpiredTime}")
+	private int commandExpiredTime;
 
 	/** 
 	* @Title: instantReadDeviceResources 
@@ -92,7 +100,7 @@ public class ChinaMobileCommandService {
 	public ResultBean<?> asynCommand(JSONObject commandInfo) throws Exception {
 		
 		ResultBean<?> result = new ResultBean<>();
-		String url = Constant.CHINA_MOBILE_BASE_URL + "nbiot/execute";
+		String url = Constant.CHINA_MOBILE_BASE_URL + "nbiot/execute/offline";
 		
 		int commandType = commandInfo.getIntValue("commandType");
 		Map<String, String> commandMap = CommFunc.getCommandType(Constant.CHINA_MOBILE, commandType);
@@ -105,10 +113,12 @@ public class ChinaMobileCommandService {
 		Map<String, Object> urlParams = new HashMap<String, Object>();
 		urlParams.put("imei", commandInfo.getString("imei"));
 		urlParams.putAll(commandMap);
+		Calendar expiredTime = Calendar.getInstance();
+		expiredTime.add(Calendar.DAY_OF_YEAR, commandExpiredTime);
+		urlParams.put("expired_time", DateUtils.formatDateByFormat(expiredTime.getTime(), "yyyy-MM-dd'T'HH:mm:ss"));
 
 		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 		url = HttpsClientUtil.setcompleteUrl(url, urlParams);
-
 		JSONObject paramJson = commandInfo.getJSONObject("param");
 		
 		JSONObject argsJson = new JSONObject();
@@ -117,7 +127,7 @@ public class ChinaMobileCommandService {
 				CommFunc.getChinaMobileHeader(commandInfo), argsJson.toJSONString());
 
 		result = new ResultBean<>(response.getContent());
-
+		System.out.println(result.toString());
 		return result;
 	}
 

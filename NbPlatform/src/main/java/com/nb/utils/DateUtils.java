@@ -29,7 +29,7 @@ public class DateUtils {
 	public static String NOCHAR_PATTERN = "yyyyMMddHHmmss";
 	public static String DATE_PATTERN = "yyyyMMdd";
 	public static String TIME_PATTERN = "HHmmss";
-
+	
 	/**
 	 * 获取当前时间戳
 	 *

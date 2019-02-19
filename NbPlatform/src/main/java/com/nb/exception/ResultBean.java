@@ -110,4 +110,17 @@ public class ResultBean<T> implements Serializable{
 		this.status = ErrorCodeEnum.FAILED.getStatus();
 	}
 
+	/** (非 Javadoc) 
+	* <p>Title: toString</p> 
+	* <p>Description: </p> 
+	* @return 
+	* @see java.lang.Object#toString() 
+	*/
+	@Override
+	public String toString() {
+		return "ResultBean [status=" + status + ", error=" + error + ", data=" + data + "]";
+	}
+	
+	
+
 }
