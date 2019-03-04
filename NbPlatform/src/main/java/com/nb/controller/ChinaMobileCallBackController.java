@@ -106,9 +106,16 @@ public class ChinaMobileCallBackController {
 			paramJson.put("time", date.split(" ")[1]);
 			paramJson.put("deviceId", msgJson.getString("dev_id"));
 			
-			Double value = Long.parseLong(msgJson.getString("value"), 16) * 1.0D / 100;
+			String dsId = msgJson.getString("ds_id");
+			Double value = 0D;
+			if (dsId.contains("3342_0_5850")) {
+				value = msgJson.getDouble("value");
+			} else {
+				value = Long.parseLong(msgJson.getString("value"), 16) * 1.0D / 100;
+			}
+			
 			paramJson.put("value", value);
-			paramJson.put("dataStreamId", msgJson.getString("ds_id"));
+			paramJson.put("dataStreamId", dsId);
 			
 			Map<String, String> paramMap = new HashMap<String, String>();
 			paramMap.put("param", paramJson.toJSONString());
