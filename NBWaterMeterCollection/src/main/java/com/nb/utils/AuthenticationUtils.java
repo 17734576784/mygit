@@ -8,7 +8,6 @@ import java.util.Map;
 
 import com.alibaba.fastjson.JSONObject;
 import com.nb.http.ChinaTelecomIotHttpsUtil;
-import com.nb.http.ChinaUnicomIotHttpsUtil;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtil;
 import com.nb.model.StreamClosedHttpResponse;
@@ -47,28 +46,4 @@ public class AuthenticationUtils {
 		return accessToken;
 	}
 	
-	@SuppressWarnings({"unchecked" })
-	public static String getChinaUnicomAccessToken(ChinaUnicomIotHttpsUtil httpsUtil, JSONObject appInfo) {
-		String accessToken = "";
-		
-		String appId = appInfo.getString("appId");
-		String secret = appInfo.getString("secret");
-		String urlLogin = Constant.CHINA_UNICOM_APP_AUTH;
-
-		Map<String, String> paramLogin = new HashMap<>();
-		paramLogin.put("appId", appId);
-		paramLogin.put("secret", secret);
-		try {
-		
-			StreamClosedHttpResponse responseLogin = httpsUtil.doPostFormUrlEncodedGetStatusLine(urlLogin, paramLogin);
-			Map<String, String> data = new HashMap<>();
-			data = JsonUtil.jsonString2SimpleObj(responseLogin.getContent(), data.getClass());
-			accessToken = data.get("accessToken");
-		} catch (Exception e) {
-			e.printStackTrace();
-			LoggerUtil.Logger(LogName.ERROR).error("鉴权异常");
-		}
-
-		return accessToken;
-	}
 }
