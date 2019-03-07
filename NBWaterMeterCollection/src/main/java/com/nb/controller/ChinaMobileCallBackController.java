@@ -1,6 +1,5 @@
 package com.nb.controller;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -15,10 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.nb.http.HttpsClientUtil;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtil;
-import com.nb.model.StreamClosedHttpResponse;
 import com.nb.utils.ChinaMobileUtil;
 import com.nb.utils.Constant;
 import com.nb.utils.DateUtils;
