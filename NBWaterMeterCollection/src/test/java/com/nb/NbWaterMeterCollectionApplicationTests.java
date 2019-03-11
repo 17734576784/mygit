@@ -120,7 +120,6 @@ public class NbWaterMeterCollectionApplicationTests {
 		JedisUtils.setByByte(Constant.COMMAND_TYPE_REIDS, command);
 		System.out.println("命令加载完毕");
 		
-		System.out.println(JedisUtils.get(Constant.COMMAND_TYPE_REIDS));
 		Map<String,Map<String,String>> messageMap = (Map<String, Map<String, String>>) JedisUtils.getByByte(Constant.COMMAND_TYPE_REIDS);
 		System.out.println(messageMap);
 
