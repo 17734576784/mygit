@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.alibaba.fastjson.JSONObject;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtil;
 import com.nb.utils.Constant;
@@ -117,12 +118,21 @@ public class NbWaterMeterCollectionApplicationTests {
 //		commandKey = Constant.CHINA_MOBILE * 1000 + Constant.COMMAND_TYPE_ACTIVATE;
 //		command.put(toStr(commandKey), activateServiceMap);
 
-		JedisUtils.setByByte(Constant.COMMAND_TYPE_REIDS, command);
-		System.out.println("命令加载完毕");
+//		JedisUtils.setByByte(Constant.COMMAND_TYPE_REIDS, command);
+//		System.out.println("命令加载完毕");
+//		
+//		Map<String,Map<String,String>> messageMap = (Map<String, Map<String, String>>) JedisUtils.getByByte(Constant.COMMAND_TYPE_REIDS);
+//		System.out.println(messageMap);
 		
-		Map<String,Map<String,String>> messageMap = (Map<String, Map<String, String>>) JedisUtils.getByByte(Constant.COMMAND_TYPE_REIDS);
-		System.out.println(messageMap);
+//		JSONObject json = new JSONObject();
+//		json.put("packNum", 11);
+//		json.put("data", messageMap);
+//		JedisUtils.set("fileKey", json.toJSONString());
 
+		JSONObject fileKey = JSONObject.parseObject(JedisUtils.get("fileKey"));
+		System.out.println(fileKey);
+		
+		
 	}
 
 }
