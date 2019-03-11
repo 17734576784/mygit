@@ -24,7 +24,7 @@ public class HistoryDatabaseCustomerThread implements Runnable{
 
 	/** 历史库线程起止标志 */
 	public volatile static boolean historyDatabaseRunFlag = true;
-	
+
 	private HistoryDatabaseExecutor historyDatabaseExecutor;
 	
 	/** 

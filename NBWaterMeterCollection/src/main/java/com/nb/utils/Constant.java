@@ -367,5 +367,8 @@ public class Constant {
 
 	/** 告警事项队列redis前缀 */
 	public static final String ALARM_EVENT_QUEUE = "ALARM_EVENT_QUEUE";
+	
+	/** 告警事项队列异常记录redis前缀 */
+	public static final String ALARM_EVENT_ERROR_QUEUE = "ALARM_EVENT_ERROR_QUEUE";
 
 }

@@ -11,6 +11,7 @@ package com.nb.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nb.customer.alarm.AlarmCustomerThread;
 import com.nb.customer.historydatabase.HistoryDatabaseCustomerThread;
 import com.nb.utils.Constant;
 
@@ -36,6 +37,16 @@ public class ThreadManageController {
 		return Constant.OK;
 	}
 	
-	
+	@RequestMapping("/startAlarmEvent")
+	public String startAlarmEvent() {
+		AlarmCustomerThread.alarmCustomerRunFlag = true;
+		return Constant.OK;
+	}
+
+	@RequestMapping("/stopAlarmEvent")
+	public String stopAlarmEvent() {
+		AlarmCustomerThread.alarmCustomerRunFlag = false;
+		return Constant.OK;
+	}
 
 }

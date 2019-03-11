@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 /** 
 * @ClassName: HistoryDatabaseExecutor 
-* @Description: TODO(这里用一句话描述这个类的作用) 
+* @Description: 历史库存储执行类
 * @author dbr
 * @date 2019年3月11日 上午9:57:08 
 *  
