@@ -248,7 +248,7 @@ public class FileUtils {
 
 			json.put("packNum", packNum);
 			json.put("data", fileMap);
-			JedisUtils.set(fileKey, json);
+			JedisUtils.set(fileKey, json.toJSONString());
 		} catch (Exception e) {
 			LoggerUtil.Logger(LogName.CALLBACK).error("解析升级文件异常", e);
 			e.printStackTrace();

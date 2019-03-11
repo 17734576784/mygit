@@ -244,7 +244,7 @@ public class CommFunc {
 	
 	public static Map<String, String> getCommandType(int nbType, int commandType) {
 		@SuppressWarnings("unchecked")
-		Map<String,Map<String,String>> command =  (Map<String, Map<String, String>>) JedisUtils.get(Constant.COMMAND_TYPE_REIDS);
+		Map<String,Map<String,String>> command =  (Map<String, Map<String, String>>) JedisUtils.getByByte(Constant.COMMAND_TYPE_REIDS);
 		String commandKey = ConverterUtils.toStr(nbType * 1000 + commandType);
 		return command.get(commandKey);
 	}

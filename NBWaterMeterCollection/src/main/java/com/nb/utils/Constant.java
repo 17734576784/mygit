@@ -358,5 +358,14 @@ public class Constant {
 	public static final int CHINA_MOBILE_DEVICE_MSG = 2;
 	/** 标识消息类型 7：缓存命令下发后结果上报（仅支持NB设备） */
 	public static final int CHINA_MOBILE_COMMAND_MSG = 3;
+	
+	/** 历史库队列redis前缀 */
+	public static final String HISTORY_DATABASE_QUEUE = "HISTORY_DATABASE_QUEUE";
+	
+	/** 历史库队列异常记录redis前缀 */
+	public static final String HISTORY_DATABASE_ERROR_QUEUE = "HISTORY_DATABASE_ERROR_QUEUE";
+
+	/** 告警事项队列redis前缀 */
+	public static final String ALARM_EVENT_QUEUE = "ALARM_EVENT_QUEUE";
 
 }
