@@ -1,4 +1,4 @@
-package com.nb.http;
+package com.nb.httputil;
 
 /**   
 * @Title: HTTPSClientUtil.java 

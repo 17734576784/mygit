@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONObject;
 import com.nb.exception.ResultBean;
-import com.nb.http.HttpsClientUtil;
+import com.nb.httputil.HttpsClientUtil;
 import com.nb.model.StreamClosedHttpResponse;
 import com.nb.utils.CommFunc;
 import com.nb.utils.Constant;

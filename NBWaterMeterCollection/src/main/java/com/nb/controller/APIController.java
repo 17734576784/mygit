@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 import com.nb.exception.ErrorCodeEnum;
 import com.nb.exception.ResultBean;
-import com.nb.http.HttpsClientUtil;
+import com.nb.httputil.HttpsClientUtil;
 import com.nb.model.StreamClosedHttpResponse;
 import com.nb.service.chinamobile.ChinaMobileCommandService;
 import com.nb.service.chinamobile.ChinaMobileDeviceService;

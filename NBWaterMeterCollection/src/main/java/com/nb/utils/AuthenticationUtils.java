@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSONObject;
-import com.nb.http.ChinaTelecomIotHttpsUtil;
+import com.nb.httputil.ChinaTelecomIotHttpsUtil;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtil;
 import com.nb.model.StreamClosedHttpResponse;

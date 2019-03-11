@@ -19,7 +19,7 @@ import com.nb.utils.AuthenticationUtils;
 import com.nb.utils.ConverterUtils;
 import com.nb.utils.JsonUtil;
 import com.nb.exception.ResultBean;
-import com.nb.http.ChinaTelecomIotHttpsUtil;
+import com.nb.httputil.ChinaTelecomIotHttpsUtil;
 import com.nb.model.StreamClosedHttpResponse;
 import com.nb.utils.Constant;
 
