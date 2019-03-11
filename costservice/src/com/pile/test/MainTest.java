@@ -14,8 +14,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.protobuf.InvalidProtocolBufferException;
+import com.google.protobuf.MessageLite;
 import com.pile.common.Constant;
 import com.pile.model.ChargeInfo;
+import com.pile.netty.message.ChargeInfoBufOuterClass;
+import com.pile.netty.message.ChargeInfoBufOuterClass.ChargeInfoBuf;
+import com.pile.netty.message.ResultOuterClass;
 import com.pile.utils.DateUtils;
 import com.pile.utils.JedisUtils;
 import com.pile.utils.JsonUtils;
@@ -29,37 +34,39 @@ import com.pile.utils.SerializeUtils;
 *  
 */
 public class MainTest {
-	public static void main(String[] args) {
-		
-		Map<String,Object> value = new HashMap<String,Object>();
-		value.put("memberId", 1);
-		value.put("pileCode", "KE00000001");
-		value.put("pileId", 10001);
-		
-		
-		String text = JsonUtils.toJSONString(value);
-		ChargeInfo chargeInfo = JsonUtils.toBean(text, ChargeInfo.class);
-		System.out.println(chargeInfo.toString());
-		
-//		Map<Integer, String> endCause = new HashMap<>();
-//		endCause.put(0, "正常充满");
-//		endCause.put(9, "人为结束");
-//		endCause.put(12, "计费控制单元控制停止充电");
-//		endCause.put(18, "充满或插头断开");
-//		
-//		System.out.println(endCause.containsKey(0));
-		
-//		System.out.println(DateUtils.nowYM());
-		
-		
-//		String tableName = "";
-//		Calendar c = Calendar.getInstance();
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
-//		for (int i = 0; i < 3; i++) {
-//			c.add(Calendar.MONTH, i * -1);
-//			System.out.println(sdf.format(c.getTime()));
-//			tableName = "ChargeData.charge"+ sdf.format(c.getTime());
-// 			System.out.println(tableName);
-//		 
- 	}
+	public static void main(String[] args) throws InvalidProtocolBufferException {
+		try {
+			a();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
+	public static void a() throws Exception {
+		try {
+			b();
+			c();
+		} catch (Exception e) {
+			System.out.println("a");
+			throw e;
+		}
+	}
+	
+	public static void b() throws Exception{
+		try {
+			int a = 3/0;
+		} catch (Exception e) {
+			System.out.println("b");
+			throw e;
+		}
+	}
+	
+	public static void c() throws Exception{
+		try {
+			int a = 3/0;
+		} catch (Exception e) {
+			System.out.println("c");
+			throw e;
+		}
+	}
 }

@@ -1069,18 +1069,20 @@ public class JedisUtils {
 	 * <li>当超期时间到达时，keys列表仍然没有内容，则返回Null</li>
 	 * @return List<String>
 	 */
-	public static List<String> brpop(int timeout, String... keys) {
+	public static Object brpop(int timeout, String key) {
 		Jedis jedis = null;
-		List<String> values = null;
+		Object value = null;
 		try {
 			jedis = getResource();
-			values = jedis.brpop(timeout, keys);
+			List<byte[]> values = jedis.brpop(timeout, key.getBytes());
+			System.out.println("Jedis brpop  values" + values.size());
+			value = SerializeUtils.deserialize(values.get(0));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			returnRource(jedis);
 		} 
-		return values;
+		return value;
 	}
 	
 	/**

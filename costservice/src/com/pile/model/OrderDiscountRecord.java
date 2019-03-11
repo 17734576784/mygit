@@ -34,6 +34,8 @@ public class OrderDiscountRecord {
 	private Integer paymentMoney;
 
 	private String discountDetail;
+	
+	private String tableName;
 
 	private Date createDate;
 
@@ -109,4 +111,17 @@ public class OrderDiscountRecord {
 		this.createDate = createDate;
 	}
 
+	/**
+	 * @return the tableName
+	 */
+	public String getTableName() {
+		return tableName;
+	}
+
+	/**
+	 * @param tableName the tableName to set
+	 */
+	public void setTableName(String tableName) {
+		this.tableName = "ChargeData.order_discount_record"+tableName.substring(0, 6);
+	}
 }

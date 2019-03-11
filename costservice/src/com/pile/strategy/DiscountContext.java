@@ -45,8 +45,16 @@ public class DiscountContext {
 		return chargeInfo;
 	}
 
+	/** 
+	* @Title: getDiscountStrategy 
+	* @Description: 根据折扣类型获取折扣策略
+	* @param @param discountType
+	* @param @return    设定文件 
+	* @return IDiscountStrategy    返回类型 
+	* @throws 
+	*/
 	private IDiscountStrategy getDiscountStrategy(int discountType) {
-		String strageName = dictionUtil.getItemName(Constant.DISCOUNTTYPE, discountType);
+		String strageName = dictionUtil.getItemName(Constant.DISCOUNT_TYPE, discountType);
 		return this.discountStrategy.get(strageName);
 	}
 

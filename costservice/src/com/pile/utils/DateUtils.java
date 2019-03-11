@@ -8,6 +8,7 @@
 */
 package com.pile.utils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -610,6 +611,28 @@ public class DateUtils {
 		} else {
 			return "";
 		}
+	}
+	
+	/** 
+	* @Title: checkDate 
+	* @Description:验证是否是日期格式 
+	* @param @param obj
+	* @param @return    设定文件 
+	* @return boolean    返回类型 
+	* @throws 
+	*/
+	public static boolean checkDate(Object obj) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		boolean flag = false;
+		try {
+			dateFormat.parse(obj.toString());
+			flag = true;
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return flag;
 	}
 
 }

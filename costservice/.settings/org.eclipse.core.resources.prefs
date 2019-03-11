@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//WebContent/index.jsp=UTF-8
 encoding//src/com/pile/test/JUtilTest.java=UTF-8
 encoding//src/config/config.properties=UTF-8
 encoding//src/config/log4j.properties=UTF-8

@@ -19,7 +19,7 @@ import javax.servlet.annotation.WebListener;
 * @date 2018年8月16日 下午5:36:03 
 *  
 */
-@WebListener
+//@WebListener
 public class NettyServerListener implements ServletContextListener {
 	
 	private NettyServer server;
@@ -31,7 +31,6 @@ public class NettyServerListener implements ServletContextListener {
 	*/
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -43,13 +42,12 @@ public class NettyServerListener implements ServletContextListener {
 	*/
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
-		
-		server = new NettyServer();	
+		server = new NettyServer();
 		Thread thread = new Thread(new NettyServerThread());
 		// 启动netty服务
 		thread.start();
 	}
-	
+
 	/** 
 	* @ClassName: NettyServerThread 
 	* @Description: netty服务启动线程 

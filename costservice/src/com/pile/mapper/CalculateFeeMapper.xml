@@ -3,19 +3,24 @@
 <mapper namespace="com.pile.mapper.CalculateFeeMapper" >
 
 	<select id="getCouponById" resultType="map">
-		select coupon_code,coupon_name,consume_money,coupon_money, 
-		TIMESTAMPDIFF(DAY,NOW(),expired_date) diffDay ,expired_date  
+		select coupon_code,coupon_name,consume_money,coupon_money,
+		TIMESTAMPDIFF(DAY,NOW(),expired_date) diffDay ,expired_date ,use_flag useFlag
 		from member_coupon
-		where use_flag = 0 and id = #{couponId,jdbcType=INTEGER}
+		where id = #{couponId,jdbcType=INTEGER} 
+		<![CDATA[
+		and effect_date <= #{paydate, jdbcType=TIMESTAMP} 
+		and expired_date >= #{paydate, jdbcType=TIMESTAMP}
+		]]>
 	</select>
 	
  	<insert id="insertOrderDiscountRecord" parameterType="com.pile.model.OrderDiscountRecord" >
 		<selectKey keyProperty="discountOrder" resultType="java.lang.Integer" order="BEFORE">
-			select case when MAX(discount_order) is null then 1 else MAX(discount_order) + 1 end from order_discount_record
+			select case when MAX(discount_order) is null then 1 else MAX(discount_order) + 1 end 
+			from ${tableName}
 			where serialnumber = #{serialnumber,jdbcType=VARCHAR}
 		</selectKey>	
 	 
-	    insert into order_discount_record
+	    insert into ${tableName}
 	    <trim prefix="(" suffix=")" suffixOverrides="," >
 	      <if test="id != null" >
 	        id,
@@ -86,12 +91,20 @@
 		set expired_date = DATE_ADD(expired_date,INTERVAL #{delayDays} DAY)
 		where coupon_code = #{couponCode,jdbcType=VARCHAR}
 	</update>
+	
+	<!-- 修改优惠券使用标志 -->
+	<update id="updateCouponUseFlag">
+		update member_coupon
+		set use_flag = #{useFlag,jdbcType=INTEGER}
+		where coupon_code = #{couponCode,jdbcType=VARCHAR}
+	</update>
 
 	<!-- 根据流水号查询订单打折信息 -->
 	<select id="getDiscountBySerialNumber" resultType="map">
   	<![CDATA[
 	  	SELECT * from (
-		SELECT odp.discount_type2 discountType,odp.discount_rate2 discountRate,odp.discount_price2 discountPrice
+		SELECT odp.discount_type2 discountType,odp.discount_rate2 discountRate,odp.discount_price2 discountPrice,
+		discount_subtype2 DiscountSubtype,odp.member_level memberLevel,odp.title memberLevelDesc
 		from member_orders mo ,member_level ml,operator_discount_promotion odp
 		where ml.member_id = mo.member_id and ml.operator_id = mo.operator_id
 		and ml.subst_id = mo.subst_id AND mo.operator_id = odp.operator_id 
@@ -99,7 +112,8 @@
 		AND mo.pay_date >= odp.effect_date2 AND mo.pay_date <= odp.expired_date2
 		and serialnumber = #{serialNumber,jdbcType=VARCHAR}
 		UNION
-		SELECT odp.discount_type1 discountType,odp.discount_rate1 discountRate,odp.discount_price1 discountPrice
+		SELECT odp.discount_type1 discountType,odp.discount_rate1 discountRate,odp.discount_price1 discountPrice,
+		discount_subtype1 DiscountSubtype,odp.member_level memberLevel,odp.title memberLevelDesc
 		from member_orders mo ,member_level ml,operator_discount_promotion odp 
 		where ml.member_id = mo.member_id and ml.operator_id = mo.operator_id
 		and ml.subst_id = mo.subst_id AND mo.operator_id = odp.operator_id 
@@ -110,10 +124,31 @@
 	]]>
 	</select>
 
+	<!-- 根据流水号查询订单的默认折扣信息 -->
+	<select id="getDefDiscountBySerialNumber" resultType="map">
+  	<![CDATA[
+	  	SELECT * from (
+		SELECT odp.discount_type2 discountType,odp.discount_rate2 discountRate,odp.discount_price2 discountPrice,
+		Discount_subtype2 discountSubtype,odp.member_level memberLevel,odp.title memberLevelDesc
+		from member_orders mo ,operator_discount_promotion odp
+		where mo.operator_id = odp.operator_id and mo.subst_id = odp.subst_id and odp.member_level = 0 AND odp.use_flag =1
+		AND mo.pay_date >= odp.effect_date2 AND mo.pay_date <= odp.expired_date2
+		and serialnumber = #{serialNumber,jdbcType=VARCHAR}
+		UNION
+		SELECT odp.discount_type1 discountType,odp.discount_rate1 discountRate,odp.discount_price1 discountPrice,
+		Discount_subtype1 discountSubtype,odp.member_level memberLevel,odp.title memberLevelDesc
+		from member_orders mo ,operator_discount_promotion odp
+		where mo.operator_id = odp.operator_id and mo.subst_id = odp.subst_id and odp.member_level = 0 AND odp.use_flag =1
+		and mo.pay_date >= odp.effect_date1 and mo.pay_date <= odp.expired_date1
+		and serialnumber = #{serialNumber,jdbcType=VARCHAR}
+		) a LIMIT 1
+	]]>
+	</select>
+	
 	<!-- 充值赠费结算后，更新运营商会员账户信息表中当前剩余金额，当前赠送剩余金额 -->
 	<update id="updateMemberAccount">
 		update member_account
-		set pay_remain =pay_remain + #{refundPrincipal,jdbcType=INTEGER},
+		set pay_remain = pay_remain + #{refundPrincipal,jdbcType=INTEGER},
 		give_remain= give_remain + #{refundGive,jdbcType=INTEGER}
 		where member_id = #{memberId,jdbcType=INTEGER} 
 		and operator_id =#{operatorId,jdbcType=INTEGER}
@@ -127,14 +162,17 @@
 		ORDER BY execute_priority
 	</select>
 
-	<update id="updateMemberOrder">
-		update member_orders set endpush_flag = #{endpushFlag,jdbcType=TINYINT},
-		charge_money = #{chargeMoney,jdbcType=INTEGER},
-		discount_money =#{discountMoney,jdbcType=INTEGER},
-		trade_money = #{payableMoney,jdbcType=INTEGER},
-		charge_state = 7 
-		where serialnumber = #{serialNumber,jdbcType=VARCHAR}
-	</update>
+<!-- 	<update id="updateMemberOrder"> -->
+<!-- 		update member_orders  -->
+<!-- 		set endpush_flag = #{endpushFlag,jdbcType=TINYINT}, -->
+<!-- 		trade_money = #{paymentMoney,jdbcType=INTEGER},		 -->
+<!-- 		discount_money = #{discountMoney,jdbcType=INTEGER}, -->
+<!-- 		charge_state = 7, -->
+<!-- 		refund_money = #{refundMoney,jdbcType=INTEGER}, -->
+<!-- 		refund_principal=#{refundPrincipal,jdbcType=INTEGER}, -->
+<!-- 		refund_give= #{refundGive,jdbcType=INTEGER} -->
+<!-- 		where serialnumber = #{serialNumber,jdbcType=VARCHAR} -->
+<!-- 	</update> -->
 
 	<insert id="backUpOrderDiscountRecord">
 	<![CDATA[
@@ -144,15 +182,14 @@
 	</insert>
 
 	<select id="getMemberOrder" resultType="map">
-		select prepay_type prepayType,operator_id operatorId,member_coupon_id
-		memberCouponId,precharge_money prechargeMoney,
-		precharge_give prechargeGive,precharge_principal prechargePrincipal,pay_ratio
-		payRatio,midcharge_money midchargeMoney,member_id memberId,pile_id
-		pileId,gun_id gunId,serialnumber orderSerialNumber,charge_money
+		select trade_date,prepay_type prepayType,operator_id operatorId,member_coupon_id
+		memberCouponId,precharge_money prechargeMoney,trade_date tradeDate,
+		precharge_give prechargeGive,precharge_principal prechargePrincipal,pay_ratio payRatio,
+		midcharge_money midchargeMoney,service_money serviceMoney,charge_money chargeMoney,
+		member_id memberId,pile_id	pileId,gun_id gunId,serialnumber orderSerialNumber,charge_money
 		chargeMoney,charge_dl chargeAmount,	pile_code pileCode,service_money
 		serviceMoney,end_cause endCause,charge_state chargeState
-		from member_orders where serialnumber =
-		#{orderSerialNumber,jdbcType=VARCHAR}
+		from member_orders where serialnumber =	#{orderSerialNumber,jdbcType=VARCHAR}
 	</select>
 
 	<select id="listMemberOrder" resultType="map">
@@ -163,7 +200,8 @@
 		member_id memberId,pile_id pileId,gun_id gunId,serialnumber
 		orderSerialNumber,charge_money chargeMoney,charge_dl chargeAmount,
 		pile_code pileCode,service_money serviceMoney,end_cause endCause
-		from member_orders where charge_state != 7
+		from member_orders where charge_state = 6 
+		and TIMESTAMPDIFF(MINUTE,chargeend_date,NOW())<![CDATA[ > ]]> 30
 	</select>
 
 	<select id="isCalculated">
@@ -186,6 +224,61 @@
 		)
 	</insert>
  
-
+	<update id="updateMemberOrder" parameterType="com.pile.model.MemberOrders" >
+	    update member_orders
+	    <set >
+	     <if test="chargeState != null" >
+	        charge_state = #{chargeState,jdbcType=TINYINT},
+	      </if>
+	     <if test="endpushFlag != null" >
+	        endpush_flag = #{endpushFlag,jdbcType=TINYINT},
+	      </if>
+	      <if test="discountMoney != null" >
+	        discount_money = #{discountMoney,jdbcType=INTEGER},
+	      </if>
+	      <if test="tradeMoney != null" >
+	        trade_money = #{tradeMoney,jdbcType=INTEGER},
+	      </if>
+	      <if test="refundMoney != null" >
+	        refund_money = #{refundMoney,jdbcType=INTEGER},
+	      </if>
+	      <if test="refundPrincipal != null" >
+	        refund_principal = #{refundPrincipal,jdbcType=INTEGER},
+	      </if>
+	      <if test="refundGive != null" >
+	        refund_give = #{refundGive,jdbcType=INTEGER},
+	      </if>
+	      <if test="level != null" >
+	        level = #{level,jdbcType=INTEGER},
+	      </if>
+	      <if test="leveldesc != null" >
+	        leveldesc = #{leveldesc,jdbcType=VARCHAR},
+	      </if>     
+	    </set>
+	    where serialnumber = #{serialnumber,jdbcType=VARCHAR}
+  </update>
+ 
+ 	<select id="getCheckRatio" resultType="Double">
+		SELECT a.check_ratio 
+		from subst_person p ,operator_agent a ,substpara s
+		where p.subst_id = s.id and s.operator_id = a.operator_id 
+		and a.id = p.agent_id and a.agent_flag = 1
+		and s.operator_id = #{operatorId,jdbcType=INTEGER}
+		and s.id = #{stationId,jdbcType=INTEGER}
+		<![CDATA[
+		and bgrent_date <=  #{tradeDate} and rent_date >=  #{tradeDate}
+	    ]]> 
+	</select>
+	
+	<insert id="insertPersonStationChargeDetail" parameterType="map">
+		insert into ${tableName}
+		(operator_id,subst_id,pile_id,gun_id,pile_code,
+		serialnumber,trade_date,trade_money,check_ratio,op_date,pay_money)
+		SELECT m.operator_id,m.subst_id,m.pile_id,m.gun_id,m.pile_code,
+		m.serialnumber,m.trade_date,#{tradeMoney},o.check_ratio,NOW(),#{payMoney}
+		FROM operator o,member_orders m
+		where o.id = m.operator_id and o.model = 1 and m.operator_id =#{operatorId,jdbcType=INTEGER}
+		and m.serialnumber = #{serialNumber,jdbcType=VARCHAR}
+	</insert>
  
 </mapper>

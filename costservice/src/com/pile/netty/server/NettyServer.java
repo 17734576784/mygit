@@ -41,7 +41,7 @@ public class NettyServer {
 	* @throws 
 	*/
 	public void run(){
-		int port = Constant.NETTYPORT;
+		int port = Constant.NETTY_PORT;
 		EventLoopGroup bossGroup = new NioEventLoopGroup();
 		EventLoopGroup workerGroup = new NioEventLoopGroup();
  		try {
@@ -50,8 +50,8 @@ public class NettyServer {
 			serverBootstrap.channel(NioServerSocketChannel.class);
 			serverBootstrap.option(ChannelOption.SO_BACKLOG, 1024);
 			serverBootstrap.handler(new LoggingHandler(LogLevel.INFO));
-//			serverBootstrap.childOption(ChannelOption.TCP_NODELAY, true);
-//			serverBootstrap.childOption(ChannelOption.SO_KEEPALIVE, true);
+			serverBootstrap.childOption(ChannelOption.TCP_NODELAY, true);
+			serverBootstrap.childOption(ChannelOption.SO_KEEPALIVE, true);
 			serverBootstrap.childHandler(new ChannelInitializer<SocketChannel>() {   
                 @Override  
                 public void initChannel(SocketChannel ch) throws Exception {  
