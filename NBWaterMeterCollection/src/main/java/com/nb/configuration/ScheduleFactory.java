@@ -35,7 +35,7 @@ import com.nb.service.IScheduleService;
 
 /**
  * @ClassName: ScheduleFactory
- * @Description: TODO(这里用一句话描述这个类的作用)
+ * @Description: 自动任务管理
  * @author dbr
  * @date 2019年3月12日 上午10:01:26
  * 
@@ -70,7 +70,6 @@ public class ScheduleFactory {
 
 			List<ScheduleJob> jobList = scheduleService.findLegalJobList();
 			for (ScheduleJob job : jobList) {
-
 				TriggerKey triggerKey = TriggerKey.triggerKey(job.getJobName(), job.getJobGroup());
 				// 获取trigger，即在spring配置文件中定义的 bean id="myTrigger"
 				CronTrigger trigger = (CronTrigger) scheduler.getTrigger(triggerKey);
@@ -114,7 +113,6 @@ public class ScheduleFactory {
 				}
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 	}

@@ -51,7 +51,6 @@ public class ChinaMobileUtil {
 	 * @param token     OneNet平台配置页面token的值
 	 * @return token检验成功返回true；token校验失败返回false
 	 */
-	@SuppressWarnings("restriction")
 	public static boolean checkToken(String msg, String nonce, String signature, String token)
 			throws UnsupportedEncodingException {
 
