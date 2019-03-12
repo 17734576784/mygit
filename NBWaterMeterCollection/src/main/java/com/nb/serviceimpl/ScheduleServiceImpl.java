@@ -8,6 +8,7 @@
 */
 package com.nb.serviceimpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -34,7 +35,8 @@ public class ScheduleServiceImpl implements IScheduleService {
 	@Override
 	public List<ScheduleJob> findLegalJobList() {
 		// TODO Auto-generated method stub
-		return null;
+		List<ScheduleJob> list = new ArrayList<ScheduleJob>();
+		return list;
 	}
 
 	/** (非 Javadoc) 
@@ -46,7 +48,8 @@ public class ScheduleServiceImpl implements IScheduleService {
 	@Override
 	public List<ScheduleJob> findDelJobList() {
 		// TODO Auto-generated method stub
-		return null;
+		List<ScheduleJob> list = new ArrayList<ScheduleJob>();
+		return list;
 	}
 
 }

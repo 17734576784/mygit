@@ -28,6 +28,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Component;
 
+import com.nb.logger.LogName;
+import com.nb.logger.LoggerUtil;
 import com.nb.model.ScheduleJob;
 import com.nb.service.IScheduleService;
 
@@ -57,7 +59,7 @@ public class ScheduleFactory {
 		try {
 			// schedulerFactoryBean 由spring创建注入
 			Scheduler scheduler = schedulerFactoryBean.getScheduler();
-			
+
 			// 获取最新删除(禁用)任务列表，将其从调度器中删除，并且从jobUniqueMap中删除
 			List<ScheduleJob> jobDelList = scheduleService.findDelJobList();
 			for (ScheduleJob delJob : jobDelList) {
@@ -76,9 +78,6 @@ public class ScheduleFactory {
 				String dbCron = job.getCronExpression();
 				// 不存在，创建一个
 				if (null == trigger) {
-					// JobDetail jobDetail =
-					// JobBuilder.newJob(QuartzJobFactory.class).withIdentity(job.getJobName(),
-					// job.getJobGroup()).build();
 					try {
 						@SuppressWarnings("unchecked")
 						Class<? extends Job> clazz = (Class<? extends Job>) Class.forName(job.getQuartzClass());
@@ -97,15 +96,13 @@ public class ScheduleFactory {
 						scheduler.scheduleJob(jobDetail, trigger);
 					} catch (Exception e) {
 						e.printStackTrace();
-						//	logger.error(e.getMessage());
+						LoggerUtil.Logger(LogName.ERROR).equals(e.getMessage());
 					}
 
-				} else if (!jobUniqueMap.get(triggerKey.toString()).equals(dbCron)) {
-					// Trigger已存在，那么更新相应的定时设置
+				} else if (!jobUniqueMap.get(triggerKey.toString()).equals(dbCron)) { // Trigger已存在，那么更新相应的定时设置
 					// 表达式调度构建器
 					CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(dbCron);
 					// 按新的cronExpression表达式重新构建trigger
-
 					trigger = (CronTrigger) scheduler.getTrigger(triggerKey);
 
 					trigger = trigger.getTriggerBuilder().withIdentity(triggerKey).withSchedule(scheduleBuilder)
@@ -118,6 +115,7 @@ public class ScheduleFactory {
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 
