@@ -23,7 +23,7 @@ spring:
     # Redis数据库索引（默认为0）
     database: 0  
     # Redis服务器地址
-    host: localhost
+    host: 127.0.0.1
     # Redis服务器连接端口
     port: 6379  
     # Redis服务器连接密码（默认为空）
@@ -45,16 +45,16 @@ spring:
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
     platform: mysql
-    url: jdbc:sqlserver://127.0.0.1:1433;Databasename=database
-    username: root
-    password: 123456
+    url: jdbc:sqlserver://192.168.19.5:1433;Databasename=ydpara
+    username: sa
+    password: keyd*%@#1095
     initialSize: 5
     minIdle: 5
     maxActive: 20
     maxWait: 60000
     timeBetweenEvictionRunsMillis: 60000
     minEvictableIdleTimeMillis: 300000
-    validationQuery: SELECT1FROMDUAL
+    validationQuery: SELECT 1 FROM DUAL
     testWhileIdle: true
     testOnBorrow: false
     testOnReturn: false

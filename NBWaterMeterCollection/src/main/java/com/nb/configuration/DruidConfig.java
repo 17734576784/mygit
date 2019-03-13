@@ -11,6 +11,7 @@ import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInterceptor;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtil;
 
@@ -71,8 +72,8 @@ public class DruidConfig {
 	@Value("${spring.datasource.minEvictableIdleTimeMillis}")
 	private int minEvictableIdleTimeMillis;
 
-	@Value("${spring.datasource.validationQuery}")
-	private String validationQuery;
+//	@Value("${spring.datasource.validationQuery}")
+//	private String validationQuery;
 
 	@Value("${spring.datasource.testWhileIdle}")
 	private boolean testWhileIdle;
@@ -125,7 +126,7 @@ public class DruidConfig {
 		datasource.setMaxWait(maxWait);
 		datasource.setTimeBetweenEvictionRunsMillis(timeBetweenEvictionRunsMillis);
 		datasource.setMinEvictableIdleTimeMillis(minEvictableIdleTimeMillis);
-		datasource.setValidationQuery(validationQuery);
+//		datasource.setValidationQuery(validationQuery);
 		datasource.setTestWhileIdle(testWhileIdle);
 		datasource.setTestOnBorrow(testOnBorrow);
 		datasource.setTestOnReturn(testOnReturn);
@@ -137,7 +138,19 @@ public class DruidConfig {
 		}
 		return datasource;
 	}
-
+	
+	@Bean
+	public PageHelper pageHelper() {
+		PageHelper pageHelper = new PageHelper();
+		Properties props = new Properties();
+		props.setProperty("reasonable", "true");
+		props.setProperty("supportMethodsArguments", "true");
+		props.setProperty("returnPageInfo", "check");
+		props.setProperty("params", "count=countSql");
+		pageHelper.setProperties(props);
+		return pageHelper;
+	}
+	
 	@Bean
 	public SqlSessionFactory sqlSessionFactory() throws Exception {
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
@@ -145,19 +158,23 @@ public class DruidConfig {
 		// mybatis分页
 		PageHelper pageHelper = new PageHelper();
 		Properties props = new Properties();
-		props.setProperty("dialect", "mysql");
 		props.setProperty("reasonable", "true");
 		props.setProperty("supportMethodsArguments", "true");
 		props.setProperty("returnPageInfo", "check");
 		props.setProperty("params", "count=countSql");
 		pageHelper.setProperties(props);
+		
+		// 坑 版本5 区别与版本4
+		PageInterceptor interceptor = new PageInterceptor();
+		interceptor.setProperties(props);
+		
 		// 添加插件
-		sqlSessionFactoryBean.setPlugins(new Interceptor[] { pageHelper });
+		sqlSessionFactoryBean.setPlugins(new Interceptor[] { interceptor });
 		// 添加XML目录
 		VFS.addImplClass(SpringBootVFS.class);
 		PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
 		sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath:com/nb/mapper/*/*.xml"));
-		LoggerUtil.Logger(LogName.INFO).info("dao层扫描包为:com/ke/mapper/*/*.xml");
+		LoggerUtil.Logger(LogName.INFO).info("dao层扫描包为:com/nb/mapper/*/*.xml");
 		return sqlSessionFactoryBean.getObject();
 	}
 
