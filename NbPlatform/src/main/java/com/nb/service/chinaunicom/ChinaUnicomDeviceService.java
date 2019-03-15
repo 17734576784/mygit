@@ -97,6 +97,7 @@ public class ChinaUnicomDeviceService {
 	
 		JSONObject paramModifyDevice = new JSONObject();
 		paramModifyDevice.put("deviceId", deviceId);
+		paramModifyDevice.put("name", deviceInfo.getString("title"));
 		paramModifyDevice.put("manufacturerId", deviceInfo.getString("manufacturerId"));
 		paramModifyDevice.put("manufacturerName", deviceInfo.getString("manufacturerName"));
 		paramModifyDevice.put("deviceType", deviceInfo.getString("deviceType"));
@@ -117,7 +118,7 @@ public class ChinaUnicomDeviceService {
  		
 		ResultBean<JSONObject> result = new ResultBean<JSONObject>();
 		JSONObject rtnJson = new JSONObject();
-		rtnJson.put("deviceId", deviceId);
+		rtnJson.put("device_id", deviceId);
 		result.setData(rtnJson);
 		
 		return result;

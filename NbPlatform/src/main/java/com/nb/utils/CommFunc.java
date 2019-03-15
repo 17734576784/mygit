@@ -246,4 +246,12 @@ public class CommFunc {
 		String commandKey = ConverterUtils.toStr(nbType * 1000 + commandType);
 		return command.get(commandKey);
 	}
+	
+	public static String handleJsonStr(String jsonStr) {
+		String result = jsonStr.replace("\\", "");
+		if (result.startsWith("\"")) {
+			result = result.substring(1, result.length()-1);
+		}
+		return result;
+	}
 }

@@ -46,7 +46,7 @@ public class Constant {
 	 * IP and port of callback url. please replace the IP and Port of your
 	 * Application deployment environment address, when you use the demo.
 	 */
-	public static final String CALLBACK_BASE_URL = "https://118.24.175.15:8443";
+	public static final String CALLBACK_BASE_URL = "https://118.24.175.15:443";
 
 	/*
 	 * complete callback url please replace uri, when you use the demo.
@@ -69,10 +69,11 @@ public class Constant {
 	 * please replace uri, when you use the demo.
 	 */
 	public static final String CHINA_TELECOM_REPORT_CMD_EXEC_RESULT_CALLBACK_URL = CALLBACK_BASE_URL
-			+ "/reportCmdExecResult";
+			+ "/chinatelecom/reportCmdExecResult";
+	
 
 	public static final String CHINA_UNICOM_REPORT_CMD_EXEC_RESULT_CALLBACK_URL = CALLBACK_BASE_URL
-			+ "/reportCmdExecResult";
+			+ "/chinaunicom/reportCmdExecResult";
 
 	public static String realBasepath = new File(Constant.class.getResource("/").getPath()).getParent();
 

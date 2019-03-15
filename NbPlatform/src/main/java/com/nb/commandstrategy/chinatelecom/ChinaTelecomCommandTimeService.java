@@ -20,6 +20,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
 import com.nb.model.StreamClosedHttpResponse;
+import com.nb.utils.CommFunc;
 import com.nb.utils.Constant;
 import com.nb.utils.DateUtils;
 import com.nb.commandstrategy.ICommandService;
@@ -67,7 +68,7 @@ public class ChinaTelecomCommandTimeService implements ICommandService {
 		try {
 			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostFormUrlEncodedGetStatusLine(apiUrl, paramMap);
-			JSONObject httpResult = JSONObject.parseObject(httpResponse.getContent());
+			JSONObject httpResult = JSONObject.parseObject(CommFunc.handleJsonStr(httpResponse.getContent()));
 			if (httpResult != null && !httpResult.isEmpty()) {
 				if (httpResult.getInteger("status") == Constant.ERROR) {
 					LoggerUtils.Logger(LogName.INFO).info("推送设置上传周期命令回复失败，设备id：" + deviceId + "，回复内容：" + commandMap.toString());

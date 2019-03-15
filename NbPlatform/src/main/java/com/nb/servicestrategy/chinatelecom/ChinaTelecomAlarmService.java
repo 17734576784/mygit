@@ -17,6 +17,7 @@ import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
 import com.nb.model.StreamClosedHttpResponse;
 import com.nb.servicestrategy.IServiceStrategy;
+import com.nb.utils.CommFunc;
 import com.nb.utils.Constant;
 import com.nb.utils.JsonUtil;
 
@@ -69,7 +70,8 @@ public class ChinaTelecomAlarmService implements IServiceStrategy{
 			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostFormUrlEncodedGetStatusLine(apiUrl,paramMap);
 
-			JSONObject httpResult =  JSONObject.parseObject(httpResponse.getContent());
+			String response = httpResponse.getContent();
+			JSONObject httpResult =  JSONObject.parseObject(CommFunc.handleJsonStr(response));
 			if (httpResult != null && !httpResult.isEmpty()) {
 				if (httpResult.getInteger("status") == Constant.ERROR) {
 					LoggerUtils.Logger(LogName.CALLBACK).info("上传告警失败：" + logInfo);

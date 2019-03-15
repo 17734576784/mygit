@@ -22,6 +22,7 @@ import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
 import com.nb.model.StreamClosedHttpResponse;
 import com.nb.servicestrategy.IServiceStrategy;
+import com.nb.utils.CommFunc;
 import com.nb.utils.Constant;
 import com.nb.utils.JsonUtil;
 
@@ -69,7 +70,7 @@ public class ChinaTelecomUpresultService implements IServiceStrategy {
 			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostFormUrlEncodedGetStatusLine(apiUrl, paramMap);
 
-			JSONObject response = JSONObject.parseObject(httpResponse.getContent());
+			JSONObject response = JSONObject.parseObject(CommFunc.handleJsonStr(httpResponse.getContent()));
 			if (response != null && !response.isEmpty()) {
 				if (response.getInteger("status") == Constant.SUCCESS) {
 					LoggerUtils.Logger(LogName.CALLBACK).info("升级成功发送成功，response：" + response);

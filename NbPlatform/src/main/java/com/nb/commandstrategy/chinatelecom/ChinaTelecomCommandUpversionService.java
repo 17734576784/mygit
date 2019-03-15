@@ -23,6 +23,7 @@ import com.nb.logger.LoggerUtils;
 import com.nb.model.DeviceProgress;
 import com.nb.model.StreamClosedHttpResponse;
 import com.nb.utils.ChinaTelecomUpGradeUtil;
+import com.nb.utils.CommFunc;
 import com.nb.utils.Constant;
 import com.nb.utils.ConverterUtils;
 import com.nb.commandstrategy.ICommandService;
@@ -116,7 +117,7 @@ public class ChinaTelecomCommandUpversionService implements ICommandService {
 		try {
 			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostFormUrlEncodedGetStatusLine(apiUrl,paramMap);
-			JSONObject response = JSONObject.parseObject(httpResponse.getContent());
+			JSONObject response = JSONObject.parseObject(CommFunc.handleJsonStr(httpResponse.getContent()));
 			
 			if (response != null && !response.isEmpty()) {
 				if (response.getInteger("status") == Constant.SUCCESS) {

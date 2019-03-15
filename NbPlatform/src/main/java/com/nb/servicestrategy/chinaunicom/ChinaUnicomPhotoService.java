@@ -114,7 +114,7 @@ public class ChinaUnicomPhotoService implements IServiceStrategy {
 		try {
 			String photoDate =time.substring(0, 8);
 			String photoTime = time.substring(8);
-			String filePath = imageUrl + deviceId + "_" + time + ".jpeg";
+			String filePath = imageUrl+"/unicom/" + deviceId + "_" + time + ".jpeg";
 			byte[] tmp = new byte[0];
 			Iterator<Entry<String, byte[]>> iterator = photoMap.entrySet().iterator();
 

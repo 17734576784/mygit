@@ -17,6 +17,7 @@ import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
 import com.nb.model.StreamClosedHttpResponse;
 import com.nb.servicestrategy.IServiceStrategy;
+import com.nb.utils.CommFunc;
 import com.nb.utils.Constant;
 import com.nb.utils.JsonUtil;
 
@@ -67,8 +68,9 @@ public class ChinaUnicomAlarmService implements IServiceStrategy{
 			paramMap.put("param", paramJson.toJSONString());
 			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostFormUrlEncodedGetStatusLine(apiUrl, paramMap);
-
-			JSONObject httpResult = JSONObject.parseObject(httpResponse.getContent());
+			
+			// "{\"status\":-1,\"error\":\"重复告警\"}"
+			JSONObject httpResult = JSONObject.parseObject(CommFunc.handleJsonStr(httpResponse.getContent()));
 			if (httpResult != null && !httpResult.isEmpty()) {
 				if (httpResult.getInteger("status") == Constant.ERROR) {
 					LoggerUtils.Logger(LogName.CALLBACK).info("上传告警失败：" + logInfo);

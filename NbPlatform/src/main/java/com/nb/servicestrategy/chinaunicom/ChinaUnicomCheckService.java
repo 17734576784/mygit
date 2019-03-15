@@ -19,6 +19,7 @@ import com.nb.model.DeviceProgress;
 import com.nb.model.StreamClosedHttpResponse;
 import com.nb.servicestrategy.IServiceStrategy;
 import com.nb.utils.ChinaUnicomUpGradeUtil;
+import com.nb.utils.CommFunc;
 import com.nb.utils.Constant;
 import com.nb.utils.FileUtils;
 import com.nb.utils.JedisUtils;
@@ -81,7 +82,7 @@ public class ChinaUnicomCheckService implements IServiceStrategy {
 			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostFormUrlEncodedGetStatusLine(apiUrl, paramMap);
 
-			JSONObject response = JSONObject.parseObject(httpResponse.getContent());
+			JSONObject response = JSONObject.parseObject(CommFunc.handleJsonStr(httpResponse.getContent()));
 			System.out.println("response ： "+ response);
 			LoggerUtils.Logger(LogName.INFO).info("response: "+response);
 			if (response != null && !response.isEmpty()) {

@@ -10,7 +10,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.beans.factory.annotation.Value;
 
-
 @SpringBootApplication
 @EnableScheduling
 @PropertySource({ "classpath:config.properties" })
@@ -18,7 +17,7 @@ public class NbPlatformApplication {
 
 	@Value("${http.port}")
 	private Integer port;
-	
+
 	public static void main(String[] args) {
 		SpringApplication.run(NbPlatformApplication.class, args);
 	}
@@ -30,7 +29,7 @@ public class NbPlatformApplication {
 		tomcat.addAdditionalTomcatConnectors(createStandardConnector());
 		return tomcat;
 	}
-	
+
 	// 配置http
 	private Connector createStandardConnector() {
 		Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
@@ -38,4 +37,3 @@ public class NbPlatformApplication {
 		return connector;
 	}
 }
-

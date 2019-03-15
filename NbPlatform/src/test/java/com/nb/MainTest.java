@@ -18,7 +18,10 @@ import java.util.Map;
 
 import com.alibaba.fastjson.JSONObject;
 import com.nb.http.HttpsClientUtil;
+import com.nb.logger.LogName;
+import com.nb.logger.LoggerUtils;
 import com.nb.model.StreamClosedHttpResponse;
+import com.nb.utils.CommFunc;
 import com.nb.utils.Constant;
 import com.nb.utils.DateUtils;
 
@@ -40,34 +43,28 @@ public class MainTest {
 	* @throws 
 	*/
 	public static void main(String[] args) throws Exception {
-		// TODO Auto-generated method stub
+		String apiUrl = "http://222.222.60.178:18130/Enterprise_MeterPay/pay/nbiot/" + Constant.UPLOAD_ALARM_URL;
+
+		JSONObject paramJson = new JSONObject();
+		paramJson.put("slope", 1);
+		paramJson.put("magnetic", 2);
+		paramJson.put("alarmtype", 3);
+		paramJson.put("deviceId", "a278184c-5327-4c42-a6e7-f687fad7ae3c");
+		paramJson.put("date", 20190315);
+		paramJson.put("time", 120000);
+
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("param", paramJson.toJSONString());
+		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
+		StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostFormUrlEncodedGetStatusLine(apiUrl, paramMap);
 		
-		  String str = "0000024";
-	 
-	      System.out.println(Long.parseLong(str,16));
-	      
-	      String date = DateUtils.formatDateByFormat(Calendar.getInstance().getTime(), "yyyy-MM-dd'T'HH:mm:ss");
-	      System.out.println(date);
-	      
-	      
-//	      
-//		JSONObject paramJson = new JSONObject();
-//		paramJson.put("nbType", 1);
-//		paramJson.put("version", 2);
-//		paramJson.put("deviceId", 2);
-//
-//		
-//		Map<String,String> map = new HashMap<>();
-//		map.put("param", paramJson.toJSONString());
-//		String apiUrl = "http://222.222.60.178:18130/Enterprise_MeterPay/pay/nbiot/nbNotifyAction!notifyReadTimeResult.action";
-//		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
-//		StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostFormUrlEncodedGetStatusLine(apiUrl,map);
-//		System.out.println(httpResponse.getContent());
-//		JSONObject response = JSONObject.parseObject(httpResponse.getContent());
-//		System.out.println(response);
-//		String date = DateUtils.stampToDate(1546939347401L);
-//
-//		System.out.println(date.split(" ")[0] + "   " + date.split(" ")[1]);
+		//"{\"status\":-1,\"error\":\"重复告警\"}"
+		String response = httpResponse.getContent().toString();
+ 		JSONObject httpResult = JSONObject.parseObject(CommFunc.handleJsonStr(response));
+		if (httpResult != null && !httpResult.isEmpty()) {
+			if (httpResult.getInteger("status") == Constant.ERROR) {
+			}
+		}
 	}
 	
 

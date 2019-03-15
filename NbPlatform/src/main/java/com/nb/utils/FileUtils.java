@@ -10,6 +10,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -46,7 +47,8 @@ public class FileUtils {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public static boolean upload(String url, String filePath, String date,String deviceId,String time) throws ClientProtocolException, IOException {
+	public static boolean upload(String url, String filePath, String date, String deviceId, String time)
+			throws ClientProtocolException, IOException {
 		boolean flag = false;
 		LoggerUtils.Logger(LogName.CALLBACK).info("上传图片：deviceId : " + deviceId + " ,filePath:" + filePath);
 		try {
@@ -67,7 +69,6 @@ public class FileUtils {
 			dataInfo.put("deviceId", deviceId);
 			dataInfo.put("date", date);
 			dataInfo.put("time", time);
-
 
 			multipartEntityBuilder.addTextBody("param", dataInfo.toJSONString());
 			HttpEntity httpEntity = multipartEntityBuilder.build();
@@ -99,92 +100,95 @@ public class FileUtils {
 
 		return flag;
 	}
-	
+
 	/**
-	 * 文件转为二进制数组
+	 * 	远程文件转为二进制数组
+	 * 
 	 * @param file
 	 * @return
 	 */
-    public static byte[] fileToBinArray(File file){
-        try {
-            InputStream fis = new FileInputStream(file);
-            byte[] bytes = FileCopyUtils.copyToByteArray(fis);
-            return bytes;
-        }catch (Exception ex){
-            throw new RuntimeException("transform file into bin Array 出错",ex);
-        }
-    }
+	public static byte[] fileToBinArray(String  filePath) {
+		try {
+			URL url = new URL(filePath);
+			InputStream is = url.openStream();
+			byte[] bytes = FileCopyUtils.copyToByteArray(is);
+			return bytes;
+		} catch (Exception ex) {
+			throw new RuntimeException("transform file into bin Array 出错", ex);
+		}
+	}
 
 	/**
 	 * 文件转为二进制字符串
+	 * 
 	 * @param file
 	 * @return
 	 */
-    public static String fileToBinStr(File file){
-        try {
-            InputStream fis = new FileInputStream(file);
-            byte[] bytes = FileCopyUtils.copyToByteArray(fis);
-            System.out.println(bytes);
-            System.out.println(bytes.length);
-            return new String(bytes,"ISO-8859-1");
-        }catch (Exception ex){
-            throw new RuntimeException("transform file into bin String 出错",ex);
-        }
-    }
-
+	public static String fileToBinStr(File file) {
+		try {
+			InputStream fis = new FileInputStream(file);
+			byte[] bytes = FileCopyUtils.copyToByteArray(fis);
+			System.out.println(bytes);
+			System.out.println(bytes.length);
+			return new String(bytes, "ISO-8859-1");
+		} catch (Exception ex) {
+			throw new RuntimeException("transform file into bin String 出错", ex);
+		}
+	}
 
 	/**
 	 * 二进制字符串转文件
+	 * 
 	 * @param bin
 	 * @param fileName
 	 * @param parentPath
 	 * @return
 	 */
-    public static File binToFile(String bin,String fileName,String parentPath){
-        try {
-            File fout = new File(parentPath,fileName);
-            fout.createNewFile();
-            byte[] bytes1 = bin.getBytes("ISO-8859-1");
-            FileCopyUtils.copy(bytes1,fout);
+	public static File binToFile(String bin, String fileName, String parentPath) {
+		try {
+			File fout = new File(parentPath, fileName);
+			fout.createNewFile();
+			byte[] bytes1 = bin.getBytes("ISO-8859-1");
+			FileCopyUtils.copy(bytes1, fout);
 
-            //FileOutputStream outs = new FileOutputStream(fout);
-            //outs.write(bytes1);
-            //outs.flush();
-            //outs.close();
+			// FileOutputStream outs = new FileOutputStream(fout);
+			// outs.write(bytes1);
+			// outs.flush();
+			// outs.close();
 
-            return fout;
-        }catch (Exception ex){
-            throw new RuntimeException("transform bin into File 出错",ex);
-        }
-    }
+			return fout;
+		} catch (Exception ex) {
+			throw new RuntimeException("transform bin into File 出错", ex);
+		}
+	}
 
-    /**
-     * 文件转为二进制数组
-     * 等价于fileToBin
-     * @param file
-     * @return
-     */
-    public static byte[] getFileToByte(File file) {
-        byte[] by = new byte[(int) file.length()];
-        try {
-            @SuppressWarnings("resource")
+	/**
+	 * 文件转为二进制数组 等价于fileToBin
+	 * 
+	 * @param file
+	 * @return
+	 */
+	public static byte[] getFileToByte(File file) {
+		byte[] by = new byte[(int) file.length()];
+		try {
+			@SuppressWarnings("resource")
 			InputStream is = new FileInputStream(file);
-            ByteArrayOutputStream bytestream = new ByteArrayOutputStream();
-            byte[] bb = new byte[2048];
-            int ch;
-            ch = is.read(bb);
-            while (ch != -1) {
-                bytestream.write(bb, 0, ch);
-                ch = is.read(bb);
-            }
-            by = bytestream.toByteArray();
-        } catch (Exception ex) {
-            throw new RuntimeException("transform file into bin Array 出错",ex);
-        }
-        return by;
-    }
-    
-    public static void main(String[] args){
+			ByteArrayOutputStream bytestream = new ByteArrayOutputStream();
+			byte[] bb = new byte[2048];
+			int ch;
+			ch = is.read(bb);
+			while (ch != -1) {
+				bytestream.write(bb, 0, ch);
+				ch = is.read(bb);
+			}
+			by = bytestream.toByteArray();
+		} catch (Exception ex) {
+			throw new RuntimeException("transform file into bin Array 出错", ex);
+		}
+		return by;
+	}
+
+	public static void main(String[] args) {
 //        File file = new File("D://新建文本文档.txt");
 //        String fileName = file.getName();
 //        binToFile(fileToBinStr(file),fileName,"D://测试byte");
@@ -215,25 +219,18 @@ public class FileUtils {
 //			System.out.println("countLength: "+countLength);
 //		}
 //		CommFunc.byte2image(all_byte, "D://dbr.txt");
-    }
-    
-    /** 
-    * @Title: parseUpgradeFile 
-    * @Description:解析升级文件，存入redis
-    * @param @param filePath
-    * @param @param version
-    * @param @param baseFilePath
-    * @param @param packSize
-    * @param @return    设定文件 
-    * @return JSONObject    返回类型 
-    * @throws 
-    */
+	}
+
+	/**
+	 * @Title: parseUpgradeFile @Description:解析升级文件，存入redis @param @param
+	 * filePath @param @param version @param @param baseFilePath @param @param
+	 * packSize @param @return 设定文件 @return JSONObject 返回类型 @throws
+	 */
 	public static JSONObject parseUpgradeFile(String fileKey, String filePath, int packSize) {
 		JSONObject json = new JSONObject();
 		try {
 			/** 不存在则解析文件，存入redis */
-			File file = new File(filePath);
-			byte[] fileByte = FileUtils.fileToBinArray(file);
+			byte[] fileByte = FileUtils.fileToBinArray(filePath);
 
 			int fileLength = fileByte.length;
 			int packNum = (int) Math.ceil(1.00 * fileLength / packSize);
@@ -253,6 +250,6 @@ public class FileUtils {
 			LoggerUtils.Logger(LogName.CALLBACK).error("解析升级文件异常", e);
 			e.printStackTrace();
 		}
-    	return json;
-    }
+		return json;
+	}
 }

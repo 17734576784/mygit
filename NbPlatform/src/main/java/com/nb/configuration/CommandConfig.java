@@ -86,9 +86,9 @@ public class CommandConfig {
 		Map<String, String> timeServiceMap = new HashMap<String, String>();
 		timeServiceMap.put("serviceId", "TimeService");
 		timeServiceMap.put("method", "commandUpTimeService");
-		commandKey = Constant.CHINA_TELECOM * 1000 + Constant.COMMAND_TYPE_DATA;
+		commandKey = Constant.CHINA_TELECOM * 1000 + Constant.COMMAND_TYPE_CBTIME;
 		command.put(toStr(commandKey), timeServiceMap);
-		commandKey = Constant.CHINA_UNICOM * 1000 + Constant.COMMAND_TYPE_DATA;
+		commandKey = Constant.CHINA_UNICOM * 1000 + Constant.COMMAND_TYPE_CBTIME;
 		command.put(toStr(commandKey), timeServiceMap);
 //		commandKey = Constant.CHINA_MOBILE * 1000 + Constant.COMMAND_TYPE_DATA;
 //		command.put(toStr(commandKey), timeServiceMap);
