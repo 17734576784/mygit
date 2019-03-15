@@ -1,0 +1,31 @@
+[2019-02-23 08:56:25.110] INFO [https-jsse-nio-443-exec-7] ChinaMobileCallBackController.java:63 - data receive:  body String --- {"msg":{"at":1550883384676,"login_type":10,"imei":"869976030076898","type":2,"dev_id":517204196,"status":1},"msg_signature":"WkpuTIvEUZUK426wevqhCQ==","nonce":"&G5+Oz##"}
+[2019-02-23 08:56:25.110] INFO [https-jsse-nio-443-exec-7] ChinaMobileCallBackController.java:66 - data receive:  body Object --- { "msg":{"at":1550883384676,"login_type":10,"imei":"869976030076898","type":2,"dev_id":517204196,"status":1}，"nonce":&G5+Oz##，"signature":WkpuTIvEUZUK426wevqhCQ==}
+[2019-02-23 08:56:25.110] INFO [https-jsse-nio-443-exec-7] ChinaMobileUtil.java:85 - check signature: result:true  receive sig:WkpuTIvEUZUK426wevqhCQ==,calculate sig: WkpuTIvEUZUK426wevqhCQ==
+[2019-02-23 08:56:25.110] INFO [https-jsse-nio-443-exec-7] ChinaMobileCallBackController.java:82 - data receive: content{ "msg":{"at":1550883384676,"login_type":10,"imei":"869976030076898","type":2,"dev_id":517204196,"status":1}，"nonce":&G5+Oz##，"signature":WkpuTIvEUZUK426wevqhCQ==}
+[2019-02-23 08:56:58.986] INFO [https-jsse-nio-443-exec-6] ChinaMobileCallBackController.java:63 - data receive:  body String --- {"msg":[{"at":1550883387779,"imei":"869976030076898","type":1,"ds_id":"3200_0_5750","value":"00003FEE","dev_id":517204196},{"at":1550883387831,"imei":"869976030076898","type":1,"ds_id":"3342_0_5850","value":"01","dev_id":517204196}],"msg_signature":"WsDdj9OwimaGvMN/OrvHnw==","nonce":"-E&KU$qB"}
+[2019-02-23 08:56:58.986] INFO [https-jsse-nio-443-exec-6] ChinaMobileCallBackController.java:66 - data receive:  body Object --- { "msg":[{"at":1550883387779,"imei":"869976030076898","type":1,"ds_id":"3200_0_5750","value":"00003FEE","dev_id":517204196},{"at":1550883387831,"imei":"869976030076898","type":1,"ds_id":"3342_0_5850","value":"01","dev_id":517204196}]，"nonce":-E&KU$qB，"signature":WsDdj9OwimaGvMN/OrvHnw==}
+[2019-02-23 08:56:58.986] INFO [https-jsse-nio-443-exec-6] ChinaMobileUtil.java:85 - check signature: result:true  receive sig:WsDdj9OwimaGvMN/OrvHnw==,calculate sig: WsDdj9OwimaGvMN/OrvHnw==
+[2019-02-23 08:56:58.999] INFO [https-jsse-nio-443-exec-6] ChinaMobileCallBackController.java:119 - "{\"status\":0,\"error\":\"\"}"
+[2019-02-23 08:56:59.005] INFO [https-jsse-nio-443-exec-6] ChinaMobileCallBackController.java:119 - "{\"status\":0,\"error\":\"\"}"
+[2019-02-23 08:56:59.005] INFO [https-jsse-nio-443-exec-6] ChinaMobileCallBackController.java:82 - data receive: content{ "msg":[{"at":1550883387779,"imei":"869976030076898","type":1,"ds_id":"3200_0_5750","value":"00003FEE","dev_id":517204196},{"at":1550883387831,"imei":"869976030076898","type":1,"ds_id":"3342_0_5850","value":"01","dev_id":517204196}]，"nonce":-E&KU$qB，"signature":WsDdj9OwimaGvMN/OrvHnw==}
+[2019-02-23 09:02:04.943] INFO [https-jsse-nio-443-exec-4] ChinaMobileCallBackController.java:63 - data receive:  body String --- {"msg":{"at":1550883724416,"login_type":10,"imei":"869976030076898","type":2,"dev_id":517204196,"status":0},"msg_signature":"URrAnvsfMDCARB7oNkVdPQ==","nonce":"%5eW(?ZH"}
+[2019-02-23 09:02:04.943] INFO [https-jsse-nio-443-exec-4] ChinaMobileCallBackController.java:66 - data receive:  body Object --- { "msg":{"at":1550883724416,"login_type":10,"imei":"869976030076898","type":2,"dev_id":517204196,"status":0}，"nonce":%5eW(?ZH，"signature":URrAnvsfMDCARB7oNkVdPQ==}
+[2019-02-23 09:02:04.943] INFO [https-jsse-nio-443-exec-4] ChinaMobileUtil.java:85 - check signature: result:true  receive sig:URrAnvsfMDCARB7oNkVdPQ==,calculate sig: URrAnvsfMDCARB7oNkVdPQ==
+[2019-02-23 09:02:04.959] INFO [https-jsse-nio-443-exec-4] ChinaMobileCallBackController.java:82 - data receive: content{ "msg":{"at":1550883724416,"login_type":10,"imei":"869976030076898","type":2,"dev_id":517204196,"status":0}，"nonce":%5eW(?ZH，"signature":URrAnvsfMDCARB7oNkVdPQ==}
+[2019-02-23 09:02:15.991] INFO [https-jsse-nio-443-exec-5] ChinaMobileCallBackController.java:63 - data receive:  body String --- {"msg":{"at":1550883735541,"login_type":10,"imei":"869976030076898","type":2,"dev_id":517204196,"status":0},"msg_signature":"8chAqHgpxdYK6cJRLegJEw==","nonce":"1e3VNQK7"}
+[2019-02-23 09:02:15.991] INFO [https-jsse-nio-443-exec-5] ChinaMobileCallBackController.java:66 - data receive:  body Object --- { "msg":{"at":1550883735541,"login_type":10,"imei":"869976030076898","type":2,"dev_id":517204196,"status":0}，"nonce":1e3VNQK7，"signature":8chAqHgpxdYK6cJRLegJEw==}
+[2019-02-23 09:02:15.991] INFO [https-jsse-nio-443-exec-5] ChinaMobileUtil.java:85 - check signature: result:true  receive sig:8chAqHgpxdYK6cJRLegJEw==,calculate sig: 8chAqHgpxdYK6cJRLegJEw==
+[2019-02-23 09:02:15.991] INFO [https-jsse-nio-443-exec-5] ChinaMobileCallBackController.java:82 - data receive: content{ "msg":{"at":1550883735541,"login_type":10,"imei":"869976030076898","type":2,"dev_id":517204196,"status":0}，"nonce":1e3VNQK7，"signature":8chAqHgpxdYK6cJRLegJEw==}
+[2019-02-23 19:31:12.093] INFO [http-nio-8080-exec-3] DirectJDKLog.java:175 - Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level.
+java.lang.IllegalArgumentException: Invalid character found in method name. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:414)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:294)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:791)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1417)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
