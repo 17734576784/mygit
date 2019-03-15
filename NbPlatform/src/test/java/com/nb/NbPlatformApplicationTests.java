@@ -8,7 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.alibaba.fastjson.JSONObject;
 import com.nb.service.chinamobile.ChinaMobileCommandService;
 import com.nb.utils.CommFunc;
 import com.nb.utils.Constant;

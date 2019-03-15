@@ -48,7 +48,7 @@ public class ChinaUnicomCommandUpdataService implements ICommandService {
 		LoggerUtils.Logger(LogName.INFO).info(logInfo);
 		try {
 			int receivedPackNum = toInt(commandMap.get("result")); 
-			
+			System.out.println("receivedPackNum : "+receivedPackNum);
 			/** 设备升级缓存key */
 			String deviceProgress = Constant.PROGRESS_CHINA_UNICOM + deviceId;
 			if (JedisUtils.hasKey(deviceProgress)) {

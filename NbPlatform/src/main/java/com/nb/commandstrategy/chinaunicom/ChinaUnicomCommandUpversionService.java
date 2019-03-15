@@ -22,7 +22,7 @@ import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
 import com.nb.model.DeviceProgress;
 import com.nb.model.StreamClosedHttpResponse;
-import com.nb.utils.ChinaTelecomUpGradeUtil;
+import com.nb.utils.ChinaUnicomUpGradeUtil;
 import com.nb.utils.CommFunc;
 import com.nb.utils.Constant;
 import com.nb.utils.ConverterUtils;
@@ -57,7 +57,7 @@ public class ChinaUnicomCommandUpversionService implements ICommandService {
 		try {
 			/** 0:升级 1：拒绝升级 */
 			int result = toInt(commandMap.get("result"));
-			System.out.println("result : " + result);
+			System.out.println("升级版本回复 : " + result);
 			String deviceProgress = Constant.PROGRESS_CHINA_UNICOM + deviceId;
 
 			if (result == Constant.UPGRADE_SUCCESS) {
@@ -77,14 +77,14 @@ public class ChinaUnicomCommandUpversionService implements ICommandService {
 					
 					/** 发送缓存已发送成功包的下一包数据 */
 					sendedPack += 1;
-					String command = ChinaTelecomUpGradeUtil.getCommandParam(deviceId, fileKey, packNum, sendedPack, upgradeFile);
+					String command = ChinaUnicomUpGradeUtil.getCommandParam(deviceId, fileKey, packNum, sendedPack, upgradeFile);
 					if (null == command || command.isEmpty()) {
 						LoggerUtils.Logger(LogName.CALLBACK).info("组建命令参数失败：" + commandMap);
 						return;
 					}
 					progressBody.setSendTime(ConverterUtils.toStr(LocalDateTime.now()));
 					progressBody.setRetryCount(0);
-					ChinaTelecomUpGradeUtil.asynCommand(command.toString(), progressBody.getAppId(),
+					ChinaUnicomUpGradeUtil.asynCommand(command.toString(), progressBody.getAppId(),
 							progressBody.getSecret());
 					JedisUtils.set(deviceProgress, progressBody);
 					

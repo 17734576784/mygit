@@ -40,8 +40,6 @@ public class ChinaUnicomUpGradeUtil {
 		try {
 			paramAsynCommand = JSONObject.parseObject(command);
 
-			
-
 			String deviceId = ConverterUtils.toStr(paramAsynCommand.get("deviceId"));// "8c23b6b4-ea68-48fb-9c2f-90452a81ebb1";
 			String serviceId = ConverterUtils.toStr(paramAsynCommand.get("serviceId"));// "WaterMeter";
 			String method = ConverterUtils.toStr(paramAsynCommand.get("method"));// "SET_TEMPERATURE_READ_PERIOD";

@@ -107,7 +107,7 @@ public class QuartzTask {
 			String fileKey = progressBody.getFileKey();
 			short packNum = progressBody.getPackNum();
 			short sendedPack = progressBody.getSendedPack();
-			String deviceId = deviceProgress.split("_")[1];
+			String deviceId = progressBody.getDeviceId();
 			
 			JSONObject upgradeFile = (JSONObject) JedisUtils.get(fileKey);
 			if (upgradeFile == null || upgradeFile.isEmpty()) {
@@ -175,7 +175,7 @@ public class QuartzTask {
 			String fileKey = progressBody.getFileKey();
 			short packNum = progressBody.getPackNum();
 			short sendedPack = progressBody.getSendedPack();
-			String deviceId = deviceProgress.split("_")[1];
+			String deviceId = progressBody.getDeviceId();
 			
 			JSONObject upgradeFile = (JSONObject) JedisUtils.get(fileKey);
 			if (upgradeFile == null || upgradeFile.isEmpty()) {
