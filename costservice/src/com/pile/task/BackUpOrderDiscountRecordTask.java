@@ -41,7 +41,7 @@ public class BackUpOrderDiscountRecordTask extends QuartzJobBean{
 	*/
 	@Override
 	protected void executeInternal(JobExecutionContext arg0) throws JobExecutionException {
-		backUpOrderDiscountRecord();
+//		backUpOrderDiscountRecord();
 	}
 
 	public void backUpOrderDiscountRecord(){

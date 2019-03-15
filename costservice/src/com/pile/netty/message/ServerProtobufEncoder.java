@@ -28,9 +28,8 @@ public class ServerProtobufEncoder extends MessageToByteEncoder<MessageLite> {
 	 */
 	@Override
 	protected void encode(ChannelHandlerContext ctx, MessageLite msg, ByteBuf out) throws Exception {
-		// TODO Auto-generated method stub
+		
 		byte[] body = msg.toByteArray();
-		System.out.println("server result "+ body.length);
 		out.writeBytes(body);
 
 		return;

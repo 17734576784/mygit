@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.pile.common.Constant;
 import com.pile.mapper.CalculateFeeMapper;
 import com.pile.model.ChargeInfo;
 import com.pile.model.OrderDiscountRecord;
@@ -58,18 +59,23 @@ public class DiscountByCouponStrategy implements IDiscountStrategy {
 	@Override
 	public ChargeInfo discount(ChargeInfo chargeInfo, int discountType) {
 		
+		Log4jUtils.getDiscountinfo().info("[优惠券折扣结算开始]：" + chargeInfo.toString());
+
 		StringBuffer discountDetail = new StringBuffer();
-		Log4jUtils.getDiscountinfo().info("[优惠券折扣结算开始]："+ chargeInfo.toString());
+		String orderSerialNumber = chargeInfo.getOrderSerialNumber();
+		int couponId = chargeInfo.getCouponId();
 		try {
-			
-			String orderSerialNumber = chargeInfo.getOrderSerialNumber();
-			int couponId = chargeInfo.getCouponId();
-			Map<String, Object> couponMap = calculateFeeMapper.getCouponById(couponId);
+			Map<String, Object> couponMap = calculateFeeMapper.getCouponById(couponId, chargeInfo.getTradeDate());
 			if (null == couponMap) {
 				Log4jUtils.getDiscountinfo().info("订单：" + orderSerialNumber + " 未找到有效的优惠券信息。");
 				return chargeInfo;
 			}
 			
+			if (toInt(couponMap.get("useFlag")) != Constant.USED) {
+				Log4jUtils.getDiscountinfo().info("优惠券：[" + couponId + "]为非使用态，不使用优惠券");
+				return chargeInfo;
+			}
+
 			/* 券码 */
 			String couponCode = toStr(couponMap.get("coupon_code")).trim();
 			/* 券名 */
@@ -88,12 +94,12 @@ public class DiscountByCouponStrategy implements IDiscountStrategy {
 				int paymentMoney = payableMoney - discountMoney;
 
 				OrderDiscountRecord record = new OrderDiscountRecord();
-
 				record.setSerialnumber(orderSerialNumber);
 				record.setPayableMoney(payableMoney);
 				record.setDiscountMoney(discountMoney);
 				record.setPaymentMoney(paymentMoney);
 				record.setDiscountType(toByte(discountType));
+				record.setTableName(orderSerialNumber);
 				
 				discountDetail.append("应付金额:").append(payableMoney).append("券码:").append(couponCode);
 				discountDetail.append(",券名:").append(couponName).append(",最低消费金额:");
@@ -108,7 +114,7 @@ public class DiscountByCouponStrategy implements IDiscountStrategy {
 
 				/** 实付金额赋值给下一折扣的应付金额 */
 				chargeInfo.setPayableMoney(paymentMoney);
-		 		
+				
 			} else {
 				int diffDay = toInt(couponMap.get("diffDay"));
 			
@@ -125,9 +131,10 @@ public class DiscountByCouponStrategy implements IDiscountStrategy {
 				}
 				
 				/** 未使用优惠券 更新充电单未使用优惠券 */
-				
+				calculateFeeMapper.updateCouponUseFlag(couponCode, Constant.NO_USE);
 				
 			}
+			
 			Log4jUtils.getChargerecord().info("[优惠券折扣结算完成]：" + chargeInfo.toString());
 
 		} catch (Exception e) {

@@ -28,7 +28,7 @@ public class ServerProtobufDecoder extends ByteToMessageDecoder {
 	@Override
 	protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
 		// TODO Auto-generated method stub
-		while (in.readableBytes() >= 4) { // 如果可读长度小于包头长度，退出。
+		while (in.readableBytes() > 4) { // 如果可读长度小于包头长度，退出。
 			
 			//我们标记一下当前的readIndex的位置
 			in.markReaderIndex();  

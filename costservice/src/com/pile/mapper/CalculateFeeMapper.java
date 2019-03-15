@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
+
+import com.pile.model.MemberOrders;
 import com.pile.model.OrderDiscountRecord;
 /** 
 * @ClassName: CalculateFeeMapper 
@@ -30,7 +32,7 @@ public interface CalculateFeeMapper {
 	* @return Map<String,Object>    返回类型 
 	* @throws 
 	*/
-	Map<String, Object> getCouponById(@Param("couponId") int couponId);
+	Map<String, Object> getCouponById(@Param("couponId") int couponId, @Param("paydate") String paydate);
 	
     /** 
      * 插入充电单折扣记录表
@@ -72,6 +74,15 @@ public interface CalculateFeeMapper {
     */
     Map<String,Object> getDiscountBySerialNumber(@Param("serialNumber") String serialNumber);
     
+    /** 
+    * @Title: getDiscountBySerialNumber 
+    * @Description: 根据流水号查询订单默认的打折信息 
+    * @param @param serialNumber
+    * @param @return    设定文件 
+    * @return Map<String,Object>    返回类型 
+    * @throws 
+    */
+    Map<String,Object> getDefDiscountBySerialNumber(@Param("serialNumber") String serialNumber);
     
     /** 
     * @Title: updateMemberAccount 
@@ -104,9 +115,7 @@ public interface CalculateFeeMapper {
 	* @return boolean    返回类型 
 	* @throws 
 	*/
-	boolean updateMemberOrder(@Param("endpushFlag") byte endpushFlag, @Param("chargeMoney") int chargeMoney,
-			@Param("payableMoney") int payableMoney, @Param("discountMoney") int discountMoney,@Param("serialNumber") String serialNumber);
-	
+	boolean updateMemberOrder(MemberOrders memberOrders);
 	
 	/** 
 	* @Title: backUpOrderDiscountRecord 
@@ -172,4 +181,33 @@ public interface CalculateFeeMapper {
 	*/
 	Map<String,Object> getMemberCurrentAccount(@Param("memberId") int memberId,@Param("operatorId") int operatorId);
 
+	/** 
+	* @Title: updateCouponUseFlag 
+	* @Description: 修改优惠使用标志 
+	* @param @param couponCode
+	* @param @return    设定文件 
+	* @return boolean    返回类型 
+	* @throws 
+	*/
+	boolean updateCouponUseFlag(@Param("couponCode") String couponCode, @Param("useFlag") int useFlag);
+	
+	/** 
+	* @Title: insertPersonStationChargeDetail 
+	* @Description: 个人站充电明细表 
+	* @param @return    设定文件 
+	* @return boolean    返回类型 
+	* @throws 
+	*/
+	boolean insertPersonStationChargeDetail(Map<String, Object> paramMap);
+	
+	/** 
+	* @Title: isPersonStation 
+	* @Description: 获取个人站代理方案中的收益比例 
+	* @param @param operatorId
+	* @param @return    设定文件 
+	* @return boolean    返回类型 
+	* @throws 
+	*/
+	Double getCheckRatio(@Param("operatorId") int operatorId, @Param("tradeDate") String tradeDate,
+			@Param("stationId") int stationId);
 }

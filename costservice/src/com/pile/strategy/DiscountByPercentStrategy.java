@@ -54,7 +54,11 @@ public class DiscountByPercentStrategy implements IDiscountStrategy {
 			/** 根据流水号获取会员折扣信息 */
 			Map<String, Object> discountMap = calculateFeeMapper.getDiscountBySerialNumber(orderSerialNumber);
 			if (null == discountMap) {
-				Log4jUtils.getDiscountinfo().info("订单：" + orderSerialNumber + " 未找到有效的折扣信息。");
+				/** 默认折扣信息, 不用为车主指定具体的所属方案， 采用默认的方案 */
+				discountMap = calculateFeeMapper.getDefDiscountBySerialNumber(orderSerialNumber);
+				if (discountMap == null) {
+					Log4jUtils.getDiscountinfo().info("订单：" + orderSerialNumber + " 未找到有效的折扣信息。");
+				}
 				return chargeInfo;
 			}
 
@@ -64,40 +68,72 @@ public class DiscountByPercentStrategy implements IDiscountStrategy {
 			int discountRate = toInt(discountMap.get("discountRate"));
 			/** 折扣金额 */
 			int discountPrice = toInt(discountMap.get("discountPrice"));
+			/** 折扣方式 1 总金额折扣 2 服务费折扣 新增 */
+			byte discountSubtype = toByte(discountMap.get("discountSubtype"));
+
 			/** 应付金额 */
 			int payableMoney = chargeInfo.getPayableMoney();
+			/** 实付金额 */
 			int paymentMoney = 0;
+			/** 优惠金额 */
 			int discountMoney = 0;
-			
-			if (percentType == Constant.DISCOUNTPERCENT) {
-				paymentMoney = payableMoney * discountRate / 100;
-				discountMoney = payableMoney - paymentMoney;
-			} else if (percentType == Constant.DISCOUNTPRICE) {
+
+			//比例
+			if (percentType == Constant.DISCOUNT_PERCENT) {
 				
+				if (discountRate < 0 || discountRate > 100)
+					discountRate = 100;
+
+				/** 服务费 打折 */
+				if (discountSubtype == Constant.DISCOUNT_SERVICE) {
+					// paymentMoney += -chargeInfo.getServiceMoney() * (100 -
+					// discountRate) / 100;
+					// discountMoney = payableMoney - paymentMoney;
+
+					discountMoney = chargeInfo.getServiceMoney() * discountRate / 100;
+					paymentMoney = payableMoney - discountMoney;
+				} else {/** 总金额打折 */
+					paymentMoney = payableMoney * discountRate / 100;
+					discountMoney = payableMoney - paymentMoney;
+				}
+			} else if (percentType == Constant.DISCOUNT_PRICE) {// 折价
 				double chargeDL = chargeInfo.getChargeAmount();
-				discountMoney = (int) (chargeDL * discountPrice);
-				if (discountMoney > payableMoney || discountMoney < 0) {
-					discountMoney = 0;
+				discountMoney = (int) (((chargeDL < 0)? 0: chargeDL) * discountPrice);
+
+				/** 服务费 打折 最多不收服务费 */ 
+				if (discountSubtype == Constant.DISCOUNT_SERVICE) {
+					if (discountMoney > chargeInfo.getServiceMoney()) {
+						discountMoney = chargeInfo.getServiceMoney();
+					}
+				} else {
+					if (discountMoney > payableMoney || discountMoney < 0) {
+						discountMoney = 0;
+					}
 				}
 
 				paymentMoney = payableMoney - discountMoney;
 			}
-			
+
 			OrderDiscountRecord record = new OrderDiscountRecord();
 			record.setSerialnumber(orderSerialNumber);
 			record.setPayableMoney(payableMoney);
 			record.setDiscountMoney(discountMoney);
 			record.setPaymentMoney(paymentMoney);
 			record.setDiscountType(toByte(discountType));
+			record.setTableName(orderSerialNumber);
 			
 			discountDetail.append("应付金额:").append(payableMoney).append(",打折类型：").append(percentType);
 			discountDetail.append(",折扣百分比:").append(discountRate).append(",折扣金额:").append(discountPrice);
 			discountDetail.append(",实际折扣金额:").append(discountMoney).append(",实际支付金额:").append(paymentMoney);
- 			record.setDiscountDetail(discountDetail.toString());
+			record.setDiscountDetail(discountDetail.toString());
 			/** 保存充电单折扣记录表 */
 			calculateFeeMapper.insertOrderDiscountRecord(record);
+			
 			/** 实付金额赋值给下一折扣的应付金额 */
-	 		chargeInfo.setPayableMoney(paymentMoney);
+			chargeInfo.setPayableMoney(paymentMoney);
+			chargeInfo.setMemberLevel(toInt(discountMap.get("memberLevel")));
+			chargeInfo.setMemberLevelDesc(toStr(discountMap.get("memberLevelDesc")));
+
 	 		Log4jUtils.getDiscountinfo().info("[打折算费完成]："+ chargeInfo.toString());
 		} catch (Exception e) {
 			discountDetail.append("订单信息：").append(chargeInfo.toString());

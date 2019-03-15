@@ -35,7 +35,7 @@ public class AddDevice {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-       String urlReg="https://118.24.175.15:443/chinamobile/devices";
+       String urlReg="https://118.24.175.15:443/api/register";
        
        JSONObject json = new JSONObject();
        json.put("title", "mydevice");

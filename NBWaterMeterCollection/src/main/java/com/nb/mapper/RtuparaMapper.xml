@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nb.mapper.RtuparaMapper" >
+  <resultMap id="BaseResultMap" type="com.nb.model.Rtupara" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="describe" property="describe" jdbcType="VARCHAR" />
+    <result column="use_flag" property="useFlag" jdbcType="TINYINT" />
+    <result column="app_type" property="appType" jdbcType="TINYINT" />
+    <result column="companyid" property="companyid" jdbcType="SMALLINT" />
+    <result column="subst_id" property="substId" jdbcType="SMALLINT" />
+    <result column="rtu_model" property="rtuModel" jdbcType="SMALLINT" />
+    <result column="prot_type" property="protType" jdbcType="TINYINT" />
+    <result column="rtu_addr" property="rtuAddr" jdbcType="INTEGER" />
+    <result column="area_code" property="areaCode" jdbcType="VARCHAR" />
+    <result column="chan_main" property="chanMain" jdbcType="SMALLINT" />
+    <result column="chan_bak" property="chanBak" jdbcType="SMALLINT" />
+    <result column="simcard_id" property="simcardId" jdbcType="SMALLINT" />
+    <result column="task_num" property="taskNum" jdbcType="TINYINT" />
+    <result column="resident_num" property="residentNum" jdbcType="SMALLINT" />
+    <result column="jlp_num" property="jlpNum" jdbcType="SMALLINT" />
+    <result column="zjg_num" property="zjgNum" jdbcType="SMALLINT" />
+    <result column="yff_flag" property="yffFlag" jdbcType="TINYINT" />
+    <result column="cons_id" property="consId" jdbcType="SMALLINT" />
+    <result column="subproj_id" property="subprojId" jdbcType="SMALLINT" />
+    <result column="fzcb_id" property="fzcbId" jdbcType="SMALLINT" />
+    <result column="factory" property="factory" jdbcType="TINYINT" />
+    <result column="rv" property="rv" jdbcType="DECIMAL" />
+    <result column="ctrl_type" property="ctrlType" jdbcType="SMALLINT" />
+    <result column="run_status" property="runStatus" jdbcType="SMALLINT" />
+    <result column="orderno" property="orderno" jdbcType="SMALLINT" />
+    <result column="inst_site" property="instSite" jdbcType="TINYINT" />
+    <result column="inst_man" property="instMan" jdbcType="TINYINT" />
+    <result column="inst_date" property="instDate" jdbcType="INTEGER" />
+    <result column="stop_date" property="stopDate" jdbcType="INTEGER" />
+    <result column="run_date" property="runDate" jdbcType="INTEGER" />
+    <result column="made_no" property="madeNo" jdbcType="VARCHAR" />
+    <result column="asset_no" property="assetNo" jdbcType="VARCHAR" />
+    <result column="bar_code" property="barCode" jdbcType="VARCHAR" />
+    <result column="inf_code1" property="infCode1" jdbcType="VARCHAR" />
+    <result column="inf_code2" property="infCode2" jdbcType="VARCHAR" />
+    <result column="inf_code3" property="infCode3" jdbcType="VARCHAR" />
+    <result column="reserve1" property="reserve1" jdbcType="VARCHAR" />
+    <result column="reserve2" property="reserve2" jdbcType="VARCHAR" />
+    <result column="trans_flag" property="transFlag" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, describe, use_flag, app_type, companyid, subst_id, rtu_model, prot_type, rtu_addr, 
+    area_code, chan_main, chan_bak, simcard_id, task_num, resident_num, jlp_num, zjg_num, 
+    yff_flag, cons_id, subproj_id, fzcb_id, factory, rv, ctrl_type, run_status, orderno, 
+    inst_site, inst_man, inst_date, stop_date, run_date, made_no, asset_no, bar_code, 
+    inf_code1, inf_code2, inf_code3, reserve1, reserve2, trans_flag
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from rtupara
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+   <select id="listRtupara" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from rtupara
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from rtupara
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nb.model.Rtupara" >
+    insert into rtupara (id, describe, use_flag, 
+      app_type, companyid, subst_id, 
+      rtu_model, prot_type, rtu_addr, 
+      area_code, chan_main, chan_bak, 
+      simcard_id, task_num, resident_num, 
+      jlp_num, zjg_num, yff_flag, 
+      cons_id, subproj_id, fzcb_id, 
+      factory, rv, ctrl_type, 
+      run_status, orderno, inst_site, 
+      inst_man, inst_date, stop_date, 
+      run_date, made_no, asset_no, 
+      bar_code, inf_code1, inf_code2, 
+      inf_code3, reserve1, reserve2, 
+      trans_flag)
+    values (#{id,jdbcType=INTEGER}, #{describe,jdbcType=VARCHAR}, #{useFlag,jdbcType=TINYINT}, 
+      #{appType,jdbcType=TINYINT}, #{companyid,jdbcType=SMALLINT}, #{substId,jdbcType=SMALLINT}, 
+      #{rtuModel,jdbcType=SMALLINT}, #{protType,jdbcType=TINYINT}, #{rtuAddr,jdbcType=INTEGER}, 
+      #{areaCode,jdbcType=VARCHAR}, #{chanMain,jdbcType=SMALLINT}, #{chanBak,jdbcType=SMALLINT}, 
+      #{simcardId,jdbcType=SMALLINT}, #{taskNum,jdbcType=TINYINT}, #{residentNum,jdbcType=SMALLINT}, 
+      #{jlpNum,jdbcType=SMALLINT}, #{zjgNum,jdbcType=SMALLINT}, #{yffFlag,jdbcType=TINYINT}, 
+      #{consId,jdbcType=SMALLINT}, #{subprojId,jdbcType=SMALLINT}, #{fzcbId,jdbcType=SMALLINT}, 
+      #{factory,jdbcType=TINYINT}, #{rv,jdbcType=DECIMAL}, #{ctrlType,jdbcType=SMALLINT}, 
+      #{runStatus,jdbcType=SMALLINT}, #{orderno,jdbcType=SMALLINT}, #{instSite,jdbcType=TINYINT}, 
+      #{instMan,jdbcType=TINYINT}, #{instDate,jdbcType=INTEGER}, #{stopDate,jdbcType=INTEGER}, 
+      #{runDate,jdbcType=INTEGER}, #{madeNo,jdbcType=VARCHAR}, #{assetNo,jdbcType=VARCHAR}, 
+      #{barCode,jdbcType=VARCHAR}, #{infCode1,jdbcType=VARCHAR}, #{infCode2,jdbcType=VARCHAR}, 
+      #{infCode3,jdbcType=VARCHAR}, #{reserve1,jdbcType=VARCHAR}, #{reserve2,jdbcType=VARCHAR}, 
+      #{transFlag,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nb.model.Rtupara" >
+    insert into rtupara
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="describe != null" >
+        describe,
+      </if>
+      <if test="useFlag != null" >
+        use_flag,
+      </if>
+      <if test="appType != null" >
+        app_type,
+      </if>
+      <if test="companyid != null" >
+        companyid,
+      </if>
+      <if test="substId != null" >
+        subst_id,
+      </if>
+      <if test="rtuModel != null" >
+        rtu_model,
+      </if>
+      <if test="protType != null" >
+        prot_type,
+      </if>
+      <if test="rtuAddr != null" >
+        rtu_addr,
+      </if>
+      <if test="areaCode != null" >
+        area_code,
+      </if>
+      <if test="chanMain != null" >
+        chan_main,
+      </if>
+      <if test="chanBak != null" >
+        chan_bak,
+      </if>
+      <if test="simcardId != null" >
+        simcard_id,
+      </if>
+      <if test="taskNum != null" >
+        task_num,
+      </if>
+      <if test="residentNum != null" >
+        resident_num,
+      </if>
+      <if test="jlpNum != null" >
+        jlp_num,
+      </if>
+      <if test="zjgNum != null" >
+        zjg_num,
+      </if>
+      <if test="yffFlag != null" >
+        yff_flag,
+      </if>
+      <if test="consId != null" >
+        cons_id,
+      </if>
+      <if test="subprojId != null" >
+        subproj_id,
+      </if>
+      <if test="fzcbId != null" >
+        fzcb_id,
+      </if>
+      <if test="factory != null" >
+        factory,
+      </if>
+      <if test="rv != null" >
+        rv,
+      </if>
+      <if test="ctrlType != null" >
+        ctrl_type,
+      </if>
+      <if test="runStatus != null" >
+        run_status,
+      </if>
+      <if test="orderno != null" >
+        orderno,
+      </if>
+      <if test="instSite != null" >
+        inst_site,
+      </if>
+      <if test="instMan != null" >
+        inst_man,
+      </if>
+      <if test="instDate != null" >
+        inst_date,
+      </if>
+      <if test="stopDate != null" >
+        stop_date,
+      </if>
+      <if test="runDate != null" >
+        run_date,
+      </if>
+      <if test="madeNo != null" >
+        made_no,
+      </if>
+      <if test="assetNo != null" >
+        asset_no,
+      </if>
+      <if test="barCode != null" >
+        bar_code,
+      </if>
+      <if test="infCode1 != null" >
+        inf_code1,
+      </if>
+      <if test="infCode2 != null" >
+        inf_code2,
+      </if>
+      <if test="infCode3 != null" >
+        inf_code3,
+      </if>
+      <if test="reserve1 != null" >
+        reserve1,
+      </if>
+      <if test="reserve2 != null" >
+        reserve2,
+      </if>
+      <if test="transFlag != null" >
+        trans_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="describe != null" >
+        #{describe,jdbcType=VARCHAR},
+      </if>
+      <if test="useFlag != null" >
+        #{useFlag,jdbcType=TINYINT},
+      </if>
+      <if test="appType != null" >
+        #{appType,jdbcType=TINYINT},
+      </if>
+      <if test="companyid != null" >
+        #{companyid,jdbcType=SMALLINT},
+      </if>
+      <if test="substId != null" >
+        #{substId,jdbcType=SMALLINT},
+      </if>
+      <if test="rtuModel != null" >
+        #{rtuModel,jdbcType=SMALLINT},
+      </if>
+      <if test="protType != null" >
+        #{protType,jdbcType=TINYINT},
+      </if>
+      <if test="rtuAddr != null" >
+        #{rtuAddr,jdbcType=INTEGER},
+      </if>
+      <if test="areaCode != null" >
+        #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="chanMain != null" >
+        #{chanMain,jdbcType=SMALLINT},
+      </if>
+      <if test="chanBak != null" >
+        #{chanBak,jdbcType=SMALLINT},
+      </if>
+      <if test="simcardId != null" >
+        #{simcardId,jdbcType=SMALLINT},
+      </if>
+      <if test="taskNum != null" >
+        #{taskNum,jdbcType=TINYINT},
+      </if>
+      <if test="residentNum != null" >
+        #{residentNum,jdbcType=SMALLINT},
+      </if>
+      <if test="jlpNum != null" >
+        #{jlpNum,jdbcType=SMALLINT},
+      </if>
+      <if test="zjgNum != null" >
+        #{zjgNum,jdbcType=SMALLINT},
+      </if>
+      <if test="yffFlag != null" >
+        #{yffFlag,jdbcType=TINYINT},
+      </if>
+      <if test="consId != null" >
+        #{consId,jdbcType=SMALLINT},
+      </if>
+      <if test="subprojId != null" >
+        #{subprojId,jdbcType=SMALLINT},
+      </if>
+      <if test="fzcbId != null" >
+        #{fzcbId,jdbcType=SMALLINT},
+      </if>
+      <if test="factory != null" >
+        #{factory,jdbcType=TINYINT},
+      </if>
+      <if test="rv != null" >
+        #{rv,jdbcType=DECIMAL},
+      </if>
+      <if test="ctrlType != null" >
+        #{ctrlType,jdbcType=SMALLINT},
+      </if>
+      <if test="runStatus != null" >
+        #{runStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="orderno != null" >
+        #{orderno,jdbcType=SMALLINT},
+      </if>
+      <if test="instSite != null" >
+        #{instSite,jdbcType=TINYINT},
+      </if>
+      <if test="instMan != null" >
+        #{instMan,jdbcType=TINYINT},
+      </if>
+      <if test="instDate != null" >
+        #{instDate,jdbcType=INTEGER},
+      </if>
+      <if test="stopDate != null" >
+        #{stopDate,jdbcType=INTEGER},
+      </if>
+      <if test="runDate != null" >
+        #{runDate,jdbcType=INTEGER},
+      </if>
+      <if test="madeNo != null" >
+        #{madeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="assetNo != null" >
+        #{assetNo,jdbcType=VARCHAR},
+      </if>
+      <if test="barCode != null" >
+        #{barCode,jdbcType=VARCHAR},
+      </if>
+      <if test="infCode1 != null" >
+        #{infCode1,jdbcType=VARCHAR},
+      </if>
+      <if test="infCode2 != null" >
+        #{infCode2,jdbcType=VARCHAR},
+      </if>
+      <if test="infCode3 != null" >
+        #{infCode3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve1 != null" >
+        #{reserve1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve2 != null" >
+        #{reserve2,jdbcType=VARCHAR},
+      </if>
+      <if test="transFlag != null" >
+        #{transFlag,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nb.model.Rtupara" >
+    update rtupara
+    <set >
+      <if test="describe != null" >
+        describe = #{describe,jdbcType=VARCHAR},
+      </if>
+      <if test="useFlag != null" >
+        use_flag = #{useFlag,jdbcType=TINYINT},
+      </if>
+      <if test="appType != null" >
+        app_type = #{appType,jdbcType=TINYINT},
+      </if>
+      <if test="companyid != null" >
+        companyid = #{companyid,jdbcType=SMALLINT},
+      </if>
+      <if test="substId != null" >
+        subst_id = #{substId,jdbcType=SMALLINT},
+      </if>
+      <if test="rtuModel != null" >
+        rtu_model = #{rtuModel,jdbcType=SMALLINT},
+      </if>
+      <if test="protType != null" >
+        prot_type = #{protType,jdbcType=TINYINT},
+      </if>
+      <if test="rtuAddr != null" >
+        rtu_addr = #{rtuAddr,jdbcType=INTEGER},
+      </if>
+      <if test="areaCode != null" >
+        area_code = #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="chanMain != null" >
+        chan_main = #{chanMain,jdbcType=SMALLINT},
+      </if>
+      <if test="chanBak != null" >
+        chan_bak = #{chanBak,jdbcType=SMALLINT},
+      </if>
+      <if test="simcardId != null" >
+        simcard_id = #{simcardId,jdbcType=SMALLINT},
+      </if>
+      <if test="taskNum != null" >
+        task_num = #{taskNum,jdbcType=TINYINT},
+      </if>
+      <if test="residentNum != null" >
+        resident_num = #{residentNum,jdbcType=SMALLINT},
+      </if>
+      <if test="jlpNum != null" >
+        jlp_num = #{jlpNum,jdbcType=SMALLINT},
+      </if>
+      <if test="zjgNum != null" >
+        zjg_num = #{zjgNum,jdbcType=SMALLINT},
+      </if>
+      <if test="yffFlag != null" >
+        yff_flag = #{yffFlag,jdbcType=TINYINT},
+      </if>
+      <if test="consId != null" >
+        cons_id = #{consId,jdbcType=SMALLINT},
+      </if>
+      <if test="subprojId != null" >
+        subproj_id = #{subprojId,jdbcType=SMALLINT},
+      </if>
+      <if test="fzcbId != null" >
+        fzcb_id = #{fzcbId,jdbcType=SMALLINT},
+      </if>
+      <if test="factory != null" >
+        factory = #{factory,jdbcType=TINYINT},
+      </if>
+      <if test="rv != null" >
+        rv = #{rv,jdbcType=DECIMAL},
+      </if>
+      <if test="ctrlType != null" >
+        ctrl_type = #{ctrlType,jdbcType=SMALLINT},
+      </if>
+      <if test="runStatus != null" >
+        run_status = #{runStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="orderno != null" >
+        orderno = #{orderno,jdbcType=SMALLINT},
+      </if>
+      <if test="instSite != null" >
+        inst_site = #{instSite,jdbcType=TINYINT},
+      </if>
+      <if test="instMan != null" >
+        inst_man = #{instMan,jdbcType=TINYINT},
+      </if>
+      <if test="instDate != null" >
+        inst_date = #{instDate,jdbcType=INTEGER},
+      </if>
+      <if test="stopDate != null" >
+        stop_date = #{stopDate,jdbcType=INTEGER},
+      </if>
+      <if test="runDate != null" >
+        run_date = #{runDate,jdbcType=INTEGER},
+      </if>
+      <if test="madeNo != null" >
+        made_no = #{madeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="assetNo != null" >
+        asset_no = #{assetNo,jdbcType=VARCHAR},
+      </if>
+      <if test="barCode != null" >
+        bar_code = #{barCode,jdbcType=VARCHAR},
+      </if>
+      <if test="infCode1 != null" >
+        inf_code1 = #{infCode1,jdbcType=VARCHAR},
+      </if>
+      <if test="infCode2 != null" >
+        inf_code2 = #{infCode2,jdbcType=VARCHAR},
+      </if>
+      <if test="infCode3 != null" >
+        inf_code3 = #{infCode3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve1 != null" >
+        reserve1 = #{reserve1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve2 != null" >
+        reserve2 = #{reserve2,jdbcType=VARCHAR},
+      </if>
+      <if test="transFlag != null" >
+        trans_flag = #{transFlag,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nb.model.Rtupara" >
+    update rtupara
+    set describe = #{describe,jdbcType=VARCHAR},
+      use_flag = #{useFlag,jdbcType=TINYINT},
+      app_type = #{appType,jdbcType=TINYINT},
+      companyid = #{companyid,jdbcType=SMALLINT},
+      subst_id = #{substId,jdbcType=SMALLINT},
+      rtu_model = #{rtuModel,jdbcType=SMALLINT},
+      prot_type = #{protType,jdbcType=TINYINT},
+      rtu_addr = #{rtuAddr,jdbcType=INTEGER},
+      area_code = #{areaCode,jdbcType=VARCHAR},
+      chan_main = #{chanMain,jdbcType=SMALLINT},
+      chan_bak = #{chanBak,jdbcType=SMALLINT},
+      simcard_id = #{simcardId,jdbcType=SMALLINT},
+      task_num = #{taskNum,jdbcType=TINYINT},
+      resident_num = #{residentNum,jdbcType=SMALLINT},
+      jlp_num = #{jlpNum,jdbcType=SMALLINT},
+      zjg_num = #{zjgNum,jdbcType=SMALLINT},
+      yff_flag = #{yffFlag,jdbcType=TINYINT},
+      cons_id = #{consId,jdbcType=SMALLINT},
+      subproj_id = #{subprojId,jdbcType=SMALLINT},
+      fzcb_id = #{fzcbId,jdbcType=SMALLINT},
+      factory = #{factory,jdbcType=TINYINT},
+      rv = #{rv,jdbcType=DECIMAL},
+      ctrl_type = #{ctrlType,jdbcType=SMALLINT},
+      run_status = #{runStatus,jdbcType=SMALLINT},
+      orderno = #{orderno,jdbcType=SMALLINT},
+      inst_site = #{instSite,jdbcType=TINYINT},
+      inst_man = #{instMan,jdbcType=TINYINT},
+      inst_date = #{instDate,jdbcType=INTEGER},
+      stop_date = #{stopDate,jdbcType=INTEGER},
+      run_date = #{runDate,jdbcType=INTEGER},
+      made_no = #{madeNo,jdbcType=VARCHAR},
+      asset_no = #{assetNo,jdbcType=VARCHAR},
+      bar_code = #{barCode,jdbcType=VARCHAR},
+      inf_code1 = #{infCode1,jdbcType=VARCHAR},
+      inf_code2 = #{infCode2,jdbcType=VARCHAR},
+      inf_code3 = #{infCode3,jdbcType=VARCHAR},
+      reserve1 = #{reserve1,jdbcType=VARCHAR},
+      reserve2 = #{reserve2,jdbcType=VARCHAR},
+      trans_flag = #{transFlag,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

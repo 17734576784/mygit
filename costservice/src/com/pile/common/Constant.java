@@ -18,20 +18,28 @@ package com.pile.common;
 public class Constant {
 
 	/** 优惠券折扣 */
-	public static final int DISCOUNTBYCOUPON = 0;
+	public static final int DISCOUNT_BYCOUPON = 0;
 	/** 打折折扣 */
-	public static final int DISCOUNTBYPERCENT = 1;
+	public static final int DISCOUNT_BYPERCENT = 1;
 	/** 充值赠费折扣 */
-	public static final int DISCOUNTBYCHARGEFEE = 2;
+	public static final int DISCOUNT_BYCHARGEFEE = 2;
 
+	
 	/** redis中折扣类型key */
-	public static final String DISCOUNTTYPE = "Diction:折扣策略_500";
+	public static final String DISCOUNT_TYPE = "Diction:折扣策略_500";
 
 	/** 折扣类型 0:百分比 1:折价 rcd50 */
-	public static final int DISCOUNTPERCENT = 0;
+	public static final int DISCOUNT_PERCENT = 0;
 
 	/** 折扣类型 0:百分比 1:折价 rcd50 */
-	public static final int DISCOUNTPRICE = 1;
+	public static final int DISCOUNT_PRICE = 1;
+	
+	
+	/** 折扣方式1  总金额折扣    2  服务费折扣  rcdxxx*/
+	public static final int DISCOUNT_ALL_MONEY = 1;
+
+	/** 折扣方式1  总金额折扣    2  服务费折扣  rcdxxx */
+	public static final int DISCOUNT_SERVICE = 2;
 
 	/** 充电单信息前缀 */
 	public static final String ORDER = "order:";
@@ -43,24 +51,24 @@ public class Constant {
 	public static final byte NOPUSH = 0;
 
 	/** 充电方式--即冲即退 */
-	public static final int FLUSRETREAT = 1;
+	public static final int FLUSRE_TREAT = 1;
 	/** 充电方式 账户余额 */
-	public static final int BALANCECHARGING = 2;
+	public static final int BALANCE_CHARGING = 2;
 	
 	/** 充电记录队列Key */
-	public static final String COSTQUEUE = "CostQueue";
+	public static final String COST_QUEUE = "MEM_INF_MSG_SETTLE";
 	
 	/** 充电记录队列Key */
-	public static final String BAKCOSTQUEUE =  "BakCostQueue";
+	public static final String BAK_COST_QUEUE =  "BakCostQueue";
 	
 	/** 充电记录队列Key */
-	public static final String ERRORCOSTQUEUE =  "ErrorCostQueue";
+	public static final String ERROR_COST_QUEUE =  "ErrorCostQueue";
 	
 	/** App退款队列 key */
-	public static final String APPREFUNDQUEUE = "appCloseAccountQueue";
+	public static final String APPR_EFUND_QUEUE = "appCloseAccountQueue";
 
 	/** 小程序退款队列 key */
-	public static final String WXREFUNDQUEUE = "wxminiCloseAccountQueue";
+	public static final String WX_REFUND_QUEUE = "wxminiCloseAccountQueue";
 	
 	/** 充电单 算费状态 */
 	public static final int CALCULATED = 7;
@@ -69,10 +77,32 @@ public class Constant {
 	public static final int LEN_32 = 32;
 	
 	/** 操作类型 0:充电支出 1:充电退款 2：充值收入 3:充值退款 4:转账收入 5:转账支出 6:预约支出 7:预约退款 */
-	public static final int TRANSFERINCOME = 4;
+	public static final int TRANSFER_INCOME = 4;
 	
 	/** netty服务端口号 */
-	public static final int NETTYPORT = 19999;
+	public static final int NETTY_PORT = 19999;
 	
+	/** 接收标志 成功 1 */
+	public static final int SUCCESS = 1;
+	
+	/** 接收标志 失败 0 */
+	public static final int FAILED = 0;
+	
+	/** 1:APP 2:微信小程序 3:接口 */
+	public static final int INTERFACE = 3;
+	
+	/** 未算费 */
+	public static final int CALCULATION_INITIAL = 0;
+	/** 算费成功 */
+	public static final int CALCULATION_SUCCESS = 1;
+	/** 算费失败 */
+	public static final int CALCULATION_FAILED = 2;
+	/** 已算费 */
+	public static final int CALCULATION_FINISHED = 3;
+	
+	/** 未使用 */
+	public static final int NO_USE = 0;
+	/** 已使用 */
+	public static final int USED = 1;
 	
  }

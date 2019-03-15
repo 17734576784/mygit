@@ -19,12 +19,13 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Component;
 
 import com.pile.common.Constant;
+import com.pile.customer.CalculateFeeExecutor;
 import com.pile.mapper.CalculateFeeMapper;
-import com.pile.serviceimpl.CalculateFeeExecutor;
+import com.pile.netty.message.ChargeInfoBufOuterClass.ChargeInfoBuf;
 import com.pile.utils.JedisUtils;
 import com.pile.utils.JsonUtils;
 import com.pile.utils.Log4jUtils;
-
+import static com.pile.utils.ConverterUtils.*;
 /** 
 * @ClassName: CalculateOrderTask 
 * @Description: 充电单结费任务 
@@ -50,10 +51,11 @@ public class CalculateOrderTask extends QuartzJobBean{
 	*/
 	@Override
 	protected void executeInternal(JobExecutionContext arg0) throws JobExecutionException {
+
 		// 先对redis中异常的工单进行算费
-//		processErrorQueue();
+		// processErrorQueue();
 		// 查询数据库中 遗漏的充电单进行算费
-//		processDBOrder();
+		// processDBOrder();
 	}
 
 	/** 
@@ -66,7 +68,7 @@ public class CalculateOrderTask extends QuartzJobBean{
 	public void processErrorQueue() {
 		Object value = null;
 		try {
-			value = JedisUtils.rpop(Constant.ERRORCOSTQUEUE);
+			value = JedisUtils.rpop(Constant.ERROR_COST_QUEUE);
 			if (null == value) {
 				return;
 			}
@@ -89,13 +91,26 @@ public class CalculateOrderTask extends QuartzJobBean{
 	public void processDBOrder() {
 		String errorInfo = "";
 		try {
+			/** 结束充电半小时没算费的查库进行算费 */
 			List<Map<String, String>> orderList = this.calculateFeeMapper.listMemberOrder();
 			for (Map<String, String> order : orderList) {
-				if (null == order) {
+				if (null == order || order.isEmpty()) {
 					continue;
 				}
-				errorInfo = order.toString();
-				calculateorder.calculateOrder(order);
+				
+				ChargeInfoBuf.Builder chargeBuf = ChargeInfoBuf.newBuilder();
+				chargeBuf.setMemberId(toInt(order.get("memberId")));
+				chargeBuf.setPileCode(toStr(order.get("pileCode")));
+				chargeBuf.setPileId(toInt(order.get("pileId")));
+				chargeBuf.setGunId(toInt(order.get("gunId")));
+				chargeBuf.setOrderSerialNumber(toStr(order.get("orderSerialNumber")));
+				
+				chargeBuf.setServiceMoney(toInt(order.get("serviceMoney")));
+				chargeBuf.setChargeMoney(toInt(order.get("chargeMoney")));
+				chargeBuf.setChargeAmount(toDouble(order.get("chargeAmount")));
+				chargeBuf.setEndCause(toInt(order.get("endCause")));
+				
+				JedisUtils.lpush(Constant.COST_QUEUE, chargeBuf);
 			}
 		} catch (Exception e) {
 			errorInfo = "数据库异常工单处理任务异常：" + errorInfo + ", 异常信息：" + e.getMessage();

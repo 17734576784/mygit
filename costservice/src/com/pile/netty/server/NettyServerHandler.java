@@ -6,6 +6,8 @@ package com.pile.netty.server;
 
 import java.net.InetSocketAddress;
 import com.pile.common.Constant;
+import com.pile.netty.message.ChargeInfoBufOuterClass.ChargeInfoBuf;
+import com.pile.netty.message.ResultOuterClass;
 import com.pile.utils.JedisUtils;
 import com.pile.utils.Log4jUtils;
 
@@ -23,25 +25,23 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<Object> {
 
 	@Override
     protected void channelRead0(ChannelHandlerContext ctx, Object msg) {
-		StringBuilder sb = null;
-		String result= "";
-        try {
+		
+		ResultOuterClass.Result.Builder result = ResultOuterClass.Result.newBuilder();
+		ChargeInfoBuf chargeInfo = (ChargeInfoBuf) msg;
+		result.setOrderSerialNumber(chargeInfo.getOrderSerialNumber());
+		try {
 			// 报文解析处理
-        	System.out.println("接收充电消息：" + msg);
-			Log4jUtils.getDiscountinfo().info("接收充电消息：" + msg);	
-			JedisUtils.lpush(Constant.COSTQUEUE,msg);
-			
-			sb = new StringBuilder();
-			sb.append(result);
-			sb.append("解析成功");
-			sb.append("\n");
-			ctx.writeAndFlush(sb);
-        } catch (Exception e) {
-			String errorCode = "-1\n";
-			ctx.writeAndFlush(errorCode);
+			Log4jUtils.getDiscountinfo().info("接收充电消息：" + chargeInfo);
+			JedisUtils.lpush(Constant.COST_QUEUE, chargeInfo);
+			result.setFlag(Constant.SUCCESS);
+		} catch (Exception e) {
+			result.setFlag(Constant.FAILED);
 			Log4jUtils.getDiscountinfo().error("报文解析失败: " + e.getMessage());
 			e.printStackTrace();
-        }
+
+		} finally {
+			ctx.writeAndFlush(result.build());
+		}
     }
 
     @Override

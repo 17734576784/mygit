@@ -12,10 +12,6 @@
     <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
   </listener>
   
-<!--   <listener> -->
-<!-- 		<listener-class>com.pile.netty.server.NettyServer</listener-class> -->
-<!-- 	</listener> -->
-  
   <context-param>
     <param-name>log4j</param-name>
     <param-value>classpath:config/log4j.properties</param-value>
@@ -24,6 +20,26 @@
     <listener-class>com.pile.utils.Log4jUtils</listener-class>
   </listener>
   
+  <!-- 配置SpringMVC核心控制器 -->
+    <servlet>
+        <servlet-name>SpringMVC</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+       <!-- 配置初始配置化文件,前面contextConfigLocation看情况二选一 -->  
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:config/spring-mvc.xml</param-value>
+        </init-param>
+        <!-- 启动加载一次 -->  
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <!--为DispatcherServlet建立映射 -->
+    <servlet-mapping>
+        <servlet-name>SpringMVC</servlet-name>
+        <!-- 此处可以可以配置成*.do，对应struts的后缀习惯 -->
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>

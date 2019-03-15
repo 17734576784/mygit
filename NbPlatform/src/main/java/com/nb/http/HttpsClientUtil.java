@@ -548,7 +548,6 @@ public class HttpsClientUtil {
 	* @throws 
 	*/
 	public static String setcompleteUrl(String url, Map<String, Object> params) {
-		// TODO Auto-generated method stub
 		if (params != null) {
 			url += "?";
 			Set<Entry<String, Object>> entrys = params.entrySet();
