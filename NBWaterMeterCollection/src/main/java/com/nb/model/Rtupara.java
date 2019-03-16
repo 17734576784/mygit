@@ -1,8 +1,9 @@
 package com.nb.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Rtupara {
+public class Rtupara implements Serializable{
     private Integer id;
 
     private String describe;
