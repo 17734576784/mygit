@@ -41,7 +41,7 @@ public class ChinaTelecomCallBackController {
 	@RequestMapping(value = "deviceAdded", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<HttpStatus> recvAddDeviceNotify(@RequestBody Object addDevice_NotifyMessage) {
 
-		System.out.println("接收addDevice" + addDevice_NotifyMessage);
+//		System.out.println("接收addDevice" + addDevice_NotifyMessage);
 		LoggerUtils.Logger(LogName.CALLBACK).info("接收addDevice" + addDevice_NotifyMessage);
 //		Map<String, String> MessageMap = new HashMap<String, String>();
 //		try {
