@@ -34,15 +34,24 @@ public class NbWaterMeterCollectionApplicationTests {
 	@Test
 	public void contextLoads() {
 		try {
-			PageHelper.startPage(1, 0);
-		    List<Rtupara> list = rtuparaMapper.listRtupara();
-		    PageInfo<Rtupara> pageinfo = new PageInfo<>(list);
-		    System.out.println(pageinfo.getTotal() +"  "+ pageinfo.getPages());
-			System.out.println(list.size());
-		    for (Rtupara rtupara : list) {
-				System.out.println(rtupara.toString());
+//			PageHelper.startPage(1, 0);
+//		    List<Rtupara> list = rtuparaMapper.listRtupara();
+//		    PageInfo<Rtupara> pageinfo = new PageInfo<>(list);
+//		    System.out.println(pageinfo.getTotal() +"  "+ pageinfo.getPages());
+//			System.out.println(list.size());
+//		    for (Rtupara rtupara : list) {
+//				System.out.println(rtupara.toString());
+//			}
+			for (int i = 0; i < 800000; i++) {
+				Rtupara rtupara = new Rtupara();
+				rtupara.setId(i);
+				rtupara.setDescribe(i+"");
+				rtupara.setAreaCode("2222");
+				rtupara.setAssetNo("MX234234234234");
+				
+				JedisUtils.setByByte(rtupara.getDescribe(), rtupara);
 			}
-		    
+		    System.out.println("执行完成");
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
