@@ -2,7 +2,7 @@
 <configuration>
     
     <appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>logs/iotservice/info.log</File>
+        <File>logs/NbPlatform/info.log</File>
         <append>true</append>
         <!--过滤器,只打INFO级别的日志-->
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -11,7 +11,7 @@
             <onMismatch>DENY</onMismatch>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>logs/iotservice/info.log.%d</fileNamePattern>
+            <fileNamePattern>logs/NbPlatform/info.log.%d</fileNamePattern>
             <maxHistory>180</maxHistory>
         </rollingPolicy>
 
@@ -22,7 +22,7 @@
     </appender>
 
     <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>logs/iotservice/error.log</File>
+        <File>logs/NbPlatform/error.log</File>
         <append>true</append>
         <!--过滤器,只打ERROR级别的日志-->
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -31,7 +31,7 @@
             <onMismatch>DENY</onMismatch>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>logs/iotservice/error.log.%d</fileNamePattern>
+            <fileNamePattern>logs/NbPlatform/error.log.%d</fileNamePattern>
             <maxHistory>180</maxHistory>
         </rollingPolicy>
 
@@ -43,7 +43,7 @@
 
     <!--不同业务逻辑的日志打印到不同文件-->
 <!--     <appender name="baitiaoUserAppender" class="ch.qos.logback.core.rolling.RollingFileAppender"> -->
-<!--         <File>logs/iotservice/bt.log</File> -->
+<!--         <File>logs/NbPlatform/bt.log</File> -->
 <!--         <append>true</append> -->
 <!--         <filter class="ch.qos.logback.classic.filter.LevelFilter"> -->
 <!--             <level>INFO</level> -->
@@ -51,7 +51,7 @@
 <!--             <onMismatch>DENY</onMismatch> -->
 <!--         </filter> -->
 <!--         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"> -->
-<!--             <fileNamePattern>logs/iotservice/bt.log.%d</fileNamePattern> -->
+<!--             <fileNamePattern>logs/NbPlatform/bt.log.%d</fileNamePattern> -->
 <!--             <maxHistory>180</maxHistory> -->
 <!--         </rollingPolicy> -->
 <!--         <encoder charset="UTF-8"> -->
@@ -61,7 +61,7 @@
 <!--     </appender> -->
 
     <appender name="CallBackAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>logs/iotservice/callback.log</File>
+        <File>logs/NbPlatform/callback.log</File>
         <append>true</append>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>INFO</level>
@@ -69,7 +69,7 @@
 <!--             <onMismatch>DENY</onMismatch> -->
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>logs/iotservice/callback.log.%d</fileNamePattern>
+            <fileNamePattern>logs/NbPlatform/callback.log.%d</fileNamePattern>
             <maxHistory>12</maxHistory>
         </rollingPolicy>
         <encoder charset="UTF-8">

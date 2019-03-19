@@ -79,8 +79,8 @@ public class Constant {
 
 	// Paths of certificates.
 	/** 中国联通证书路径 */
-	public static String CHINA_UNICOM_SELFCERTPATH = "cert/CertwithKey.pkcs12";
-	public static String CHINA_UNICOM_TRUSTCAPATH = "cert/ca.jks";
+	public static String CHINA_UNICOM_SELFCERTPATH = "cert/unicom/CertwithKey.pkcs12";
+	public static String CHINA_UNICOM_TRUSTCAPATH = "cert/unicom/ca.jks";
 
 	// Password of certificates."classpath:cert\\outgoing.CertwithKey.pkcs12"
 	/** 中国联通证书密码 */
@@ -88,8 +88,8 @@ public class Constant {
 	public static String CHINA_UNICOM_TRUSTCAPWD = "Huawei@123";
 
 	/** 中国电信证书路径 */
-	public static String CHINA_TELECOM_SELFCERTPATH = "cert/CertwithKey.pkcs12";
-	public static String CHINA_TELECOM_TRUSTCAPATH = "cert/ca.jks";
+	public static String CHINA_TELECOM_SELFCERTPATH = "cert/telecom/CertwithKey.pkcs12";
+	public static String CHINA_TELECOM_TRUSTCAPATH = "cert/telecom/ca.jks";
 
 	// Password of certificates."classpath:cert\\outgoing.CertwithKey.pkcs12"
 	/** 中国电信证书密码 */
