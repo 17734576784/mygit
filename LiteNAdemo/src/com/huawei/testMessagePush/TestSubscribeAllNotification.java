@@ -38,7 +38,7 @@ public class TestSubscribeAllNotification {
             
 			Map<String, Object> paramSubscribe = new HashMap<>();
 			paramSubscribe.put("notifyType", notifyType);
-			String callbackurl1 = callbackurl + "/chinatelecom/" + notifyType;
+			String callbackurl1 = callbackurl + "/chinaunicom/" + notifyType;
 			System.out.println("callbackurl1 : "+ callbackurl1);
 			paramSubscribe.put("callbackurl", callbackurl1);
             

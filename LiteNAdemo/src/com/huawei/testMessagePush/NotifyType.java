@@ -8,7 +8,7 @@ public class NotifyType {
     //please replace the IP and Port to your localhost IP and port, when you use the testMessagePush.
 //    public static final String TEST_CALLBACK_BASE_URL = "http://185.14.81.247:8888";
 //    public static final String TEST_CALLBACK_BASE_URL = "https://129.28.69.163:443";
-	public static final String TEST_CALLBACK_BASE_URL = "https://129.28.69.163:443";
+	public static final String TEST_CALLBACK_BASE_URL = "https://39.105.158.202:443";
 
     public static List<String> notifyTypes = new ArrayList<>();
     public static List<String> getNotifyTypes () {
