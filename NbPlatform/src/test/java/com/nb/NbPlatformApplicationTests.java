@@ -21,7 +21,7 @@ public class NbPlatformApplicationTests {
 	private ChinaMobileCommandService chinaMobileCommandService;
 	
 	 
-	@Test
+//	@Test
 	public void contextLoads() throws Exception {
 //		JSONObject json = new JSONObject();
 //		System.out.println(chinaMobileCommandService.asynCommand(json));

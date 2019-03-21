@@ -39,7 +39,7 @@ public class JUtilTest {
 	@Autowired
 	private ChinaMobileCommandService chinaMobileCommandService;
 	 
-	@Test
+//	@Test
 	public void contextLoads() throws Exception {
 		String apiUrl = "http://222.222.60.178:18130/Enterprise_MeterPay/pay/nbiot/" + "nbNotifyAction!checkExistOrders.action";
 

@@ -67,7 +67,7 @@ public class ChinaMobileCallBackController {
 			if (obj != null) {
 				boolean dataRight = ChinaMobileUtil.checkSignature(obj, Constant.CHINA_MOBILE_TOKEN);
 				if (dataRight) {
-					System.out.println("msg :" + obj.getMsg().toString());
+//					System.out.println("msg :" + obj.getMsg().toString());
 					try {
 						JSONObject msgJson = JSONObject.parseObject(obj.getMsg().toString());
 						parseMsg(msgJson);

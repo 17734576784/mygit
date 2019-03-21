@@ -126,7 +126,13 @@ public class CommFunc {
 		if (data.length < 3 || path.equals(""))
 			return;
 		try {
-			FileImageOutputStream imageOutput = new FileImageOutputStream(new File(path));
+			File file = new File(path);
+
+			if (!file.getParentFile().exists()) {// 判断父目录路径是否存在，即test.txt前的I:\a\b\
+				file.getParentFile().mkdirs();// 不存在则创建父目录
+			}
+
+			FileImageOutputStream imageOutput = new FileImageOutputStream(file);
 			imageOutput.write(data, 0, data.length);
 			imageOutput.close();
 			System.out.println("Make Picture success,Please find image in " + path);
