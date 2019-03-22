@@ -21,11 +21,11 @@ public class NbPlatformApplicationTests {
 	private ChinaMobileCommandService chinaMobileCommandService;
 	
 	 
-//	@Test
+	@Test
 	public void contextLoads() throws Exception {
 //		JSONObject json = new JSONObject();
 //		System.out.println(chinaMobileCommandService.asynCommand(json));
-		System.out.println(CommFunc.getCommandType(Constant.CHINA_TELECOM, Constant.COMMAND_TYPE_CAMERA).get("serviceId"));
+//		System.out.println(CommFunc.getCommandType(Constant.CHINA_TELECOM, Constant.COMMAND_TYPE_CAMERA).get("serviceId"));
 	}
 
 }

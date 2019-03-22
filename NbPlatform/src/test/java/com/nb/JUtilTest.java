@@ -39,52 +39,52 @@ public class JUtilTest {
 	@Autowired
 	private ChinaMobileCommandService chinaMobileCommandService;
 	 
-//	@Test
+	@Test
 	public void contextLoads() throws Exception {
-		String apiUrl = "http://222.222.60.178:18130/Enterprise_MeterPay/pay/nbiot/" + "nbNotifyAction!checkExistOrders.action";
-
-		String deviceId="e0347732-5c0b-4549-8acb-3247a811ac05";
-		String version="1.001.2019022803110000";
-
-		JSONObject paramJson = new JSONObject();
-		paramJson.put("version", "1.001.2019022803110000");
-		paramJson.put("deviceId", "e0347732-5c0b-4549-8acb-3247a811ac05");
-
-		Map<String, String> paramMap = new HashMap<String, String>();
-		paramMap.put("param", paramJson.toJSONString());
-		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
-		StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostFormUrlEncodedGetStatusLine(apiUrl, paramMap);
-
-		JSONObject response = JSONObject.parseObject(CommFunc.handleJsonStr(httpResponse.getContent()));
-		System.out.println("response ： "+ response);
-		LoggerUtils.Logger(LogName.INFO).info("response: "+response);
-		if (response != null && !response.isEmpty()) {
-			if (response.getInteger("status") == Constant.SUCCESS) {
-				/** 判断设备是否升级 0:升级 1：不升级 */
-				int upgradeFlag = response.getIntValue("flag");
-				String appId = response.getString("appId");
-				String secret = response.getString("secret");
-				
-				if (upgradeFlag == Constant.UPGRADE_SUCCESS) {
-					String filePath = response.getString("filePath");
-					String newVersion = response.getString("version");
-					loadUpgradeFile(deviceId, filePath, newVersion, appId, secret);
-					version = newVersion;
-				}
-				
-				JSONObject param= new JSONObject();
-				param.put("value", upgradeFlag);
-				param.put("version", version);
-				
-				/**下发询问设备是否升级命令*/
-				JSONObject command = new JSONObject();
-				command.put("deviceId", deviceId);
-				command.put("serviceId",Constant.UPVERSIONSERVICE);
-				command.put("method",Constant.UPVERSION);	
-				command.put("param", param.toString());
-				ChinaUnicomUpGradeUtil.asynCommand(command.toString(), appId, secret);
-			} 
-		}
+//		String apiUrl = "http://222.222.60.178:18130/Enterprise_MeterPay/pay/nbiot/" + "nbNotifyAction!checkExistOrders.action";
+//
+//		String deviceId="e0347732-5c0b-4549-8acb-3247a811ac05";
+//		String version="1.001.2019022803110000";
+//
+//		JSONObject paramJson = new JSONObject();
+//		paramJson.put("version", "1.001.2019022803110000");
+//		paramJson.put("deviceId", "e0347732-5c0b-4549-8acb-3247a811ac05");
+//
+//		Map<String, String> paramMap = new HashMap<String, String>();
+//		paramMap.put("param", paramJson.toJSONString());
+//		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
+//		StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostFormUrlEncodedGetStatusLine(apiUrl, paramMap);
+//
+//		JSONObject response = JSONObject.parseObject(CommFunc.handleJsonStr(httpResponse.getContent()));
+//		System.out.println("response ： "+ response);
+//		LoggerUtils.Logger(LogName.INFO).info("response: "+response);
+//		if (response != null && !response.isEmpty()) {
+//			if (response.getInteger("status") == Constant.SUCCESS) {
+//				/** 判断设备是否升级 0:升级 1：不升级 */
+//				int upgradeFlag = response.getIntValue("flag");
+//				String appId = response.getString("appId");
+//				String secret = response.getString("secret");
+//				
+//				if (upgradeFlag == Constant.UPGRADE_SUCCESS) {
+//					String filePath = response.getString("filePath");
+//					String newVersion = response.getString("version");
+//					loadUpgradeFile(deviceId, filePath, newVersion, appId, secret);
+//					version = newVersion;
+//				}
+//				
+//				JSONObject param= new JSONObject();
+//				param.put("value", upgradeFlag);
+//				param.put("version", version);
+//				
+//				/**下发询问设备是否升级命令*/
+//				JSONObject command = new JSONObject();
+//				command.put("deviceId", deviceId);
+//				command.put("serviceId",Constant.UPVERSIONSERVICE);
+//				command.put("method",Constant.UPVERSION);	
+//				command.put("param", param.toString());
+//				ChinaUnicomUpGradeUtil.asynCommand(command.toString(), appId, secret);
+//			} 
+//		}
 	}
 	/** 
 	* @Title: loadUpgradeFile 
