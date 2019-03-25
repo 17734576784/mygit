@@ -46,7 +46,7 @@ public class Constant {
 	 * IP and port of callback url. please replace the IP and Port of your
 	 * Application deployment environment address, when you use the demo.
 	 */
-	public static final String CALLBACK_BASE_URL = "https://118.24.175.15:443";
+	public static final String CALLBACK_BASE_URL = "https://39.105.158.202:443";
 
 	/*
 	 * complete callback url please replace uri, when you use the demo.
