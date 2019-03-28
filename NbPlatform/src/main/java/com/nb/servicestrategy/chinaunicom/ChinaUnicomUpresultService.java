@@ -50,7 +50,7 @@ public class ChinaUnicomUpresultService implements IServiceStrategy {
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
 		String logInfo = "上传升级结果:设备id：" + deviceId + " ,内容：" + serviceMap.toString();
-		System.out.println(logInfo);
+//		System.out.println(logInfo);
 		LoggerUtils.Logger(LogName.CALLBACK).info(logInfo);
 		String apiUrl = baseUrl + Constant.UPLOAD_UPGRADERESULT_URL;
 		try {

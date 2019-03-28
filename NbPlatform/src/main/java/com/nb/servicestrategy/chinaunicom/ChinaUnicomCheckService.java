@@ -83,7 +83,7 @@ public class ChinaUnicomCheckService implements IServiceStrategy {
 			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostFormUrlEncodedGetStatusLine(apiUrl, paramMap);
 
 			JSONObject response = JSONObject.parseObject(CommFunc.handleJsonStr(httpResponse.getContent()));
-			System.out.println("response ： "+ response);
+//			System.out.println("response ： "+ response);
 			LoggerUtils.Logger(LogName.INFO).info("response: "+response);
 			if (response != null && !response.isEmpty()) {
 				if (response.getInteger("status") == Constant.SUCCESS) {

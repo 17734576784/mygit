@@ -90,6 +90,10 @@ public class QuartzTask {
 
 			DeviceProgress progressBody = (DeviceProgress) JedisUtils.get(deviceProgress);
 			
+			if (!progressBody.isReceiveFlag()) {
+				return;
+			}
+			
 			/** 重试次数达到上限不执行 */
 			int retryCount = progressBody.getRetryCount();
 			if (retryCount >= retrycount) {
@@ -136,7 +140,7 @@ public class QuartzTask {
 			
 			JedisUtils.set(deviceProgress, progressBody);
 			LoggerUtils.Logger(LogName.INFO).info("自动任务发送命令：" + progressBody.toString());
-			System.out.println("自动任务:" + progressBody.toString());
+//			System.out.println("自动任务:" + progressBody.toString());
 			
 		} catch (Exception e) {
 			LoggerUtils.Logger(LogName.INFO).error("sendUpgradePack异常", e);
@@ -157,6 +161,10 @@ public class QuartzTask {
 			Thread.sleep(3000);
 
 			DeviceProgress progressBody = (DeviceProgress) JedisUtils.get(deviceProgress);
+			
+			if (!progressBody.isReceiveFlag()) {
+				return;
+			}
 			
 			/** 重试次数达到上限不执行 */
 			int retryCount = progressBody.getRetryCount();
@@ -204,7 +212,7 @@ public class QuartzTask {
 			
 			JedisUtils.set(deviceProgress, progressBody);
 			LoggerUtils.Logger(LogName.INFO).info("自动任务发送命令：" + progressBody.toString());
-			System.out.println("自动任务:" + progressBody.toString());
+//			System.out.println("自动任务:" + progressBody.toString());
 			
 		} catch (Exception e) {
 			LoggerUtils.Logger(LogName.INFO).error("sendUpgradePack异常", e);

@@ -40,7 +40,7 @@ public class ChinaUnicomCommandContext {
 			service.parse(deviceId, commandMap);
 		} else {
 			LoggerUtils.Logger(LogName.INFO).info("不存在服务：" + commandName);
-			System.out.println("不存在服务：" + commandName);
+//			System.out.println("不存在服务：" + commandName);
 		}
 	}
 	

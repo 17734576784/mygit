@@ -76,14 +76,15 @@ public class ChinaTelecomCheckService implements IServiceStrategy {
 			JSONObject paramJson = new JSONObject();
 			paramJson.put("version", version);
 			paramJson.put("deviceId", deviceId);
-			
+//			System.out.println(LocalDateTime.now() +" response ： ??? ");
+
 			Map<String, String> paramMap = new HashMap<String, String>();
 			paramMap.put("param", paramJson.toJSONString());
 			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostFormUrlEncodedGetStatusLine(apiUrl, paramMap);
 
 			JSONObject response =  JSONObject.parseObject(CommFunc.handleJsonStr(httpResponse.getContent()));
-			System.out.println("response ： "+ response);
+			System.out.println(LocalDateTime.now() +" response ： "+ response);
 			LoggerUtils.Logger(LogName.INFO).info("response: "+response);
 			if (response != null && !response.isEmpty()) {
 				if (response.getInteger("status") == Constant.SUCCESS) {
@@ -111,6 +112,7 @@ public class ChinaTelecomCheckService implements IServiceStrategy {
 					command.put("method",Constant.UPVERSION);	
 					command.put("param", param.toString());
 					ChinaTelecomUpGradeUtil.asynCommand(command.toString(), appId, secret);
+					System.out.println(LocalDateTime.now()  + " 下发询问设备是否升级命令: " + command.toString());
 				} 
 			} else {
 				LoggerUtils.Logger(LogName.CALLBACK).info("发送主动查询解析服务返回结果为空，" + logInfo);

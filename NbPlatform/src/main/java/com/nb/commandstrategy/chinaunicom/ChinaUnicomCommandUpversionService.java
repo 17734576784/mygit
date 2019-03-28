@@ -57,7 +57,7 @@ public class ChinaUnicomCommandUpversionService implements ICommandService {
 		try {
 			/** 0:升级 1：拒绝升级 */
 			int result = toInt(commandMap.get("result"));
-			System.out.println("升级版本回复 : " + result);
+//			System.out.println("升级版本回复 : " + result);
 			String deviceProgress = Constant.PROGRESS_CHINA_UNICOM + deviceId;
 
 			if (result == Constant.UPGRADE_SUCCESS) {
@@ -90,7 +90,7 @@ public class ChinaUnicomCommandUpversionService implements ICommandService {
 					
 				} else {
 					LoggerUtils.Logger(LogName.INFO).info("不存在设备：" + deviceId + ",升级进度缓存");
-					System.out.println("不存在设备：" + deviceId + ",升级进度缓存");
+//					System.out.println("不存在设备：" + deviceId + ",升级进度缓存");
 				}
 			} else {
 				JedisUtils.del(deviceProgress);

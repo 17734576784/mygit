@@ -127,7 +127,7 @@ public class ChinaMobileCommandService {
 				CommFunc.getChinaMobileHeader(commandInfo), argsJson.toJSONString());
 
 		result = new ResultBean<>(response.getContent());
-		System.out.println(result.toString());
+//		System.out.println(result.toString());
 		return result;
 	}
 

@@ -78,7 +78,7 @@ public class ChinaUnicomUpGradeUtil {
 
 			HttpResponse responsePostAsynCmd = httpsUtil.doPostJson(urlPostAsynCmd, header, jsonRequest);
 			String responseBody = httpsUtil.getHttpResponseBody(responsePostAsynCmd);
-			System.out.println("ChinaUnicomUpGradeUtil responseBody : " + responseBody);
+//			System.out.println("ChinaUnicomUpGradeUtil responseBody : " + responseBody);
 			JSONObject responseJson = JSON.parseObject(responseBody);
 			String commandId = ConverterUtils.toStr(responseJson.getString("commandId"));
 

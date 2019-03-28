@@ -114,7 +114,7 @@ public class ChinaUnicomDeviceService {
  
 		JSONObject response = JSONObject.parseObject(responseModifyDeviceInfo.getContent());
 			
- 		System.out.println(response);
+// 		System.out.println(response);
  		
 		ResultBean<JSONObject> result = new ResultBean<JSONObject>();
 		JSONObject rtnJson = new JSONObject();

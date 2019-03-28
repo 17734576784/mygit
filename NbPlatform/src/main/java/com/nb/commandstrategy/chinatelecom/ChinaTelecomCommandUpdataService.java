@@ -93,7 +93,7 @@ public class ChinaTelecomCommandUpdataService implements ICommandService {
 					return;
 				} 
 				Thread.sleep(4000);
-//				System.out.println(LocalDateTime.now() + "  下发 : " + receivedPackNum );
+				System.out.println(LocalDateTime.now() + "  下发 : " + receivedPackNum );
 
 				String command = ChinaTelecomUpGradeUtil.getCommandParam(deviceId, fileKey, packNum, (short)receivedPackNum, upgradeFile);
 				if (null == command || command.isEmpty()) {

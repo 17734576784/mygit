@@ -173,6 +173,7 @@ public class HttpsClientUtil {
 			// 创建ConnectionManager，添加Connection配置信息
 			PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager(
 					socketFactoryRegistry);
+			
 			closeableHttpClient = HttpClients.custom().setConnectionManager(connectionManager)
 					.setDefaultRequestConfig(requestConfig).build();
 		} catch (Exception e) {
@@ -257,7 +258,6 @@ public class HttpsClientUtil {
 	public StreamClosedHttpResponse doPostFormUrlEncodedGetStatusLine(String url, Map<String, String> formParams)
 			throws Exception {
 		HttpPost request = new HttpPost(url);
-
 		request.setEntity(new UrlEncodedFormEntity(paramsConverter(formParams)));
 
 		HttpResponse response = executeHttpRequest(request);

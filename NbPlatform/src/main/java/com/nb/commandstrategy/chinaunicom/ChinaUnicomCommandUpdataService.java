@@ -57,7 +57,7 @@ public class ChinaUnicomCommandUpdataService implements ICommandService {
 				short packNum = progressBody.getPackNum();
 				short sendedPack = progressBody.getSendedPack();
 
-				System.out.println(LocalDateTime.now() + "  " + deviceId + "   收到： " + receivedPackNum+ "  sendedPack :" + sendedPack);
+//				System.out.println(LocalDateTime.now() + "  " + deviceId + "   收到： " + receivedPackNum+ "  sendedPack :" + sendedPack);
 				if (receivedPackNum < sendedPack) {
 					return;
 				}
@@ -108,7 +108,7 @@ public class ChinaUnicomCommandUpdataService implements ICommandService {
 				JedisUtils.set(deviceProgress, progressBody);
 			} else {
 				LoggerUtils.Logger(LogName.INFO).info("不存在设备：" + deviceId + ",升级进度缓存");
-				System.out.println("不存在设备：" + deviceId + ",升级进度缓存");
+//				System.out.println("不存在设备：" + deviceId + ",升级进度缓存");
 			}
 
 		} catch (Exception e) {
