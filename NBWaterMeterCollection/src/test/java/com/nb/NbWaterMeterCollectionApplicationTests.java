@@ -17,8 +17,14 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtil;
-import com.nb.mapper.RtuparaMapper;
-import com.nb.model.Rtupara;
+import com.nb.mapper.NbCommandMapper;
+import com.nb.mapper.NbDailyDataMapper;
+import com.nb.mapper.ScheduleJobMapper;
+import com.nb.model.NbCommand;
+import com.nb.model.NbCommandKey;
+import com.nb.model.NbDailyData;
+import com.nb.model.ScheduleJob;
+import com.nb.service.IScheduleService;
 import com.nb.utils.Constant;
 import com.nb.utils.JedisUtils;
 import com.nb.utils.JsonUtil;
@@ -28,35 +34,36 @@ import com.nb.utils.JsonUtil;
 @PropertySource({"classpath:config.properties" })
 public class NbWaterMeterCollectionApplicationTests {
 
-	@Resource
-	private RtuparaMapper rtuparaMapper;
 	
+	@Resource
+	private ScheduleJobMapper scheduleJobMapper;
+	
+	@Resource
+	private IScheduleService scheduleService;
+	
+	@Resource
+	private NbCommandMapper nbCommandMapper;
+	
+
+	@Resource
+	private NbDailyDataMapper nbDailyDataMapper;
 	@Test
 	public void contextLoads() {
-		try {
-//			PageHelper.startPage(1, 0);
-//		    List<Rtupara> list = rtuparaMapper.listRtupara();
-//		    PageInfo<Rtupara> pageinfo = new PageInfo<>(list);
-//		    System.out.println(pageinfo.getTotal() +"  "+ pageinfo.getPages());
-//			System.out.println(list.size());
-//		    for (Rtupara rtupara : list) {
-//				System.out.println(rtupara.toString());
-//			}
-			for (int i = 0; i < 800000; i++) {
-				Rtupara rtupara = new Rtupara();
-				rtupara.setId(i);
-				rtupara.setDescribe(i+"");
-				rtupara.setAreaCode("2222");
-				rtupara.setAssetNo("MX234234234234");
-				
-				JedisUtils.setByByte(rtupara.getDescribe(), rtupara);
-			}
-		    System.out.println("执行完成");
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-	
+		NbDailyData key = new NbDailyData();
+		key.setTableName("yddata.dbo.nb_daily_data_200808");
+		key.setRtuId(1);
+		key.setMpId((short)1);
+		key.setYmd(0);
+		key.setHms(0);
+		System.out.println(nbDailyDataMapper.getNbDailyData(key).getDailyMaxVelocity());
+//		ScheduleJob scheduleJob = new ScheduleJob();
+//		scheduleJob.setCronExpression("");
+//		scheduleJob.setJobGroup("task");
+//		scheduleJob.setJobName("task2");
+//		scheduleJob.setJobStatus((byte) 0);
+//		scheduleJob.setQuartzClass("");
+//		scheduleJobMapper.insertSelective(scheduleJob);
+
 	}
 
 }

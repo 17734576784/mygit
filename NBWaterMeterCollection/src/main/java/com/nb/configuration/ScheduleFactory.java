@@ -8,10 +8,10 @@
 */
 package com.nb.configuration;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.quartz.CronScheduleBuilder;
 import org.quartz.CronTrigger;
 import org.quartz.Job;
@@ -40,22 +40,24 @@ import com.nb.service.IScheduleService;
  * @date 2019年3月12日 上午10:01:26
  * 
  */
+@Component
 @Configuration
 @EnableScheduling
-@Component
 public class ScheduleFactory {
 	@Autowired
 	private SchedulerFactoryBean schedulerFactoryBean;
 
 	@Autowired
 	private IScheduleService scheduleService;
+
 	// 当前Trigger使用的
 	private Map<String, String> jobUniqueMap = new HashMap<String, String>();
 
 	// TODO 此处暂且注释，后续有后台定时任务逻辑 开启
-	@Scheduled(fixedRate = 5000) // 每隔5s查库，并根据查询结果决定是否重新设置定时任务
+	@Scheduled(fixedRate = 1000 * 60 * 5) // 每隔5分钟查库，并根据查询结果决定是否重新设置定时任务
 	public void scheduleUpdateCronTrigger() throws Exception {
 		try {
+			System.out.println("fixedRate : " + LocalDateTime.now());
 			// schedulerFactoryBean 由spring创建注入
 			Scheduler scheduler = schedulerFactoryBean.getScheduler();
 

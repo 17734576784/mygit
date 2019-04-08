@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nb.mapper.NbDailyDataMapper" >
+  <resultMap id="BaseResultMap" type="com.nb.model.NbDailyData" >
+    <id column="rtu_id" property="rtuId" jdbcType="INTEGER" />
+    <id column="mp_id" property="mpId" jdbcType="SMALLINT" />
+    <id column="ymd" property="ymd" jdbcType="INTEGER" />
+    <id column="hms" property="hms" jdbcType="INTEGER" />
+    <result column="report_type" property="reportType" jdbcType="TINYINT" />
+    <result column="battery_voltage" property="batteryVoltage" jdbcType="DECIMAL" />
+    <result column="total_flow" property="totalFlow" jdbcType="DECIMAL" />
+    <result column="month_total_flow" property="monthTotalFlow" jdbcType="DECIMAL" />
+    <result column="daily_positive_flow" property="dailyPositiveFlow" jdbcType="DECIMAL" />
+    <result column="daily_negative_flow" property="dailyNegativeFlow" jdbcType="DECIMAL" />
+    <result column="hydraulic_pressure" property="hydraulicPressure" jdbcType="DECIMAL" />
+    <result column="daily_max_velocity" property="dailyMaxVelocity" jdbcType="DECIMAL" />
+    <result column="total_online_success" property="totalOnlineSuccess" jdbcType="INTEGER" />
+    <result column="total_online_failure" property="totalOnlineFailure" jdbcType="INTEGER" />
+    <result column="valve_status" property="valveStatus" jdbcType="TINYINT" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    rtu_id, mp_id, ymd, hms, report_type, battery_voltage, total_flow, month_total_flow, 
+    daily_positive_flow, daily_negative_flow, hydraulic_pressure, daily_max_velocity, 
+    total_online_success, total_online_failure, valve_status
+  </sql>
+  
+  <select id="getNbDailyData" resultMap="BaseResultMap" parameterType="com.nb.model.NbDailyDataKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from ${tableName}
+    where rtu_id = #{rtuId,jdbcType=INTEGER}
+      and mp_id = #{mpId,jdbcType=SMALLINT}
+      and ymd = #{ymd,jdbcType=INTEGER}
+      and hms = #{hms,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteNbDailyData" parameterType="com.nb.model.NbDailyDataKey" >
+    delete from ${tableName}
+    where rtu_id = #{rtuId,jdbcType=INTEGER}
+      and mp_id = #{mpId,jdbcType=SMALLINT}
+      and ymd = #{ymd,jdbcType=INTEGER}
+      and hms = #{hms,jdbcType=INTEGER}
+  </delete>
+  
+   <insert id="insertNbDailyData" parameterType="com.nb.model.NbDailyData" >
+    insert into ${tableName}
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rtuId != null" >
+        rtu_id,
+      </if>
+      <if test="mpId != null" >
+        mp_id,
+      </if>
+      <if test="ymd != null" >
+        ymd,
+      </if>
+      <if test="hms != null" >
+        hms,
+      </if>
+      <if test="reportType != null" >
+        report_type,
+      </if>
+      <if test="batteryVoltage != null" >
+        battery_voltage,
+      </if>
+      <if test="totalFlow != null" >
+        total_flow,
+      </if>
+      <if test="monthTotalFlow != null" >
+        month_total_flow,
+      </if>
+      <if test="dailyPositiveFlow != null" >
+        daily_positive_flow,
+      </if>
+      <if test="dailyNegativeFlow != null" >
+        daily_negative_flow,
+      </if>
+      <if test="hydraulicPressure != null" >
+        hydraulic_pressure,
+      </if>
+      <if test="dailyMaxVelocity != null" >
+        daily_max_velocity,
+      </if>
+      <if test="totalOnlineSuccess != null" >
+        total_online_success,
+      </if>
+      <if test="totalOnlineFailure != null" >
+        total_online_failure,
+      </if>
+      <if test="valveStatus != null" >
+        valve_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rtuId != null" >
+        #{rtuId,jdbcType=INTEGER},
+      </if>
+      <if test="mpId != null" >
+        #{mpId,jdbcType=SMALLINT},
+      </if>
+      <if test="ymd != null" >
+        #{ymd,jdbcType=INTEGER},
+      </if>
+      <if test="hms != null" >
+        #{hms,jdbcType=INTEGER},
+      </if>
+      <if test="reportType != null" >
+        #{reportType,jdbcType=TINYINT},
+      </if>
+      <if test="batteryVoltage != null" >
+        #{batteryVoltage,jdbcType=DECIMAL},
+      </if>
+      <if test="totalFlow != null" >
+        #{totalFlow,jdbcType=DECIMAL},
+      </if>
+      <if test="monthTotalFlow != null" >
+        #{monthTotalFlow,jdbcType=DECIMAL},
+      </if>
+      <if test="dailyPositiveFlow != null" >
+        #{dailyPositiveFlow,jdbcType=DECIMAL},
+      </if>
+      <if test="dailyNegativeFlow != null" >
+        #{dailyNegativeFlow,jdbcType=DECIMAL},
+      </if>
+      <if test="hydraulicPressure != null" >
+        #{hydraulicPressure,jdbcType=DECIMAL},
+      </if>
+      <if test="dailyMaxVelocity != null" >
+        #{dailyMaxVelocity,jdbcType=DECIMAL},
+      </if>
+      <if test="totalOnlineSuccess != null" >
+        #{totalOnlineSuccess,jdbcType=INTEGER},
+      </if>
+      <if test="totalOnlineFailure != null" >
+        #{totalOnlineFailure,jdbcType=INTEGER},
+      </if>
+      <if test="valveStatus != null" >
+        #{valveStatus,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+ 
+  <update id="updateNbDailyData" parameterType="com.nb.model.NbDailyData" >
+    update ${tableName}
+    <set >
+      <if test="reportType != null" >
+        report_type = #{reportType,jdbcType=TINYINT},
+      </if>
+      <if test="batteryVoltage != null" >
+        battery_voltage = #{batteryVoltage,jdbcType=DECIMAL},
+      </if>
+      <if test="totalFlow != null" >
+        total_flow = #{totalFlow,jdbcType=DECIMAL},
+      </if>
+      <if test="monthTotalFlow != null" >
+        month_total_flow = #{monthTotalFlow,jdbcType=DECIMAL},
+      </if>
+      <if test="dailyPositiveFlow != null" >
+        daily_positive_flow = #{dailyPositiveFlow,jdbcType=DECIMAL},
+      </if>
+      <if test="dailyNegativeFlow != null" >
+        daily_negative_flow = #{dailyNegativeFlow,jdbcType=DECIMAL},
+      </if>
+      <if test="hydraulicPressure != null" >
+        hydraulic_pressure = #{hydraulicPressure,jdbcType=DECIMAL},
+      </if>
+      <if test="dailyMaxVelocity != null" >
+        daily_max_velocity = #{dailyMaxVelocity,jdbcType=DECIMAL},
+      </if>
+      <if test="totalOnlineSuccess != null" >
+        total_online_success = #{totalOnlineSuccess,jdbcType=INTEGER},
+      </if>
+      <if test="totalOnlineFailure != null" >
+        total_online_failure = #{totalOnlineFailure,jdbcType=INTEGER},
+      </if>
+      <if test="valveStatus != null" >
+        valve_status = #{valveStatus,jdbcType=TINYINT},
+      </if>
+    </set>
+    where rtu_id = #{rtuId,jdbcType=INTEGER}
+      and mp_id = #{mpId,jdbcType=SMALLINT}
+      and ymd = #{ymd,jdbcType=INTEGER}
+      and hms = #{hms,jdbcType=INTEGER}
+  </update>
+ 
+</mapper>

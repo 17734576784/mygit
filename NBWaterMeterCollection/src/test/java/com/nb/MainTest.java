@@ -14,6 +14,9 @@ import java.util.Map;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.nb.model.NbCommand;
+import com.nb.utils.JsonUtil;
+import com.nb.utils.SerializeUtils;
 
 /** 
 * @ClassName: MainTest 
@@ -33,12 +36,14 @@ public class MainTest {
 	*/
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Map<String,Object> map = new HashMap<String,Object>(); 
-		map.put("users", 1); 
-		map.put("u", 2); 
+		NbCommand command = new NbCommand();
+		command.setRtuId(1);
+		command.setCommandContent("dfdfdfsdf");
+		String jsonStr = JsonUtil.jsonObj2Sting(command);
+		System.out.println(jsonStr);
 		
-		JSONObject json =  JSONObject.parseObject(JSON.toJSONString(map));; 
-		System.out.println(json.toString());// 
+		command = JsonUtil.jsonString2SimpleObj(jsonStr, NbCommand.class);
+		System.out.println(command.getRtuId());
 	}
 
 }

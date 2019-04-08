@@ -53,9 +53,11 @@ public class AlarmCustomerThread implements Runnable {
 					alaram = JedisUtils.brpopLpush(Constant.ALARM_EVENT_QUEUE,
 							Constant.ALARM_EVENT_ERROR_QUEUE, 5);
 					if (alaram != null) {
-						alarmCustomerExecutor.saveAlarmEvent();
+						boolean exeFlag = alarmCustomerExecutor.saveAlarmEvent();
+						if (exeFlag) {
+							JedisUtils.rpop(Constant.ALARM_EVENT_ERROR_QUEUE);
+						}
 					}
-					
 				} catch (Exception e) {
 					LoggerUtil.Logger(LogName.ERROR).error("告警事项存储数据异常,异常数据{}",alaram);
 				}

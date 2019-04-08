@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nb.mapper.NbCommandMapper" >
+  <resultMap id="BaseResultMap" type="com.nb.model.NbCommand" >
+    <id column="rtu_id" property="rtuId" jdbcType="INTEGER" />
+    <id column="mp_id" property="mpId" jdbcType="SMALLINT" />
+    <id column="send_time" property="sendTime" jdbcType="TIMESTAMP" />
+    <id column="command_type" property="commandType" jdbcType="TINYINT" />
+    <result column="command_class" property="commandClass" jdbcType="TINYINT" />
+    <result column="command_id" property="commandId" jdbcType="VARCHAR" />
+    <result column="execute_result" property="executeResult" jdbcType="TINYINT" />
+    <result column="report_time" property="reportTime" jdbcType="TIMESTAMP" />
+    <result column="command_content" property="commandContent" jdbcType="VARCHAR" />
+    <result column="operator_id" property="operatorId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    rtu_id, mp_id, send_time, command_type, command_class, command_id, execute_result, 
+    report_time, command_content, operator_id
+  </sql>
+  
+  <select id="getNbCommand" resultMap="BaseResultMap" parameterType="com.nb.model.NbCommandKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from ${tableName}
+    where rtu_id = #{rtuId,jdbcType=INTEGER}
+      and mp_id = #{mpId,jdbcType=SMALLINT}
+  </select>
+  
+  <delete id="deleteNbCommand" parameterType="com.nb.model.NbCommandKey" >
+    delete from ${tableName}
+    where rtu_id = #{rtuId,jdbcType=INTEGER}
+      and mp_id = #{mpId,jdbcType=SMALLINT}
+      and send_time = #{sendTime,jdbcType=TIMESTAMP}
+      and command_type = #{commandType,jdbcType=TINYINT}
+  </delete>
+  
+  <insert id="insertNbCommand" parameterType="com.nb.model.NbCommand" >
+    insert into ${tableName}
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rtuId != null" >
+        rtu_id,
+      </if>
+      <if test="mpId != null" >
+        mp_id,
+      </if>
+      <if test="sendTime != null" >
+        send_time,
+      </if>
+      <if test="commandType != null" >
+        command_type,
+      </if>
+      <if test="commandClass != null" >
+        command_class,
+      </if>
+      <if test="commandId != null" >
+        command_id,
+      </if>
+      <if test="executeResult != null" >
+        execute_result,
+      </if>
+      <if test="reportTime != null" >
+        report_time,
+      </if>
+      <if test="commandContent != null" >
+        command_content,
+      </if>
+      <if test="operatorId != null" >
+        operator_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rtuId != null" >
+        #{rtuId,jdbcType=INTEGER},
+      </if>
+      <if test="mpId != null" >
+        #{mpId,jdbcType=SMALLINT},
+      </if>
+      <if test="sendTime != null" >
+        #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commandType != null" >
+        #{commandType,jdbcType=TINYINT},
+      </if>
+      <if test="commandClass != null" >
+        #{commandClass,jdbcType=TINYINT},
+      </if>
+      <if test="commandId != null" >
+        #{commandId,jdbcType=VARCHAR},
+      </if>
+      <if test="executeResult != null" >
+        #{executeResult,jdbcType=TINYINT},
+      </if>
+      <if test="reportTime != null" >
+        #{reportTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commandContent != null" >
+        #{commandContent,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorId != null" >
+        #{operatorId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateNbCommand" parameterType="com.nb.model.NbCommand" >
+    update ${tableName}
+    set command_class = #{commandClass,jdbcType=TINYINT},
+      command_id = #{commandId,jdbcType=VARCHAR},
+      execute_result = #{executeResult,jdbcType=TINYINT},
+      report_time = #{reportTime,jdbcType=TIMESTAMP},
+      command_content = #{commandContent,jdbcType=VARCHAR},
+      operator_id = #{operatorId,jdbcType=INTEGER}
+    where rtu_id = #{rtuId,jdbcType=INTEGER}
+      and mp_id = #{mpId,jdbcType=SMALLINT}
+      and send_time = #{sendTime,jdbcType=TIMESTAMP}
+      and command_type = #{commandType,jdbcType=TINYINT}
+  </update>
+  
+</mapper>

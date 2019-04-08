@@ -8,11 +8,14 @@
 */
 package com.nb.serviceimpl;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Service;
+import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.nb.mapper.ScheduleJobMapper;
 import com.nb.model.ScheduleJob;
 import com.nb.service.IScheduleService;
 
@@ -26,6 +29,8 @@ import com.nb.service.IScheduleService;
 @Service
 public class ScheduleServiceImpl implements IScheduleService {
 
+	@Resource
+	private ScheduleJobMapper scheduleJobMapper;
 	/** (非 Javadoc) 
 	* <p>Title: findLegalJobList</p> 
 	* <p>Description: </p> 
@@ -35,7 +40,7 @@ public class ScheduleServiceImpl implements IScheduleService {
 	@Override
 	public List<ScheduleJob> findLegalJobList() {
 		// TODO Auto-generated method stub
-		List<ScheduleJob> list = new ArrayList<ScheduleJob>();
+		List<ScheduleJob> list = scheduleJobMapper.findLegalJobList();
 		return list;
 	}
 
@@ -48,8 +53,27 @@ public class ScheduleServiceImpl implements IScheduleService {
 	@Override
 	public List<ScheduleJob> findDelJobList() {
 		// TODO Auto-generated method stub
-		List<ScheduleJob> list = new ArrayList<ScheduleJob>();
+		List<ScheduleJob> list =  scheduleJobMapper.findDelJobList();
 		return list;
+	}
+
+	/** (非 Javadoc) 
+	* <p>Title: test</p> 
+	* <p>Description: </p>  
+	* @see com.nb.service.IScheduleService#test() 
+	*/
+	@Override
+	@Transactional
+	public void test() {
+		ScheduleJob scheduleJob = new ScheduleJob();
+		scheduleJob.setCronExpression("");
+		scheduleJob.setJobGroup("task");
+		scheduleJob.setJobName("task2");
+		scheduleJob.setJobStatus((byte) 0);
+		scheduleJob.setQuartzClass("");
+		scheduleJobMapper.insertSelective(scheduleJob);
+		scheduleJob.setJobId(1);
+		scheduleJobMapper.insertSelective(scheduleJob);
 	}
 
 }

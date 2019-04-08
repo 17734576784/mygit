@@ -23,7 +23,7 @@ spring:
     # Redis数据库索引（默认为0）
     database: 0  
     # Redis服务器地址
-    host: 127.0.0.1
+    host: 192.168.19.8
     # Redis服务器连接端口
     port: 6379  
     # Redis服务器连接密码（默认为空）
@@ -45,7 +45,7 @@ spring:
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
     platform: mysql
-    url: jdbc:sqlserver://192.168.19.5:1433;Databasename=ydpara
+    url: jdbc:sqlserver://192.168.19.9:1433;Databasename=ydpara
     username: sa
     password: keyd*%@#1095
     initialSize: 5

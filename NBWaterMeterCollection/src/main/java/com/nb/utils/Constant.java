@@ -307,12 +307,6 @@ public class Constant {
 	/** CHECK上报缓存键前缀 */
 	public static String CHECK = "CHECK";
 
-	/** 升级文件根目录 */
-	public static String BaseFilePath = "c://";
-
-	/** 升级文件根目录 */
-	public static int FILETIMEOUT = 60 * 60 * 24 * 180;
-
 	/** 中国电信服务前缀 */
 	public static String CHINA_TELECOM_SERVICE = "chinaTelecom";
 
@@ -357,17 +351,17 @@ public class Constant {
 	/** 标识消息类型 2：设备上下线消息 */
 	public static final int CHINA_MOBILE_DEVICE_MSG = 2;
 	/** 标识消息类型 7：缓存命令下发后结果上报（仅支持NB设备） */
-	public static final int CHINA_MOBILE_COMMAND_MSG = 3;
-	
+	public static final int CHINA_MOBILE_COMMAND_MSG = 7;
+
 	/** 历史库队列redis前缀 */
 	public static final String HISTORY_DATABASE_QUEUE = "HISTORY_DATABASE_QUEUE";
-	
+
 	/** 历史库队列异常记录redis前缀 */
 	public static final String HISTORY_DATABASE_ERROR_QUEUE = "HISTORY_DATABASE_ERROR_QUEUE";
 
 	/** 告警事项队列redis前缀 */
 	public static final String ALARM_EVENT_QUEUE = "ALARM_EVENT_QUEUE";
-	
+
 	/** 告警事项队列异常记录redis前缀 */
 	public static final String ALARM_EVENT_ERROR_QUEUE = "ALARM_EVENT_ERROR_QUEUE";
 

@@ -26,5 +26,7 @@ public interface IScheduleService {
 
 	// 获取最新删除(禁用)任务列表
 	List<ScheduleJob> findDelJobList();
+	
+	void test();
 
 }
