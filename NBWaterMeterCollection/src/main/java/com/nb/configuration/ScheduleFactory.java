@@ -54,6 +54,7 @@ public class ScheduleFactory {
 	private Map<String, String> jobUniqueMap = new HashMap<String, String>();
 
 	// TODO 此处暂且注释，后续有后台定时任务逻辑 开启
+	@SuppressWarnings("unlikely-arg-type")
 	@Scheduled(fixedRate = 1000 * 60 * 5) // 每隔5分钟查库，并根据查询结果决定是否重新设置定时任务
 	public void scheduleUpdateCronTrigger() throws Exception {
 		try {
