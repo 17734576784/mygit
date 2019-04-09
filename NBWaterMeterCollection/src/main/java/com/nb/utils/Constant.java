@@ -364,5 +364,7 @@ public class Constant {
 
 	/** 告警事项队列异常记录redis前缀 */
 	public static final String ALARM_EVENT_ERROR_QUEUE = "ALARM_EVENT_ERROR_QUEUE";
-
+	
+	/** 竟达电池电压告警标志 */
+	public static final String BATTERY_ALARM = "Y";
 }

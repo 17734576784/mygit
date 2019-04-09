@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nb.commandstrategy.chinatelecom.ChinaTelecomCommandContext;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtil;
-import com.nb.servicestrategy.chinatelecom.ChinaTelecomServiceContext;
+import com.nb.servicestrategy.ChinaTelecomServiceContext;
 import com.nb.utils.Constant;
 import com.nb.utils.JedisUtils;
 import com.nb.utils.JsonUtil;

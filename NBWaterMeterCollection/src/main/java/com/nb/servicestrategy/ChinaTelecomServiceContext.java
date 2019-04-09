@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.nb.servicestrategy.chinatelecom;
+package com.nb.servicestrategy;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +29,7 @@ public class ChinaTelecomServiceContext {
 	private Map<String,IServiceStrategy> serviceStrategy = new HashMap<String,IServiceStrategy>();
 	
 	public void parseService(String serviceName, String deviceId, Map<String, String> serviceMap) {
-		serviceName = Constant.CHINA_TELECOM_SERVICE + serviceName;
+		serviceName = serviceName + "Service";
 		IServiceStrategy service = serviceStrategy.get(serviceName);
 		if (null != service) {
 			service.parse(deviceId, serviceMap);
