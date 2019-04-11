@@ -8,7 +8,7 @@ server:
     max-threads: 150
   ssl:
     enabled: true
-    client-auth: need
+    client-auth: want
     key-store: classpath:tomcat.keystore
     key-store-password: 1029384756
     key-password: 1029384756
@@ -17,9 +17,9 @@ server:
     key-store-type: JKS
     key-alias: tomcat
     
-logging:
-  level: 
-    learning: debug
+#logging:
+#  level: 
+#    learning: debug
 
 # REDIS (RedisProperties)
 spring:
@@ -71,8 +71,8 @@ spring:
     testOnReturn: false
     filters: stat,wall,log4j
     logSlowSql: true
-  mvc:
-      view:
-        prefix: /WEB-INF/jsp/
-        suffix: .jsp
+#  mvc:
+#      view:
+#        prefix: /WEB-INF/jsp/
+#        suffix: .jsp
        

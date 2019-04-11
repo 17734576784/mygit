@@ -1,6 +1,0 @@
-[2019-04-03 16:05:13.318] ERROR [main] SerializeUtils.java:51 - 不能序列化对象
-java.io.NotSerializableException: com.nb.model.NbCommand
-	at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1184)
-	at java.io.ObjectOutputStream.writeObject(ObjectOutputStream.java:348)
-	at com.nb.utils.SerializeUtils.serialize(SerializeUtils.java:46)
-	at com.nb.MainTest.main(MainTest.java:41)
