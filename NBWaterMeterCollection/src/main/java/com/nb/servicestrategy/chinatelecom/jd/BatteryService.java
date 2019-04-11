@@ -8,32 +8,45 @@
 */
 package com.nb.servicestrategy.chinatelecom.jd;
 
-import static com.nb.utils.ConverterUtils.*;
+import static com.nb.utils.ConverterUtils.toInt;
+import static com.nb.utils.ConverterUtils.toStr;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
+import javax.annotation.Resource;
 
-import com.alibaba.fastjson.JSONObject;
+import org.springframework.stereotype.Service;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtil;
-import com.nb.model.StreamClosedHttpResponse;
+import com.nb.mapper.CommonMapper;
+import com.nb.mapper.EveMapper;
+import com.nb.mapper.NbBatteryMapper;
+import com.nb.model.Eve;
+import com.nb.model.NbBattery;
+import com.nb.model.jd.Battery;
 import com.nb.servicestrategy.IServiceStrategy;
-import com.nb.utils.CommFunc;
 import com.nb.utils.Constant;
 import com.nb.utils.JsonUtil;
 
 /** 
 * @ClassName: BatteryService 
-* @Description: TODO(这里用一句话描述这个类的作用) 
+* @Description: 竟达电池服务 
 * @author dbr
 * @date 2019年4月9日 下午2:31:53 
 *  
 */
 @Service
 public class BatteryService implements IServiceStrategy {
+	
+	@Resource
+	private NbBatteryMapper nbBatteryMapper;
+	
+	@Resource
+	private CommonMapper commonMapper;
+	
+	@Resource
+	private EveMapper eveMapper;
 
 	/** (非 Javadoc) 
 	* <p>Title: parse</p> 
@@ -46,32 +59,82 @@ public class BatteryService implements IServiceStrategy {
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
 		// TODO Auto-generated method stub
-		String logInfo = "上报电池信息：" + deviceId + " ,内容：" + serviceMap.toString();
+		String logInfo = "上报竟达电池服务 ：" + deviceId + " ,内容：" + serviceMap.toString();
 		LoggerUtil.Logger(LogName.CALLBACK).info(logInfo);
- 		try {
-			Object data = serviceMap.get("data");
-			Map<String, String> dataMap = new HashMap<String, String>();
-			dataMap = JsonUtil.jsonString2SimpleObj(data, dataMap.getClass());
-			
-			String evnetTime = serviceMap.get("evnetTime");
-			String date = evnetTime.substring(0, 8); 
-			String time = toStr(toInt(evnetTime.substring(9, 15)) + 80000);
-			
-			// 电池电压 单位:V
-			double batteryVoltage = toDouble(dataMap.get("batteryVoltage"));
-			// 电压报警 Y:报警,N:正常
-			String batteryvoltageAlarm = toStr(dataMap.get("batteryvoltageAlarm"));
-			// 电压报警阈值
-			double batteryvoltageThreshold = toDouble(dataMap.get("batteryvoltageThreshold"));
-			// 电池电压告警
-			if (batteryvoltageAlarm.equals(Constant.BATTERY_ALARM)) {
-				
-			} else { //正常上报电池电压
 
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			LoggerUtil.Logger(LogName.ERROR).error("解析上传电池电压失败," + logInfo, e);
+		Object data = serviceMap.get("data");
+		Map<String, String> dataMap = new HashMap<String, String>();
+		dataMap = JsonUtil.jsonString2SimpleObj(data, dataMap.getClass());
+		if (dataMap == null) {
+			return;
+		}
+
+		String evnetTime = serviceMap.get("evnetTime");
+		int date = toInt(evnetTime.substring(0, 8));
+		int time = toInt(evnetTime.substring(9, 15)) + 80000;
+
+		Battery battery = JsonUtil.map2Bean(dataMap, Battery.class);
+
+		Map<String, Object> meterInfo = this.commonMapper.getNbInfoByDeviceId(deviceId);
+		if (meterInfo == null) {
+			return;
+		}
+
+		int rtuId = toInt(meterInfo.get("rtuId"));
+		int mpId = toInt(meterInfo.get("mpId"));
+		String YM = toStr(date / 100);
+		// 电池电压告警
+		if (battery.isAlarm()) {
+			insertEve(YM, date, time, battery, rtuId, mpId);
+		} else { // 正常上报电池电压
+			insertBattery(YM, date, time, battery, rtuId, mpId);
+		}
+	}
+	
+	/** 
+	* @Title: insertEve 
+	* @Description: 插入电池电压告警
+	* @param @param YM
+	* @param @param date
+	* @param @param time
+	* @param @param battery    设定文件 
+	* @return void    返回类型 
+	* @throws 
+	*/
+	private void insertEve(String YM, int date, int time, Battery battery, int rtuId, int mpId) {
+		Eve eve = new Eve();
+		eve.setTableName(YM);
+		eve.setYmd(date);
+		eve.setHmsms(time * 1000);
+		eve.setMemberId0(rtuId);
+		eve.setMemberId1(mpId);
+		eve.setMemberId2(-1);
+		eve.setClassno(Constant.NB_ALARM);
+		eve.setTypeno(Constant.ALARM_2005);
+		eve.setCharInfo("电池告警，电压值为：" + battery.getBatteryVoltage() + ",电压阀值为： " + battery.getBatteryvoltageThreshold());
+		eveMapper.insertEve(eve);
+	}
+
+	/** 
+	* @Title: insertBattery 
+	* @Description: 插入电池电压上报信息  nb_battery_200808
+	* @param @param YM
+	* @param @param date
+	* @param @param time
+	* @param @param battery    设定文件 
+	* @return void    返回类型 
+	* @throws 
+	*/
+	private void insertBattery(String YM, int date, int time, Battery battery, int rtuId, int mpId) {
+		NbBattery nbBattery = new NbBattery();
+		nbBattery.setTableName(YM);
+		nbBattery.setYmd(date);
+		nbBattery.setHms(time);
+		nbBattery.setRtuId(rtuId);
+		nbBattery.setMpId((short) mpId);
+		nbBattery.setBatteryVoltage(battery.getBatteryVoltage());
+		if (null == nbBatteryMapper.getNbBattery(nbBattery)) {
+			nbBatteryMapper.insertNbBattery(nbBattery);
 		}
 	}
 

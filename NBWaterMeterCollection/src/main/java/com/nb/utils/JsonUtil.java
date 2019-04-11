@@ -15,6 +15,10 @@ import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
+
+import org.apache.commons.beanutils.BeanUtils;
 
 public class JsonUtil {
 
@@ -154,4 +158,51 @@ public class JsonUtil {
             throw new Exception(e);
         }
     }
+    
+	/**
+	 * Map转换成Bean，使用泛型免去了类型转换的麻烦。
+	 * @param        <T>
+	 * @param map
+	 * @param class1
+	 * @return
+	 */
+	public static <T> T map2Bean(Map<String, String> map, Class<T> class1) {
+		T bean = null;
+		try {
+			bean = class1.newInstance();
+			BeanUtils.populate(bean, map);
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+		return bean;
+	} 
+	
+	/** 
+	* @Title: bean2Map 
+	* @Description: Bean转换成Map，使用泛型免去了类型转换的麻烦。
+	* @param @param t
+	* @param @return    设定文件 
+	* @return Map<String,String>    返回类型 
+	* @throws 
+	*/
+	public static Map<String, String> bean2Map(Object t) {
+		Map<String, String> map = null;
+		try {
+			try {
+				map = BeanUtils.describe(t);
+			} catch (NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+		return map;
+	} 
 }

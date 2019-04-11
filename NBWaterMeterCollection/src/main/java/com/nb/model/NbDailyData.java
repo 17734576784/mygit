@@ -1,6 +1,5 @@
 package com.nb.model;
 
-import java.math.BigDecimal;
 
 public class NbDailyData extends NbDailyDataKey {
     /** 
@@ -10,19 +9,19 @@ public class NbDailyData extends NbDailyDataKey {
 
 	private Byte reportType;
 
-    private BigDecimal batteryVoltage;
+    private Double batteryVoltage;
 
-    private BigDecimal totalFlow;
+    private Double totalFlow;
 
-    private BigDecimal monthTotalFlow;
+    private Double monthTotalFlow;
 
-    private BigDecimal dailyPositiveFlow;
+    private Double dailyPositiveFlow;
 
-    private BigDecimal dailyNegativeFlow;
+    private Double dailyNegativeFlow;
 
-    private BigDecimal hydraulicPressure;
+    private Double hydraulicPressure;
 
-    private BigDecimal dailyMaxVelocity;
+    private Double dailyMaxVelocity;
 
     private Integer totalOnlineSuccess;
 
@@ -42,8 +41,8 @@ public class NbDailyData extends NbDailyDataKey {
 	/**
 	 * @param tableName the tableName to set
 	 */
-	public void setTableName(String tableName) {
-		this.tableName = tableName;
+	public void setTableName(String date) {
+		this.tableName = "yddata.dbo.nb_daily_data_" + date;
 	}
 
 	public Byte getReportType() {
@@ -54,59 +53,59 @@ public class NbDailyData extends NbDailyDataKey {
         this.reportType = reportType;
     }
 
-    public BigDecimal getBatteryVoltage() {
+    public Double getBatteryVoltage() {
         return batteryVoltage;
     }
 
-    public void setBatteryVoltage(BigDecimal batteryVoltage) {
+    public void setBatteryVoltage(Double batteryVoltage) {
         this.batteryVoltage = batteryVoltage;
     }
 
-    public BigDecimal getTotalFlow() {
+    public Double getTotalFlow() {
         return totalFlow;
     }
 
-    public void setTotalFlow(BigDecimal totalFlow) {
+    public void setTotalFlow(Double totalFlow) {
         this.totalFlow = totalFlow;
     }
 
-    public BigDecimal getMonthTotalFlow() {
+    public Double getMonthTotalFlow() {
         return monthTotalFlow;
     }
 
-    public void setMonthTotalFlow(BigDecimal monthTotalFlow) {
+    public void setMonthTotalFlow(Double monthTotalFlow) {
         this.monthTotalFlow = monthTotalFlow;
     }
 
-    public BigDecimal getDailyPositiveFlow() {
+    public Double getDailyPositiveFlow() {
         return dailyPositiveFlow;
     }
 
-    public void setDailyPositiveFlow(BigDecimal dailyPositiveFlow) {
+    public void setDailyPositiveFlow(Double dailyPositiveFlow) {
         this.dailyPositiveFlow = dailyPositiveFlow;
     }
 
-    public BigDecimal getDailyNegativeFlow() {
+    public Double getDailyNegativeFlow() {
         return dailyNegativeFlow;
     }
 
-    public void setDailyNegativeFlow(BigDecimal dailyNegativeFlow) {
+    public void setDailyNegativeFlow(Double dailyNegativeFlow) {
         this.dailyNegativeFlow = dailyNegativeFlow;
     }
 
-    public BigDecimal getHydraulicPressure() {
+    public Double getHydraulicPressure() {
         return hydraulicPressure;
     }
 
-    public void setHydraulicPressure(BigDecimal hydraulicPressure) {
+    public void setHydraulicPressure(Double hydraulicPressure) {
         this.hydraulicPressure = hydraulicPressure;
     }
 
-    public BigDecimal getDailyMaxVelocity() {
+    public Double getDailyMaxVelocity() {
         return dailyMaxVelocity;
     }
 
-    public void setDailyMaxVelocity(BigDecimal dailyMaxVelocity) {
+    public void setDailyMaxVelocity(Double dailyMaxVelocity) {
         this.dailyMaxVelocity = dailyMaxVelocity;
     }
 

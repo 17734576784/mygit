@@ -3,6 +3,9 @@
  */
 package com.nb.utils;
 
+import static com.nb.utils.ConverterUtils.toInt;
+import static com.nb.utils.ConverterUtils.toStr;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -245,5 +248,21 @@ public class CommFunc {
 		Map<String,Map<String,String>> command =  (Map<String, Map<String, String>>) JedisUtils.getByByte(Constant.COMMAND_TYPE_REIDS);
 		String commandKey = ConverterUtils.toStr(nbType * 1000 + commandType);
 		return command.get(commandKey);
+	}
+	
+	/** 
+	* @Title: parseEventTime 
+	* @Description: 解析上报事项时间 
+	* @param @param evnetTime
+	* @param @return    设定文件 
+	* @return String    返回类型 
+	* @throws 
+	*/
+	public static String parseEventTime(String evnetTime) {
+		String date = "";
+		if (!evnetTime.isEmpty()) {
+			date = evnetTime.substring(0, 8) + toStr(toInt(evnetTime.substring(9, 15)) + 80000);
+		}
+		return date;
 	}
 }

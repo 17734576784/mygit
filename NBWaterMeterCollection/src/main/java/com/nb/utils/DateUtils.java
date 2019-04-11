@@ -26,7 +26,7 @@ public class DateUtils {
 	public static String DIR_PATTERN = "yyyy/MM/dd/";
 	public static String TIMESTAMP_PATTERN = "yyyy-MM-dd HH:mm:ss";
 	public static String TIMES_PATTERN = "HH:mm:ss";
-	public static String NOCHAR_PATTERN = "yyyyMMddHHmmss";
+	public static String NOCHAR_PATTERN = "yyyyMMdd HHmmss";
 	public static String DATE_PATTERN = "yyyyMMdd";
 	public static String TIME_PATTERN = "HHmmss";
 	
@@ -105,6 +105,15 @@ public class DateUtils {
 		return formatDateByFormat(date, NOCHAR_PATTERN);
 	}
 	
+	/**
+	 * 转换为时分秒格式(HHmm00)的日期字符串
+	 * @param date
+	 * @return
+	 */
+	public static String formatTimePattern(Date date) {
+		return formatDateByFormat(date, "HHmm00");
+	}
+
 	/**
 	 * 转换为时分秒格式(yyyyMMdd)的日期字符串
 	 * @param date
@@ -623,12 +632,29 @@ public class DateUtils {
 	 * 将时间戳转换为时间
 	 */
 	public static String stampToDate(long s) {
-		String res;
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd HHmmss");
-		long lt = new Long(s);
-		Date date = new Date(lt);
-		res = simpleDateFormat.format(date);
+		String res = "";
+		try {
+			long lt = new Long(s);
+			Date date = new Date(lt);
+			res = formatTimesTampDate(date);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		return res;
 	}
 
+	/*
+	 * 将时间戳转换为时间
+	 */
+	public static String stampToNoCharDate(long s) {
+		String res = "";
+		try {
+			long lt = new Long(s);
+			Date date = new Date(lt);
+			res = formatNoCharDate(date);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return res;
+	}
 }

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nb.mapper.EveMapper" >
+  <resultMap id="BaseResultMap" type="com.nb.model.Eve" >
+    <result column="classno" property="classno" jdbcType="SMALLINT" />
+    <result column="typeno" property="typeno" jdbcType="SMALLINT" />
+    <result column="ymd" property="ymd" jdbcType="INTEGER" />
+    <result column="hmsms" property="hmsms" jdbcType="INTEGER" />
+    <result column="voltgrade" property="voltgrade" jdbcType="TINYINT" />
+    <result column="output" property="output" jdbcType="TINYINT" />
+    <result column="member_id0" property="memberId0" jdbcType="INTEGER" />
+    <result column="member_id1" property="memberId1" jdbcType="INTEGER" />
+    <result column="member_id2" property="memberId2" jdbcType="INTEGER" />
+    <result column="double_value0" property="doubleValue0" jdbcType="DECIMAL" />
+    <result column="double_value1" property="doubleValue1" jdbcType="DECIMAL" />
+    <result column="double_value2" property="doubleValue2" jdbcType="DECIMAL" />
+    <result column="double_value3" property="doubleValue3" jdbcType="DECIMAL" />
+    <result column="state_value0" property="stateValue0" jdbcType="TINYINT" />
+    <result column="state_value1" property="stateValue1" jdbcType="TINYINT" />
+    <result column="state_value2" property="stateValue2" jdbcType="TINYINT" />
+    <result column="state_value3" property="stateValue3" jdbcType="TINYINT" />
+    <result column="group_name" property="groupName" jdbcType="VARCHAR" />
+    <result column="member_name0" property="memberName0" jdbcType="VARCHAR" />
+    <result column="member_name1" property="memberName1" jdbcType="VARCHAR" />
+    <result column="member_name2" property="memberName2" jdbcType="VARCHAR" />
+    <result column="char_info" property="charInfo" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <insert id="insertEve" parameterType="com.nb.model.Eve" >
+    insert into ${tableName}
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="classno != null" >
+        classno,
+      </if>
+      <if test="typeno != null" >
+        typeno,
+      </if>
+      <if test="ymd != null" >
+        ymd,
+      </if>
+      <if test="hmsms != null" >
+        hmsms,
+      </if>
+      <if test="voltgrade != null" >
+        voltgrade,
+      </if>
+      <if test="output != null" >
+        output,
+      </if>
+      <if test="memberId0 != null" >
+        member_id0,
+      </if>
+      <if test="memberId1 != null" >
+        member_id1,
+      </if>
+      <if test="memberId2 != null" >
+        member_id2,
+      </if>
+      <if test="doubleValue0 != null" >
+        double_value0,
+      </if>
+      <if test="doubleValue1 != null" >
+        double_value1,
+      </if>
+      <if test="doubleValue2 != null" >
+        double_value2,
+      </if>
+      <if test="doubleValue3 != null" >
+        double_value3,
+      </if>
+      <if test="stateValue0 != null" >
+        state_value0,
+      </if>
+      <if test="stateValue1 != null" >
+        state_value1,
+      </if>
+      <if test="stateValue2 != null" >
+        state_value2,
+      </if>
+      <if test="stateValue3 != null" >
+        state_value3,
+      </if>
+      <if test="groupName != null" >
+        group_name,
+      </if>
+      <if test="memberName0 != null" >
+        member_name0,
+      </if>
+      <if test="memberName1 != null" >
+        member_name1,
+      </if>
+      <if test="memberName2 != null" >
+        member_name2,
+      </if>
+      <if test="charInfo != null" >
+        char_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="classno != null" >
+        #{classno,jdbcType=SMALLINT},
+      </if>
+      <if test="typeno != null" >
+        #{typeno,jdbcType=SMALLINT},
+      </if>
+      <if test="ymd != null" >
+        #{ymd,jdbcType=INTEGER},
+      </if>
+      <if test="hmsms != null" >
+        #{hmsms,jdbcType=INTEGER},
+      </if>
+      <if test="voltgrade != null" >
+        #{voltgrade,jdbcType=TINYINT},
+      </if>
+      <if test="output != null" >
+        #{output,jdbcType=TINYINT},
+      </if>
+      <if test="memberId0 != null" >
+        #{memberId0,jdbcType=INTEGER},
+      </if>
+      <if test="memberId1 != null" >
+        #{memberId1,jdbcType=INTEGER},
+      </if>
+      <if test="memberId2 != null" >
+        #{memberId2,jdbcType=INTEGER},
+      </if>
+      <if test="doubleValue0 != null" >
+        #{doubleValue0,jdbcType=DECIMAL},
+      </if>
+      <if test="doubleValue1 != null" >
+        #{doubleValue1,jdbcType=DECIMAL},
+      </if>
+      <if test="doubleValue2 != null" >
+        #{doubleValue2,jdbcType=DECIMAL},
+      </if>
+      <if test="doubleValue3 != null" >
+        #{doubleValue3,jdbcType=DECIMAL},
+      </if>
+      <if test="stateValue0 != null" >
+        #{stateValue0,jdbcType=TINYINT},
+      </if>
+      <if test="stateValue1 != null" >
+        #{stateValue1,jdbcType=TINYINT},
+      </if>
+      <if test="stateValue2 != null" >
+        #{stateValue2,jdbcType=TINYINT},
+      </if>
+      <if test="stateValue3 != null" >
+        #{stateValue3,jdbcType=TINYINT},
+      </if>
+      <if test="groupName != null" >
+        #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="memberName0 != null" >
+        #{memberName0,jdbcType=VARCHAR},
+      </if>
+      <if test="memberName1 != null" >
+        #{memberName1,jdbcType=VARCHAR},
+      </if>
+      <if test="memberName2 != null" >
+        #{memberName2,jdbcType=VARCHAR},
+      </if>
+      <if test="charInfo != null" >
+        #{charInfo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

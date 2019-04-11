@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtil;
 import com.nb.servicestrategy.IServiceStrategy;
-import com.nb.utils.Constant;
+import com.nb.utils.CommFunc;
 
 /**   
  * @ClassName:  ChinaTelecomServiceContext   
@@ -29,7 +29,7 @@ public class ChinaTelecomServiceContext {
 	private Map<String,IServiceStrategy> serviceStrategy = new HashMap<String,IServiceStrategy>();
 	
 	public void parseService(String serviceName, String deviceId, Map<String, String> serviceMap) {
-		serviceName = serviceName + "Service";
+		serviceName = CommFunc.toLowerCaseFirstOne(serviceName) + "Service";
 		IServiceStrategy service = serviceStrategy.get(serviceName);
 		if (null != service) {
 			service.parse(deviceId, serviceMap);

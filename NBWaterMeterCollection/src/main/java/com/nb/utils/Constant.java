@@ -367,4 +367,21 @@ public class Constant {
 	
 	/** 竟达电池电压告警标志 */
 	public static final String BATTERY_ALARM = "Y";
+
+	public static final short ALARM = 1; // 告警')
+	public static final short NO_ALARM = 0; // 非告警')
+	
+	public static final short NB_ALARM = 20; // NB水表告警')
+	public static final short ALARM_2001 = 2001; // 大流量告警')
+	public static final short ALARM_2002 = 2002;// 小流量告警')
+	public static final short ALARM_2012 = 2012;// 数据被篡改')
+	public static final short ALARM_2003 = 2003;// 反流告警')
+	public static final short ALARM_2004 = 2004;// 磁干扰告警')
+	public static final short ALARM_2005 = 2005;// 电池低电压告警')
+	public static final short ALARM_2006 = 2006;// 远传模块分离告警')
+	public static final short ALARM_2007 = 2007;// 内部错误')
+	public static final short ALARM_2008 = 2008;// 低压告警')
+	public static final short ALARM_2009 = 2009;// 高压告警')
+	public static final short ALARM_2010 = 2010;// 阀门异常')
+	public static final short ALARM_2011 = 2011;// 存储器异常')
 }

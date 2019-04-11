@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nb.mapper.NbBatteryMapper" >
+  <resultMap id="BaseResultMap" type="com.nb.model.NbBattery" >
+    <id column="rtu_id" property="rtuId" jdbcType="INTEGER" />
+    <id column="mp_id" property="mpId" jdbcType="SMALLINT" />
+    <id column="ymd" property="ymd" jdbcType="INTEGER" />
+    <id column="hms" property="hms" jdbcType="INTEGER" />
+    <result column="battery_voltage" property="batteryVoltage" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    rtu_id, mp_id, ymd, hms, battery_voltage
+  </sql>
+  <select id="getNbBattery" resultMap="BaseResultMap" parameterType="com.nb.model.NbBatteryKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from ${tableName}
+    where rtu_id = #{rtuId,jdbcType=INTEGER}
+      and mp_id = #{mpId,jdbcType=SMALLINT}
+      and ymd = #{ymd,jdbcType=INTEGER}
+      and hms = #{hms,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteNbBattery" parameterType="com.nb.model.NbBatteryKey" >
+    delete from ${tableName}
+    where rtu_id = #{rtuId,jdbcType=INTEGER}
+      and mp_id = #{mpId,jdbcType=SMALLINT}
+      and ymd = #{ymd,jdbcType=INTEGER}
+      and hms = #{hms,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertNbBattery" parameterType="com.nb.model.NbBattery" >
+    insert into ${tableName}
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rtuId != null" >
+        rtu_id,
+      </if>
+      <if test="mpId != null" >
+        mp_id,
+      </if>
+      <if test="ymd != null" >
+        ymd,
+      </if>
+      <if test="hms != null" >
+        hms,
+      </if>
+      <if test="batteryVoltage != null" >
+        battery_voltage,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rtuId != null" >
+        #{rtuId,jdbcType=INTEGER},
+      </if>
+      <if test="mpId != null" >
+        #{mpId,jdbcType=SMALLINT},
+      </if>
+      <if test="ymd != null" >
+        #{ymd,jdbcType=INTEGER},
+      </if>
+      <if test="hms != null" >
+        #{hms,jdbcType=INTEGER},
+      </if>
+      <if test="batteryVoltage != null" >
+        #{batteryVoltage,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+ 
+  <update id="updateNbBattery" parameterType="com.nb.model.NbBattery" >
+    update ${tableName}
+    <set >
+      <if test="batteryVoltage != null" >
+        battery_voltage = #{batteryVoltage,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where rtu_id = #{rtuId,jdbcType=INTEGER}
+      and mp_id = #{mpId,jdbcType=SMALLINT}
+      and ymd = #{ymd,jdbcType=INTEGER}
+      and hms = #{hms,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

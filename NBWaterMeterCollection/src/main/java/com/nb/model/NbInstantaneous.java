@@ -1,6 +1,5 @@
 package com.nb.model;
 
-import java.math.BigDecimal;
 
 public class NbInstantaneous extends NbInstantaneousKey {
     /** 
@@ -8,15 +7,15 @@ public class NbInstantaneous extends NbInstantaneousKey {
 	*/ 
 	private static final long serialVersionUID = 1L;
 
-	private BigDecimal totalFlow;
+	private Double totalFlow;
 
-    private BigDecimal dailyPositiveFlow;
+    private Double dailyPositiveFlow;
 
-    private BigDecimal dailyNegativeFlow;
+    private Double dailyNegativeFlow;
 
-    private BigDecimal hydraulicPressure;
+    private Double hydraulicPressure;
 
-    private BigDecimal dailyMaxVelocity;
+    private Double dailyMaxVelocity;
 
     private Integer totalOnlineSuccess;
 
@@ -36,47 +35,47 @@ public class NbInstantaneous extends NbInstantaneousKey {
 	/**
 	 * @param tableName the tableName to set
 	 */
-	public void setTableName(String tableName) {
-		this.tableName = tableName;
+	public void setTableName(String date) {
+		this.tableName = "yddata.dbo.nb_instantaneous_" + date;
 	}
 
-	public BigDecimal getTotalFlow() {
+	public Double getTotalFlow() {
         return totalFlow;
     }
 
-    public void setTotalFlow(BigDecimal totalFlow) {
+    public void setTotalFlow(Double totalFlow) {
         this.totalFlow = totalFlow;
     }
 
-    public BigDecimal getDailyPositiveFlow() {
+    public Double getDailyPositiveFlow() {
         return dailyPositiveFlow;
     }
 
-    public void setDailyPositiveFlow(BigDecimal dailyPositiveFlow) {
+    public void setDailyPositiveFlow(Double dailyPositiveFlow) {
         this.dailyPositiveFlow = dailyPositiveFlow;
     }
 
-    public BigDecimal getDailyNegativeFlow() {
+    public Double getDailyNegativeFlow() {
         return dailyNegativeFlow;
     }
 
-    public void setDailyNegativeFlow(BigDecimal dailyNegativeFlow) {
+    public void setDailyNegativeFlow(Double dailyNegativeFlow) {
         this.dailyNegativeFlow = dailyNegativeFlow;
     }
 
-    public BigDecimal getHydraulicPressure() {
+    public Double getHydraulicPressure() {
         return hydraulicPressure;
     }
 
-    public void setHydraulicPressure(BigDecimal hydraulicPressure) {
+    public void setHydraulicPressure(Double hydraulicPressure) {
         this.hydraulicPressure = hydraulicPressure;
     }
 
-    public BigDecimal getDailyMaxVelocity() {
+    public Double getDailyMaxVelocity() {
         return dailyMaxVelocity;
     }
 
-    public void setDailyMaxVelocity(BigDecimal dailyMaxVelocity) {
+    public void setDailyMaxVelocity(Double dailyMaxVelocity) {
         this.dailyMaxVelocity = dailyMaxVelocity;
     }
 
