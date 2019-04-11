@@ -86,6 +86,38 @@ public class NbWaterMeterCollectionApplicationTests {
 	private NbInstantaneousMapper nbInstantaneousMapper;
 	
 	
+	
+	@Test
+	public void testValue(){
+		Map<String, String> dataMap = new HashMap<String, String>();
+		dataMap.put("valveState", "H");
+
+		byte valveState = Constant.VALVE_OTHER;
+		switch (dataMap.get("valveState")) {
+		case "O":
+			valveState = Constant.VALVE_OPEN;
+			break;
+
+		case "C":
+			valveState = Constant.VALVE_CLOSE;
+			break;
+		case "H":
+			valveState = Constant.VALVE_HALF_OPEN;
+			break;
+		default:
+			break;
+		}
+		
+		String deviceId = "11111111";
+		Map<String, Object> meterInfo = this.commonMapper.getNbInfoByDeviceId(deviceId);
+		if (meterInfo == null) {
+			return;
+		}
+
+		meterInfo.put("valveState", valveState);
+		commonMapper.updateWaterMeterValve(meterInfo);
+	}
+	
 //	@Test
 	public void testPeriodReport(){
 	Map<String, String> serviceMap = new HashMap<String, String>();
@@ -257,7 +289,7 @@ public class NbWaterMeterCollectionApplicationTests {
 		}
 	}
 	
-	@Test
+//	@Test
 	public void testDeviceAlarm(){
 		String deviceId = "11111111";
 

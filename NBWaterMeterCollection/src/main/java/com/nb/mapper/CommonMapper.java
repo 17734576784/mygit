@@ -23,4 +23,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface CommonMapper {
 	
 	Map<String, Object> getNbInfoByDeviceId(String deviceId);
+	
+	boolean updateWaterMeterValve(Map<String, Object> param);
 }

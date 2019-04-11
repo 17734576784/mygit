@@ -384,4 +384,13 @@ public class Constant {
 	public static final short ALARM_2009 = 2009;// 高压告警')
 	public static final short ALARM_2010 = 2010;// 阀门异常')
 	public static final short ALARM_2011 = 2011;// 存储器异常')
+
+	// 竟达阀门状态：1：正在开阀 2：阀门开到位 3：正在关阀 4：阀门关到位 5：半开 6:其他
+	public static final byte VALVE_OPENING = 1;
+	public static final byte VALVE_OPEN = 2;
+	public static final byte VALVE_CLOSEING = 3;
+	public static final byte VALVE_CLOSE = 4;
+	public static final byte VALVE_HALF_OPEN = 5;
+	public static final byte VALVE_OTHER = 6;
+
 }

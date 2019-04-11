@@ -7,5 +7,11 @@
  	 where device_id = #{deviceId,jdbcType=VARCHAR}
  </select>
  
+ <update id="updateWaterMeterValve" parameterType="map" >
+ 	update nb_water_meter
+	set valve_status = #{valveState}
+	where rtu_id = #{rtuId,jdbcType=INTEGER} 
+	and mp_id = #{mpId,jdbcType=INTEGER} 
+ </update>
  
 </mapper>
