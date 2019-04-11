@@ -86,7 +86,7 @@ public class NbWaterMeterCollectionApplicationTests {
 	private NbInstantaneousMapper nbInstantaneousMapper;
 	
 	
-	@Test
+//	@Test
 	public void testPeriodReport(){
 	Map<String, String> serviceMap = new HashMap<String, String>();
 		
@@ -257,12 +257,13 @@ public class NbWaterMeterCollectionApplicationTests {
 		}
 	}
 	
-//	@Test
+	@Test
 	public void testDeviceAlarm(){
-		
+		String deviceId = "11111111";
+
 		
 		Map<String, String> serviceMap = new HashMap<String, String>();
-		serviceMap.put("evnetTime", "20190411T163600");
+		serviceMap.put("evnetTime", "20190416T163600");
 		
 		Map<String,String> dataMap = new HashMap<>();
 		dataMap.put("peakFlowStartTime", System.currentTimeMillis()+"");
@@ -272,48 +273,45 @@ public class NbWaterMeterCollectionApplicationTests {
 		dataMap.put("magneticInterferenceAlarm", "1");
 		dataMap.put("disconnectAlarm", "1");
 		
-		String evnetTime = serviceMap.get("evnetTime");
-		int date = toInt(evnetTime.substring(0, 8));
-		int time = toInt(evnetTime.substring(9, 15)) + 80000;
-
-		String deviceId = "11111111";
+		DeviceAlarm deviceAlarm = JsonUtil.map2Bean(dataMap, DeviceAlarm.class);
+		deviceAlarm.setEvnetTime(serviceMap.get("evnetTime"));
 		
-		DeviceAlarm deviceAlarm = JsonUtil.map2Bean(dataMap, DeviceAlarm.class); 
-
-		System.out.println(deviceAlarm.getPeakFlowStartTime());
-		String YM = toStr(date / 100);
 		String eveInfo = "";
 		Short typeNo = 0;
 		// 篡改告警
 		if (deviceAlarm.getTampered() == Constant.ALARM) {
 			eveInfo = "序列号,生产日期,累计流量至少有一项被篡改";
 			typeNo = Constant.ALARM_2012;
-			insertEve(YM, date, time, deviceId, eveInfo, typeNo);		}
+			insertEve(deviceAlarm, deviceId, eveInfo, typeNo);
+		}
 
 		// 反流告警
 		if (deviceAlarm.getReverseFlowAlarm() == Constant.ALARM) {
 			eveInfo = "反流告警";
 			typeNo = Constant.ALARM_2003;
-			insertEve(YM, date, time, deviceId, eveInfo, typeNo);		}
+			insertEve(deviceAlarm, deviceId, eveInfo, typeNo);
+		}
 
 		// 磁干扰
 		if (deviceAlarm.getMagneticInterferenceAlarm() == Constant.ALARM) {
 			eveInfo = "磁干扰";
 			typeNo = Constant.ALARM_2004;
-			insertEve(YM, date, time, deviceId, eveInfo, typeNo);		}
+			insertEve(deviceAlarm, deviceId, eveInfo, typeNo);
+		}
 
 		// 远传模块分离告警
 		if (deviceAlarm.getDisconnectAlarm() == Constant.ALARM) {
 			eveInfo = "远传模块分离告警";
 			typeNo = Constant.ALARM_2006;
-			insertEve(YM, date, time, deviceId, eveInfo, typeNo);		}
-		
+			insertEve(deviceAlarm, deviceId, eveInfo, typeNo);
+		}
+
 		// 大流量告警
 		if (deviceAlarm.getPeakFlow() > 0) {
 			typeNo = Constant.ALARM_2001;
 			eveInfo = "大流量报警 开始时间:" + deviceAlarm.getPeakFlowStartTime() + ",最大流速:" + deviceAlarm.getPeakFlow()
 					+ " L/h";
-			insertEve(YM, date, time, deviceId, eveInfo, typeNo);
+			insertEve(deviceAlarm, deviceId, eveInfo, typeNo);
 		}
 		
 		System.out.println("ddd");
@@ -330,7 +328,7 @@ public class NbWaterMeterCollectionApplicationTests {
 	* @return void    返回类型 
 	* @throws 
 	*/
-	private void insertEve(String YM, int date, int time, String deviceId, String eveInfo,short typeNo) {
+	private void insertEve(DeviceAlarm deviceAlarm, String deviceId, String eveInfo, short typeNo) {
 		Map<String, Object> meterInfo = this.commonMapper.getNbInfoByDeviceId(deviceId);
 		if (meterInfo == null) {
 			return;
@@ -340,75 +338,99 @@ public class NbWaterMeterCollectionApplicationTests {
 		int mpId = toInt(meterInfo.get("mpId"));
 
 		Eve eve = new Eve();
-		eve.setTableName(YM);
-		eve.setYmd(date);
-		eve.setHmsms(time * 1000);
+		eve.setTableName(toStr(deviceAlarm.getDate() / 100));
+		eve.setYmd(deviceAlarm.getDate());
+		eve.setHmsms(deviceAlarm.getTime() * 1000);
 		eve.setMemberId0(rtuId);
 		eve.setMemberId1(mpId);
 		eve.setMemberId2(-1);
 		eve.setClassno(Constant.NB_ALARM);
 		eve.setTypeno(typeNo);
 		eve.setCharInfo(eveInfo);
-		int a = 3/5;
-		eveMapper.insertEve(eve);
+		try {
+			eveMapper.insertEve(eve);
+		} catch (Exception e) {
+			// TODO: handle exception
+			LoggerUtil.Logger(LogName.CALLBACK).info(eve.toString() + "存库失败");
+		}
 	}
-
 	
 	
 //	@Test
 	public void testBattery() {
 		
 		Map<String, String> serviceMap = new HashMap<String, String>();
-		serviceMap.put("evnetTime", "20190410T063600");
+		serviceMap.put("evnetTime", "20190415T063600");
 		
 		Map<String,String> dataMap = new HashMap<>();
 		dataMap.put("batteryVoltage", "2.6");
-		dataMap.put("batteryvoltageAlarm", "Y");
+		dataMap.put("batteryvoltageAlarm", "N");
 		dataMap.put("batteryvoltageThreshold", "2.6");
 		
-		String evnetTime = serviceMap.get("evnetTime");
-		int date = toInt(evnetTime.substring(0, 8));
-		int time = toInt(evnetTime.substring(9, 15)) + 80000;
-		
 		Battery battery = JsonUtil.map2Bean(dataMap, Battery.class);
-		battery.setEvnetTime(evnetTime);
+		battery.setEvnetTime(serviceMap.get("evnetTime"));
 		
 		System.out.println(battery.toString());
-		String YM = toStr(date / 100);
+		
+		String deviceId = "11111111";
+		Map<String, Object> meterInfo = this.commonMapper.getNbInfoByDeviceId(deviceId);
+		if (meterInfo == null) {
+			return;
+		}
+
+		int rtuId = toInt(meterInfo.get("rtuId"));
+		int mpId = toInt(meterInfo.get("mpId"));
+		
 		// 电池电压告警
 		if (battery.isAlarm()) {
-			Eve eve = new Eve();
-			eve.setTableName(YM);
-			eve.setYmd(date);
-			eve.setHmsms(time * 1000);
-			eve.setMemberId0(1);
-			eve.setMemberId1(1);
-			eve.setMemberId2(-1);
-			eve.setClassno(Constant.NB_ALARM);
-			eve.setTypeno(Constant.ALARM_2005);
-			try {
-				System.out.println(eveMapper.insertEve(eve));	
-			}catch (Exception e) {
-				// TODO: handle exception
-				e.printStackTrace();
-			}
-			
+			insertEve(battery, rtuId, mpId);
 		} else { // 正常上报电池电压
-			NbBattery nbBattery = new NbBattery();
-			nbBattery.setTableName(YM);
-			nbBattery.setYmd(date);
-			nbBattery.setHms(time);
-			nbBattery.setRtuId(1);
-			nbBattery.setMpId((short) 1);
-			nbBattery.setBatteryVoltage(battery.getBatteryVoltage());
-			try {
-				if (null == nbBatteryMapper.getNbBattery(nbBattery)) {
-					System.out.println(nbBatteryMapper.insertNbBattery(nbBattery));	
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
+			insertBattery( battery, rtuId, mpId);
+		}
+	}
+	
+	/** 
+	* @Title: insertEve 
+	* @Description: 插入电池电压告警 
+	* @param @param battery
+	* @param @param rtuId
+	* @param @param mpId    设定文件 
+	* @return void    返回类型 
+	* @throws 
+	*/
+	private void insertEve(Battery battery, int rtuId, int mpId) {
+		Eve eve = new Eve();
+		eve.setTableName(toStr(battery.getDate() / 100));
+		eve.setYmd(battery.getDate());
+		eve.setHmsms(battery.getTime() * 1000);
+		eve.setMemberId0(rtuId);
+		eve.setMemberId1(mpId);
+		eve.setMemberId2(-1);
+		eve.setClassno(Constant.NB_ALARM);
+		eve.setTypeno(Constant.ALARM_2005);
+		eve.setCharInfo("电池告警，电压值为：" + battery.getBatteryVoltage() + ",电压阀值为： " + battery.getBatteryvoltageThreshold());
+		eveMapper.insertEve(eve);
+	}
+
+	/** 
+	* @Title: insertBattery 
+	* @Description: 插入电池电压上报信息  nb_battery_200808
+	* @param @param battery
+	* @param @param rtuId
+	* @param @param mpId    设定文件 
+	* @return void    返回类型 
+	* @throws 
+	*/
+	private void insertBattery(Battery battery, int rtuId, int mpId) {
+		NbBattery nbBattery = new NbBattery();
+		nbBattery.setTableName(toStr(battery.getDate() / 100));
+		nbBattery.setYmd(battery.getDate());
+		nbBattery.setHms(battery.getTime());
+		nbBattery.setRtuId(rtuId);
+		nbBattery.setMpId((short) mpId);
+		nbBattery.setBatteryVoltage(battery.getBatteryVoltage());
+		if (null == nbBatteryMapper.getNbBattery(nbBattery)) {
+			nbBatteryMapper.insertNbBattery(nbBattery);
 		}
 	}
 

@@ -1,0 +1,148 @@
+[2019-04-11 10:04:26.683] INFO [main] AbstractTestContextBootstrapper.java:308 - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.nb.NbWaterMeterCollectionApplicationTests], using SpringBootContextLoader
+[2019-04-11 10:04:26.886] INFO [main] AbstractContextLoader.java:264 - Could not detect default resource locations for test class [com.nb.NbWaterMeterCollectionApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+[2019-04-11 10:04:28.336] INFO [main] AbstractTestContextBootstrapper.java:248 - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+[2019-04-11 10:04:28.440] INFO [main] AbstractTestContextBootstrapper.java:177 - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@146dfe6, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@4716be8b, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@1fc32e4f, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@2f67b837, org.springframework.test.context.support.DirtiesContextTestExecutionListener@1869fbd2, org.springframework.test.context.transaction.TransactionalTestExecutionListener@6af9fcb2, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@6cce16f4, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@7efaad5a, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@291a7e3c, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@ca30bc1, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@1046d517, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@3b7d3a38]
+[2019-04-11 10:04:41.328] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-04-11 10:04:41.345] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-04-11 10:04:41.681] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 80ms. Found 0 repository interfaces.
+[2019-04-11 10:04:44.415] INFO [main] PostProcessorRegistrationDelegate.java:330 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$50f69a91] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2019-04-11 10:04:50.549] INFO [main] DruidDataSource.java:947 - {dataSource-1} inited
+[2019-04-11 10:04:50.964] INFO [main] StdSchedulerFactory.java:1208 - Using default implementation for ThreadExecutor
+[2019-04-11 10:04:51.049] INFO [main] SchedulerSignalerImpl.java:61 - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[2019-04-11 10:04:51.050] INFO [main] QuartzScheduler.java:229 - Quartz Scheduler v.2.3.0 created.
+[2019-04-11 10:04:51.052] INFO [main] RAMJobStore.java:155 - RAMJobStore initialized.
+[2019-04-11 10:04:51.055] INFO [main] QuartzScheduler.java:294 - Scheduler meta-data: Quartz Scheduler (v2.3.0) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[2019-04-11 10:04:51.056] INFO [main] StdSchedulerFactory.java:1362 - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+[2019-04-11 10:04:51.056] INFO [main] StdSchedulerFactory.java:1366 - Quartz scheduler version: 2.3.0
+[2019-04-11 10:04:51.057] INFO [main] QuartzScheduler.java:2287 - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@a85644c
+[2019-04-11 10:04:51.229] INFO [main] DruidConfig.java:177 - dao层扫描包为:com/nb/mapper/*/*.xml
+[2019-04-11 10:04:56.439] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-04-11 10:04:58.093] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'taskScheduler'
+[2019-04-11 10:04:58.253] INFO [main] SchedulerFactoryBean.java:726 - Starting Quartz Scheduler now
+[2019-04-11 10:04:58.254] INFO [main] QuartzScheduler.java:547 - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+[2019-04-11 10:07:43.751] INFO [Thread-2] QuartzScheduler.java:585 - Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+[2019-04-11 10:07:43.767] INFO [Thread-2] ExecutorConfigurationSupport.java:208 - Shutting down ExecutorService 'taskScheduler'
+[2019-04-11 10:07:43.767] INFO [Thread-2] ExecutorConfigurationSupport.java:208 - Shutting down ExecutorService 'applicationTaskExecutor'
+[2019-04-11 10:07:43.861] INFO [Thread-2] SchedulerFactoryBean.java:844 - Shutting down Quartz Scheduler
+[2019-04-11 10:07:43.861] INFO [Thread-2] QuartzScheduler.java:666 - Scheduler quartzScheduler_$_NON_CLUSTERED shutting down.
+[2019-04-11 10:07:43.861] INFO [Thread-2] QuartzScheduler.java:585 - Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+[2019-04-11 10:07:43.861] INFO [Thread-2] QuartzScheduler.java:740 - Scheduler quartzScheduler_$_NON_CLUSTERED shutdown complete.
+[2019-04-11 10:07:43.907] INFO [Thread-2] DruidDataSource.java:1863 - {dataSource-1} closed
+[2019-04-11 10:09:16.908] INFO [main] AbstractTestContextBootstrapper.java:308 - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.nb.NbWaterMeterCollectionApplicationTests], using SpringBootContextLoader
+[2019-04-11 10:09:16.922] INFO [main] AbstractContextLoader.java:264 - Could not detect default resource locations for test class [com.nb.NbWaterMeterCollectionApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+[2019-04-11 10:09:17.279] INFO [main] AbstractTestContextBootstrapper.java:248 - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+[2019-04-11 10:09:17.310] INFO [main] AbstractTestContextBootstrapper.java:177 - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@5b7a5baa, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@776aec5c, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@1d296da, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@7c7a06ec, org.springframework.test.context.support.DirtiesContextTestExecutionListener@75d4a5c2, org.springframework.test.context.transaction.TransactionalTestExecutionListener@557caf28, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@408d971b, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@6c6cb480, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@3c46e67a, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@c730b35, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@206a70ef, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@292b08d6]
+[2019-04-11 10:09:19.141] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-04-11 10:09:19.144] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-04-11 10:09:19.192] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 29ms. Found 0 repository interfaces.
+[2019-04-11 10:09:19.834] INFO [main] PostProcessorRegistrationDelegate.java:330 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$a4bdb557] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2019-04-11 10:09:21.345] INFO [main] DruidDataSource.java:947 - {dataSource-1} inited
+[2019-04-11 10:09:21.493] INFO [main] StdSchedulerFactory.java:1208 - Using default implementation for ThreadExecutor
+[2019-04-11 10:09:21.519] INFO [main] SchedulerSignalerImpl.java:61 - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[2019-04-11 10:09:21.519] INFO [main] QuartzScheduler.java:229 - Quartz Scheduler v.2.3.0 created.
+[2019-04-11 10:09:21.521] INFO [main] RAMJobStore.java:155 - RAMJobStore initialized.
+[2019-04-11 10:09:21.522] INFO [main] QuartzScheduler.java:294 - Scheduler meta-data: Quartz Scheduler (v2.3.0) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[2019-04-11 10:09:21.523] INFO [main] StdSchedulerFactory.java:1362 - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+[2019-04-11 10:09:21.523] INFO [main] StdSchedulerFactory.java:1366 - Quartz scheduler version: 2.3.0
+[2019-04-11 10:09:21.524] INFO [main] QuartzScheduler.java:2287 - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@4cb40e3b
+[2019-04-11 10:09:21.608] INFO [main] DruidConfig.java:177 - dao层扫描包为:com/nb/mapper/*/*.xml
+[2019-04-11 10:09:23.740] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-04-11 10:09:24.357] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'taskScheduler'
+[2019-04-11 10:09:24.439] INFO [main] SchedulerFactoryBean.java:726 - Starting Quartz Scheduler now
+[2019-04-11 10:09:24.440] INFO [main] QuartzScheduler.java:547 - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+[2019-04-11 10:09:25.572] INFO [Thread-2] QuartzScheduler.java:585 - Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+[2019-04-11 10:09:25.574] INFO [Thread-2] ExecutorConfigurationSupport.java:208 - Shutting down ExecutorService 'taskScheduler'
+[2019-04-11 10:09:25.576] INFO [Thread-2] ExecutorConfigurationSupport.java:208 - Shutting down ExecutorService 'applicationTaskExecutor'
+[2019-04-11 10:09:25.612] INFO [Thread-2] SchedulerFactoryBean.java:844 - Shutting down Quartz Scheduler
+[2019-04-11 10:09:25.612] INFO [Thread-2] QuartzScheduler.java:666 - Scheduler quartzScheduler_$_NON_CLUSTERED shutting down.
+[2019-04-11 10:09:25.612] INFO [Thread-2] QuartzScheduler.java:585 - Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+[2019-04-11 10:09:25.615] INFO [Thread-2] QuartzScheduler.java:740 - Scheduler quartzScheduler_$_NON_CLUSTERED shutdown complete.
+[2019-04-11 10:09:25.627] INFO [Thread-2] DruidDataSource.java:1863 - {dataSource-1} closed
+[2019-04-11 10:10:16.051] INFO [main] AbstractTestContextBootstrapper.java:308 - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.nb.NbWaterMeterCollectionApplicationTests], using SpringBootContextLoader
+[2019-04-11 10:10:16.064] INFO [main] AbstractContextLoader.java:264 - Could not detect default resource locations for test class [com.nb.NbWaterMeterCollectionApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+[2019-04-11 10:10:16.424] INFO [main] AbstractTestContextBootstrapper.java:248 - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+[2019-04-11 10:10:16.452] INFO [main] AbstractTestContextBootstrapper.java:177 - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@5b7a5baa, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@776aec5c, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@1d296da, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@7c7a06ec, org.springframework.test.context.support.DirtiesContextTestExecutionListener@75d4a5c2, org.springframework.test.context.transaction.TransactionalTestExecutionListener@557caf28, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@408d971b, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@6c6cb480, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@3c46e67a, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@c730b35, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@206a70ef, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@292b08d6]
+[2019-04-11 10:10:18.276] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-04-11 10:10:18.279] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-04-11 10:10:18.325] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 28ms. Found 0 repository interfaces.
+[2019-04-11 10:10:18.894] INFO [main] PostProcessorRegistrationDelegate.java:330 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$36204fa0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2019-04-11 10:10:20.603] INFO [main] DruidDataSource.java:947 - {dataSource-1} inited
+[2019-04-11 10:10:20.752] INFO [main] StdSchedulerFactory.java:1208 - Using default implementation for ThreadExecutor
+[2019-04-11 10:10:20.782] INFO [main] SchedulerSignalerImpl.java:61 - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[2019-04-11 10:10:20.782] INFO [main] QuartzScheduler.java:229 - Quartz Scheduler v.2.3.0 created.
+[2019-04-11 10:10:20.784] INFO [main] RAMJobStore.java:155 - RAMJobStore initialized.
+[2019-04-11 10:10:20.786] INFO [main] QuartzScheduler.java:294 - Scheduler meta-data: Quartz Scheduler (v2.3.0) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[2019-04-11 10:10:20.786] INFO [main] StdSchedulerFactory.java:1362 - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+[2019-04-11 10:10:20.786] INFO [main] StdSchedulerFactory.java:1366 - Quartz scheduler version: 2.3.0
+[2019-04-11 10:10:20.787] INFO [main] QuartzScheduler.java:2287 - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@1a6cf771
+[2019-04-11 10:10:20.870] INFO [main] DruidConfig.java:177 - dao层扫描包为:com/nb/mapper/*/*.xml
+[2019-04-11 10:10:22.701] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-04-11 10:10:23.288] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'taskScheduler'
+[2019-04-11 10:10:23.403] INFO [main] SchedulerFactoryBean.java:726 - Starting Quartz Scheduler now
+[2019-04-11 10:10:23.403] INFO [main] QuartzScheduler.java:547 - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+[2019-04-11 10:10:24.051] INFO [Thread-2] QuartzScheduler.java:585 - Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+[2019-04-11 10:10:24.051] INFO [Thread-2] ExecutorConfigurationSupport.java:208 - Shutting down ExecutorService 'taskScheduler'
+[2019-04-11 10:10:24.052] INFO [Thread-2] ExecutorConfigurationSupport.java:208 - Shutting down ExecutorService 'applicationTaskExecutor'
+[2019-04-11 10:10:24.078] INFO [Thread-2] SchedulerFactoryBean.java:844 - Shutting down Quartz Scheduler
+[2019-04-11 10:10:24.078] INFO [Thread-2] QuartzScheduler.java:666 - Scheduler quartzScheduler_$_NON_CLUSTERED shutting down.
+[2019-04-11 10:10:24.078] INFO [Thread-2] QuartzScheduler.java:585 - Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+[2019-04-11 10:10:24.079] INFO [Thread-2] QuartzScheduler.java:740 - Scheduler quartzScheduler_$_NON_CLUSTERED shutdown complete.
+[2019-04-11 10:10:24.082] INFO [Thread-2] DruidDataSource.java:1863 - {dataSource-1} closed
+[2019-04-11 10:15:37.630] INFO [main] AbstractTestContextBootstrapper.java:308 - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.nb.NbWaterMeterCollectionApplicationTests], using SpringBootContextLoader
+[2019-04-11 10:15:37.647] INFO [main] AbstractContextLoader.java:264 - Could not detect default resource locations for test class [com.nb.NbWaterMeterCollectionApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+[2019-04-11 10:15:37.968] INFO [main] AbstractTestContextBootstrapper.java:248 - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+[2019-04-11 10:15:37.994] INFO [main] AbstractTestContextBootstrapper.java:177 - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@2796aeae, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@b4711e2, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@1fa1cab1, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@70f02c32, org.springframework.test.context.support.DirtiesContextTestExecutionListener@62010f5c, org.springframework.test.context.transaction.TransactionalTestExecutionListener@51fadaff, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@401f7633, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@31ff43be, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@5b6ec132, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@5c44c582, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@67d18ed7, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@2c78d320]
+[2019-04-11 10:15:39.971] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-04-11 10:15:39.975] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-04-11 10:15:40.037] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 38ms. Found 0 repository interfaces.
+[2019-04-11 10:15:40.950] INFO [main] PostProcessorRegistrationDelegate.java:330 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$80e069dd] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2019-04-11 10:15:42.136] INFO [main] DruidDataSource.java:947 - {dataSource-1} inited
+[2019-04-11 10:15:42.246] INFO [main] StdSchedulerFactory.java:1208 - Using default implementation for ThreadExecutor
+[2019-04-11 10:15:42.273] INFO [main] SchedulerSignalerImpl.java:61 - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[2019-04-11 10:15:42.274] INFO [main] QuartzScheduler.java:229 - Quartz Scheduler v.2.3.0 created.
+[2019-04-11 10:15:42.276] INFO [main] RAMJobStore.java:155 - RAMJobStore initialized.
+[2019-04-11 10:15:42.278] INFO [main] QuartzScheduler.java:294 - Scheduler meta-data: Quartz Scheduler (v2.3.0) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[2019-04-11 10:15:42.278] INFO [main] StdSchedulerFactory.java:1362 - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+[2019-04-11 10:15:42.279] INFO [main] StdSchedulerFactory.java:1366 - Quartz scheduler version: 2.3.0
+[2019-04-11 10:15:42.279] INFO [main] QuartzScheduler.java:2287 - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@44598ef7
+[2019-04-11 10:15:42.349] INFO [main] DruidConfig.java:177 - dao层扫描包为:com/nb/mapper/*/*.xml
+[2019-04-11 10:15:44.530] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-04-11 10:15:45.453] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'taskScheduler'
+[2019-04-11 10:15:45.574] INFO [main] SchedulerFactoryBean.java:726 - Starting Quartz Scheduler now
+[2019-04-11 10:15:45.575] INFO [main] QuartzScheduler.java:547 - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+[2019-04-11 10:16:22.472] INFO [Thread-2] QuartzScheduler.java:585 - Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+[2019-04-11 10:16:22.482] INFO [Thread-2] ExecutorConfigurationSupport.java:208 - Shutting down ExecutorService 'taskScheduler'
+[2019-04-11 10:16:22.484] INFO [Thread-2] ExecutorConfigurationSupport.java:208 - Shutting down ExecutorService 'applicationTaskExecutor'
+[2019-04-11 10:16:22.675] INFO [Thread-2] SchedulerFactoryBean.java:844 - Shutting down Quartz Scheduler
+[2019-04-11 10:16:22.676] INFO [Thread-2] QuartzScheduler.java:666 - Scheduler quartzScheduler_$_NON_CLUSTERED shutting down.
+[2019-04-11 10:16:22.676] INFO [Thread-2] QuartzScheduler.java:585 - Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+[2019-04-11 10:16:22.678] INFO [Thread-2] QuartzScheduler.java:740 - Scheduler quartzScheduler_$_NON_CLUSTERED shutdown complete.
+[2019-04-11 10:16:22.683] INFO [Thread-2] DruidDataSource.java:1863 - {dataSource-1} closed

@@ -1,0 +1,8 @@
+[2019-04-10 15:00:41.832] INFO [main] ChinaTelecomServiceContext.java:36 - 不存在服务：BatteryService
+[2019-04-10 15:03:32.261] INFO [main] BatteryService.java:53 - 上报竟达电池服务 ：ddddd ,内容：{evnetTime=20190410T065600, data=20190410T065600}
+[2019-04-10 15:04:44.867] INFO [main] BatteryService.java:53 - 上报竟达电池服务 ：ddddd ,内容：{evnetTime=20190410T065600, data=20190410T065600}
+[2019-04-10 15:06:22.821] INFO [main] BatteryService.java:53 - 上报竟达电池服务 ：ddddd ,内容：{evnetTime=20190410T065600, data={"batteryvoltageAlarm":"N","atteryVoltage":"2.6","batteryvoltageThreshold":"2.6"}}
+[2019-04-10 15:07:51.074] INFO [main] BatteryService.java:53 - 上报竟达电池服务 ：ddddd ,内容：{evnetTime=20190410T065600, data={"batteryvoltageAlarm":"N","atteryVoltage":"2.6","batteryvoltageThreshold":"2.6"}}
+[2019-04-10 15:10:02.704] INFO [main] BatteryService.java:53 - 上报竟达电池服务 ：ddddd ,内容：{evnetTime=20190410T065600, data={"batteryVoltage":2.6,"batteryvoltageAlarm":"N","batteryvoltageThreshold":3.0,"evnetTime":null,"alarm":false}}
+[2019-04-10 15:11:32.482] INFO [main] BatteryService.java:53 - 上报竟达电池服务 ：ddddd ,内容：{evnetTime=20190410T065600, data={"batteryVoltage":2.6,"batteryvoltageAlarm":"N","batteryvoltageThreshold":3.0,"evnetTime":null,"alarm":false}}
+[2019-04-10 15:13:14.718] INFO [main] BatteryService.java:53 - 上报竟达电池服务 ：ddddd ,内容：{evnetTime=20190410T065600, data={"batteryvoltageAlarm":"N","batteryVoltage":"2.6","batteryvoltageThreshold":"2.6"}}

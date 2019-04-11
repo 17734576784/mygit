@@ -8,9 +8,10 @@
 */
 package com.nb.model.jd;
 
+import static com.nb.utils.ConverterUtils.toInt;
+
 import java.io.Serializable;
 
-import com.nb.utils.CommFunc;
 import com.nb.utils.Constant;
 
 /** 
@@ -29,19 +30,44 @@ public class Battery implements Serializable {
 	private Double batteryVoltage;// 电压 单位:V
 	private String batteryvoltageAlarm; // 电压报警 Y:报警,N:正常
 	private Double batteryvoltageThreshold; // 电压报警阈值
-	private String evnetTime; // 事项上报时间
-	/**
-	 * @return the evnetTime
-	 */
-	public String getEvnetTime() {
-		return evnetTime;
-	}
+	private int date; // 事项上报日期
+	private int time; // 事项上报时间
+	
 	/**
 	 * @param evnetTime the evnetTime to set
 	 */
 	public void setEvnetTime(String evnetTime) {
-		this.evnetTime = CommFunc.parseEventTime(evnetTime);
+		this.date = toInt(evnetTime.substring(0, 8));
+		this.time = toInt(evnetTime.substring(9, 15)) + 80000;
 	}
+
+	/**
+	 * @return the serialversionuid
+	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+
+
+	/**
+	 * @return the date
+	 */
+	public int getDate() {
+		return date;
+	}
+
+
+
+	/**
+	 * @return the time
+	 */
+	public int getTime() {
+		return time;
+	}
+
+
+
 	/**
 	 * @return the batteryVoltage
 	 */
@@ -78,6 +104,8 @@ public class Battery implements Serializable {
 	public void setBatteryvoltageThreshold(Double batteryvoltageThreshold) {
 		this.batteryvoltageThreshold = batteryvoltageThreshold;
 	}
+	
+	
 	/** (非 Javadoc) 
 	* <p>Title: toString</p> 
 	* <p>Description: </p> 
@@ -87,7 +115,7 @@ public class Battery implements Serializable {
 	@Override
 	public String toString() {
 		return "Battery [batteryVoltage=" + batteryVoltage + ", batteryvoltageAlarm=" + batteryvoltageAlarm
-				+ ", batteryvoltageThreshold=" + batteryvoltageThreshold + ", evnetTime=" + evnetTime + "]";
+				+ ", batteryvoltageThreshold=" + batteryvoltageThreshold + ", date=" + date + ", time=" + time + "]";
 	}
 
 	public boolean isAlarm() {

@@ -8,10 +8,8 @@
 */
 package com.nb.model.jd;
 
+import static com.nb.utils.ConverterUtils.toInt;
 import java.io.Serializable;
-
-
-import com.nb.utils.CommFunc;
 import com.nb.utils.ConverterUtils;
 import com.nb.utils.DateUtils;
 
@@ -36,21 +34,43 @@ public class DeviceAlarm implements Serializable {
 	private Integer magneticInterferenceAlarm; // 磁干扰 1报警，0不报警
 	private Integer internalAlarm; // 内部错误 水表厂家自行定义
 	private Integer disconnectAlarm; // 远传模块分离告警 1报警，0不报警
-	private String evnetTime; // 事项上报时间
-	/**
-	 * @return the evnetTime
-	 */
-	public String getEvnetTime() {
-		return evnetTime;
-	}
+	private int  date; // 事项上报日期
+	private int  time; // 事项上报时间
 	/**
 	 * @param evnetTime the evnetTime to set
 	 */
 	public void setEvnetTime(String evnetTime) {
-		this.evnetTime = CommFunc.parseEventTime(evnetTime);
+		this.date = toInt(evnetTime.substring(0, 8));
+		this.time = toInt(evnetTime.substring(9, 15)) + 80000;
 	}
 	
-	
+	/**
+	 * @return the serialversionuid
+	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+
+
+	/**
+	 * @return the date
+	 */
+	public int getDate() {
+		return date;
+	}
+
+
+
+	/**
+	 * @return the time
+	 */
+	public int getTime() {
+		return time;
+	}
+
+
+
 	/**
 	 * @return the peakFlowStartTime
 	 */
@@ -155,6 +175,7 @@ public class DeviceAlarm implements Serializable {
 	public void setDisconnectAlarm(Integer disconnectAlarm) {
 		this.disconnectAlarm = disconnectAlarm;
 	}
+
 	/** (非 Javadoc) 
 	* <p>Title: toString</p> 
 	* <p>Description: </p> 
@@ -166,7 +187,7 @@ public class DeviceAlarm implements Serializable {
 		return "DeviceAlarm [peakFlowStartTime=" + peakFlowStartTime + ", peakFlow=" + peakFlow + ", tampered="
 				+ tampered + ", reverseFlowAlarm=" + reverseFlowAlarm + ", magneticInterferenceAlarm="
 				+ magneticInterferenceAlarm + ", internalAlarm=" + internalAlarm + ", disconnectAlarm="
-				+ disconnectAlarm + ", evnetTime=" + evnetTime + "]";
+				+ disconnectAlarm + ", date=" + date + ", time=" + time + "]";
 	}
 	
 }

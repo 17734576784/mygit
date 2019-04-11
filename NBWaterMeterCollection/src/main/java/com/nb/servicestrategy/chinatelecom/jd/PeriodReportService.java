@@ -47,7 +47,7 @@ public class PeriodReportService implements IServiceStrategy {
 
 	@Resource
 	private NbDailyDataMapper nbDailyDataMapper;
-	
+
 	@Resource
 	private NbInstantaneousMapper nbInstantaneousMapper;
 	
@@ -74,8 +74,6 @@ public class PeriodReportService implements IServiceStrategy {
 
 		PeriodReport periodReport = JsonUtil.map2Bean(dataMap, PeriodReport.class);
 		System.out.println(periodReport.toString());
-
-		System.out.println(periodReport.getFlows());
 
 		String evnetTime = periodReport.getReadTime();
 		int date = toInt(evnetTime.substring(0, 8));

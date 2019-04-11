@@ -1,0 +1,136 @@
+[2019-03-29 17:29:11.192] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-03-29 17:29:11.198] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-03-29 17:29:11.234] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 21ms. Found 0 repository interfaces.
+[2019-03-29 17:29:11.825] INFO [main] PostProcessorRegistrationDelegate.java:330 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$255f6f72] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2019-03-29 17:29:12.637] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 8080 (http)
+[2019-03-29 17:29:12.667] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-03-29 17:29:12.690] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-03-29 17:29:12.690] INFO [main] DirectJDKLog.java:173 - Starting Servlet engine: [Apache Tomcat/9.0.16]
+[2019-03-29 17:29:12.711] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_152\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_152/bin/server;C:/Program Files/Java/jre1.8.0_152/bin;C:/Program Files/Java/jre1.8.0_152/lib/amd64;C:\Program Files (x86)\Python36-32\Scripts\;C:\Program Files (x86)\Python36-32\;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Java\jdk1.8.0_152\bin;C:\Program Files\Java\jdk1.8.0_152\jre\bin;C:\Program Files\MySQL\MySQL Server 5.7\bin;C:\Program Files (x86)\TortoiseSVN\bin;F:\Redis-x64-3.2.100;C:\Python27;F:\Program Files (x86)\Microsoft SQL Server\120\DTS\Binn\;F:\Program Files (x86)\Microsoft SQL Server\Client SDK\ODBC\110\Tools\Binn\;F:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\;F:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\ManagementStudio\;C:\ke-s6700\prog;C:\ke-s6700\dll;C:\ke-s6800\dll;C:\ke-s6800\prog;C:\apache-maven-3.5.0\bin;F:\nexus;C:\Python36\Scripts\;C:\Python36\;F:\eclipse;;.]
+[2019-03-29 17:29:12.946] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-03-29 17:29:12.947] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 2716 ms
+[2019-03-29 17:29:13.365] INFO [main] DruidConfig.java:178 - dao层扫描包为:com/nb/mapper/*/*.xml
+[2019-03-29 17:29:14.729] INFO [main] DruidDataSource.java:947 - {dataSource-1} inited
+[2019-03-29 17:29:14.853] INFO [main] StdSchedulerFactory.java:1208 - Using default implementation for ThreadExecutor
+[2019-03-29 17:29:14.882] INFO [main] SchedulerSignalerImpl.java:61 - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[2019-03-29 17:29:14.882] INFO [main] QuartzScheduler.java:229 - Quartz Scheduler v.2.3.0 created.
+[2019-03-29 17:29:14.884] INFO [main] RAMJobStore.java:155 - RAMJobStore initialized.
+[2019-03-29 17:29:14.892] INFO [main] QuartzScheduler.java:294 - Scheduler meta-data: Quartz Scheduler (v2.3.0) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[2019-03-29 17:29:14.893] INFO [main] StdSchedulerFactory.java:1362 - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+[2019-03-29 17:29:14.893] INFO [main] StdSchedulerFactory.java:1366 - Quartz scheduler version: 2.3.0
+[2019-03-29 17:29:14.893] INFO [main] QuartzScheduler.java:2287 - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@31c628e7
+[2019-03-29 17:29:15.859] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-03-29 17:29:16.218] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'taskScheduler'
+[2019-03-29 17:29:16.279] INFO [main] SchedulerFactoryBean.java:726 - Starting Quartz Scheduler now
+[2019-03-29 17:29:16.279] INFO [main] QuartzScheduler.java:547 - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+[2019-03-29 17:29:16.292] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-03-29 17:29:16.334] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 8080 (http) with context path '/NBWaterMeterCollection'
+[2019-03-29 17:31:00.448] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-03-29 17:31:00.457] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-03-29 17:31:00.507] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 26ms. Found 0 repository interfaces.
+[2019-03-29 17:31:01.130] INFO [main] PostProcessorRegistrationDelegate.java:330 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$90e3937e] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2019-03-29 17:31:01.960] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 8080 (http)
+[2019-03-29 17:31:01.983] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-03-29 17:31:01.999] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-03-29 17:31:01.999] INFO [main] DirectJDKLog.java:173 - Starting Servlet engine: [Apache Tomcat/9.0.16]
+[2019-03-29 17:31:02.012] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_152\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_152/bin/server;C:/Program Files/Java/jre1.8.0_152/bin;C:/Program Files/Java/jre1.8.0_152/lib/amd64;C:\Program Files (x86)\Python36-32\Scripts\;C:\Program Files (x86)\Python36-32\;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Java\jdk1.8.0_152\bin;C:\Program Files\Java\jdk1.8.0_152\jre\bin;C:\Program Files\MySQL\MySQL Server 5.7\bin;C:\Program Files (x86)\TortoiseSVN\bin;F:\Redis-x64-3.2.100;C:\Python27;F:\Program Files (x86)\Microsoft SQL Server\120\DTS\Binn\;F:\Program Files (x86)\Microsoft SQL Server\Client SDK\ODBC\110\Tools\Binn\;F:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\;F:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\ManagementStudio\;C:\ke-s6700\prog;C:\ke-s6700\dll;C:\ke-s6800\dll;C:\ke-s6800\prog;C:\apache-maven-3.5.0\bin;F:\nexus;C:\Python36\Scripts\;C:\Python36\;F:\eclipse;;.]
+[2019-03-29 17:31:02.176] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-03-29 17:31:02.176] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 2894 ms
+[2019-03-29 17:31:10.286] INFO [main] null:-1 - dao层扫描包为:com/nb/mapper/*/*.xml
+[2019-03-29 17:31:11.741] INFO [main] DruidDataSource.java:947 - {dataSource-1} inited
+[2019-03-29 17:31:11.886] INFO [main] StdSchedulerFactory.java:1208 - Using default implementation for ThreadExecutor
+[2019-03-29 17:31:11.925] INFO [main] SchedulerSignalerImpl.java:61 - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[2019-03-29 17:31:11.925] INFO [main] QuartzScheduler.java:229 - Quartz Scheduler v.2.3.0 created.
+[2019-03-29 17:31:11.928] INFO [main] RAMJobStore.java:155 - RAMJobStore initialized.
+[2019-03-29 17:31:11.930] INFO [main] QuartzScheduler.java:294 - Scheduler meta-data: Quartz Scheduler (v2.3.0) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[2019-03-29 17:31:11.931] INFO [main] StdSchedulerFactory.java:1362 - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+[2019-03-29 17:31:11.932] INFO [main] StdSchedulerFactory.java:1366 - Quartz scheduler version: 2.3.0
+[2019-03-29 17:31:11.933] INFO [main] QuartzScheduler.java:2287 - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@1e495414
+[2019-03-29 17:31:13.294] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-03-29 17:31:13.758] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'taskScheduler'
+[2019-03-29 17:31:13.830] INFO [main] SchedulerFactoryBean.java:726 - Starting Quartz Scheduler now
+[2019-03-29 17:31:13.831] INFO [main] QuartzScheduler.java:547 - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+[2019-03-29 17:31:13.846] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-03-29 17:31:13.889] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 8080 (http) with context path '/NBWaterMeterCollection'
+[2019-03-29 17:31:44.874] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-03-29 17:31:44.882] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-03-29 17:31:44.929] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 24ms. Found 0 repository interfaces.
+[2019-03-29 17:31:45.537] INFO [main] PostProcessorRegistrationDelegate.java:330 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$342da6b2] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2019-03-29 17:31:46.384] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 8080 (http)
+[2019-03-29 17:31:46.410] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-03-29 17:31:46.428] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-03-29 17:31:46.428] INFO [main] DirectJDKLog.java:173 - Starting Servlet engine: [Apache Tomcat/9.0.16]
+[2019-03-29 17:31:46.442] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_152\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_152/bin/server;C:/Program Files/Java/jre1.8.0_152/bin;C:/Program Files/Java/jre1.8.0_152/lib/amd64;C:\Program Files (x86)\Python36-32\Scripts\;C:\Program Files (x86)\Python36-32\;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Java\jdk1.8.0_152\bin;C:\Program Files\Java\jdk1.8.0_152\jre\bin;C:\Program Files\MySQL\MySQL Server 5.7\bin;C:\Program Files (x86)\TortoiseSVN\bin;F:\Redis-x64-3.2.100;C:\Python27;F:\Program Files (x86)\Microsoft SQL Server\120\DTS\Binn\;F:\Program Files (x86)\Microsoft SQL Server\Client SDK\ODBC\110\Tools\Binn\;F:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\;F:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\ManagementStudio\;C:\ke-s6700\prog;C:\ke-s6700\dll;C:\ke-s6800\dll;C:\ke-s6800\prog;C:\apache-maven-3.5.0\bin;F:\nexus;C:\Python36\Scripts\;C:\Python36\;F:\eclipse;;.]
+[2019-03-29 17:31:46.592] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-03-29 17:31:46.593] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 2911 ms
+[2019-03-29 17:31:50.040] INFO [main] DruidConfig.java:177 - dao层扫描包为:com/nb/mapper/*/*.xml
+[2019-03-29 17:31:51.538] INFO [main] DruidDataSource.java:947 - {dataSource-1} inited
+[2019-03-29 17:31:51.660] INFO [main] StdSchedulerFactory.java:1208 - Using default implementation for ThreadExecutor
+[2019-03-29 17:31:51.695] INFO [main] SchedulerSignalerImpl.java:61 - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[2019-03-29 17:31:51.699] INFO [main] QuartzScheduler.java:229 - Quartz Scheduler v.2.3.0 created.
+[2019-03-29 17:31:51.701] INFO [main] RAMJobStore.java:155 - RAMJobStore initialized.
+[2019-03-29 17:31:51.703] INFO [main] QuartzScheduler.java:294 - Scheduler meta-data: Quartz Scheduler (v2.3.0) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[2019-03-29 17:31:51.703] INFO [main] StdSchedulerFactory.java:1362 - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+[2019-03-29 17:31:51.703] INFO [main] StdSchedulerFactory.java:1366 - Quartz scheduler version: 2.3.0
+[2019-03-29 17:31:51.704] INFO [main] QuartzScheduler.java:2287 - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@2ee4706d
+[2019-03-29 17:31:52.787] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-03-29 17:31:53.201] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'taskScheduler'
+[2019-03-29 17:31:53.267] INFO [main] SchedulerFactoryBean.java:726 - Starting Quartz Scheduler now
+[2019-03-29 17:31:53.267] INFO [main] QuartzScheduler.java:547 - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+[2019-03-29 17:31:53.280] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-03-29 17:31:53.334] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 8080 (http) with context path '/NBWaterMeterCollection'
+[2019-03-29 17:34:41.936] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-03-29 17:34:41.943] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-03-29 17:34:41.982] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 24ms. Found 0 repository interfaces.
+[2019-03-29 17:34:42.560] INFO [main] PostProcessorRegistrationDelegate.java:330 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$35504227] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2019-03-29 17:34:43.599] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 8080 (http)
+[2019-03-29 17:34:43.635] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-03-29 17:34:43.661] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-03-29 17:34:43.661] INFO [main] DirectJDKLog.java:173 - Starting Servlet engine: [Apache Tomcat/9.0.16]
+[2019-03-29 17:34:43.681] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_152\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_152/bin/server;C:/Program Files/Java/jre1.8.0_152/bin;C:/Program Files/Java/jre1.8.0_152/lib/amd64;C:\Program Files (x86)\Python36-32\Scripts\;C:\Program Files (x86)\Python36-32\;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Java\jdk1.8.0_152\bin;C:\Program Files\Java\jdk1.8.0_152\jre\bin;C:\Program Files\MySQL\MySQL Server 5.7\bin;C:\Program Files (x86)\TortoiseSVN\bin;F:\Redis-x64-3.2.100;C:\Python27;F:\Program Files (x86)\Microsoft SQL Server\120\DTS\Binn\;F:\Program Files (x86)\Microsoft SQL Server\Client SDK\ODBC\110\Tools\Binn\;F:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\;F:\Program Files (x86)\Microsoft SQL Server\120\Tools\Binn\ManagementStudio\;C:\ke-s6700\prog;C:\ke-s6700\dll;C:\ke-s6800\dll;C:\ke-s6800\prog;C:\apache-maven-3.5.0\bin;F:\nexus;C:\Python36\Scripts\;C:\Python36\;F:\eclipse;;.]
+[2019-03-29 17:34:43.947] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-03-29 17:34:43.948] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 3036 ms
+[2019-03-29 17:34:44.412] INFO [main] DruidConfig.java:177 - dao层扫描包为:com/nb/mapper/*/*.xml
+[2019-03-29 17:34:45.618] INFO [main] DruidDataSource.java:947 - {dataSource-1} inited
+[2019-03-29 17:34:45.741] INFO [main] StdSchedulerFactory.java:1208 - Using default implementation for ThreadExecutor
+[2019-03-29 17:34:45.772] INFO [main] SchedulerSignalerImpl.java:61 - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[2019-03-29 17:34:45.772] INFO [main] QuartzScheduler.java:229 - Quartz Scheduler v.2.3.0 created.
+[2019-03-29 17:34:45.774] INFO [main] RAMJobStore.java:155 - RAMJobStore initialized.
+[2019-03-29 17:34:45.776] INFO [main] QuartzScheduler.java:294 - Scheduler meta-data: Quartz Scheduler (v2.3.0) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[2019-03-29 17:34:45.776] INFO [main] StdSchedulerFactory.java:1362 - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+[2019-03-29 17:34:45.777] INFO [main] StdSchedulerFactory.java:1366 - Quartz scheduler version: 2.3.0
+[2019-03-29 17:34:45.777] INFO [main] QuartzScheduler.java:2287 - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@2370ac7a
+[2019-03-29 17:34:46.780] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-03-29 17:34:47.133] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'taskScheduler'
+[2019-03-29 17:34:47.197] INFO [main] SchedulerFactoryBean.java:726 - Starting Quartz Scheduler now
+[2019-03-29 17:34:47.197] INFO [main] QuartzScheduler.java:547 - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+[2019-03-29 17:34:47.209] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-03-29 17:34:47.256] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 8080 (http) with context path '/NBWaterMeterCollection'

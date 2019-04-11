@@ -61,7 +61,10 @@ public class BatteryService implements IServiceStrategy {
 		// TODO Auto-generated method stub
 		String logInfo = "上报竟达电池服务 ：" + deviceId + " ,内容：" + serviceMap.toString();
 		LoggerUtil.Logger(LogName.CALLBACK).info(logInfo);
-
+		if (serviceMap == null || serviceMap.isEmpty()) {
+			return;
+		}
+		
 		Object data = serviceMap.get("data");
 		Map<String, String> dataMap = new HashMap<String, String>();
 		dataMap = JsonUtil.jsonString2SimpleObj(data, dataMap.getClass());
@@ -69,12 +72,9 @@ public class BatteryService implements IServiceStrategy {
 			return;
 		}
 
-		String evnetTime = serviceMap.get("evnetTime");
-		int date = toInt(evnetTime.substring(0, 8));
-		int time = toInt(evnetTime.substring(9, 15)) + 80000;
-
 		Battery battery = JsonUtil.map2Bean(dataMap, Battery.class);
-
+		battery.setEvnetTime(serviceMap.get("evnetTime"));
+		
 		Map<String, Object> meterInfo = this.commonMapper.getNbInfoByDeviceId(deviceId);
 		if (meterInfo == null) {
 			return;
@@ -82,54 +82,56 @@ public class BatteryService implements IServiceStrategy {
 
 		int rtuId = toInt(meterInfo.get("rtuId"));
 		int mpId = toInt(meterInfo.get("mpId"));
-		String YM = toStr(date / 100);
+		
 		// 电池电压告警
 		if (battery.isAlarm()) {
-			insertEve(YM, date, time, battery, rtuId, mpId);
+			insertEve(battery, rtuId, mpId);
 		} else { // 正常上报电池电压
-			insertBattery(YM, date, time, battery, rtuId, mpId);
+			insertBattery( battery, rtuId, mpId);
 		}
 	}
 	
 	/** 
 	* @Title: insertEve 
-	* @Description: 插入电池电压告警
-	* @param @param YM
-	* @param @param date
-	* @param @param time
-	* @param @param battery    设定文件 
+	* @Description: 插入电池电压告警 
+	* @param @param battery
+	* @param @param rtuId
+	* @param @param mpId    设定文件 
 	* @return void    返回类型 
 	* @throws 
 	*/
-	private void insertEve(String YM, int date, int time, Battery battery, int rtuId, int mpId) {
+	private void insertEve(Battery battery, int rtuId, int mpId) {
 		Eve eve = new Eve();
-		eve.setTableName(YM);
-		eve.setYmd(date);
-		eve.setHmsms(time * 1000);
+		eve.setTableName(toStr(battery.getDate() / 100));
+		eve.setYmd(battery.getDate());
+		eve.setHmsms(battery.getTime() * 1000);
 		eve.setMemberId0(rtuId);
 		eve.setMemberId1(mpId);
 		eve.setMemberId2(-1);
 		eve.setClassno(Constant.NB_ALARM);
 		eve.setTypeno(Constant.ALARM_2005);
 		eve.setCharInfo("电池告警，电压值为：" + battery.getBatteryVoltage() + ",电压阀值为： " + battery.getBatteryvoltageThreshold());
-		eveMapper.insertEve(eve);
+		try {
+			eveMapper.insertEve(eve);
+		} catch (Exception e) {
+			LoggerUtil.Logger(LogName.CALLBACK).info(eve.toString() + "存库失败");
+		}
 	}
 
 	/** 
 	* @Title: insertBattery 
 	* @Description: 插入电池电压上报信息  nb_battery_200808
-	* @param @param YM
-	* @param @param date
-	* @param @param time
-	* @param @param battery    设定文件 
+	* @param @param battery
+	* @param @param rtuId
+	* @param @param mpId    设定文件 
 	* @return void    返回类型 
 	* @throws 
 	*/
-	private void insertBattery(String YM, int date, int time, Battery battery, int rtuId, int mpId) {
+	private void insertBattery(Battery battery, int rtuId, int mpId) {
 		NbBattery nbBattery = new NbBattery();
-		nbBattery.setTableName(YM);
-		nbBattery.setYmd(date);
-		nbBattery.setHms(time);
+		nbBattery.setTableName(toStr(battery.getDate() / 100));
+		nbBattery.setYmd(battery.getDate());
+		nbBattery.setHms(battery.getTime());
 		nbBattery.setRtuId(rtuId);
 		nbBattery.setMpId((short) mpId);
 		nbBattery.setBatteryVoltage(battery.getBatteryVoltage());
