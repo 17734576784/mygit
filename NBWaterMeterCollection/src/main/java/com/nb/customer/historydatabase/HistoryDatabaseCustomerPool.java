@@ -40,10 +40,10 @@ public class HistoryDatabaseCustomerPool {
 	
 	@PostConstruct
 	public void init() {
-		historyDatabaseCustomerPool = Executors.newFixedThreadPool(historyDatabasePoolsize);
-		for (int i = 0; i < historyDatabasePoolsize; i++) {
-			historyDatabaseCustomerPool.execute(new HistoryDatabaseCustomerThread(historyDatabaseExecutor));
-		}
+//		historyDatabaseCustomerPool = Executors.newFixedThreadPool(historyDatabasePoolsize);
+//		for (int i = 0; i < historyDatabasePoolsize; i++) {
+//			historyDatabaseCustomerPool.execute(new HistoryDatabaseCustomerThread(historyDatabaseExecutor));
+//		}
 	}
 	
 

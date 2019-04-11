@@ -23,7 +23,7 @@ import com.nb.utils.JedisUtils;
 public class AlarmCustomerThread implements Runnable {
 
 	/** 告警事项线程起止标志 */
-	public volatile static boolean alarmCustomerRunFlag = true;
+	public volatile static boolean alarmCustomerRunFlag = false;
 	
 	private AlarmCustomerExecutor alarmCustomerExecutor;
 	

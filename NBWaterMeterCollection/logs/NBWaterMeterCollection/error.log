@@ -1,294 +1,96 @@
-[2019-04-11 10:06:00.408] ERROR [quartzScheduler_Worker-1] JobRunShell.java:211 - Job task.task1 threw an unhandled Exception: 
-org.springframework.dao.DataIntegrityViolationException: 
-### Error updating database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 当 IDENTITY_INSERT 设置为 OFF 时，不能为表 'schedule_job' 中的标识列插入显式值。
-### The error may exist in com/nb/mapper/ScheduleJobMapper.xml
-### The error may involve com.nb.mapper.ScheduleJobMapper.insertSelective-Inline
-### The error occurred while setting parameters
-### SQL: insert into schedule_job      ( job_id,                       job_name,                       job_group,                       job_status,                       cron_expression,                       quartz_class )       values ( ?,                       ?,                       ?,                       ?,                       ?,                       ? )
-### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 当 IDENTITY_INSERT 设置为 OFF 时，不能为表 'schedule_job' 中的标识列插入显式值。
-; 当 IDENTITY_INSERT 设置为 OFF 时，不能为表 'schedule_job' 中的标识列插入显式值。; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 当 IDENTITY_INSERT 设置为 OFF 时，不能为表 'schedule_job' 中的标识列插入显式值。
-	at org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator.doTranslate(SQLErrorCodeSQLExceptionTranslator.java:246)
-	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:72)
-	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:73)
-	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:446)
-	at com.sun.proxy.$Proxy78.insert(Unknown Source)
-	at org.mybatis.spring.SqlSessionTemplate.insert(SqlSessionTemplate.java:278)
-	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:59)
-	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:58)
-	at com.sun.proxy.$Proxy80.insertSelective(Unknown Source)
-	at com.nb.serviceimpl.ScheduleServiceImpl.test(ScheduleServiceImpl.java:76)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:343)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:198)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
-	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:294)
-	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:212)
-	at com.sun.proxy.$Proxy82.test(Unknown Source)
-	at com.nb.task.TaskTest.execute(TaskTest.java:48)
-	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
-	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
-Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: 当 IDENTITY_INSERT 设置为 OFF 时，不能为表 'schedule_job' 中的标识列插入显式值。
-	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:197)
-	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1493)
-	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement(SQLServerPreparedStatement.java:390)
-	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtExecCmd.doExecute(SQLServerPreparedStatement.java:340)
-	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:4874)
-	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:1400)
-	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:179)
-	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:154)
-	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.execute(SQLServerPreparedStatement.java:322)
-	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3409)
-	at com.alibaba.druid.filter.FilterEventAdapter.preparedStatement_execute(FilterEventAdapter.java:440)
-	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3407)
-	at com.alibaba.druid.wall.WallFilter.preparedStatement_execute(WallFilter.java:620)
-	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3407)
-	at com.alibaba.druid.filter.FilterEventAdapter.preparedStatement_execute(FilterEventAdapter.java:440)
-	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3407)
-	at com.alibaba.druid.proxy.jdbc.PreparedStatementProxyImpl.execute(PreparedStatementProxyImpl.java:167)
-	at com.alibaba.druid.pool.DruidPooledPreparedStatement.execute(DruidPooledPreparedStatement.java:498)
-	at org.apache.ibatis.executor.statement.PreparedStatementHandler.update(PreparedStatementHandler.java:47)
-	at org.apache.ibatis.executor.statement.RoutingStatementHandler.update(RoutingStatementHandler.java:74)
-	at org.apache.ibatis.executor.SimpleExecutor.doUpdate(SimpleExecutor.java:50)
-	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117)
-	at org.apache.ibatis.executor.CachingExecutor.update(CachingExecutor.java:76)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:63)
-	at com.sun.proxy.$Proxy101.update(Unknown Source)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:198)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.insert(DefaultSqlSession.java:185)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:433)
-	... 21 common frames omitted
-[2019-04-11 10:06:00.408] ERROR [quartzScheduler_Worker-1] QuartzScheduler.java:2401 - Job (task.task1 threw an exception.
-org.quartz.SchedulerException: Job threw an unhandled exception.
-	at org.quartz.core.JobRunShell.run(JobRunShell.java:213)
-	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
-Caused by: org.springframework.dao.DataIntegrityViolationException: 
-### Error updating database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 当 IDENTITY_INSERT 设置为 OFF 时，不能为表 'schedule_job' 中的标识列插入显式值。
-### The error may exist in com/nb/mapper/ScheduleJobMapper.xml
-### The error may involve com.nb.mapper.ScheduleJobMapper.insertSelective-Inline
-### The error occurred while setting parameters
-### SQL: insert into schedule_job      ( job_id,                       job_name,                       job_group,                       job_status,                       cron_expression,                       quartz_class )       values ( ?,                       ?,                       ?,                       ?,                       ?,                       ? )
-### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 当 IDENTITY_INSERT 设置为 OFF 时，不能为表 'schedule_job' 中的标识列插入显式值。
-; 当 IDENTITY_INSERT 设置为 OFF 时，不能为表 'schedule_job' 中的标识列插入显式值。; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 当 IDENTITY_INSERT 设置为 OFF 时，不能为表 'schedule_job' 中的标识列插入显式值。
-	at org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator.doTranslate(SQLErrorCodeSQLExceptionTranslator.java:246)
-	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:72)
-	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:73)
-	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:446)
-	at com.sun.proxy.$Proxy78.insert(Unknown Source)
-	at org.mybatis.spring.SqlSessionTemplate.insert(SqlSessionTemplate.java:278)
-	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:59)
-	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:58)
-	at com.sun.proxy.$Proxy80.insertSelective(Unknown Source)
-	at com.nb.serviceimpl.ScheduleServiceImpl.test(ScheduleServiceImpl.java:76)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:343)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:198)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
-	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:294)
-	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:212)
-	at com.sun.proxy.$Proxy82.test(Unknown Source)
-	at com.nb.task.TaskTest.execute(TaskTest.java:48)
-	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
-	... 1 common frames omitted
-Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: 当 IDENTITY_INSERT 设置为 OFF 时，不能为表 'schedule_job' 中的标识列插入显式值。
-	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:197)
-	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1493)
-	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement(SQLServerPreparedStatement.java:390)
-	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtExecCmd.doExecute(SQLServerPreparedStatement.java:340)
-	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:4874)
-	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:1400)
-	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:179)
-	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:154)
-	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.execute(SQLServerPreparedStatement.java:322)
-	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3409)
-	at com.alibaba.druid.filter.FilterEventAdapter.preparedStatement_execute(FilterEventAdapter.java:440)
-	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3407)
-	at com.alibaba.druid.wall.WallFilter.preparedStatement_execute(WallFilter.java:620)
-	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3407)
-	at com.alibaba.druid.filter.FilterEventAdapter.preparedStatement_execute(FilterEventAdapter.java:440)
-	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3407)
-	at com.alibaba.druid.proxy.jdbc.PreparedStatementProxyImpl.execute(PreparedStatementProxyImpl.java:167)
-	at com.alibaba.druid.pool.DruidPooledPreparedStatement.execute(DruidPooledPreparedStatement.java:498)
-	at org.apache.ibatis.executor.statement.PreparedStatementHandler.update(PreparedStatementHandler.java:47)
-	at org.apache.ibatis.executor.statement.RoutingStatementHandler.update(RoutingStatementHandler.java:74)
-	at org.apache.ibatis.executor.SimpleExecutor.doUpdate(SimpleExecutor.java:50)
-	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117)
-	at org.apache.ibatis.executor.CachingExecutor.update(CachingExecutor.java:76)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:63)
-	at com.sun.proxy.$Proxy101.update(Unknown Source)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:198)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.insert(DefaultSqlSession.java:185)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:433)
-	... 21 common frames omitted
-[2019-04-11 10:16:00.277] ERROR [quartzScheduler_Worker-1] JobRunShell.java:211 - Job task.task1 threw an unhandled Exception: 
-org.springframework.dao.DataIntegrityViolationException: 
-### Error updating database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 当 IDENTITY_INSERT 设置为 OFF 时，不能为表 'schedule_job' 中的标识列插入显式值。
-### The error may exist in com/nb/mapper/ScheduleJobMapper.xml
-### The error may involve com.nb.mapper.ScheduleJobMapper.insertSelective-Inline
-### The error occurred while setting parameters
-### SQL: insert into schedule_job      ( job_id,                       job_name,                       job_group,                       job_status,                       cron_expression,                       quartz_class )       values ( ?,                       ?,                       ?,                       ?,                       ?,                       ? )
-### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 当 IDENTITY_INSERT 设置为 OFF 时，不能为表 'schedule_job' 中的标识列插入显式值。
-; 当 IDENTITY_INSERT 设置为 OFF 时，不能为表 'schedule_job' 中的标识列插入显式值。; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 当 IDENTITY_INSERT 设置为 OFF 时，不能为表 'schedule_job' 中的标识列插入显式值。
-	at org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator.doTranslate(SQLErrorCodeSQLExceptionTranslator.java:246)
-	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:72)
-	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:73)
-	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:446)
-	at com.sun.proxy.$Proxy78.insert(Unknown Source)
-	at org.mybatis.spring.SqlSessionTemplate.insert(SqlSessionTemplate.java:278)
-	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:59)
-	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:58)
-	at com.sun.proxy.$Proxy80.insertSelective(Unknown Source)
-	at com.nb.serviceimpl.ScheduleServiceImpl.test(ScheduleServiceImpl.java:76)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:343)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:198)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
-	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:294)
-	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:212)
-	at com.sun.proxy.$Proxy82.test(Unknown Source)
-	at com.nb.task.TaskTest.execute(TaskTest.java:48)
-	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
-	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
-Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: 当 IDENTITY_INSERT 设置为 OFF 时，不能为表 'schedule_job' 中的标识列插入显式值。
-	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:197)
-	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1493)
-	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement(SQLServerPreparedStatement.java:390)
-	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtExecCmd.doExecute(SQLServerPreparedStatement.java:340)
-	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:4874)
-	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:1400)
-	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:179)
-	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:154)
-	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.execute(SQLServerPreparedStatement.java:322)
-	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3409)
-	at com.alibaba.druid.filter.FilterEventAdapter.preparedStatement_execute(FilterEventAdapter.java:440)
-	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3407)
-	at com.alibaba.druid.wall.WallFilter.preparedStatement_execute(WallFilter.java:620)
-	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3407)
-	at com.alibaba.druid.filter.FilterEventAdapter.preparedStatement_execute(FilterEventAdapter.java:440)
-	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3407)
-	at com.alibaba.druid.proxy.jdbc.PreparedStatementProxyImpl.execute(PreparedStatementProxyImpl.java:167)
-	at com.alibaba.druid.pool.DruidPooledPreparedStatement.execute(DruidPooledPreparedStatement.java:498)
-	at org.apache.ibatis.executor.statement.PreparedStatementHandler.update(PreparedStatementHandler.java:47)
-	at org.apache.ibatis.executor.statement.RoutingStatementHandler.update(RoutingStatementHandler.java:74)
-	at org.apache.ibatis.executor.SimpleExecutor.doUpdate(SimpleExecutor.java:50)
-	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117)
-	at org.apache.ibatis.executor.CachingExecutor.update(CachingExecutor.java:76)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:63)
-	at com.sun.proxy.$Proxy102.update(Unknown Source)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:198)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.insert(DefaultSqlSession.java:185)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:433)
-	... 21 common frames omitted
-[2019-04-11 10:16:00.278] ERROR [quartzScheduler_Worker-1] QuartzScheduler.java:2401 - Job (task.task1 threw an exception.
-org.quartz.SchedulerException: Job threw an unhandled exception.
-	at org.quartz.core.JobRunShell.run(JobRunShell.java:213)
-	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
-Caused by: org.springframework.dao.DataIntegrityViolationException: 
-### Error updating database.  Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 当 IDENTITY_INSERT 设置为 OFF 时，不能为表 'schedule_job' 中的标识列插入显式值。
-### The error may exist in com/nb/mapper/ScheduleJobMapper.xml
-### The error may involve com.nb.mapper.ScheduleJobMapper.insertSelective-Inline
-### The error occurred while setting parameters
-### SQL: insert into schedule_job      ( job_id,                       job_name,                       job_group,                       job_status,                       cron_expression,                       quartz_class )       values ( ?,                       ?,                       ?,                       ?,                       ?,                       ? )
-### Cause: com.microsoft.sqlserver.jdbc.SQLServerException: 当 IDENTITY_INSERT 设置为 OFF 时，不能为表 'schedule_job' 中的标识列插入显式值。
-; 当 IDENTITY_INSERT 设置为 OFF 时，不能为表 'schedule_job' 中的标识列插入显式值。; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: 当 IDENTITY_INSERT 设置为 OFF 时，不能为表 'schedule_job' 中的标识列插入显式值。
-	at org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator.doTranslate(SQLErrorCodeSQLExceptionTranslator.java:246)
-	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:72)
-	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:73)
-	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:446)
-	at com.sun.proxy.$Proxy78.insert(Unknown Source)
-	at org.mybatis.spring.SqlSessionTemplate.insert(SqlSessionTemplate.java:278)
-	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:59)
-	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:58)
-	at com.sun.proxy.$Proxy80.insertSelective(Unknown Source)
-	at com.nb.serviceimpl.ScheduleServiceImpl.test(ScheduleServiceImpl.java:76)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:343)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:198)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
-	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:294)
-	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:212)
-	at com.sun.proxy.$Proxy82.test(Unknown Source)
-	at com.nb.task.TaskTest.execute(TaskTest.java:48)
-	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
-	... 1 common frames omitted
-Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: 当 IDENTITY_INSERT 设置为 OFF 时，不能为表 'schedule_job' 中的标识列插入显式值。
-	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:197)
-	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1493)
-	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement(SQLServerPreparedStatement.java:390)
-	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtExecCmd.doExecute(SQLServerPreparedStatement.java:340)
-	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:4874)
-	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:1400)
-	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:179)
-	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:154)
-	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.execute(SQLServerPreparedStatement.java:322)
-	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3409)
-	at com.alibaba.druid.filter.FilterEventAdapter.preparedStatement_execute(FilterEventAdapter.java:440)
-	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3407)
-	at com.alibaba.druid.wall.WallFilter.preparedStatement_execute(WallFilter.java:620)
-	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3407)
-	at com.alibaba.druid.filter.FilterEventAdapter.preparedStatement_execute(FilterEventAdapter.java:440)
-	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3407)
-	at com.alibaba.druid.proxy.jdbc.PreparedStatementProxyImpl.execute(PreparedStatementProxyImpl.java:167)
-	at com.alibaba.druid.pool.DruidPooledPreparedStatement.execute(DruidPooledPreparedStatement.java:498)
-	at org.apache.ibatis.executor.statement.PreparedStatementHandler.update(PreparedStatementHandler.java:47)
-	at org.apache.ibatis.executor.statement.RoutingStatementHandler.update(RoutingStatementHandler.java:74)
-	at org.apache.ibatis.executor.SimpleExecutor.doUpdate(SimpleExecutor.java:50)
-	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117)
-	at org.apache.ibatis.executor.CachingExecutor.update(CachingExecutor.java:76)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:63)
-	at com.sun.proxy.$Proxy102.update(Unknown Source)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:198)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.insert(DefaultSqlSession.java:185)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:433)
-	... 21 common frames omitted
+[2019-04-11 15:23:38.950] ERROR [main] DirectJDKLog.java:175 - Failed to start component [Connector[HTTP/1.1-18213]]
+org.apache.catalina.LifecycleException: Protocol handler start failed
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1008)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+	at org.apache.catalina.core.StandardService.addConnector(StandardService.java:226)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.addPreviouslyRemovedConnectors(TomcatWebServer.java:259)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:197)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.startWebServer(ServletWebServerApplicationContext.java:311)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.finishRefresh(ServletWebServerApplicationContext.java:164)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:552)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248)
+	at com.nb.NbWaterMeterCollectionApplication.main(NbWaterMeterCollectionApplication.java:22)
+Caused by: java.lang.IllegalArgumentException: the trustAnchors parameter must be non-empty
+	at org.apache.tomcat.util.net.AbstractJsseEndpoint.createSSLContext(AbstractJsseEndpoint.java:114)
+	at org.apache.tomcat.util.net.AbstractJsseEndpoint.initialiseSsl(AbstractJsseEndpoint.java:85)
+	at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:224)
+	at org.apache.tomcat.util.net.AbstractEndpoint.bindWithCleanup(AbstractEndpoint.java:1085)
+	at org.apache.tomcat.util.net.AbstractEndpoint.start(AbstractEndpoint.java:1171)
+	at org.apache.coyote.AbstractProtocol.start(AbstractProtocol.java:568)
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1005)
+	... 14 common frames omitted
+Caused by: java.security.InvalidAlgorithmParameterException: the trustAnchors parameter must be non-empty
+	at java.security.cert.PKIXParameters.setTrustAnchors(PKIXParameters.java:200)
+	at java.security.cert.PKIXParameters.<init>(PKIXParameters.java:157)
+	at java.security.cert.PKIXBuilderParameters.<init>(PKIXBuilderParameters.java:130)
+	at org.apache.tomcat.util.net.jsse.JSSEUtil.getParameters(JSSEUtil.java:409)
+	at org.apache.tomcat.util.net.jsse.JSSEUtil.getTrustManagers(JSSEUtil.java:333)
+	at org.apache.tomcat.util.net.AbstractJsseEndpoint.createSSLContext(AbstractJsseEndpoint.java:112)
+	... 20 common frames omitted
+[2019-04-11 15:23:39.280] ERROR [main] LoggingFailureAnalysisReporter.java:42 - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The Tomcat connector configured to listen on port 18213 failed to start. The port may already be in use or the connector may be misconfigured.
+
+Action:
+
+Verify the connector's configuration, identify and stop any process that's listening on port 18213, or configure this application to listen on another port.
+
+[2019-04-11 15:26:21.752] ERROR [main] DirectJDKLog.java:175 - Failed to start component [Connector[HTTP/1.1-18213]]
+org.apache.catalina.LifecycleException: Protocol handler start failed
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1008)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+	at org.apache.catalina.core.StandardService.addConnector(StandardService.java:226)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.addPreviouslyRemovedConnectors(TomcatWebServer.java:259)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:197)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.startWebServer(ServletWebServerApplicationContext.java:311)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.finishRefresh(ServletWebServerApplicationContext.java:164)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:552)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248)
+	at com.nb.NbWaterMeterCollectionApplication.main(NbWaterMeterCollectionApplication.java:22)
+Caused by: java.lang.IllegalArgumentException: the trustAnchors parameter must be non-empty
+	at org.apache.tomcat.util.net.AbstractJsseEndpoint.createSSLContext(AbstractJsseEndpoint.java:114)
+	at org.apache.tomcat.util.net.AbstractJsseEndpoint.initialiseSsl(AbstractJsseEndpoint.java:85)
+	at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:224)
+	at org.apache.tomcat.util.net.AbstractEndpoint.bindWithCleanup(AbstractEndpoint.java:1085)
+	at org.apache.tomcat.util.net.AbstractEndpoint.start(AbstractEndpoint.java:1171)
+	at org.apache.coyote.AbstractProtocol.start(AbstractProtocol.java:568)
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1005)
+	... 14 common frames omitted
+Caused by: java.security.InvalidAlgorithmParameterException: the trustAnchors parameter must be non-empty
+	at java.security.cert.PKIXParameters.setTrustAnchors(PKIXParameters.java:200)
+	at java.security.cert.PKIXParameters.<init>(PKIXParameters.java:157)
+	at java.security.cert.PKIXBuilderParameters.<init>(PKIXBuilderParameters.java:130)
+	at org.apache.tomcat.util.net.jsse.JSSEUtil.getParameters(JSSEUtil.java:409)
+	at org.apache.tomcat.util.net.jsse.JSSEUtil.getTrustManagers(JSSEUtil.java:333)
+	at org.apache.tomcat.util.net.AbstractJsseEndpoint.createSSLContext(AbstractJsseEndpoint.java:112)
+	... 20 common frames omitted
+[2019-04-11 15:26:22.064] ERROR [main] LoggingFailureAnalysisReporter.java:42 - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The Tomcat connector configured to listen on port 18213 failed to start. The port may already be in use or the connector may be misconfigured.
+
+Action:
+
+Verify the connector's configuration, identify and stop any process that's listening on port 18213, or configure this application to listen on another port.
+

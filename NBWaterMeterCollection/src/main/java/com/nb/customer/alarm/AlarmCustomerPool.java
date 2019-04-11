@@ -39,10 +39,10 @@ public class AlarmCustomerPool {
 
 	@PostConstruct
 	public void init() {
-		alarmCustomerPool = Executors.newFixedThreadPool(alarmEventPoolsize);
-		for (int i = 0; i < alarmEventPoolsize; i++) {
-			alarmCustomerPool.execute(new AlarmCustomerThread(alarmCustomerExecutor));
-		}
+//		alarmCustomerPool = Executors.newFixedThreadPool(alarmEventPoolsize);
+//		for (int i = 0; i < alarmEventPoolsize; i++) {
+//			alarmCustomerPool.execute(new AlarmCustomerThread(alarmCustomerExecutor));
+//		}
 	}
 
 }

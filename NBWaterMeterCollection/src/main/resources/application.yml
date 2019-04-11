@@ -1,11 +1,22 @@
+http: 
+  port: 8080
 #默认为443，可以修改为自己需要的端口
 server:
-  port: 8080
-  servlet:
-    context-path: /NBWaterMeterCollection
+  port: 18213
   tomcat: 
     uri-encoding: UTF-8
-  
+    max-threads: 150
+  ssl:
+    enabled: true
+    client-auth: need
+    key-store: classpath:tomcat.keystore
+    key-store-password: 1029384756
+    key-password: 1029384756
+    trust-store: classpath:tomcat.keystore
+    trust-store-password: 1029384756
+    key-store-type: JKS
+    key-alias: tomcat
+    
 logging:
   level: 
     learning: debug
@@ -23,7 +34,7 @@ spring:
     # Redis数据库索引（默认为0）
     database: 0  
     # Redis服务器地址
-    host: 192.168.19.8
+    host: 127.0.0.1
     # Redis服务器连接端口
     port: 6379  
     # Redis服务器连接密码（默认为空）
@@ -44,10 +55,10 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    platform: mysql
-    url: jdbc:sqlserver://192.168.19.9:1433;Databasename=ydpara
+    platform: sqlserver
+    url: jdbc:sqlserver://192.168.1.130:1433;Databasename=ydpara
     username: sa
-    password: keyd*%@#1095
+    password: ke-s2000
     initialSize: 5
     minIdle: 5
     maxActive: 20

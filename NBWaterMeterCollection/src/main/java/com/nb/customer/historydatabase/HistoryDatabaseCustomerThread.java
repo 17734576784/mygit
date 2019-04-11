@@ -23,7 +23,7 @@ import com.nb.utils.JedisUtils;
 public class HistoryDatabaseCustomerThread implements Runnable{
 
 	/** 历史库线程起止标志 */
-	public volatile static boolean historyDatabaseRunFlag = true;
+	public volatile static boolean historyDatabaseRunFlag = false;
 
 	private HistoryDatabaseExecutor historyDatabaseExecutor;
 	

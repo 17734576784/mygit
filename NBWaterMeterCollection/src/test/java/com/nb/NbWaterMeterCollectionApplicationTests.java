@@ -90,7 +90,7 @@ public class NbWaterMeterCollectionApplicationTests {
 	@Test
 	public void testValue(){
 		Map<String, String> dataMap = new HashMap<String, String>();
-		dataMap.put("valveState", "H");
+		dataMap.put("valveState", "C");
 
 		byte valveState = Constant.VALVE_OTHER;
 		switch (dataMap.get("valveState")) {
@@ -108,7 +108,7 @@ public class NbWaterMeterCollectionApplicationTests {
 			break;
 		}
 		
-		String deviceId = "11111111";
+		String deviceId = "55ff190f-33fe-40f7-8cbc-df877b5d9645";
 		Map<String, Object> meterInfo = this.commonMapper.getNbInfoByDeviceId(deviceId);
 		if (meterInfo == null) {
 			return;

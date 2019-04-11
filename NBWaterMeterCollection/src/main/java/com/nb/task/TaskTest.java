@@ -45,7 +45,7 @@ public class TaskTest implements Job {
 		// TODO Auto-generated method stub
 		System.out.println("执行任务 ： " + LocalDateTime.now() + "  " + scheduleService.findLegalJobList().get(0).getCronExpression());
 
-		scheduleService.test();
+//		scheduleService.test();
 
 	}
 	
