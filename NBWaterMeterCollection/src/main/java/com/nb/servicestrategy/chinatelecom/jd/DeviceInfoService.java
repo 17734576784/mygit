@@ -53,7 +53,7 @@ public class DeviceInfoService implements IServiceStrategy {
 		Map<String, String> dataMap = new HashMap<String, String>();
 		dataMap = JsonUtil.jsonString2SimpleObj(data, dataMap.getClass());
 
-		String evnetTime = serviceMap.get("evnetTime");
+//		String evnetTime = serviceMap.get("evnetTime");
 		DeviceInfo deviceInfo = JsonUtil.map2Bean(dataMap, DeviceInfo.class);
 //		deviceInfo.setEvnetTime(evnetTime);
 

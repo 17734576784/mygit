@@ -10,8 +10,6 @@ package com.nb.model.jd;
 
 import java.io.Serializable;
 
-import com.nb.utils.CommFunc;
-
 /** 
 * @ClassName: DeviceInfo 
 * @Description: TODO(这里用一句话描述这个类的作用) 

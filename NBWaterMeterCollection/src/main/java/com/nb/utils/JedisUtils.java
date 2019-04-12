@@ -1048,7 +1048,9 @@ public class JedisUtils {
 			jedis = getResource();
 			if (isExists(key)) {
 				byte[] tempValue = jedis.rpop(key.getBytes());
-				value = SerializeUtils.deserialize(tempValue);
+				if (tempValue != null && tempValue.length > 0) {
+					value = SerializeUtils.deserialize(tempValue);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

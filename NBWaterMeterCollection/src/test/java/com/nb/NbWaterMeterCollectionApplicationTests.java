@@ -17,6 +17,7 @@ import javax.annotation.Resource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.redis.RedisProperties.Jedis;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -88,6 +89,12 @@ public class NbWaterMeterCollectionApplicationTests {
 	
 	@Test
 	public void testEve() {
+		try {
+			System.out.println(JedisUtils.rpop("333"));
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 		
 		Eve eve = new Eve();
 		eve.setTableName(toStr(201904));
