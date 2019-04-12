@@ -35,19 +35,7 @@ public class DeviceInfo implements Serializable {
 	private String meterTime; // 终端时钟 YYMMDDHHMMSS
 	private Integer runDays; // 终端运行时间 单位:天
 	private Integer softwareVersion;// 终端软件版本
-	private String evnetTime; // 事项上报时间
-	/**
-	 * @return the evnetTime
-	 */
-	public String getEvnetTime() {
-		return evnetTime;
-	}
-	/**
-	 * @param evnetTime the evnetTime to set
-	 */
-	public void setEvnetTime(String evnetTime) {
-		this.evnetTime = CommFunc.parseEventTime(evnetTime);
-	}
+
 	/**
 	 * @return the imei
 	 */
@@ -166,7 +154,7 @@ public class DeviceInfo implements Serializable {
 	public String toString() {
 		return "DeviceInfo [imei=" + imei + ", imsi=" + imsi + ", protocolVersion=" + protocolVersion + ", deviceType="
 				+ deviceType + ", state=" + state + ", meterNo=" + meterNo + ", meterTime=" + meterTime + ", runDays="
-				+ runDays + ", softwareVersion=" + softwareVersion + ", evnetTime=" + evnetTime + "]";
+				+ runDays + ", softwareVersion=" + softwareVersion + ", evnetTime=]";
 	}
 	
 	

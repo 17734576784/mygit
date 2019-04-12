@@ -36,14 +36,34 @@ public class HistoryDatabaseCustomerPool {
 	@Autowired
 	private HistoryDatabaseExecutor historyDatabaseExecutor;
 	
-	ExecutorService historyDatabaseCustomerPool;
+	ExecutorService dailyDatabaseCustomerPool;
+	
+	ExecutorService instanceDatabaseCustomerPool;
+
+	ExecutorService batteryDatabaseCustomerPool;
+
 	
 	@PostConstruct
 	public void init() {
-		historyDatabaseCustomerPool = Executors.newFixedThreadPool(historyDatabasePoolsize);
+		
+		dailyDatabaseCustomerPool = Executors.newFixedThreadPool(historyDatabasePoolsize);
 		for (int i = 0; i < historyDatabasePoolsize; i++) {
-			historyDatabaseCustomerPool.execute(new HistoryDatabaseCustomerThread(historyDatabaseExecutor));
+			dailyDatabaseCustomerPool.execute(new DailyDataCustomerThread(historyDatabaseExecutor));
 		}
+		System.out.println("日数据历史库线程启动成功");
+
+		instanceDatabaseCustomerPool = Executors.newFixedThreadPool(historyDatabasePoolsize);
+		for (int i = 0; i < historyDatabasePoolsize; i++) {
+			instanceDatabaseCustomerPool.execute(new InstanceDataCustomerThread(historyDatabaseExecutor));
+		}
+		System.out.println("瞬时量数据历史库线程启动成功");
+
+		batteryDatabaseCustomerPool = Executors.newFixedThreadPool(historyDatabasePoolsize);
+		for (int i = 0; i < historyDatabasePoolsize; i++) {
+			batteryDatabaseCustomerPool.execute(new BatteryDataCustomerThread(historyDatabaseExecutor));
+		}
+		System.out.println("电池电压数据历史库线程启动成功");
+
 	}
 	
 

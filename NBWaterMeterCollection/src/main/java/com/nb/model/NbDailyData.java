@@ -42,7 +42,11 @@ public class NbDailyData extends NbDailyDataKey {
 	 * @param tableName the tableName to set
 	 */
 	public void setTableName(String date) {
-		this.tableName = "yddata.dbo.nb_daily_data_" + date;
+		if (date.length() == 6) {
+			this.tableName = "yddata.dbo.nb_daily_data_" + date;
+		}else {
+			this.tableName = date;
+		}
 	}
 
 	public Byte getReportType() {

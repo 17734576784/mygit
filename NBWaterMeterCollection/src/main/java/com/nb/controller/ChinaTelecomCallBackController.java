@@ -65,7 +65,8 @@ public class ChinaTelecomCallBackController {
 			messageMap = JsonUtil.jsonString2SimpleObj(updateDeviceData_NotifyMessage, messageMap.getClass());
 			String deviceId = toStr(messageMap.get("deviceId"));
 			Object service = messageMap.get("service");
-
+			System.out.println(service);
+			
 			Map<String, String> serviceMap = new HashMap<String, String>();
 			serviceMap = JsonUtil.jsonString2SimpleObj(service, serviceMap.getClass());
 			String serviceId = toStr(serviceMap.get("serviceId"));

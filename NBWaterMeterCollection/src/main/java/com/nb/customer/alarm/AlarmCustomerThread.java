@@ -47,9 +47,14 @@ public class AlarmCustomerThread implements Runnable {
 		while(true) {
 			if (alarmCustomerRunFlag) {
 				Object alaram = null;
-				alaram = JedisUtils.brpop(20, Constant.ALARM_EVENT_QUEUE);
-				if (alaram != null) {
-					alarmCustomerExecutor.saveAlarmEvent(alaram);
+				try {
+					alaram = JedisUtils.brpopLpush(Constant.ALARM_EVENT_QUEUE, Constant.ALARM_EVENT_ERROR_QUEUE, 20);
+					if (null != alaram) {
+						alarmCustomerExecutor.saveAlarmEvent(alaram);
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
 				}
 			}
 		}

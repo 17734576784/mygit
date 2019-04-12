@@ -17,7 +17,11 @@ public class NbBattery extends NbBatteryKey {
 	 * @param tableName the tableName to set
 	 */
 	public void setTableName(String date) {
-		this.tableName = "yddata.dbo.nb_battery_" + date;
+		if (date.length() == 6) {
+			this.tableName = "yddata.dbo.nb_battery_" + date;
+		} else {
+			this.tableName = date;
+		}
 	}
 	
     public Double getBatteryVoltage() {

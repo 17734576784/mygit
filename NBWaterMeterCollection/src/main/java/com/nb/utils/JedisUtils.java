@@ -1148,17 +1148,20 @@ public class JedisUtils {
 	 * <li>当超期时间到达时，keys列表仍然没有内容，则返回Null</li>
 	 * @return List<String>
 	 */
-	public static Object brpop(int timeout, String key) {
+	public static Object brpop(String key, int timeout) {
 		Jedis jedis = null;
 		Object value = null;
 		try {
 			jedis = getResource();
-  			value = jedis.brpop(timeout, key);
+			if (null != jedis.brpop(timeout, key)) {
+				value = jedis.brpop(timeout, key).get(1);
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			returnRource(jedis);
-		} 
+		}
 		return value;
 	}
 	

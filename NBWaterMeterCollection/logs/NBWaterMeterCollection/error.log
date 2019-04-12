@@ -1206,3 +1206,1053 @@ org.springframework.web.HttpRequestMethodNotSupportedException: Request method '
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.277] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.277] ERROR [pool-2-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.DailyDataCustomerThread.run(DailyDataCustomerThread.java:66)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.310] ERROR [pool-2-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.DailyDataCustomerThread.run(DailyDataCustomerThread.java:66)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.310] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.316] ERROR [pool-2-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.DailyDataCustomerThread.run(DailyDataCustomerThread.java:66)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.320] ERROR [pool-2-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.DailyDataCustomerThread.run(DailyDataCustomerThread.java:66)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.326] ERROR [pool-2-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.DailyDataCustomerThread.run(DailyDataCustomerThread.java:66)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.329] ERROR [pool-2-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.DailyDataCustomerThread.run(DailyDataCustomerThread.java:66)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.346] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.357] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.368] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.374] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.385] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.397] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.408] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.419] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.430] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.437] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.447] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.454] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.465] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.477] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.487] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.507] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.516] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.528] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.540] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.546] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.552] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.556] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.562] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.568] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.574] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.580] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.592] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.596] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.602] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.609] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.614] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.621] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.630] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.859] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.872] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.882] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.889] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.900] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.910] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.918] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.927] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.934] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.944] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.952] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.962] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.969] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.971] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.974] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.976] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.978] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.981] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.983] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.985] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.987] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.990] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.992] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.994] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.997] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:02.998] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.001] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.003] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.005] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.007] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.009] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.012] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.013] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.016] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.019] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.021] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.025] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.027] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.029] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.031] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.033] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.035] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.038] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.040] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.042] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.044] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.046] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.048] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.050] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.053] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.054] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.056] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.058] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.060] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.062] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.064] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.066] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.069] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.071] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.074] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:03.077] ERROR [pool-3-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.InstanceDataCustomerThread.run(InstanceDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:05.987] ERROR [pool-4-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.BatteryDataCustomerThread.run(BatteryDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:05.989] ERROR [pool-4-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.BatteryDataCustomerThread.run(BatteryDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+[2019-04-12 17:26:05.990] ERROR [pool-4-thread-1] SerializeUtils.java:82 - 反序列化异常
+java.io.StreamCorruptedException: invalid stream header: 7B227274
+	at java.io.ObjectInputStream.readStreamHeader(ObjectInputStream.java:866)
+	at java.io.ObjectInputStream.<init>(ObjectInputStream.java:358)
+	at com.nb.utils.SerializeUtils.deserialize(SerializeUtils.java:76)
+	at com.nb.utils.JedisUtils.rpop(JedisUtils.java:1050)
+	at com.nb.customer.historydatabase.BatteryDataCustomerThread.run(BatteryDataCustomerThread.java:65)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)

@@ -74,7 +74,7 @@ public class BatteryService implements IServiceStrategy {
 		}
 
 		Battery battery = JsonUtil.map2Bean(dataMap, Battery.class);
-		battery.setEvnetTime(serviceMap.get("evnetTime"));
+		battery.setEvnetTime(serviceMap.get("eventTime"));
 		
 		Map<String, Object> meterInfo = this.commonMapper.getNbInfoByDeviceId(deviceId);
 		if (meterInfo == null) {

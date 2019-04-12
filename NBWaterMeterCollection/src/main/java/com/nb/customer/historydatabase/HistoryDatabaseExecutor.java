@@ -8,6 +8,8 @@
 */
 package com.nb.customer.historydatabase;
 
+import java.time.LocalDateTime;
+
 import javax.annotation.Resource;
 import org.springframework.stereotype.Component;
 import com.nb.logger.LogName;
@@ -40,7 +42,7 @@ public class HistoryDatabaseExecutor {
 	private NbInstantaneousMapper nbInstantaneousMapper;
 
 	public boolean saveNbBattery(Object obj) {
-		boolean flag = false;
+		boolean flag = true;
 		try {
 			NbBattery nbBattery = JsonUtil.convertJsonStringToObject(obj.toString(), NbBattery.class);
 
@@ -48,14 +50,17 @@ public class HistoryDatabaseExecutor {
 				flag = nbBatteryMapper.insertNbBattery(nbBattery);
 			}
 		} catch (Exception e) {
+			flag = false;
+			e.printStackTrace();
 			LoggerUtil.Logger(LogName.CALLBACK).info(obj.toString() + "存库失败");
 		}
+		System.out.println("battery " + LocalDateTime.now());
 
 		return flag;
 	}
 
 	public boolean saveDailyData(Object obj) {
-		boolean flag = false;
+		boolean flag = true;
 		try {
 			NbDailyData nbDailyData = JsonUtil.convertJsonStringToObject(obj.toString(), NbDailyData.class);
 
@@ -64,14 +69,16 @@ public class HistoryDatabaseExecutor {
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
+			flag = false;
+			e.printStackTrace();
 			LoggerUtil.Logger(LogName.CALLBACK).info(obj.toString() + "存库失败");
 		}
-
+		System.out.println("daily " + LocalDateTime.now());
 		return flag;
 	}
 
 	public boolean saveInstanceData(Object obj) {
-		boolean flag = false;
+		boolean flag = true;
 		try {
 			NbInstantaneous nbInstantaneous = JsonUtil.convertJsonStringToObject(obj.toString(), NbInstantaneous.class);
 
@@ -79,10 +86,10 @@ public class HistoryDatabaseExecutor {
 				flag = nbInstantaneousMapper.insertNbInstantaneous(nbInstantaneous);
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			flag = false;
 			LoggerUtil.Logger(LogName.CALLBACK).info(obj.toString() + "存库失败");
 		}
-
+		System.out.println("instant " + LocalDateTime.now());
 		return flag;
 	}
 

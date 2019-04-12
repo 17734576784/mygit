@@ -67,7 +67,7 @@ public class DeviceAlarmService implements IServiceStrategy {
 		}
 
 		DeviceAlarm deviceAlarm = JsonUtil.map2Bean(dataMap, DeviceAlarm.class);
-		deviceAlarm.setEvnetTime(serviceMap.get("evnetTime"));
+		deviceAlarm.setEvnetTime(serviceMap.get("eventTime"));
 		
 		String eveInfo = "";
 		Short typeNo = 0;

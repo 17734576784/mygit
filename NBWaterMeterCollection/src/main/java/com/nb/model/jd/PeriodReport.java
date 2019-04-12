@@ -9,7 +9,6 @@
 package com.nb.model.jd;
 
 import java.io.Serializable;
-import java.util.List;
 
 import com.nb.utils.CommFunc;
 import com.nb.utils.ConverterUtils;
@@ -37,8 +36,19 @@ public class PeriodReport implements Serializable {
 	private Double peakFlowRateTime; // 最高流速时间戳 HHMMSS
 	private String startTime; // 首流量记录时间
 	private Integer period; // 周期数据间隔 单位:分钟
-	private String flows;// 流量数组
+	private Object flows;// 流量数组
 	private String evnetTime; // 事项上报时间
+	
+	
+	public Object getFlows() {
+		return flows;
+	}
+	public void setFlows(Object flows) {
+		this.flows = flows;
+	}
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
 	/**
 	 * @return the evnetTime
 	 */
@@ -147,30 +157,14 @@ public class PeriodReport implements Serializable {
 	public void setPeriod(Integer period) {
 		this.period = period;
 	}
-	/**
-	 * @return the flows
-	 */
-	public String getFlows() {
-		return flows;
-	}
-	/**
-	 * @param flows the flows to set
-	 */
-	public void setFlows(String flows) {
-		this.flows = flows;
-	}; // 流量数组 单位:升 数据类型:List<int>
-	
-	/**
-	 * @param flows the flows to set
-	 */
-	public void setFlows(List<Integer> flows) {
+	public void setFlows(double[] flows) {
 		StringBuffer sb = new StringBuffer();
-		for (Integer flow : flows) {
-			sb.append(",").append(flow);
-		}
-		
+		for (double d : flows) {
+			sb.append(",").append(d);
+		}		
 		this.flows = sb.toString().substring(1);
 	}
+	
 	/** (非 Javadoc) 
 	* <p>Title: toString</p> 
 	* <p>Description: </p> 

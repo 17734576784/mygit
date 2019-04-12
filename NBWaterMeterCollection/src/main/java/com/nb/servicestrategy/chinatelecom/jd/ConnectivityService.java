@@ -46,7 +46,7 @@ public class ConnectivityService implements IServiceStrategy {
 		Map<String, String> dataMap = new HashMap<String, String>();
 		dataMap = JsonUtil.jsonString2SimpleObj(data, dataMap.getClass());
 
-		String evnetTime = serviceMap.get("evnetTime");
+		String evnetTime = serviceMap.get("eventTime");
 		Connectivity connectivity = JsonUtil.map2Bean(dataMap, Connectivity.class);
 		connectivity.setEvnetTime(evnetTime);
 

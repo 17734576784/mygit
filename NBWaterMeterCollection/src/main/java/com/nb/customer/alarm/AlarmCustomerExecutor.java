@@ -32,12 +32,13 @@ public class AlarmCustomerExecutor {
 	private EveMapper eveMapper;
 
 	public boolean saveAlarmEvent(Object obj) {
-		boolean flag = false;
+		boolean flag = true;
 		try {
 			Eve eve = JsonUtil.convertJsonStringToObject(obj.toString(), Eve.class);
 			flag = eveMapper.insertEve(eve);
 		} catch (Exception e) {
-			LoggerUtil.Logger(LogName.CALLBACK).info(obj.toString() + "存库失败");
+			flag =false;
+			LoggerUtil.Logger(LogName.ERROR).info(obj.toString() + "存库失败");
 		}
 
 		return flag;

@@ -66,6 +66,8 @@ public class PeriodReportService implements IServiceStrategy {
 			return;
 		}
 
+		System.out.println(dataMap);
+		
 		PeriodReport periodReport = JsonUtil.map2Bean(dataMap, PeriodReport.class);
 		System.out.println(periodReport.toString());
 
@@ -106,7 +108,7 @@ public class PeriodReportService implements IServiceStrategy {
 		nbInstantaneous.setMpId(mpId);
 		nbInstantaneous.setYmd(date);
 
-		JSONArray arrays = JSONArray.parseArray(periodReport.getFlows());
+		JSONArray arrays = JSONArray.parseArray(periodReport.getFlows().toString());
 		Calendar c = Calendar.getInstance();
 		c.set(Calendar.MINUTE, 0);
 		for (int i = 0; i < arrays.size(); i++) {

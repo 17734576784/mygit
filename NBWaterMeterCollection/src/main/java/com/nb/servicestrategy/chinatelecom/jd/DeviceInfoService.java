@@ -55,7 +55,7 @@ public class DeviceInfoService implements IServiceStrategy {
 
 		String evnetTime = serviceMap.get("evnetTime");
 		DeviceInfo deviceInfo = JsonUtil.map2Bean(dataMap, DeviceInfo.class);
-		deviceInfo.setEvnetTime(evnetTime);
+//		deviceInfo.setEvnetTime(evnetTime);
 
 		System.out.println("上报竟达设备信息 : " + deviceInfo.toString());
 	}

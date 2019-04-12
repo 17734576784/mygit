@@ -66,7 +66,12 @@ public class Eve implements Serializable{
 	 * @param tableName the tableName to set
 	 */
 	public void setTableName(String date) {
-		this.tableName = "yddata.dbo.eve" + date;
+		if (date.length() == 4) {
+			this.tableName = "yddata.dbo.eve" + date;
+
+		} else {
+			this.tableName = date;
+		}
 	}
 	
 
