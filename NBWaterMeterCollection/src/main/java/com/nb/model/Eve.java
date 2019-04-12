@@ -4,7 +4,12 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 public class Eve implements Serializable{
-    private Short classno;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1173418832108814704L;
+
+	private Short classno;
 
     private Short typeno;
 

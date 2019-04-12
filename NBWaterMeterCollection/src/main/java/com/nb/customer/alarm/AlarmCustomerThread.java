@@ -8,8 +8,6 @@
 */
 package com.nb.customer.alarm;
 
-import com.nb.logger.LogName;
-import com.nb.logger.LoggerUtil;
 import com.nb.utils.Constant;
 import com.nb.utils.JedisUtils;
 
@@ -49,17 +47,9 @@ public class AlarmCustomerThread implements Runnable {
 		while(true) {
 			if (alarmCustomerRunFlag) {
 				Object alaram = null;
-				try {
-					alaram = JedisUtils.brpopLpush(Constant.ALARM_EVENT_QUEUE,
-							Constant.ALARM_EVENT_ERROR_QUEUE, 5);
-					if (alaram != null) {
-						boolean exeFlag = alarmCustomerExecutor.saveAlarmEvent(alaram);
-						if (exeFlag) {
-							JedisUtils.rpop(Constant.ALARM_EVENT_ERROR_QUEUE);
-						}
-					}
-				} catch (Exception e) {
-					LoggerUtil.Logger(LogName.ERROR).error("告警事项存储数据异常,异常数据{}",alaram);
+				alaram = JedisUtils.brpop(20, Constant.ALARM_EVENT_QUEUE);
+				if (alaram != null) {
+					alarmCustomerExecutor.saveAlarmEvent(alaram);
 				}
 			}
 		}

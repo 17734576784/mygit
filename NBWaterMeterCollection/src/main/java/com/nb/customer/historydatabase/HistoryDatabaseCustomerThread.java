@@ -47,30 +47,21 @@ public class HistoryDatabaseCustomerThread implements Runnable{
 			if (historyDatabaseRunFlag) {
 				
 				// 电池电压
-				Object battery = JedisUtils.brpopLpush(Constant.HISTORY_BATTERY_QUEUE,
-						Constant.HISTORY_BATTERY_ERROR_QUEUE, 5);
+				Object battery = JedisUtils.brpop(20, Constant.HISTORY_BATTERY_QUEUE);
 				if (battery != null) {
-					if (historyDatabaseExecutor.saveNbBattery(battery)) {
-						JedisUtils.rpop(Constant.HISTORY_BATTERY_ERROR_QUEUE);
-					}
+					historyDatabaseExecutor.saveNbBattery(battery);
 				}
 
 				// 日数据
-				Object dailyData = JedisUtils.brpopLpush(Constant.HISTORY_DAILY_QUEUE,
-						Constant.HISTORY_DAILY_ERROR_QUEUE, 5);
+				Object dailyData = JedisUtils.brpop(20, Constant.HISTORY_DAILY_QUEUE);
 				if (dailyData != null) {
-					if (historyDatabaseExecutor.saveDailyData(dailyData)) {
-						JedisUtils.rpop(Constant.HISTORY_DAILY_ERROR_QUEUE);
-					}
+					historyDatabaseExecutor.saveDailyData(dailyData);
 				}
-				
+
 				// 瞬时数据
-				Object instanceData = JedisUtils.brpopLpush(Constant.HISTORY_INSTAN_QUEUE,
-						Constant.HISTORY_INSTAN_ERROR_QUEUE, 5);
+				Object instanceData = JedisUtils.brpop(20, Constant.HISTORY_INSTAN_QUEUE);
 				if (instanceData != null) {
-					if (historyDatabaseExecutor.saveInstanceData(instanceData)) {
-						JedisUtils.rpop(Constant.HISTORY_INSTAN_ERROR_QUEUE);
-					}
+					historyDatabaseExecutor.saveInstanceData(instanceData);
 				}
 			}
 		}

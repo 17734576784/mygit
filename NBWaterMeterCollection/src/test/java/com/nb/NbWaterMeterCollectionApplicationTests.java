@@ -99,8 +99,9 @@ public class NbWaterMeterCollectionApplicationTests {
 		eve.setClassno(Constant.NB_ALARM);
 		eve.setTypeno(Constant.ALARM_2005);
 		eve.setCharInfo("电池告警，电压值为：" + 10 + ",电压阀值为： " +32);
+//		System.out.println(JedisUtils.brpop(5, Constant.ALARM_EVENT__QUEUE));
 		
-		System.out.println(JedisUtils.lpush(Constant.ALARM_EVENT_QUEUE, JsonUtil.jsonObj2Sting(eve)));;
+//		System.out.println(JedisUtils.lpush(Constant.ALARM_EVENT_QUEUE, JsonUtil.jsonObj2Sting(eve)));;
 	}
 	
 	

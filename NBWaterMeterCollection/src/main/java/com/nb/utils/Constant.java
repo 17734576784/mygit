@@ -356,26 +356,17 @@ public class Constant {
 	/** 历史库队列 日数据redis前缀 */
 	public static final String HISTORY_DAILY_QUEUE = "HISTORY_DAILY_QUEUE";
 	
-	/** 历史库队列 日数据redis前缀 */
-	public static final String HISTORY_DAILY_ERROR_QUEUE = "HISTORY_DAILY_QUEUE";
 	
 	/** 历史库队列 电池电压redis前缀 */
 	public static final String HISTORY_BATTERY_QUEUE = "HISTORY_BATTERY_QUEUE";
 	
-	/** 历史库队列 电池电压异常记录redis前缀 */
-	public static final String HISTORY_BATTERY_ERROR_QUEUE = "HISTORY_BATTERY_ERROR_QUEUE";
 	
 	/** 历史库队列 瞬时量redis前缀 */
 	public static final String HISTORY_INSTAN_QUEUE = "HISTORY_INSTAN_QUEUE";
 
-	/** 历史库队列异常记录redis前缀 */
-	public static final String HISTORY_INSTAN_ERROR_QUEUE = "HISTORY_INSTAN_ERROR_QUEUE";
-
 	/** 告警事项队列redis前缀 */
 	public static final String ALARM_EVENT_QUEUE = "ALARM_EVENT_QUEUE";
 
-	/** 告警事项队列异常记录redis前缀 */
-	public static final String ALARM_EVENT_ERROR_QUEUE = "ALARM_EVENT_ERROR_QUEUE";
 	
 	/** 竟达电池电压告警标志 */
 	public static final String BATTERY_ALARM = "Y";

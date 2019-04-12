@@ -1153,9 +1153,7 @@ public class JedisUtils {
 		Object value = null;
 		try {
 			jedis = getResource();
-			List<byte[]> values = jedis.brpop(timeout, key.getBytes());
-			System.out.println("Jedis brpop  values" + values.size());
-			value = SerializeUtils.deserialize(values.get(0));
+  			value = jedis.brpop(timeout, key);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
