@@ -71,8 +71,8 @@ spring:
     testOnReturn: false
     filters: stat,wall,log4j
     logSlowSql: true
-#  mvc:
-#      view:
-#        prefix: /WEB-INF/jsp/
-#        suffix: .jsp
+  mvc:
+      view:
+        prefix: /WEB-INF/jsp/
+        suffix: .jsp
        
