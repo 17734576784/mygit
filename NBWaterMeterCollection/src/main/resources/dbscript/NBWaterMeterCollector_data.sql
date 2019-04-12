@@ -22,8 +22,7 @@ create table nb_daily_data_200808
 		daily_max_velocity  DECIMAL(7,3) 	null,			/*当日最大流速*/
 		total_online_success int					null,			/*累计上线成功次数*/
 		total_online_failure int					null,			/*累计上线失败次数*/
-		valve_status				tinyint				null,			/*阀门最新状态 1：正在开阀 2：阀门开到位 3：正在关阀 4：阀门关到位*/
-		
+		valve_status				tinyint				null,			/*阀门最新状态 1：正在开阀 2：阀门开到位 3：正在关阀 4：阀门关到位 5：半开 6：其他*/
 		CONSTRAINT pk_nb_daily_data_200808 PRIMARY KEY (rtu_id,mp_id,ymd,hms)				
 
 )
@@ -53,7 +52,7 @@ create table nb_instantaneous_200808
 		daily_max_velocity  DECIMAL(7,3) 	null,			/*当日最大流速*/
 		total_online_success int					null,			/*累计上线成功次数*/
 		total_online_failure int					null,			/*累计上线失败次数*/
-		valve_status				tinyint				null,			/*阀门最新状态 1：正在开阀 2：阀门开到位 3：正在关阀 4：阀门关到位*/
+		valve_status				tinyint				null,			/*阀门最新状态 1：正在开阀 2：阀门开到位 3：正在关阀 4：阀门关到位 5：半开 6：其他*/
 		
 		CONSTRAINT pk_nb_instantaneous_200808 PRIMARY KEY (rtu_id,mp_id,ymd,hms)				
 

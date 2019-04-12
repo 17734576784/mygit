@@ -63,7 +63,6 @@ if (not exists (select name from sysobjects where name='nb_water_meter'))
 			low_pressure_threshold 		DECIMAL(4,2)	null,				/*低电压告警阀值*/
 			high_pressure_threshold 	DECIMAL(4,2)	null,				/*高电压告警阀值*/
 						
-			low_voltage_threshold 		DECIMAL(4,2)	null,				/*电池低电压告警阀值*/
 			high_voltage_threshold 		DECIMAL(4,2)	null,				/*电池高电压告警阀值*/
 			large_flow_threshold 			DECIMAL(6,2)	null,				/*大流量报警阀值*/
 			large_flow_duration  					int				null,				/*大流量持续时间*/	
@@ -75,7 +74,7 @@ if (not exists (select name from sysobjects where name='nb_water_meter'))
 			report_base_time					datetime			null,				/*上报起始基准时间*/
 			report_interval_time				int					null,				/*上报间隔时间 单位：小时*/
  
-			valve_status							tinyint				null,				/*阀门最新状态 1：正在开阀 2：阀门开到位 3：正在关阀 4：阀门关到位*/
+			valve_status							tinyint				null,				/*阀门最新状态 1：正在开阀 2：阀门开到位 3：正在关阀 4：阀门关到位 5：半开 6：其他*/
 			firmware_version					varchar(40)		null,				/*固件版本*/
 			CONSTRAINT pk_nb_water_meter PRIMARY KEY (rtu_id,mp_id)				
 		)				

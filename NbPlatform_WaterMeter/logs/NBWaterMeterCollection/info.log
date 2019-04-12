@@ -1,0 +1,44 @@
+[2019-04-12 09:00:05.356] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-04-12 09:00:05.376] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-04-12 09:00:05.515] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 84ms. Found 0 repository interfaces.
+[2019-04-12 09:00:08.593] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 8443 (https)
+[2019-04-12 09:00:08.639] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-8443"]
+[2019-04-12 09:00:08.660] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-04-12 09:00:08.661] INFO [main] DirectJDKLog.java:173 - Starting Servlet Engine: Apache Tomcat/9.0.13
+[2019-04-12 09:00:08.692] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jre1.8.0_162\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_181/bin/server;C:/Program Files/Java/jre1.8.0_181/bin;C:/Program Files/Java/jre1.8.0_181/lib/amd64;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Java\jdk1.8.0_131\bin;C:\Program Files\Java\jdk1.8.0_131\jre\bin;D:\develop\apache-maven-3.5.4\bin;D:\mysql-5.6.37-winx64\bin;C:\Program Files\MySQL\MySQL Utilities 1.6\;D:\Redis\Redis-x64-3.2.100;D:\develop\zookeeper-3.4.13\bin;C:\Python36;D:\MongoDB\bin;D:\spring-1.3.0.BUILD-SNAPSHOT\bin;D:\develop\zookeeper-3.4.13\bin;C:\OpenSSL-Win64\bin;D:\develop\gradle-4.10\bin;C:\Program Files\nodejs\;C:\Python36\Scripts\;C:\Python36\;D:\Develop\nodejs\node_global;D:\develop\protobuf\protoc-3.6.1-win32\bin;C:\Users\Administrator\AppData\Roaming\npm;C:\Program Files\nodejs\node_global;;D:\develop\sts-bundle\sts-3.9.5.RELEASE;;.]
+[2019-04-12 09:00:09.317] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-04-12 09:00:09.318] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 7270 ms
+[2019-04-12 09:00:10.796] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-04-12 09:00:12.424] INFO [main] StdSchedulerFactory.java:1208 - Using default implementation for ThreadExecutor
+[2019-04-12 09:00:12.511] INFO [main] SchedulerSignalerImpl.java:61 - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[2019-04-12 09:00:12.512] INFO [main] QuartzScheduler.java:229 - Quartz Scheduler v.2.3.0 created.
+[2019-04-12 09:00:12.515] INFO [main] RAMJobStore.java:155 - RAMJobStore initialized.
+[2019-04-12 09:00:12.519] INFO [main] QuartzScheduler.java:294 - Scheduler meta-data: Quartz Scheduler (v2.3.0) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[2019-04-12 09:00:12.519] INFO [main] StdSchedulerFactory.java:1362 - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+[2019-04-12 09:00:12.520] INFO [main] StdSchedulerFactory.java:1366 - Quartz scheduler version: 2.3.0
+[2019-04-12 09:00:12.520] INFO [main] QuartzScheduler.java:2287 - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@3ee0b4f7
+[2019-04-12 09:00:12.700] INFO [main] SchedulerFactoryBean.java:726 - Starting Quartz Scheduler now
+[2019-04-12 09:00:12.702] INFO [main] QuartzScheduler.java:547 - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+[2019-04-12 09:00:12.729] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-8443"]
+[2019-04-12 09:00:13.839] INFO [main] DirectJDKLog.java:173 - Using a shared selector for servlet write/read
+[2019-04-12 09:00:13.862] INFO [main] DirectJDKLog.java:173 - Pausing ProtocolHandler ["https-jsse-nio-8443"]
+[2019-04-12 09:00:13.863] INFO [main] DirectJDKLog.java:173 - Stopping service [Tomcat]
+[2019-04-12 09:00:13.956] INFO [main] DirectJDKLog.java:173 - The stop() method was called on component [StandardServer[-1]] after stop() had already been called. The second call will be ignored.
+[2019-04-12 09:00:13.956] INFO [main] DirectJDKLog.java:173 - Stopping ProtocolHandler ["https-jsse-nio-8443"]
+[2019-04-12 09:00:13.957] INFO [main] DirectJDKLog.java:173 - Destroying ProtocolHandler ["https-jsse-nio-8443"]
+[2019-04-12 09:00:13.963] INFO [main] ConditionEvaluationReportLoggingListener.java:142 - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+[2019-04-12 09:00:13.975] INFO [main] QuartzScheduler.java:585 - Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+[2019-04-12 09:00:13.976] INFO [main] SchedulerFactoryBean.java:844 - Shutting down Quartz Scheduler
+[2019-04-12 09:00:13.976] INFO [main] QuartzScheduler.java:666 - Scheduler quartzScheduler_$_NON_CLUSTERED shutting down.
+[2019-04-12 09:00:13.977] INFO [main] QuartzScheduler.java:585 - Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+[2019-04-12 09:00:13.978] INFO [main] QuartzScheduler.java:740 - Scheduler quartzScheduler_$_NON_CLUSTERED shutdown complete.
+[2019-04-12 09:00:14.021] INFO [main] ExecutorConfigurationSupport.java:208 - Shutting down ExecutorService 'applicationTaskExecutor'

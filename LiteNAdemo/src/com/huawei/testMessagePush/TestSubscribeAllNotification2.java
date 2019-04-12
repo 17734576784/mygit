@@ -24,7 +24,6 @@ public class TestSubscribeAllNotification2 {
 		String accessToken = login(httpsUtil);
 		String appId = Constant.APPID; // please replace the appId, when you use the demo.
         String urlSubscribe = Constant.SUBSCRIBE_NOTIFYCATION; // please replace the IP and Port of BASE_URL, when you use the demo.
-
         String callbackurl = NotifyType.TEST_CALLBACK_BASE_URL; // please replace the IP and Port of BASE_URL, when you use the demo.
         
         /*
@@ -35,9 +34,9 @@ public class TestSubscribeAllNotification2 {
          */
         List<String> notifyTypes = NotifyType.getNotifyTypes();
         for (String notifyType : notifyTypes) {
-            String deleteURl ="https://58.240.96.46:8743/iocm/app/sub/v1.2.0/subscriptions?appId=YXnpwWndC3ioc15OGALXZvHLB1oa";
+            String deleteURl ="https://device.api.ct10649.com:8743/iocm/app/sub/v1.2.0/subscriptions?appId=YXnpwWndC3ioc15OGALXZvHLB1oa";
 
-			String callbackurl1 = callbackurl + "/chinaunicom/" + notifyType;
+			String callbackurl1 = callbackurl + "/chinatelecom/" + notifyType;
 			System.out.println("callbackurl1 : "+ callbackurl1);
 			
 			deleteURl = deleteURl +"&notifyType="+notifyType+"&callbackUrl="+callbackurl1;
