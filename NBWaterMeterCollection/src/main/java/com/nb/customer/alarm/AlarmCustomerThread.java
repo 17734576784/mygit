@@ -23,7 +23,7 @@ import com.nb.utils.JedisUtils;
 public class AlarmCustomerThread implements Runnable {
 
 	/** 告警事项线程起止标志 */
-	public volatile static boolean alarmCustomerRunFlag = false;
+	public volatile static boolean alarmCustomerRunFlag = true;
 	
 	private AlarmCustomerExecutor alarmCustomerExecutor;
 	
@@ -53,7 +53,7 @@ public class AlarmCustomerThread implements Runnable {
 					alaram = JedisUtils.brpopLpush(Constant.ALARM_EVENT_QUEUE,
 							Constant.ALARM_EVENT_ERROR_QUEUE, 5);
 					if (alaram != null) {
-						boolean exeFlag = alarmCustomerExecutor.saveAlarmEvent();
+						boolean exeFlag = alarmCustomerExecutor.saveAlarmEvent(alaram);
 						if (exeFlag) {
 							JedisUtils.rpop(Constant.ALARM_EVENT_ERROR_QUEUE);
 						}

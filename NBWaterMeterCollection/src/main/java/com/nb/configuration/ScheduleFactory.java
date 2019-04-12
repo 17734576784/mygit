@@ -40,9 +40,9 @@ import com.nb.service.IScheduleService;
  * @date 2019年3月12日 上午10:01:26
  * 
  */
-//@Component
-//@Configuration
-//@EnableScheduling
+@Component
+@Configuration
+@EnableScheduling
 public class ScheduleFactory {
 	@Autowired
 	private SchedulerFactoryBean schedulerFactoryBean;

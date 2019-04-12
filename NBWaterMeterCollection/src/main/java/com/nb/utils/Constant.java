@@ -353,11 +353,23 @@ public class Constant {
 	/** 标识消息类型 7：缓存命令下发后结果上报（仅支持NB设备） */
 	public static final int CHINA_MOBILE_COMMAND_MSG = 7;
 
-	/** 历史库队列redis前缀 */
-	public static final String HISTORY_DATABASE_QUEUE = "HISTORY_DATABASE_QUEUE";
+	/** 历史库队列 日数据redis前缀 */
+	public static final String HISTORY_DAILY_QUEUE = "HISTORY_DAILY_QUEUE";
+	
+	/** 历史库队列 日数据redis前缀 */
+	public static final String HISTORY_DAILY_ERROR_QUEUE = "HISTORY_DAILY_QUEUE";
+	
+	/** 历史库队列 电池电压redis前缀 */
+	public static final String HISTORY_BATTERY_QUEUE = "HISTORY_BATTERY_QUEUE";
+	
+	/** 历史库队列 电池电压异常记录redis前缀 */
+	public static final String HISTORY_BATTERY_ERROR_QUEUE = "HISTORY_BATTERY_ERROR_QUEUE";
+	
+	/** 历史库队列 瞬时量redis前缀 */
+	public static final String HISTORY_INSTAN_QUEUE = "HISTORY_INSTAN_QUEUE";
 
 	/** 历史库队列异常记录redis前缀 */
-	public static final String HISTORY_DATABASE_ERROR_QUEUE = "HISTORY_DATABASE_ERROR_QUEUE";
+	public static final String HISTORY_INSTAN_ERROR_QUEUE = "HISTORY_INSTAN_ERROR_QUEUE";
 
 	/** 告警事项队列redis前缀 */
 	public static final String ALARM_EVENT_QUEUE = "ALARM_EVENT_QUEUE";

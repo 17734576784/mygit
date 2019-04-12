@@ -86,8 +86,25 @@ public class NbWaterMeterCollectionApplicationTests {
 	private NbInstantaneousMapper nbInstantaneousMapper;
 	
 	
-	
 	@Test
+	public void testEve() {
+		
+		Eve eve = new Eve();
+		eve.setTableName(toStr(201904));
+		eve.setYmd(20190412);
+		eve.setHmsms(100 * 1000);
+		eve.setMemberId0(1);
+		eve.setMemberId1(2);
+		eve.setMemberId2(-1);
+		eve.setClassno(Constant.NB_ALARM);
+		eve.setTypeno(Constant.ALARM_2005);
+		eve.setCharInfo("电池告警，电压值为：" + 10 + ",电压阀值为： " +32);
+		
+		System.out.println(JedisUtils.lpush(Constant.ALARM_EVENT_QUEUE, JsonUtil.jsonObj2Sting(eve)));;
+	}
+	
+	
+//	@Test
 	public void testValue(){
 		Map<String, String> dataMap = new HashMap<String, String>();
 		dataMap.put("valveState", "C");

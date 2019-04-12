@@ -1,8 +1,9 @@
 package com.nb.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Eve {
+public class Eve implements Serializable{
     private Short classno;
 
     private Short typeno;

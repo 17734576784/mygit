@@ -8,7 +8,15 @@
 */
 package com.nb.customer.alarm;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Component;
+
+import com.nb.logger.LogName;
+import com.nb.logger.LoggerUtil;
+import com.nb.mapper.EveMapper;
+import com.nb.model.Eve;
+import com.nb.utils.JsonUtil;
 
 /** 
 * @ClassName: AlarmCustomerExecutor 
@@ -20,8 +28,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class AlarmCustomerExecutor {
 	
-	public boolean saveAlarmEvent() {
-		
-		return true;
+	@Resource
+	private EveMapper eveMapper;
+
+	public boolean saveAlarmEvent(Object obj) {
+		boolean flag = false;
+		try {
+			Eve eve = JsonUtil.convertJsonStringToObject(obj.toString(), Eve.class);
+			flag = eveMapper.insertEve(eve);
+		} catch (Exception e) {
+			LoggerUtil.Logger(LogName.CALLBACK).info(obj.toString() + "存库失败");
+		}
+
+		return flag;
 	}
 }

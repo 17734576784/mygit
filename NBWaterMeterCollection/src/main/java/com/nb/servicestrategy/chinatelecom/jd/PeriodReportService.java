@@ -22,13 +22,13 @@ import com.alibaba.fastjson.JSONArray;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtil;
 import com.nb.mapper.CommonMapper;
-import com.nb.mapper.NbDailyDataMapper;
-import com.nb.mapper.NbInstantaneousMapper;
 import com.nb.model.NbDailyData;
 import com.nb.model.NbInstantaneous;
 import com.nb.model.jd.PeriodReport;
 import com.nb.servicestrategy.IServiceStrategy;
+import com.nb.utils.Constant;
 import com.nb.utils.DateUtils;
+import com.nb.utils.JedisUtils;
 import com.nb.utils.JsonUtil;
 
 
@@ -45,12 +45,6 @@ public class PeriodReportService implements IServiceStrategy {
 	@Resource
 	private CommonMapper commonMapper;
 
-	@Resource
-	private NbDailyDataMapper nbDailyDataMapper;
-
-	@Resource
-	private NbInstantaneousMapper nbInstantaneousMapper;
-	
 	/** (非 Javadoc) 
 	* <p>Title: parse</p> 
 	* <p>Description: </p> 
@@ -121,9 +115,7 @@ public class PeriodReportService implements IServiceStrategy {
 			nbInstantaneous.setHms(time);
 			nbInstantaneous.setTotalFlow(arrays.getDouble(i));
 
-			if (null == nbInstantaneousMapper.getNbInstantaneous(nbInstantaneous)) {
-				nbInstantaneousMapper.insertNbInstantaneous(nbInstantaneous);
-			}
+			JedisUtils.lpush(Constant.HISTORY_INSTAN_QUEUE, JsonUtil.jsonObj2Sting(nbInstantaneous));
 		}
 	}
 	
@@ -161,9 +153,8 @@ public class PeriodReportService implements IServiceStrategy {
 		nbDailyData.setDailyNegativeFlow(periodReport.getNegativeCumulativeFlow());
 		nbDailyData.setDailyMaxVelocity(periodReport.getPeakFlowRate());
 
-		if (null == nbDailyDataMapper.getNbDailyData(nbDailyData)) {
-			nbDailyDataMapper.insertNbDailyData(nbDailyData);
-		}
+		JedisUtils.lpush(Constant.HISTORY_DAILY_QUEUE, JsonUtil.jsonObj2Sting(nbDailyData));
+
 	}
-	
+
 }

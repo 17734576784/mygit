@@ -8,8 +8,6 @@
 */
 package com.nb.customer.historydatabase;
 
-import com.nb.logger.LogName;
-import com.nb.logger.LoggerUtil;
 import com.nb.utils.Constant;
 import com.nb.utils.JedisUtils;
 
@@ -23,7 +21,7 @@ import com.nb.utils.JedisUtils;
 public class HistoryDatabaseCustomerThread implements Runnable{
 
 	/** 历史库线程起止标志 */
-	public volatile static boolean historyDatabaseRunFlag = false;
+	public volatile static boolean historyDatabaseRunFlag = true;
 
 	private HistoryDatabaseExecutor historyDatabaseExecutor;
 	
@@ -47,16 +45,32 @@ public class HistoryDatabaseCustomerThread implements Runnable{
 		// TODO Auto-generated method stub
 		while(true) {
 			if (historyDatabaseRunFlag) {
-				Object hisdata = null;
-				try {
-					hisdata = JedisUtils.brpopLpush(Constant.HISTORY_DATABASE_QUEUE,
-							Constant.HISTORY_DATABASE_ERROR_QUEUE, 5);
-					if (hisdata != null) {
-						historyDatabaseExecutor.saveHistoryData();
+				
+				// 电池电压
+				Object battery = JedisUtils.brpopLpush(Constant.HISTORY_BATTERY_QUEUE,
+						Constant.HISTORY_BATTERY_ERROR_QUEUE, 5);
+				if (battery != null) {
+					if (historyDatabaseExecutor.saveNbBattery(battery)) {
+						JedisUtils.rpop(Constant.HISTORY_BATTERY_ERROR_QUEUE);
 					}
-					
-				} catch (Exception e) {
-					LoggerUtil.Logger(LogName.ERROR).error("历史库存储数据异常,异常数据{}",hisdata);
+				}
+
+				// 日数据
+				Object dailyData = JedisUtils.brpopLpush(Constant.HISTORY_DAILY_QUEUE,
+						Constant.HISTORY_DAILY_ERROR_QUEUE, 5);
+				if (dailyData != null) {
+					if (historyDatabaseExecutor.saveDailyData(dailyData)) {
+						JedisUtils.rpop(Constant.HISTORY_DAILY_ERROR_QUEUE);
+					}
+				}
+				
+				// 瞬时数据
+				Object instanceData = JedisUtils.brpopLpush(Constant.HISTORY_INSTAN_QUEUE,
+						Constant.HISTORY_INSTAN_ERROR_QUEUE, 5);
+				if (instanceData != null) {
+					if (historyDatabaseExecutor.saveInstanceData(instanceData)) {
+						JedisUtils.rpop(Constant.HISTORY_INSTAN_ERROR_QUEUE);
+					}
 				}
 			}
 		}

@@ -27,6 +27,7 @@ import com.nb.model.Eve;
 import com.nb.model.jd.DeviceAlarm;
 import com.nb.servicestrategy.IServiceStrategy;
 import com.nb.utils.Constant;
+import com.nb.utils.JedisUtils;
 import com.nb.utils.JsonUtil;
 
 /** 
@@ -136,12 +137,8 @@ public class DeviceAlarmService implements IServiceStrategy {
 		eve.setClassno(Constant.NB_ALARM);
 		eve.setTypeno(typeNo);
 		eve.setCharInfo(eveInfo);
-		try {
-			eveMapper.insertEve(eve);
-		} catch (Exception e) {
-			// TODO: handle exception
-			LoggerUtil.Logger(LogName.CALLBACK).info(eve.toString() + "存库失败");
-		}
+		
+		JedisUtils.lpush(Constant.ALARM_EVENT_QUEUE, JsonUtil.jsonObj2Sting(eve));
 	}
 
 }

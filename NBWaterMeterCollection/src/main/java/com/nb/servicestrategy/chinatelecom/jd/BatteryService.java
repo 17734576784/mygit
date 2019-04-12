@@ -27,6 +27,7 @@ import com.nb.model.NbBattery;
 import com.nb.model.jd.Battery;
 import com.nb.servicestrategy.IServiceStrategy;
 import com.nb.utils.Constant;
+import com.nb.utils.JedisUtils;
 import com.nb.utils.JsonUtil;
 
 /** 
@@ -111,11 +112,8 @@ public class BatteryService implements IServiceStrategy {
 		eve.setClassno(Constant.NB_ALARM);
 		eve.setTypeno(Constant.ALARM_2005);
 		eve.setCharInfo("电池告警，电压值为：" + battery.getBatteryVoltage() + ",电压阀值为： " + battery.getBatteryvoltageThreshold());
-		try {
-			eveMapper.insertEve(eve);
-		} catch (Exception e) {
-			LoggerUtil.Logger(LogName.CALLBACK).info(eve.toString() + "存库失败");
-		}
+		
+		JedisUtils.lpush(Constant.ALARM_EVENT_QUEUE, JsonUtil.jsonObj2Sting(eve));
 	}
 
 	/** 
@@ -135,9 +133,8 @@ public class BatteryService implements IServiceStrategy {
 		nbBattery.setRtuId(rtuId);
 		nbBattery.setMpId((short) mpId);
 		nbBattery.setBatteryVoltage(battery.getBatteryVoltage());
-		if (null == nbBatteryMapper.getNbBattery(nbBattery)) {
-			nbBatteryMapper.insertNbBattery(nbBattery);
-		}
+		
+		JedisUtils.lpush(Constant.HISTORY_BATTERY_QUEUE, JsonUtil.jsonObj2Sting(nbBattery));
 	}
 
 }

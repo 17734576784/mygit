@@ -1175,11 +1175,10 @@ public class JedisUtils {
 	public static Object brpopLpush(String sourceKey, String targetKey, int timeout) {
 
 		Jedis jedis = null;
-		Object value = null;
+		String value = null;
 		try {
 			jedis = getResource();
-			byte[] tmpValue = jedis.brpoplpush(sourceKey.getBytes(), targetKey.getBytes(), timeout);
-			value = SerializeUtils.deserialize(tmpValue);
+			value = jedis.brpoplpush(sourceKey, targetKey, timeout);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

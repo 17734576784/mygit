@@ -22,10 +22,11 @@ import org.springframework.stereotype.Service;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtil;
 import com.nb.mapper.CommonMapper;
-import com.nb.mapper.NbDailyDataMapper;
 import com.nb.model.NbDailyData;
 import com.nb.model.jd.RealtimeReport;
 import com.nb.servicestrategy.IServiceStrategy;
+import com.nb.utils.Constant;
+import com.nb.utils.JedisUtils;
 import com.nb.utils.JsonUtil;
 
 /** 
@@ -41,9 +42,6 @@ public class RealtimeReportService implements IServiceStrategy {
 	@Resource
 	private CommonMapper commonMapper;
 
-	@Resource
-	private NbDailyDataMapper nbDailyDataMapper;
-	
 	/** (非 Javadoc) 
 	* <p>Title: parse</p> 
 	* <p>Description: </p> 
@@ -111,8 +109,6 @@ public class RealtimeReportService implements IServiceStrategy {
 		nbDailyData.setDailyNegativeFlow(realtimeReport.getNegativeCumulativeFlow());
 		nbDailyData.setDailyMaxVelocity(realtimeReport.getPeakFlowRate());
 
-		if (null == nbDailyDataMapper.getNbDailyData(nbDailyData)) {
-			nbDailyDataMapper.insertNbDailyData(nbDailyData);
-		}
+		JedisUtils.lpush(Constant.HISTORY_DAILY_QUEUE, JsonUtil.jsonObj2Sting(nbDailyData));
 	}
 }
