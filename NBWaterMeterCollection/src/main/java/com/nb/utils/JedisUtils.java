@@ -1046,13 +1046,15 @@ public class JedisUtils {
 		Object value = null;
 		try {
 			jedis = getResource();
-			byte[] tempValue= jedis.rpop(key.getBytes());
-			value = SerializeUtils.deserialize(tempValue);
+			if (isExists(key)) {
+				byte[] tempValue = jedis.rpop(key.getBytes());
+				value = SerializeUtils.deserialize(tempValue);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			returnRource(jedis);
-		} 
+		}
 		return value;
 	}
 	
