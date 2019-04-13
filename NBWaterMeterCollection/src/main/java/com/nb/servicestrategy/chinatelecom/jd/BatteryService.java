@@ -68,28 +68,35 @@ public class BatteryService implements IServiceStrategy {
 		
 		Object data = serviceMap.get("data");
 		Map<String, String> dataMap = new HashMap<String, String>();
-		dataMap = JsonUtil.jsonString2SimpleObj(data, dataMap.getClass());
-		if (dataMap == null) {
-			return;
-		}
+		try {
+			dataMap = JsonUtil.jsonString2SimpleObj(data, dataMap.getClass());
+			if (dataMap == null) {
+				return;
+			}
 
-		Battery battery = JsonUtil.map2Bean(dataMap, Battery.class);
-		battery.setEvnetTime(serviceMap.get("eventTime"));
-		
-		Map<String, Object> meterInfo = this.commonMapper.getNbInfoByDeviceId(deviceId);
-		if (meterInfo == null) {
-			return;
-		}
+			Battery battery = JsonUtil.map2Bean(dataMap, Battery.class);
+			battery.setEvnetTime(serviceMap.get("eventTime"));
+			
+			Map<String, Object> meterInfo = this.commonMapper.getNbInfoByDeviceId(deviceId);
+			if (meterInfo == null) {
+				return;
+			}
 
-		int rtuId = toInt(meterInfo.get("rtuId"));
-		int mpId = toInt(meterInfo.get("mpId"));
-		
-		// 电池电压告警
-		if (battery.isAlarm()) {
-			insertEve(battery, rtuId, mpId);
-		} else { // 正常上报电池电压
-			insertBattery( battery, rtuId, mpId);
+			int rtuId = toInt(meterInfo.get("rtuId"));
+			int mpId = toInt(meterInfo.get("mpId"));
+			
+			// 电池电压告警
+			if (battery.isAlarm()) {
+				insertEve(battery, rtuId, mpId);
+			} else { // 正常上报电池电压
+				insertBattery( battery, rtuId, mpId);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			LoggerUtil.Logger(LogName.CALLBACK).error(logInfo + "异常" + e.getMessage());
 		}
+		
 	}
 	
 	/** 
@@ -101,7 +108,7 @@ public class BatteryService implements IServiceStrategy {
 	* @return void    返回类型 
 	* @throws 
 	*/
-	private void insertEve(Battery battery, int rtuId, int mpId) {
+	private void insertEve(Battery battery, int rtuId, int mpId) throws Exception{
 		Eve eve = new Eve();
 		eve.setTableName(toStr(battery.getDate() / 100));
 		eve.setYmd(battery.getDate());
@@ -125,7 +132,7 @@ public class BatteryService implements IServiceStrategy {
 	* @return void    返回类型 
 	* @throws 
 	*/
-	private void insertBattery(Battery battery, int rtuId, int mpId) {
+	private void insertBattery(Battery battery, int rtuId, int mpId) throws Exception{
 		NbBattery nbBattery = new NbBattery();
 		nbBattery.setTableName(toStr(battery.getDate() / 100));
 		nbBattery.setYmd(battery.getDate());

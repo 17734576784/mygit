@@ -16,10 +16,10 @@ create table nb_daily_data_200808
 		battery_voltage 		DECIMAL(4,2) 	null,			/*当前电池电压*/
 		total_flow 					DECIMAL(10,3) null,			/*当前累计流量*/
 		month_total_flow 		DECIMAL(10,3) null,			/*当月累计水量*/
-		daily_positive_flow DECIMAL(7,3) 	null,			/*日结正累积流量*/
-		daily_negative_flow DECIMAL(7,3) 	null,			/*日结负累积流量*/
-		hydraulic_pressure  DECIMAL(7,3) 	null,			/*当前水压*/
-		daily_max_velocity  DECIMAL(7,3) 	null,			/*当日最大流速*/
+		daily_positive_flow DECIMAL(10,3) 	null,			/*日结正累积流量*/
+		daily_negative_flow DECIMAL(10,3) 	null,			/*日结负累积流量*/
+		hydraulic_pressure  DECIMAL(10,3) 	null,			/*当前水压*/
+		daily_max_velocity  DECIMAL(10,3) 	null,			/*当日最大流速*/
 		total_online_success int					null,			/*累计上线成功次数*/
 		total_online_failure int					null,			/*累计上线失败次数*/
 		valve_status				tinyint				null,			/*阀门最新状态 1：正在开阀 2：阀门开到位 3：正在关阀 4：阀门关到位 5：半开 6：其他*/
@@ -46,10 +46,10 @@ create table nb_instantaneous_200808
 		hms						int				not null,				/*数据时间*/
 
 		total_flow 					DECIMAL(10,3) null,			/*当前累计流量*/
-		daily_positive_flow DECIMAL(7,3) 	null,			/*日结正累积流量*/
-		daily_negative_flow DECIMAL(7,3) 	null,			/*日结负累积流量*/
-		hydraulic_pressure  DECIMAL(7,3) 	null,			/*当前水压*/
-		daily_max_velocity  DECIMAL(7,3) 	null,			/*当日最大流速*/
+		daily_positive_flow DECIMAL(10,3) 	null,			/*日结正累积流量*/
+		daily_negative_flow DECIMAL(10,3) 	null,			/*日结负累积流量*/
+		hydraulic_pressure  DECIMAL(10,3) 	null,			/*当前水压*/
+		daily_max_velocity  DECIMAL(10,3) 	null,			/*当日最大流速*/
 		total_online_success int					null,			/*累计上线成功次数*/
 		total_online_failure int					null,			/*累计上线失败次数*/
 		valve_status				tinyint				null,			/*阀门最新状态 1：正在开阀 2：阀门开到位 3：正在关阀 4：阀门关到位 5：半开 6：其他*/

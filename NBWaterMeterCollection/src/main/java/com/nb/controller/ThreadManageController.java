@@ -55,4 +55,8 @@ public class ThreadManageController {
 		return Constant.OK;
 	}
 
+	@RequestMapping("/testHttps")
+	public String testHttps() {
+		return Constant.OK;
+	}
 }

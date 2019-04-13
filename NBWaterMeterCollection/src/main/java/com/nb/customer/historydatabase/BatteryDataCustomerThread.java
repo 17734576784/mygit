@@ -21,7 +21,7 @@ import com.nb.utils.JedisUtils;
 public class BatteryDataCustomerThread implements Runnable {
 
 	/** 历史库线程起止标志 */
-	public volatile static boolean historyDatabaseRunFlag = true;
+	public volatile static boolean historyDatabaseRunFlag = false;
 
 	private HistoryDatabaseExecutor historyDatabaseExecutor;
 
@@ -58,13 +58,13 @@ public class BatteryDataCustomerThread implements Runnable {
 			if (historyDatabaseRunFlag) {
 				// 电池电压
 				Object battery = null;
-				battery = JedisUtils.brpopLpush(Constant.HISTORY_BATTERY_QUEUE, Constant.HISTORY_BATTERY_ERROR_QUEUE,
-						1);
+				battery = JedisUtils.brpopLpush(Constant.HISTORY_BATTERY_QUEUE, Constant.HISTORY_BATTERY_BAK_QUEUE, 1);
 				if (null != battery) {
 					if (historyDatabaseExecutor.saveNbBattery(battery)) {
-						JedisUtils.rpop(Constant.HISTORY_BATTERY_ERROR_QUEUE);
+						JedisUtils.rpop(Constant.HISTORY_BATTERY_BAK_QUEUE);
 					} else {
-						JedisUtils.brpopLpush(Constant.HISTORY_BATTERY_ERROR_QUEUE, Constant.HISTORY_BATTERY_QUEUE, 1);
+						JedisUtils.brpopLpush(Constant.HISTORY_BATTERY_BAK_QUEUE, Constant.HISTORY_BATTERY_ERROR_QUEUE,
+								1);
 					}
 				}
 			}

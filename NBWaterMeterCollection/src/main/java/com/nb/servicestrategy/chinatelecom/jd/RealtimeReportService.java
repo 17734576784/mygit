@@ -29,26 +29,33 @@ import com.nb.utils.Constant;
 import com.nb.utils.JedisUtils;
 import com.nb.utils.JsonUtil;
 
-/** 
-* @ClassName: RealtimeReportService 
-* @Description: 竟达水表实时数据服务 
-* @author dbr
-* @date 2019年4月10日 上午11:48:09 
-*  
-*/
+/**
+ * @ClassName: RealtimeReportService
+ * @Description: 竟达水表实时数据服务
+ * @author dbr
+ * @date 2019年4月10日 上午11:48:09
+ * 
+ */
 @Service
 public class RealtimeReportService implements IServiceStrategy {
 
 	@Resource
 	private CommonMapper commonMapper;
 
-	/** (非 Javadoc) 
-	* <p>Title: parse</p> 
-	* <p>Description: </p> 
-	* @param deviceId
-	* @param serviceMap 
-	* @see com.nb.servicestrategy.IServiceStrategy#parse(java.lang.String, java.util.Map) 
-	*/
+	/**
+	 * (非 Javadoc)
+	 * <p>
+	 * Title: parse
+	 * </p>
+	 * <p>
+	 * Description:
+	 * </p>
+	 * 
+	 * @param deviceId
+	 * @param serviceMap
+	 * @see com.nb.servicestrategy.IServiceStrategy#parse(java.lang.String,
+	 *      java.util.Map)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
@@ -57,36 +64,36 @@ public class RealtimeReportService implements IServiceStrategy {
 		LoggerUtil.Logger(LogName.CALLBACK).info(logInfo);
 		Object data = serviceMap.get("data");
 		Map<String, String> dataMap = new HashMap<String, String>();
+		try {
+			dataMap = JsonUtil.jsonString2SimpleObj(data, dataMap.getClass());
+			if (dataMap == null) {
+				return;
+			}
 
-		dataMap = JsonUtil.jsonString2SimpleObj(data, dataMap.getClass());
-		if (dataMap == null) {
-			return;
+			RealtimeReport realtimeReport = JsonUtil.map2Bean(dataMap, RealtimeReport.class);
+			System.out.println(realtimeReport.toString());
+
+			String evnetTime = realtimeReport.getReadTime();
+			int date = toInt(evnetTime.substring(0, 8));
+			int time = toInt(evnetTime.substring(9, 15));
+			String YM = toStr(date / 100);
+
+			insertRealReport(YM, date, time, realtimeReport, deviceId);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			LoggerUtil.Logger(LogName.CALLBACK).error(logInfo + "，异常" + e.getMessage());
 		}
-
-		RealtimeReport realtimeReport = JsonUtil.map2Bean(dataMap, RealtimeReport.class);
-		System.out.println(realtimeReport.toString());
-
-		String evnetTime = realtimeReport.getReadTime();
-		int date = toInt(evnetTime.substring(0, 8));
-		int time = toInt(evnetTime.substring(9, 15));
-		String YM = toStr(date / 100);
-
-		insertRealReport(YM, date, time, realtimeReport, deviceId);
 
 	}
 
-	/** 
-	* @Title: insertRealReport 
-	* @Description: 插入实时数据上报 
-	* @param @param YM
-	* @param @param date
-	* @param @param time
-	* @param @param realtimeReport
-	* @param @param deviceId    设定文件 
-	* @return void    返回类型 
-	* @throws 
-	*/
-	private void insertRealReport(String YM, int date, int time, RealtimeReport realtimeReport, String deviceId) {
+	/**
+	 * @Title: insertRealReport @Description: 插入实时数据上报 @param @param
+	 * YM @param @param date @param @param time @param @param
+	 * realtimeReport @param @param deviceId 设定文件 @return void 返回类型 @throws
+	 */
+	private void insertRealReport(String YM, int date, int time, RealtimeReport realtimeReport, String deviceId)
+			throws Exception {
 
 		Map<String, Object> meterInfo = this.commonMapper.getNbInfoByDeviceId(deviceId);
 		if (meterInfo == null) {
@@ -98,7 +105,7 @@ public class RealtimeReportService implements IServiceStrategy {
 
 		NbDailyData nbDailyData = new NbDailyData();
 		nbDailyData.setTableName(YM);
-		nbDailyData.setReportType((byte)0);
+		nbDailyData.setReportType((byte) 0);
 		nbDailyData.setRtuId(rtuId);
 		nbDailyData.setMpId(mpId);
 		nbDailyData.setYmd(date);

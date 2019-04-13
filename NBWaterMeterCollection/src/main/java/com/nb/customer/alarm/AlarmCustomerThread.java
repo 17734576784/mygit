@@ -21,7 +21,7 @@ import com.nb.utils.JedisUtils;
 public class AlarmCustomerThread implements Runnable {
 
 	/** 告警事项线程起止标志 */
-	public volatile static boolean alarmCustomerRunFlag = true;
+	public volatile static boolean alarmCustomerRunFlag = false;
 	
 	private AlarmCustomerExecutor alarmCustomerExecutor;
 	
@@ -44,13 +44,17 @@ public class AlarmCustomerThread implements Runnable {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		while(true) {
+		while (true) {
 			if (alarmCustomerRunFlag) {
 				Object alaram = null;
 				try {
-					alaram = JedisUtils.brpopLpush(Constant.ALARM_EVENT_QUEUE, Constant.ALARM_EVENT_ERROR_QUEUE, 20);
+					alaram = JedisUtils.brpopLpush(Constant.ALARM_EVENT_QUEUE, Constant.ALARM_EVENT_BAK_QUEUE, 1);
 					if (null != alaram) {
-						alarmCustomerExecutor.saveAlarmEvent(alaram);
+						if (alarmCustomerExecutor.saveAlarmEvent(alaram)) {
+							JedisUtils.rpop(Constant.ALARM_EVENT_BAK_QUEUE);
+						} else {
+							JedisUtils.brpopLpush(Constant.ALARM_EVENT_BAK_QUEUE, Constant.ALARM_EVENT_ERROR_QUEUE, 1);
+						}
 					}
 				} catch (Exception e) {
 					// TODO: handle exception

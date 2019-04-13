@@ -8,6 +8,8 @@
 */
 package com.nb.customer.alarm;
 
+import java.time.LocalDateTime;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
@@ -38,9 +40,10 @@ public class AlarmCustomerExecutor {
 			flag = eveMapper.insertEve(eve);
 		} catch (Exception e) {
 			flag =false;
+			e.printStackTrace();
 			LoggerUtil.Logger(LogName.ERROR).info(obj.toString() + "存库失败");
 		}
-
+		System.out.println("eve"+LocalDateTime.now() +"  "+flag);
 		return flag;
 	}
 }

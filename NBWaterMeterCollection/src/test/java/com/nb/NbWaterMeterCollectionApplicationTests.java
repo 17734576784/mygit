@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.annotation.Resource;
 
@@ -49,9 +50,11 @@ import com.nb.model.jd.RealtimeReport;
 import com.nb.service.IScheduleService;
 import com.nb.servicestrategy.ChinaTelecomServiceContext;
 import com.nb.utils.Constant;
+import com.nb.utils.ConverterUtils;
 import com.nb.utils.DateUtils;
 import com.nb.utils.JedisUtils;
 import com.nb.utils.JsonUtil;
+import com.nb.utils.NumberUtils;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = NbWaterMeterCollectionApplication.class)
@@ -89,23 +92,112 @@ public class NbWaterMeterCollectionApplicationTests {
 	
 	@Test
 	public void testEve() {
+		NbBattery nbBattery = new NbBattery();
+		nbBattery.setTableName("201904");
+		nbBattery.setBatteryVoltage(332.3432434);
+		nbBattery.setRtuId(0);
+		nbBattery.setHms(2);
+		nbBattery.setMpId((short)10);
+		nbBattery.setYmd(20190420);
+		boolean flag = false;
 		try {
-			System.out.println(JedisUtils.rpop("333"));
+			if (null == nbBatteryMapper.getNbBattery(nbBattery)) {
+				flag = nbBatteryMapper.insertNbBattery(nbBattery);
+			}
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
+		System.out.println(flag);
 		
-		Eve eve = new Eve();
-		eve.setTableName(toStr(201904));
-		eve.setYmd(20190412);
-		eve.setHmsms(100 * 1000);
-		eve.setMemberId0(1);
-		eve.setMemberId1(2);
-		eve.setMemberId2(-1);
-		eve.setClassno(Constant.NB_ALARM);
-		eve.setTypeno(Constant.ALARM_2005);
-		eve.setCharInfo("电池告警，电压值为：" + 10 + ",电压阀值为： " +32);
+//		for (int i = 0; i < 100000; i++) {
+//			NbBattery nbBattery = new NbBattery();
+//			nbBattery.setTableName("201904");
+//			nbBattery.setYmd(20190413);
+//			nbBattery.setHms(i);
+//			nbBattery.setRtuId(1);
+//			nbBattery.setMpId((short) 2);
+//			String a = NumberUtils.formatNumber(new Random().nextDouble(), 2);
+//			nbBattery.setBatteryVoltage(ConverterUtils.toDouble(a));
+//			
+//			JedisUtils.lpush(Constant.HISTORY_BATTERY_QUEUE, JsonUtil.jsonObj2Sting(nbBattery));
+//		}
+//		
+//		
+//		for (int i = 0; i < 100000; i++) {
+//
+//			Eve eve = new Eve();
+//			eve.setTableName(toStr(201904));
+//			eve.setYmd(20190413);
+//			eve.setHmsms(i * 1000);
+//			eve.setMemberId0(1);
+//			eve.setMemberId1(2);
+//			eve.setMemberId2(-1);
+//			eve.setClassno(Constant.NB_ALARM);
+//			eve.setTypeno((short)12);
+//			eve.setCharInfo("23");
+//
+//			JedisUtils.lpush(Constant.ALARM_EVENT_QUEUE, JsonUtil.jsonObj2Sting(eve));
+//		}
+//		
+//		
+//		for (int i = 0; i < 1000000; i++) {
+//			NbDailyData nbDailyData = new NbDailyData();
+//			nbDailyData.setTableName("201904");
+//			nbDailyData.setReportType((byte) 0);
+//			nbDailyData.setRtuId(1);
+//			nbDailyData.setMpId((short) 2);
+//			nbDailyData.setYmd(20190413);
+//			nbDailyData.setHms(i);
+//
+//			String a = NumberUtils.formatNumber(new Random().nextDouble(), 2);
+//
+//			nbDailyData.setTotalFlow(i *ConverterUtils.toDouble(a));
+//			nbDailyData.setDailyPositiveFlow(i * ConverterUtils.toDouble(a));
+//			nbDailyData.setDailyNegativeFlow(i * ConverterUtils.toDouble(a));
+//			nbDailyData.setDailyMaxVelocity(i * ConverterUtils.toDouble(a));
+//
+//			JedisUtils.lpush(Constant.HISTORY_DAILY_QUEUE, JsonUtil.jsonObj2Sting(nbDailyData));
+//		}
+//		
+//		for (int i = 0; i < 10000; i++) {
+//			NbInstantaneous nbInstantaneous = new NbInstantaneous();
+//			nbInstantaneous.setTableName("201904");
+//			nbInstantaneous.setRtuId(1);
+//			nbInstantaneous.setMpId((short)i);
+//			nbInstantaneous.setYmd(20190401 + i);
+//
+//			Calendar c = Calendar.getInstance();
+//			c.set(Calendar.MINUTE, 0);
+//			for (int j = 0; j < 48; j++) {
+//				c.add(Calendar.MINUTE, 30);
+//				int time = toInt(DateUtils.formatTimePattern(c.getTime()));
+//				nbInstantaneous.setHms(time);
+//				String a = NumberUtils.formatNumber(new Random().nextDouble(), 2);
+//
+//				nbInstantaneous.setTotalFlow(ConverterUtils.toDouble(a));
+//
+//				JedisUtils.lpush(Constant.HISTORY_INSTAN_QUEUE, JsonUtil.jsonObj2Sting(nbInstantaneous));
+//			}
+//		}
+		
+//		try {
+//			System.out.println(JedisUtils.rpop("333"));
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			e.printStackTrace();
+//		}
+//		
+//		Eve eve = new Eve();
+//		eve.setTableName(toStr(201904));
+//		eve.setYmd(20190412);
+//		eve.setHmsms(100 * 1000);
+//		eve.setMemberId0(1);
+//		eve.setMemberId1(2);
+//		eve.setMemberId2(-1);
+//		eve.setClassno(Constant.NB_ALARM);
+//		eve.setTypeno(Constant.ALARM_2005);
+//		eve.setCharInfo("电池告警，电压值为：" + 10 + ",电压阀值为： " +32);
 //		System.out.println(JedisUtils.brpop(5, Constant.ALARM_EVENT__QUEUE));
 		
 //		System.out.println(JedisUtils.lpush(Constant.ALARM_EVENT_QUEUE, JsonUtil.jsonObj2Sting(eve)));;

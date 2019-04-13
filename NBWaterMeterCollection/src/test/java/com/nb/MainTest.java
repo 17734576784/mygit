@@ -44,6 +44,7 @@ public class MainTest {
 	*/
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
 //		List<Integer> list = new ArrayList<>();
 //		list.add(1);
 //		list.add(2);
@@ -53,22 +54,37 @@ public class MainTest {
 //		r.setFlows(list);
 //		
 //		System.out.println(r.getFlows());
-		Map<String,String> map = new HashMap<>();
-		map.put("peakFlowStartTime", System.currentTimeMillis()+"");
-		map.put("peakFlow", "102");
-		map.put("tampered", "2");
-		map.put("reverseFlowAlarm", "3");
-		map.put("magneticInterferenceAlarm", "4");
-		map.put("internalAlarm", "1");
-		map.put("disconnectAlarm", "0");
-
+//		Map<String,String> map = new HashMap<>();
+//		map.put("readTime", "1555084800338");
+//		map.put("cumulativeFlow", "102");
+//		map.put("positiveCumulativeFlow", "2");
+//		map.put("negativeCumulativeFlow", "3");
+//		map.put("peakFlowRateTime", "4");
+//		map.put("startTime", "1");
+//		map.put("flows", "[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]");
+//
+//		int index =0;
+//			PeriodReport periodReport = null;
+//			try {
+//				periodReport = JsonUtil.map2Bean(map, PeriodReport.class);
+//			} catch (Exception e) {
+//				// TODO: handle exception
+//				e.printStackTrace();
+//				index ++;
+//			}
+//			System.out.println(periodReport.toString());
+//		
+//		System.out.println("index : " + index);
+		
+		
+		
 //		System.out.println(DateUtils.stampToDate(System.currentTimeMillis()));
 		
-		DeviceAlarm b = JsonUtil.map2Bean(map, DeviceAlarm.class);
+//		DeviceAlarm b = JsonUtil.map2Bean(map, DeviceAlarm.class);
 		
 //		System.out.println(b.toString());
 		Long s = null;
-		System.out.println( DateUtils.stampToDate(ConverterUtils.toLong(null)));
+//		System.out.println( DateUtils.stampToDate(ConverterUtils.toLong(null)));
 		
 //		NbCommand command = new NbCommand();
 //		command.setRtuId(1);

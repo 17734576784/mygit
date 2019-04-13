@@ -31,27 +31,33 @@ import com.nb.utils.DateUtils;
 import com.nb.utils.JedisUtils;
 import com.nb.utils.JsonUtil;
 
-
-/** 
-* @ClassName: PeriodReportService 
-* @Description: 竟达水表周期数据服务 
-* @author dbr
-* @date 2019年4月10日 上午11:45:43 
-*  
-*/
+/**
+ * @ClassName: PeriodReportService
+ * @Description: 竟达水表周期数据服务
+ * @author dbr
+ * @date 2019年4月10日 上午11:45:43
+ * 
+ */
 @Service
 public class PeriodReportService implements IServiceStrategy {
 
 	@Resource
 	private CommonMapper commonMapper;
 
-	/** (非 Javadoc) 
-	* <p>Title: parse</p> 
-	* <p>Description: </p> 
-	* @param deviceId
-	* @param serviceMap 
-	* @see com.nb.servicestrategy.IServiceStrategy#parse(java.lang.String, java.util.Map) 
-	*/
+	/**
+	 * (非 Javadoc)
+	 * <p>
+	 * Title: parse
+	 * </p>
+	 * <p>
+	 * Description:
+	 * </p>
+	 * 
+	 * @param deviceId
+	 * @param serviceMap
+	 * @see com.nb.servicestrategy.IServiceStrategy#parse(java.lang.String,
+	 *      java.util.Map)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
@@ -61,38 +67,34 @@ public class PeriodReportService implements IServiceStrategy {
 
 		Object data = serviceMap.get("data");
 		Map<String, String> dataMap = new HashMap<String, String>();
-		dataMap = JsonUtil.jsonString2SimpleObj(data, dataMap.getClass());
-		if (dataMap == null) {
-			return;
+		try {
+			dataMap = JsonUtil.jsonString2SimpleObj(data, dataMap.getClass());
+			if (dataMap == null) {
+				return;
+			}
+
+			PeriodReport periodReport = JsonUtil.map2Bean(dataMap, PeriodReport.class);
+			String evnetTime = periodReport.getReadTime();
+			int date = toInt(evnetTime.substring(0, 8));
+			int time = toInt(evnetTime.substring(9, 15));
+			String YM = toStr(date / 100);
+
+			insertPeriodReport(YM, date, time, periodReport, deviceId);
+
+			insertInstantaneous(YM, date, periodReport, deviceId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			LoggerUtil.Logger(LogName.CALLBACK).error("解析竟达水表周期数据异常" + e.getMessage());
 		}
-
-		System.out.println(dataMap);
 		
-		PeriodReport periodReport = JsonUtil.map2Bean(dataMap, PeriodReport.class);
-		System.out.println(periodReport.toString());
-
-		String evnetTime = periodReport.getReadTime();
-		int date = toInt(evnetTime.substring(0, 8));
-		int time = toInt(evnetTime.substring(9, 15));
-		String YM = toStr(date / 100);
-
-		insertPeriodReport(YM, date, time, periodReport, deviceId);
-
-		insertInstantaneous(YM, date, periodReport, deviceId);
 	}
-	
-	
-	/** 
-	* @Title: insertInstantaneous 
-	* @Description: 插入瞬时量 
-	* @param @param YM
-	* @param @param date
-	* @param @param periodReport
-	* @param @param deviceId    设定文件 
-	* @return void    返回类型 
-	* @throws 
-	*/
-	private void insertInstantaneous(String YM, int date, PeriodReport periodReport, String deviceId) {
+
+	/**
+	 * @Title: insertInstantaneous @Description: 插入瞬时量 @param @param
+	 * YM @param @param date @param @param periodReport @param @param deviceId
+	 * 设定文件 @return void 返回类型 @throws
+	 */
+	private void insertInstantaneous(String YM, int date, PeriodReport periodReport, String deviceId) throws Exception {
 
 		Map<String, Object> meterInfo = this.commonMapper.getNbInfoByDeviceId(deviceId);
 		if (meterInfo == null) {
@@ -120,19 +122,14 @@ public class PeriodReportService implements IServiceStrategy {
 			JedisUtils.lpush(Constant.HISTORY_INSTAN_QUEUE, JsonUtil.jsonObj2Sting(nbInstantaneous));
 		}
 	}
-	
-	/** 
-	* @Title: insertPeriodReport 
-	* @Description: 将周期数据插入日数据表中 
-	* @param @param YM
-	* @param @param date
-	* @param @param time
-	* @param @param periodReport
-	* @param @param deviceId    设定文件 
-	* @return void    返回类型 
-	* @throws 
-	*/
-	private void insertPeriodReport(String YM, int date, int time, PeriodReport periodReport, String deviceId) {
+
+	/**
+	 * @Title: insertPeriodReport @Description: 将周期数据插入日数据表中 @param @param
+	 * YM @param @param date @param @param time @param @param
+	 * periodReport @param @param deviceId 设定文件 @return void 返回类型 @throws
+	 */
+	private void insertPeriodReport(String YM, int date, int time, PeriodReport periodReport, String deviceId)
+			throws Exception {
 
 		Map<String, Object> meterInfo = this.commonMapper.getNbInfoByDeviceId(deviceId);
 		if (meterInfo == null) {

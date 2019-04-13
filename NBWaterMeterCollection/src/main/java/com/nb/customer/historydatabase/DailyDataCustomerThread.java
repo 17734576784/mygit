@@ -21,7 +21,7 @@ import com.nb.utils.JedisUtils;
 public class DailyDataCustomerThread implements Runnable {
 
 	/** 历史库线程起止标志 */
-	public volatile static boolean historyDatabaseRunFlag = true;
+	public volatile static boolean historyDatabaseRunFlag = false;
 
 	private HistoryDatabaseExecutor historyDatabaseExecutor;
 
@@ -59,13 +59,12 @@ public class DailyDataCustomerThread implements Runnable {
 
 				// 日数据
 				Object dailyData = null;
-				dailyData = JedisUtils.brpopLpush(Constant.HISTORY_DAILY_QUEUE, Constant.HISTORY_DAILY_ERROR_QUEUE,
-						1);
+				dailyData = JedisUtils.brpopLpush(Constant.HISTORY_DAILY_QUEUE, Constant.HISTORY_DAILY_BAK_QUEUE, 0);
 				if (null != dailyData) {
 					if (historyDatabaseExecutor.saveDailyData(dailyData)) {
-						JedisUtils.rpop(Constant.HISTORY_DAILY_ERROR_QUEUE);
+						JedisUtils.rpop(Constant.HISTORY_DAILY_BAK_QUEUE);
 					} else {
-						JedisUtils.brpopLpush(Constant.HISTORY_DAILY_ERROR_QUEUE, Constant.HISTORY_DAILY_QUEUE, 1);
+						JedisUtils.brpopLpush(Constant.HISTORY_DAILY_BAK_QUEUE, Constant.HISTORY_DAILY_ERROR_QUEUE, 1);
 					}
 				}
 			}

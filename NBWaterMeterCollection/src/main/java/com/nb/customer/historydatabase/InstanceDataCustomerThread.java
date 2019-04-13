@@ -21,7 +21,7 @@ import com.nb.utils.JedisUtils;
 public class InstanceDataCustomerThread implements Runnable {
 
 	/** 历史库线程起止标志 */
-	public volatile static boolean historyDatabaseRunFlag = true;
+	public volatile static boolean historyDatabaseRunFlag = false;
 
 	private HistoryDatabaseExecutor historyDatabaseExecutor;
 
@@ -58,13 +58,14 @@ public class InstanceDataCustomerThread implements Runnable {
 			if (historyDatabaseRunFlag) {
 				// 瞬时数据
 				Object instanceData = null;
-				instanceData = JedisUtils.brpopLpush(Constant.HISTORY_INSTAN_QUEUE, Constant.HISTORY_INSTAN_ERROR_QUEUE,
-						1);
+				instanceData = JedisUtils.brpopLpush(Constant.HISTORY_INSTAN_QUEUE, Constant.HISTORY_INSTAN_BAK_QUEUE,
+						0);
 				if (null != instanceData) {
 					if (historyDatabaseExecutor.saveInstanceData(instanceData)) {
-						JedisUtils.rpop(Constant.HISTORY_INSTAN_ERROR_QUEUE);
+						JedisUtils.rpop(Constant.HISTORY_INSTAN_BAK_QUEUE);
 					} else {
-						JedisUtils.brpopLpush(Constant.HISTORY_INSTAN_ERROR_QUEUE, Constant.HISTORY_INSTAN_QUEUE, 1);
+						JedisUtils.brpopLpush(Constant.HISTORY_INSTAN_BAK_QUEUE, Constant.HISTORY_INSTAN_ERROR_QUEUE,
+								1);
 					}
 				}
 

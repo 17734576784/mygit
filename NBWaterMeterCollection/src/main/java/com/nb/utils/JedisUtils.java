@@ -1038,6 +1038,7 @@ public class JedisUtils {
 	
 	/**
 	 * 移除并获取列表最后一个元素，当列表不存在或者为空时，返回Null
+	 * 
 	 * @param key
 	 * @return String
 	 */
@@ -1046,12 +1047,7 @@ public class JedisUtils {
 		Object value = null;
 		try {
 			jedis = getResource();
-			if (isExists(key)) {
-				byte[] tempValue = jedis.rpop(key.getBytes());
-				if (tempValue != null && tempValue.length > 0) {
-					value = SerializeUtils.deserialize(tempValue);
-				}
-			}
+			value = jedis.rpop(key);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -1059,7 +1055,7 @@ public class JedisUtils {
 		}
 		return value;
 	}
-	
+
 	/**
 	 * 在列表中的尾部添加一个个值，返回列表的长度
 	 * @param key

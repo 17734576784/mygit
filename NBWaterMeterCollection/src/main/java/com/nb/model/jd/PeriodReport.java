@@ -157,13 +157,6 @@ public class PeriodReport implements Serializable {
 	public void setPeriod(Integer period) {
 		this.period = period;
 	}
-	public void setFlows(double[] flows) {
-		StringBuffer sb = new StringBuffer();
-		for (double d : flows) {
-			sb.append(",").append(d);
-		}		
-		this.flows = sb.toString().substring(1);
-	}
 	
 	/** (非 Javadoc) 
 	* <p>Title: toString</p> 
