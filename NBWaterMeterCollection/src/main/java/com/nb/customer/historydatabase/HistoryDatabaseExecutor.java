@@ -57,7 +57,7 @@ public class HistoryDatabaseExecutor {
 			e.printStackTrace();
 			LoggerUtil.Logger(LogName.CALLBACK).info(obj.toString() + "存库失败");
 		}
-		System.out.println("battery " + LocalDateTime.now());
+//		System.out.println("battery " + LocalDateTime.now());
 
 		return flag;
 	}
@@ -77,7 +77,7 @@ public class HistoryDatabaseExecutor {
 			e.printStackTrace();
 			LoggerUtil.Logger(LogName.CALLBACK).info(obj.toString() + "存库失败");
 		}
-		System.out.println("daily " + LocalDateTime.now()+ Thread.currentThread().getName());
+//		System.out.println("daily " + LocalDateTime.now()+ Thread.currentThread().getName());
 		return flag;
 	}
 
@@ -94,7 +94,7 @@ public class HistoryDatabaseExecutor {
 			JedisUtils.lpush(Constant.HISTORY_INSTAN_ERROR_QUEUE, obj);
 			LoggerUtil.Logger(LogName.CALLBACK).info(obj.toString() + "存库失败");
 		}
-		System.out.println("instant " + LocalDateTime.now()+ Thread.currentThread().getName());
+//		System.out.println("instant " + LocalDateTime.now()+ Thread.currentThread().getName());
 		return flag;
 	}
 
