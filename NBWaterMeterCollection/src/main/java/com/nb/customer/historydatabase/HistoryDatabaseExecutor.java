@@ -20,6 +20,8 @@ import com.nb.mapper.NbInstantaneousMapper;
 import com.nb.model.NbBattery;
 import com.nb.model.NbDailyData;
 import com.nb.model.NbInstantaneous;
+import com.nb.utils.Constant;
+import com.nb.utils.JedisUtils;
 import com.nb.utils.JsonUtil;
 
 /**
@@ -51,6 +53,7 @@ public class HistoryDatabaseExecutor {
 			}
 		} catch (Exception e) {
 			flag = false;
+			JedisUtils.lpush(Constant.HISTORY_BATTERY_ERROR_QUEUE, obj);
 			e.printStackTrace();
 			LoggerUtil.Logger(LogName.CALLBACK).info(obj.toString() + "存库失败");
 		}
@@ -70,10 +73,11 @@ public class HistoryDatabaseExecutor {
 		} catch (Exception e) {
 			// TODO: handle exception
 			flag = false;
+			JedisUtils.lpush(Constant.HISTORY_DAILY_ERROR_QUEUE, obj);
 			e.printStackTrace();
 			LoggerUtil.Logger(LogName.CALLBACK).info(obj.toString() + "存库失败");
 		}
-		System.out.println("daily " + LocalDateTime.now());
+		System.out.println("daily " + LocalDateTime.now()+ Thread.currentThread().getName());
 		return flag;
 	}
 
@@ -87,9 +91,10 @@ public class HistoryDatabaseExecutor {
 			}
 		} catch (Exception e) {
 			flag = false;
+			JedisUtils.lpush(Constant.HISTORY_INSTAN_ERROR_QUEUE, obj);
 			LoggerUtil.Logger(LogName.CALLBACK).info(obj.toString() + "存库失败");
 		}
-		System.out.println("instant " + LocalDateTime.now());
+		System.out.println("instant " + LocalDateTime.now()+ Thread.currentThread().getName());
 		return flag;
 	}
 

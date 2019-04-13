@@ -18,6 +18,8 @@ import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtil;
 import com.nb.mapper.EveMapper;
 import com.nb.model.Eve;
+import com.nb.utils.Constant;
+import com.nb.utils.JedisUtils;
 import com.nb.utils.JsonUtil;
 
 /** 
@@ -40,6 +42,7 @@ public class AlarmCustomerExecutor {
 			flag = eveMapper.insertEve(eve);
 		} catch (Exception e) {
 			flag =false;
+			JedisUtils.lpush(Constant.ALARM_EVENT_ERROR_QUEUE, obj);
 			e.printStackTrace();
 			LoggerUtil.Logger(LogName.ERROR).info(obj.toString() + "存库失败");
 		}

@@ -48,12 +48,14 @@ public class AlarmCustomerThread implements Runnable {
 			if (alarmCustomerRunFlag) {
 				Object alaram = null;
 				try {
-					alaram = JedisUtils.brpopLpush(Constant.ALARM_EVENT_QUEUE, Constant.ALARM_EVENT_BAK_QUEUE, 1);
+//					alaram = JedisUtils.brpopLpush(Constant.ALARM_EVENT_QUEUE, Constant.ALARM_EVENT_BAK_QUEUE, 1);
+					alaram = JedisUtils.brpop(Constant.ALARM_EVENT_QUEUE, 1);
+
 					if (null != alaram) {
 						if (alarmCustomerExecutor.saveAlarmEvent(alaram)) {
-							JedisUtils.rpop(Constant.ALARM_EVENT_BAK_QUEUE);
+//							JedisUtils.rpop(Constant.ALARM_EVENT_BAK_QUEUE);
 						} else {
-							JedisUtils.brpopLpush(Constant.ALARM_EVENT_BAK_QUEUE, Constant.ALARM_EVENT_ERROR_QUEUE, 1);
+//							JedisUtils.brpopLpush(Constant.ALARM_EVENT_BAK_QUEUE, Constant.ALARM_EVENT_ERROR_QUEUE, 1);
 						}
 					}
 				} catch (Exception e) {

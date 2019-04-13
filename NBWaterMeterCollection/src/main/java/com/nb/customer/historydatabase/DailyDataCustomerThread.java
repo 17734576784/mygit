@@ -59,12 +59,13 @@ public class DailyDataCustomerThread implements Runnable {
 
 				// 日数据
 				Object dailyData = null;
-				dailyData = JedisUtils.brpopLpush(Constant.HISTORY_DAILY_QUEUE, Constant.HISTORY_DAILY_BAK_QUEUE, 0);
+//				dailyData = JedisUtils.brpopLpush(Constant.HISTORY_DAILY_QUEUE, Constant.HISTORY_DAILY_BAK_QUEUE, 0);
+				dailyData = JedisUtils.brpop(Constant.HISTORY_DAILY_QUEUE, 0);
 				if (null != dailyData) {
 					if (historyDatabaseExecutor.saveDailyData(dailyData)) {
-						JedisUtils.rpop(Constant.HISTORY_DAILY_BAK_QUEUE);
+//						JedisUtils.rpop(Constant.HISTORY_DAILY_BAK_QUEUE);
 					} else {
-						JedisUtils.brpopLpush(Constant.HISTORY_DAILY_BAK_QUEUE, Constant.HISTORY_DAILY_ERROR_QUEUE, 1);
+//						JedisUtils.brpopLpush(Constant.HISTORY_DAILY_BAK_QUEUE, Constant.HISTORY_DAILY_ERROR_QUEUE, 1);
 					}
 				}
 			}
