@@ -42,24 +42,6 @@
     </appender>
 
     <!--不同业务逻辑的日志打印到不同文件-->
-<!--     <appender name="baitiaoUserAppender" class="ch.qos.logback.core.rolling.RollingFileAppender"> -->
-<!--         <File>logs/NBWaterMeterCollection/bt.log</File> -->
-<!--         <append>true</append> -->
-<!--         <filter class="ch.qos.logback.classic.filter.LevelFilter"> -->
-<!--             <level>INFO</level> -->
-<!--             <onMatch>ACCEPT</onMatch> -->
-<!--             <onMismatch>DENY</onMismatch> -->
-<!--         </filter> -->
-<!--         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"> -->
-<!--             <fileNamePattern>logs/NBWaterMeterCollection/bt.log.%d</fileNamePattern> -->
-<!--             <maxHistory>180</maxHistory> -->
-<!--         </rollingPolicy> -->
-<!--         <encoder charset="UTF-8"> -->
-<!--             <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] %level [%thread] %file:%line - %msg%n</pattern> -->
-<!--             <charset>UTF-8</charset> -->
-<!--         </encoder> -->
-<!--     </appender> -->
-
     <appender name="CallbackAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <File>logs/NBWaterMeterCollection/callback.log</File>
         <append>true</append>
@@ -80,6 +62,28 @@
 
     <logger name="CALLBACK" additivity="false" level="INFO">
         <appender-ref ref="CallbackAppender"/>
+    </logger>
+    
+    <appender name="HistoryDataAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>logs/NBWaterMeterCollection/historyData.log</File>
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+<!--             <onMatch>ACCEPT</onMatch> -->
+<!--             <onMismatch>DENY</onMismatch> -->
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/NBWaterMeterCollection/historyData.log.%d</fileNamePattern>
+            <maxHistory>12</maxHistory>
+        </rollingPolicy>
+        <encoder charset="UTF-8">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] %level [%thread] %file:%line - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <logger name="HISTORYDATA" additivity="false" level="INFO">
+        <appender-ref ref="HistoryDataAppender"/>
     </logger>
 
     <logger name="com.nb" level="INFO"/>

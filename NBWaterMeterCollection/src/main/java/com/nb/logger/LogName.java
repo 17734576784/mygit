@@ -17,7 +17,7 @@ package com.nb.logger;
  */
 public enum LogName {
 	// 配置到logback.xml中的logger name="CALLBACK"
-	CALLBACK("CALLBACK"), INFO("INFO"), ERROR("ERROR");
+	HISTORYDATA("HISTORYDATA"),CALLBACK("CALLBACK"), INFO("INFO"), ERROR("ERROR");
 
 	private String logFileName;
 

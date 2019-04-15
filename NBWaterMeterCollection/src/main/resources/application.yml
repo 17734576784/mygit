@@ -56,7 +56,7 @@ spring:
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
     platform: sqlserver
-    url: jdbc:sqlserver://192.168.1.130:1433;Databasename=ydpara
+    url: jdbc:sqlserver://127.0.0.1:1433;Databasename=ydpara
     username: sa
     password: ke-s2000
     initialSize: 5

@@ -17,6 +17,9 @@ public class Constant {
 
     //please replace the IP and Port, when you use the demo.
     public static final String BASE_URL = "https://device.api.ct10649.com:8743"; //电信
+//    public static final String BASE_URL = "https://180.101.147.89:8743"; //电信
+
+    
 	
 //    public static final String BASE_URL = "https://58.240.96.46:8743"; //联通
 

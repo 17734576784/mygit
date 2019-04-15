@@ -8,8 +8,6 @@
 */
 package com.nb.customer.historydatabase;
 
-import java.time.LocalDateTime;
-
 import javax.annotation.Resource;
 import org.springframework.stereotype.Component;
 import com.nb.logger.LogName;
@@ -43,6 +41,14 @@ public class HistoryDatabaseExecutor {
 	@Resource
 	private NbInstantaneousMapper nbInstantaneousMapper;
 
+	/** 
+	* @Title: saveNbBattery 
+	* @Description: 数据库持久化水表电池电压
+	* @param @param obj
+	* @param @return    设定文件 
+	* @return boolean    返回类型 
+	* @throws 
+	*/
 	public boolean saveNbBattery(Object obj) {
 		boolean flag = true;
 		try {
@@ -53,15 +59,22 @@ public class HistoryDatabaseExecutor {
 			}
 		} catch (Exception e) {
 			flag = false;
-			JedisUtils.lpush(Constant.HISTORY_BATTERY_ERROR_QUEUE, obj);
+			JedisUtils.lpush(Constant.HISTORY_BATTERY_ERROR_QUEUE, JsonUtil.jsonObj2Sting(obj));
 			e.printStackTrace();
 			LoggerUtil.Logger(LogName.CALLBACK).info(obj.toString() + "存库失败");
 		}
-//		System.out.println("battery " + LocalDateTime.now());
 
 		return flag;
 	}
 
+	/** 
+	* @Title: saveDailyData 
+	* @Description: 数据库持久化水表日数据 
+	* @param @param obj
+	* @param @return    设定文件 
+	* @return boolean    返回类型 
+	* @throws 
+	*/
 	public boolean saveDailyData(Object obj) {
 		boolean flag = true;
 		try {
@@ -71,16 +84,22 @@ public class HistoryDatabaseExecutor {
 				flag = nbDailyDataMapper.insertNbDailyData(nbDailyData);
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
 			flag = false;
-			JedisUtils.lpush(Constant.HISTORY_DAILY_ERROR_QUEUE, obj);
+			JedisUtils.lpush(Constant.HISTORY_DAILY_ERROR_QUEUE, JsonUtil.jsonObj2Sting(obj));
 			e.printStackTrace();
 			LoggerUtil.Logger(LogName.CALLBACK).info(obj.toString() + "存库失败");
 		}
-//		System.out.println("daily " + LocalDateTime.now()+ Thread.currentThread().getName());
 		return flag;
 	}
 
+	/** 
+	* @Title: saveInstanceData 
+	* @Description: 数据库持久化瞬时量 
+	* @param @param obj
+	* @param @return    设定文件 
+	* @return boolean    返回类型 
+	* @throws 
+	*/
 	public boolean saveInstanceData(Object obj) {
 		boolean flag = true;
 		try {
@@ -91,10 +110,9 @@ public class HistoryDatabaseExecutor {
 			}
 		} catch (Exception e) {
 			flag = false;
-			JedisUtils.lpush(Constant.HISTORY_INSTAN_ERROR_QUEUE, obj);
+			JedisUtils.lpush(Constant.HISTORY_INSTAN_ERROR_QUEUE, JsonUtil.jsonObj2Sting(obj));
 			LoggerUtil.Logger(LogName.CALLBACK).info(obj.toString() + "存库失败");
 		}
-//		System.out.println("instant " + LocalDateTime.now()+ Thread.currentThread().getName());
 		return flag;
 	}
 

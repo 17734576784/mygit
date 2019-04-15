@@ -112,52 +112,6 @@ public class JedisUtils {
 		return false;
 	}  
 	
-	/** 
-     * 成功返回true 
-     * @param key 
-     * @param value 
-     * @return 
-     */  
-	public static boolean setByByte(String key, Object value) {
-		Jedis jedis = null;
-		try {
-			jedis = getResource();
-			String statusCode = jedis.set(key.getBytes(), SerializeUtils.serialize(value));
-			if (SUCCESS_OK.equalsIgnoreCase(statusCode)) {
-				return true;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			returnRource(jedis);
-		}
-
-		return false;
-	}  
-	
-	/** 
-     * 成功返回true 
-     * @param key 
-     * @param value 
-     * @return 
-     */  
-	public static Object getByByte(String key) {
-		Jedis jedis = null;
-		Object object = null;
-		try {
-			jedis = getResource();
-			byte[] value = null;
-			value = jedis.get(key.getBytes());
-			object = SerializeUtils.deserialize(value);
-			return object;
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			returnRource(jedis);
-		}
-
-		return null;
-	}  
 	
     /** 
      * 返回值 
@@ -178,25 +132,6 @@ public class JedisUtils {
 		return null;
 	}
       
-	/** 
-     * 返回值 
-     * @param key 
-     * @return 
-     */  
-	public static byte[] get(byte[] key) {
-		Jedis jedis = null;
-		try {
-			jedis = getResource();
-			return jedis.get(key);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			returnRource(jedis);
-		}
-		
-		return null;
-	}
-	
     /** 
      * 设置key值和过期时间 
      * @param key 
@@ -481,25 +416,6 @@ public class JedisUtils {
 		return false;
 	}
 	
-	 /** 
-     * 判断key是否存在，存在返回true 
-     * @param key 
-     * @return 
-     */  
-	public static boolean exists(byte[] key) {
-		Jedis jedis = null;
-		try {
-			jedis = getResource();
-			return jedis.exists(key);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			returnRource(jedis);
-		}
-		
-		return false;
-	}
-      
     /** 
      * 判断key是否存在，存在返回true 
      * @param key 
@@ -756,26 +672,6 @@ public class JedisUtils {
 	 * @param value String
 	 * @return 返回List的长度
 	 */
-	public static Long lpush(String key, Object value) {
-		Jedis jedis = null;
-		Long length = 0L;
-		try {
-			jedis = getResource();
-			length = jedis.lpush(key.getBytes(), SerializeUtils.serialize(value));
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			returnRource(jedis);
-		}
-		return length;
-	}
-	
-	/**
-	 * 将一个值插入到列表头部，value可以重复，返回列表的长度
-	 * @param key
-	 * @param value String
-	 * @return 返回List的长度
-	 */
 	public static Long lpush(String key, String value) {
 		Jedis jedis = null;
 		Long length = 0L;
@@ -796,13 +692,13 @@ public class JedisUtils {
 	 * @param values String[]
 	 * @return 返回List的数量size
 	 */
-	public static Long lpush(String key, Object[] values) {
+	public static Long lpush(String key, String[] values) {
 
 		Jedis jedis = null;
 		Long size = 0L;
 		try {
 			jedis = getResource();
-			size = jedis.lpush(key.getBytes(), SerializeUtils.serialize(values));
+			size = jedis.lpush(key, values);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -819,15 +715,15 @@ public class JedisUtils {
 	 * @param end long， 结束索引
 	 * @return List<String>
 	 */
-	public static List<Object> lrange(String key, long start, long end) {
+	public static List<String> lrange(String key, long start, long end) {
 
 		Jedis jedis = null;
-		List<Object> list = new ArrayList<Object>();
+		List<String> list = new ArrayList<String>();
 		try {
 			jedis = getResource();
-			List<byte[]> value = jedis.lrange(key.getBytes(), start, end);
-			for (byte[] bs : value) {
-				list.add(SerializeUtils.deserialize(bs));
+			List<String> value = jedis.lrange(key, start, end);
+			for (String v : value) {
+				list.add(v);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -849,13 +745,13 @@ public class JedisUtils {
 		Jedis jedis = null;
 		try {
 			jedis = getResource();
-			byte[] value = jedis.lindex(key.getBytes(), index);
-			object = SerializeUtils.deserialize(value);
+			String value = jedis.lindex(key, index);
+			object = value;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			returnRource(jedis);
-		} 
+		}
 		return object;
 	}
 	
@@ -869,7 +765,7 @@ public class JedisUtils {
 		Long length = 0L;
 		try {
 			jedis = getResource();
-			length = jedis.llen(key.getBytes());
+			length = jedis.llen(key);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -886,12 +782,12 @@ public class JedisUtils {
 	 * @param value
 	 * @return Long
 	 */
-	public static Long linsert(String key, LIST_POSITION where, String pivot, Object value) {
+	public static Long linsert(String key, LIST_POSITION where, String pivot, String value) {
 		Jedis jedis = null;
 		Long length = 0L;
 		try {
 			jedis = getResource();
-			length = jedis.linsert(key.getBytes(), where, pivot.getBytes(), SerializeUtils.serialize(value));
+			length = jedis.linsert(key, where, pivot, value);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -906,12 +802,12 @@ public class JedisUtils {
 	 * @param value String
 	 * @return Long
 	 */
-	public static Long lpushx(String key, Object value) {
+	public static Long lpushx(String key, String value) {
 		Jedis jedis = null;
 		Long length = 0L;
 		try {
 			jedis = getResource();
-			length = jedis.lpushx(key.getBytes(), SerializeUtils.serialize(value));
+			length = jedis.lpushx(key, value);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -926,12 +822,12 @@ public class JedisUtils {
 	 * @param values String[]
 	 * @return Long
 	 */
-	public static Long lpushx(String key, Object[] values){
+	public static Long lpushx(String key, String[] values){
 		Jedis jedis = null;
 		Long length = 0L;
 		try {
 			jedis = getResource();
-			length = jedis.lpushx(key.getBytes(), SerializeUtils.serialize(values));
+			length = jedis.lpushx(key, values);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -950,12 +846,12 @@ public class JedisUtils {
 	 * @param value 匹配的元素
 	 * @return Long
 	 */
-	public static Long lrem(String key, long count, Object value) {
+	public static Long lrem(String key, long count, String value) {
 		Jedis jedis = null;
 		Long length = 0L;
 		try {
 			jedis = getResource();
-			length = jedis.lrem(key.getBytes(), count, SerializeUtils.serialize(value));
+			length = jedis.lrem(key, count, value);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -976,7 +872,7 @@ public class JedisUtils {
 		String statusCode = "";
 		try {
 			jedis = getResource();
-			statusCode = jedis.lset(key.getBytes(), index, SerializeUtils.serialize(value));
+			statusCode = jedis.lset(key, index, value);
 			if (SUCCESS_OK.equalsIgnoreCase(statusCode)) {
 				return true;
 			}
@@ -1026,13 +922,12 @@ public class JedisUtils {
 		Object value = null;
 		try {
 			jedis = getResource();
-			byte[] tempValue= jedis.lpop(key.getBytes());
-			value = SerializeUtils.deserialize(tempValue);
+			value = jedis.lpop(key);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			returnRource(jedis);
-		} 
+		}
 		return value;
 	}
 	
@@ -1062,12 +957,12 @@ public class JedisUtils {
 	 * @param value
 	 * @return Long
 	 */
-	public static Long rpush(String key, Object value) {
+	public static Long rpush(String key, String value) {
 		Jedis jedis = null;
 		Long length = 0L;
 		try {
 			jedis = getResource();
-			length = jedis.rpush(key.getBytes(),SerializeUtils.serialize(value));
+			length = jedis.rpush(key, value);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -1082,17 +977,17 @@ public class JedisUtils {
 	 * @param values
 	 * @return Long
 	 */
-	public static Long rpush(String key, Object[] values) {
+	public static Long rpush(String key, String[] values) {
 		Jedis jedis = null;
 		Long length = 0L;
 		try {
 			jedis = getResource();
-			length = jedis.rpush(key.getBytes(), SerializeUtils.serialize(values));
+			length = jedis.rpush(key, values);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			returnRource(jedis);
-		} 
+		}
 		return length;
 	}
 	
@@ -1102,12 +997,12 @@ public class JedisUtils {
 	 * @param value
 	 * @return Long
 	 */
-	public static Long rpushx(String key, Object value) {
+	public static Long rpushx(String key, String value) {
 		Jedis jedis = null;
 		Long length = 0L;
 		try {
 			jedis = getResource();
-			length = jedis.rpushx(key.getBytes(), SerializeUtils.serialize(value));
+			length = jedis.rpushx(key, value);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -1128,13 +1023,12 @@ public class JedisUtils {
 		Object value = null;
 		try {
 			jedis = getResource();
-			byte[] tempValue= jedis.rpoplpush(sourceKey.getBytes(), targetKey.getBytes());
-			value = SerializeUtils.deserialize(tempValue);
+			value = jedis.rpoplpush(sourceKey, targetKey);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			returnRource(jedis);
-		} 
+		}
 		return value;
 	}
 	
@@ -1157,7 +1051,6 @@ public class JedisUtils {
 			if (values != null && !values.isEmpty()) {
 				value = values.get(1);
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

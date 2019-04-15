@@ -243,12 +243,6 @@ public class CommFunc {
 		return header;
 	}
 	
-	public static Map<String, String> getCommandType(int nbType, int commandType) {
-		@SuppressWarnings("unchecked")
-		Map<String,Map<String,String>> command =  (Map<String, Map<String, String>>) JedisUtils.getByByte(Constant.COMMAND_TYPE_REIDS);
-		String commandKey = ConverterUtils.toStr(nbType * 1000 + commandType);
-		return command.get(commandKey);
-	}
 	
 	/** 
 	* @Title: parseEventTime 
@@ -264,5 +258,13 @@ public class CommFunc {
 			date = evnetTime.substring(0, 8) + toStr(toInt(evnetTime.substring(9, 15)) + 80000);
 		}
 		return date;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static Map<String, String> getCommandType(int nbType, int commandType) {
+		Map<String, Map<String, String>> command = new HashMap<>();
+		command = JsonUtil.jsonString2SimpleObj(JedisUtils.get(Constant.COMMAND_TYPE_REIDS), command.getClass());
+		String commandKey = ConverterUtils.toStr(nbType * 1000 + commandType);
+		return command.get(commandKey);
 	}
 }
