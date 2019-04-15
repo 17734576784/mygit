@@ -40,13 +40,14 @@ public class AlarmCustomerExecutor {
 		try {
 			Eve eve = JsonUtil.convertJsonStringToObject(obj.toString(), Eve.class);
 			flag = eveMapper.insertEve(eve);
+			System.out.println(eve.getHmsms() +"  "+ flag);
 		} catch (Exception e) {
 			flag =false;
 			JedisUtils.lpush(Constant.ALARM_EVENT_ERROR_QUEUE, obj);
 			e.printStackTrace();
 			LoggerUtil.Logger(LogName.ERROR).info(obj.toString() + "存库失败");
 		}
-		System.out.println("eve"+LocalDateTime.now() +"  "+flag);
+//		System.out.println("eve"+LocalDateTime.now() +"  "+flag);
 		return flag;
 	}
 }

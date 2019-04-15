@@ -1153,8 +1153,9 @@ public class JedisUtils {
 		Object value = null;
 		try {
 			jedis = getResource();
-			if (null != jedis.brpop(timeout, key)) {
-				value = jedis.brpop(timeout, key).get(1);
+			List<String> values = jedis.brpop(timeout, key);
+			if (values != null && !values.isEmpty()) {
+				value = values.get(1);
 			}
 
 		} catch (Exception e) {

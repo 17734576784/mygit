@@ -60,6 +60,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import com.nb.model.StreamClosedHttpResponse;
 import com.nb.utils.Constant;
+import com.nb.utils.StreamUtil;
 
 /**
  * @ClassName: HTTPSClientUtil
@@ -561,6 +562,29 @@ public class HttpsClientUtil {
 			}
 		}
 		return url;
+	}
+	
+	public String getHttpResponseBody(HttpResponse response)
+			throws UnsupportedOperationException, IOException {
+		if (response == null) {
+			return null;
+		}
+
+		String body = null;
+
+		if (response instanceof StreamClosedHttpResponse) {
+			body = ((StreamClosedHttpResponse) response).getContent();
+		} else {
+			HttpEntity entity = response.getEntity();
+			if (entity != null && entity.isStreaming()) {
+				String encoding = entity.getContentEncoding() != null ? entity
+						.getContentEncoding().getValue() : null;
+				body = StreamUtil.inputStream2String(entity.getContent(),
+						encoding);
+			}
+		}
+
+		return body;
 	}
 
 }

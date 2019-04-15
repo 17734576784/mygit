@@ -124,12 +124,12 @@ public class NbWaterMeterCollectionApplicationTests {
 		}
 		
 		
-		for (int i = 0; i < 100000; i++) {
+		for (int i = 0; i < 1000000; i++) {
 
 			Eve eve = new Eve();
 			eve.setTableName(toStr(201904));
 			eve.setYmd(20190413);
-			eve.setHmsms(i * 1000);
+			eve.setHmsms(i * 1000+i);
 			eve.setMemberId0(1);
 			eve.setMemberId1(2);
 			eve.setMemberId2(-1);
@@ -139,7 +139,7 @@ public class NbWaterMeterCollectionApplicationTests {
 
 			JedisUtils.lpush(Constant.ALARM_EVENT_QUEUE, JsonUtil.jsonObj2Sting(eve));
 		}
-		
+
 		
 		for (int i = 0; i < 1000000; i++) {
 			NbDailyData nbDailyData = new NbDailyData();
