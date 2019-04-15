@@ -110,10 +110,10 @@ public class Constant {
      * 5. DISCOVER_INDIRECT_DEVICE
      * 6. REMOVE_INDIRECT_DEVICE
      */
-    public static final String REGISTER_DEVICE = BASE_URL + "/iocm/app/reg/v1.1.0/devices";
-    public static final String MODIFY_DEVICE_INFO = BASE_URL + "/iocm/app/dm/v1.1.0/devices";
+    public static final String REGISTER_DEVICE = BASE_URL + "/iocm/app/reg/v1.1.0/deviceCredentials";
+    public static final String MODIFY_DEVICE_INFO = BASE_URL + "/iocm/app/dm/v1.4.0/devices";
     public static final String QUERY_DEVICE_ACTIVATION_STATUS = BASE_URL + "/iocm/app/reg/v1.1.0/devices";
-    public static final String DELETE_DEVICE = BASE_URL + "/iocm/app/dm/v1.1.0/devices";
+    public static final String DELETE_DEVICE = BASE_URL + "/iocm/app/dm/v1.4.0/devices";
     public static final String DISCOVER_INDIRECT_DEVICE = BASE_URL + "/iocm/app/signaltrans/v1.1.0/devices/%s/services/%s/sendCommand";
     public static final String REMOVE_INDIRECT_DEVICE = BASE_URL + "/iocm/app/signaltrans/v1.1.0/devices/%s/services/%s/sendCommand";
 

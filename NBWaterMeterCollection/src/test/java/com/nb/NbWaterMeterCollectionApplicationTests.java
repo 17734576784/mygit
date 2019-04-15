@@ -2,6 +2,7 @@ package com.nb;
 
 
 
+import static com.nb.utils.ConverterUtils.toByte;
 import static com.nb.utils.ConverterUtils.toInt;
 import static com.nb.utils.ConverterUtils.toShort;
 import static com.nb.utils.ConverterUtils.toStr;
@@ -91,6 +92,25 @@ public class NbWaterMeterCollectionApplicationTests {
 	
 	
 	@Test
+	public void testFX(){
+		Map<String, Object> meterInfo = this.commonMapper.getNbInfoByDeviceId("11111111");
+		if (meterInfo == null) {
+			return;
+		}
+
+		// 更新水表的阀门状态和固件版本
+		meterInfo.put("valveState", 2);
+		meterInfo.put("version", "10.25");
+		try {
+			System.out.println(commonMapper.updateWaterMeterValve(meterInfo));
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+	
+//	@Test
 	public void testEve() {
 //		NbBattery nbBattery = new NbBattery();
 //		nbBattery.setTableName("201904");

@@ -20,8 +20,6 @@ import org.springframework.stereotype.Service;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtil;
 import com.nb.mapper.CommonMapper;
-import com.nb.mapper.EveMapper;
-import com.nb.mapper.NbBatteryMapper;
 import com.nb.model.Eve;
 import com.nb.model.NbBattery;
 import com.nb.model.jd.Battery;
@@ -40,14 +38,10 @@ import com.nb.utils.JsonUtil;
 @Service
 public class BatteryService implements IServiceStrategy {
 	
-	@Resource
-	private NbBatteryMapper nbBatteryMapper;
 	
 	@Resource
 	private CommonMapper commonMapper;
 	
-	@Resource
-	private EveMapper eveMapper;
 
 	/** (非 Javadoc) 
 	* <p>Title: parse</p> 
@@ -89,7 +83,7 @@ public class BatteryService implements IServiceStrategy {
 			if (battery.isAlarm()) {
 				insertEve(battery, rtuId, mpId);
 			} else { // 正常上报电池电压
-				insertBattery( battery, rtuId, mpId);
+				insertBattery(battery, rtuId, mpId);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception

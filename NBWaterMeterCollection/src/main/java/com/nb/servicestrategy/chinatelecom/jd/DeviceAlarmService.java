@@ -121,12 +121,17 @@ public class DeviceAlarmService implements IServiceStrategy {
 
 	}
 
-	/**
-	 * @Title: insertEve @Description: 插入告警事项 @param @param
-	 * deviceAlarm @param @param deviceId @param @param eveInfo @param @param typeNo
-	 * 设定文件 @return void 返回类型 @throws
-	 */
-	private void insertEve(DeviceAlarm deviceAlarm, String deviceId, String eveInfo, short typeNo) {
+	/** 
+	* @Title: insertEve 
+	* @Description: 插入告警事项  
+	* @param @param deviceAlarm
+	* @param @param deviceId
+	* @param @param eveInfo
+	* @param @param typeNo    设定文件 
+	* @return void    返回类型 
+	* @throws 
+	*/
+	private void insertEve(DeviceAlarm deviceAlarm, String deviceId, String eveInfo, short typeNo) throws Exception {
 		Map<String, Object> meterInfo = this.commonMapper.getNbInfoByDeviceId(deviceId);
 		if (meterInfo == null) {
 			return;

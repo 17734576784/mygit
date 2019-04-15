@@ -407,4 +407,14 @@ public class Constant {
 	public static final byte VALVE_HALF_OPEN = 5;
 	public static final byte VALVE_OTHER = 6;
 
+	// 府星告警事项
+	// 阀门异常
+	public static final short FX_VALVE_ERROR = 1;
+	// 强磁异常
+	public static final short FX_MAGNETIC = 4;
+	// 低压告警
+	public static final short FX_battery_1 = 5;
+	public static final short FX_battery_2 = 6;
+	
+	
 }

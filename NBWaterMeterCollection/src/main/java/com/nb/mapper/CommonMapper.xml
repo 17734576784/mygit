@@ -6,12 +6,15 @@
  	 select rtu_id rtuId,mp_id mpId from nb_water_meter 
  	 where device_id = #{deviceId,jdbcType=VARCHAR}
  </select>
- 
- <update id="updateWaterMeterValve" parameterType="map" >
- 	update nb_water_meter
-	set valve_status = #{valveState}
-	where rtu_id = #{rtuId,jdbcType=INTEGER} 
-	and mp_id = #{mpId,jdbcType=INTEGER} 
- </update>
+
+	<update id="updateWaterMeterValve" parameterType="map">
+		update nb_water_meter
+		set valve_status = #{valveState}
+		<if test="version != null">
+			,firmware_version = #{version,jdbcType=VARCHAR}
+		</if>
+		where rtu_id = #{rtuId,jdbcType=INTEGER}
+		and mp_id = #{mpId,jdbcType=INTEGER}
+	</update>
  
 </mapper>
