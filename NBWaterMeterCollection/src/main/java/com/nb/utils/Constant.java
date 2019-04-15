@@ -121,9 +121,9 @@ public class Constant {
 	 * QUERY_DEVICE_ACTIVATION_STATUS 4. DELETE_DEVICE 5. DISCOVER_INDIRECT_DEVICE
 	 * 6. REMOVE_INDIRECT_DEVICE
 	 */
-	public static final String CHINA_TELECOM_REGISTER_DEVICE = CHINA_TELECOM_BASE_URL + "/iocm/app/reg/v1.1.0/devices";
+	public static final String CHINA_TELECOM_REGISTER_DEVICE = CHINA_TELECOM_BASE_URL + "/iocm/app/reg/v1.1.0/deviceCredentials";
 	public static final String CHINA_TELECOM_MODIFY_DEVICE_INFO = CHINA_TELECOM_BASE_URL
-			+ "/iocm/app/dm/v1.1.0/devices";
+			+ "/iocm/app/dm/v1.4.0/devices";
 	public static final String CHINA_TELECOM_QUERY_DEVICE_ACTIVATION_STATUS = CHINA_TELECOM_BASE_URL
 			+ "/iocm/app/reg/v1.1.0/devices";
 	public static final String CHINA_TELECOM_DELETE_DEVICE = CHINA_TELECOM_BASE_URL + "/iocm/app/dm/v1.4.0/devices";
@@ -169,7 +169,7 @@ public class Constant {
 	 * 6. REMOVE_INDIRECT_DEVICE
 	 */
 	public static final String CHINA_UNICOM_REGISTER_DEVICE = CHINA_UNICOM_BASE_URL + "/iocm/app/reg/v1.1.0/devices";
-	public static final String CHINA_UNICOM_MODIFY_DEVICE_INFO = CHINA_UNICOM_BASE_URL + "/iocm/app/dm/v1.1.0/devices";
+	public static final String CHINA_UNICOM_MODIFY_DEVICE_INFO = CHINA_UNICOM_BASE_URL + "iocm/app/dm/v1.4.0/devices";
 	public static final String CHINA_UNICOM_QUERY_DEVICE_ACTIVATION_STATUS = CHINA_UNICOM_BASE_URL
 			+ "/iocm/app/reg/v1.1.0/devices";
 	public static final String CHINA_UNICOM_DELETE_DEVICE = CHINA_UNICOM_BASE_URL + "/iocm/app/dm/v1.4.0/devices";
