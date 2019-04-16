@@ -95,7 +95,7 @@ public class ChinaTelecomCallBackController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "updateServiceInfo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "serviceInfoChanged", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<HttpStatus> recvServiceInfoChangedNotify(
 			@RequestBody Object updateServiceInfo_NotifyMessage) {
 
@@ -104,7 +104,7 @@ public class ChinaTelecomCallBackController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "commandRspData", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "commandRsp", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<HttpStatus> recvCommandRspdNotify(@RequestBody Object commandRspData_NotifyMessage) {
 
 		LoggerUtil.Logger(LogName.CALLBACK).info("接收commandRspData:" + commandRspData_NotifyMessage);
@@ -141,6 +141,7 @@ public class ChinaTelecomCallBackController {
 	@RequestMapping(value = "reportCmdExecResult", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<HttpStatus> reportCmdExecResult(@RequestBody Object reportCmdExecResult_NotifyMessage){
 
+		//{result={resultCode=SENT, resultDetail=null}, deviceId=92d70872-6bdc-4dd2-9297-cc386f97222c, commandId=4613a3e9ce9241cc832dafcca193c87f}
 		LoggerUtil.Logger(LogName.CALLBACK).info("接收命令响应：" + reportCmdExecResult_NotifyMessage);
 		Map<String, String> messageMap = new HashMap<String, String>();
 		try {

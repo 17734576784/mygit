@@ -46,7 +46,7 @@ public class Constant {
 	 * IP and port of callback url. please replace the IP and Port of your
 	 * Application deployment environment address, when you use the demo.
 	 */
-	public static final String CALLBACK_BASE_URL = "https://118.24.175.15:8443";
+	public static final String CALLBACK_BASE_URL = "https://222.222.60.178:18213";
 
 	/*
 	 * complete callback url please replace uri, when you use the demo.
@@ -69,10 +69,10 @@ public class Constant {
 	 * please replace uri, when you use the demo.
 	 */
 	public static final String CHINA_TELECOM_REPORT_CMD_EXEC_RESULT_CALLBACK_URL = CALLBACK_BASE_URL
-			+ "/reportCmdExecResult";
+			+ "/chinatelecom/reportCmdExecResult";
 
 	public static final String CHINA_UNICOM_REPORT_CMD_EXEC_RESULT_CALLBACK_URL = CALLBACK_BASE_URL
-			+ "/reportCmdExecResult";
+			+ "/chinaunicom/reportCmdExecResult";
 
 	public static String realBasepath = new File(Constant.class.getResource("/").getPath()).getParent();
 
@@ -231,28 +231,6 @@ public class Constant {
 	public static final int ERROR = -1;
 
 	public static final String OK = "ok";
-
-	public static final String UPLOAD_PIC = "1";
-	/** 上传图片url */
-	public static final String UPLOAD_IMAGE_URL = "nbNotifyAction!notifyImage.action";
-
-	/** 上传告警 */
-	public static final String UPLOAD_ALARM_URL = "nbNotifyAction!notifyAlarm.action";
-
-	/** 警开关开闭命令响应 */
-	public static final String UPLOAD_ALARMCOMMAND_URL = "nbNotifyAction!notifyAlarmConfigResult.action";
-
-	/** 上传设定时间命令响应 */
-	public static final String UPLOAD_TIMECOMMAND_URL = "nbNotifyAction!notifyReadTimeResult.action";
-
-	/** 上传主动查询 */
-	public static final String UPLOAD_CHECK_URL = "nbNotifyAction!checkExistOrders.action";
-
-	/** 上传升级成功地址 */
-	public static final String UPLOAD_UPGRADERESULT_URL = "nbNotifyAction!notifyUploadResult.action";
-
-	/** 上传抄表数据地址 */
-	public static final String UPLOAD_DATA_URL = "nbNotifyAction!notifyData.action";
 
 	/** 命令发送 */
 	public static final String COMMAND_SEND = "SEND";
