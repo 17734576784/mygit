@@ -49,7 +49,7 @@ public class ChinaTelecomUpGradeUtil {
 			
 //			String deviceProgress = Constant.PROGRESS_CHINA_TELECOM + deviceId;
 //			DeviceProgress progress = (DeviceProgress) JedisUtils.get(deviceProgress);
-			JSONObject appInfo = new JSONObject();
+			Map<String,String> appInfo = new HashMap<>();
 			appInfo.put("appId", appId);
 			appInfo.put("secret", secret);
 

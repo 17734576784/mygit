@@ -45,23 +45,32 @@ public class ChinaTelecomCommandService {
 	 * @return
 	 * @throws Exception 
 	 */
+	@SuppressWarnings("unchecked")
 	public ResultBean<?> asynCommand(JSONObject command) throws Exception {
 		
 		LoggerUtil.Logger(LogName.INFO).info("接收下发命令请求：" + command);
+		
+		Map<String, String> commandInfo = new HashMap<>();
+		commandInfo = JsonUtil.jsonString2SimpleObj(command, commandInfo.getClass());
+		if (commandInfo == null || commandInfo.isEmpty()) {
+			ResultBean<JSONObject> result = new ResultBean<JSONObject>(Constant.ERROR, "配置信息错误");
+			return result;
+		}
+		
 		ChinaTelecomIotHttpsUtil httpsUtil = new ChinaTelecomIotHttpsUtil();
 		httpsUtil.initSSLConfigForTwoWay();
-		String accessToken = AuthenticationUtils.getChinaTelecomAccessToken(httpsUtil, command);
+		String accessToken = AuthenticationUtils.getChinaTelecomAccessToken(httpsUtil, commandInfo);
 
 		String urlPostAsynCmd = Constant.CHINA_TELECOM_POST_ASYN_CMD;
-		String appId = command.getString("appId");
+		String appId = commandInfo.get("appId");
 		String callbackUrl = Constant.CHINA_TELECOM_REPORT_CMD_EXEC_RESULT_CALLBACK_URL;
 
-		String deviceId = command.getString("deviceId");// "8c23b6b4-ea68-48fb-9c2f-90452a81ebb1";
+		String deviceId = commandInfo.get("deviceId");// "8c23b6b4-ea68-48fb-9c2f-90452a81ebb1";
 		ResultBean<String> result = new ResultBean<String>();
 
 		ObjectNode paras = JsonUtil.convertObject2ObjectNode(command.get("param"));// "{\"value\":\"12\"}"
 		
-		Map<String, String> commandMap = commonMapper.getCommand(JsonUtil.bean2Map(command));
+		Map<String, String> commandMap = commonMapper.getCommand(commandInfo);
 		if (null == commandMap || commandMap.isEmpty()) {
 			result.setStatus(Constant.ERROR);
 			result.setError("命令类型不存在");

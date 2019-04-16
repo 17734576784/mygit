@@ -14,7 +14,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 /** 
 * @ClassName: CommonMapper 
-* @Description: TODO(这里用一句话描述这个类的作用) 
+* @Description: 公共数据库操作类
 * @author dbr
 * @date 2019年4月10日 下午4:10:12 
 *  
@@ -27,5 +27,7 @@ public interface CommonMapper {
 	boolean updateWaterMeterValve(Map<String, Object> param);
 	
 	Map<String, String> getCommand(Map<String, String> param);
+	
+	Map<String, String> getRegisterInfo(Map<String, String> param);
 
 }

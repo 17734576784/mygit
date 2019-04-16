@@ -17,11 +17,13 @@ import java.util.Map;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.nb.exception.ResultBean;
 import com.nb.model.NbCommand;
 import com.nb.model.fx.FXReport;
 import com.nb.model.jd.Battery;
 import com.nb.model.jd.DeviceAlarm;
 import com.nb.model.jd.PeriodReport;
+import com.nb.utils.Constant;
 import com.nb.utils.ConverterUtils;
 import com.nb.utils.DateUtils;
 import com.nb.utils.JsonUtil;
@@ -46,10 +48,23 @@ public class MainTest {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		FXReport fx = new FXReport();
-		fx.setCurrentDateTime(DateUtils.formatTimesTampDate(new Date()));
+		ResultBean<JSONObject> result = new ResultBean<JSONObject>(Constant.ERROR, "配置信息错误");
+		System.out.println(result);
 		
-		System.out.println(fx.getDate() + " " + fx.getTime());
+		
+//		JSONObject deviceInfo = new JSONObject();
+//		deviceInfo.put("rtuId", 11);
+//		deviceInfo.put("mpId", 2);
+//		
+//		Map<String, String> registerInfo = new HashMap<>();
+//		registerInfo = JsonUtil.jsonString2SimpleObj(deviceInfo, registerInfo.getClass());
+//		
+//		System.out.println("registerInfo : "+ registerInfo);
+		
+//		FXReport fx = new FXReport();
+//		fx.setCurrentDateTime(DateUtils.formatTimesTampDate(new Date()));
+//		
+//		System.out.println(fx.getDate() + " " + fx.getTime());
 //		List<Integer> list = new ArrayList<>();
 //		list.add(1);
 //		list.add(2);

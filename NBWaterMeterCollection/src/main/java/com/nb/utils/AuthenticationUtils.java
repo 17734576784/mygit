@@ -6,7 +6,6 @@ package com.nb.utils;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.alibaba.fastjson.JSONObject;
 import com.nb.httputil.ChinaTelecomIotHttpsUtil;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtil;
@@ -22,11 +21,11 @@ import com.nb.model.StreamClosedHttpResponse;
 public class AuthenticationUtils {
 	
 	@SuppressWarnings({"unchecked" })
-	public static String getChinaTelecomAccessToken(ChinaTelecomIotHttpsUtil httpsUtil, JSONObject appInfo) {
+	public static String getChinaTelecomAccessToken(ChinaTelecomIotHttpsUtil httpsUtil, Map<String, String> appInfo) {
 		String accessToken = "";
 		
-		String appId = appInfo.getString("appId");
-		String secret = appInfo.getString("secret");
+		String appId = appInfo.get("appId");
+		String secret = appInfo.get("secret");
 		String urlLogin = Constant.CHINA_TELECOM_APP_AUTH;
 
 		Map<String, String> paramLogin = new HashMap<>();

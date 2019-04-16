@@ -100,7 +100,7 @@ public class NbWaterMeterCollectionApplicationTests {
 		param.put("mpId", "2");
 		param.put("commandId", "1");
 		
-		System.out.println(commonMapper.getCommand(param));
+		System.out.println(commonMapper.getRegisterInfo(param));
 	}
 	
 	

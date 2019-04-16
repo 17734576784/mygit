@@ -16,6 +16,19 @@
 		where m.rtu_id = #{rtuId,jdbcType=INTEGER} and mp_id = #{mpId,jdbcType=INTEGER} 
 		and c.command_id = #{commandId,jdbcType=INTEGER}
 	</select>
+
+	<select id="getRegisterInfo" parameterType="map" resultType="map">
+		SELECT m.imei_code imei,m.imsi_code imsi,m.device_id
+		deviceId,a.app_id appId,a.secret,
+		d.manufacturer_id manufacturerId,d.manufacturer_name manufacturerName,
+		d.device_type deviceType,d.model,d.protocol_type protocolType
+		from nb_water_meter m,nb_appinfo a ,nb_device_model d
+		where d.appinfo_id = a.id and m.appinfo_id = d.appinfo_id
+		and m.device_model_id = d.id
+		and rtu_id = #{rtuId,jdbcType=INTEGER} and mp_id =
+		#{mpId,jdbcType=INTEGER}
+	</select>
+ 
  
 
 
