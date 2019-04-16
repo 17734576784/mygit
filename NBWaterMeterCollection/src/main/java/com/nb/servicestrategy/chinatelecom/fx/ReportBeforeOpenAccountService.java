@@ -10,6 +10,7 @@ package com.nb.servicestrategy.chinatelecom.fx;
 
 import static com.nb.utils.ConverterUtils.*;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,9 +23,9 @@ import com.nb.logger.LoggerUtil;
 import com.nb.mapper.CommonMapper;
 import com.nb.model.NbBattery;
 import com.nb.model.NbDailyData;
-import com.nb.model.fx.FXReport;
 import com.nb.servicestrategy.IServiceStrategy;
 import com.nb.utils.Constant;
+import com.nb.utils.DateUtils;
 import com.nb.utils.JedisUtils;
 import com.nb.utils.JsonUtil;
 
@@ -60,14 +61,12 @@ public class ReportBeforeOpenAccountService implements IServiceStrategy {
 		
 		Object data = serviceMap.get("data");
 		Map<String, String> dataMap = new HashMap<String, String>();
-		
 		try {
 			dataMap = JsonUtil.jsonString2SimpleObj(data, dataMap.getClass());
 			if (dataMap == null) {
 				return;
 			}
 			
-			FXReport fxReport = JsonUtil.map2Bean(dataMap, FXReport.class); 
 			Map<String, Object> meterInfo = this.commonMapper.getNbInfoByDeviceId(deviceId);
 			if (meterInfo == null) {
 				return;
@@ -75,14 +74,18 @@ public class ReportBeforeOpenAccountService implements IServiceStrategy {
 
 			int rtuId = toInt(meterInfo.get("rtuId"));
 			int mpId = toInt(meterInfo.get("mpId"));
+			
+			Date dateTime = DateUtils.parseTimesTampDate(dataMap.get("CurrentDateTime"));
+			int date = toInt(DateUtils.formatDateByFormat(dateTime, "yyyyMMdd"));
+			int time = toInt(DateUtils.formatDateByFormat(dateTime, "HHmmss"));
 
 			// 插入设备电池电压数据
-			insertBattery(fxReport, rtuId, mpId);
+			insertBattery(dataMap, rtuId, mpId, date, time);
 			// 插入设备上报日数据
-			insertDailyData(rtuId, mpId, fxReport, deviceId);
+			insertDailyData(rtuId, mpId, dataMap, deviceId, date, time);
 			// 更新水表的阀门状态和固件版本
-			meterInfo.put("valveState", toByte(fxReport.getValveState()));
-			meterInfo.put("version", fxReport.getValveState());
+			meterInfo.put("valveState", toByte(dataMap.get("ValveState")));
+			meterInfo.put("version", dataMap.get("Version"));
 			commonMapper.updateWaterMeterValve(meterInfo);
 			
 		} catch (Exception e) {
@@ -102,14 +105,15 @@ public class ReportBeforeOpenAccountService implements IServiceStrategy {
 	* @return void    返回类型 
 	* @throws 
 	*/
-	private void insertBattery(FXReport fxReport, int rtuId, int mpId) throws Exception {
+	private void insertBattery(Map<String, String> dataMap, int rtuId, int mpId, int date, int time) throws Exception {
+		
 		NbBattery nbBattery = new NbBattery();
-		nbBattery.setTableName(toStr(fxReport.getDate() / 100));
-		nbBattery.setYmd(fxReport.getDate());
-		nbBattery.setHms(fxReport.getTime());
+		nbBattery.setTableName(toStr(date / 100));
+		nbBattery.setYmd(date);
+		nbBattery.setHms(time);
 		nbBattery.setRtuId(rtuId);
 		nbBattery.setMpId((short) mpId);
-		nbBattery.setBatteryVoltage(toDouble(fxReport.getBatteryVoltage()));
+		nbBattery.setBatteryVoltage(toDouble(dataMap.get("BatteryVoltage")));
 
 		JedisUtils.lpush(Constant.HISTORY_BATTERY_QUEUE, JsonUtil.jsonObj2Sting(nbBattery));
 	}
@@ -125,20 +129,20 @@ public class ReportBeforeOpenAccountService implements IServiceStrategy {
 	* @return void    返回类型 
 	* @throws 
 	*/
-	private void insertDailyData(int rtuId, int mpId, FXReport fxReport, String deviceId) throws Exception {
+	private void insertDailyData(int rtuId, int mpId, Map<String, String> dataMap, String deviceId, int date, int time) throws Exception {
 
 		NbDailyData nbDailyData = new NbDailyData();
-		nbDailyData.setTableName(toStr(fxReport.getDate() / 100));
-		nbDailyData.setReportType(toByte(fxReport.getIsKeyTriggerThisReport()));
+		nbDailyData.setTableName(toStr(date / 100));
+		nbDailyData.setReportType(toByte(dataMap.get("IsKeyTriggerThisReport")));
 		nbDailyData.setRtuId(rtuId);
 		nbDailyData.setMpId((short) mpId);
-		nbDailyData.setYmd(fxReport.getDate());
-		nbDailyData.setHms(fxReport.getTime());
+		nbDailyData.setYmd(date);
+		nbDailyData.setHms(time);
 
-		nbDailyData.setTotalFlow(toDouble(fxReport.getTotalCumulateWater()));
-		nbDailyData.setMonthTotalFlow(toDouble(fxReport.getMonthCumulateWater()));
-		nbDailyData.setBatteryVoltage(toDouble(fxReport.getBatteryVoltage()));
-		nbDailyData.setValveStatus(toByte(fxReport.getValveState()));
+		nbDailyData.setTotalFlow(toDouble(dataMap.get("TotalCumulateWater")));
+		nbDailyData.setMonthTotalFlow(toDouble(dataMap.get("MonthCumulateWater")));
+		nbDailyData.setBatteryVoltage(toDouble(dataMap.get("BatteryVoltage")));
+		nbDailyData.setValveStatus(toByte(dataMap.get("ValveState")));
 
 		JedisUtils.lpush(Constant.HISTORY_DAILY_QUEUE, JsonUtil.jsonObj2Sting(nbDailyData));
 	}

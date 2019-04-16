@@ -27,6 +27,13 @@ public class FXReport implements Serializable {
 	*/ 
 	private static final long serialVersionUID = 6897052349813312149L;
 
+	private String AFN; 
+	private String DIR;
+	private String IMSI;                                         
+	private String CNT;    
+	private String PreStoredWater;
+	private String RemainPreStoredWater;
+	private String SignalStrength;
 	private String Version; // 固件版本
 	private String IsKeyTriggerThisReport;// 是否是按键触发上报 0:自动定时上报 1:按键触发上报
 	private String TotalCumulateWater; // 累计总水量
@@ -40,6 +47,48 @@ public class FXReport implements Serializable {
 	private int date; // 上报日期
 	private int time; // 上报时间
 	
+	public String getAFN() {
+		return AFN;
+	}
+	public void setAFN(String aFN) {
+		AFN = aFN;
+	}
+	public String getDIR() {
+		return DIR;
+	}
+	public void setDIR(String dIR) {
+		DIR = dIR;
+	}
+	public String getIMSI() {
+		return IMSI;
+	}
+	public void setIMSI(String iMSI) {
+		IMSI = iMSI;
+	}
+	public String getCNT() {
+		return CNT;
+	}
+	public void setCNT(String cNT) {
+		CNT = cNT;
+	}
+	public String getPreStoredWater() {
+		return PreStoredWater;
+	}
+	public void setPreStoredWater(String preStoredWater) {
+		PreStoredWater = preStoredWater;
+	}
+	public String getRemainPreStoredWater() {
+		return RemainPreStoredWater;
+	}
+	public void setRemainPreStoredWater(String remainPreStoredWater) {
+		RemainPreStoredWater = remainPreStoredWater;
+	}
+	public String getSignalStrength() {
+		return SignalStrength;
+	}
+	public void setSignalStrength(String signalStrength) {
+		SignalStrength = signalStrength;
+	}
 	/**
 	 * @return the version
 	 */
