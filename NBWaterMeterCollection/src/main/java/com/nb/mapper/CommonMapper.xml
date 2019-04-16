@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.nb.mapper.CommonMapper" >
-   
- <select id="getNbInfoByDeviceId" parameterType="string" resultType="map">
- 	 select rtu_id rtuId,mp_id mpId from nb_water_meter 
- 	 where device_id = #{deviceId,jdbcType=VARCHAR}
- </select>
+
+	<select id="getNbInfoByDeviceId" parameterType="string"
+		resultType="map">
+		select rtu_id rtuId,mp_id mpId from nb_water_meter
+		where device_id = #{deviceId,jdbcType=VARCHAR}
+	</select>
+
+	<select id="getCommand" parameterType="map" resultType="map">
+		select c.service_id serviceId,method 
+		from nb_water_meter m
+		LEFT JOIN nb_command c
+		ON m.appinfo_id =c.appinfo_id and m.device_model_id = c.model_id
+		where m.rtu_id = #{rtuId,jdbcType=INTEGER} and mp_id = #{mpId,jdbcType=INTEGER} 
+		and c.command_id = #{commandId,jdbcType=INTEGER}
+	</select>
+ 
+
 
 	<update id="updateWaterMeterValve" parameterType="map">
 		update nb_water_meter

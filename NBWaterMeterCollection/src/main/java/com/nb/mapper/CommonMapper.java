@@ -25,4 +25,7 @@ public interface CommonMapper {
 	Map<String, Object> getNbInfoByDeviceId(String deviceId);
 	
 	boolean updateWaterMeterValve(Map<String, Object> param);
+	
+	Map<String, String> getCommand(Map<String, String> param);
+
 }

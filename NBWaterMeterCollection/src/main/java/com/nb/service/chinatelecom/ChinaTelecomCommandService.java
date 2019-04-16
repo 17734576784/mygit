@@ -2,6 +2,9 @@ package com.nb.service.chinatelecom;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.annotation.Resource;
+
 import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -13,8 +16,8 @@ import com.nb.exception.ResultBean;
 import com.nb.httputil.ChinaTelecomIotHttpsUtil;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtil;
+import com.nb.mapper.CommonMapper;
 import com.nb.utils.AuthenticationUtils;
-import com.nb.utils.CommFunc;
 import com.nb.utils.Constant;
 import com.nb.utils.ConverterUtils;
 import com.nb.utils.JedisUtils;
@@ -32,6 +35,9 @@ public class ChinaTelecomCommandService {
 
 	@Value("${commandExpireTime}")
 	private int commandExpireTime;
+	
+	@Resource
+	private CommonMapper commonMapper;
 	
 	/**
 	 * @param command{"deviceId":"8c23b6b4-ea68-48fb-9c2f-90452a81ebb1","serviceId":"WaterMeter",
@@ -51,17 +57,17 @@ public class ChinaTelecomCommandService {
 		String callbackUrl = Constant.CHINA_TELECOM_REPORT_CMD_EXEC_RESULT_CALLBACK_URL;
 
 		String deviceId = command.getString("deviceId");// "8c23b6b4-ea68-48fb-9c2f-90452a81ebb1";
-		int commandType = command.getIntValue("commandType");
 		ResultBean<String> result = new ResultBean<String>();
 
 		ObjectNode paras = JsonUtil.convertObject2ObjectNode(command.get("param"));// "{\"value\":\"12\"}"
 		
-		Map<String, String> commandMap = CommFunc.getCommandType(Constant.CHINA_TELECOM, commandType);
+		Map<String, String> commandMap = commonMapper.getCommand(JsonUtil.bean2Map(command));
 		if (null == commandMap || commandMap.isEmpty()) {
 			result.setStatus(Constant.ERROR);
 			result.setError("命令类型不存在");
 			return result;
 		}
+		
 		Map<String, Object> paramCommand = new HashMap<>();
 		paramCommand.putAll(commandMap);
 		paramCommand.put("paras", paras);

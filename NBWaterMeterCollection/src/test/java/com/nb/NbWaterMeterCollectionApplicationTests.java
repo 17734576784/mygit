@@ -91,7 +91,20 @@ public class NbWaterMeterCollectionApplicationTests {
 	private NbInstantaneousMapper nbInstantaneousMapper;
 	
 	
+	
 	@Test
+	public void testCommon() {
+		
+		Map<String, String> param = new HashMap<>();
+		param.put("rtuId", "1");
+		param.put("mpId", "2");
+		param.put("commandId", "1");
+		
+		System.out.println(commonMapper.getCommand(param));
+	}
+	
+	
+//	@Test
 	public void testFX(){
 		Map<String, Object> meterInfo = this.commonMapper.getNbInfoByDeviceId("11111111");
 		if (meterInfo == null) {
