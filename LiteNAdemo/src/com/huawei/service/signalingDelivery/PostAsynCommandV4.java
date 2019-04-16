@@ -12,11 +12,14 @@
  */
 package com.huawei.service.signalingDelivery;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.client.utils.DateUtils;
 
+import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.huawei.utils.Constant;
 import com.huawei.utils.HttpsUtil;
@@ -58,17 +61,27 @@ public class PostAsynCommandV4 {
         String appId = Constant.APPID;
 
         //please replace the deviceId, when you use the demo.
-        String deviceId = "2274dc6a-d5a3-4c81-ad20-5437e90dc944";
+        String deviceId = "92d70872-6bdc-4dd2-9297-cc386f97222c";
 //        String callbackUrl = Constant.REPORT_CMD_EXEC_RESULT_CALLBACK_URL;
-        String callbackUrl = "https://129.28.69.163:443/reportCmdExecResult";
+        String callbackUrl = "https://222.222.60.178:18213/reportCmdExecResult";
 
         //please replace the following parameter values, when you use the demo.
         //And those parameter values must be consistent with the content of profile that have been preset to IoT platform.
         //The following parameter values of this demo are use the watermeter profile that already initialized to IoT platform.
-        String serviceId = "PhotoService";
-        String method = "sendohotoonce";
+        String serviceId = "SettingReportPeriod";
+        String method = "SET_REPORT_PERIOD";
+//        {"AFN":19 ,"IMSI":"xxx" ,"CNT":"xxx", "DIR":"xxx","ReportBaseTime":"xxx"," ReportIntervalHours":"xxx"}
         
-        ObjectNode paras = JsonUtil.convertObject2ObjectNode("{\"value\":\"1\"}");
+        JSONObject json = new JSONObject();
+        json.put("AFN", 19);
+        json.put("IMSI", "00000867726033841935");
+        json.put("CNT", 3);
+        json.put("DIR", 0);
+        json.put("ReportBaseTime", DateUtils.formatDate(new Date(), "YYYY-MM-dd HH:mm:ss"));
+        json.put("ReportIntervalHours", 1);
+
+        
+        ObjectNode paras = JsonUtil.convertObject2ObjectNode(json);
       
         Map<String, Object> paramCommand = new HashMap<>();
         paramCommand.put("serviceId", serviceId);

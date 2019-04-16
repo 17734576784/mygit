@@ -8,10 +8,12 @@
 */
 package test;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.client.utils.DateUtils;
 
 import com.huawei.utils.HttpsClientUtil;
 
@@ -29,6 +31,10 @@ public class msgtest {
 	 * TODO(这里用一句话描述这个方法的作用) @param @param args 设定文件 @return void 返回类型 @throws
 	 */
 	public static void main(String[] args) throws Exception {
+		
+		System.out.println(DateUtils.formatDate(new Date(), "YYYY-MM-dd HH:mm:ss"));
+		
+		
 		// TODO Auto-generated method stub
 		HttpsClientUtil https = new HttpsClientUtil();
 		https.sslClient();
