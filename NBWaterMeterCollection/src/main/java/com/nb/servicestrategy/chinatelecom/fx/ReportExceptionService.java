@@ -23,7 +23,6 @@ import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtil;
 import com.nb.mapper.CommonMapper;
 import com.nb.model.Eve;
-import com.nb.model.fx.FXReport;
 import com.nb.servicestrategy.IServiceStrategy;
 import com.nb.utils.Constant;
 import com.nb.utils.DateUtils;
@@ -74,10 +73,10 @@ public class ReportExceptionService implements IServiceStrategy {
 			if (typeNo == Constant.FX_VALVE_ERROR) { // 阀门异常
 				eveInfo = "阀门异常";
 				typeNo = Constant.ALARM_2010;
-			} else if (typeNo == 4) {// 强磁异常
+			} else if (typeNo == Constant.FX_MAGNETIC) {// 强磁异常
 				eveInfo = "强磁异常（双干簧管异常），连续10秒2个干簧管都吸合，关阀门并自动上报，有5次按键打开阀门的机会，第5次按键打卡阀门后，如果还是出现强磁只有服务器下发“开阀命令”才能打开阀门。";
 				typeNo = Constant.ALARM_2004;
-			} else if (typeNo == 5 || typeNo == 6) {
+			} else if (typeNo == Constant.FX_BATTERY_1 || typeNo == Constant.FX_BATTERY_2) {
 				eveInfo = "电池电压低压告警，电压值:" + dataMap.get("BatteryVoltage");
 				typeNo = Constant.ALARM_2008;
 			}

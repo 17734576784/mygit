@@ -413,8 +413,8 @@ public class Constant {
 	// 强磁异常
 	public static final short FX_MAGNETIC = 4;
 	// 低压告警
-	public static final short FX_battery_1 = 5;
-	public static final short FX_battery_2 = 6;
+	public static final short FX_BATTERY_1 = 5;
+	public static final short FX_BATTERY_2 = 6;
 	
 	
 }

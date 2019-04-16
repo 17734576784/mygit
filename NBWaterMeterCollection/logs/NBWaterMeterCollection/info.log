@@ -721,3 +721,45 @@
 [2019-04-16 11:47:47.015] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-18213"]
 [2019-04-16 11:47:47.352] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
 [2019-04-16 11:47:47.370] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 18213 (https) 8080 (http) with context path ''
+[2019-04-16 14:00:42.915] INFO [https-jsse-nio-18213-exec-10] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-04-16 14:00:42.916] INFO [https-jsse-nio-18213-exec-10] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-04-16 14:00:42.931] INFO [https-jsse-nio-18213-exec-10] FrameworkServlet.java:546 - Completed initialization in 15 ms
+[2019-04-16 14:01:59.644] INFO [main] RepositoryConfigurationDelegate.java:244 - Multiple Spring Data modules found, entering strict repository configuration mode!
+[2019-04-16 14:01:59.653] INFO [main] RepositoryConfigurationDelegate.java:126 - Bootstrapping Spring Data repositories in DEFAULT mode.
+[2019-04-16 14:01:59.718] INFO [main] RepositoryConfigurationDelegate.java:182 - Finished Spring Data repository scanning in 40ms. Found 0 repository interfaces.
+[2019-04-16 14:02:00.270] INFO [main] PostProcessorRegistrationDelegate.java:330 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$67eda8e] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2019-04-16 14:02:01.018] INFO [main] TomcatWebServer.java:90 - Tomcat initialized with port(s): 18213 (https) 8080 (http)
+[2019-04-16 14:02:01.048] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["https-jsse-nio-18213"]
+[2019-04-16 14:02:01.064] INFO [main] DirectJDKLog.java:173 - Initializing ProtocolHandler ["http-nio-8080"]
+[2019-04-16 14:02:01.082] INFO [main] DirectJDKLog.java:173 - Starting service [Tomcat]
+[2019-04-16 14:02:01.083] INFO [main] DirectJDKLog.java:173 - Starting Servlet engine: [Apache Tomcat/9.0.16]
+[2019-04-16 14:02:01.099] INFO [main] DirectJDKLog.java:173 - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_201\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files\Java\jdk1.8.0_201\jre\bin;C:/Program Files/Java/jre1.8.0_201/bin/server;C:/Program Files/Java/jre1.8.0_201/bin;C:/Program Files/Java/jre1.8.0_201/lib/amd64;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\hadoop-2.8.3/bin;C:\Program Files\Java\jdk1.8.0_201/bin;C:\apache-maven-3.5.2/bin;C:\Program Files (x86)\Microsoft SQL Server\80\Tools\Binn\;C:\Program Files\Microsoft SQL Server\90\Tools\binn\;C:\Program Files (x86)\Microsoft SQL Server\90\Tools\binn\;D:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\;D:\Program Files\Microsoft SQL Server\100\Tools\Binn\;D:\Program Files\Microsoft SQL Server\100\DTS\Binn\;D:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\VSShell\Common7\IDE\;C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE\PrivateAssemblies\;D:\Program Files (x86)\Microsoft SQL Server\100\DTS\Binn\;c:\kld-9300\lib;c:\kld-9300\prog;D:\Redis-x64-3.2.100;;D:\NB_WaterMeter\sts-bundle\sts-3.9.5.RELEASE;;.]
+[2019-04-16 14:02:01.273] INFO [main] DirectJDKLog.java:173 - Initializing Spring embedded WebApplicationContext
+[2019-04-16 14:02:01.273] INFO [main] ServletWebServerApplicationContext.java:296 - Root WebApplicationContext: initialization completed in 2769 ms
+[2019-04-16 14:02:02.175] INFO [main] DruidDataSource.java:947 - {dataSource-1} inited
+[2019-04-16 14:02:02.288] INFO [main] StdSchedulerFactory.java:1208 - Using default implementation for ThreadExecutor
+[2019-04-16 14:02:02.330] INFO [main] SchedulerSignalerImpl.java:61 - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[2019-04-16 14:02:02.330] INFO [main] QuartzScheduler.java:229 - Quartz Scheduler v.2.3.0 created.
+[2019-04-16 14:02:02.332] INFO [main] RAMJobStore.java:155 - RAMJobStore initialized.
+[2019-04-16 14:02:02.333] INFO [main] QuartzScheduler.java:294 - Scheduler meta-data: Quartz Scheduler (v2.3.0) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[2019-04-16 14:02:02.333] INFO [main] StdSchedulerFactory.java:1362 - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+[2019-04-16 14:02:02.334] INFO [main] StdSchedulerFactory.java:1366 - Quartz scheduler version: 2.3.0
+[2019-04-16 14:02:02.334] INFO [main] QuartzScheduler.java:2287 - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@34a20f16
+[2019-04-16 14:02:02.415] INFO [main] DruidConfig.java:177 - dao层扫描包为:com/nb/mapper/*/*.xml
+[2019-04-16 14:02:04.029] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'applicationTaskExecutor'
+[2019-04-16 14:02:04.564] INFO [main] ExecutorConfigurationSupport.java:171 - Initializing ExecutorService 'taskScheduler'
+[2019-04-16 14:02:04.646] INFO [main] SchedulerFactoryBean.java:726 - Starting Quartz Scheduler now
+[2019-04-16 14:02:04.647] INFO [main] QuartzScheduler.java:547 - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+[2019-04-16 14:02:04.666] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["https-jsse-nio-18213"]
+[2019-04-16 14:02:04.812] INFO [main] DirectJDKLog.java:173 - Starting ProtocolHandler ["http-nio-8080"]
+[2019-04-16 14:02:05.043] INFO [main] TomcatWebServer.java:204 - Tomcat started on port(s): 18213 (https) 8080 (http) with context path ''
+[2019-04-16 14:02:12.209] INFO [https-jsse-nio-18213-exec-3] DirectJDKLog.java:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2019-04-16 14:02:12.209] INFO [https-jsse-nio-18213-exec-3] FrameworkServlet.java:524 - Initializing Servlet 'dispatcherServlet'
+[2019-04-16 14:02:12.218] INFO [https-jsse-nio-18213-exec-3] FrameworkServlet.java:546 - Completed initialization in 9 ms
