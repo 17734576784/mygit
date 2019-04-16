@@ -68,7 +68,7 @@ public class ChinaTelecomCommandService {
 		String deviceId = commandInfo.get("deviceId");// "8c23b6b4-ea68-48fb-9c2f-90452a81ebb1";
 		ResultBean<String> result = new ResultBean<String>();
 
-		ObjectNode paras = JsonUtil.convertObject2ObjectNode(command.get("param"));// "{\"value\":\"12\"}"
+		ObjectNode paras = JsonUtil.convertObject2ObjectNode(commandInfo.get("param"));// "{\"value\":\"12\"}"
 		
 		Map<String, String> commandMap = commonMapper.getCommand(commandInfo);
 		if (null == commandMap || commandMap.isEmpty()) {
