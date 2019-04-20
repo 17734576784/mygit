@@ -59,7 +59,7 @@ public class ChinaMobileUtil {
 		System.arraycopy(nonce.getBytes(), 0, paramB, token.length(), 8);
 		System.arraycopy(msg.getBytes(), 0, paramB, token.length() + 8, msg.length());
 		String sig = com.sun.org.apache.xerces.internal.impl.dv.util.Base64.encode(mdInst.digest(paramB));
-		LoggerUtil.Logger(LogName.INFO).info("url&token validation: result {},  detail receive:{} calculate:{}",
+		LoggerUtil.logger(LogName.INFO).info("url&token validation: result {},  detail receive:{} calculate:{}",
 				sig.equals(signature.replace(' ', '+')), signature, sig);
 		return sig.equals(signature.replace(' ', '+'));
 	}
@@ -82,7 +82,7 @@ public class ChinaMobileUtil {
 		System.arraycopy(obj.getMsg().toString().getBytes(), 0, signature, token.length() + 8,
 				obj.getMsg().toString().length());
 		String calSig = Base64.encodeBase64String(mdInst.digest(signature));
-		LoggerUtil.Logger(LogName.INFO).info("check signature: result:{}  receive sig:{},calculate sig: {}",
+		LoggerUtil.logger(LogName.INFO).info("check signature: result:{}  receive sig:{},calculate sig: {}",
 				calSig.equals(obj.getMsgSignature()), obj.getMsgSignature(), calSig);
 		return calSig.equals(obj.getMsgSignature());
 	}
@@ -131,12 +131,12 @@ public class ChinaMobileUtil {
 		obj.setNonce(jsonMsg.getString("nonce"));
 		obj.setMsgSignature(jsonMsg.getString("msg_signature"));
 		if (encrypted) {
-			if (!jsonMsg.containsKey("enc_msg")) {
+			if (!jsonMsg.containsKey(Constant.ENC_MSG)) {
 				return null;
 			}
 			obj.setMsg(jsonMsg.getString("enc_msg"));
 		} else {
-			if (!jsonMsg.containsKey("msg")) {
+			if (!jsonMsg.containsKey(Constant.MSG)) {
 				return null;
 			}
 			obj.setMsg(jsonMsg.get("msg"));
@@ -182,6 +182,7 @@ public class ChinaMobileUtil {
 			this.msgSignature = msgSignature;
 		}
 
+		@Override
 		public String toString() {
 			return "{ \"msg\":" + this.msg + "，\"nonce\":" + this.nonce + "，\"signature\":" + this.msgSignature + "}";
 		}

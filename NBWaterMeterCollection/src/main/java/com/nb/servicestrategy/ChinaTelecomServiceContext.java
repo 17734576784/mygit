@@ -3,6 +3,8 @@
  */
 package com.nb.servicestrategy;
 
+import static com.nb.utils.ConverterUtils.toStr;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +14,7 @@ import org.springframework.stereotype.Service;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtil;
 import com.nb.servicestrategy.IServiceStrategy;
-import com.nb.utils.CommFunc;
+import com.nb.utils.StringUtil;
 
 /**   
  * @ClassName:  ChinaTelecomServiceContext   
@@ -28,13 +30,13 @@ public class ChinaTelecomServiceContext {
 	@Autowired
 	private Map<String,IServiceStrategy> serviceStrategy = new HashMap<String,IServiceStrategy>();
 	
-	public void parseService(String serviceName, String deviceId, Map<String, String> serviceMap) {
-		serviceName = CommFunc.toLowerCaseFirstOne(serviceName) + "Service";
+	public void parseService(String deviceId, Map<String, String> serviceMap) {
+		String serviceName = StringUtil.toLowerCaseFirstOne(toStr(serviceMap.get("serviceId"))) + "Service";
 		IServiceStrategy service = serviceStrategy.get(serviceName);
 		if (null != service) {
 			service.parse(deviceId, serviceMap);
 		} else {
-			LoggerUtil.Logger(LogName.CALLBACK).info("不存在服务：" + serviceName);
+			LoggerUtil.logger(LogName.CALLBACK).info("不存在服务：" + serviceName);
 			System.out.println("不存在服务：" + serviceName);
 		}
 	}

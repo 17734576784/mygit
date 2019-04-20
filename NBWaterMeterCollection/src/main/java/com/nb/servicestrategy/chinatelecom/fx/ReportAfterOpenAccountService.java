@@ -48,12 +48,12 @@ public class ReportAfterOpenAccountService implements IServiceStrategy {
 	* @param serviceMap 
 	* @see com.nb.servicestrategy.IServiceStrategy#parse(java.lang.String, java.util.Map) 
 	*/
-	@SuppressWarnings("unchecked")
+	
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
 		// TODO Auto-generated method stub
 		String logInfo = "上报府星水表上报数据 ：" + deviceId + " ,内容：" + serviceMap.toString();
-		LoggerUtil.Logger(LogName.CALLBACK).info(logInfo);
+		LoggerUtil.logger(LogName.CALLBACK).info(logInfo);
 		if (serviceMap == null || serviceMap.isEmpty()) {
 			return;
 		}
@@ -68,7 +68,7 @@ public class ReportAfterOpenAccountService implements IServiceStrategy {
 			}
 			
 			FXReport fxReport = JsonUtil.map2Bean(dataMap, FXReport.class); 
-			Map<String, Object> meterInfo = this.commonMapper.getNbInfoByDeviceId(deviceId);
+			Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
 			if (meterInfo == null) {
 				return;
 			}
@@ -87,7 +87,7 @@ public class ReportAfterOpenAccountService implements IServiceStrategy {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			LoggerUtil.Logger(LogName.CALLBACK).error(logInfo + "异常" + e.getMessage());
+			LoggerUtil.logger(LogName.CALLBACK).error(logInfo + "异常" + e.getMessage());
 		}
 	}
 	

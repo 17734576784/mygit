@@ -3,6 +3,15 @@ package com.nb.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import com.nb.utils.Constant;
+
+/** 
+* @ClassName: Eve 
+* @Description: TODO(这里用一句话描述这个类的作用) 
+* @author dbr
+* @date 2019年4月18日 下午4:35:32 
+*  
+*/
 public class Eve implements Serializable{
     /**
 	 * 
@@ -66,7 +75,7 @@ public class Eve implements Serializable{
 	 * @param tableName the tableName to set
 	 */
 	public void setTableName(String date) {
-		if (date.length() == 6) {
+		if (date.length() == Constant.TABLE_YYYYMM) {
 			this.tableName = "yddata.dbo.eve" + date;
 
 		} else {

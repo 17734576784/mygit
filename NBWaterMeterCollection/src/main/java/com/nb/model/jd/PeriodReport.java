@@ -27,17 +27,26 @@ public class PeriodReport implements Serializable {
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)
 	 */
 	private static final long serialVersionUID = 8509566480231076636L;
-
-	private String readTime; // 数据时间
-	private Double cumulativeFlow; // 首流量 单位:立方米
-	private Double positiveCumulativeFlow; // 日结累计流量 单位:立方米
-	private Double negativeCumulativeFlow; // 日结累计逆流量 单位:立方米
-	private Double peakFlowRate; // 日最高流速 单位:L/S(升/秒)
-	private Double peakFlowRateTime; // 最高流速时间戳 HHMMSS
-	private String startTime; // 首流量记录时间
-	private Integer period; // 周期数据间隔 单位:分钟
-	private Object flows;// 流量数组
-	private String evnetTime; // 事项上报时间
+	/**  数据时间 	*/ 
+	private String readTime;
+	/** 首流量 单位:立方米 */
+	private Double cumulativeFlow;
+	/** 日结累计流量 单位:立方米 */
+	private Double positiveCumulativeFlow;
+	/** 日结累计逆流量 单位:立方米 */
+	private Double negativeCumulativeFlow;
+	/** 日最高流速 单位:L/S(升/秒) */
+	private Double peakFlowRate;
+	/** 最高流速时间戳 HHMMSS */
+	private Double peakFlowRateTime;
+	/** 首流量记录时间 */
+	private String startTime;
+	/** 周期数据间隔 单位:分钟 */
+	private Integer period;
+	/** 流量数组 */
+	private Object flows;
+	/** 事项上报时间 */
+	private String evnetTime;
 	
 	
 	public Object getFlows() {

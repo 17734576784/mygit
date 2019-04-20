@@ -8,11 +8,11 @@
 */
 package com.nb.customer.alarm;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.DependsOn;
@@ -35,13 +35,13 @@ public class AlarmCustomerPool {
 	@Autowired
 	private AlarmCustomerExecutor alarmCustomerExecutor;
 	
-	ExecutorService	alarmCustomerPool;
-
 	@PostConstruct
 	public void init() {
-		alarmCustomerPool = Executors.newFixedThreadPool(alarmEventPoolsize);
+		ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(alarmEventPoolsize,
+				new BasicThreadFactory.Builder().namingPattern("-schedule-pool-%d").daemon(true).build());
+
 		for (int i = 0; i < alarmEventPoolsize; i++) {
-			alarmCustomerPool.execute(new AlarmCustomerThread(alarmCustomerExecutor));
+			executorService.execute(new AlarmCustomerThread(alarmCustomerExecutor));
 		}
 	}
 

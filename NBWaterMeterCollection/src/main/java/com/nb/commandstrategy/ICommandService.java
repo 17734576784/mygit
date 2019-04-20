@@ -18,10 +18,14 @@ import java.util.Map;
 *  
 */
 public interface ICommandService {
-	/**
-	 * 	解析命令上行数据，并处理
-	 * @param 
-	 * @param serviceMap
-	 */
+	/** 
+	 * 解析命令上行数据，并处理 
+	* @Title: parse 
+	* @Description: 解析命令上行数据，并处理 
+	* @param @param deviceId 	设备Id
+	* @param @param commandMap    设定文件 
+	* @return void    返回类型 
+	* @throws 
+	*/
 	public void parse(String deviceId, Map<String, String> commandMap);
 }

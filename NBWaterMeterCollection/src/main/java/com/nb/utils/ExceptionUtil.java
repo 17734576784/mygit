@@ -4,10 +4,13 @@ package com.nb.utils;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-/**
- * 异常处理工具类
- *
- */
+/** 
+* @ClassName: ExceptionUtil 
+* @Description: 异常处理工具类 
+* @author dbr
+* @date 2019年4月18日 下午4:51:11 
+*  
+*/
 public class ExceptionUtil
 {
     /**

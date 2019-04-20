@@ -26,7 +26,7 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 *  
 */
 @SpringBootConfiguration
-public class SpringMVCConfig implements WebMvcConfigurer{
+public class SpringMvcConfig implements WebMvcConfigurer{
 	
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {

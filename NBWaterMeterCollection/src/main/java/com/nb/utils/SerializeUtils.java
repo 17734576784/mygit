@@ -34,7 +34,7 @@ public class SerializeUtils {
 	
 	public static byte[] serialize(Object value) {
 		if (value == null) {
-			LoggerUtil.Logger(LogName.ERROR).error("不能序列化NULL");
+			LoggerUtil.logger(LogName.ERROR).error("不能序列化NULL");
 			throw new NullPointerException("不能序列化NULL");
 		}
 		byte[] rv = null;
@@ -48,7 +48,7 @@ public class SerializeUtils {
 			bos.close();
 			rv = bos.toByteArray();
 		} catch (IOException e) {
-			LoggerUtil.Logger(LogName.ERROR).error("不能序列化对象", e);
+			LoggerUtil.logger(LogName.ERROR).error("不能序列化对象", e);
 			throw new IllegalArgumentException("不能序列化对象", e);
 		} finally {
 			try {
@@ -79,7 +79,7 @@ public class SerializeUtils {
 				bis.close();
 			}
 		} catch (Exception e) {
-			LoggerUtil.Logger(LogName.ERROR).error("反序列化异常", e);
+			LoggerUtil.logger(LogName.ERROR).error("反序列化异常", e);
 			e.printStackTrace();
 		} finally {
 			try {

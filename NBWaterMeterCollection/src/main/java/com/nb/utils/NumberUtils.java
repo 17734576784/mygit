@@ -29,7 +29,7 @@ public class NumberUtils {
 			return false;
 		}
 		String mstr = value.toString();
-		Pattern pattern = Pattern.compile("^-?\\d+{1}");
+		Pattern pattern = Pattern.compile(Constant.REG_INT);
 		return pattern.matcher(mstr).matches();
 	}
 
@@ -43,7 +43,7 @@ public class NumberUtils {
 			return false;
 		}
 		String mstr = value.toString();
-		Pattern pattern = Pattern.compile("^-?[0-9]*.?[0-9]*{1}");
+		Pattern pattern = Pattern.compile(Constant.REG_DIGIT);
 		return pattern.matcher(mstr).matches();
 	}
 

@@ -95,9 +95,9 @@ public class HttpsClientUtil {
 	*/
 	public HttpClient sslClientByCert() throws Exception {
 		// 1 Import your own certificate
-		String demo_base_Path = System.getProperty("user.dir");
-		String selfcertpath = demo_base_Path + Constant.CHINA_TELECOM_SELFCERTPATH;
-		String trustcapath = demo_base_Path + Constant.CHINA_TELECOM_TRUSTCAPATH;
+		String demoBasePath = System.getProperty("user.dir");
+		String selfcertpath = demoBasePath + Constant.CHINA_TELECOM_SELFCERTPATH;
+		String trustcapath = demoBasePath + Constant.CHINA_TELECOM_TRUSTCAPATH;
 
 		KeyStore selfCert = KeyStore.getInstance("pkcs12");
 		selfCert.load(new FileInputStream(selfcertpath), Constant.CHINA_TELECOM_SELFCERTPWD.toCharArray());
@@ -124,11 +124,13 @@ public class HttpsClientUtil {
 		// 设置协议http和https对应的处理socket链接工厂的对象
 		Registry<ConnectionSocketFactory> socketFactoryRegistry = RegistryBuilder.<ConnectionSocketFactory>create()
 				.register("http", PlainConnectionSocketFactory.INSTANCE).register("https", socketFactory).build();
+		
 		// 创建ConnectionManager，添加Connection配置信息
 		PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager(
 				socketFactoryRegistry);
 		CloseableHttpClient closeableHttpClient = HttpClients.custom().setConnectionManager(connectionManager)
 				.setDefaultRequestConfig(requestConfig).build();
+		
 		return closeableHttpClient;
 	}
 
@@ -146,13 +148,13 @@ public class HttpsClientUtil {
 			SSLContext sslcontext = SSLContext.getInstance("SSL");
 			// 鍒涘缓TrustManager
 			X509TrustManager tm = new X509TrustManager() {
-
+				@Override
 				public void checkClientTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
 				}
-
+				@Override
 				public void checkServerTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
 				}
-
+				@Override
 				public X509Certificate[] getAcceptedIssuers() {
 					return null;
 				}
@@ -557,8 +559,9 @@ public class HttpsClientUtil {
 			int index = 0;
 			for (Entry<String, Object> entry : entrys) {
 				url += entry.getKey() + "=" + entry.getValue();
-				if (++index < size)
+				if (++index < size){
 					url += "&";
+				}
 			}
 		}
 		return url;

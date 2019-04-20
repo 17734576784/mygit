@@ -39,7 +39,7 @@ public class ChinaMobileCallBackController {
 	* @throws 
 	*/
 	@RequestMapping(value = "receivingPushMessages", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String URLVerification(@RequestParam(value = "msg") String msg, @RequestParam(value = "nonce") String nonce,
+	public String urlVerification(@RequestParam(value = "msg") String msg, @RequestParam(value = "nonce") String nonce,
 			@RequestParam(value = "signature") String signature) throws UnsupportedEncodingException {
 		if (ChinaMobileUtil.checkToken(msg, nonce, signature, Constant.CHINA_MOBILE_TOKEN)) {
 			return msg;
@@ -49,11 +49,11 @@ public class ChinaMobileCallBackController {
 	}
 
 	@RequestMapping(value = "receivingPushMessages", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String URLVerification(@RequestBody String pushMessages) {
-		LoggerUtil.Logger(LogName.INFO).info("data receive:  body String --- " + pushMessages);
+	public String urlVerification(@RequestBody String pushMessages) {
+		LoggerUtil.logger(LogName.INFO).info("data receive:  body String --- " + pushMessages);
 		try {
 			ChinaMobileUtil.BodyObj obj = ChinaMobileUtil.resolveBody(pushMessages, false);
-			LoggerUtil.Logger(LogName.INFO).info("data receive:  body Object --- " + obj);
+			LoggerUtil.logger(LogName.INFO).info("data receive:  body Object --- " + obj);
 			if (obj != null) {
 				boolean dataRight = ChinaMobileUtil.checkSignature(obj, Constant.CHINA_MOBILE_TOKEN);
 				if (dataRight) {
@@ -67,12 +67,12 @@ public class ChinaMobileCallBackController {
 							parseMsg(msgJson);
 						}
 					}
-					LoggerUtil.Logger(LogName.INFO).info("data receive: content" + obj.toString());
+					LoggerUtil.logger(LogName.INFO).info("data receive: content" + obj.toString());
 				} else {
-					LoggerUtil.Logger(LogName.INFO).info("data receive: signature error");
+					LoggerUtil.logger(LogName.INFO).info("data receive: signature error");
 				}
 			} else {
-				LoggerUtil.Logger(LogName.INFO).info("data receive: body empty error");
+				LoggerUtil.logger(LogName.INFO).info("data receive: body empty error");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -95,7 +95,10 @@ public class ChinaMobileCallBackController {
 		// 数据点消息
 		if (msgType == Constant.CHINA_MOBILE_DATA_MSG) {
 			parseDateMsg(msgJson);
-		} else if (msgType == Constant.CHINA_MOBILE_COMMAND_MSG) { // 下行命令的应答（仅限NB设备）
+
+		}
+		// 下行命令的应答（仅限NB设备）
+		else if (msgType == Constant.CHINA_MOBILE_COMMAND_MSG) {
 			parseCommandMsg(msgJson);
 		}
 	}

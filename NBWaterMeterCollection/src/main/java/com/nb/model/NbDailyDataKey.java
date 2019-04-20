@@ -2,6 +2,13 @@ package com.nb.model;
 
 import java.io.Serializable;
 
+/** 
+* @ClassName: NbDailyDataKey 
+* @Description: TODO(这里用一句话描述这个类的作用) 
+* @author dbr
+* @date 2019年4月18日 下午4:52:56 
+*  
+*/
 public class NbDailyDataKey implements Serializable{
     /** 
 	* @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 

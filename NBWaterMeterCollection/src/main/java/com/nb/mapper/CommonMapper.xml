@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.nb.mapper.CommonMapper" >
 
-	<select id="getNbInfoByDeviceId" parameterType="string"
+	<select id="getRtuMpIdByDeviceId" parameterType="string"
 		resultType="map">
 		select rtu_id rtuId,mp_id mpId from nb_water_meter
 		where device_id = #{deviceId,jdbcType=VARCHAR}
@@ -17,7 +17,21 @@
 		and c.command_id = #{commandId,jdbcType=INTEGER}
 	</select>
 
-	<select id="getRegisterInfo" parameterType="map" resultType="map">
+  <resultMap id="DeviceInfo" type="com.nb.model.DeviceInfo">
+		<result column="imei" property="imei" jdbcType="VARCHAR" />
+		<result column="imsi" property="imsi" jdbcType="VARCHAR" />
+		<result column="deviceId" property="deviceId" jdbcType="VARCHAR" />
+		<result column="appId" property="appId" jdbcType="VARCHAR" />
+		<result column="secret" property="secret" jdbcType="VARCHAR" />
+		<result column="manufacturerId" property="manufacturerId" jdbcType="VARCHAR" />
+		<result column="manufacturerName" property="manufacturerName" jdbcType="VARCHAR" />
+		<result column="deviceType" property="deviceType" jdbcType="VARCHAR" />
+		<result column="model" property="model" jdbcType="VARCHAR" />
+		<result column="protocolType" property="protocolType" jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<select id="getDeviceInfo" parameterType="map" resultMap="DeviceInfo">
 		SELECT m.imei_code imei,m.imsi_code imsi,m.device_id
 		deviceId,a.app_id appId,a.secret,
 		d.manufacturer_id manufacturerId,d.manufacturer_name manufacturerName,
@@ -25,19 +39,26 @@
 		from nb_water_meter m,nb_appinfo a ,nb_device_model d
 		where d.appinfo_id = a.id and m.appinfo_id = d.appinfo_id
 		and m.device_model_id = d.id
-		and rtu_id = #{rtuId,jdbcType=INTEGER} and mp_id =
-		#{mpId,jdbcType=INTEGER}
+		and rtu_id = #{rtuId,jdbcType=INTEGER} 
+		and mp_id =	#{mpId,jdbcType=INTEGER}
 	</select>
- 
- 
 
+	<update id="updateDeviceIdByImei" parameterType="map">
+		update nb_water_meter
+		set device_id = #{deviceId,jdbcType=VARCHAR}
+		where imei_code = #{imei,jdbcType=VARCHAR}
+	</update>
 
 	<update id="updateWaterMeterValve" parameterType="map">
 		update nb_water_meter
-		set valve_status = #{valveState}
-		<if test="version != null">
-			,firmware_version = #{version,jdbcType=VARCHAR}
-		</if>
+		<set>
+			<if test="valveState != null">
+				valve_status = #{valveState},
+			</if>
+			<if test="version != null">
+				firmware_version = #{version,jdbcType=VARCHAR},
+			</if>
+		</set>
 		where rtu_id = #{rtuId,jdbcType=INTEGER}
 		and mp_id = #{mpId,jdbcType=INTEGER}
 	</update>

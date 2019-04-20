@@ -27,11 +27,21 @@ public class Battery implements Serializable {
 	* @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 
 	*/ 
 	private static final long serialVersionUID = -4837778433106762441L;
-	private Double batteryVoltage;// 电压 单位:V
-	private String batteryvoltageAlarm; // 电压报警 Y:报警,N:正常
-	private Double batteryvoltageThreshold; // 电压报警阈值
-	private int date; // 事项上报日期
-	private int time; // 事项上报时间
+
+	/** 电压 单位:V */ 
+	private Double batteryVoltage;
+	
+	/** 电压报警 Y:报警,N:正常 */
+	private String batteryvoltageAlarm;
+	
+	/** 电压报警阈值 */
+	private Double batteryvoltageThreshold;
+	
+	/** 事项上报日期 */
+	private int date; 
+	
+	/** 事项上报时间 */
+	private int time; 
 	
 	/**
 	 * @param evnetTime the evnetTime to set

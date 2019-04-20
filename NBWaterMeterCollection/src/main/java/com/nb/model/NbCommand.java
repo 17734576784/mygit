@@ -2,6 +2,15 @@ package com.nb.model;
 
 import java.util.Date;
 
+import com.nb.utils.Constant;
+
+/** 
+* @ClassName: NbCommand 
+* @Description: TODO(这里用一句话描述这个类的作用) 
+* @author dbr
+* @date 2019年4月18日 下午4:35:59 
+*  
+*/
 public class NbCommand extends NbCommandKey {
     /** 
 	* @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 
@@ -33,7 +42,12 @@ public class NbCommand extends NbCommandKey {
 	 * @param tableName the tableName to set
 	 */
 	public void setTableName(String date) {
-		this.tableName = "yddata.dbo.nb_command_" + date;
+
+		if (date.length() == Constant.TABLE_YYYYMM) {
+			this.tableName = "yddata.dbo.nb_command_" + date;
+		} else {
+			this.tableName = date;
+		}
 	}
 
 	public Byte getCommandClass() {

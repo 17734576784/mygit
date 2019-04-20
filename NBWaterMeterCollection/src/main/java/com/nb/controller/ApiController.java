@@ -22,10 +22,10 @@ import com.nb.exception.ErrorCodeEnum;
 import com.nb.exception.ResultBean;
 import com.nb.httputil.HttpsClientUtil;
 import com.nb.model.StreamClosedHttpResponse;
-import com.nb.service.chinamobile.ChinaMobileCommandService;
-import com.nb.service.chinamobile.ChinaMobileDeviceService;
-import com.nb.service.chinatelecom.ChinaTelecomCommandService;
-import com.nb.service.chinatelecom.ChinaTelecomDeviceService;
+import com.nb.service.IChinaMobileCommandService;
+import com.nb.service.IChinaMobileDeviceService;
+import com.nb.service.IChinaTelecomCommandService;
+import com.nb.service.IChinaTelecomDeviceService;
 import com.nb.utils.CommFunc;
 import com.nb.utils.Constant;
 
@@ -38,17 +38,17 @@ import com.nb.utils.Constant;
 */
 @RestController
 @RequestMapping("/api")
-public class APIController {
+public class ApiController {
 	
 	@Autowired
-	private ChinaMobileCommandService chinaMobileCommandService;
+	private IChinaMobileCommandService chinaMobileCommandService;
 	@Autowired
-	private ChinaMobileDeviceService chinaMobileDeviceService;
+	private IChinaMobileDeviceService chinaMobileDeviceService;
 	@Autowired
-	private ChinaTelecomCommandService chinaTelecomCommandService;
+	private IChinaTelecomCommandService chinaTelecomCommandService;
 	@Autowired
-	private ChinaTelecomDeviceService chinaTelecomDeviceService;
-	
+	private IChinaTelecomDeviceService chinaTelecomDeviceService;
+
 	/** 
 	* @Title: addDevice 
 	* @Description: 创建设备 
@@ -134,7 +134,7 @@ public class APIController {
 			return result;
 		}
 		
-		Map<String, String> params = new HashMap<String, String>();
+		Map<String, String> params = new HashMap<String, String>(16);
 		params.put("imei", commandInfo.getString("imei"));
 		params.putAll(commandMap);
 
@@ -170,7 +170,7 @@ public class APIController {
 		}
 		
 		commandMap.remove("res_id");
-		Map<String, Object> params = new HashMap<String, Object>();
+		Map<String, Object> params = new HashMap<String, Object>(16);
 		params.put("imei", commandInfo.getString("imei"));
 		params.put("mode", commandInfo.getString("mode"));
 		params.putAll(commandMap);
@@ -207,9 +207,32 @@ public class APIController {
 		case Constant.CHINA_MOBILE:
 			result = this.chinaMobileCommandService.asynCommand(commandInfo);
 			break;
+		default:
+			break;
+		}
+
+		return result;
+	}
+	
+	@RequestMapping(value = "/batchCommand", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResultBean<?> batchCommand(@RequestBody JSONObject commandInfo) throws Exception {
+		ResultBean<?> result = new ResultBean<>();
+		int nbType = commandInfo.getIntValue("nbType");
+
+		switch (nbType) {
+		case Constant.CHINA_TELECOM:
+			result = this.chinaTelecomCommandService.batchCommand(commandInfo);
+			break;
+//		case Constant.CHINA_MOBILE:
+//			result = this.chinaMobileCommandService.asynCommand(commandInfo);
+//			break;
+		default:
+			break;
 		}
 
 		return result;
 	}
 
+	
+	
 }

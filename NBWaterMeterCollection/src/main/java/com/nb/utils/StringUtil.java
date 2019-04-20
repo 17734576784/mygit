@@ -10,9 +10,57 @@
  */
 package com.nb.utils;
 
+/** 
+* @ClassName: StringUtil 
+* @Description: 字符串工具类
+* @author dbr
+* @date 2019年4月18日 下午4:50:30 
+*  
+*/
 public class StringUtil {
 
+    /** 
+    * @Title: strIsNullOrEmpty 
+    * @Description: 判断字符串是否为null或者空 
+    * @param @param s
+    * @param @return    设定文件 
+    * @return boolean    返回类型 
+    * @throws 
+    */
     public static boolean strIsNullOrEmpty(String s) {
         return (null == s || s.trim().length() < 1);
     }
+    
+    /** 
+	* @Title: toLowerCaseFirstOne 
+	* @Description: 首字母转小写
+	* @param @param s
+	* @param @return    设定文件 
+	* @return String    返回类型 
+	* @throws 
+	*/
+	public static String toLowerCaseFirstOne(String s) {
+		if (Character.isLowerCase(s.charAt(0))){
+			return s;
+		}
+		else{
+			return (new StringBuilder()).append(Character.toLowerCase(s.charAt(0))).append(s.substring(1)).toString();
+		}
+	}
+
+	/** 
+	* @Title: toUpperCaseFirstOne 
+	* @Description: 首字母转大写
+	* @param @param s
+	* @param @return    设定文件 
+	* @return String    返回类型 
+	* @throws 
+	*/
+	public static String toUpperCaseFirstOne(String s) {
+		if (Character.isUpperCase(s.charAt(0))) {
+			return s;
+		} else {
+			return (new StringBuilder()).append(Character.toUpperCase(s.charAt(0))).append(s.substring(1)).toString();
+		}
+	}
 }

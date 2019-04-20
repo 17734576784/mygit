@@ -23,6 +23,13 @@ import org.apache.http.params.HttpParams;
 
 import com.nb.utils.StreamUtil;
 
+/** 
+* @ClassName: StreamClosedHttpResponse 
+* @Description: TODO(这里用一句话描述这个类的作用) 
+* @author dbr
+* @date 2019年4月18日 下午4:52:23 
+*  
+*/
 @SuppressWarnings("deprecation")
 public class StreamClosedHttpResponse implements HttpResponse
 {

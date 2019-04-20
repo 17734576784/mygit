@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 *  
 */
 public class LoggerUtil {
-	  public static <T> org.slf4j.Logger Logger(Class<T> clazz) {
+	  public static <T> org.slf4j.Logger logger(Class<T> clazz) {
 	        return LoggerFactory.getLogger(clazz);
 	    }
 
@@ -28,7 +28,7 @@ public class LoggerUtil {
 	     * @param desc 日志文件名称
 	     * @return
 	     */
-	    public static org.slf4j.Logger Logger(LogName logName) {
+	    public static org.slf4j.Logger logger(LogName logName) {
 	        return LoggerFactory.getLogger(logName.getLogFileName());
 	    }
 }

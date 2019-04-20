@@ -8,11 +8,12 @@
 */
 package com.nb.customer.historydatabase;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.DependsOn;
@@ -36,29 +37,27 @@ public class HistoryDatabaseCustomerPool {
 	@Autowired
 	private HistoryDatabaseExecutor historyDatabaseExecutor;
 	
-	ExecutorService dailyDatabaseCustomerPool;
-	
-	ExecutorService instanceDatabaseCustomerPool;
-
-	ExecutorService batteryDatabaseCustomerPool;
-
-	
 	@PostConstruct
 	public void init() {
 		
-		dailyDatabaseCustomerPool = Executors.newFixedThreadPool(historyDatabasePoolsize);
+		ScheduledExecutorService dailyDatabaseCustomerPool = new ScheduledThreadPoolExecutor(historyDatabasePoolsize,
+				new BasicThreadFactory.Builder().namingPattern("daily-schedule-pool-%d").daemon(true).build());
+
 		for (int i = 0; i < historyDatabasePoolsize; i++) {
 			dailyDatabaseCustomerPool.execute(new DailyDataCustomerThread(historyDatabaseExecutor));
 		}
 		System.out.println("日数据历史库线程启动成功");
 
-		instanceDatabaseCustomerPool = Executors.newFixedThreadPool(historyDatabasePoolsize);
+		ScheduledExecutorService instanceDatabaseCustomerPool = new ScheduledThreadPoolExecutor(historyDatabasePoolsize,
+				new BasicThreadFactory.Builder().namingPattern("instance-schedule-pool-%d").daemon(true).build());
+
 		for (int i = 0; i < historyDatabasePoolsize; i++) {
 			instanceDatabaseCustomerPool.execute(new InstanceDataCustomerThread(historyDatabaseExecutor));
 		}
 		System.out.println("瞬时量数据历史库线程启动成功");
 
-		batteryDatabaseCustomerPool = Executors.newFixedThreadPool(historyDatabasePoolsize);
+		ScheduledExecutorService batteryDatabaseCustomerPool = new ScheduledThreadPoolExecutor(historyDatabasePoolsize,
+				new BasicThreadFactory.Builder().namingPattern("battery-schedule-pool-%d").daemon(true).build());
 		for (int i = 0; i < historyDatabasePoolsize; i++) {
 			batteryDatabaseCustomerPool.execute(new BatteryDataCustomerThread(historyDatabaseExecutor));
 		}

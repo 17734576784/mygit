@@ -48,7 +48,7 @@ public class FileUtils {
 	 */
 	public static boolean upload(String url, String filePath, String date,String deviceId,String time) throws ClientProtocolException, IOException {
 		boolean flag = false;
-		LoggerUtil.Logger(LogName.CALLBACK).info("上传图片：deviceId : " + deviceId + " ,filePath:" + filePath);
+		LoggerUtil.logger(LogName.CALLBACK).info("上传图片：deviceId : " + deviceId + " ,filePath:" + filePath);
 		try {
 			CloseableHttpClient httpClient = HttpClientBuilder.create().build();
 			CloseableHttpResponse httpResponse = null;
@@ -76,7 +76,7 @@ public class FileUtils {
 			httpResponse = httpClient.execute(httpPost);
 			HttpEntity responseEntity = httpResponse.getEntity();
 			int statusCode = httpResponse.getStatusLine().getStatusCode();
-			if (statusCode == 200) {
+			if (statusCode == Constant.NUM_200) {
 				BufferedReader reader = new BufferedReader(new InputStreamReader(responseEntity.getContent()));
 				StringBuffer buffer = new StringBuffer();
 				String str = "";
@@ -93,7 +93,7 @@ public class FileUtils {
 			}
 		} catch (Exception e) {
 			flag = false;
-			LoggerUtil.Logger(LogName.CALLBACK).error("上传图片异常:" + filePath);
+			LoggerUtil.logger(LogName.CALLBACK).error("上传图片异常:" + filePath);
 			e.printStackTrace();
 		}
 
@@ -250,7 +250,7 @@ public class FileUtils {
 			json.put("data", fileMap);
 			JedisUtils.set(fileKey, json.toJSONString());
 		} catch (Exception e) {
-			LoggerUtil.Logger(LogName.CALLBACK).error("解析升级文件异常", e);
+			LoggerUtil.logger(LogName.CALLBACK).error("解析升级文件异常", e);
 			e.printStackTrace();
 		}
     	return json;

@@ -21,36 +21,26 @@ import com.nb.utils.JedisUtils;
 public class InstanceDataCustomerThread implements Runnable {
 
 	/** 历史库线程起止标志 */
-	public volatile static boolean historyDatabaseRunFlag = false;
+	public volatile static boolean historyDatabaseRunFlag = true;
 
 	private HistoryDatabaseExecutor historyDatabaseExecutor;
 
-	/**
-	 * <p>
-	 * Title:
-	 * </p>
-	 * <p>
-	 * Description:
-	 * </p>
-	 * 
-	 * @param historyDatabaseExecutor
-	 */
+	
+	/** 
+	* <p>Title: </p> 
+	* <p>Description: </p> 
+	* @param historyDatabaseExecutor 
+	*/
 	public InstanceDataCustomerThread(HistoryDatabaseExecutor historyDatabaseExecutor) {
 		super();
 		this.historyDatabaseExecutor = historyDatabaseExecutor;
 	}
 
-	/**
-	 * (非 Javadoc)
-	 * <p>
-	 * Title: run
-	 * </p>
-	 * <p>
-	 * Description:
-	 * </p>
-	 * 
-	 * @see java.lang.Runnable#run()
-	 */
+	/** (非 Javadoc) 
+	* <p>Title: run</p> 
+	* <p>Description: </p>  
+	* @see java.lang.Runnable#run() 
+	*/
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
@@ -60,7 +50,7 @@ public class InstanceDataCustomerThread implements Runnable {
 				Object instanceData = null;
 //				instanceData = JedisUtils.brpopLpush(Constant.HISTORY_INSTAN_QUEUE, Constant.HISTORY_INSTAN_BAK_QUEUE,
 //						0);
-				instanceData = JedisUtils.brpop(Constant.HISTORY_INSTAN_QUEUE, 0);
+				instanceData = JedisUtils.brpop(Constant.HISTORY_INSTAN_QUEUE, Constant.REDIS_TIMEOUT);
 				if (null != instanceData) {
 					if (historyDatabaseExecutor.saveInstanceData(instanceData)) {
 //						JedisUtils.rpop(Constant.HISTORY_INSTAN_BAK_QUEUE);

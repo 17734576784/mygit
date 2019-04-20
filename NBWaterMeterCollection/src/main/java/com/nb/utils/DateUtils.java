@@ -14,7 +14,7 @@ import java.util.Date;
 
 /**
  * @ClassName: DateUtils
- * @Description: TODO(这里用一句话描述这个类的作用)
+ * @Description: 日期工具类
  * @author dbr
  * @date 2018年4月21日 上午9:28:00
  * 
@@ -371,13 +371,13 @@ public class DateUtils {
 		}
 		String strdate = obj.toString().trim();
 		if (!strdate.isEmpty()) {
-			if (strdate.length() == 8) {
+			if (strdate.length() == Constant.EIGHT) {
 				strdate = strdate.substring(0, 4) + "年" + strdate.substring(4, 6) + "月" + strdate.substring(6, 8) + "日";
 				return strdate;
-			} else if (strdate.length() == 6) {
+			} else if (strdate.length() == Constant.SIX) {
 				strdate = strdate.substring(0, 4) + "年" + strdate.substring(4, 6) + "月";
 				return strdate;
-			} else if (strdate.length() == 4) {
+			} else if (strdate.length() == Constant.FOUR) {
 				strdate = strdate.substring(0, 4) + "年";
 				return strdate;
 			} else {
@@ -401,9 +401,9 @@ public class DateUtils {
 	 */
 	public static String formatToYMD(Object obj, String type) {
 		String rtnStr = null;
-		if ("day".equals(type)) {
+		if (Constant.DAY.equals(type)) {
 			rtnStr = "1970-01-01";
-		} else if ("month".equals(type)) {
+		} else if (Constant.MONTH.equals(type)) {
 			rtnStr = "1970-01";
 		} else {
 			return "";
@@ -414,10 +414,10 @@ public class DateUtils {
 		}
 		String strdate = obj.toString().trim();
 		if (!strdate.isEmpty()) {
-			if (strdate.length() == 8) {
-				if ("day".equals(type)) {
+			if (strdate.length() == Constant.EIGHT) {
+				if (Constant.DAY.equals(type)) {
 					strdate = strdate.substring(0, 4) + "-" + strdate.substring(4, 6) + "-" + strdate.substring(6, 8);
-				} else if ("month".equals(type)) {
+				} else if (Constant.MONTH.equals(type)) {
 					strdate = strdate.substring(0, 4) + "-" + strdate.substring(4, 6);
 				}
 				return strdate;
@@ -444,140 +444,16 @@ public class DateUtils {
 			return formatYMD;
 		}
 		String dateStr = date.toString();
-		if (dateStr.length() == 8) {
+		if (dateStr.length() == Constant.EIGHT) {
 			formatYMD = dateStr.substring(0, 4) + "年" + dateStr.substring(4, 6) + "月" + dateStr.substring(6, 8) + "日";
 		}
 
 		return formatYMD;
 	}
 
-	/**
-	 * 8位日期转化，6位时间转换
-	 * 
-	 * @example1 intToTime(20160707, 1)->2016-07-07
-	 * @example2 intToTime(112959, 1)->11:29:59
-	 * @param time
-	 *            {传入Object类型日期或时间}
-	 * @param type
-	 *            {传入转换日期或时间的格式type}
-	 * @return 返回字符串型的日期或时间
-	 */
-	public static String intToTime(Object time, int type) {
-		String formatTime = "";
-		if (time == null) {
-			return formatTime;
-		}
-		String timeStr = time.toString();
-		if (timeStr.length() == 8) {
-			switch (type) {
-			case 1:
-				formatTime = timeStr.substring(0, 4) + "-" + timeStr.substring(4, 6) + "-" + timeStr.substring(6, 8);
-				break;
-			case 2:
-				formatTime = timeStr.substring(0, 4) + "/" + timeStr.substring(4, 6) + "/" + timeStr.substring(6, 8);
-				break;
-			default:
-				formatTime = timeStr.substring(0, 4) + "年" + timeStr.substring(4, 6) + "月" + timeStr.substring(6, 8)
-						+ "日";
-				break;
-			}
-		} else if (timeStr.length() == 6) {
-			switch (type) {
-			case 1:
-				formatTime = timeStr.substring(0, 2) + ":" + timeStr.substring(2, 4) + ":" + timeStr.substring(4, 6);
-				break;
-			default:
-				formatTime = timeStr.substring(0, 2) + "时" + timeStr.substring(2, 4) + "分" + timeStr.substring(4, 6)
-						+ "秒";
-				break;
-			}
-		} else if (timeStr.length() < 6) {
-			while (timeStr.length() < 6) {
-				timeStr = "0" + timeStr;
-			}
-			switch (type) {
-			case 1:
-				formatTime = timeStr.substring(0, 2) + ":" + timeStr.substring(2, 4) + ":" + timeStr.substring(4, 6);
-				break;
-			default:
-				formatTime = timeStr.substring(0, 2) + "时" + timeStr.substring(2, 4) + "分" + timeStr.substring(4, 6)
-						+ "秒";
-				break;
-			}
-		}
-		return formatTime;
-	}
+	
 
-	/**
-	 * 将Object格式化为时间格式"hh时mm分"或"hh:mm", 检查object不为空且长度4位以下时，格式化；否则：返回""
-	 * 
-	 * @example1 FormatToHM(113529)->""
-	 * @example2 FormatToHM(1136)->"11:36"
-	 * @param obj
-	 *            {传入Object类型的时间}
-	 * @param type
-	 *            {传入转换时间的格式type}
-	 * @return 返回字符串型的时间
-	 */
-	public static String formatToHM(Object obj, int type) {
-		String strdate = "";
-		if (obj != null) {
-			strdate = obj.toString().trim();
-			if (strdate.length() > 4) {
-				return "";
-			}
-			while (strdate.length() < 4) {
-				strdate = "0" + strdate; ///////////////// ????????
-			}
-			if (type == 1) {
-				strdate = strdate.substring(0, 2) + ":" + strdate.substring(2, 4);
-			} else {
-				strdate = strdate.substring(0, 2) + "时" + strdate.substring(2, 4) + "分";
-			}
-		}
 
-		return strdate;
-	}
-
-	/**
-	 * 将Object格式化为时间格式"hh时mm分ss秒"或"hh:mm:ss",检查object不为空且长度6位时，格式化；否则：返回""
-	 * 
-	 * @example1 FormatToHMS(113529, 1)->"11:35:29"
-	 * @example2 FormatToHMS(1136)->""
-	 * @param obj
-	 *            {传入Object类型的时间}
-	 * @param type
-	 *            {传入转换时间的格式,int类型}
-	 * @return 返回字符串型的时间
-	 */
-	public static String formatToHMS(Object obj, int type) {
-		if (obj == null) {
-			return "";
-		}
-		String strdate = obj.toString().trim();
-
-		if (strdate.length() < 6) {
-			strdate = "000000" + strdate;
-		}
-		if (strdate.length() > 6) {
-			strdate = strdate.substring(strdate.length() - 6, strdate.length());
-		}
-		if (!strdate.isEmpty()) {
-			if (strdate.length() == 6) {
-				if (type == 1) {
-					strdate = strdate.substring(0, 2) + ":" + strdate.substring(2, 4) + ":" + strdate.substring(4, 6);
-				} else {
-					strdate = strdate.substring(0, 2) + "时" + strdate.substring(2, 4) + "分" + strdate.substring(4, 6)
-							+ "秒";
-				}
-				return strdate;
-			} else {
-				return "";
-			}
-		} else {
-			return "";
-		}
-	}
 
 	/**
 	 * 将Object格式化为日期格式"DD日hh时mm分",检查object不为空且长度6位时，格式化；否则：返回""
@@ -593,10 +469,10 @@ public class DateUtils {
 		if (obj != null) {
 			strdate = obj.toString().trim();
 			if (!strdate.isEmpty()) {
-				if (strdate.length() == 6) {
+				if (strdate.length() == Constant.SIX) {
 					strdate = strdate.substring(0, 2) + "日" + strdate.substring(2, 4) + "时" + strdate.substring(4, 6)
 							+ "分";
-				} else if (strdate.length() == 5) {
+				} else if (strdate.length() == Constant.FIVE) {
 					strdate = "0" + strdate.substring(0, 1) + "日" + strdate.substring(1, 3) + "时"
 							+ strdate.substring(3, 5) + "分";
 				}
@@ -617,7 +493,7 @@ public class DateUtils {
 	public static String formatToYM(Object obj) {
 		String strdate = obj.toString().trim();
 		if (!strdate.isEmpty()) {
-			if (strdate.length() >= 6) {
+			if (strdate.length() >= Constant.SIX) {
 				strdate = strdate.substring(0, 4) + "年" + strdate.substring(4, 6) + "月";
 				return strdate;
 			} else {
@@ -628,9 +504,14 @@ public class DateUtils {
 		}
 	}
 	
-	/*
-	 * 将时间戳转换为时间
-	 */
+	/** 
+	* @Title: stampToDate 
+	* @Description: 将时间戳转换为时间
+	* @param @param s
+	* @param @return    设定文件 
+	* @return String    返回类型 
+	* @throws 
+	*/
 	public static String stampToDate(long s) {
 		String res = "";
 		try {
@@ -643,9 +524,14 @@ public class DateUtils {
 		return res;
 	}
 
-	/*
-	 * 将时间戳转换为时间
-	 */
+	/** 
+	* @Title: stampToNoCharDate 
+	* @Description: 将时间戳转换为时间
+	* @param @param s
+	* @param @return    设定文件 
+	* @return String    返回类型 
+	* @throws 
+	*/
 	public static String stampToNoCharDate(long s) {
 		String res = "";
 		try {

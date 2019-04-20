@@ -26,15 +26,25 @@ public class DeviceState implements Serializable {
 	* @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 
 	*/ 
 	private static final long serialVersionUID = -4193798179585845821L;
-	private String readTime;// 数据时间
-	private String comState; // 通讯状态
-	private String interfereState; // string 磁干扰状态
-	private Integer signalQuality;// int 表具信号质量 0-10
-	private Integer powerState;// int 功耗状态 0-6
-	private Integer continuityFailTimes;// int 连续上报失败次数 0-255
-	private Integer reportTimes;// int 上一日上报 0-255
-	private Integer reportSuccessTimes;// int 上一日上报成功次数 0-255
-	private String evnetTime; // 事项上报时间
+	/** 数据时间 */
+	private String readTime;
+	/** 通讯状态 */
+	private String comState;
+	/** 磁干扰状态 */
+	private String interfereState;
+	/** 表具信号质量 0-10 */
+	private Integer signalQuality;
+	/** 功耗状态 0-6 */
+	private Integer powerState;
+	/** 连续上报失败次数 0-255 */
+	private Integer continuityFailTimes;
+	/** 上一日上报 0-255 */
+	private Integer reportTimes;
+	/** 上一日上报成功次数 0-255 */
+	private Integer reportSuccessTimes;
+	/** 事项上报时间 */
+	private String evnetTime;
+
 	/**
 	 * @return the evnetTime
 	 */

@@ -42,7 +42,7 @@ public class AlarmCustomerExecutor {
 			flag = false;
 			JedisUtils.lpush(Constant.ALARM_EVENT_ERROR_QUEUE, JsonUtil.jsonObj2Sting(obj));
 			e.printStackTrace();
-			LoggerUtil.Logger(LogName.ERROR).info(obj.toString() + "存库失败");
+			LoggerUtil.logger(LogName.ERROR).info(obj.toString() + "存库失败");
 		}
 		return flag;
 	}

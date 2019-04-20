@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Resource;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,13 +12,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nb.commandstrategy.chinatelecom.ChinaTelecomCommandContext;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtil;
+import com.nb.mapper.CommonMapper;
+import com.nb.mapper.NbCommandMapper;
+import com.nb.model.NbCommand;
 import com.nb.servicestrategy.ChinaTelecomServiceContext;
+import com.nb.utils.CommandEnum;
 import com.nb.utils.Constant;
 import com.nb.utils.JedisUtils;
 import com.nb.utils.JsonUtil;
+
 import static com.nb.utils.ConverterUtils.*;
 
 /** 
@@ -34,45 +37,60 @@ import static com.nb.utils.ConverterUtils.*;
 public class ChinaTelecomCallBackController {
 	@Resource
 	private ChinaTelecomServiceContext chinaTelecomServiceContext;
+
+	@Resource
+	private CommonMapper commonMapper;
 	
-	@Autowired
-	private ChinaTelecomCommandContext chinaTelecomCommandContext;
+	@Resource
+	private NbCommandMapper nbCommandMapper;
 	
 	@RequestMapping(value = "deviceAdded", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HttpStatus> recvAddDeviceNotify(@RequestBody Object addDevice_NotifyMessage) {
+	public ResponseEntity<HttpStatus> recvAddDeviceNotify(@RequestBody Object addDeviceNotifyMessage) {
 
-		System.out.println("接收addDevice" + addDevice_NotifyMessage);
-		LoggerUtil.Logger(LogName.CALLBACK).info("接收addDevice" + addDevice_NotifyMessage);
+		LoggerUtil.logger(LogName.CALLBACK).info("接收addDevice" + addDeviceNotifyMessage);
+		Map<String, String> messageMap = new HashMap<String, String>();
+		try {
+			messageMap = JsonUtil.jsonString2SimpleObj(addDeviceNotifyMessage, messageMap.getClass());
+			String deviceId = messageMap.get("deviceId");
+			Object deviceInfo = messageMap.get("deviceInfo");
+
+			Map<String, String> deviceInfoMap = new HashMap<String, String>();
+			deviceInfoMap = JsonUtil.jsonString2SimpleObj(deviceInfo, deviceInfoMap.getClass());
+			String nodeId = deviceInfoMap.get("nodeId");
+
+			// 收到添加设备命令 根据imei更新设备的deviceId(用于批量注册设备)
+			commonMapper.updateDeviceIdByImei(deviceId, nodeId);
+		} catch (Exception e) {
+			LoggerUtil.logger(LogName.CALLBACK).error("接收addDevice异常," + addDeviceNotifyMessage);
+		}
 
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "deviceInfoChanged", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HttpStatus> recvInfoChangeNotify(@RequestBody Object updateDeviceInfo_NotifyMessage) {
+	public ResponseEntity<HttpStatus> recvInfoChangeNotify(@RequestBody Object updateDeviceInfoNotifyMessage) {
 
-		LoggerUtil.Logger(LogName.CALLBACK).info("接收deviceInfoChanged" + updateDeviceInfo_NotifyMessage);
+		LoggerUtil.logger(LogName.CALLBACK).info("接收deviceInfoChanged" + updateDeviceInfoNotifyMessage);
 
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@SuppressWarnings("unchecked")
+	
 	@RequestMapping(value = "deviceDataChanged", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HttpStatus> recvDataChangeNotify(@RequestBody Object updateDeviceData_NotifyMessage) {
+	public ResponseEntity<HttpStatus> recvDataChangeNotify(@RequestBody Object updateDeviceDataNotifyMessage) {
 
-		LoggerUtil.Logger(LogName.CALLBACK).info("接收updateDeviceData:" + updateDeviceData_NotifyMessage);
+		LoggerUtil.logger(LogName.CALLBACK).info("接收updateDeviceData:" + updateDeviceDataNotifyMessage);
 		Map<String, String> messageMap = new HashMap<String, String>();
 		try {
-			messageMap = JsonUtil.jsonString2SimpleObj(updateDeviceData_NotifyMessage, messageMap.getClass());
+			messageMap = JsonUtil.jsonString2SimpleObj(updateDeviceDataNotifyMessage, messageMap.getClass());
 			String deviceId = toStr(messageMap.get("deviceId"));
 			Object service = messageMap.get("service");
-			System.out.println(service);
 			
 			Map<String, String> serviceMap = new HashMap<String, String>();
 			serviceMap = JsonUtil.jsonString2SimpleObj(service, serviceMap.getClass());
-			String serviceId = toStr(serviceMap.get("serviceId"));
-			chinaTelecomServiceContext.parseService(serviceId, deviceId, serviceMap);
+			chinaTelecomServiceContext.parseService(deviceId, serviceMap);
 		} catch (Exception e) {
-			LoggerUtil.Logger(LogName.CALLBACK).error("接收updateDeviceData异常," + updateDeviceData_NotifyMessage);
+			LoggerUtil.logger(LogName.CALLBACK).error("接收updateDeviceData异常," + updateDeviceDataNotifyMessage);
 			e.printStackTrace();
 		}
 
@@ -80,111 +98,116 @@ public class ChinaTelecomCallBackController {
 	}
 
 	@RequestMapping(value = "deviceDeleted", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HttpStatus> recvDeleteDeviceNotify(@RequestBody Object deletedDevice_NotifyMessage) {
+	public ResponseEntity<HttpStatus> recvDeleteDeviceNotify(@RequestBody Object deletedDeviceNotifyMessage) {
 
-		LoggerUtil.Logger(LogName.CALLBACK).info("接收deletedDevice:" + deletedDevice_NotifyMessage);
+		LoggerUtil.logger(LogName.CALLBACK).info("接收deletedDevice:" + deletedDeviceNotifyMessage);
 
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "commandConfirmData", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HttpStatus> recvMessageConfirmNotify(@RequestBody Object messageConfirm_NotifyMessage) {
+	@RequestMapping(value = "messageConfirm", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<HttpStatus> recvMessageConfirmNotify(@RequestBody Object messageConfirmNotifyMessage) {
 
-		LoggerUtil.Logger(LogName.CALLBACK).info("接收commandConfirmData:" + messageConfirm_NotifyMessage);
+		LoggerUtil.logger(LogName.CALLBACK).info("接收messageConfirm:" + messageConfirmNotifyMessage);
 
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "serviceInfoChanged", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<HttpStatus> recvServiceInfoChangedNotify(
-			@RequestBody Object updateServiceInfo_NotifyMessage) {
+			@RequestBody Object updateServiceInfoNotifyMessage) {
 
-		LoggerUtil.Logger(LogName.CALLBACK).info("接收updateServiceInfo:" + updateServiceInfo_NotifyMessage);
+		LoggerUtil.logger(LogName.CALLBACK).info("接收serviceInfoChanged:" + updateServiceInfoNotifyMessage);
 
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "commandRsp", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HttpStatus> recvCommandRspdNotify(@RequestBody Object commandRspData_NotifyMessage) {
+	public ResponseEntity<HttpStatus> recvCommandRspdNotify(@RequestBody Object commandRspDataNotifyMessage) {
 
-		LoggerUtil.Logger(LogName.CALLBACK).info("接收commandRspData:" + commandRspData_NotifyMessage);
+		LoggerUtil.logger(LogName.CALLBACK).info("接收commandRsp:" + commandRspDataNotifyMessage);
 
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "deviceEvent", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HttpStatus> recvDeviceEventNotify(@RequestBody Object deviceEvent_NotifyMessage) {
+	public ResponseEntity<HttpStatus> recvDeviceEventNotify(@RequestBody Object deviceEventNotifyMessage) {
 
-		LoggerUtil.Logger(LogName.CALLBACK).info("接收deviceEvent:" + deviceEvent_NotifyMessage);
+		LoggerUtil.logger(LogName.CALLBACK).info("接收deviceEvent:" + deviceEventNotifyMessage);
 
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "ruleEvent", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HttpStatus> recvRuleEventNotify(@RequestBody Object ruleEvent_NotifyMessage) {
+	public ResponseEntity<HttpStatus> recvRuleEventNotify(@RequestBody Object ruleEventNotifyMessage) {
 
-		LoggerUtil.Logger(LogName.CALLBACK).info("接收ruleEvent:" + ruleEvent_NotifyMessage);
+		LoggerUtil.logger(LogName.CALLBACK).info("接收ruleEvent:" + ruleEventNotifyMessage);
 
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "deviceDatasChanged", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<HttpStatus> recvDeviceDatasChangeDNotify(
-			@RequestBody Object updateDeviceDatas_NotifyMessage) {
+			@RequestBody Object updateDeviceDatasNotifyMessage) {
 
-		LoggerUtil.Logger(LogName.CALLBACK).info("接收updateDeviceDatas:" + updateDeviceDatas_NotifyMessage);
+		LoggerUtil.logger(LogName.CALLBACK).info("接收deviceDatasChanged:" + updateDeviceDatasNotifyMessage);
 
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@SuppressWarnings("unchecked")
+	/** 
+	* @Title: reportCmdExecResult 
+	* @Description: 命令回调 
+	* @param @param reportCmdExecResultNotifyMessage
+	* @param @return    设定文件 
+	* @return ResponseEntity<HttpStatus>    返回类型 
+	* @throws 
+	* {result={resultCode=SENT, resultDetail=null}, deviceId=92d70872-6bdc-4dd2-9297-cc386f97222c, 
+	* commandId=4613a3e9ce9241cc832dafcca193c87f}
+	*/
+	
 	@RequestMapping(value = "reportCmdExecResult", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HttpStatus> reportCmdExecResult(@RequestBody Object reportCmdExecResult_NotifyMessage){
+	public ResponseEntity<HttpStatus> reportCmdExecResult(@RequestBody Object reportCmdExecResultNotifyMessage){
 
-		//{result={resultCode=SENT, resultDetail=null}, deviceId=92d70872-6bdc-4dd2-9297-cc386f97222c, commandId=4613a3e9ce9241cc832dafcca193c87f}
-		LoggerUtil.Logger(LogName.CALLBACK).info("接收命令响应：" + reportCmdExecResult_NotifyMessage);
+		LoggerUtil.logger(LogName.CALLBACK).info("接收命令响应：" + reportCmdExecResultNotifyMessage);
 		Map<String, String> messageMap = new HashMap<String, String>();
 		try {
-			messageMap = JsonUtil.jsonString2SimpleObj(reportCmdExecResult_NotifyMessage, messageMap.getClass());
-			String deviceId = toStr(messageMap.get("deviceId"));
-			String commandId = toStr(messageMap.get("commandId"));
+			messageMap = JsonUtil.jsonString2SimpleObj(reportCmdExecResultNotifyMessage, messageMap.getClass());
+			String commandId = "";
+			if (messageMap.containsKey(Constant.COMMANDID)) {
+				commandId = toStr(messageMap.get("commandId"));
+			} else if (messageMap.containsKey(Constant.TASKID)) {
+				commandId = toStr(messageMap.get(Constant.TASKID));
+			}
+			
 			Object result = messageMap.get("result");
 			
 			Map<String, String> dataMap = new HashMap<String, String>();
 			dataMap = JsonUtil.jsonString2SimpleObj(result, dataMap.getClass());
 			String resultCode = toStr(dataMap.get("resultCode"));
-			Object resultDetail = dataMap.get("resultDetail");
-			/**
-			 * 根据下行命令上报结果信息更新命令状态
-			 */
-//			System.out.println(LocalDateTime.now()+"  "+deviceId + "  " + commandId + "  resultCode : " + resultCode);
-			if (resultCode.equals(Constant.COMMAND_SUCCESS)) {
-				String serviceName = toStr(JedisUtils.get(Constant.COMMAND + commandId));
-				if (!serviceName.isEmpty()) {
-					Map<String, String> commandMap = new HashMap<String, String>();
-					commandMap = JsonUtil.jsonString2SimpleObj(resultDetail, dataMap.getClass());
-					chinaTelecomCommandContext.parseCommand(serviceName, deviceId, commandMap);
-					delCommand(commandId);
-				}
-			} else if (resultCode.equals(Constant.COMMAND_FAILED) || resultCode.equals(Constant.COMMAND_TIMEOUT)) {
-				delCommand(commandId);
+			// Object resultDetail = dataMap.get("resultDetail");
+			// 根据下行命令上报结果信息更新命令状态
+			Byte resultValue = CommandEnum.getresultValue(resultCode);
+			String tableNameDate = JedisUtils.get(Constant.COMMAND + commandId);
+			if (tableNameDate != null && resultValue != null) {
+				NbCommand nbCommand = new NbCommand();
+				nbCommand.setTableName(tableNameDate);
+				nbCommand.setCommandId(commandId);
+				nbCommand.setExecuteResult(resultValue);
+				nbCommandMapper.updateNbCommand(nbCommand);
 			}
 		} catch (Exception e) {
-			LoggerUtil.Logger(LogName.CALLBACK).error("接收命令响应异常," + reportCmdExecResult_NotifyMessage);
+			LoggerUtil.logger(LogName.CALLBACK).error("接收命令响应异常," + reportCmdExecResultNotifyMessage);
 			e.printStackTrace();
 		}
 		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	private void delCommand(String commandId) {
-		JedisUtils.del(Constant.COMMAND + commandId);
-	}
+	@RequestMapping(value = "bindDevice", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<HttpStatus> recvDeviceBindNotify(@RequestBody Object deviceBindNotifyMessage) {
 
-	@RequestMapping(value = "deviceBind", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HttpStatus> recvDeviceBindNotify(@RequestBody Object deviceBind_NotifyMessage) {
-
-		LoggerUtil.Logger(LogName.CALLBACK).info("deviceBind：" + deviceBind_NotifyMessage);
+		LoggerUtil.logger(LogName.CALLBACK).info("bindDevice：" + deviceBindNotifyMessage);
 
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

@@ -65,15 +65,20 @@ public class ScheduleServiceImpl implements IScheduleService {
 	@Override
 	@Transactional
 	public void test() {
-		ScheduleJob scheduleJob = new ScheduleJob();
-		scheduleJob.setCronExpression("");
-		scheduleJob.setJobGroup("task");
-		scheduleJob.setJobName("task2");
-		scheduleJob.setJobStatus((byte) 0);
-		scheduleJob.setQuartzClass("");
-		scheduleJobMapper.insertSelective(scheduleJob);
-		scheduleJob.setJobId(1);
-		scheduleJobMapper.insertSelective(scheduleJob);
+		try {
+			ScheduleJob scheduleJob = new ScheduleJob();
+			scheduleJob.setCronExpression("");
+			scheduleJob.setJobGroup("task");
+			scheduleJob.setJobName("task2");
+			scheduleJob.setJobStatus((byte) 0);
+			scheduleJob.setQuartzClass("");
+			scheduleJobMapper.insertSelective(scheduleJob);
+			scheduleJob.setJobId(1);
+			scheduleJobMapper.insertSelective(scheduleJob);
+		} catch (Exception e) {
+			// TODO: handle exception
+			
+		}
 	}
 
 }

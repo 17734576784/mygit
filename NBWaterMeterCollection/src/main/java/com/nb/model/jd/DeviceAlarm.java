@@ -26,16 +26,33 @@ public class DeviceAlarm implements Serializable {
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)
 	 */
 	private static final long serialVersionUID = -7632679080105896668L;
+	/** 大流量报警 开始时间 */
+	private String peakFlowStartTime;
+	/** 最大流速 单位: L/h */
+	private Integer peakFlow;
+	/** 篡改告警 1：篡改，被如下数据被修改时产生此告警：序列号，生产日期，累计流量，0不报警 */
+	private Integer tampered;
+	/** 反流告警 1报警，0不报警 */
+	private Integer reverseFlowAlarm;
+	/** 磁干扰 1报警，0不报警 */
+	private Integer magneticInterferenceAlarm;
+	/**
+	 * @Fields internalAlarm : 内部错误 水表厂家自行定义
+	 */ 
+	private Integer internalAlarm;
+	/** 
+	* @Fields disconnectAlarm :  远传模块分离告警 1报警，0不报警 
+	*/ 
+	private Integer disconnectAlarm;
+	/** 
+	* @Fields date : 事项上报日期
+	*/ 
+	private int date;
+	/** 
+	* @Fields time : 事项上报时间
+	*/ 
+	private int time;
 
-	private String peakFlowStartTime;// 大流量报警 开始时间 
-	private Integer peakFlow; // 最大流速 单位: L/h
-	private Integer tampered; // 篡改告警 1：篡改，被如下数据被修改时产生此告警：序列号，生产日期，累计流量，0不报警
-	private Integer reverseFlowAlarm; // 反流告警 1报警，0不报警
-	private Integer magneticInterferenceAlarm; // 磁干扰 1报警，0不报警
-	private Integer internalAlarm; // 内部错误 水表厂家自行定义
-	private Integer disconnectAlarm; // 远传模块分离告警 1报警，0不报警
-	private int  date; // 事项上报日期
-	private int  time; // 事项上报时间
 	/**
 	 * @param evnetTime the evnetTime to set
 	 */

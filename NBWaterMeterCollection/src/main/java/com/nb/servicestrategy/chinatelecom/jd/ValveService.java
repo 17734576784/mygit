@@ -41,12 +41,12 @@ public class ValveService implements IServiceStrategy {
 	* @param serviceMap 
 	* @see com.nb.servicestrategy.IServiceStrategy#parse(java.lang.String, java.util.Map) 
 	*/
-	@SuppressWarnings("unchecked")
+	
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
 		// TODO Auto-generated method stub
 		String logInfo = "上报竟达阀门服务 ：" + deviceId + " ,内容：" + serviceMap.toString();
-		LoggerUtil.Logger(LogName.CALLBACK).info(logInfo);
+		LoggerUtil.logger(LogName.CALLBACK).info(logInfo);
 		if (serviceMap == null || serviceMap.isEmpty()) {
 			return;
 		}
@@ -74,7 +74,7 @@ public class ValveService implements IServiceStrategy {
 			break;
 		}
 
-		Map<String, Object> meterInfo = this.commonMapper.getNbInfoByDeviceId(deviceId);
+		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
 		if (meterInfo == null) {
 			return;
 		}

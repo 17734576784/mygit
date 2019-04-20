@@ -21,36 +21,25 @@ import com.nb.utils.JedisUtils;
 public class DailyDataCustomerThread implements Runnable {
 
 	/** 历史库线程起止标志 */
-	public volatile static boolean historyDatabaseRunFlag = false;
+	public volatile static boolean historyDatabaseRunFlag = true;
 
 	private HistoryDatabaseExecutor historyDatabaseExecutor;
 
-	/**
-	 * <p>
-	 * Title:
-	 * </p>
-	 * <p>
-	 * Description:
-	 * </p>
-	 * 
-	 * @param historyDatabaseExecutor
-	 */
+	/** 
+	* <p>Title: </p> 
+	* <p>Description: </p> 
+	* @param historyDatabaseExecutor 
+	*/
 	public DailyDataCustomerThread(HistoryDatabaseExecutor historyDatabaseExecutor) {
 		super();
 		this.historyDatabaseExecutor = historyDatabaseExecutor;
 	}
 
-	/**
-	 * (非 Javadoc)
-	 * <p>
-	 * Title: run
-	 * </p>
-	 * <p>
-	 * Description:
-	 * </p>
-	 * 
-	 * @see java.lang.Runnable#run()
-	 */
+	/** (非 Javadoc) 
+	* <p>Title: run</p> 
+	* <p>Description: </p>  
+	* @see java.lang.Runnable#run() 
+	*/
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
@@ -60,7 +49,7 @@ public class DailyDataCustomerThread implements Runnable {
 				// 日数据
 				Object dailyData = null;
 //				dailyData = JedisUtils.brpopLpush(Constant.HISTORY_DAILY_QUEUE, Constant.HISTORY_DAILY_BAK_QUEUE, 0);
-				dailyData = JedisUtils.brpop(Constant.HISTORY_DAILY_QUEUE, 0);
+				dailyData = JedisUtils.brpop(Constant.HISTORY_DAILY_QUEUE, Constant.REDIS_TIMEOUT);
 				if (null != dailyData) {
 					if (historyDatabaseExecutor.saveDailyData(dailyData)) {
 //						JedisUtils.rpop(Constant.HISTORY_DAILY_BAK_QUEUE);

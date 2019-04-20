@@ -186,7 +186,7 @@ public class ConverterUtils {
 	 * @param list 需要转换的list
 	 * @return 转换的结果
 	 */
-	@SuppressWarnings("unchecked")
+	
 	public static List<Map<String, Object>> converterForMapList(List<Object> list) {
 		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
 		for (Object tempObj : list) {

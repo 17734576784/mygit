@@ -102,18 +102,12 @@
     </trim>
   </insert>
 
-  <update id="updateNbCommand" parameterType="com.nb.model.NbCommand" >
-    update ${tableName}
-    set command_class = #{commandClass,jdbcType=TINYINT},
-      command_id = #{commandId,jdbcType=VARCHAR},
-      execute_result = #{executeResult,jdbcType=TINYINT},
-      report_time = #{reportTime,jdbcType=TIMESTAMP},
-      command_content = #{commandContent,jdbcType=VARCHAR},
-      operator_id = #{operatorId,jdbcType=INTEGER}
-    where rtu_id = #{rtuId,jdbcType=INTEGER}
-      and mp_id = #{mpId,jdbcType=SMALLINT}
-      and send_time = #{sendTime,jdbcType=TIMESTAMP}
-      and command_type = #{commandType,jdbcType=TINYINT}
-  </update>
+	<update id="updateNbCommand" parameterType="com.nb.model.NbCommand">
+		update ${tableName}
+		set
+		execute_result = #{executeResult,jdbcType=TINYINT},
+		report_time = GETDATE()
+		where command_id = #{commandId,jdbcType=VARCHAR}
+	</update>
   
 </mapper>

@@ -58,7 +58,7 @@ spring:
     platform: sqlserver
     url: jdbc:sqlserver://127.0.0.1:1433;Databasename=ydpara
     username: sa
-    password: ke-s2000
+    password: keyd*%@#1095
     initialSize: 5
     minIdle: 5
     maxActive: 20

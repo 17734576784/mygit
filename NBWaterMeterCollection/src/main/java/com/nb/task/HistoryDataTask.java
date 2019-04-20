@@ -8,20 +8,10 @@
 */
 package com.nb.task;
 
-import java.util.Random;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.nb.customer.historydatabase.HistoryDatabaseExecutor;
-import com.nb.model.NbDailyData;
-import com.nb.utils.Constant;
-import com.nb.utils.ConverterUtils;
-import com.nb.utils.JedisUtils;
-import com.nb.utils.JsonUtil;
-import com.nb.utils.NumberUtils;
 
 /** 
 * @ClassName: HistoryDataTask 
@@ -32,8 +22,8 @@ import com.nb.utils.NumberUtils;
 */
 public class HistoryDataTask implements Job{
 
-	@Autowired
-	private HistoryDatabaseExecutor historyDatabaseExecutor;
+//	@Autowired
+//	private HistoryDatabaseExecutor historyDatabaseExecutor;
 	
 	/** (非 Javadoc) 
 	* <p>Title: execute</p> 

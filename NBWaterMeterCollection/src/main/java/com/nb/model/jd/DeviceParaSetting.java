@@ -24,21 +24,37 @@ public class DeviceParaSetting implements Serializable {
 	* @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 
 	*/ 
 	private static final long serialVersionUID = 4298242801447990109L;
-	private Double peakFlowThreshold; // 大流量报警阀值 单位:L/h
-	private Integer peakFlowDuration;// 大流量持续时间 单位: 分钟
-	private String serverIp; // 服务器ip地址
-	private Integer serverPort; // 服务器端口
-	private String realtimeReportStartTime;// 实时上报起始时间 HH:MM
-	private String realtimeReportEndTime;// 实时上报结束时间 HH:MM
-	private Integer periodReportInterva;// 周期数据采样间隔 单位:分钟
-	private Integer realtimeReportFreq;// 实时上报频率 单位:小时
-	private Integer connectRetryTimes;// 上行链接重试次数 默认3次，最大5次
-	private Integer retryInterval;// int 最大重发时间间隔 默认20分钟
-	private Integer alertId;// int 即时报警/ID 1表示此告警需要唤醒水表立即上报，0表示此告警在日报里一起上报
-	private String apn;// string APN信息 默认3次，最大5次
-	private Integer reset;// int 恢复出厂设置 1：恢复出厂设置
-	private Integer realtimeReportOffset;// int 上报时间偏移量 单位:分钟
-	private String evnetTime; // 事项上报时间
+	/** 大流量报警阀值 单位:L/h */
+	private Double peakFlowThreshold;
+	/** 大流量持续时间 单位: 分钟 */
+	private Integer peakFlowDuration;
+	/** 服务器ip地址 */
+	private String serverIp;
+	/** 服务器端口 */
+	private Integer serverPort;
+	/** 实时上报起始时间 HH:MM */
+	private String realtimeReportStartTime;
+	/** 实时上报结束时间 HH:MM */
+	private String realtimeReportEndTime;
+	/** 周期数据采样间隔 单位:分钟 */
+	private Integer periodReportInterva;
+	/** 实时上报频率 单位:小时 */
+	private Integer realtimeReportFreq;
+	/** 上行链接重试次数 默认3次，最大5次 */
+	private Integer connectRetryTimes;
+	/** 最大重发时间间隔 默认20分钟 */
+	private Integer retryInterval;
+	/** 即时报警/ID 1表示此告警需要唤醒水表立即上报，0表示此告警在日报里一起上报 */
+	private Integer alertId;
+	/** APN信息 默认3次，最大5次 */
+	private String apn;
+	/** 恢复出厂设置 1：恢复出厂设置 */
+	private Integer reset;
+	/** 上报时间偏移量 单位:分钟 */
+	private Integer realtimeReportOffset;
+	/** :事项上报时间 */
+	private String evnetTime;
+
 	/**
 	 * @return the evnetTime
 	 */

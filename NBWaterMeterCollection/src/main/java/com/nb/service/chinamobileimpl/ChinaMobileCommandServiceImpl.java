@@ -6,7 +6,7 @@
 * @date 2019年1月3日 上午8:44:58 
 * @version V1.0   
 */
-package com.nb.service.chinamobile;
+package com.nb.service.chinamobileimpl;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -18,6 +18,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.nb.exception.ResultBean;
 import com.nb.httputil.HttpsClientUtil;
 import com.nb.model.StreamClosedHttpResponse;
+import com.nb.service.IChinaMobileCommandService;
 import com.nb.utils.CommFunc;
 import com.nb.utils.Constant;
 import com.nb.utils.DateUtils;
@@ -30,25 +31,25 @@ import com.nb.utils.DateUtils;
  * 
  */
 @Service
-public class ChinaMobileCommandService {
+public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService {
 	
 	/** 命令缓存时间（天） */
 	@Value("${commandExpiredTime}")
 	private int commandExpiredTime;
 
-	/** 
-	* @Title: instantReadDeviceResources 
-	* @Description: 即时命令-读设备资源
-	* @param @param commandInfo
-	* @param @return
-	* @param @throws Exception    设定文件 
-	* @return ResultBean<?>    返回类型 
-	* @throws 
+	/** (非 Javadoc) 
+	* <p>Title: instantReadDeviceResources</p> 
+	* <p>Description: </p> 
+	* @param commandInfo
+	* @return
+	* @throws Exception 
+	* @see com.nb.service.IChinaMobileCommandService#instantReadDeviceResources(com.alibaba.fastjson.JSONObject) 
 	*/
+	@Override
 	public ResultBean<?> instantReadDeviceResources(JSONObject commandInfo) throws Exception {
 
 		String url = Constant.CHINA_MOBILE_BASE_URL + "nbiot";
-		@SuppressWarnings("unchecked")
+		
 		Map<String, String> params = JSONObject.toJavaObject(commandInfo, Map.class);
 
 		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
@@ -60,22 +61,22 @@ public class ChinaMobileCommandService {
 		return result;
 	}
 
-	/** 
-	* @Title: 即时命令-写设备资源 
-	* @Description: TODO(这里用一句话描述这个方法的作用) 
-	* @param @param commandInfo
-	* @param @return
-	* @param @throws Exception    设定文件 
-	* @return ResultBean<?>    返回类型 
-	* @throws 
+	/** (非 Javadoc) 
+	* <p>Title: instantWriteDeviceResources</p> 
+	* <p>Description: </p> 
+	* @param commandInfo
+	* @return
+	* @throws Exception 
+	* @see com.nb.service.IChinaMobileCommandService#instantWriteDeviceResources(com.alibaba.fastjson.JSONObject) 
 	*/
+	@Override
 	public ResultBean<?> instantWriteDeviceResources(JSONObject commandInfo) throws Exception {
 		ResultBean<?> result = null;
 		String url = Constant.CHINA_MOBILE_BASE_URL + "nbiot";
 
 		JSONObject urlJson = (JSONObject) commandInfo.clone();
 		urlJson.remove("data");
-		@SuppressWarnings("unchecked")
+		
 		Map<String, Object> params = JSONObject.toJavaObject(urlJson, Map.class);
 
 		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
@@ -88,15 +89,15 @@ public class ChinaMobileCommandService {
 		return result;
 	}
 
-	/** 
-	* @Title: asynCommand 
-	* @Description: 即时命令-命令下发 
-	* @param @param commandInfo
-	* @param @return
-	* @param @throws Exception    设定文件 
-	* @return ResultBean<?>    返回类型 
-	* @throws 
+	/** (非 Javadoc) 
+	* <p>Title: asynCommand</p> 
+	* <p>Description: </p> 
+	* @param commandInfo
+	* @return
+	* @throws Exception 
+	* @see com.nb.service.IChinaMobileCommandService#asynCommand(com.alibaba.fastjson.JSONObject) 
 	*/
+	@Override
 	public ResultBean<?> asynCommand(JSONObject commandInfo) throws Exception {
 		
 		ResultBean<?> result = new ResultBean<>();
@@ -132,20 +133,20 @@ public class ChinaMobileCommandService {
 	}
 
 
-	/** 
-	* @Title: observe 
-	* @Description: 订阅 
-	* @param @param observeInfo
-	* @param @return
-	* @param @throws Exception    设定文件 
-	* @return ResultBean<?>    返回类型 
-	* @throws 
+	/** (非 Javadoc) 
+	* <p>Title: observe</p> 
+	* <p>Description: </p> 
+	* @param observeInfo
+	* @return
+	* @throws Exception 
+	* @see com.nb.service.IChinaMobileCommandService#observe(com.alibaba.fastjson.JSONObject) 
 	*/
+	@Override
 	public ResultBean<?> observe(JSONObject observeInfo) throws Exception {
 		ResultBean<?> result = null;
 		String url = Constant.CHINA_MOBILE_BASE_URL + "nbiot/observe";
 
-		@SuppressWarnings("unchecked")
+		
 		Map<String, Object> params = JSONObject.toJavaObject(observeInfo, Map.class);
 
 		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();

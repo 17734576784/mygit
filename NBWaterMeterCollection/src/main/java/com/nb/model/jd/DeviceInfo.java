@@ -23,16 +23,24 @@ public class DeviceInfo implements Serializable {
 	* @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 
 	*/ 
 	private static final long serialVersionUID = -2684602402948818246L;
-
-	private String imei; // IMEI号
-	private String imsi; // IMSI号
-	private Integer protocolVersion; // 协议版本
-	private Integer deviceType; // 设备类型 1:小表，2：大表
-	private Integer state; // 状态 1:已注册，0:未注册
-	private String meterNo; // 水表表号 14位
-	private String meterTime; // 终端时钟 YYMMDDHHMMSS
-	private Integer runDays; // 终端运行时间 单位:天
-	private Integer softwareVersion;// 终端软件版本
+	/** IMEI号 */
+	private String imei;
+	/** IMSI号 */
+	private String imsi;
+	/** 协议版本 */
+	private Integer protocolVersion;
+	/** 设备类型 1:小表，2：大表 */
+	private Integer deviceType;
+	/** 状态 1:已注册，0:未注册 */
+	private Integer state;
+	/** 水表表号 14位 */
+	private String meterNo;
+	/** 终端时钟 YYMMDDHHMMSS */
+	private String meterTime;
+	/** 终端运行时间 单位:天 */
+	private Integer runDays;
+	/** 终端软件版本 */
+	private Integer softwareVersion;
 
 	/**
 	 * @return the imei

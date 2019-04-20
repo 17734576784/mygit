@@ -1,5 +1,12 @@
 package com.nb.model;
 
+/** 
+* @ClassName: NbBatteryKey 
+* @Description: TODO(这里用一句话描述这个类的作用) 
+* @author dbr
+* @date 2019年4月18日 下午4:35:54 
+*  
+*/
 public class NbBatteryKey {
     private Integer rtuId;
 

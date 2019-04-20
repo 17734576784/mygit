@@ -32,12 +32,15 @@ import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtil;
 import com.nb.mapper.CommonMapper;
 import com.nb.mapper.EveMapper;
+import com.nb.mapper.JFDayFlowMapper;
 import com.nb.mapper.NbBatteryMapper;
 import com.nb.mapper.NbCommandMapper;
 import com.nb.mapper.NbDailyDataMapper;
 import com.nb.mapper.NbInstantaneousMapper;
 import com.nb.mapper.ScheduleJobMapper;
+import com.nb.model.DeviceInfo;
 import com.nb.model.Eve;
+import com.nb.model.JFDayFlow;
 import com.nb.model.NbBattery;
 import com.nb.model.NbCommand;
 import com.nb.model.NbCommandKey;
@@ -57,6 +60,13 @@ import com.nb.utils.JedisUtils;
 import com.nb.utils.JsonUtil;
 import com.nb.utils.NumberUtils;
 
+/** 
+* @ClassName: NbWaterMeterCollectionApplicationTests 
+* @Description: TODO(这里用一句话描述这个类的作用) 
+* @author dbr
+* @date 2019年4月18日 下午4:50:24 
+*  
+*/
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = NbWaterMeterCollectionApplication.class)
 @PropertySource({"classpath:config.properties" })
@@ -90,23 +100,82 @@ public class NbWaterMeterCollectionApplicationTests {
 	@Resource
 	private NbInstantaneousMapper nbInstantaneousMapper;
 	
-	
+	@Resource
+	private JFDayFlowMapper jfDayFlowMapper;
+
 	
 	@Test
 	public void testCommon() {
+		 
+		commonMapper.updateDeviceIdByImei("11111", "1");
+
+//		DeviceInfo deviceInfo = new DeviceInfo();
+//		Map<String, String> param = new HashMap<>();
+//		param.put("rtuId", "1");
+//		param.put("mpId", "11");
+//		deviceInfo = commonMapper.getDeviceInfo(param);
+//		System.out.println(deviceInfo.toString());
+//		JedisUtils.set(Constant.COMMAND + commandId, "201904", 60 * 60 * 12);
+//
+//		String tableNameDate = JedisUtils.get(Constant.COMMAND + commandId);
+//		if (tableNameDate != null) {
+//			NbCommand nbCommand = new NbCommand();
+//			nbCommand.setTableName(tableNameDate);
+//			nbCommand.setCommandId(commandId);
+//			nbCommand.setExecuteResult((byte) 1);
+//			System.out.println(nbCommandMapper.updateNbCommand(nbCommand));
+//		}else {
+//			System.out.println("oooo");
+//		}
 		
-		Map<String, String> param = new HashMap<>();
-		param.put("rtuId", "1");
-		param.put("mpId", "2");
-		param.put("commandId", "1");
+//		NbCommand nbCommand = new NbCommand();
+//		nbCommand.setRtuId(toInt(1));
+//		nbCommand.setMpId(toShort(1));
+//		nbCommand.setCommandClass(toByte(1));// 单个命令
+//		nbCommand.setCommandType(toByte(1));
+//
+//		nbCommand.setCommandContent("#243242342");
+//		nbCommand.setOperatorId(toInt(1));
+//		nbCommand.setTableName(DateUtils.curDate().substring(0, 6));
+//		nbCommand.setCommandId("23423423423");
+//		System.out.println(nbCommandMapper.insertNbCommand(nbCommand));
 		
-		System.out.println(commonMapper.getRegisterInfo(param));
+//		NbDailyData nbDailyData = new NbDailyData();
+//		nbDailyData.setRtuId(1);
+//		nbDailyData.setMpId((short)1);
+//		nbDailyData.setYmd(20190410);
+//		nbDailyData.setHms(173044);
+//		nbDailyData.setTableName("201904");
+//		nbDailyData.setBatteryVoltage(3.6);
+//		System.out.println(nbDailyDataMapper.updateNbDailyData(nbDailyData)); 
+		
+		
+//		JFDayFlow jfDayFlow = new JFDayFlow();
+//		jfDayFlow.setTableName("200808");
+//		jfDayFlow.setRtuId(1);
+//		jfDayFlow.setMpId((short)1);
+//		jfDayFlow.setDate(20080112);
+//		jfDayFlow.setTime(120000);
+//
+//		jfDayFlow.setLjllZx(34D);
+//		jfDayFlow.setLlLjllZx(4D);
+//		jfDayFlow.setLlLjllFx(6D);
+//
+//		System.out.println(jfDayFlowMapper.insertJFDayFlow(jfDayFlow)); 
+		
+		
+//		Map<String, String> param = new HashMap<>();
+//		param.put("rtuId", "1");
+//		param.put("mpId", "2");
+//		param.put("commandId", "1");
+//		
+//		System.out.println(commonMapper.getRegisterInfo(param));
 	}
 	
 	
 //	@Test
 	public void testFX(){
-		Map<String, Object> meterInfo = this.commonMapper.getNbInfoByDeviceId("11111111");
+		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId("11111111");
 		if (meterInfo == null) {
 			return;
 		}
@@ -143,19 +212,19 @@ public class NbWaterMeterCollectionApplicationTests {
 //		}
 //		System.out.println(flag);
 		
-		for (int i = 0; i < 100000; i++) {
-			NbBattery nbBattery = new NbBattery();
-			nbBattery.setTableName("201904");
-			nbBattery.setYmd(20190413);
-			nbBattery.setHms(i);
-			nbBattery.setRtuId(1);
-			nbBattery.setMpId((short) 2);
-			String a = NumberUtils.formatNumber(new Random().nextDouble(), 2);
-			nbBattery.setBatteryVoltage(ConverterUtils.toDouble(a));
-			
-			JedisUtils.lpush(Constant.HISTORY_BATTERY_QUEUE, JsonUtil.jsonObj2Sting(nbBattery));
-		}
-		
+//		for (int i = 0; i < 100000; i++) {
+//			NbBattery nbBattery = new NbBattery();
+//			nbBattery.setTableName("201904");
+//			nbBattery.setYmd(20190413);
+//			nbBattery.setHms(i);
+//			nbBattery.setRtuId(1);
+//			nbBattery.setMpId((short) 2);
+//			String a = NumberUtils.formatNumber(new Random().nextDouble(), 2);
+//			nbBattery.setBatteryVoltage(ConverterUtils.toDouble(a));
+//			
+//			JedisUtils.lpush(Constant.HISTORY_BATTERY_QUEUE, JsonUtil.jsonObj2Sting(nbBattery));
+//		}
+//		
 		
 		for (int i = 0; i < 1000000; i++) {
 
@@ -259,7 +328,7 @@ public class NbWaterMeterCollectionApplicationTests {
 		}
 		
 		String deviceId = "55ff190f-33fe-40f7-8cbc-df877b5d9645";
-		Map<String, Object> meterInfo = this.commonMapper.getNbInfoByDeviceId(deviceId);
+		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
 		if (meterInfo == null) {
 			return;
 		}
@@ -300,26 +369,26 @@ public class NbWaterMeterCollectionApplicationTests {
 		String evnetTime = periodReport.getReadTime();
 		int date = toInt(evnetTime.substring(0, 8));
 		int time = toInt(evnetTime.substring(9, 15));
-		String YM = toStr(date / 100);
+		String tableNameDate = toStr(date / 100);
 
-		insertPeriodReport(YM, date, time, periodReport, deviceId);
+		insertPeriodReport(tableNameDate, date, time, periodReport, deviceId);
 
-		insertInstantaneous(YM, date, periodReport, deviceId);
+		insertInstantaneous(tableNameDate, date, periodReport, deviceId);
 	}
 	
 	/** 
 	* @Title: insertInstantaneous 
 	* @Description: 插入瞬时量 
-	* @param @param YM
+	* @param @param tableNameDate
 	* @param @param date
 	* @param @param periodReport
 	* @param @param deviceId    设定文件 
 	* @return void    返回类型 
 	* @throws 
 	*/
-	private void insertInstantaneous(String YM, int date, PeriodReport periodReport, String deviceId) {
+	private void insertInstantaneous(String tableNameDate, int date, PeriodReport periodReport, String deviceId) {
 
-		Map<String, Object> meterInfo = this.commonMapper.getNbInfoByDeviceId(deviceId);
+		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
 		if (meterInfo == null) {
 			return;
 		}
@@ -328,7 +397,7 @@ public class NbWaterMeterCollectionApplicationTests {
 		short mpId = toShort(meterInfo.get("mpId"));
 
 		NbInstantaneous nbInstantaneous = new NbInstantaneous();
-		nbInstantaneous.setTableName(YM);
+		nbInstantaneous.setTableName(tableNameDate);
 		nbInstantaneous.setRtuId(rtuId);
 		nbInstantaneous.setMpId(mpId);
 		nbInstantaneous.setYmd(date);
@@ -351,7 +420,7 @@ public class NbWaterMeterCollectionApplicationTests {
 	/** 
 	* @Title: insertPeriodReport 
 	* @Description: 将周期数据插入日数据表中 
-	* @param @param YM
+	* @param @param tableNameDate
 	* @param @param date
 	* @param @param time
 	* @param @param periodReport
@@ -359,9 +428,9 @@ public class NbWaterMeterCollectionApplicationTests {
 	* @return void    返回类型 
 	* @throws 
 	*/
-	private void insertPeriodReport(String YM, int date, int time, PeriodReport periodReport, String deviceId) {
+	private void insertPeriodReport(String tableNameDate, int date, int time, PeriodReport periodReport, String deviceId) {
 
-		Map<String, Object> meterInfo = this.commonMapper.getNbInfoByDeviceId(deviceId);
+		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
 		if (meterInfo == null) {
 			return;
 		}
@@ -370,7 +439,7 @@ public class NbWaterMeterCollectionApplicationTests {
 		short mpId = toShort(meterInfo.get("mpId"));
 
 		NbDailyData nbDailyData = new NbDailyData();
-		nbDailyData.setTableName(YM);
+		nbDailyData.setTableName(tableNameDate);
 		nbDailyData.setReportType((byte)0);
 		nbDailyData.setRtuId(rtuId);
 		nbDailyData.setMpId(mpId);
@@ -406,14 +475,14 @@ public class NbWaterMeterCollectionApplicationTests {
 		String evnetTime = realtimeReport.getReadTime();
 		int date = toInt(evnetTime.substring(0, 8));
 		int time = toInt(evnetTime.substring(9, 15));
-		String YM = toStr(date / 100);
+		String tableNameDate = toStr(date / 100);
 		
-		insertRealReport(YM, date, time, realtimeReport, deviceId);
+		insertRealReport(tableNameDate, date, time, realtimeReport, deviceId);
 	}
 	
-	private void insertRealReport(String YM, int date, int time, RealtimeReport realtimeReport, String deviceId) {
+	private void insertRealReport(String tableNameDate, int date, int time, RealtimeReport realtimeReport, String deviceId) {
 
-		Map<String, Object> meterInfo = this.commonMapper.getNbInfoByDeviceId(deviceId);
+		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
 		if (meterInfo == null) {
 			return;
 		}
@@ -422,7 +491,7 @@ public class NbWaterMeterCollectionApplicationTests {
 		short mpId = toShort(meterInfo.get("mpId"));
 
 		NbDailyData nbDailyData = new NbDailyData();
-		nbDailyData.setTableName(YM);
+		nbDailyData.setTableName(tableNameDate);
 		nbDailyData.setReportType((byte)0);
 		nbDailyData.setRtuId(rtuId);
 		nbDailyData.setMpId(mpId);
@@ -503,7 +572,7 @@ public class NbWaterMeterCollectionApplicationTests {
 	/** 
 	* @Title: insertEve 
 	* @Description: 插入电池电压告警
-	* @param @param YM
+	* @param @param tableNameDate
 	* @param @param date
 	* @param @param time
 	* @param @param battery    设定文件 
@@ -511,7 +580,7 @@ public class NbWaterMeterCollectionApplicationTests {
 	* @throws 
 	*/
 	private void insertEve(DeviceAlarm deviceAlarm, String deviceId, String eveInfo, short typeNo) {
-		Map<String, Object> meterInfo = this.commonMapper.getNbInfoByDeviceId(deviceId);
+		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
 		if (meterInfo == null) {
 			return;
 		}
@@ -533,7 +602,7 @@ public class NbWaterMeterCollectionApplicationTests {
 			eveMapper.insertEve(eve);
 		} catch (Exception e) {
 			// TODO: handle exception
-			LoggerUtil.Logger(LogName.CALLBACK).info(eve.toString() + "存库失败");
+			LoggerUtil.logger(LogName.CALLBACK).info(eve.toString() + "存库失败");
 		}
 	}
 	
@@ -555,7 +624,7 @@ public class NbWaterMeterCollectionApplicationTests {
 		System.out.println(battery.toString());
 		
 		String deviceId = "11111111";
-		Map<String, Object> meterInfo = this.commonMapper.getNbInfoByDeviceId(deviceId);
+		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
 		if (meterInfo == null) {
 			return;
 		}

@@ -43,12 +43,12 @@ public class DeviceInfoService implements IServiceStrategy {
 	 * @see com.nb.servicestrategy.IServiceStrategy#parse(java.lang.String,
 	 *      java.util.Map)
 	 */
-	@SuppressWarnings("unchecked")
+	
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
 		// TODO Auto-generated method stub
 		String logInfo = "上报竟达设备信息 ：" + deviceId + " ,内容：" + serviceMap.toString();
-		LoggerUtil.Logger(LogName.CALLBACK).info(logInfo);
+		LoggerUtil.logger(LogName.CALLBACK).info(logInfo);
 		Object data = serviceMap.get("data");
 		Map<String, String> dataMap = new HashMap<String, String>();
 		dataMap = JsonUtil.jsonString2SimpleObj(data, dataMap.getClass());

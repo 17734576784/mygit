@@ -12,13 +12,16 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Component;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtil;
+import com.nb.mapper.JFDayFlowMapper;
 import com.nb.mapper.NbBatteryMapper;
 import com.nb.mapper.NbDailyDataMapper;
 import com.nb.mapper.NbInstantaneousMapper;
+import com.nb.model.JFDayFlow;
 import com.nb.model.NbBattery;
 import com.nb.model.NbDailyData;
 import com.nb.model.NbInstantaneous;
 import com.nb.utils.Constant;
+import com.nb.utils.ConverterUtils;
 import com.nb.utils.JedisUtils;
 import com.nb.utils.JsonUtil;
 
@@ -37,6 +40,9 @@ public class HistoryDatabaseExecutor {
 
 	@Resource
 	private NbDailyDataMapper nbDailyDataMapper;
+	
+	@Resource
+	private JFDayFlowMapper jfDayFlowMapper;
 
 	@Resource
 	private NbInstantaneousMapper nbInstantaneousMapper;
@@ -56,17 +62,38 @@ public class HistoryDatabaseExecutor {
 
 			if (null == nbBatteryMapper.getNbBattery(nbBattery)) {
 				flag = nbBatteryMapper.insertNbBattery(nbBattery);
+				flag &= updateDailyBaterry(nbBattery);
 			}
 		} catch (Exception e) {
 			flag = false;
 			JedisUtils.lpush(Constant.HISTORY_BATTERY_ERROR_QUEUE, JsonUtil.jsonObj2Sting(obj));
 			e.printStackTrace();
-			LoggerUtil.Logger(LogName.CALLBACK).info(obj.toString() + "存库失败");
+			LoggerUtil.logger(LogName.CALLBACK).info(obj.toString() + "存库失败");
 		}
 
 		return flag;
 	}
 
+	/** 
+	* @Title: updateDailyBaterry 
+	* @Description: 更新NB水表日数据结构表中的电池电压字段 
+	* @param @param nbBattery
+	* @param @return    设定文件 
+	* @return boolean    返回类型 
+	* @throws 
+	*/
+	private boolean updateDailyBaterry(NbBattery nbBattery) throws Exception {
+
+		NbDailyData nbDailyData = new NbDailyData();
+		nbDailyData.setRtuId(nbBattery.getRtuId());
+		nbDailyData.setMpId(nbBattery.getMpId());
+		nbDailyData.setYmd(nbBattery.getYmd());
+		nbDailyData.setHms(nbBattery.getHms());
+		nbDailyData.setTableName(ConverterUtils.toStr(nbBattery.getYmd() / 100));
+		nbDailyData.setBatteryVoltage(nbBattery.getBatteryVoltage());
+		return nbDailyDataMapper.updateNbDailyData(nbDailyData);
+	}
+	
 	/** 
 	* @Title: saveDailyData 
 	* @Description: 数据库持久化水表日数据 
@@ -82,16 +109,40 @@ public class HistoryDatabaseExecutor {
 
 			if (null == nbDailyDataMapper.getNbDailyData(nbDailyData)) {
 				flag = nbDailyDataMapper.insertNbDailyData(nbDailyData);
+				flag &= insertJFDayFlow(nbDailyData);
 			}
 		} catch (Exception e) {
 			flag = false;
 			JedisUtils.lpush(Constant.HISTORY_DAILY_ERROR_QUEUE, JsonUtil.jsonObj2Sting(obj));
 			e.printStackTrace();
-			LoggerUtil.Logger(LogName.CALLBACK).info(obj.toString() + "存库失败");
+			LoggerUtil.logger(LogName.CALLBACK).info(obj.toString() + "存库失败");
 		}
 		return flag;
 	}
+	
+	/** 
+	* @Title: insertJFDayFlow 
+	* @Description: 插入流量计日流量数据表
+	* @param @param nbDailyData
+	* @param @return    设定文件 
+	* @return boolean    返回类型 
+	* @throws 
+	*/
+	public boolean insertJFDayFlow(NbDailyData nbDailyData) throws Exception {
+		JFDayFlow jfDayFlow = new JFDayFlow();
+		jfDayFlow.setTableName(ConverterUtils.toStr(nbDailyData.getYmd() / 100));
+		jfDayFlow.setRtuId(nbDailyData.getRtuId());
+		jfDayFlow.setMpId(nbDailyData.getMpId());
+		jfDayFlow.setDate(nbDailyData.getYmd());
 
+		jfDayFlow.setTime(nbDailyData.getHms());
+		jfDayFlow.setLjllZx(nbDailyData.getTotalFlow());
+		jfDayFlow.setLlLjllZx(nbDailyData.getDailyPositiveFlow());
+		jfDayFlow.setLlLjllFx(nbDailyData.getDailyNegativeFlow());
+
+		return jfDayFlowMapper.insertJFDayFlow(jfDayFlow);
+	}
+	
 	/** 
 	* @Title: saveInstanceData 
 	* @Description: 数据库持久化瞬时量 
@@ -111,7 +162,7 @@ public class HistoryDatabaseExecutor {
 		} catch (Exception e) {
 			flag = false;
 			JedisUtils.lpush(Constant.HISTORY_INSTAN_ERROR_QUEUE, JsonUtil.jsonObj2Sting(obj));
-			LoggerUtil.Logger(LogName.CALLBACK).info(obj.toString() + "存库失败");
+			LoggerUtil.logger(LogName.CALLBACK).info(obj.toString() + "存库失败");
 		}
 		return flag;
 	}

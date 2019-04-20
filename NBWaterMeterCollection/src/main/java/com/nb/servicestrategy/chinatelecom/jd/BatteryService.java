@@ -50,12 +50,12 @@ public class BatteryService implements IServiceStrategy {
 	* @param serviceMap 
 	* @see com.nb.servicestrategy.IServiceStrategy#parse(java.lang.String, java.util.Map) 
 	*/
-	@SuppressWarnings("unchecked")
+	
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
 		// TODO Auto-generated method stub
 		String logInfo = "上报竟达电池服务 ：" + deviceId + " ,内容：" + serviceMap.toString();
-		LoggerUtil.Logger(LogName.CALLBACK).info(logInfo);
+		LoggerUtil.logger(LogName.CALLBACK).info(logInfo);
 		if (serviceMap == null || serviceMap.isEmpty()) {
 			return;
 		}
@@ -71,7 +71,7 @@ public class BatteryService implements IServiceStrategy {
 			Battery battery = JsonUtil.map2Bean(dataMap, Battery.class);
 			battery.setEvnetTime(serviceMap.get("eventTime"));
 			
-			Map<String, Object> meterInfo = this.commonMapper.getNbInfoByDeviceId(deviceId);
+			Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
 			if (meterInfo == null) {
 				return;
 			}
@@ -88,7 +88,7 @@ public class BatteryService implements IServiceStrategy {
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			LoggerUtil.Logger(LogName.CALLBACK).error(logInfo + "异常" + e.getMessage());
+			LoggerUtil.logger(LogName.CALLBACK).error(logInfo + "异常" + e.getMessage());
 		}
 		
 	}

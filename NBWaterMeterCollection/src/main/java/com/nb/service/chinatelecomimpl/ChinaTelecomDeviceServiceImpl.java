@@ -6,58 +6,76 @@
 * @date 2019年1月3日 上午8:44:58 
 * @version V1.0   
 */
-package com.nb.service.chinatelecom;
+package com.nb.service.chinatelecomimpl;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONObject;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtil;
+import com.nb.mapper.CommonMapper;
 import com.nb.utils.AuthenticationUtils;
 import com.nb.utils.ConverterUtils;
 import com.nb.utils.JsonUtil;
 import com.nb.exception.ResultBean;
 import com.nb.httputil.ChinaTelecomIotHttpsUtil;
+import com.nb.model.DeviceInfo;
 import com.nb.model.StreamClosedHttpResponse;
+import com.nb.service.IChinaTelecomDeviceService;
 import com.nb.utils.Constant;
 
 /** 
-* @ClassName: ChinaMobileDeviceController 
-* @Description: 中国电信设备管理 
+* @ClassName: ChinaTelecomDeviceServiceImpl 
+* @Description: 中国电信设备管理 实现类
 * @author dbr
 * @date 2019年1月3日 上午8:44:58 
 *  
 */
 @Service
-public class ChinaTelecomDeviceService {
+public class ChinaTelecomDeviceServiceImpl implements IChinaTelecomDeviceService {
 	
-	/** 
-	* @Title: registerDevice 
-	* @Description: 注册设备 
-	* @param @param deviceInfo
-	* @param @return
-	* @param @throws Exception    设定文件 
-	* @return ResultBean<?>    返回类型 
-	* @throws 
+	@Resource
+	private CommonMapper commonMapper;
+	
+	
+	/** (非 Javadoc) 
+	* <p>Title: registerDevice</p> 
+	* <p>Description: </p> 
+	* @param deviceInfo
+	* @return
+	* @throws Exception 
+	* @see com.nb.service.IChinaTelecomDeviceService#registerDevice(com.alibaba.fastjson.JSONObject) 
+	* {"rtuId":"1","mpId":"1"}"
 	*/
-	@SuppressWarnings("unchecked")
-	public ResultBean<?> registerDevice(JSONObject deviceInfo) throws Exception {
-		LoggerUtil.Logger(LogName.INFO).info("接收设备注册请求:" + deviceInfo);
+	@Override
+	
+	public ResultBean<?> registerDevice(JSONObject deviceMsg) throws Exception {
+		LoggerUtil.logger(LogName.INFO).info("接收设备注册请求:" + deviceMsg);
 		
-		Map<String, String> registerInfo = new HashMap<>();
-		registerInfo = JsonUtil.jsonString2SimpleObj(deviceInfo, registerInfo.getClass());
-		if (registerInfo == null || registerInfo.isEmpty()) {
+		Map<String, String> deviceMap = new HashMap<>();
+		deviceMap = JsonUtil.jsonString2SimpleObj(deviceMsg, deviceMap.getClass());
+		
+		DeviceInfo deviceInfo = commonMapper.getDeviceInfo(deviceMap);
+		if (deviceInfo == null) {
 			ResultBean<JSONObject> result = new ResultBean<JSONObject>(Constant.ERROR, "配置信息错误");
 			return result;
 		}
 		
+		String deviceId = deviceInfo.getDeviceId();
+		if (deviceId != null && !deviceId.isEmpty()) {
+			ResultBean<JSONObject> result = new ResultBean<JSONObject>(Constant.ERROR, "该设备已被注册");
+			return result;
+		}
+		String appId = deviceInfo.getAppId();
+
 		ChinaTelecomIotHttpsUtil httpsUtil = new ChinaTelecomIotHttpsUtil();
 		httpsUtil.initSSLConfigForTwoWay();
-		String accessToken = AuthenticationUtils.getChinaTelecomAccessToken(httpsUtil, registerInfo);
+		String accessToken = AuthenticationUtils.getChinaTelecomAccessToken(httpsUtil, appId, deviceInfo.getSecret());
 
-		String appId = registerInfo.get("appId");
 		String urlReg = Constant.CHINA_TELECOM_REGISTER_DEVICE;
 
 		Map<String, String> header = new HashMap<>();
@@ -65,50 +83,52 @@ public class ChinaTelecomDeviceService {
 		header.put(Constant.HEADER_APP_AUTH, "Bearer" + " " + accessToken);
 		
 		JSONObject register = new JSONObject();
-		register.put("verifyCode", registerInfo.get("imei"));
-		register.put("nodeId", registerInfo.get("imei"));
+		register.put("verifyCode", deviceInfo.getImei());
+		register.put("nodeId", deviceInfo.getImei());
 		register.put("timeout", Constant.ZERO);
 
 		String jsonRequest = register.toJSONString();
 		StreamClosedHttpResponse responseReg = httpsUtil.doPostJsonGetStatusLine(urlReg, header, jsonRequest);
 		Map<String, Object> responseMap = new HashMap<>();
 		responseMap = JsonUtil.jsonString2SimpleObj(responseReg.getContent(), responseMap.getClass());
-		String deviceId = ConverterUtils.toStr(responseMap.get("deviceId"));
+		deviceId = ConverterUtils.toStr(responseMap.get("deviceId"));
 		if (null != deviceId && !deviceId.isEmpty()) {
-			return modifyDeviceInfo(deviceId, registerInfo);
+			return modifyDeviceInfo(deviceId, deviceInfo);
 		}else {
 			ResultBean<String> result = new ResultBean<String>(Constant.ERROR, "请求错误");
 			return result;
 		}
 	}
 	
-	/** 
-	* @Title: modifyDeviceInfo 
-	* @Description: 修改设备信息 
-	* @param @param deviceInfo
-	* @param @return
-	* @param @throws Exception    设定文件 
-	* @return ResultBean<?>    返回类型 
-	* @throws 
+	/** (非 Javadoc) 
+	* <p>Title: modifyDeviceInfo</p> 
+	* <p>Description: </p> 
+	* @param deviceId
+	* @param registerInfo
+	* @return
+	* @throws Exception 
+	* @see com.nb.service.IChinaTelecomDeviceService#modifyDeviceInfo(java.lang.String, java.util.Map) 
 	*/
-	public ResultBean<?> modifyDeviceInfo(String deviceId, Map<String, String> registerInfo) throws Exception {
+	@Override
+	public ResultBean<?> modifyDeviceInfo(String deviceId,DeviceInfo deviceInfo) throws Exception {
 		
-		LoggerUtil.Logger(LogName.INFO).info("接收修改设备信息请求：" + registerInfo);
+		LoggerUtil.logger(LogName.INFO).info("接收修改设备信息请求：" + deviceInfo);
  	
 		ChinaTelecomIotHttpsUtil httpsUtil = new ChinaTelecomIotHttpsUtil();
 		httpsUtil.initSSLConfigForTwoWay();
-		String accessToken = AuthenticationUtils.getChinaTelecomAccessToken(httpsUtil, registerInfo);
+		String appId = deviceInfo.getAppId();
+
+		String accessToken = AuthenticationUtils.getChinaTelecomAccessToken(httpsUtil, appId, deviceInfo.getSecret());
 	
-		String appId = registerInfo.get("appId");
  		String urlModifyDeviceInfo = Constant.CHINA_TELECOM_MODIFY_DEVICE_INFO + "/" + deviceId;
 	
 		JSONObject paramModifyDevice = new JSONObject();
 		paramModifyDevice.put("deviceId", deviceId);
-		paramModifyDevice.put("manufacturerId", registerInfo.get("manufacturerId"));
-		paramModifyDevice.put("manufacturerName", registerInfo.get("manufacturerName"));
-		paramModifyDevice.put("deviceType", registerInfo.get("deviceType"));
-		paramModifyDevice.put("model", registerInfo.get("model"));
-		paramModifyDevice.put("protocolType", registerInfo.get("protocolType"));
+		paramModifyDevice.put("manufacturerId", deviceInfo.getManufacturerId());
+		paramModifyDevice.put("manufacturerName", deviceInfo.getManufacturerName());
+		paramModifyDevice.put("deviceType", deviceInfo.getDeviceType());
+		paramModifyDevice.put("model", deviceInfo.getModel());
+		paramModifyDevice.put("protocolType", deviceInfo.getProtocolType());
 		
 		String jsonRequest = JsonUtil.jsonObj2Sting(paramModifyDevice);
 	
@@ -132,33 +152,36 @@ public class ChinaTelecomDeviceService {
 	}
 	
 	
-	/** 
-	* @Title: deleteDevice 
-	* @Description: 删除设备 
-	* @param @param deviceId
-	* @param @return
-	* @param @throws Exception    设定文件 
-	* @return ResultBean<?>    返回类型 
-	* @throws 
+	/** (非 Javadoc) 
+	* <p>Title: deleteDevice</p> 
+	* <p>Description: </p> 
+	* @param deviceInfo
+	* @return
+	* @throws Exception 
+	* @see com.nb.service.IChinaTelecomDeviceService#deleteDevice(com.alibaba.fastjson.JSONObject) 
+	* {"rtuId":"1","mpId":"1"}"
 	*/
-	@SuppressWarnings("unchecked")
-	public ResultBean<?> deleteDevice(JSONObject deviceInfo) throws Exception {
-		LoggerUtil.Logger(LogName.INFO).info("接收设备删除请求:" + deviceInfo);
+	@Override
+	
+	public ResultBean<?> deleteDevice(JSONObject deviceMsg) throws Exception {
+		LoggerUtil.logger(LogName.INFO).info("接收设备删除请求:" + deviceMsg);
 		
 		
-		Map<String, String> registerInfo = new HashMap<>();
-		registerInfo = JsonUtil.jsonString2SimpleObj(deviceInfo, registerInfo.getClass());
-		if (registerInfo == null || registerInfo.isEmpty()) {
+		Map<String, String> deviceMap = new HashMap<>();
+		deviceMap = JsonUtil.jsonString2SimpleObj(deviceMsg, deviceMap.getClass());
+		DeviceInfo deviceInfo = commonMapper.getDeviceInfo(deviceMap);
+		if (deviceInfo == null) {
 			ResultBean<JSONObject> result = new ResultBean<JSONObject>(Constant.ERROR, "配置信息错误");
 			return result;
 		}
 		
+		String appId = deviceInfo.getAppId();
+		String deviceId = deviceInfo.getDeviceId();
+
 		ChinaTelecomIotHttpsUtil httpsUtil = new ChinaTelecomIotHttpsUtil();
 		httpsUtil.initSSLConfigForTwoWay();
-		String accessToken = AuthenticationUtils.getChinaTelecomAccessToken(httpsUtil, registerInfo);
+		String accessToken = AuthenticationUtils.getChinaTelecomAccessToken(httpsUtil, appId, deviceInfo.getSecret());
 
-		String appId = registerInfo.get("appId");
-		String deviceId = registerInfo.get("deviceId");
 		String deleteUrl = Constant.CHINA_TELECOM_DELETE_DEVICE + "/" + deviceId;
 
 		Map<String, String> header = new HashMap<>();
@@ -170,7 +193,7 @@ public class ChinaTelecomDeviceService {
 
 		int statusCode = response.getStatusLine().getStatusCode();
 		if (statusCode == Constant.STATUS_404) {
-			result = new ResultBean<>(Constant.ERROR, "设备不存");
+			result = new ResultBean<>(Constant.ERROR, "设备不存在");
 		}
 
 		return result;

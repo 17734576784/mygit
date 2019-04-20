@@ -10,6 +10,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+/** 
+* @ClassName: NbWaterMeterCollectionApplication 
+* @Description: NB水表采集启动类
+* @author dbr
+* @date 2019年4月18日 下午4:34:05 
+*  
+*/
 @SpringBootApplication
 @EnableTransactionManagement
 @PropertySource({ "classpath:config.properties" })
@@ -31,7 +38,13 @@ public class NbWaterMeterCollectionApplication {
 		return tomcat;
 	}
 
-	// 配置http
+	/** 
+	* @Title: createStandardConnector 
+	* @Description: 配置http
+	* @param @return    设定文件 
+	* @return Connector    返回类型 
+	* @throws 
+	*/
 	private Connector createStandardConnector() {
 		Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
 		connector.setPort(port);

@@ -26,14 +26,22 @@ public class RealtimeReport implements Serializable {
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)
 	 */
 	private static final long serialVersionUID = -7266659071610204155L;
-	private String readTime; // 数据时间
-	private Double cumulativeFlow; // 实时累计流量 单位:立方米
-	private Double positiveCumulativeFlow;// 日结累计流量 单位:立方米
-	private Double negativeCumulativeFlow;// 日结累计逆流量 单位:立方米
-	private Double peakFlowRate; // 日最高流速 单位:L/S(升/秒)
-	private String peakFlowRateTime; // 最高流速时间戳 HHMMSS
-	private Integer pulseEq; // 脉冲当量 单位:L
-	private String evnetTime; // 事项上报时间
+	/** 数据时间 */
+	private String readTime;
+	/** 实时累计流量 单位:立方米 */
+	private Double cumulativeFlow;
+	/** 日结累计流量 单位:立方米 */
+	private Double positiveCumulativeFlow;
+	/** 日结累计逆流量 单位:立方米 */
+	private Double negativeCumulativeFlow;
+	/** 日最高流速 单位:L/S(升/秒) */
+	private Double peakFlowRate;
+	/** 最高流速时间戳 HHMMSS */
+	private String peakFlowRateTime;
+	/** 脉冲当量 单位:L */
+	private Integer pulseEq;
+	/** 事项上报时间 */
+	private String evnetTime; 
 	/**
 	 * @return the evnetTime
 	 */

@@ -1,6 +1,14 @@
 package com.nb.model;
 
+import com.nb.utils.Constant;
 
+/** 
+* @ClassName: NbInstantaneous 
+* @Description: TODO(这里用一句话描述这个类的作用) 
+* @author dbr
+* @date 2019年4月18日 下午4:52:51 
+*  
+*/
 public class NbInstantaneous extends NbInstantaneousKey {
     /** 
 	* @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 
@@ -36,7 +44,7 @@ public class NbInstantaneous extends NbInstantaneousKey {
 	 * @param tableName the tableName to set
 	 */
 	public void setTableName(String date) {
-		if (date.length() == 6) {
+		if (date.length() == Constant.TABLE_YYYYMM) {
 			this.tableName = "yddata.dbo.nb_instantaneous_" + date;
 		} else {
 			this.tableName = date;

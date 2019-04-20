@@ -50,12 +50,19 @@ public class ScheduleFactory {
 	@Autowired
 	private IScheduleService scheduleService;
 
-	// 当前Trigger使用的
+	/** 
+	* @Fields jobUniqueMap : 当前Trigger使用的
+	*/ 
 	private Map<String, String> jobUniqueMap = new HashMap<String, String>();
 
-	// TODO 此处暂且注释，后续有后台定时任务逻辑 开启
-	@SuppressWarnings("unlikely-arg-type")
-	@Scheduled(fixedRate = 1000 * 60 * 5) // 每隔5分钟查库，并根据查询结果决定是否重新设置定时任务
+	/** 
+	* @Title: scheduleUpdateCronTrigger 
+	* @Description: 每隔5分钟查库，并根据查询结果决定是否重新设置定时任务
+	* @param @throws Exception    设定文件 
+	* @return void    返回类型 
+	* @throws 
+	*/
+	@Scheduled(fixedRate = 1000 * 60 * 5)  
 	public void scheduleUpdateCronTrigger() throws Exception {
 		try {
 			System.out.println("fixedRate : " + LocalDateTime.now());
@@ -80,7 +87,7 @@ public class ScheduleFactory {
 				// 不存在，创建一个
 				if (null == trigger) {
 					try {
-						@SuppressWarnings("unchecked")
+						
 						Class<? extends Job> clazz = (Class<? extends Job>) Class.forName(job.getQuartzClass());
 						JobDetail jobDetail = JobBuilder.newJob(clazz).withIdentity(job.getJobName(), job.getJobGroup())
 								.build();
@@ -97,10 +104,10 @@ public class ScheduleFactory {
 						scheduler.scheduleJob(jobDetail, trigger);
 					} catch (Exception e) {
 						e.printStackTrace();
-						LoggerUtil.Logger(LogName.ERROR).equals(e.getMessage());
+						LoggerUtil.logger(LogName.ERROR).equals(e.getMessage());
 					}
-
-				} else if (!jobUniqueMap.get(triggerKey.toString()).equals(dbCron)) { // Trigger已存在，那么更新相应的定时设置
+					/* Trigger已存在，那么更新相应的定时设置 */
+				} else if (!jobUniqueMap.get(triggerKey.toString()).equals(dbCron)) {
 					// 表达式调度构建器
 					CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(dbCron);
 					// 按新的cronExpression表达式重新构建trigger

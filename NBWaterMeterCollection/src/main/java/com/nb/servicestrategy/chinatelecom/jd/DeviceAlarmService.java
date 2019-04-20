@@ -59,12 +59,12 @@ public class DeviceAlarmService implements IServiceStrategy {
 	 * @see com.nb.servicestrategy.IServiceStrategy#parse(java.lang.String,
 	 *      java.util.Map)
 	 */
-	@SuppressWarnings("unchecked")
+	
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
 		// TODO Auto-generated method stub
 		String logInfo = "上报竟达告警信息：" + deviceId + " ,内容：" + serviceMap.toString();
-		LoggerUtil.Logger(LogName.CALLBACK).info(logInfo);
+		LoggerUtil.logger(LogName.CALLBACK).info(logInfo);
 		Object data = serviceMap.get("data");
 		Map<String, String> dataMap = new HashMap<String, String>();
 		try {
@@ -116,7 +116,7 @@ public class DeviceAlarmService implements IServiceStrategy {
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			LoggerUtil.Logger(LogName.CALLBACK).error(logInfo + "，异常" + e.getMessage());
+			LoggerUtil.logger(LogName.CALLBACK).error(logInfo + "，异常" + e.getMessage());
 		}
 
 	}
@@ -132,7 +132,7 @@ public class DeviceAlarmService implements IServiceStrategy {
 	* @throws 
 	*/
 	private void insertEve(DeviceAlarm deviceAlarm, String deviceId, String eveInfo, short typeNo) throws Exception {
-		Map<String, Object> meterInfo = this.commonMapper.getNbInfoByDeviceId(deviceId);
+		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
 		if (meterInfo == null) {
 			return;
 		}

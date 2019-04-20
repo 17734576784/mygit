@@ -35,27 +35,24 @@ public class ChinaTelecomUpGradeUtil {
 
 	public static boolean asynCommand(String command,String appId, String secret) throws Exception {
 
-		LoggerUtil.Logger(LogName.INFO).info("工具类接收下发命令请求：" + command);
+		LoggerUtil.logger(LogName.INFO).info("工具类接收下发命令请求：" + command);
 		JSONObject paramAsynCommand = new JSONObject();
 		try {
 			paramAsynCommand = JSONObject.parseObject(command);
 			
 
 
-			String deviceId = ConverterUtils.toStr(paramAsynCommand.get("deviceId"));// "8c23b6b4-ea68-48fb-9c2f-90452a81ebb1";
-			String serviceId = ConverterUtils.toStr(paramAsynCommand.get("serviceId"));// "WaterMeter";
-			String method = ConverterUtils.toStr(paramAsynCommand.get("method"));// "SET_TEMPERATURE_READ_PERIOD";
-			ObjectNode paras = JsonUtil.convertObject2ObjectNode(ConverterUtils.toStr(paramAsynCommand.get("param")));// "{\"value\":\"12\"}"
+			String deviceId = ConverterUtils.toStr(paramAsynCommand.get("deviceId"));
+			String serviceId = ConverterUtils.toStr(paramAsynCommand.get("serviceId"));
+			String method = ConverterUtils.toStr(paramAsynCommand.get("method"));
+			ObjectNode paras = JsonUtil.convertObject2ObjectNode(ConverterUtils.toStr(paramAsynCommand.get("param")));
 			
 //			String deviceProgress = Constant.PROGRESS_CHINA_TELECOM + deviceId;
 //			DeviceProgress progress = (DeviceProgress) JedisUtils.get(deviceProgress);
-			Map<String,String> appInfo = new HashMap<>();
-			appInfo.put("appId", appId);
-			appInfo.put("secret", secret);
 
 			ChinaTelecomIotHttpsUtil httpsUtil = new ChinaTelecomIotHttpsUtil();
 			httpsUtil.initSSLConfigForTwoWay();
-			String accessToken = AuthenticationUtils.getChinaTelecomAccessToken(httpsUtil, appInfo);
+			String accessToken = AuthenticationUtils.getChinaTelecomAccessToken(httpsUtil, appId, secret);
 
 			String urlPostAsynCmd = Constant.CHINA_TELECOM_POST_ASYN_CMD;
 			String callbackUrl = Constant.CHINA_TELECOM_REPORT_CMD_EXEC_RESULT_CALLBACK_URL;
@@ -93,7 +90,7 @@ public class ChinaTelecomUpGradeUtil {
 //				JedisUtils.set(Constant.UPGRADE + commandId, serviceId, 60 * 10);
 //			}
 		} catch (Exception e) {
-			LoggerUtil.Logger(LogName.INFO).error("工具类接收下发命令异常：" + command);
+			LoggerUtil.logger(LogName.INFO).error("工具类接收下发命令异常：" + command);
 			e.printStackTrace();
 			return false;
 		}
@@ -122,12 +119,14 @@ public class ChinaTelecomUpGradeUtil {
 		if (sendedPack < 0) {
 			sendedPack = 0;
 		}
-		@SuppressWarnings("unchecked")
+		
 		Map<String, byte[]> fileMap = (Map<String, byte[]>) upgradeFile.get("data");
 		byte[] data = fileMap.get(String.valueOf(sendedPack));
 
-		byte fileFlag = 0X00; // 文件标识 0x00 清除传输文件，恢复到升级前状态
-		byte fileAttribute = 0x00;// 文件属性 0x00 起始 中间帧 0X01 结束帧
+		// 文件标识 0x00 清除传输文件，恢复到升级前状态
+		byte fileFlag = 0X00; 
+		// 文件属性 0x00 起始 中间帧 0X01 结束帧
+		byte fileAttribute = 0x00;
 		if (sendedPack > 0) {
 			fileFlag = 0X01;
 		}
@@ -171,20 +170,20 @@ public class ChinaTelecomUpGradeUtil {
      * @since 1.0
      */
 	public static int getCRC(byte[] bytes) {
-		int CRC = 0x0000ffff;
-		int POLYNOMIAL = 0x0000a001;
+		int crc = 0x0000ffff;
+		int polyNomial = 0x0000a001;
 		int i, j;
 		for (i = 0; i < bytes.length; i++) {
-			CRC ^= ((int) bytes[i] & 0x000000ff);
-			for (j = 0; j < 8; j++) {
-				if ((CRC & 0x00000001) != 0) {
-					CRC >>= 1;
-					CRC ^= POLYNOMIAL;
+			crc ^= ((int) bytes[i] & 0x000000ff);
+			for (j = 0; j < Constant.EIGHT; j++) {
+				if ((crc & 0x00000001) != 0) {
+					crc >>= 1;
+					crc ^= polyNomial;
 				} else {
-					CRC >>= 1;
+					crc >>= 1;
 				}
 			}
 		}
-		return CRC;
+		return crc;
 	}
 }

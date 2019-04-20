@@ -79,7 +79,7 @@ if (not exists (select name from sysobjects where name='nb_water_meter'))
 			
 			meter_number							varchar(64)		null,				/*水表表号*/
 			meter_caliber							int						null,				/*水表口径*/
-			imei_code									varchar(64)		null,				/*IMEI码（仅注册NB时用）*/
+			imei_code									varchar(64)		unique null,				/*IMEI码（仅注册NB时用）*/
 			imsi_code									varchar(64)		null, 			/*IMSI码（仅注册NB时用 移动平台）*/
 			device_id									varchar(64)		unique null,/*设备编号 （注册后由NB系统上传更新）*/
 			

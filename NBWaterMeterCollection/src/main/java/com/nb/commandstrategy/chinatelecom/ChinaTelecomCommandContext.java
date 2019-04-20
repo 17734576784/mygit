@@ -39,7 +39,7 @@ public class ChinaTelecomCommandContext {
 		if (null != service) {
 			service.parse(deviceId, commandMap);
 		} else {
-			LoggerUtil.Logger(LogName.INFO).info("不存在服务：" + commandName);
+			LoggerUtil.logger(LogName.INFO).info("不存在服务：" + commandName);
 			System.out.println("不存在服务：" + commandName);
 		}
 	}

@@ -2,6 +2,13 @@ package com.nb.model;
 
 import java.io.Serializable;
 
+/** 
+* @ClassName: NbInstantaneousKey 
+* @Description: TODO(这里用一句话描述这个类的作用) 
+* @author dbr
+* @date 2019年4月18日 下午4:52:45 
+*  
+*/
 public class NbInstantaneousKey implements Serializable{
     /** 
 	* @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 

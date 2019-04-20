@@ -13,19 +13,16 @@ import org.apache.commons.lang.ArrayUtils;
 
 /** 
 * @ClassName: BytesUtils 
-* @Description: TODO(这里用一句话描述这个类的作用) 
+* @Description: 字节数组转换工具类
 * @author dbr
-* @date 2018年11月16日 下午4:51:23 
+* @date 2019年4月18日 下午4:52:01 
 *  
 */
-/**
- * 字节数组转换工具类
- */
 public class BytesUtils {
 
 	public static final String GBK = "GBK";
 	public static final String UTF8 = "utf-8";
-	public static final char[] ascii = "0123456789ABCDEF".toCharArray();
+	public static final char[] ASCII = "0123456789ABCDEF".toCharArray();
 	private static char[] HEX_VOCABLE = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E',
 			'F' };
 
@@ -397,8 +394,9 @@ public class BytesUtils {
 	 * @return
 	 */
 	public static byte[] hexToBytes(String hex) {
-		if (hex.length() % 2 != 0)
+		if (hex.length() % Constant.TWO != 0){
 			throw new IllegalArgumentException("input string should be any multiple of 2!");
+		}
 		hex.toUpperCase();
 
 		byte[] byteBuffer = new byte[hex.length() / 2];
@@ -450,7 +448,7 @@ public class BytesUtils {
 		}
 		StringBuffer res = new StringBuffer();
 		for (int i = 0; i < temp.length; i++) {
-			res.append(ascii[temp[i]]);
+			res.append(ASCII[temp[i]]);
 		}
 		return res.toString();
 	}
@@ -549,7 +547,7 @@ public class BytesUtils {
 		}
 		StringBuffer res = new StringBuffer();
 		for (int i = 0; i < temp.length; i++) {
-			res.append(ascii[temp[i]]);
+			res.append(ASCII[temp[i]]);
 		}
 		return res.toString();
 	}
@@ -620,7 +618,7 @@ public class BytesUtils {
 	public static String byteToBinaryString(byte item) {
 		byte a = item;
 		StringBuffer buf = new StringBuffer();
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < Constant.EIGHT; i++) {
 			buf.insert(0, a % 2);
 			a = (byte) (a >> 1);
 		}
@@ -672,7 +670,7 @@ public class BytesUtils {
 	 */
 	public static byte[] shortToBytes(int num) {
 		byte[] temp = new byte[2];
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < Constant.TWO; i++) {
 			temp[i] = (byte) ((num >>> (8 - i * 8)) & 0xFF);
 		}
 		return temp;
@@ -687,7 +685,7 @@ public class BytesUtils {
 		int mask = 0xFF;
 		int temp = 0;
 		int result = 0;
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < Constant.TWO; i++) {
 			result <<= 8;
 			temp = arr[i] & mask;
 			result |= temp;
@@ -702,7 +700,7 @@ public class BytesUtils {
 	 */
 	public static byte[] intToBytes(int num) {
 		byte[] temp = new byte[4];
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < Constant.FOUR; i++) {
 			temp[i] = (byte) ((num >>> (24 - i * 8)) & 0xFF);
 		}
 		return temp;
@@ -715,7 +713,7 @@ public class BytesUtils {
 	 * @return
 	 */
 	public static byte[] intToBytes(int src, int len) {
-		if (len < 1 || len > 4) {
+		if (len < 1 || len > Constant.FOUR) {
 			return null;
 		}
 		byte[] temp = new byte[len];
@@ -734,7 +732,7 @@ public class BytesUtils {
 		int mask = 0xFF;
 		int temp = 0;
 		int result = 0;
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < Constant.FOUR; i++) {
 			result <<= 8;
 			temp = arr[i] & mask;
 			result |= temp;
@@ -749,7 +747,7 @@ public class BytesUtils {
 	 */
 	public static byte[] longToBytes(long num) {
 		byte[] temp = new byte[8];
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < Constant.EIGHT; i++) {
 			temp[i] = (byte) ((num >>> (56 - i * 8)) & 0xFF);
 		}
 		return temp;
@@ -791,7 +789,7 @@ public class BytesUtils {
 	 * @return 字节数组所表示整型值的大小
 	 */
 	public static int bytesToIntWhereByteLengthEquals2(byte lenData[]) {
-		if (lenData.length != 2) {
+		if (lenData.length != Constant.TWO) {
 			return -1;
 		}
 		byte fill[] = new byte[] { 0, 0 };
@@ -826,6 +824,8 @@ public class BytesUtils {
 			case 3:
 				tmpVal = tmpVal & 0x000000FF;
 				break;
+			default:
+				break;
 			}
 
 			result = result | tmpVal;
@@ -833,7 +833,7 @@ public class BytesUtils {
 		return result;
 	}
 
-	public static byte CheckXORSum(byte[] bData) {
+	public static byte checkXORSum(byte[] bData) {
 		byte sum = 0x00;
 		for (int i = 0; i < bData.length; i++) {
 			sum ^= bData[i];
@@ -869,8 +869,9 @@ public class BytesUtils {
 	public static int getBytesStringLen(byte[] data) {
 		int count = 0;
 		for (byte b : data) {
-			if (b == 0x00)
+			if (b == 0x00){
 				break;
+			}
 			count++;
 		}
 		return count;
@@ -885,18 +886,18 @@ public class BytesUtils {
 	* @throws 
 	*/
 	public static byte[] byteMergerAll(byte[]... values) {
-        int length_byte = 0;
+        int lengthByte = 0;
             for (int i = 0; i < values.length; i++) {
-                length_byte += values[i].length;
+            	lengthByte += values[i].length;
             }
-            byte[] all_byte = new byte[length_byte];
+            byte[] allByte = new byte[lengthByte];
             int countLength = 0;
             for (int i = 0; i < values.length; i++) {
                 byte[] b = values[i];
-                System.arraycopy(b, 0, all_byte, countLength, b.length);
+                System.arraycopy(b, 0, allByte, countLength, b.length);
                 countLength += b.length;
             }
-            return all_byte;
+            return allByte;
         }
     
 }

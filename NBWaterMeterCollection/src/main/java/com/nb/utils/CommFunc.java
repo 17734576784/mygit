@@ -45,21 +45,6 @@ public class CommFunc {
 		return result;
 	}
 
-	// 首字母转小写
-	public static String toLowerCaseFirstOne(String s) {
-		if (Character.isLowerCase(s.charAt(0)))
-			return s;
-		else
-			return (new StringBuilder()).append(Character.toLowerCase(s.charAt(0))).append(s.substring(1)).toString();
-	}
-
-	// 首字母转大写
-	public static String toUpperCaseFirstOne(String s) {
-		if (Character.isUpperCase(s.charAt(0)))
-			return s;
-		else
-			return (new StringBuilder()).append(Character.toUpperCase(s.charAt(0))).append(s.substring(1)).toString();
-	}
 
 	/**
 	 * @param errorCode
@@ -101,7 +86,14 @@ public class CommFunc {
 		return bt;
 	}
 
-	// 图片到byte数组
+	/** 
+	* @Title: image2byte 
+	* @Description: 图片到byte数组
+	* @param @param path
+	* @param @return    设定文件 
+	* @return byte[]    返回类型 
+	* @throws 
+	*/
 	public static byte[] image2byte(String path) {
 		byte[] data = null;
 		FileImageInputStream input = null;
@@ -124,10 +116,18 @@ public class CommFunc {
 		return data;
 	}
 
-	// byte数组到图片
+	/** 
+	* @Title: byte2image 
+	* @Description: byte数组到图片
+	* @param @param data
+	* @param @param path    设定文件 
+	* @return void    返回类型 
+	* @throws 
+	*/
 	public static void byte2image(byte[] data, String path) {
-		if (data.length < 3 || path.equals(""))
+		if (data.length < Constant.THREE || path == null || path.isEmpty()){
 			return;
+		}
 		try {
 			FileImageOutputStream imageOutput = new FileImageOutputStream(new File(path));
 			imageOutput.write(data, 0, data.length);
@@ -139,12 +139,21 @@ public class CommFunc {
 		}
 	}
 
-	// byte数组到16进制字符串
+	/** 
+	* @Title: byte2string 
+	* @Description: byte数组到16进制字符串 
+	* @param @param data
+	* @param @return    设定文件 
+	* @return String    返回类型 
+	* @throws 
+	*/
 	public static String byte2string(byte[] data) {
-		if (data == null || data.length <= 1)
+		if (data == null || data.length <= 1) {
 			return "0x";
-		if (data.length > 200000)
+		}
+		if (data.length > Constant.NUM_200000) {
 			return "0x";
+		}
 		StringBuffer sb = new StringBuffer();
 		int buf[] = new int[data.length];
 		// byte数组转化成十进制
@@ -153,15 +162,24 @@ public class CommFunc {
 		}
 		// 十进制转化成十六进制
 		for (int k = 0; k < buf.length; k++) {
-			if (buf[k] < 16)
+			if (buf[k] < 16) {
 				sb.append("0" + Integer.toHexString(buf[k]));
-			else
+			} else {
 				sb.append(Integer.toHexString(buf[k]));
+			}
 		}
 		return "0x" + sb.toString().toUpperCase();
 	}
 
-	// System.arraycopy()方法
+	/** 
+	* @Title: byteMerger 
+	* @Description: System.arraycopy()方法 
+	* @param @param bt1
+	* @param @param bt2
+	* @param @return    设定文件 
+	* @return byte[]    返回类型 
+	* @throws 
+	*/
 	public static byte[] byteMerger(byte[] bt1, byte[] bt2) {
 		byte[] bt3 = new byte[bt1.length + bt2.length];
 		System.arraycopy(bt1, 0, bt3, 0, bt1.length);
@@ -260,7 +278,7 @@ public class CommFunc {
 		return date;
 	}
 	
-	@SuppressWarnings("unchecked")
+	
 	public static Map<String, String> getCommandType(int nbType, int commandType) {
 		Map<String, Map<String, String>> command = new HashMap<>();
 		command = JsonUtil.jsonString2SimpleObj(JedisUtils.get(Constant.COMMAND_TYPE_REIDS), command.getClass());

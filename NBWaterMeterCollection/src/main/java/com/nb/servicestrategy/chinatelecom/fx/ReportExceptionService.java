@@ -49,12 +49,12 @@ public class ReportExceptionService implements IServiceStrategy {
 	* @param serviceMap 
 	* @see com.nb.servicestrategy.IServiceStrategy#parse(java.lang.String, java.util.Map) 
 	*/
-	@SuppressWarnings("unchecked")
+	
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
 		// TODO Auto-generated method stub
 		String logInfo = "上报府星水表异常数据上报内容 ：" + deviceId + " ,内容：" + serviceMap.toString();
-		LoggerUtil.Logger(LogName.CALLBACK).info(logInfo);
+		LoggerUtil.logger(LogName.CALLBACK).info(logInfo);
 		if (serviceMap == null || serviceMap.isEmpty()) {
 			return;
 		}
@@ -70,10 +70,13 @@ public class ReportExceptionService implements IServiceStrategy {
 			
 			Short typeNo = toShort(dataMap.get("ErrorNo"));
 			String eveInfo = "";
-			if (typeNo == Constant.FX_VALVE_ERROR) { // 阀门异常
+			// 阀门异常
+			if (typeNo == Constant.FX_VALVE_ERROR) { 
 				eveInfo = "阀门异常";
 				typeNo = Constant.ALARM_2010;
-			} else if (typeNo == Constant.FX_MAGNETIC) {// 强磁异常
+			}
+			// 强磁异常
+			else if (typeNo == Constant.FX_MAGNETIC) {
 				eveInfo = "强磁异常（双干簧管异常），连续10秒2个干簧管都吸合，关阀门并自动上报，有5次按键打开阀门的机会，第5次按键打卡阀门后，如果还是出现强磁只有服务器下发“开阀命令”才能打开阀门。";
 				typeNo = Constant.ALARM_2004;
 			} else if (typeNo == Constant.FX_BATTERY_1 || typeNo == Constant.FX_BATTERY_2) {
@@ -87,7 +90,7 @@ public class ReportExceptionService implements IServiceStrategy {
  			
 		} catch (Exception e) {
 			e.printStackTrace();
-			LoggerUtil.Logger(LogName.CALLBACK).error(logInfo + "异常" + e.getMessage());
+			LoggerUtil.logger(LogName.CALLBACK).error(logInfo + "异常" + e.getMessage());
 		}
 	}
 	
@@ -104,7 +107,7 @@ public class ReportExceptionService implements IServiceStrategy {
 	*/
 	private void insertEve(Map<String, String> dataMap, String deviceId, String eveInfo, short typeNo)
 			throws Exception {
-		Map<String, Object> meterInfo = this.commonMapper.getNbInfoByDeviceId(deviceId);
+		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
 		if (meterInfo == null) {
 			return;
 		}

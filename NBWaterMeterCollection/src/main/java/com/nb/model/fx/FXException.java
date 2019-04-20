@@ -9,9 +9,6 @@
 package com.nb.model.fx;
 
 import java.io.Serializable;
-import java.util.Date;
-import static com.nb.utils.ConverterUtils.toInt;
-import com.nb.utils.DateUtils;
 
 /** 
 * @ClassName: FXException 
@@ -22,152 +19,151 @@ import com.nb.utils.DateUtils;
 */
 public class FXException implements Serializable {
 
-	/** 
-	* @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 
-	*/ 
 	private static final long serialVersionUID = 6897052349813312149L;
+	/** 固件版本 */
+	private String version;
+	/** 是否是按键触发上报 0:自动定时上报 1:按键触发上报 */
+	private String isKeyTriggerThisReport;
+	/** : 累计总水量 */
+	private String totalCumulateWater;
+	/** 当月累计水量 */
+	private String monthCumulateWater;
+	/** 水表编号 */
+	private String waterMeterNo;
+	/** 水表口径 */
+	private String meterDiameter;
+	/** 表端当前时间 */
+	private String currentDateTime;
+	/** 阀门状态 */
+	private String valveState;
+	/** 电池电压 */
+	private String batteryVoltage;
+	/** 异常代码 */
+	private String errorNo;
+	/** 上报日期 */
+	private int date;
+	/** 上报时间 */
+	private int time;
 
-	private String Version; // 固件版本
-	private String IsKeyTriggerThisReport;// 是否是按键触发上报 0:自动定时上报 1:按键触发上报
-	private String TotalCumulateWater; // 累计总水量
-	private String MonthCumulateWater; // 当月累计水量
-	private String WaterMeterNo;// 水表编号
-	private String MeterDiameter;// 水表口径
-	private String CurrentDateTime;// 表端当前时间
-	private String ValveState;// 阀门状态
-	private String BatteryVoltage;// 电池电压
-	private String ErrorNo;// 异常代码
-	private int date; // 上报日期
-	private int time; // 上报时间
-	
 	/**
 	 * @return the version
 	 */
 	public String getVersion() {
-		return Version;
+		return version;
 	}
 	/**
 	 * @param version the version to set
 	 */
 	public void setVersion(String version) {
-		Version = version;
+		this.version = version;
 	}
 	/**
 	 * @return the isKeyTriggerThisReport
 	 */
 	public String getIsKeyTriggerThisReport() {
-		return IsKeyTriggerThisReport;
+		return isKeyTriggerThisReport;
 	}
 	/**
 	 * @param isKeyTriggerThisReport the isKeyTriggerThisReport to set
 	 */
 	public void setIsKeyTriggerThisReport(String isKeyTriggerThisReport) {
-		IsKeyTriggerThisReport = isKeyTriggerThisReport;
+		this.isKeyTriggerThisReport = isKeyTriggerThisReport;
 	}
 	/**
 	 * @return the totalCumulateWater
 	 */
 	public String getTotalCumulateWater() {
-		return TotalCumulateWater;
+		return totalCumulateWater;
 	}
 	/**
 	 * @param totalCumulateWater the totalCumulateWater to set
 	 */
 	public void setTotalCumulateWater(String totalCumulateWater) {
-		TotalCumulateWater = totalCumulateWater;
+		this.totalCumulateWater = totalCumulateWater;
 	}
 	/**
 	 * @return the monthCumulateWater
 	 */
 	public String getMonthCumulateWater() {
-		return MonthCumulateWater;
+		return monthCumulateWater;
 	}
 	/**
 	 * @param monthCumulateWater the monthCumulateWater to set
 	 */
 	public void setMonthCumulateWater(String monthCumulateWater) {
-		MonthCumulateWater = monthCumulateWater;
+		this.monthCumulateWater = monthCumulateWater;
 	}
 	/**
 	 * @return the waterMeterNo
 	 */
 	public String getWaterMeterNo() {
-		return WaterMeterNo;
+		return waterMeterNo;
 	}
 	/**
 	 * @param waterMeterNo the waterMeterNo to set
 	 */
 	public void setWaterMeterNo(String waterMeterNo) {
-		WaterMeterNo = waterMeterNo;
+		this.waterMeterNo = waterMeterNo;
 	}
 	/**
 	 * @return the meterDiameter
 	 */
 	public String getMeterDiameter() {
-		return MeterDiameter;
+		return meterDiameter;
 	}
 	/**
 	 * @param meterDiameter the meterDiameter to set
 	 */
 	public void setMeterDiameter(String meterDiameter) {
-		MeterDiameter = meterDiameter;
+		this.meterDiameter = meterDiameter;
 	}
 	/**
 	 * @return the currentDateTime
 	 */
 	public String getCurrentDateTime() {
-		return CurrentDateTime;
+		return currentDateTime;
 	}
 	/**
 	 * @param currentDateTime the currentDateTime to set
 	 */
 	public void setCurrentDateTime(String currentDateTime) {
-		CurrentDateTime = currentDateTime;
-		Date dateTime = DateUtils.parseTimesTampDate(currentDateTime);
-		this.date = toInt(DateUtils.formatDateByFormat(dateTime, "yyyyMMdd"));
-		this.time = toInt(DateUtils.formatDateByFormat(dateTime, "HHmmss"));
+		this.currentDateTime = currentDateTime;
 	}
 	/**
 	 * @return the valveState
 	 */
 	public String getValveState() {
-		return ValveState;
+		return valveState;
 	}
 	/**
 	 * @param valveState the valveState to set
 	 */
 	public void setValveState(String valveState) {
-		ValveState = valveState;
+		this.valveState = valveState;
 	}
 	/**
 	 * @return the batteryVoltage
 	 */
 	public String getBatteryVoltage() {
-		return BatteryVoltage;
+		return batteryVoltage;
 	}
 	/**
 	 * @param batteryVoltage the batteryVoltage to set
 	 */
 	public void setBatteryVoltage(String batteryVoltage) {
-		BatteryVoltage = batteryVoltage;
+		this.batteryVoltage = batteryVoltage;
 	}
 	/**
 	 * @return the errorNo
 	 */
 	public String getErrorNo() {
-		return ErrorNo;
+		return errorNo;
 	}
 	/**
 	 * @param errorNo the errorNo to set
 	 */
 	public void setErrorNo(String errorNo) {
-		ErrorNo = errorNo;
-	}
-	/**
-	 * @return the serialversionuid
-	 */
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+		this.errorNo = errorNo;
 	}
 	/**
 	 * @return the date
@@ -176,10 +172,24 @@ public class FXException implements Serializable {
 		return date;
 	}
 	/**
+	 * @param date the date to set
+	 */
+	public void setDate(int date) {
+		this.date = date;
+	}
+	/**
 	 * @return the time
 	 */
 	public int getTime() {
 		return time;
 	}
+	/**
+	 * @param time the time to set
+	 */
+	public void setTime(int time) {
+		this.time = time;
+	}
+	
+	
 	
 }

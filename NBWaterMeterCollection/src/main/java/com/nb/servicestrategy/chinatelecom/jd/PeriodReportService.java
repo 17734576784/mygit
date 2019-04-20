@@ -58,12 +58,12 @@ public class PeriodReportService implements IServiceStrategy {
 	 * @see com.nb.servicestrategy.IServiceStrategy#parse(java.lang.String,
 	 *      java.util.Map)
 	 */
-	@SuppressWarnings("unchecked")
+	
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
 		// TODO Auto-generated method stub
 		String logInfo = "上报竟达水表周期数据：" + deviceId + " ,内容：" + serviceMap.toString();
-		LoggerUtil.Logger(LogName.CALLBACK).info(logInfo);
+		LoggerUtil.logger(LogName.CALLBACK).info(logInfo);
 
 		Object data = serviceMap.get("data");
 		Map<String, String> dataMap = new HashMap<String, String>();
@@ -77,14 +77,14 @@ public class PeriodReportService implements IServiceStrategy {
 			String evnetTime = periodReport.getReadTime();
 			int date = toInt(evnetTime.substring(0, 8));
 			int time = toInt(evnetTime.substring(9, 15));
-			String YM = toStr(date / 100);
+			String tableNameDate = toStr(date / 100);
 
-			insertPeriodReport(YM, date, time, periodReport, deviceId);
+			insertPeriodReport(tableNameDate, date, time, periodReport, deviceId);
 
-			insertInstantaneous(YM, date, periodReport, deviceId);
+			insertInstantaneous(tableNameDate, date, periodReport, deviceId);
 		} catch (Exception e) {
 			e.printStackTrace();
-			LoggerUtil.Logger(LogName.CALLBACK).error("解析竟达水表周期数据异常" + e.getMessage());
+			LoggerUtil.logger(LogName.CALLBACK).error("解析竟达水表周期数据异常" + e.getMessage());
 		}
 		
 	}
@@ -94,9 +94,9 @@ public class PeriodReportService implements IServiceStrategy {
 	 * YM @param @param date @param @param periodReport @param @param deviceId
 	 * 设定文件 @return void 返回类型 @throws
 	 */
-	private void insertInstantaneous(String YM, int date, PeriodReport periodReport, String deviceId) throws Exception {
+	private void insertInstantaneous(String tableNameDate, int date, PeriodReport periodReport, String deviceId) throws Exception {
 
-		Map<String, Object> meterInfo = this.commonMapper.getNbInfoByDeviceId(deviceId);
+		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
 		if (meterInfo == null) {
 			return;
 		}
@@ -105,7 +105,7 @@ public class PeriodReportService implements IServiceStrategy {
 		short mpId = toShort(meterInfo.get("mpId"));
 
 		NbInstantaneous nbInstantaneous = new NbInstantaneous();
-		nbInstantaneous.setTableName(YM);
+		nbInstantaneous.setTableName(tableNameDate);
 		nbInstantaneous.setRtuId(rtuId);
 		nbInstantaneous.setMpId(mpId);
 		nbInstantaneous.setYmd(date);
@@ -128,10 +128,10 @@ public class PeriodReportService implements IServiceStrategy {
 	 * YM @param @param date @param @param time @param @param
 	 * periodReport @param @param deviceId 设定文件 @return void 返回类型 @throws
 	 */
-	private void insertPeriodReport(String YM, int date, int time, PeriodReport periodReport, String deviceId)
+	private void insertPeriodReport(String tableNameDate, int date, int time, PeriodReport periodReport, String deviceId)
 			throws Exception {
 
-		Map<String, Object> meterInfo = this.commonMapper.getNbInfoByDeviceId(deviceId);
+		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
 		if (meterInfo == null) {
 			return;
 		}
@@ -140,7 +140,7 @@ public class PeriodReportService implements IServiceStrategy {
 		short mpId = toShort(meterInfo.get("mpId"));
 
 		NbDailyData nbDailyData = new NbDailyData();
-		nbDailyData.setTableName(YM);
+		nbDailyData.setTableName(tableNameDate);
 		nbDailyData.setReportType((byte) 0);
 		nbDailyData.setRtuId(rtuId);
 		nbDailyData.setMpId(mpId);

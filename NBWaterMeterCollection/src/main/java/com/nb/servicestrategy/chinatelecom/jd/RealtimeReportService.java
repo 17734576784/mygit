@@ -56,12 +56,12 @@ public class RealtimeReportService implements IServiceStrategy {
 	 * @see com.nb.servicestrategy.IServiceStrategy#parse(java.lang.String,
 	 *      java.util.Map)
 	 */
-	@SuppressWarnings("unchecked")
+	
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
 		// TODO Auto-generated method stub
 		String logInfo = "上报竟达水表实时数据：" + deviceId + " ,内容：" + serviceMap.toString();
-		LoggerUtil.Logger(LogName.CALLBACK).info(logInfo);
+		LoggerUtil.logger(LogName.CALLBACK).info(logInfo);
 		Object data = serviceMap.get("data");
 		Map<String, String> dataMap = new HashMap<String, String>();
 		try {
@@ -76,13 +76,13 @@ public class RealtimeReportService implements IServiceStrategy {
 			String evnetTime = realtimeReport.getReadTime();
 			int date = toInt(evnetTime.substring(0, 8));
 			int time = toInt(evnetTime.substring(9, 15));
-			String YM = toStr(date / 100);
+			String tableNameDate = toStr(date / 100);
 
-			insertRealReport(YM, date, time, realtimeReport, deviceId);
+			insertRealReport(tableNameDate, date, time, realtimeReport, deviceId);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			LoggerUtil.Logger(LogName.CALLBACK).error(logInfo + "，异常" + e.getMessage());
+			LoggerUtil.logger(LogName.CALLBACK).error(logInfo + "，异常" + e.getMessage());
 		}
 
 	}
@@ -92,10 +92,10 @@ public class RealtimeReportService implements IServiceStrategy {
 	 * YM @param @param date @param @param time @param @param
 	 * realtimeReport @param @param deviceId 设定文件 @return void 返回类型 @throws
 	 */
-	private void insertRealReport(String YM, int date, int time, RealtimeReport realtimeReport, String deviceId)
+	private void insertRealReport(String tableNameDate, int date, int time, RealtimeReport realtimeReport, String deviceId)
 			throws Exception {
 
-		Map<String, Object> meterInfo = this.commonMapper.getNbInfoByDeviceId(deviceId);
+		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
 		if (meterInfo == null) {
 			return;
 		}
@@ -104,8 +104,8 @@ public class RealtimeReportService implements IServiceStrategy {
 		short mpId = toShort(meterInfo.get("mpId"));
 
 		NbDailyData nbDailyData = new NbDailyData();
-		nbDailyData.setTableName(YM);
-		nbDailyData.setReportType((byte) 0);
+		nbDailyData.setTableName(tableNameDate);
+		nbDailyData.setReportType((byte) Constant.ZERO);
 		nbDailyData.setRtuId(rtuId);
 		nbDailyData.setMpId(mpId);
 		nbDailyData.setYmd(date);

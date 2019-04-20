@@ -1,6 +1,14 @@
 package com.nb.model;
 
+import com.nb.utils.Constant;
 
+/** 
+* @ClassName: NbDailyData 
+* @Description: TODO(这里用一句话描述这个类的作用) 
+* @author dbr
+* @date 2019年4月18日 下午4:53:03 
+*  
+*/
 public class NbDailyData extends NbDailyDataKey {
     /** 
 	* @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 
@@ -42,7 +50,7 @@ public class NbDailyData extends NbDailyDataKey {
 	 * @param tableName the tableName to set
 	 */
 	public void setTableName(String date) {
-		if (date.length() == 6) {
+		if (date.length() == Constant.TABLE_YYYYMM) {
 			this.tableName = "yddata.dbo.nb_daily_data_" + date;
 		}else {
 			this.tableName = date;

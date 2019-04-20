@@ -3,6 +3,13 @@ package com.nb.model;
 import java.io.Serializable;
 import java.util.Date;
 
+/** 
+* @ClassName: NbCommandKey 
+* @Description: TODO(这里用一句话描述这个类的作用) 
+* @author dbr
+* @date 2019年4月18日 下午4:36:08 
+*  
+*/
 public class NbCommandKey implements Serializable{
     /** 
 	* @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 

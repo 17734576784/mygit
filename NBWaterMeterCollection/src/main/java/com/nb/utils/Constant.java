@@ -14,6 +14,13 @@ package com.nb.utils;
 
 import java.io.File;
 
+/** 
+* @ClassName: Constant 
+* @Description: TODO(这里用一句话描述这个类的作用) 
+* @author dbr
+* @date 2019年4月18日 下午4:51:44 
+*  
+*/
 public class Constant {
 
 	/** 中国移动平台地址 */
@@ -42,32 +49,32 @@ public class Constant {
 	/** 中国电信平台SECRET */
 //	public static final String CHINA_TELECOM_SECRET = "9IL8rmcruUPIbth4gRP1XGAns2Ya";
 
-	/*
-	 * IP and port of callback url. please replace the IP and Port of your
-	 * Application deployment environment address, when you use the demo.
-	 */
+	/** 
+	* @Fields CALLBACK_BASE_URL : IP and port of callback url. please replace the IP and Port of your
+	 * Application deployment environment address, when you use the demo. 
+	*/ 
 	public static final String CALLBACK_BASE_URL = "https://222.222.60.178:18213";
 
-	/*
-	 * complete callback url please replace uri, when you use the demo.
-	 */
-	public static final String DEVICE_ADDED_CALLBACK_URL = CALLBACK_BASE_URL + "/deviceAdded";
-	public static final String DEVICE_INFO_CHANGED_CALLBACK_URL = CALLBACK_BASE_URL + "/deviceInfoChanged";
-	public static final String DEVICE_DATA_CHANGED_CALLBACK_URL = CALLBACK_BASE_URL + "/deviceDataChanged";
-	public static final String DEVICE_DELETED_CALLBACK_URL = CALLBACK_BASE_URL + "/deviceDeleted";
-	public static final String MESSAGE_CONFIRM_CALLBACK_URL = CALLBACK_BASE_URL + "/commandConfirmData";
-	public static final String SERVICE_INFO_CHANGED_CALLBACK_URL = CALLBACK_BASE_URL + "/updateServiceInfo";
-	public static final String COMMAND_RSP_CALLBACK_URL = CALLBACK_BASE_URL + "/commandRspData";
-	public static final String DEVICE_EVENT_CALLBACK_URL = CALLBACK_BASE_URL + "/deviceEvent";
-	public static final String RULE_EVENT_CALLBACK_URL = CALLBACK_BASE_URL + "/ruleEvent";
-	public static final String DEVICE_DATAS_CHANGED_CALLBACK_URL = CALLBACK_BASE_URL + "/updateDeviceDatas";
+	/** 
+	* @Fields DEVICE_ADDED_CALLBACK_URL :complete callback url please replace uri, when you use the demo.
+	*/ 
+	public static final String DEVICE_ADDED_CALLBACK_URL = CALLBACK_BASE_URL + "/chinatelecom/deviceAdded";
+	public static final String DEVICE_INFO_CHANGED_CALLBACK_URL = CALLBACK_BASE_URL + "/chinatelecom/deviceInfoChanged";
+	public static final String DEVICE_DATA_CHANGED_CALLBACK_URL = CALLBACK_BASE_URL + "/chinatelecom/deviceDataChanged";
+	public static final String DEVICE_DELETED_CALLBACK_URL = CALLBACK_BASE_URL + "/chinatelecom/deviceDeleted";
+	public static final String MESSAGE_CONFIRM_CALLBACK_URL = CALLBACK_BASE_URL + "/chinatelecom/messageConfirm";
+	public static final String SERVICE_INFO_CHANGED_CALLBACK_URL = CALLBACK_BASE_URL + "/chinatelecom/serviceInfoChanged";
+	public static final String COMMAND_RSP_CALLBACK_URL = CALLBACK_BASE_URL + "/chinatelecom/commandRsp";
+	public static final String DEVICE_EVENT_CALLBACK_URL = CALLBACK_BASE_URL + "/chinatelecom/deviceEvent";
+	public static final String RULE_EVENT_CALLBACK_URL = CALLBACK_BASE_URL + "/chinatelecom/ruleEvent";
+	public static final String DEVICE_DATAS_CHANGED_CALLBACK_URL = CALLBACK_BASE_URL + "/chinatelecom/deviceDatasChanged";
 
-	/*
-	 * Specifies the callback URL for the command execution result notification. For
-	 * details about the execution result notification definition.
-	 *
-	 * please replace uri, when you use the demo.
-	 */
+	/**
+	 * @Fields CHINA_TELECOM_REPORT_CMD_EXEC_RESULT_CALLBACK_URL : Specifies the
+	 *         callback URL for the command execution result notification. For
+	 *         details about the execution result notification definition.
+	 *         please replace uri, when you use the demo.
+	 */ 
 	public static final String CHINA_TELECOM_REPORT_CMD_EXEC_RESULT_CALLBACK_URL = CALLBACK_BASE_URL
 			+ "/chinatelecom/reportCmdExecResult";
 
@@ -98,9 +105,9 @@ public class Constant {
 	// *************************** The following constants do not need to be
 	// modified *********************************//
 
-	/*
-	 * request header 1. HEADER_APP_KEY 2. HEADER_APP_AUTH
-	 */
+	/** 
+	* @Fields HEADER_APP_KEY :request header 1. HEADER_APP_KEY 2. HEADER_APP_AUTH
+	*/ 
 	public static final String HEADER_APP_KEY = "app_key";
 	public static final String HEADER_APP_AUTH = "Authorization";
 
@@ -116,11 +123,12 @@ public class Constant {
 	public static final String CHINA_UNICOM_APP_AUTH = CHINA_UNICOM_BASE_URL + "/iocm/app/sec/v1.1.0/login";
 	public static final String CHINA_UNICOM_REFRESH_TOKEN = CHINA_UNICOM_BASE_URL + "/iocm/app/sec/v1.1.0/refreshToken";
 
-	/*
-	 * 中国电信访问路径 Device Management: 1. REGISTER_DEVICE 2. MODIFY_DEVICE_INFO 3.
+	
+	/** 
+	* @Fields CHINA_TELECOM_REGISTER_DEVICE : 中国电信访问路径 Device Management: 1. REGISTER_DEVICE 2. MODIFY_DEVICE_INFO 3.
 	 * QUERY_DEVICE_ACTIVATION_STATUS 4. DELETE_DEVICE 5. DISCOVER_INDIRECT_DEVICE
-	 * 6. REMOVE_INDIRECT_DEVICE
-	 */
+	 * 6. REMOVE_INDIRECT_DEVICE 
+	*/ 
 	public static final String CHINA_TELECOM_REGISTER_DEVICE = CHINA_TELECOM_BASE_URL + "/iocm/app/reg/v1.1.0/deviceCredentials";
 	public static final String CHINA_TELECOM_MODIFY_DEVICE_INFO = CHINA_TELECOM_BASE_URL
 			+ "/iocm/app/dm/v1.4.0/devices";
@@ -132,7 +140,7 @@ public class Constant {
 	public static final String CHINA_TELECOM_REMOVE_INDIRECT_DEVICE = CHINA_TELECOM_BASE_URL
 			+ "/iocm/app/signaltrans/v1.1.0/devices/%s/services/%s/sendCommand";
 
-	/*
+	/**
 	 * Data Collection: 1. QUERY_DEVICES 2. QUERY_DEVICE_DATA 3.
 	 * QUERY_DEVICE_HISTORY_DATA 4. QUERY_DEVICE_CAPABILITIES 5.
 	 * SUBSCRIBE_NOTIFYCATION
@@ -144,9 +152,9 @@ public class Constant {
 	public static final String CHINA_TELECOM_QUERY_DEVICE_CAPABILITIES = CHINA_TELECOM_BASE_URL
 			+ "/iocm/app/data/v1.1.0/deviceCapabilities";
 	public static final String CHINA_TELECOM_SUBSCRIBE_NOTIFYCATION = CHINA_TELECOM_BASE_URL
-			+ "/iocm/app/sub/v1.1.0/subscribe";
+			+ "/iocm/app/sub/v1.2.0/subscriptions";
 
-	/*
+	/**
 	 * Signaling Delivery 1. POST_ASYN_CMD 2. QUERY_DEVICE_CMD 3.
 	 * UPDATE_ASYN_COMMAND 4. CREATE_DEVICECMD_CANCEL_TASK 5.
 	 * QUERY_DEVICECMD_CANCEL_TASK
@@ -154,6 +162,10 @@ public class Constant {
 	 */
 	public static final String CHINA_TELECOM_POST_ASYN_CMD = CHINA_TELECOM_BASE_URL
 			+ "/iocm/app/cmd/v1.4.0/deviceCommands";
+	
+	public static final String CHINA_TELECOM_BATCHTASK_CMD = CHINA_TELECOM_BASE_URL
+			+ "/iocm/app/batchtask/v1.1.0/tasks";
+	
 	public static final String CHINA_TELECOM_QUERY_DEVICE_CMD = CHINA_TELECOM_BASE_URL
 			+ "/iocm/app/cmd/v1.4.0/deviceCommands";
 	public static final String CHINA_TELECOM_UPDATE_ASYN_COMMAND = CHINA_TELECOM_BASE_URL
@@ -163,7 +175,7 @@ public class Constant {
 	public static final String CHINA_TELECOM_QUERY_DEVICECMD_CANCEL_TASK = CHINA_TELECOM_BASE_URL
 			+ "/iocm/app/cmd/v1.4.0/deviceCommandCancelTasks";
 
-	/*
+	/**
 	 * 中国联通访问路径 Device Management: 1. REGISTER_DEVICE 2. MODIFY_DEVICE_INFO 3.
 	 * QUERY_DEVICE_ACTIVATION_STATUS 4. DELETE_DEVICE 5. DISCOVER_INDIRECT_DEVICE
 	 * 6. REMOVE_INDIRECT_DEVICE
@@ -178,7 +190,7 @@ public class Constant {
 	public static final String CHINA_UNICOM_REMOVE_INDIRECT_DEVICE = CHINA_UNICOM_BASE_URL
 			+ "/iocm/app/signaltrans/v1.1.0/devices/%s/services/%s/sendCommand";
 
-	/*
+	/**
 	 * Data Collection: 1. QUERY_DEVICES 2. QUERY_DEVICE_DATA 3.
 	 * QUERY_DEVICE_HISTORY_DATA 4. QUERY_DEVICE_CAPABILITIES 5.
 	 * SUBSCRIBE_NOTIFYCATION
@@ -192,7 +204,7 @@ public class Constant {
 	public static final String CHINA_UNICOM_SUBSCRIBE_NOTIFYCATION = CHINA_UNICOM_BASE_URL
 			+ "/iocm/app/sub/v1.1.0/subscribe";
 
-	/*
+	/**
 	 * Signaling Delivery 1. POST_ASYN_CMD 2. QUERY_DEVICE_CMD 3.
 	 * UPDATE_ASYN_COMMAND 4. CREATE_DEVICECMD_CANCEL_TASK 5.
 	 * QUERY_DEVICECMD_CANCEL_TASK
@@ -209,7 +221,7 @@ public class Constant {
 	public static final String CHINA_UNICOM_QUERY_DEVICECMD_CANCEL_TASK = CHINA_UNICOM_BASE_URL
 			+ "/iocm/app/cmd/v1.4.0/deviceCommandCancelTasks";
 
-	/*
+	/**
 	 * notify Type
 	 * serviceInfoChanged|deviceInfoChanged|LocationChanged|deviceDataChanged|
 	 * deviceDatasChanged
@@ -303,6 +315,8 @@ public class Constant {
 	public static final int CHINA_UNICOM = 1;
 
 	public static final int ZERO = 0;
+	
+	public static final int REDIS_TIMEOUT = 30;
 
 	/** 命令类型 抄收图片 */
 	public static final int COMMAND_TYPE_IMAGE = 1;
@@ -360,24 +374,38 @@ public class Constant {
 	/** 竟达电池电压告警标志 */
 	public static final String BATTERY_ALARM = "Y";
 
-	public static final short ALARM = 1; // 告警')
-	public static final short NO_ALARM = 0; // 非告警')
-	
-	public static final short NB_ALARM = 20; // NB水表告警')
-	public static final short ALARM_2001 = 2001; // 大流量告警')
-	public static final short ALARM_2002 = 2002;// 小流量告警')
-	public static final short ALARM_2012 = 2012;// 数据被篡改')
-	public static final short ALARM_2003 = 2003;// 反流告警')
-	public static final short ALARM_2004 = 2004;// 磁干扰告警')
-	public static final short ALARM_2005 = 2005;// 电池低电压告警')
-	public static final short ALARM_2006 = 2006;// 远传模块分离告警')
-	public static final short ALARM_2007 = 2007;// 内部错误')
-	public static final short ALARM_2008 = 2008;// 低压告警')
-	public static final short ALARM_2009 = 2009;// 高压告警')
-	public static final short ALARM_2010 = 2010;// 阀门异常')
-	public static final short ALARM_2011 = 2011;// 存储器异常')
+	/** 告警 */ 
+	public static final short ALARM = 1;
+	/** 非告警 */ 
+	public static final short NO_ALARM = 0;
+	/** NB水表告警 */ 
+	public static final short NB_ALARM = 20;
+	/** 大流量告警 */ 
+	public static final short ALARM_2001 = 2001;
+	/** 小流量告警 */ 
+	public static final short ALARM_2002 = 2002;
+	/** 数据被篡改 */
+	public static final short ALARM_2012 = 2012;
+	/** 反流告警 */ 
+	public static final short ALARM_2003 = 2003;
+	/** 磁干扰告警 */ 
+	public static final short ALARM_2004 = 2004;
+	/** 电池低电压告警 */ 
+	public static final short ALARM_2005 = 2005;
+	/** 远传模块分离告警 */ 
+	public static final short ALARM_2006 = 2006;
+	/** 内部错误 */ 
+	public static final short ALARM_2007 = 2007;
+	/** 低压告警 */ 
+	public static final short ALARM_2008 = 2008;
+	/** 高压告警 */ 
+	public static final short ALARM_2009 = 2009;
+	/** 阀门异常 */
+	public static final short ALARM_2010 = 2010;
+	/** 存储器异常 */ 
+	public static final short ALARM_2011 = 2011;
 
-	// 竟达阀门状态：1：正在开阀 2：阀门开到位 3：正在关阀 4：阀门关到位 5：半开 6:其他
+	/** 竟达阀门状态：1：正在开阀 2：阀门开到位 3：正在关阀 4：阀门关到位 5：半开 6:其他 */ 
 	public static final byte VALVE_OPENING = 1;
 	public static final byte VALVE_OPEN = 2;
 	public static final byte VALVE_CLOSEING = 3;
@@ -385,14 +413,66 @@ public class Constant {
 	public static final byte VALVE_HALF_OPEN = 5;
 	public static final byte VALVE_OTHER = 6;
 
-	// 府星告警事项
-	// 阀门异常
+	/** 府星告警事项 */ 
+	/** 阀门异常 */ 
 	public static final short FX_VALVE_ERROR = 1;
-	// 强磁异常
+	/** 强磁异常 */ 
 	public static final short FX_MAGNETIC = 4;
-	// 低压告警
+	/** 低压告警 */ 
 	public static final short FX_BATTERY_1 = 5;
 	public static final short FX_BATTERY_2 = 6;
+	/** 批量命令类型 DeviceList */ 
+	public static final String TASK_DEVICELIST = "DeviceList";
+	/** 批量命令类型 DeviceType */ 
+	public static final String TASK_DEVICETYPE = "DeviceType";
 	
+	/** 任务类型 */ 
+	public static final String TASK_DEVICEREG = "DeviceReg";
+	public static final String TASK_DEVICECMD = "DeviceCmd";
+	/** 任务超时时间 */ 
+	public static final int TASK_TIMEOUT = 2880;
+
+	/** 命令类型 */ 
+	public static final byte BATCH_COMMAND = 0;
+	public static final byte ASYN_COMMAND = 1;
+	
+	/** 数据库历史表日期 */
+	public static final int TABLE_YYYYMM = 6;
+	public static final int TABLE_YYYY = 4;
+	
+	/** 正则表达式 */ 
+	public static final String REG_INT = "^-?\\d+{1}";
+	public static final String REG_DIGIT = "^-?[0-9]*.?[0-9]*{1}";
+	
+	/** 字段定义 */ 
+	public static final String COMMANDID = "commandId";
+	public static final String TASKID = "taskID";
+	public static final String DATA = "data";
+	public static final String ENC_MSG = "enc_msg";
+	public static final String MSG = "msg";
+	public static final String DAY = "day";
+	public static final String MONTH = "month";
+
+	
+
+	
+	
+	public static final int ONE = 1;
+	public static final int TWO = 2;
+	public static final int THREE = 3;
+	public static final int FOUR = 4;
+	public static final int FIVE = 5;
+	public static final int SIX = 6;
+	public static final int SEVEN = 7;
+	public static final int EIGHT = 8;
+	public static final int NINE = 9;
+	public static final int TEN = 10;
+	public static final int NUM_200000 = 200000;
+	public static final int NUM_200 = 200;
+
+	
+
 	
 }
+
+

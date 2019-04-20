@@ -11,6 +11,7 @@ package com.nb.exception;
 import java.io.Serializable;
 
 import com.alibaba.fastjson.JSONObject;
+import com.nb.utils.Constant;
 import com.nb.utils.ConverterUtils;
 
 /** 
@@ -85,7 +86,7 @@ public class ResultBean<T> implements Serializable{
 	* <p>Title: </p> 
 	* <p>Description: </p>  
 	*/
-	@SuppressWarnings("unchecked")
+	
 	public ResultBean(String response) {
 		super();
 		JSONObject jsonObj = JSONObject.parseObject(response);
@@ -93,7 +94,7 @@ public class ResultBean<T> implements Serializable{
 		this.status = errno == 0 ? 0 : -1;
 		this.error = ConverterUtils.toStr(jsonObj.get("error"));
 		
-		if (jsonObj.containsKey("data")) {
+		if (jsonObj.containsKey(Constant.DATA)) {
 			this.data = (T) jsonObj.get("data");
 		}
 		

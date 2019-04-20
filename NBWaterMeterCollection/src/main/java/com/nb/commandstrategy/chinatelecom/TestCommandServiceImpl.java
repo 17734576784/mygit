@@ -22,7 +22,7 @@ import com.nb.commandstrategy.ICommandService;
 *  
 */
 @Service
-public class TestICommandService implements ICommandService {
+public class TestCommandServiceImpl implements ICommandService {
 
 	/** (非 Javadoc) 
 	* <p>Title: parse</p> 

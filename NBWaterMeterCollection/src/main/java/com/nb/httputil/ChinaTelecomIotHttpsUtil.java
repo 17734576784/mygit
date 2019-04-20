@@ -41,6 +41,13 @@ import com.nb.model.StreamClosedHttpResponse;
 import com.nb.utils.Constant;
 import com.nb.utils.StreamUtil;
 
+/** 
+* @ClassName: ChinaTelecomIotHttpsUtil 
+* @Description: TODO(这里用一句话描述这个类的作用) 
+* @author dbr
+* @date 2019年4月18日 下午4:34:13 
+*  
+*/
 @SuppressWarnings("deprecation")
 public class ChinaTelecomIotHttpsUtil extends DefaultHttpClient {
 	public final static String HTTPGET = "GET";

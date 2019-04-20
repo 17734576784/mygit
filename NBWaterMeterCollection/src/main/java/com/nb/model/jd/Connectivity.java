@@ -25,13 +25,19 @@ public class Connectivity implements Serializable {
 	* @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 
 	*/ 
 	private static final long serialVersionUID = 210862303120122781L;
+	/** 参考信号接收功率 单位:dBm */
+	private Integer rsrp;
+	/** 信噪比 取值范围 -20 ~ 30 单位 dB */
+	private Integer sinr;
+	/** 覆盖等级 取值范围 0 ~ 2 */
+	private Integer signalECL;
+	/** 枚举类型 */
+	private String pci;
+	/** 小区ID */
+	private Integer cellId;
+	/** 事项上报时间 */
+	private String evnetTime;
 
-	private Integer rsrp; // 参考信号接收功率 单位:dBm
-	private Integer sinr; // 信噪比 取值范围 -20 ~ 30 单位 dB
-	private Integer signalECL;// 覆盖等级 取值范围 0 ~ 2
-	private String pci; // PCI 枚举类型
-	private Integer cellId; // 小区ID	
-	private String evnetTime; // 事项上报时间
 	/**
 	 * @return the evnetTime
 	 */
