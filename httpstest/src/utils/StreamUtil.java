@@ -16,6 +16,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 
+/** 
+* @ClassName: StreamUtil 
+* @Description: TODO(这里用一句话描述这个类的作用) 
+* @author dbr
+* @date 2019�?4�?18�? 下午4:50:52 
+*  
+*/
 public class StreamUtil
 {
 
