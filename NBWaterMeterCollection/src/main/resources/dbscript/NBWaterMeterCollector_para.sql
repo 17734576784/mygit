@@ -81,7 +81,7 @@ if (not exists (select name from sysobjects where name='nb_water_meter'))
 			meter_caliber							int						null,				/*水表口径*/
 			imei_code									varchar(64)		unique null,				/*IMEI码（仅注册NB时用）*/
 			imsi_code									varchar(64)		null, 			/*IMSI码（仅注册NB时用 移动平台）*/
-			device_id									varchar(64)		unique null,/*设备编号 （注册后由NB系统上传更新）*/
+			device_id									varchar(64)		null,/*设备编号 （注册后由NB系统上传更新）*/
 			
 			low_voltage_threshold 		DECIMAL(4,2)	null,				/*电池低电压告警阀值*/			
 			low_pressure_threshold 		DECIMAL(4,2)	null,				/*低电压告警阀值*/

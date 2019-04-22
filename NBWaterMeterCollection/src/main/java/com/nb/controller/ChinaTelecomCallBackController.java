@@ -74,7 +74,6 @@ public class ChinaTelecomCallBackController {
 
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-
 	
 	@RequestMapping(value = "deviceDataChanged", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<HttpStatus> recvDataChangeNotify(@RequestBody Object updateDeviceDataNotifyMessage) {
