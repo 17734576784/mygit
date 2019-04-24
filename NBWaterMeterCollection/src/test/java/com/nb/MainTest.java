@@ -8,7 +8,11 @@
 */
 package com.nb;
 
+import static com.nb.utils.ConverterUtils.toInt;
+import static com.nb.utils.ConverterUtils.toStr;
+
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -59,13 +63,24 @@ public class MainTest {
 //		ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(1,
 //		        new BasicThreadFactory.Builder().namingPattern("example-schedule-pool-%d").daemon(true).build());   
 		
-		Map<String, Object> map = new HashMap<>(6);
-		System.out.println(map.size());
-		for (int i = 0; i < 100; i++) {
-			map.put("" + i, i);
-			i++;
-		}
-		System.out.println(map.size());
+		
+//		Date ymd = DateUtils.parseDate(toStr(20190423), DateUtils.DATE_PATTERN);
+//		Calendar cc = Calendar.getInstance();
+//		cc.setTime(ymd);
+//		cc.add(Calendar.DAY_OF_MONTH, -1);
+//		
+//		int date = toInt(DateUtils.parseDate(cc.getTime(), DateUtils.DATE_PATTERN));
+//		
+//		System.out.println(date);
+		Date date = new Date(1555948800786L);
+		System.out.println(date);
+//		Map<String, Object> map = new HashMap<>(6);
+//		System.out.println(map.size());
+//		for (int i = 0; i < 100; i++) {
+//			map.put("" + i, i);
+//			i++;
+//		}
+//		System.out.println(map.size());
 
 //		executorService.execute(command);
 		

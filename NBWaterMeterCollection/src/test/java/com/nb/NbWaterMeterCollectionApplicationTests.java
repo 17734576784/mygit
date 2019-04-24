@@ -108,7 +108,12 @@ public class NbWaterMeterCollectionApplicationTests {
 	public void testCommon() {
 		 
 		NbInstantaneous nbInstantaneous = new NbInstantaneous();
-//		commonMapper.updateDeviceIdByImei("11111", "1");
+//		commonMapper.updateDeviceIdByImei("11111", "1");e
+		nbInstantaneous.setTableName("201904");
+		nbInstantaneous.setMpId((short)1);
+		nbInstantaneous.setRtuId(2);
+		nbInstantaneous.setYmd(201904232);
+		nbInstantaneous.setHms(233000);
 		System.out.println(nbInstantaneousMapper.isExist(nbInstantaneous));
 
 //		DeviceInfo deviceInfo = new DeviceInfo();

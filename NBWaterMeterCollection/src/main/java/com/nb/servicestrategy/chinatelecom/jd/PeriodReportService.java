@@ -44,26 +44,20 @@ public class PeriodReportService implements IServiceStrategy {
 	@Resource
 	private CommonMapper commonMapper;
 
-	/**
-	 * (非 Javadoc)
-	 * <p>
-	 * Title: parse
-	 * </p>
-	 * <p>
-	 * Description:
-	 * </p>
-	 * 
-	 * @param deviceId
-	 * @param serviceMap
-	 * @see com.nb.servicestrategy.IServiceStrategy#parse(java.lang.String,
-	 *      java.util.Map)
-	 */
-	
+
+	/** (非 Javadoc) 
+	* <p>Title: parse</p> 
+	* <p>Description: </p> 
+	* @param deviceId
+	* @param serviceMap 
+	* @see com.nb.servicestrategy.IServiceStrategy#parse(java.lang.String, java.util.Map) 
+	*/
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
 		// TODO Auto-generated method stub
 		String logInfo = "上报竟达水表周期数据：" + deviceId + " ,内容：" + serviceMap.toString();
 		LoggerUtil.logger(LogName.CALLBACK).info(logInfo);
+		System.out.println(logInfo);
 
 		Object data = serviceMap.get("data");
 		Map<String, String> dataMap = new HashMap<String, String>();
@@ -74,27 +68,28 @@ public class PeriodReportService implements IServiceStrategy {
 			}
 
 			PeriodReport periodReport = JsonUtil.map2Bean(dataMap, PeriodReport.class);
-			String evnetTime = periodReport.getReadTime();
-			int date = toInt(evnetTime.substring(0, 8));
-			int time = toInt(evnetTime.substring(9, 15));
-			String tableNameDate = toStr(date / 100);
 
-			insertPeriodReport(tableNameDate, date, time, periodReport, deviceId);
+			insertPeriodReport(periodReport, deviceId);
 
-			insertInstantaneous(tableNameDate, date, periodReport, deviceId);
+			insertInstantaneous(periodReport, deviceId);
 		} catch (Exception e) {
 			e.printStackTrace();
 			LoggerUtil.logger(LogName.CALLBACK).error("解析竟达水表周期数据异常" + e.getMessage());
 		}
-		
+
 	}
 
-	/**
-	 * @Title: insertInstantaneous @Description: 插入瞬时量 @param @param
-	 * YM @param @param date @param @param periodReport @param @param deviceId
-	 * 设定文件 @return void 返回类型 @throws
-	 */
-	private void insertInstantaneous(String tableNameDate, int date, PeriodReport periodReport, String deviceId) throws Exception {
+	/** 
+	* @Title: insertInstantaneous 
+	* @Description: 插入瞬时量
+	* @param @param periodReport
+	* @param @param deviceId
+	* @param @throws Exception    设定文件 
+	* @return void    返回类型 
+	* @throws 
+	*/
+	private void insertInstantaneous(PeriodReport periodReport, String deviceId)
+			throws Exception {
 
 		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
 		if (meterInfo == null) {
@@ -105,10 +100,10 @@ public class PeriodReportService implements IServiceStrategy {
 		short mpId = toShort(meterInfo.get("mpId"));
 
 		NbInstantaneous nbInstantaneous = new NbInstantaneous();
-		nbInstantaneous.setTableName(tableNameDate);
+		nbInstantaneous.setTableName(toStr(periodReport.getStartYmd() / 100));
 		nbInstantaneous.setRtuId(rtuId);
 		nbInstantaneous.setMpId(mpId);
-		nbInstantaneous.setYmd(date);
+		nbInstantaneous.setYmd(periodReport.getStartYmd());
 
 		JSONArray arrays = JSONArray.parseArray(periodReport.getFlows().toString());
 		Calendar c = Calendar.getInstance();
@@ -123,13 +118,17 @@ public class PeriodReportService implements IServiceStrategy {
 		}
 	}
 
-	/**
-	 * @Title: insertPeriodReport @Description: 将周期数据插入日数据表中 @param @param
-	 * YM @param @param date @param @param time @param @param
-	 * periodReport @param @param deviceId 设定文件 @return void 返回类型 @throws
-	 */
-	private void insertPeriodReport(String tableNameDate, int date, int time, PeriodReport periodReport, String deviceId)
-			throws Exception {
+
+	/** 
+	* @Title: insertPeriodReport 
+	* @Description: 将周期数据插入日数据表中
+	* @param @param periodReport
+	* @param @param deviceId
+	* @param @throws Exception    设定文件 
+	* @return void    返回类型 
+	* @throws 
+	*/
+	private void insertPeriodReport(PeriodReport periodReport, String deviceId) throws Exception {
 
 		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
 		if (meterInfo == null) {
@@ -140,12 +139,12 @@ public class PeriodReportService implements IServiceStrategy {
 		short mpId = toShort(meterInfo.get("mpId"));
 
 		NbDailyData nbDailyData = new NbDailyData();
-		nbDailyData.setTableName(tableNameDate);
+		nbDailyData.setTableName(toStr(periodReport.getReadYmd() / 100));
 		nbDailyData.setReportType((byte) 0);
 		nbDailyData.setRtuId(rtuId);
 		nbDailyData.setMpId(mpId);
-		nbDailyData.setYmd(date);
-		nbDailyData.setHms(time);
+		nbDailyData.setYmd(periodReport.getReadYmd());
+		nbDailyData.setHms(periodReport.getReadHms());
 
 		nbDailyData.setTotalFlow(periodReport.getCumulativeFlow());
 		nbDailyData.setDailyPositiveFlow(periodReport.getPositiveCumulativeFlow());

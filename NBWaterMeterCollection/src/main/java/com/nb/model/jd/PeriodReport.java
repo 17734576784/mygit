@@ -8,6 +8,8 @@
 */
 package com.nb.model.jd;
 
+import static com.nb.utils.ConverterUtils.toInt;
+
 import java.io.Serializable;
 
 import com.nb.utils.CommFunc;
@@ -48,6 +50,9 @@ public class PeriodReport implements Serializable {
 	/** 事项上报时间 */
 	private String evnetTime;
 	
+	private Integer readYmd; 
+	private Integer readHms;
+	private Integer startYmd;
 	
 	public Object getFlows() {
 		return flows;
@@ -56,7 +61,17 @@ public class PeriodReport implements Serializable {
 		this.flows = flows;
 	}
 	public void setStartTime(String startTime) {
-		this.startTime = startTime;
+		this.startTime = DateUtils.stampToNoCharDate(ConverterUtils.toLong(startTime));
+		this.startYmd = toInt(this.startTime.substring(0, 8));
+	}
+	public int getReadYmd() {
+		return readYmd;
+	}
+	public int getReadHms() {
+		return readHms;
+	}
+	public int getStartYmd() {
+		return startYmd;
 	}
 	/**
 	 * @return the evnetTime
@@ -81,6 +96,8 @@ public class PeriodReport implements Serializable {
 	 */
 	public void setReadTime(String readTime) {
 		this.readTime = DateUtils.stampToNoCharDate(ConverterUtils.toLong(readTime));
+		this.readYmd = toInt(this.readTime.substring(0, 8));
+		this.readHms = toInt(this.readTime.substring(9, 15));
 	}
 	/**
 	 * @return the cumulativeFlow

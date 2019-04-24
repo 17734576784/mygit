@@ -152,6 +152,22 @@ public class DateUtils {
 	}
 
 	/**
+	 * 日期格式字符串转换为日期对象
+	 * @param strDate 日期格式字符串
+	 * @param pattern 日期对象
+	 * @return
+	 */
+	public static String parseDate(Date date, String pattern) {
+		try {
+			String nowDate = formatDateByFormat(date, pattern);
+			return nowDate;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/**
 	 * 字符串转换为默认格式(yyyy-MM-dd)日期对象
 	 * @param date
 	 * @return

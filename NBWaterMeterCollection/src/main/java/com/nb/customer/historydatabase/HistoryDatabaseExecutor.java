@@ -156,9 +156,9 @@ public class HistoryDatabaseExecutor {
 		try {
 			NbInstantaneous nbInstantaneous = JsonUtil.convertJsonStringToObject(obj.toString(), NbInstantaneous.class);
 			if (nbInstantaneousMapper.isExist(nbInstantaneous)) {
-				flag = nbInstantaneousMapper.insertNbInstantaneous(nbInstantaneous);
-			} else {
 				flag = nbInstantaneousMapper.updateNbInstantaneous(nbInstantaneous);
+			} else {
+				flag = nbInstantaneousMapper.insertNbInstantaneous(nbInstantaneous);
 			}
 		} catch (Exception e) {
 			flag = false;
