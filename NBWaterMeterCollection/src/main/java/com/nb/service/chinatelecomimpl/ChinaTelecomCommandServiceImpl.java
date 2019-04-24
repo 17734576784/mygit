@@ -91,9 +91,9 @@ public class ChinaTelecomCommandServiceImpl implements IChinaTelecomCommandServi
 			return result;
 		}
 		
-		Map<String, String> paramCommand = new HashMap<>();
+		Map<String, Object> paramCommand = new HashMap<>();
 		paramCommand.putAll(commandMap);
-		paramCommand.put("paras", paras.toString());
+		paramCommand.put("paras", paras);
 
 		Map<String, Object> paramPostAsynCmd = new HashMap<>();
 		paramPostAsynCmd.put("deviceId", deviceId);
@@ -176,7 +176,7 @@ public class ChinaTelecomCommandServiceImpl implements IChinaTelecomCommandServi
 			result.setError(responseBody);
 
 		} else {
-			insertNbCommand(commandInfo, commandInfo, taskID, Constant.BATCH_COMMAND);
+			insertNbBatchCommand(commandInfo, commandInfo, taskID, Constant.BATCH_COMMAND);
 		}
 
 		result.setData(responseBody);
@@ -215,7 +215,7 @@ public class ChinaTelecomCommandServiceImpl implements IChinaTelecomCommandServi
 		Map<String, Object> paramPostAsynCmd = new HashMap<>();
 		paramPostAsynCmd.put("appId", commandInfo.get("appId"));
 		paramPostAsynCmd.put("timeout", Constant.TASK_TIMEOUT);
-		paramPostAsynCmd.put("taskName", "Task:" + DateUtils.curTime());
+		paramPostAsynCmd.put("taskName", "Task_" + DateUtils.curTime());
 		paramPostAsynCmd.put("taskType", Constant.TASK_DEVICECMD);
 		paramPostAsynCmd.put("param", taskTypeParam);
 		return paramPostAsynCmd;
@@ -233,7 +233,7 @@ public class ChinaTelecomCommandServiceImpl implements IChinaTelecomCommandServi
 	* @return void    返回类型 
 	* @throws 
 	*/
-	private void insertNbCommand(Map<String, String> param, Map<String, String> paramCommand, String commandId,
+	private void insertNbCommand(Map<String, String> param, Map<String, Object> paramCommand, String commandId,
 			byte commandClass) throws Exception {
 		NbCommand nbCommand = new NbCommand();
 		nbCommand.setRtuId(toInt(param.get("rtuId")));
@@ -249,10 +249,37 @@ public class ChinaTelecomCommandServiceImpl implements IChinaTelecomCommandServi
 		nbCommandMapper.insertNbCommand(nbCommand);
 
 		// 将命令对应数据表日期存入redis
-		JedisUtils.set(Constant.COMMAND + commandId, tableNameDate, 60 * 60 * 12);
+		JedisUtils.set(Constant.COMMAND + commandId, tableNameDate, Constant.COMMAND_TIME_OUT);
 	}
 	
-	
+	/** 
+	* @Title: insertNbCommand 
+	* @Description: 插入nb命令 
+	* @param @param param
+	* @param @param paramCommand
+	* @param @param commandId
+	* @param @param commandClass
+	* @param @throws Exception    设定文件 
+	* @return void    返回类型 
+	* @throws 
+	*/
+	private void insertNbBatchCommand(Map<String, String> param, Map<String, String> paramCommand, String commandId,
+			byte commandClass) throws Exception {
+		NbCommand nbCommand = new NbCommand();
+		nbCommand.setRtuId(toInt(param.get("rtuId")));
+		nbCommand.setMpId(toShort(param.get("mpId")));
+		nbCommand.setCommandClass(commandClass);
+		nbCommand.setCommandType(toByte(param.get("commandId")));
+
+		String tableNameDate = DateUtils.curDate().substring(0, 6);
+		nbCommand.setCommandContent(paramCommand.toString());
+		nbCommand.setOperatorId(toInt(param.get("operatorId")));
+		nbCommand.setTableName(tableNameDate);
+		nbCommand.setCommandId(commandId);
+		nbCommandMapper.insertNbCommand(nbCommand);
+
+		JedisUtils.set(Constant.COMMAND + commandId, tableNameDate, Constant.COMMAND_TIME_OUT);
+	}
 	
 	
 }

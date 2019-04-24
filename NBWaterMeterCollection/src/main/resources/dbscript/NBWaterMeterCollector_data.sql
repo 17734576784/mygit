@@ -101,7 +101,7 @@ create table nb_command_200808
 		command_id		 	varchar(64)  		 null,								/*命令ID*/
 		execute_result 	tinyint      		 null,    						/*执行结果  命令发送:1 命令交付:2 命令超时:4 命令成功:3 命令失败:5*/
 		report_time    	datetime     		 null,    						/*上报时间*/
-		command_content varchar(255) not null,								/*命令内容*/
+		command_content varchar(max) not null,								/*命令内容*/
 		operator_id 		int 				 not null,								/*操作员编号*/
 	  
 	  CONSTRAINT pk_nb_command_200808 PRIMARY KEY (rtu_id,mp_id,send_time,command_type)					

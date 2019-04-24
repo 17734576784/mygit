@@ -431,6 +431,8 @@ public class Constant {
 	public static final String TASK_DEVICECMD = "DeviceCmd";
 	/** 任务超时时间 */ 
 	public static final int TASK_TIMEOUT = 2880;
+	/** 命令redis超时时间 */
+	public static final int COMMAND_TIME_OUT = 60 * 60 * 36;
 
 	/** 命令类型 */ 
 	public static final byte BATCH_COMMAND = 0;

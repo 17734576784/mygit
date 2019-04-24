@@ -78,9 +78,14 @@ public class ValveService implements IServiceStrategy {
 		if (meterInfo == null) {
 			return;
 		}
+		try {
+			meterInfo.put("valveState", valveState);
+			commonMapper.updateWaterMeterValve(meterInfo);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 
-		meterInfo.put("valveState", valveState);
-		commonMapper.updateWaterMeterValve(meterInfo);
 	}
 
 }
