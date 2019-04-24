@@ -155,9 +155,10 @@ public class HistoryDatabaseExecutor {
 		boolean flag = true;
 		try {
 			NbInstantaneous nbInstantaneous = JsonUtil.convertJsonStringToObject(obj.toString(), NbInstantaneous.class);
-
-			if (null == nbInstantaneousMapper.getNbInstantaneous(nbInstantaneous)) {
+			if (nbInstantaneousMapper.isExist(nbInstantaneous)) {
 				flag = nbInstantaneousMapper.insertNbInstantaneous(nbInstantaneous);
+			} else {
+				flag = nbInstantaneousMapper.updateNbInstantaneous(nbInstantaneous);
 			}
 		} catch (Exception e) {
 			flag = false;

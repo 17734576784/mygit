@@ -107,7 +107,9 @@ public class NbWaterMeterCollectionApplicationTests {
 	@Test
 	public void testCommon() {
 		 
-		commonMapper.updateDeviceIdByImei("11111", "1");
+		NbInstantaneous nbInstantaneous = new NbInstantaneous();
+//		commonMapper.updateDeviceIdByImei("11111", "1");
+		System.out.println(nbInstantaneousMapper.isExist(nbInstantaneous));
 
 //		DeviceInfo deviceInfo = new DeviceInfo();
 //		Map<String, String> param = new HashMap<>();

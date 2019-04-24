@@ -94,7 +94,7 @@ public class DeviceAlarmService implements IServiceStrategy {
 
 			// 磁干扰
 			if (deviceAlarm.getMagneticInterferenceAlarm() == Constant.ALARM) {
-				eveInfo = "磁干扰";
+				eveInfo = "磁干扰告警";
 				typeNo = Constant.ALARM_2004;
 				insertEve(deviceAlarm, deviceId, eveInfo, typeNo);
 			}
@@ -114,7 +114,6 @@ public class DeviceAlarmService implements IServiceStrategy {
 				insertEve(deviceAlarm, deviceId, eveInfo, typeNo);
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 			LoggerUtil.logger(LogName.CALLBACK).error(logInfo + "，异常" + e.getMessage());
 		}
