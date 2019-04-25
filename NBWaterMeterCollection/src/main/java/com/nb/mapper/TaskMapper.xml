@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nb.mapper.TaskMapper" >
+
+	<select id="getBatchCommandByClass" parameterType="string" resultType="map">
+		select app.id appInfoId,app_id appId,secret,cmd.command_id commandId,
+		cmd.service_id serviceId,cmd.method,m.id modelId
+		from nb_appinfo app,nb_command cmd,schedule_job job,nb_device_model m
+		where cmd.appinfo_id = job.appinfo_id and cmd.model_id = job.model_id
+		and cmd.command_id = job.command_id
+		and job.appinfo_id = app.id and m.appinfo_id = cmd.appinfo_id and m.id = cmd.model_id
+		and job.quartz_class = #{className}
+	</select>
+	
+	<select id="listDeviceIdByAppModel" parameterType="map" resultType="string">
+		SELECT device_id from nb_water_meter m 
+		LEFT JOIN ${tableName} data
+		on m.rtu_id = data.rtu_id and m.mp_id = data.mp_id and data.ymd = #{ymd,jdbcType=INTEGER}
+		where data.total_flow is NULL and  m.appinfo_id = #{appInfoId} and m.device_model_id = #{modelId}
+	</select>
+	
+ 
+</mapper>
