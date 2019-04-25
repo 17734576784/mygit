@@ -32,6 +32,7 @@ import com.nb.model.fx.FXReport;
 import com.nb.model.jd.Battery;
 import com.nb.model.jd.DeviceAlarm;
 import com.nb.model.jd.PeriodReport;
+import com.nb.task.FxTelecomCallDataTask;
 import com.nb.utils.CommandEnum;
 import com.nb.utils.Constant;
 import com.nb.utils.ConverterUtils;
@@ -59,6 +60,10 @@ public class MainTest {
 	*/
 	public static void main(String[] args) {
 		
+		Calendar endDate = Calendar.getInstance();
+		endDate.add(Calendar.DAY_OF_MONTH, Constant.TASK_ENDDATE);
+		System.out.println(DateUtils.formatDateByFormat(endDate.getTime(), DateUtils.DATE_PATTERN));
+//		System.out.println(FxTelecomCallDataTask.class.getName());
 		
 //		System.out.println(DateUtils.parseTimesTampDate("20190424", DateUtils.DATE_PATTERN));
 		// TODO Auto-generated method stub
@@ -75,8 +80,8 @@ public class MainTest {
 //		int date = toInt(DateUtils.parseDate(cc.getTime(), DateUtils.DATE_PATTERN));
 //		
 //		System.out.println(date);
-		Date date = new Date(1556153491636L);
-		System.out.println(date);
+//		Date date = new Date(1556153491636L);
+//		System.out.println(date);
 //		Map<String, Object> map = new HashMap<>(6);
 //		System.out.println(map.size());
 //		for (int i = 0; i < 100; i++) {

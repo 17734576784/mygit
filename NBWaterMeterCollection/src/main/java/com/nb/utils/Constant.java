@@ -473,8 +473,10 @@ public class Constant {
 	public static final int NUM_200 = 200;
 	public static final int NUM_1000 = 1000;
 	
-
-	
+	/** 补招数据 从T-2日起 */
+	public static final int TASK_ENDDATE = -2;
+	/** 补招T-2前几日的数据 */
+	public static final int TASK_CALL_DAYS = 3;
 }
 
 

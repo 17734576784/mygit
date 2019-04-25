@@ -24,6 +24,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
@@ -38,6 +39,7 @@ import com.nb.mapper.NbCommandMapper;
 import com.nb.mapper.NbDailyDataMapper;
 import com.nb.mapper.NbInstantaneousMapper;
 import com.nb.mapper.ScheduleJobMapper;
+import com.nb.mapper.TaskMapper;
 import com.nb.model.DeviceInfo;
 import com.nb.model.Eve;
 import com.nb.model.JFDayFlow;
@@ -53,6 +55,7 @@ import com.nb.model.jd.PeriodReport;
 import com.nb.model.jd.RealtimeReport;
 import com.nb.service.IScheduleService;
 import com.nb.servicestrategy.ChinaTelecomServiceContext;
+import com.nb.task.FxTelecomCallDataTask;
 import com.nb.utils.Constant;
 import com.nb.utils.ConverterUtils;
 import com.nb.utils.DateUtils;
@@ -103,18 +106,26 @@ public class NbWaterMeterCollectionApplicationTests {
 	@Resource
 	private JFDayFlowMapper jfDayFlowMapper;
 
-	
+	@Resource
+	private TaskMapper taskMapper;
 	@Test
 	public void testCommon() {
 		 
-		NbInstantaneous nbInstantaneous = new NbInstantaneous();
-//		commonMapper.updateDeviceIdByImei("11111", "1");e
-		nbInstantaneous.setTableName("201904");
-		nbInstantaneous.setMpId((short)1);
-		nbInstantaneous.setRtuId(2);
-		nbInstantaneous.setYmd(201904232);
-		nbInstantaneous.setHms(233000);
-		System.out.println(nbInstantaneousMapper.isExist(nbInstantaneous));
+		String className = FxTelecomCallDataTask.class.getName();
+		Map<String,Object> batchCmdInfo = taskMapper.getBatchCommandByClass(className);
+		System.out.println(batchCmdInfo);
+		
+		JSONObject command = JSONObject.parseObject(JSON.toJSONString(batchCmdInfo));
+
+		System.out.println("command : "+ command );
+//		NbInstantaneous nbInstantaneous = new NbInstantaneous();
+////		commonMapper.updateDeviceIdByImei("11111", "1");e
+//		nbInstantaneous.setTableName("201904");
+//		nbInstantaneous.setMpId((short)1);
+//		nbInstantaneous.setRtuId(2);
+//		nbInstantaneous.setYmd(201904232);
+//		nbInstantaneous.setHms(233000);
+//		System.out.println(nbInstantaneousMapper.isExist(nbInstantaneous));
 
 //		DeviceInfo deviceInfo = new DeviceInfo();
 //		Map<String, String> param = new HashMap<>();

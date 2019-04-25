@@ -207,7 +207,7 @@ public class ChinaTelecomCommandServiceImpl implements IChinaTelecomCommandServi
 		// DeviceCmd（批量下发命令任务），param 参数
 		Map<String, Object> taskTypeParam = new HashMap<>();
 		taskTypeParam.put("type", Constant.TASK_DEVICELIST);
-		taskTypeParam.put("deviceList", commandInfo.get("commandInfo"));
+		taskTypeParam.put("deviceList", commandInfo.get("deviceList"));
 		taskTypeParam.put("command", paramCommand);
 		taskTypeParam.put("callbackUrl", callbackUrl);
 

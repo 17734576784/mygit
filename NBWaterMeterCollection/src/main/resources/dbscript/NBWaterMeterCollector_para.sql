@@ -6,12 +6,11 @@ if (not exists (select name from sysobjects where name='nb_appinfo'))
 		print '创建厂家NB平台应用信息表'
 		create table nb_appinfo
 		(
-			id			int IDENTITY(1,1) PRIMARY KEY,			/*NB厂家编号*/
-			name		varchar(64)	    	not	null,					/*NB厂家名称*/
-			nb_type	tinyint   			  not null,  			  /*NB平台类型 0: 移动 1：联通 2：电信*/			
-			app_id	varchar(64)     	unique not null,  /*应用ID*/
-			secret  varchar(64) 	   	not	null,		 			/*应用秘钥*/	
-
+			id				int IDENTITY(1,1) PRIMARY KEY,						/*NB厂家编号*/
+			name			varchar(64)	    	not	null,								/*NB厂家名称*/
+			nb_type		tinyint   			  not null,  			  			/*NB平台类型 0: 移动 1：联通 2：电信*/			
+			app_id		varchar(64)     	unique not null,  			/*应用ID*/
+			secret  	varchar(64) 	   	not	null,		 						/*应用秘钥*/	
 		)		
 	end
 ELSE
@@ -117,14 +116,19 @@ if (not exists (select name from sysobjects where name='schedule_job'))
 		print '创建定时任务表'
 		create table schedule_job
 		(
-			job_id					int	IDENTITY(1,1)	primary key	not null,				/*任务ID*/
-			job_name				VARCHAR(40) 				not null,				/*任务名称*/
-			job_group				VARCHAR(40)					not null,				/*任务分组*/
-			job_status	 		tinyint		default 1	not null,				/*任务桩 0：禁用 1：启用*/
-			
+			job_id					int	IDENTITY(1,1)	primary key	not null,		/*任务ID*/
+			job_name				VARCHAR(128) 				not null,							/*任务名称*/
+			job_group				VARCHAR(40)					not null,							/*任务分组*/
+			job_status	 		tinyint		default 1	not null,							/*任务启动标志 0：禁用 1：启用*/
+						
 			cron_expression	varchar(64)		not null,		/*任务运行时间表达式*/
 			quartz_class		varchar(255)	null, 			/*定时任务处理类*/
-			description			varchar(280)	null				/*描述信息*/		
+			description			varchar(280)	null，			/*描述信息*/		
+			
+			model_id					int 				 null,		  /*设备类型编号*/
+			appinfo_id				int					 null,		  /*厂家NB平台应用编号*/
+			command_id				varchar(64)	 null		    /*命令编号*/
+			
 		)		
 	end
 ELSE
