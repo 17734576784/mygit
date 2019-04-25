@@ -10,6 +10,7 @@ package com.nb.task;
 
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -22,12 +23,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.PageHelper;
 import com.nb.mapper.TaskMapper;
 import com.nb.service.IChinaTelecomCommandService;
 import com.nb.utils.Constant;
 import com.nb.utils.DateUtils;
-import com.nb.utils.JsonUtil;
 
 /** 
 * @ClassName: FxTelecomCallDataTask 
@@ -62,18 +61,23 @@ public class FxTelecomCallDataTask implements Job{
 		
 		JSONObject param = new JSONObject();
 		param.put("AFN", 19);
-		param.put("IMSI", 19);
-		param.put("CNT", 3);
-		param.put("DIR", 0);
-
+		param.put("IMSI", "00000000000000000000");
+		param.put("CNT", Constant.THREE);
+		param.put("DIR", Constant.ZERO);
+		param.put("ReportBaseTime", DateUtils.formatDateByFormat(new Date(), "YYYY-MM-dd HH:mm:ss"));
+		param.put("ReportIntervalHours", Constant.ONE);
 		for (int i = 0; i < Constant.TASK_CALL_DAYS; i++) {
 			String date = DateUtils.formatDateByFormat(endDate.getTime(), DateUtils.DATE_PATTERN);
 			batchCmdInfo.put("ymd", date);
 			batchCmdInfo.put("tableName", "YDData.dbo.nb_daily_data_" + date.substring(0, 6));
-			
+			endDate.add(Calendar.DAY_OF_YEAR, -1);
+
 			List<String> deviceIdList = taskMapper.listDeviceIdByAppModel(batchCmdInfo);
+			if (deviceIdList.isEmpty()) {
+				continue;
+			}
 			command.put("deviceList", deviceIdList);
-			command.put("param", param);
+			command.put("param", param.toString());
 			try {
 				this.chinaTelecomCommandService.batchCommand(command);
 			} catch (Exception e) {

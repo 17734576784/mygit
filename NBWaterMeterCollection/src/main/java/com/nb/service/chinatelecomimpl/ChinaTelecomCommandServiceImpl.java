@@ -199,7 +199,7 @@ public class ChinaTelecomCommandServiceImpl implements IChinaTelecomCommandServi
 		String callbackUrl = Constant.CHINA_TELECOM_REPORT_CMD_EXEC_RESULT_CALLBACK_URL;
 
 		// 命令结构体
-		Map<String, Object> paramCommand = new HashMap<>();
+		JSONObject paramCommand = new JSONObject();
 		paramCommand.put("serviceId", commandInfo.get("serviceId"));
 		paramCommand.put("method", commandInfo.get("method"));
 		paramCommand.put("paras", paras);
@@ -217,7 +217,7 @@ public class ChinaTelecomCommandServiceImpl implements IChinaTelecomCommandServi
 		paramPostAsynCmd.put("timeout", Constant.TASK_TIMEOUT);
 		paramPostAsynCmd.put("taskName", "Task_" + DateUtils.curTime());
 		paramPostAsynCmd.put("taskType", Constant.TASK_DEVICECMD);
-		paramPostAsynCmd.put("param", taskTypeParam);
+		paramPostAsynCmd.put("param", JsonUtil.convertObject2ObjectNode(taskTypeParam));
 		return paramPostAsynCmd;
 	}
 	
