@@ -46,11 +46,11 @@ public interface NbInstantaneousMapper {
 	NbInstantaneous getNbInstantaneous(NbInstantaneousKey key);
 	
 	/** 
-	* @Title: getNbInstantaneous 
-	* @Description: 获取NB水表瞬时量 
+	* @Title: isExist 
+	* @Description: 判断瞬时量是否存在 
 	* @param @param key
 	* @param @return    设定文件 
-	* @return NbInstantaneous    返回类型 
+	* @return boolean    返回类型 
 	* @throws 
 	*/
 	boolean isExist(NbInstantaneousKey key);
