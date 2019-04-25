@@ -83,6 +83,7 @@ public class ReportBeforeOpenAccountService implements IServiceStrategy {
 			insertBattery(dataMap, rtuId, mpId, date, time);
 			// 插入设备上报日数据
 			insertDailyData(rtuId, mpId, dataMap, deviceId, date, time);
+			
 			// 更新水表的阀门状态和固件版本
 			meterInfo.put("valveState", toByte(dataMap.get("ValveState")));
 			meterInfo.put("version", dataMap.get("Version"));

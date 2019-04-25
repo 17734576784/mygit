@@ -58,6 +58,9 @@ public class MainTest {
 	* @throws 
 	*/
 	public static void main(String[] args) {
+		
+		
+//		System.out.println(DateUtils.parseTimesTampDate("20190424", DateUtils.DATE_PATTERN));
 		// TODO Auto-generated method stub
 		
 //		ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(1,
@@ -72,7 +75,7 @@ public class MainTest {
 //		int date = toInt(DateUtils.parseDate(cc.getTime(), DateUtils.DATE_PATTERN));
 //		
 //		System.out.println(date);
-		Date date = new Date(1555948800786L);
+		Date date = new Date(1556153491636L);
 		System.out.println(date);
 //		Map<String, Object> map = new HashMap<>(6);
 //		System.out.println(map.size());

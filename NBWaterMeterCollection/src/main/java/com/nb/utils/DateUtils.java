@@ -186,6 +186,19 @@ public class DateUtils {
 	public static Date parseTimesTampDate(String date) {
 		return parseDate(date, TIMESTAMP_PATTERN);
 	}
+	
+		/** 
+	* @Title: parseTimesTampDate 
+	* @Description: 讲字符串转成pattern格式的日期
+	* @param @param date
+	* @param @param pattern
+	* @param @return    设定文件 
+	* @return Date    返回类型 
+	* @throws 
+	*/
+	public static Date parseTimesTampDate(String date, String pattern) {
+		return parseDate(date, pattern);
+	}
 
 	/**
 	 * 获得当前时间
@@ -466,10 +479,6 @@ public class DateUtils {
 
 		return formatYMD;
 	}
-
-	
-
-
 
 	/**
 	 * 将Object格式化为日期格式"DD日hh时mm分",检查object不为空且长度6位时，格式化；否则：返回""
