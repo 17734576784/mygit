@@ -61,9 +61,9 @@ public class PostAsynCommandV4 {
         String appId = Constant.APPID;
 
         //please replace the deviceId, when you use the demo.
-        String deviceId = "92d70872-6bdc-4dd2-9297-cc386f97222c";
+        String deviceId = "63c04ac0-a0ae-4e87-bd0c-9cad975202a3";
 //        String callbackUrl = Constant.REPORT_CMD_EXEC_RESULT_CALLBACK_URL;
-        String callbackUrl = "https://222.222.60.178:18213/reportCmdExecResult";
+        String callbackUrl = "https://222.222.60.178:18213/chinatelecom/reportCmdExecResult";
 
         //please replace the following parameter values, when you use the demo.
         //And those parameter values must be consistent with the content of profile that have been preset to IoT platform.
@@ -72,15 +72,27 @@ public class PostAsynCommandV4 {
         String method = "SET_REPORT_PERIOD";
 //        {"AFN":19 ,"IMSI":"xxx" ,"CNT":"xxx", "DIR":"xxx","ReportBaseTime":"xxx"," ReportIntervalHours":"xxx"}
         
-        JSONObject json = new JSONObject();
-        json.put("AFN", 19);
-        json.put("IMSI", "00000867726033841935");
-        json.put("CNT", 3);
-        json.put("DIR", 0);
-        json.put("ReportBaseTime", DateUtils.formatDate(new Date(), "YYYY-MM-dd HH:mm:ss"));
-        json.put("ReportIntervalHours", 1);
-
         
+        serviceId = "SettingValveState";
+        method = "SET_VALVE_STATE";
+        
+        serviceId = "Valve";
+        method = "Open";
+        
+        JSONObject json = new JSONObject();
+        json.put("value", 10);
+
+//        json.put("AFN", 19);
+//        json.put("AFN", 27);
+//
+//        json.put("IMSI", "00000867726032982805");
+//        json.put("CNT", 3);
+//        json.put("DIR", 0);
+////        json.put("ReportBaseTime", DateUtils.formatDate(new Date(), "YYYY-MM-dd HH:mm:ss"));
+////        json.put("ReportIntervalHours", 1);
+//        
+//        json.put("ValveOperate", 1);
+
         ObjectNode paras = JsonUtil.convertObject2ObjectNode(json);
       
         Map<String, Object> paramCommand = new HashMap<>();

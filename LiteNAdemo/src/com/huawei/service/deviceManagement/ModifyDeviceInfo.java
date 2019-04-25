@@ -27,7 +27,7 @@ public class ModifyDeviceInfo {
 		String appId = Constant.APPID;
 
         //please replace the deviceId, when you use the demo.
-        String deviceId = "773aeef5-0281-481e-8d26-c4026a56eaab";
+        String deviceId = "63c04ac0-a0ae-4e87-bd0c-9cad975202a3";
         String urlModifyDeviceInfo = Constant.MODIFY_DEVICE_INFO + "/" + deviceId;
 
         //please replace the following parameter values, when you use the demo.
