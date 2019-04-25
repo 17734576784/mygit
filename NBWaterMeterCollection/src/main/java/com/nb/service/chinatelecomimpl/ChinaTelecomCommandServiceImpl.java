@@ -176,7 +176,7 @@ public class ChinaTelecomCommandServiceImpl implements IChinaTelecomCommandServi
 			result.setError(responseBody);
 
 		} else {
-			insertNbBatchCommand(commandInfo, commandInfo, taskID, Constant.BATCH_COMMAND);
+//			insertNbBatchCommand(commandInfo, commandInfo, taskID, Constant.BATCH_COMMAND);
 		}
 
 		result.setData(responseBody);
@@ -252,34 +252,34 @@ public class ChinaTelecomCommandServiceImpl implements IChinaTelecomCommandServi
 		JedisUtils.set(Constant.COMMAND + commandId, tableNameDate, Constant.COMMAND_TIME_OUT);
 	}
 	
-	/** 
-	* @Title: insertNbCommand 
-	* @Description: 插入nb命令 
-	* @param @param param
-	* @param @param paramCommand
-	* @param @param commandId
-	* @param @param commandClass
-	* @param @throws Exception    设定文件 
-	* @return void    返回类型 
-	* @throws 
-	*/
-	private void insertNbBatchCommand(Map<String, String> param, Map<String, String> paramCommand, String commandId,
-			byte commandClass) throws Exception {
-		NbCommand nbCommand = new NbCommand();
-		nbCommand.setRtuId(toInt(param.get("rtuId")));
-		nbCommand.setMpId(toShort(param.get("mpId")));
-		nbCommand.setCommandClass(commandClass);
-		nbCommand.setCommandType(toByte(param.get("commandId")));
-
-		String tableNameDate = DateUtils.curDate().substring(0, 6);
-		nbCommand.setCommandContent(paramCommand.toString());
-		nbCommand.setOperatorId(toInt(param.get("operatorId")));
-		nbCommand.setTableName(tableNameDate);
-		nbCommand.setCommandId(commandId);
-		nbCommandMapper.insertNbCommand(nbCommand);
-
-		JedisUtils.set(Constant.COMMAND + commandId, tableNameDate, Constant.COMMAND_TIME_OUT);
-	}
-	
+//	/** 
+//	* @Title: insertNbCommand 
+//	* @Description: 插入nb命令 
+//	* @param @param param
+//	* @param @param paramCommand
+//	* @param @param commandId
+//	* @param @param commandClass
+//	* @param @throws Exception    设定文件 
+//	* @return void    返回类型 
+//	* @throws 
+//	*/
+//	private void insertNbBatchCommand(Map<String, String> param, Map<String, String> paramCommand, String commandId,
+//			byte commandClass) throws Exception {
+//		NbCommand nbCommand = new NbCommand();
+//		nbCommand.setRtuId(toInt(param.get("rtuId")));
+//		nbCommand.setMpId(toShort(param.get("mpId")));
+//		nbCommand.setCommandClass(commandClass);
+//		nbCommand.setCommandType(toByte(param.get("commandId")));
+//
+//		String tableNameDate = DateUtils.curDate().substring(0, 6);
+//		nbCommand.setCommandContent(paramCommand.toString());
+//		nbCommand.setOperatorId(toInt(param.get("operatorId")));
+//		nbCommand.setTableName(tableNameDate);
+//		nbCommand.setCommandId(commandId);
+//		nbCommandMapper.insertNbCommand(nbCommand);
+//
+//		JedisUtils.set(Constant.COMMAND + commandId, tableNameDate, Constant.COMMAND_TIME_OUT);
+//	}
+//	
 	
 }
