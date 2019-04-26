@@ -78,7 +78,7 @@ public class RealtimeReportService implements IServiceStrategy {
 			int time = toInt(evnetTime.substring(9, 15));
 			String tableNameDate = toStr(date / 100);
 
-			insertRealReport(tableNameDate, date, time, realtimeReport, deviceId);
+//			insertRealReport(tableNameDate, date, time, realtimeReport, deviceId);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

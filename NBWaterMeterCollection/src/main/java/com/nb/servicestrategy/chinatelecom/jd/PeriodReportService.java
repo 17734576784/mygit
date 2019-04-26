@@ -75,7 +75,7 @@ public class PeriodReportService implements IServiceStrategy {
 
 			PeriodReport periodReport = JsonUtil.map2Bean(dataMap, PeriodReport.class);
 
-//			insertDailyData(periodReport, deviceId);
+			insertDailyData(periodReport, deviceId);
 			insertInstantaneous(periodReport, deviceId);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -132,31 +132,31 @@ public class PeriodReportService implements IServiceStrategy {
 	* @return void    返回类型 
 	* @throws 
 	*/
-//	private void insertDailyData(PeriodReport periodReport, String deviceId) throws Exception {
-//
-//		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
-//		if (meterInfo == null) {
-//			return;
-//		}
-//
-//		int rtuId = toInt(meterInfo.get("rtuId"));
-//		short mpId = toShort(meterInfo.get("mpId"));
-//
-//		NbDailyData nbDailyData = new NbDailyData();
-//		nbDailyData.setTableName(toStr(periodReport.getReadYmd() / 100));
-//		nbDailyData.setReportType((byte) 0);
-//		nbDailyData.setRtuId(rtuId);
-//		nbDailyData.setMpId(mpId);
-//		nbDailyData.setYmd(periodReport.getReadYmd());
-//		nbDailyData.setHms(periodReport.getReadHms());
-//
-//		nbDailyData.setTotalFlow(periodReport.getCumulativeFlow());
-//		nbDailyData.setDailyPositiveFlow(periodReport.getPositiveCumulativeFlow());
-//		nbDailyData.setDailyNegativeFlow(periodReport.getNegativeCumulativeFlow());
-//		nbDailyData.setDailyMaxVelocity(periodReport.getPeakFlowRate());
-//
-//		JedisUtils.lpush(Constant.HISTORY_DAILY_QUEUE, JsonUtil.jsonObj2Sting(nbDailyData));
-//
-//	}
+	private void insertDailyData(PeriodReport periodReport, String deviceId) throws Exception {
+
+		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
+		if (meterInfo == null) {
+			return;
+		}
+
+		int rtuId = toInt(meterInfo.get("rtuId"));
+		short mpId = toShort(meterInfo.get("mpId"));
+
+		NbDailyData nbDailyData = new NbDailyData();
+		nbDailyData.setTableName(toStr(periodReport.getReadYmd() / 100));
+		nbDailyData.setReportType((byte) 0);
+		nbDailyData.setRtuId(rtuId);
+		nbDailyData.setMpId(mpId);
+		nbDailyData.setYmd(periodReport.getReadYmd());
+		nbDailyData.setHms(periodReport.getReadHms());
+
+		nbDailyData.setTotalFlow(periodReport.getCumulativeFlow());
+		nbDailyData.setDailyPositiveFlow(periodReport.getPositiveCumulativeFlow());
+		nbDailyData.setDailyNegativeFlow(periodReport.getNegativeCumulativeFlow());
+		nbDailyData.setDailyMaxVelocity(periodReport.getPeakFlowRate());
+
+		JedisUtils.lpush(Constant.HISTORY_DAILY_QUEUE, JsonUtil.jsonObj2Sting(nbDailyData));
+
+	}
 
 }
