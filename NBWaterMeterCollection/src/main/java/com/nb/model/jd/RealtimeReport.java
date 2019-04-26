@@ -8,20 +8,18 @@
 */
 package com.nb.model.jd;
 
-import java.io.Serializable;
-
-import com.nb.utils.CommFunc;
+import com.nb.model.BaseModel;
 import com.nb.utils.ConverterUtils;
 import com.nb.utils.DateUtils;
 
 /**
  * @ClassName: RealtimeReport
- * @Description: TODO(这里用一句话描述这个类的作用)
+ * @Description: 竞达RealtimeReport服务上报数据项 
  * @author dbr
  * @date 2019年4月10日 上午11:07:45
  * 
  */
-public class RealtimeReport implements Serializable {
+public class RealtimeReport extends BaseModel {
 	/**
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)
 	 */
@@ -40,20 +38,6 @@ public class RealtimeReport implements Serializable {
 	private String peakFlowRateTime;
 	/** 脉冲当量 单位:L */
 	private Integer pulseEq;
-	/** 事项上报时间 */
-	private String evnetTime; 
-	/**
-	 * @return the evnetTime
-	 */
-	public String getEvnetTime() {
-		return evnetTime;
-	}
-	/**
-	 * @param evnetTime the evnetTime to set
-	 */
-	public void setEvnetTime(String evnetTime) {
-		this.evnetTime = CommFunc.parseEventTime(evnetTime);
-	}
 	/**
 	 * @return the readTime
 	 */
@@ -149,7 +133,7 @@ public class RealtimeReport implements Serializable {
 		return "RealtimeReport [readTime=" + readTime + ", cumulativeFlow=" + cumulativeFlow
 				+ ", positiveCumulativeFlow=" + positiveCumulativeFlow + ", negativeCumulativeFlow="
 				+ negativeCumulativeFlow + ", peakFlowRate=" + peakFlowRate + ", peakFlowRateTime=" + peakFlowRateTime
-				+ ", pulseEq=" + pulseEq + ", evnetTime=" + evnetTime + "]";
+				+ ", pulseEq=" + pulseEq + "]";
 	}
 
 }

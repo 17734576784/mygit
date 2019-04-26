@@ -104,9 +104,9 @@ public class ReportAfterOpenAccountService implements IServiceStrategy {
 	*/
 	private void insertBattery(FXReport fxReport, int rtuId, int mpId) throws Exception {
 		NbBattery nbBattery = new NbBattery();
-		nbBattery.setTableName(toStr(fxReport.getDate() / 100));
-		nbBattery.setYmd(fxReport.getDate());
-		nbBattery.setHms(fxReport.getTime());
+		nbBattery.setTableName(toStr(fxReport.getEventDate() / 100));
+		nbBattery.setYmd(fxReport.getEventDate());
+		nbBattery.setHms(fxReport.getEventTime());
 		nbBattery.setRtuId(rtuId);
 		nbBattery.setMpId((short) mpId);
 		nbBattery.setBatteryVoltage(toDouble(fxReport.getBatteryVoltage()));
@@ -128,12 +128,12 @@ public class ReportAfterOpenAccountService implements IServiceStrategy {
 	private void insertDailyData(int rtuId, int mpId, FXReport fxReport, String deviceId) throws Exception {
 
 		NbDailyData nbDailyData = new NbDailyData();
-		nbDailyData.setTableName(toStr(fxReport.getDate() / 100));
+		nbDailyData.setTableName(toStr(fxReport.getEventDate() / 100));
 		nbDailyData.setReportType(toByte(fxReport.getIsKeyTriggerThisReport()));
 		nbDailyData.setRtuId(rtuId);
 		nbDailyData.setMpId((short) mpId);
-		nbDailyData.setYmd(fxReport.getDate());
-		nbDailyData.setHms(fxReport.getTime());
+		nbDailyData.setYmd(fxReport.getEventDate());
+		nbDailyData.setHms(fxReport.getEventTime());
 
 		nbDailyData.setTotalFlow(toDouble(fxReport.getTotalCumulateWater()));
 		nbDailyData.setMonthTotalFlow(toDouble(fxReport.getMonthCumulateWater()));

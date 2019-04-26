@@ -10,20 +10,19 @@ package com.nb.model.jd;
 
 import static com.nb.utils.ConverterUtils.toInt;
 
-import java.io.Serializable;
-
+import com.nb.model.BaseModel;
 import com.nb.utils.CommFunc;
 import com.nb.utils.ConverterUtils;
 import com.nb.utils.DateUtils;
 
 /**
  * @ClassName: PeriodReport
- * @Description: TODO(这里用一句话描述这个类的作用)
+ * @Description: 竞达PeriodReport服务上报数据项
  * @author dbr
  * @date 2019年4月10日 上午9:51:58
  * 
  */
-public class PeriodReport implements Serializable {
+public class PeriodReport extends BaseModel {
 
 	/**
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)
@@ -50,7 +49,7 @@ public class PeriodReport implements Serializable {
 	/** 事项上报时间 */
 	private String evnetTime;
 	
-	private Integer readYmd; 
+	private Integer readYmd;
 	private Integer readHms;
 	private Integer startYmd;
 	

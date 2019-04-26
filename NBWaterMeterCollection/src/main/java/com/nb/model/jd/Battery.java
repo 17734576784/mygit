@@ -8,20 +8,17 @@
 */
 package com.nb.model.jd;
 
-import static com.nb.utils.ConverterUtils.toInt;
-
-import java.io.Serializable;
-
+import com.nb.model.BaseModel;
 import com.nb.utils.Constant;
 
 /** 
 * @ClassName: Battery 
-* @Description: 竟达水表电池类 
+* @Description: 竞达Battery服务上报数据项
 * @author dbr
 * @date 2019年4月10日 上午9:07:45 
 *  
 */
-public class Battery implements Serializable {
+public class Battery extends BaseModel{
 
 	/** 
 	* @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 
@@ -37,46 +34,12 @@ public class Battery implements Serializable {
 	/** 电压报警阈值 */
 	private Double batteryvoltageThreshold;
 	
-	/** 事项上报日期 */
-	private int date; 
-	
-	/** 事项上报时间 */
-	private int time; 
-	
-	/**
-	 * @param evnetTime the evnetTime to set
-	 */
-	public void setEvnetTime(String evnetTime) {
-		this.date = toInt(evnetTime.substring(0, 8));
-		this.time = toInt(evnetTime.substring(9, 15)) + 80000;
-	}
-
 	/**
 	 * @return the serialversionuid
 	 */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
-
-
-	/**
-	 * @return the date
-	 */
-	public int getDate() {
-		return date;
-	}
-
-
-
-	/**
-	 * @return the time
-	 */
-	public int getTime() {
-		return time;
-	}
-
-
 
 	/**
 	 * @return the batteryVoltage
@@ -115,7 +78,6 @@ public class Battery implements Serializable {
 		this.batteryvoltageThreshold = batteryvoltageThreshold;
 	}
 	
-	
 	/** (非 Javadoc) 
 	* <p>Title: toString</p> 
 	* <p>Description: </p> 
@@ -125,7 +87,7 @@ public class Battery implements Serializable {
 	@Override
 	public String toString() {
 		return "Battery [batteryVoltage=" + batteryVoltage + ", batteryvoltageAlarm=" + batteryvoltageAlarm
-				+ ", batteryvoltageThreshold=" + batteryvoltageThreshold + ", date=" + date + ", time=" + time + "]";
+				+ ", batteryvoltageThreshold=" + batteryvoltageThreshold + "]";
 	}
 
 	public boolean isAlarm() {

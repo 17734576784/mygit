@@ -140,9 +140,9 @@ public class DeviceAlarmService implements IServiceStrategy {
 		int mpId = toInt(meterInfo.get("mpId"));
 
 		Eve eve = new Eve();
-		eve.setTableName(toStr(deviceAlarm.getDate() / 100));
-		eve.setYmd(deviceAlarm.getDate());
-		eve.setHmsms(deviceAlarm.getTime() * 1000);
+		eve.setTableName(toStr(deviceAlarm.getEventDate() / 100));
+		eve.setYmd(deviceAlarm.getEventDate());
+		eve.setHmsms(deviceAlarm.getEventTime() * 1000);
 		eve.setMemberId0(rtuId);
 		eve.setMemberId1(mpId);
 		eve.setMemberId2(-1);

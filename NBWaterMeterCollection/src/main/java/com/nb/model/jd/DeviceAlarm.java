@@ -8,19 +8,18 @@
 */
 package com.nb.model.jd;
 
-import static com.nb.utils.ConverterUtils.toInt;
-import java.io.Serializable;
+import com.nb.model.BaseModel;
 import com.nb.utils.ConverterUtils;
 import com.nb.utils.DateUtils;
 
 /**
  * @ClassName: DeviceAlarm
- * @Description: 竟达水表告警信息
+ * @Description: 竞达DeviceAlarm服务上报数据项 
  * @author dbr
  * @date 2019年4月10日 上午9:12:01
  * 
  */
-public class DeviceAlarm implements Serializable {
+public class DeviceAlarm extends BaseModel {
 
 	/**
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)
@@ -47,19 +46,6 @@ public class DeviceAlarm implements Serializable {
 	/** 
 	* @Fields date : 事项上报日期
 	*/ 
-	private int date;
-	/** 
-	* @Fields time : 事项上报时间
-	*/ 
-	private int time;
-
-	/**
-	 * @param evnetTime the evnetTime to set
-	 */
-	public void setEvnetTime(String evnetTime) {
-		this.date = toInt(evnetTime.substring(0, 8));
-		this.time = toInt(evnetTime.substring(9, 15)) + 80000;
-	}
 	
 	/**
 	 * @return the serialversionuid
@@ -67,26 +53,6 @@ public class DeviceAlarm implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
-
-
-	/**
-	 * @return the date
-	 */
-	public int getDate() {
-		return date;
-	}
-
-
-
-	/**
-	 * @return the time
-	 */
-	public int getTime() {
-		return time;
-	}
-
-
 
 	/**
 	 * @return the peakFlowStartTime
@@ -204,7 +170,7 @@ public class DeviceAlarm implements Serializable {
 		return "DeviceAlarm [peakFlowStartTime=" + peakFlowStartTime + ", peakFlow=" + peakFlow + ", tampered="
 				+ tampered + ", reverseFlowAlarm=" + reverseFlowAlarm + ", magneticInterferenceAlarm="
 				+ magneticInterferenceAlarm + ", internalAlarm=" + internalAlarm + ", disconnectAlarm="
-				+ disconnectAlarm + ", date=" + date + ", time=" + time + "]";
+				+ disconnectAlarm + "]";
 	}
 	
 }

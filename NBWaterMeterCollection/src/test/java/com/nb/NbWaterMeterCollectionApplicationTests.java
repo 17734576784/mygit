@@ -607,9 +607,9 @@ public class NbWaterMeterCollectionApplicationTests {
 		int mpId = toInt(meterInfo.get("mpId"));
 
 		Eve eve = new Eve();
-		eve.setTableName(toStr(deviceAlarm.getDate() / 100));
-		eve.setYmd(deviceAlarm.getDate());
-		eve.setHmsms(deviceAlarm.getTime() * 1000);
+		eve.setTableName(toStr(deviceAlarm.getEventDate() / 100));
+		eve.setYmd(deviceAlarm.getEventDate());
+		eve.setHmsms(deviceAlarm.getEventTime() * 1000);
 		eve.setMemberId0(rtuId);
 		eve.setMemberId1(mpId);
 		eve.setMemberId2(-1);
@@ -669,9 +669,9 @@ public class NbWaterMeterCollectionApplicationTests {
 	*/
 	private void insertEve(Battery battery, int rtuId, int mpId) {
 		Eve eve = new Eve();
-		eve.setTableName(toStr(battery.getDate() / 100));
-		eve.setYmd(battery.getDate());
-		eve.setHmsms(battery.getTime() * 1000);
+		eve.setTableName(toStr(battery.getEventDate() / 100));
+		eve.setYmd(battery.getEventDate());
+		eve.setHmsms(battery.getEventTime() * 1000);
 		eve.setMemberId0(rtuId);
 		eve.setMemberId1(mpId);
 		eve.setMemberId2(-1);
@@ -692,9 +692,9 @@ public class NbWaterMeterCollectionApplicationTests {
 	*/
 	private void insertBattery(Battery battery, int rtuId, int mpId) {
 		NbBattery nbBattery = new NbBattery();
-		nbBattery.setTableName(toStr(battery.getDate() / 100));
-		nbBattery.setYmd(battery.getDate());
-		nbBattery.setHms(battery.getTime());
+		nbBattery.setTableName(toStr(battery.getEventDate() / 100));
+		nbBattery.setYmd(battery.getEventDate());
+		nbBattery.setHms(battery.getEventTime());
 		nbBattery.setRtuId(rtuId);
 		nbBattery.setMpId((short) mpId);
 		nbBattery.setBatteryVoltage(battery.getBatteryVoltage());

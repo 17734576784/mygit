@@ -32,6 +32,7 @@ import com.nb.model.fx.FXReport;
 import com.nb.model.jd.Battery;
 import com.nb.model.jd.DeviceAlarm;
 import com.nb.model.jd.PeriodReport;
+import com.nb.model.xt.XtBattery;
 import com.nb.task.FxTelecomCallDataTask;
 import com.nb.utils.CommandEnum;
 import com.nb.utils.Constant;
@@ -60,9 +61,13 @@ public class MainTest {
 	*/
 	public static void main(String[] args) {
 		
-		Calendar endDate = Calendar.getInstance();
-		endDate.add(Calendar.DAY_OF_MONTH, Constant.TASK_ENDDATE);
-		System.out.println(DateUtils.formatDateByFormat(endDate.getTime(), DateUtils.DATE_PATTERN));
+		XtBattery x = new XtBattery();
+		x.setEvnetTime("20181547T121245");
+		System.out.println(x.getEventDate() + "  " + x.getEventTime());
+		
+//		Calendar endDate = Calendar.getInstance();
+//		endDate.add(Calendar.DAY_OF_MONTH, Constant.TASK_ENDDATE);
+//		System.out.println(DateUtils.formatDateByFormat(endDate.getTime(), DateUtils.DATE_PATTERN));
 //		System.out.println(FxTelecomCallDataTask.class.getName());
 		
 //		System.out.println(DateUtils.parseTimesTampDate("20190424", DateUtils.DATE_PATTERN));

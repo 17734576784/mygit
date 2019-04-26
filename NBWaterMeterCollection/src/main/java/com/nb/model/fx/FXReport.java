@@ -8,7 +8,7 @@
 */
 package com.nb.model.fx;
 
-import java.io.Serializable;
+import com.nb.model.BaseModel;
 
 /** 
 * @ClassName: FXReport 
@@ -17,7 +17,7 @@ import java.io.Serializable;
 * @date 2019年4月15日 下午4:13:462 
 *  
 */
-public class FXReport implements Serializable {
+public class FXReport extends BaseModel {
 
 	/** 
 	* @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 
@@ -51,11 +51,7 @@ public class FXReport implements Serializable {
 	private String batteryVoltage;
 	/** 异常代码 */
 	private String errorNo;
-	/** 上报日期 */
-	private int date;
-	/** 上报时间 */
-	private int time;
-
+	
 	/**
 	 * @return the afn
 	 */
@@ -261,31 +257,5 @@ public class FXReport implements Serializable {
 	public void setErrorNo(String errorNo) {
 		this.errorNo = errorNo;
 	}
-	/**
-	 * @return the date
-	 */
-	public int getDate() {
-		return date;
-	}
-	/**
-	 * @param date the date to set
-	 */
-	public void setDate(int date) {
-		this.date = date;
-	}
-	/**
-	 * @return the time
-	 */
-	public int getTime() {
-		return time;
-	}
-	/**
-	 * @param time the time to set
-	 */
-	public void setTime(int time) {
-		this.time = time;
-	}
-	
-	
 	
 }

@@ -7,24 +7,21 @@
 * @version V1.0   
 */
 package com.nb.model.jd;
-
-import java.io.Serializable;
-
-import com.nb.utils.CommFunc;
+import com.nb.model.BaseModel;
 
 /** 
 * @ClassName: Connectivity 
-* @Description: 竟达水表通讯类
+* @Description: 竞达Connectivity服务上报数据项
 * @author dbr
 * @date 2019年4月10日 上午9:09:45 
 *  
 */
-public class Connectivity implements Serializable {
+public class Connectivity extends BaseModel {
 
 	/** 
 	* @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 
 	*/ 
-	private static final long serialVersionUID = 210862303120122781L;
+	private static final long serialVersionUID = 5727159985159293249L;
 	/** 参考信号接收功率 单位:dBm */
 	private Integer rsrp;
 	/** 信噪比 取值范围 -20 ~ 30 单位 dB */
@@ -35,21 +32,6 @@ public class Connectivity implements Serializable {
 	private String pci;
 	/** 小区ID */
 	private Integer cellId;
-	/** 事项上报时间 */
-	private String evnetTime;
-
-	/**
-	 * @return the evnetTime
-	 */
-	public String getEvnetTime() {
-		return evnetTime;
-	}
-	/**
-	 * @param evnetTime the evnetTime to set
-	 */
-	public void setEvnetTime(String evnetTime) {
-		this.evnetTime = CommFunc.parseEventTime(evnetTime);
-	}
 	
 	/**
 	 * @return the rsrp
@@ -120,7 +102,7 @@ public class Connectivity implements Serializable {
 	@Override
 	public String toString() {
 		return "Connectivity [rsrp=" + rsrp + ", sinr=" + sinr + ", signalECL=" + signalECL + ", pci=" + pci
-				+ ", cellId=" + cellId + ", evnetTime=" + evnetTime + "]";
+				+ ", cellId=" + cellId + "]";
 	}
 	
 }

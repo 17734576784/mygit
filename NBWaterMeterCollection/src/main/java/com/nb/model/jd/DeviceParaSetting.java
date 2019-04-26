@@ -8,18 +8,16 @@
 */
 package com.nb.model.jd;
 
-import java.io.Serializable;
 
-import com.nb.utils.CommFunc;
-
+import com.nb.model.BaseModel;
 /**
  * @ClassName: DeviceParaSetting
- * @Description: TODO(这里用一句话描述这个类的作用)
+ * @Description: 竞达DeviceParaSetting服务上报数据项
  * @author dbr
  * @date 2019年4月10日 上午9:42:30
  * 
  */
-public class DeviceParaSetting implements Serializable {
+public class DeviceParaSetting extends BaseModel  {
 	/** 
 	* @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 
 	*/ 
@@ -52,21 +50,6 @@ public class DeviceParaSetting implements Serializable {
 	private Integer reset;
 	/** 上报时间偏移量 单位:分钟 */
 	private Integer realtimeReportOffset;
-	/** :事项上报时间 */
-	private String evnetTime;
-
-	/**
-	 * @return the evnetTime
-	 */
-	public String getEvnetTime() {
-		return evnetTime;
-	}
-	/**
-	 * @param evnetTime the evnetTime to set
-	 */
-	public void setEvnetTime(String evnetTime) {
-		this.evnetTime = CommFunc.parseEventTime(evnetTime);
-	}
 	
 	/**
 	 * @return the peakFlowThreshold
@@ -250,7 +233,7 @@ public class DeviceParaSetting implements Serializable {
 				+ ", periodReportInterva=" + periodReportInterva + ", realtimeReportFreq=" + realtimeReportFreq
 				+ ", connectRetryTimes=" + connectRetryTimes + ", retryInterval=" + retryInterval + ", alertId="
 				+ alertId + ", apn=" + apn + ", reset=" + reset + ", realtimeReportOffset=" + realtimeReportOffset
-				+ ", evnetTime=" + evnetTime + "]";
+				+ "]";
 	}
 
 }

@@ -8,20 +8,18 @@
 */
 package com.nb.model.jd;
 
-import java.io.Serializable;
-
-import com.nb.utils.CommFunc;
+import com.nb.model.BaseModel;
 import com.nb.utils.ConverterUtils;
 import com.nb.utils.DateUtils;
 
 /** 
 * @ClassName: DeviceState 
-* @Description: TODO(这里用一句话描述这个类的作用) 
+* @Description: 竞达DeviceState服务上报数据项
 * @author dbr
 * @date 2019年4月10日 上午9:47:53 
 *  
 */
-public class DeviceState implements Serializable {
+public class DeviceState extends BaseModel {
 	/** 
 	* @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 
 	*/ 
@@ -42,21 +40,7 @@ public class DeviceState implements Serializable {
 	private Integer reportTimes;
 	/** 上一日上报成功次数 0-255 */
 	private Integer reportSuccessTimes;
-	/** 事项上报时间 */
-	private String evnetTime;
-
-	/**
-	 * @return the evnetTime
-	 */
-	public String getEvnetTime() {
-		return evnetTime;
-	}
-	/**
-	 * @param evnetTime the evnetTime to set
-	 */
-	public void setEvnetTime(String evnetTime) {
-		this.evnetTime = CommFunc.parseEventTime(evnetTime);
-	}
+	
 	/**
 	 * @return the readTime
 	 */
@@ -166,7 +150,7 @@ public class DeviceState implements Serializable {
 		return "DeviceState [readTime=" + readTime + ", comState=" + comState + ", interfereState=" + interfereState
 				+ ", signalQuality=" + signalQuality + ", powerState=" + powerState + ", continuityFailTimes="
 				+ continuityFailTimes + ", reportTimes=" + reportTimes + ", reportSuccessTimes=" + reportSuccessTimes
-				+ ", evnetTime=" + evnetTime + "]";
+				+ "]";
 	}
 	
 }
