@@ -62,9 +62,12 @@ public class MainTest {
 	public static void main(String[] args) {
 		
 		XtBattery x = new XtBattery();
-		x.setEvnetTime("20181547T121245");
+		x.setEvnetTime("20180417T121245Z");
 		System.out.println(x.getEventDate() + "  " + x.getEventTime());
 		
+		
+		Date date = DateUtils.utcToLocal("20190428T012017Z", DateUtils.UTC_PATTERN);
+		System.out.println(DateUtils.formatDateByFormat(date, DateUtils.DATE_PATTERN)+" " + DateUtils.formatDateByFormat(date,DateUtils.TIME_PATTERN));
 //		Calendar endDate = Calendar.getInstance();
 //		endDate.add(Calendar.DAY_OF_MONTH, Constant.TASK_ENDDATE);
 //		System.out.println(DateUtils.formatDateByFormat(endDate.getTime(), DateUtils.DATE_PATTERN));

@@ -11,6 +11,9 @@ package com.nb.model;
 import static com.nb.utils.ConverterUtils.toInt;
 
 import java.io.Serializable;
+import java.util.Date;
+
+import com.nb.utils.DateUtils;
 
 /** 
 * @ClassName: BaseModel 
@@ -35,8 +38,9 @@ public class BaseModel implements Serializable {
 	 * @param evnetTime the evnetTime to set
 	 */
 	public void setEvnetTime(String evnetTime) {
-		this.eventDate = toInt(evnetTime.substring(0, 8));
-		this.eventTime = toInt(evnetTime.substring(9, 15)) + 80000;
+		Date date = DateUtils.utcToLocal(evnetTime, DateUtils.UTC_PATTERN);
+		this.eventDate = toInt(DateUtils.formatDateByFormat(date, DateUtils.DATE_PATTERN));
+		this.eventTime = toInt(DateUtils.formatDateByFormat(date,DateUtils.TIME_PATTERN));
 	}
 
 	/**
