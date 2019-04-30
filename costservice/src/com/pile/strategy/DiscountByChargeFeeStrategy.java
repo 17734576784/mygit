@@ -52,6 +52,14 @@ public class DiscountByChargeFeeStrategy implements IDiscountStrategy {
 		try {
 			/** 非余额充电 直接返回 */
 			if (chargeInfo.getPrepayType() != Constant.BALANCE_CHARGING) {
+				chargeInfo.setPaymentMoney(chargeInfo.getPayableMoney());
+				int discountMoney = chargeInfo.getChargeMoney() - chargeInfo.getPaymentMoney();
+				chargeInfo.setDiscountMoney(discountMoney);
+				int refundMoney = chargeInfo.getPrepaidMoney() + chargeInfo.getRechargeMoney()
+						- chargeInfo.getPaymentMoney();
+				chargeInfo.setRefundMoney(refundMoney);
+				chargeInfo.setRefundPrincipal(refundMoney);
+				chargeInfo.setRefundGive(0);
 				Log4jUtils.getDiscountinfo().info("[充值赠费算费完成:非余额充电]：" + chargeInfo.toString());
 				return chargeInfo;
 			}
@@ -64,7 +72,7 @@ public class DiscountByChargeFeeStrategy implements IDiscountStrategy {
 			int prechargePrincipal = chargeInfo.getPrechargePrincipal();
 
 			/** 应付金额 */
-			int payableMoney = chargeInfo.getPayableMoney();
+			int payableMoney = chargeInfo.getPayableMoney();			
 
 			/** 实际支付本金 */
 			int actualPay = payableMoney;
@@ -77,14 +85,15 @@ public class DiscountByChargeFeeStrategy implements IDiscountStrategy {
 			/** 应退赠金 */
 			int refundGive = 0;
 
+			/** 运营商扣费比例 */
+			double payRatio = chargeInfo.getPayRatio();
+			
 			/** 余额充电没有预充赠金 直接结算 */
-			if (prechargeGive <= 0) {
+			if (prechargeGive <= 0 || payRatio > 1 || payRatio <= 0) {
 				refundPrincipal = prechargePrincipal - payableMoney;
+				refundPrincipal = refundPrincipal < 0 ? 0 : refundPrincipal;
 				refundGive = 0;
 			} else {
-				/** 运营商扣费比例 */
-				double payRatio = chargeInfo.getPayRatio();
-
 				/** 理论支付赠金 */
 				int discountMoney = (int) (payableMoney * payRatio);
 
@@ -115,8 +124,7 @@ public class DiscountByChargeFeeStrategy implements IDiscountStrategy {
 				calculateFeeMapper.insertOrderDiscountRecord(record);
 			}
 			
-			chargeInfo.setPaymentMoney(actualPay);
-			chargeInfo.setDiscountMoney(actualGive);
+			chargeInfo.setPaymentMoney(actualPay + actualGive);
 			int refundMoney = chargeInfo.getPrepaidMoney() + chargeInfo.getRechargeMoney() - payableMoney;
 			chargeInfo.setRefundMoney(refundMoney);
 			chargeInfo.setRefundPrincipal(refundPrincipal);

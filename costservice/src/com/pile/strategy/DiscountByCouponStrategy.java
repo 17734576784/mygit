@@ -70,8 +70,8 @@ public class DiscountByCouponStrategy implements IDiscountStrategy {
 				Log4jUtils.getDiscountinfo().info("订单：" + orderSerialNumber + " 未找到有效的优惠券信息。");
 				return chargeInfo;
 			}
-			
-			if (toInt(couponMap.get("useFlag")) != Constant.USED) {
+
+			if (toInt(couponMap.get("useFlag")) != Constant.USED || !toStr(couponMap.get("useDate")).isEmpty()) {
 				Log4jUtils.getDiscountinfo().info("优惠券：[" + couponId + "]为非使用态，不使用优惠券");
 				return chargeInfo;
 			}
@@ -91,6 +91,11 @@ public class DiscountByCouponStrategy implements IDiscountStrategy {
 			if (payableMoney >= consumeMoney) {
 
 				int discountMoney = couponMoney;
+				if (discountMoney > payableMoney) {
+					String info = String.format("优惠券：%s折扣金额%s大于充电金额%s", couponCode, discountMoney, payableMoney);
+					Log4jUtils.getDiscountinfo().info(info);
+					discountMoney = 0;
+				}
 				int paymentMoney = payableMoney - discountMoney;
 
 				OrderDiscountRecord record = new OrderDiscountRecord();

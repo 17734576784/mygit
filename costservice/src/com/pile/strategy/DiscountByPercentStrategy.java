@@ -86,21 +86,18 @@ public class DiscountByPercentStrategy implements IDiscountStrategy {
 
 				/** 服务费 打折 */
 				if (discountSubtype == Constant.DISCOUNT_SERVICE) {
-					// paymentMoney += -chargeInfo.getServiceMoney() * (100 -
-					// discountRate) / 100;
-					// discountMoney = payableMoney - paymentMoney;
-
-					discountMoney = chargeInfo.getServiceMoney() * discountRate / 100;
+					discountMoney = chargeInfo.getServiceMoney() * (100 - discountRate) / 100;
 					paymentMoney = payableMoney - discountMoney;
 				} else {/** 总金额打折 */
-					paymentMoney = payableMoney * discountRate / 100;
-					discountMoney = payableMoney - paymentMoney;
+					discountMoney = payableMoney * (100 - discountRate) / 100;
+					paymentMoney = payableMoney - discountMoney;
+
 				}
 			} else if (percentType == Constant.DISCOUNT_PRICE) {// 折价
 				double chargeDL = chargeInfo.getChargeAmount();
-				discountMoney = (int) (((chargeDL < 0)? 0: chargeDL) * discountPrice);
+				discountMoney = (int) (((chargeDL < 0) ? 0 : chargeDL) * discountPrice);
 
-				/** 服务费 打折 最多不收服务费 */ 
+				/** 服务费 打折 最多不收服务费 */
 				if (discountSubtype == Constant.DISCOUNT_SERVICE) {
 					if (discountMoney > chargeInfo.getServiceMoney()) {
 						discountMoney = chargeInfo.getServiceMoney();
@@ -133,6 +130,7 @@ public class DiscountByPercentStrategy implements IDiscountStrategy {
 			chargeInfo.setPayableMoney(paymentMoney);
 			chargeInfo.setMemberLevel(toInt(discountMap.get("memberLevel")));
 			chargeInfo.setMemberLevelDesc(toStr(discountMap.get("memberLevelDesc")));
+			chargeInfo.setDiscountId(toInt(discountMap.get("discountId")));
 
 	 		Log4jUtils.getDiscountinfo().info("[打折算费完成]："+ chargeInfo.toString());
 		} catch (Exception e) {

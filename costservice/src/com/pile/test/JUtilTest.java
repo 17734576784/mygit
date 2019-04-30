@@ -23,6 +23,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.googlecode.protobuf.format.JsonFormat;
 import com.pile.common.Constant;
 import com.pile.customer.CalculateFeeExecutor;
 import com.pile.mapper.CalculateFeeMapper;
@@ -82,7 +83,30 @@ public class JUtilTest {
 	
 	@Test
 	public void testTransactional() throws Exception{
-		testTrans.testT();
+		String orderSerialNumber = "2019032910250500000027802";
+		String tableName = "chargedata.substperson_pay" + orderSerialNumber.substring(0, 4);
+		int tradeMoney  = 900;
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+
+		try {
+			Double checkRatio = calculateFeeMapper.getCheckRatio(1, "20190329", 2);
+			if (null != checkRatio && checkRatio != 0D) {
+				int payMoney = (int) (tradeMoney * checkRatio);
+				paramMap.put("serialNumber", orderSerialNumber);
+				paramMap.put("tableName", tableName);
+				paramMap.put("tradeMoney", tradeMoney);
+				paramMap.put("payMoney", payMoney);
+				paramMap.put("operatorId", 2);
+
+				boolean f = calculateFeeMapper.insertPersonStationChargeDetail(paramMap);
+				System.out.println(f);
+			}
+		} catch (Exception e) {
+			Log4jUtils.getChargerecord().error("插入个人站充电明细表异常,参数：" + paramMap, e);
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 	
@@ -90,31 +114,32 @@ public class JUtilTest {
 	public void test() throws Exception{
 //		System.out.println(list);
 		
-		try {
-			int operatorId = 1;
-			String orderSerialNumber = "2018112115425400000001527";
-			/** 插入个人站记录表 */
-			String tradeDate = orderSerialNumber.substring(0,8);
-			int stationId = 22;
-			Double checkRatio = calculateFeeMapper.getCheckRatio(operatorId,tradeDate,stationId);	
-			System.out.println("checkRatio : "+ checkRatio);
-			if (checkRatio != null && checkRatio != 0D) {
-				Map<String,Object> paramMap = new HashMap<String,Object>();
-				String tableName = "chargedata.substperson_pay" + orderSerialNumber.substring(0, 4);
-				int tradeMoney = 1000;
-				int payMoney = (int) (tradeMoney * checkRatio);
-				paramMap.put("serialNumber", orderSerialNumber);
-				paramMap.put("tableName", tableName);
-				paramMap.put("tradeMoney", tradeMoney);
-				paramMap.put("payMoney", payMoney);
-				paramMap.put("operatorId", operatorId);
-				
-				System.out.println(calculateFeeMapper.insertPersonStationChargeDetail(paramMap));
-			}
-		} catch (Exception e) {
-			System.out.println("EEEEEEEEEEEEEEEEEEEEEE");
-			e.printStackTrace();
-		}
+		
+//		try {
+//			int operatorId = 1;
+//			String orderSerialNumber = "2018112115425400000001527";
+//			/** 插入个人站记录表 */
+//			String tradeDate = orderSerialNumber.substring(0,8);
+//			int stationId = 22;
+//			Double checkRatio = calculateFeeMapper.getCheckRatio(operatorId,tradeDate,stationId);	
+//			System.out.println("checkRatio : "+ checkRatio);
+//			if (checkRatio != null && checkRatio != 0D) {
+//				Map<String,Object> paramMap = new HashMap<String,Object>();
+//				String tableName = "chargedata.substperson_pay" + orderSerialNumber.substring(0, 4);
+//				int tradeMoney = 1000;
+//				int payMoney = (int) (tradeMoney * checkRatio);
+//				paramMap.put("serialNumber", orderSerialNumber);
+//				paramMap.put("tableName", tableName);
+//				paramMap.put("tradeMoney", tradeMoney);
+//				paramMap.put("payMoney", payMoney);
+//				paramMap.put("operatorId", operatorId);
+//				
+//				System.out.println(calculateFeeMapper.insertPersonStationChargeDetail(paramMap));
+//			}
+//		} catch (Exception e) {
+//			System.out.println("EEEEEEEEEEEEEEEEEEEEEE");
+//			e.printStackTrace();
+//		}
 
 		
 //		System.out.println(calculateFeeMapper.getCheckRatio(3));

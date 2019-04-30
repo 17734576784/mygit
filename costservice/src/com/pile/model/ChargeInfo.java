@@ -79,6 +79,8 @@ public class ChargeInfo implements Serializable {
 	private Integer memberLevel;
 	/** 会员等级描述 */
 	private String memberLevelDesc;
+	/** 折扣活动id */
+	private Integer discountId;
 
 	/**
 	 * @return the orderSerialNumber
@@ -185,19 +187,12 @@ public class ChargeInfo implements Serializable {
 		this.chargeMoney = chargeMoney;
 	}
 
+
 	/**
 	 * @return the chargeAmount
 	 */
 	public double getChargeAmount() {
 		return chargeAmount;
-	}
-
-	/**
-	 * @param chargeAmount
-	 *            the chargeAmount to set
-	 */
-	public void setChargeAmount(int chargeAmount) {
-		this.chargeAmount = chargeAmount;
 	}
 
 	/**
@@ -468,6 +463,20 @@ public class ChargeInfo implements Serializable {
 	 */
 	public void setMemberLevelDesc(String memberLevelDesc) {
 		this.memberLevelDesc = memberLevelDesc;
+	}
+
+	/**
+	 * @return the discountId
+	 */
+	public Integer getDiscountId() {
+		return discountId;
+	}
+
+	/**
+	 * @param discountId the discountId to set
+	 */
+	public void setDiscountId(Integer discountId) {
+		this.discountId = discountId;
 	}
 
 	/** (非 Javadoc) 

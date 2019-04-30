@@ -4,7 +4,7 @@
 
 	<select id="getCouponById" resultType="map">
 		select coupon_code,coupon_name,consume_money,coupon_money,
-		TIMESTAMPDIFF(DAY,NOW(),expired_date) diffDay ,expired_date ,use_flag useFlag
+		TIMESTAMPDIFF(DAY,NOW(),expired_date) diffDay ,expired_date ,use_flag useFlag,use_date useDate
 		from member_coupon
 		where id = #{couponId,jdbcType=INTEGER} 
 		<![CDATA[
@@ -103,21 +103,21 @@
 	<select id="getDiscountBySerialNumber" resultType="map">
   	<![CDATA[
 	  	SELECT * from (
-		SELECT odp.discount_type2 discountType,odp.discount_rate2 discountRate,odp.discount_price2 discountPrice,
-		discount_subtype2 DiscountSubtype,odp.member_level memberLevel,odp.title memberLevelDesc
+		SELECT odp.id discountId,odp.discount_type2 discountType,odp.discount_rate2 discountRate,odp.discount_price2 discountPrice,
+		discount_subtype2 discountSubtype,odp.member_level memberLevel,odp.title memberLevelDesc
 		from member_orders mo ,member_level ml,operator_discount_promotion odp
 		where ml.member_id = mo.member_id and ml.operator_id = mo.operator_id
 		and ml.subst_id = mo.subst_id AND mo.operator_id = odp.operator_id 
-		and mo.subst_id = odp.subst_id and ml.level = odp.member_level AND odp.use_flag =1
+		and mo.subst_id = odp.subst_id and ml.level = odp.member_level AND odp.use_flag >= 1
 		AND mo.pay_date >= odp.effect_date2 AND mo.pay_date <= odp.expired_date2
 		and serialnumber = #{serialNumber,jdbcType=VARCHAR}
 		UNION
-		SELECT odp.discount_type1 discountType,odp.discount_rate1 discountRate,odp.discount_price1 discountPrice,
-		discount_subtype1 DiscountSubtype,odp.member_level memberLevel,odp.title memberLevelDesc
+		SELECT odp.id discountId,odp.discount_type1 discountType,odp.discount_rate1 discountRate,odp.discount_price1 discountPrice,
+		discount_subtype1 discountSubtype,odp.member_level memberLevel,odp.title memberLevelDesc
 		from member_orders mo ,member_level ml,operator_discount_promotion odp 
 		where ml.member_id = mo.member_id and ml.operator_id = mo.operator_id
 		and ml.subst_id = mo.subst_id AND mo.operator_id = odp.operator_id 
-		and mo.subst_id = odp.subst_id and ml.level = odp.member_level AND odp.use_flag =1
+		and mo.subst_id = odp.subst_id and ml.level = odp.member_level AND odp.use_flag >= 1
 		and mo.pay_date >= odp.effect_date1 and mo.pay_date <= odp.expired_date1
 		and serialnumber = #{serialNumber,jdbcType=VARCHAR}
 		) a LIMIT 1
@@ -187,8 +187,8 @@
 		precharge_give prechargeGive,precharge_principal prechargePrincipal,pay_ratio payRatio,
 		midcharge_money midchargeMoney,service_money serviceMoney,charge_money chargeMoney,
 		member_id memberId,pile_id	pileId,gun_id gunId,serialnumber orderSerialNumber,charge_money
-		chargeMoney,charge_dl chargeAmount,	pile_code pileCode,service_money
-		serviceMoney,end_cause endCause,charge_state chargeState
+		chargeMoney,charge_dl chargeDl,	pile_code pileCode,service_money
+		serviceMoney,end_cause endCause,charge_state chargeState,level,leveldesc
 		from member_orders where serialnumber =	#{orderSerialNumber,jdbcType=VARCHAR}
 	</select>
 
@@ -253,7 +253,10 @@
 	      </if>
 	      <if test="leveldesc != null" >
 	        leveldesc = #{leveldesc,jdbcType=VARCHAR},
-	      </if>     
+	      </if>   
+	      <if test="discountId != null" >
+	        discount_id = #{discountId,jdbcType=INTEGER},
+	      </if>    
 	    </set>
 	    where serialnumber = #{serialnumber,jdbcType=VARCHAR}
   </update>
@@ -262,7 +265,7 @@
 		SELECT a.check_ratio 
 		from subst_person p ,operator_agent a ,substpara s
 		where p.subst_id = s.id and s.operator_id = a.operator_id 
-		and a.id = p.agent_id and a.agent_flag = 1
+		and a.id = p.agent_id and a.agent_flag = 1 and s.model = 9
 		and s.operator_id = #{operatorId,jdbcType=INTEGER}
 		and s.id = #{stationId,jdbcType=INTEGER}
 		<![CDATA[
@@ -276,9 +279,11 @@
 		serialnumber,trade_date,trade_money,check_ratio,op_date,pay_money)
 		SELECT m.operator_id,m.subst_id,m.pile_id,m.gun_id,m.pile_code,
 		m.serialnumber,m.trade_date,#{tradeMoney},o.check_ratio,NOW(),#{payMoney}
-		FROM operator o,member_orders m
+		FROM operator o,member_orders m,substpara s
 		where o.id = m.operator_id and o.model = 1 and m.operator_id =#{operatorId,jdbcType=INTEGER}
+		and s.operator_id = o.id and m.subst_id = s.id and s.model = 9
 		and m.serialnumber = #{serialNumber,jdbcType=VARCHAR}
+
 	</insert>
  
 </mapper>

@@ -45,7 +45,7 @@ public class CalculateFeeExecutor {
 	@Resource
 	private CalculateFeeMapper calculateFeeMapper;
 
-	public int calculateOrder(Object value) {
+	public int calculateOrder(byte[] value) {
 		
 		int flag = Constant.CALCULATION_INITIAL;
 		if (null == value) {
@@ -54,12 +54,12 @@ public class CalculateFeeExecutor {
 		
 		ChargeInfo chargeInfo = null;
 		try {
-			ChargeInfoBuf chargeInfoBuf = (ChargeInfoBuf) value;
+			ChargeInfoBuf chargeInfoBuf = ChargeInfoBuf.parseFrom(value);
 			String text = JsonFormat.printToString(chargeInfoBuf);
 			chargeInfo = toBean(text, ChargeInfo.class);
 			String orderSerialNumber = chargeInfo.getOrderSerialNumber();
 
-			Log4jUtils.getDiscountinfo().info("充电单:[" + orderSerialNumber + "]结费中");
+			Log4jUtils.getDiscountinfo().info("充电单:[" + chargeInfo.toString() + "]结费中");
 			String key = Constant.ORDER + orderSerialNumber;
 			Map<String, String> orderMap = JedisUtils.hgetAll(key);
 			if (null == orderMap || orderMap.isEmpty()) {
@@ -83,7 +83,7 @@ public class CalculateFeeExecutor {
 			
 			/** 验证充电单下单时间 */ 
 			String tradeDate = chargeInfo.getTradeDate();
-			if (tradeDate.isEmpty() || DateUtils.checkDate(tradeDate)) {
+			if (tradeDate.isEmpty() || !DateUtils.checkDate(tradeDate)) {
 				chargeInfo.setTradeDate(DateUtils.formatTimesTampDate(new Date()));
 			}
 			
@@ -114,6 +114,7 @@ public class CalculateFeeExecutor {
 		chargeInfo.setCouponId(toInt(orderMap.get("memberCouponId")));
 		chargeInfo.setPrepaidMoney(toInt(orderMap.get("prechargeMoney")));
 		chargeInfo.setPrechargeGive(toInt(orderMap.get("prechargeGive")));
+		chargeInfo.setChargeAmount(toDouble(orderMap.get("chargeDl")));
 
 		chargeInfo.setPrechargePrincipal(toInt(orderMap.get("prechargePrincipal")));
 		chargeInfo.setPayRatio(toDouble(orderMap.get("payRatio")));
@@ -125,6 +126,11 @@ public class CalculateFeeExecutor {
 		chargeInfo.setPayableMoney(chargeInfo.getChargeMoney());
 		chargeInfo.setDiscountMoney(0);
 		chargeInfo.setTradeDate(toStr(orderMap.get("tradeDate")));
+
+		chargeInfo.setMemberLevel(toInt(orderMap.get("level")));
+		chargeInfo.setMemberLevelDesc(toStr(orderMap.get("leveldesc")));
+		chargeInfo.setDiscountId(-1);
+
 		return chargeInfo;
 	}
 	

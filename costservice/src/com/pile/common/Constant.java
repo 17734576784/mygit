@@ -105,4 +105,6 @@ public class Constant {
 	/** 已使用 */
 	public static final int USED = 1;
 	
+	/** 充电结束消息推送 */
+	public static final String CHARGE_OVER_QUEUE = "CHARGE_OVER_QUEUE";
  }

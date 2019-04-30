@@ -66,7 +66,7 @@ public class CalculateOrderTask extends QuartzJobBean{
 	* @throws 
 	*/
 	public void processErrorQueue() {
-		Object value = null;
+		byte[] value = null;
 		try {
 			value = JedisUtils.rpop(Constant.ERROR_COST_QUEUE);
 			if (null == value) {

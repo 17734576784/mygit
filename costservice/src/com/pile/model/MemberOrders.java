@@ -104,8 +104,25 @@ public class MemberOrders {
     private Integer refundErrcode;
 
     private String refundErrinfo;
+    
+    /** 折扣活动id */
+	private Integer discountId;
 
-    public Integer getId() {
+    /**
+	 * @return the discountId
+	 */
+	public int getDiscountId() {
+		return discountId;
+	}
+
+	/**
+	 * @param discountId the discountId to set
+	 */
+	public void setDiscountId(int discountId) {
+		this.discountId = discountId;
+	}
+
+	public Integer getId() {
         return id;
     }
 

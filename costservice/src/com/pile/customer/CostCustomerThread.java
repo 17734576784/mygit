@@ -43,16 +43,16 @@ public class CostCustomerThread implements Runnable {
 	public void run() {
 		while (true) {
 			if (runFlag) {
-				Object value = null;
+				byte[] value = null;
 				try {
-					value = JedisUtils.brpopLpush(Constant.COST_QUEUE, Constant.BAK_COST_QUEUE, 20);
+					value = JedisUtils.brpopLpush(Constant.COST_QUEUE, Constant.BAK_COST_QUEUE);
 					if (null != value) {
+						Log4jUtils.getDiscountinfo().info("从C++算费队列取出算费信息:" + value);
 						int calculateResult = calculateFeeExecutor.calculateOrder(value);
-//						if (calculateResult == Constant.CALCULATION_SUCCESS) {
-//							// 处理成功，从备份列表中弹出
+						if (calculateResult == Constant.CALCULATION_SUCCESS) {
+							// 处理成功，从备份列表中弹出
 							JedisUtils.rpop(Constant.BAK_COST_QUEUE);
-//						} else 
-						if (calculateResult == Constant.CALCULATION_FAILED) {
+						} else if (calculateResult == Constant.CALCULATION_FAILED) {
 							Log4jUtils.getDiscountinfo().info("充电单算费失败:" + value);
 							// 处理失败，放入错误列队中 再处理
 							JedisUtils.lpush(Constant.ERROR_COST_QUEUE, value);

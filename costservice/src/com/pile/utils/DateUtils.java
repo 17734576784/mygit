@@ -628,7 +628,6 @@ public class DateUtils {
 			dateFormat.parse(obj.toString());
 			flag = true;
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

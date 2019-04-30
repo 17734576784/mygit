@@ -35,11 +35,15 @@ import com.pile.utils.SerializeUtils;
 */
 public class MainTest {
 	public static void main(String[] args) throws InvalidProtocolBufferException {
-		try {
-			a();
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		int m = 5, n = 5;
+		n++;
+//		if ((m != 5) && (n++ == 5)) {
+//
+//		}
+		String info = String.format("优惠券：%s折扣金额%s大于充电金额%s", 1, 2, 3);
+
+		System.out.println(0D);
+
 	}
 	
 	public static void a() throws Exception {

@@ -962,18 +962,18 @@ public class JedisUtils {
 	 * @param key
 	 * @return String
 	 */
-	public static Object rpop(String key) {
+	public static byte[] rpop(String key) {
 		Jedis jedis = null;
-		Object value = null;
+		byte[] value = null;
 		try {
 			jedis = getResource();
-			byte[] tempValue= jedis.rpop(key.getBytes());
-			value = SerializeUtils.deserialize(tempValue);
+			byte[] tempValue = jedis.rpop(key.getBytes());
+			value = tempValue;// SerializeUtils.deserialize(tempValue);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			returnRource(jedis);
-		} 
+		}
 		return value;
 	}
 	
@@ -1075,8 +1075,7 @@ public class JedisUtils {
 		try {
 			jedis = getResource();
 			List<byte[]> values = jedis.brpop(timeout, key.getBytes());
-			System.out.println("Jedis brpop  values" + values.size());
-			value = SerializeUtils.deserialize(values.get(0));
+			value = SerializeUtils.deserialize(values.get(1));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -1084,6 +1083,24 @@ public class JedisUtils {
 		} 
 		return value;
 	}
+	
+	
+	public static byte[] brpop(String key, int timeout) {
+		Jedis jedis = null;
+		byte[] value = null;
+		try {
+			jedis = getResource();
+			List<String> strs = jedis.brpop(timeout, key);
+			value = strs.get(1).getBytes();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			returnRource(jedis);
+		}
+		return value;
+	}
+	
+	
 	
 	/**
 	 * 从列表中弹出列表最后一个值，将弹出的元素插入到另外一个列表中并返回它； 
@@ -1108,7 +1125,21 @@ public class JedisUtils {
 		} 
 		return value;
 	}
-	
+	public static byte[] brpopLpush(String sourceKey, String targetKey) {
+
+		Jedis jedis = null;
+		byte[] value = null;
+		try {
+			jedis = getResource();
+			byte[] tmpValue = jedis.brpoplpush(sourceKey.getBytes(), targetKey.getBytes(), 20);
+			value = tmpValue;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			returnRource(jedis);
+		} 
+		return value;
+	}
 	/**************************** redis 列表List end***************************/
 	
 	/***Redis hash 是一个string类型的field和value的映射表，hash特别适合用于存储对象。***/
@@ -1189,7 +1220,6 @@ public class JedisUtils {
 		try {
 			jedis = getResource();
 			String statusCode = jedis.hmset(key, map);
-			jedis.close();
 			if (SUCCESS_OK.equalsIgnoreCase(statusCode)) {
 				return true;
 			}

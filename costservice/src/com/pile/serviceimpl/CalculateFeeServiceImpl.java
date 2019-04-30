@@ -69,7 +69,7 @@ public class CalculateFeeServiceImpl implements ICalculateFeeService{
 		try {
 			int operatorId = chargeInfo.getOperatorId();
 			/** 非接口充电 */
-			if (chargeInfo.getAppFlag() != Constant.INTERFACE) {
+			if (chargeInfo.getAppFlag() < Constant.INTERFACE) {
 				String orderSerialNumber = chargeInfo.getOrderSerialNumber();
 
 				/** 获取该运营商的折扣规则(排除充值赠费) */
@@ -78,16 +78,6 @@ public class CalculateFeeServiceImpl implements ICalculateFeeService{
 					chargeInfo = discountContext.getDiscountInfo(chargeInfo, discountType);
 				}
 				
-				/** 折扣，优惠券等， 可能后面没有活动了，先赋值， 如果后面还有， 则覆盖 */ 
-				chargeInfo.setPaymentMoney(chargeInfo.getPayableMoney());
-				int discountMoney = chargeInfo.getChargeMoney() - chargeInfo.getPaymentMoney();
-				chargeInfo.setDiscountMoney(discountMoney);
-				int refundMoney = chargeInfo.getPrepaidMoney() + chargeInfo.getRechargeMoney()
-						- chargeInfo.getPaymentMoney();
-				chargeInfo.setRefundMoney(refundMoney);
-				chargeInfo.setRefundPrincipal(refundMoney);
-				chargeInfo.setRefundGive(0);
-
 				/** 最后结算充值赠费 */
 				chargeInfo = discountContext.getDiscountInfo(chargeInfo, Constant.DISCOUNT_BYCHARGEFEE);
 				if (chargeInfo.getPrepayType() == Constant.BALANCE_CHARGING) {
@@ -101,8 +91,6 @@ public class CalculateFeeServiceImpl implements ICalculateFeeService{
 				/** 更新redis充电单的状态 */
 				String key = Constant.ORDER + orderSerialNumber;
 				Map<String, String> orderMap = JedisUtils.hgetAll(key);
-				orderMap.put("chargeState", toStr(Constant.CALCULATED));
-				JedisUtils.hmset(key, orderMap);
 				
 				/** 插入个人站记录表 */
 				int stationId = toInt(orderMap.get("substId"));
@@ -115,9 +103,9 @@ public class CalculateFeeServiceImpl implements ICalculateFeeService{
 				}
 			} else {
 				chargeInfo.setPaymentMoney(chargeInfo.getChargeMoney());
-				chargeInfo.setDiscountMoney(chargeInfo.getChargeMoney() - chargeInfo.getPaymentMoney());
 				int refundMoney = chargeInfo.getPrepaidMoney() + chargeInfo.getRechargeMoney()
 						- chargeInfo.getPaymentMoney();
+				refundMoney = refundMoney < 0 ? 0 : refundMoney;
 				chargeInfo.setRefundMoney(refundMoney);
 				chargeInfo.setRefundPrincipal(refundMoney);
 				chargeInfo.setRefundGive(0);
@@ -125,6 +113,10 @@ public class CalculateFeeServiceImpl implements ICalculateFeeService{
 			
 			/** 更新充电单金额信息 */
 			flag = updateMemberOrder(chargeInfo);
+			/** 向接口推送充电结束 */
+			if (flag && chargeInfo.getAppFlag() == Constant.INTERFACE) {
+				JedisUtils.lpush(Constant.CHARGE_OVER_QUEUE, chargeInfo.getOrderSerialNumber());
+			}
 		} catch (Exception e) {
 			flag = false;
 			Log4jUtils.getDiscountinfo().error("充电单算费异常：" + chargeInfo.toString(), e);
@@ -147,15 +139,25 @@ public class CalculateFeeServiceImpl implements ICalculateFeeService{
 		memberOrders.setEndpushFlag(Constant.NOPUSH);
 		memberOrders.setChargeState((byte) Constant.CALCULATED);
 		memberOrders.setTradeMoney(chargeInfo.getPaymentMoney());
-		memberOrders.setDiscountMoney(chargeInfo.getDiscountMoney());
+
+		int discountMoney = chargeInfo.getChargeMoney() - chargeInfo.getPaymentMoney();
+		memberOrders.setDiscountMoney(discountMoney);
 		
 		memberOrders.setRefundMoney(chargeInfo.getRefundMoney());
 		memberOrders.setRefundPrincipal(chargeInfo.getRefundPrincipal());
 		memberOrders.setRefundGive(chargeInfo.getRefundGive());
 		memberOrders.setLevel(chargeInfo.getMemberLevel());
 		memberOrders.setLeveldesc(chargeInfo.getMemberLevelDesc());
+		memberOrders.setDiscountId(chargeInfo.getDiscountId());
 		try {
+			/** 更新redis充电单的状态 */
+			String key = Constant.ORDER + chargeInfo.getOrderSerialNumber();
+			Map<String, String> orderMap = JedisUtils.hgetAll(key);
+			orderMap.put("chargeState", toStr(Constant.CALCULATED));
+			JedisUtils.hmset(key, orderMap);
+			
 			return calculateFeeMapper.updateMemberOrder(memberOrders);
+			
 		} catch (Exception e) {
 			Log4jUtils.getDiscountinfo().error("更新充电单金额信息异常," + memberOrders.toString(), e);
 			throw e;
