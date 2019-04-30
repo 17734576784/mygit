@@ -34,4 +34,8 @@ public interface ShiroMapper {
 	* @throws 
 	*/
 	List<Map<String, String>> listUrlPermission();
+	
+	Map<String,Object> getOperatorIdByUsername(String userName);
+	
+	boolean getAccessAuthority(String userName);
 }

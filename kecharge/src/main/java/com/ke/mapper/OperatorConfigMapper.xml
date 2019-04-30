@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ke.mapper.OperatorConfigMapper" >
+  <resultMap id="BaseResultMap" type="com.ke.model.OperatorConfig" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="operator_id" property="operatorId" jdbcType="INTEGER" />
+    <result column="operator_loginname" property="operatorLoginname" jdbcType="VARCHAR" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />    
+    <result column="use_flag" property="useFlag" jdbcType="TINYINT" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="token" property="token" jdbcType="VARCHAR" />
+    <result column="login_url" property="loginUrl" jdbcType="VARCHAR" />
+    <result column="charge_start_url" property="chargeStartUrl" jdbcType="VARCHAR" />
+    <result column="charge_over_url" property="chargeOverUrl" jdbcType="VARCHAR" />
+    <result column="charge_dc_info_url" property="chargeDcInfoUrl" jdbcType="VARCHAR" />
+    <result column="serialnumber_prefix" property="serialnumberPrefix" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, operator_id, operator_loginname,use_flag, username, password, token, login_url, charge_start_url, charge_over_url, 
+    charge_dc_info_url, serialnumber_prefix,member_id
+  </sql>
+  <select id="getOperatorConfig" resultType="map" parameterType="java.lang.Integer" >
+  	select pc.operator_id id,pc.operator_loginname operatorLoginname,member_id,use_flag useFlag,pc.username,pc.password password,token,login_url loginUrl,charge_start_url chargeStartUrl,
+	charge_over_url chargeOverUrl,charge_dc_info_url chargeDcInfoUrl,serialnumber_prefix serialnumberPrefix ,m.username memberPhone
+	from operator_config pc LEFT JOIN members m ON pc.member_id = m.id
+    where pc.id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteOperatorConfig" parameterType="java.lang.Integer" >
+    delete from operator_config
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertOperatorConfig" parameterType="com.ke.model.OperatorConfig" >
+    insert into operator_config
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="operatorId != null" >
+        operator_id,
+      </if>   
+      <if test="operatorLoginname != null" >
+        operator_loginname,
+      </if>   
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="useFlag != null" >
+        use_flag,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="token != null" >
+        token,
+      </if>
+      <if test="loginUrl != null" >
+        login_url,
+      </if>
+      <if test="chargeStartUrl != null" >
+        charge_start_url,
+      </if>
+      <if test="chargeOverUrl != null" >
+        charge_over_url,
+      </if>
+      <if test="chargeDcInfoUrl != null" >
+        charge_dc_info_url,
+      </if>
+      <if test="serialnumberPrefix != null" >
+        serialnumber_prefix,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="operatorId != null" >
+        #{operatorId,jdbcType=INTEGER},
+      </if>
+       <if test="operatorLoginname != null" >
+        #{operatorLoginname,jdbcType=VARCHAR},
+      </if>  
+      <if test="memberId != null" >
+        #{memberId},
+      </if>
+      <if test="useFlag != null" >
+        #{useFlag,jdbcType=TINYINT},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null" >
+        #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="loginUrl != null" >
+        #{loginUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeStartUrl != null" >
+        #{chargeStartUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeOverUrl != null" >
+        #{chargeOverUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeDcInfoUrl != null" >
+        #{chargeDcInfoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="serialnumberPrefix != null" >
+        #{serialnumberPrefix,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateOperatorConfig" parameterType="com.ke.model.OperatorConfig" >
+    update operator_config
+    <set >
+      <if test="operatorId != null" >
+        operator_id = #{operatorId,jdbcType=INTEGER},
+      </if>
+      <if test="operatorLoginname != null" >
+       operator_loginname = #{operatorLoginname,jdbcType=VARCHAR},
+      </if> 
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="useFlag != null" >
+        use_flag = #{useFlag,jdbcType=TINYINT},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null" >
+        token = #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="loginUrl != null" >
+        login_url = #{loginUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeStartUrl != null" >
+        charge_start_url = #{chargeStartUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeOverUrl != null" >
+        charge_over_url = #{chargeOverUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeDcInfoUrl != null" >
+        charge_dc_info_url = #{chargeDcInfoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="serialnumberPrefix != null" >
+        serialnumber_prefix = #{serialnumberPrefix,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="listOperatorConfig" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from operator_config 
+    where use_flag = 1       
+  </select>
+  
+  <select id="listOperatorConfigArchive" resultType="map" parameterType="map" >
+	select pc.id, p.id operatorId, 
+	CASE when pc.use_flag = 1 then '是' ELSE '否' END useFlag,pc.operator_loginname operatorLoginname,
+	pc.username, pc.password,serialnumber_prefix,
+	token, login_url, charge_start_url, charge_over_url,charge_dc_info_url,p.`name` operatorName,member_id,m.username memberPhone
+	from operator_config pc LEFT JOIN operator p ON pc.operator_id = p.id
+	LEFT JOIN members m ON pc.member_id = m.id
+	<where>
+		<if test="useFlag != null and useFlag != -1">
+   		    and use_flag = #{useFlag,jdbcType=TINYINT}
+   		</if>  
+	     <if test="operatorId != null">
+	       and operator_id = #{operatorId,jdbcType=INTEGER}
+	     </if>
+	</where>
+  </select>
+  
+  <select id="listOperator" resultType="map">
+	select o.id,o.name, u.username keusername,u.password kepassword,c.username thirdusername,c.password thirdpassword 
+	from  operator o left join operator_users u on o.id = u.operator_id
+	left join operator_config c on u.operator_id = c.operator_id
+	group by o.id
+  </select>
+  
+  <select id="checkOperatorUsername" resultType="java.lang.Integer" parameterType="map">
+		SELECT id  from operator_users 
+		where username = #{userName,jdbcType=VARCHAR} and operator_id = #{operatorId,jdbcType=INTEGER}
+  </select>
+  
+  <insert id="insertUserRole">
+	replace interface_user_role values(#{userId},1)
+  </insert>
+  
+</mapper>

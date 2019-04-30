@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ke.mapper.MemberOrdersMapper" >
+  <resultMap id="BaseResultMap" type="com.ke.model.MemberOrders" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="operator_id" property="operatorId" jdbcType="INTEGER" />
+    <result column="serialnumber" property="serialnumber" jdbcType="VARCHAR" />
+    <result column="trade_date" property="tradeDate" jdbcType="TIMESTAMP" />
+    <result column="precharge_money" property="prechargeMoney" jdbcType="INTEGER" />
+    <result column="precharge_principal" property="prechargePrincipal" jdbcType="INTEGER" />
+    <result column="precharge_give" property="prechargeGive" jdbcType="INTEGER" />
+    <result column="pay_ratio" property="payRatio" jdbcType="DOUBLE" />
+    <result column="midcharge_money" property="midchargeMoney" jdbcType="INTEGER" />
+    <result column="prepay_type" property="prepayType" jdbcType="INTEGER" />
+    <result column="source_funds" property="sourceFunds" jdbcType="TINYINT" />
+    <result column="app_flag" property="appFlag" jdbcType="TINYINT" />
+    <result column="subst_id" property="substId" jdbcType="INTEGER" />
+    <result column="pile_id" property="pileId" jdbcType="INTEGER" />
+    <result column="gun_id" property="gunId" jdbcType="INTEGER" />
+    <result column="pile_code" property="pileCode" jdbcType="VARCHAR" />
+    <result column="charge_state" property="chargeState" jdbcType="TINYINT" />
+    <result column="pay_date" property="payDate" jdbcType="TIMESTAMP" />
+    <result column="pay_customer" property="payCustomer" jdbcType="VARCHAR" />
+    <result column="member_coupon_id" property="memberCouponId" jdbcType="INTEGER" />
+    <result column="coupon_code" property="couponCode" jdbcType="VARCHAR" />
+    <result column="coupon_money" property="couponMoney" jdbcType="INTEGER" />
+    <result column="charge_serialnumber" property="chargeSerialnumber" jdbcType="VARCHAR" />
+    <result column="chargebegin_date" property="chargebeginDate" jdbcType="TIMESTAMP" />
+    <result column="beginpush_flag" property="beginpushFlag" jdbcType="TINYINT" />
+    <result column="chargeend_date" property="chargeendDate" jdbcType="TIMESTAMP" />
+    <result column="charge_dl" property="chargeDl" jdbcType="DOUBLE" />
+    <result column="charge_dur" property="chargeDur" jdbcType="INTEGER" />
+    <result column="end_cause" property="endCause" jdbcType="INTEGER" />
+    <result column="error_code" property="errorCode" jdbcType="INTEGER" />
+    <result column="aftcharge_money" property="aftchargeMoney" jdbcType="INTEGER" />
+    <result column="endpush_flag" property="endpushFlag" jdbcType="TINYINT" />
+    <result column="charge_money" property="chargeMoney" jdbcType="INTEGER" />
+    <result column="service_money" property="serviceMoney" jdbcType="INTEGER" />
+    <result column="service_moneyj" property="serviceMoneyj" jdbcType="INTEGER" />
+    <result column="service_moneyf" property="serviceMoneyf" jdbcType="INTEGER" />
+    <result column="service_moneyp" property="serviceMoneyp" jdbcType="INTEGER" />
+    <result column="service_moneyg" property="serviceMoneyg" jdbcType="INTEGER" />
+    <result column="discount_money" property="discountMoney" jdbcType="INTEGER" />
+    <result column="trade_money" property="tradeMoney" jdbcType="INTEGER" />
+    <result column="refund_money" property="refundMoney" jdbcType="INTEGER" />
+    <result column="refund_principal" property="refundPrincipal" jdbcType="INTEGER" />
+    <result column="refund_give" property="refundGive" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="leveldesc" property="leveldesc" jdbcType="VARCHAR" />
+    <result column="refund_serialnumber" property="refundSerialnumber" jdbcType="VARCHAR" />
+    <result column="refundop_date" property="refundopDate" jdbcType="TIMESTAMP" />
+    <result column="refund_date" property="refundDate" jdbcType="TIMESTAMP" />
+    <result column="refund_errcode" property="refundErrcode" jdbcType="INTEGER" />
+    <result column="refund_errinfo" property="refundErrinfo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, member_id, operator_id, serialnumber, trade_date, precharge_money, precharge_principal, 
+    precharge_give, pay_ratio, midcharge_money, prepay_type, source_funds, app_flag, 
+    subst_id, pile_id, gun_id, pile_code, charge_state, pay_date, pay_customer, member_coupon_id, 
+    coupon_code, coupon_money, charge_serialnumber, chargebegin_date, beginpush_flag, 
+    chargeend_date, charge_dl, charge_dur, end_cause, error_code, aftcharge_money, endpush_flag, 
+    charge_money, service_money, service_moneyj, service_moneyf, service_moneyp, service_moneyg, 
+    discount_money, trade_money, refund_money, refund_principal, refund_give, level, 
+    leveldesc, refund_serialnumber, refundop_date, refund_date, refund_errcode, refund_errinfo
+  </sql>
+  <select id="getmemberOrders" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from member_orders
+    where serialnumber = #{serialnumber,jdbcType=INTEGER}
+  </select>
+  <delete id="deletememberOrders" parameterType="java.lang.Integer" >
+    delete from member_orders
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+   
+  <insert id="insertmemberOrders" parameterType="com.ke.model.MemberOrders" >
+    insert into member_orders
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="operatorId != null" >
+        operator_id,
+      </if>
+      <if test="serialnumber != null" >
+        serialnumber,
+      </if>
+      <if test="tradeDate != null" >
+        trade_date,
+      </if>
+      <if test="prechargeMoney != null" >
+        precharge_money,
+      </if>
+      <if test="prechargePrincipal != null" >
+        precharge_principal,
+      </if>
+      <if test="prechargeGive != null" >
+        precharge_give,
+      </if>
+      <if test="payRatio != null" >
+        pay_ratio,
+      </if>
+      <if test="midchargeMoney != null" >
+        midcharge_money,
+      </if>
+      <if test="prepayType != null" >
+        prepay_type,
+      </if>
+      <if test="sourceFunds != null" >
+        source_funds,
+      </if>
+      <if test="appFlag != null" >
+        app_flag,
+      </if>
+      <if test="substId != null" >
+        subst_id,
+      </if>
+      <if test="pileId != null" >
+        pile_id,
+      </if>
+      <if test="gunId != null" >
+        gun_id,
+      </if>
+      <if test="pileCode != null" >
+        pile_code,
+      </if>
+      <if test="chargeState != null" >
+        charge_state,
+      </if>
+      <if test="payDate != null" >
+        pay_date,
+      </if>
+      <if test="payCustomer != null" >
+        pay_customer,
+      </if>
+      <if test="memberCouponId != null" >
+        member_coupon_id,
+      </if>
+      <if test="couponCode != null" >
+        coupon_code,
+      </if>
+      <if test="couponMoney != null" >
+        coupon_money,
+      </if>
+      <if test="chargeSerialnumber != null" >
+        charge_serialnumber,
+      </if>
+      <if test="chargebeginDate != null" >
+        chargebegin_date,
+      </if>
+      <if test="beginpushFlag != null" >
+        beginpush_flag,
+      </if>
+      <if test="chargeendDate != null" >
+        chargeend_date,
+      </if>
+      <if test="chargeDl != null" >
+        charge_dl,
+      </if>
+      <if test="chargeDur != null" >
+        charge_dur,
+      </if>
+      <if test="endCause != null" >
+        end_cause,
+      </if>
+      <if test="errorCode != null" >
+        error_code,
+      </if>
+      <if test="aftchargeMoney != null" >
+        aftcharge_money,
+      </if>
+      <if test="endpushFlag != null" >
+        endpush_flag,
+      </if>
+      <if test="chargeMoney != null" >
+        charge_money,
+      </if>
+      <if test="serviceMoney != null" >
+        service_money,
+      </if>
+      <if test="serviceMoneyj != null" >
+        service_moneyj,
+      </if>
+      <if test="serviceMoneyf != null" >
+        service_moneyf,
+      </if>
+      <if test="serviceMoneyp != null" >
+        service_moneyp,
+      </if>
+      <if test="serviceMoneyg != null" >
+        service_moneyg,
+      </if>
+      <if test="discountMoney != null" >
+        discount_money,
+      </if>
+      <if test="tradeMoney != null" >
+        trade_money,
+      </if>
+      <if test="refundMoney != null" >
+        refund_money,
+      </if>
+      <if test="refundPrincipal != null" >
+        refund_principal,
+      </if>
+      <if test="refundGive != null" >
+        refund_give,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="leveldesc != null" >
+        leveldesc,
+      </if>
+      <if test="refundSerialnumber != null" >
+        refund_serialnumber,
+      </if>
+      <if test="refundopDate != null" >
+        refundop_date,
+      </if>
+      <if test="refundDate != null" >
+        refund_date,
+      </if>
+      <if test="refundErrcode != null" >
+        refund_errcode,
+      </if>
+      <if test="refundErrinfo != null" >
+        refund_errinfo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="operatorId != null" >
+        #{operatorId,jdbcType=INTEGER},
+      </if>
+      <if test="serialnumber != null" >
+        #{serialnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeDate != null" >
+        #{tradeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="prechargeMoney != null" >
+        #{prechargeMoney,jdbcType=INTEGER},
+      </if>
+      <if test="prechargePrincipal != null" >
+        #{prechargePrincipal,jdbcType=INTEGER},
+      </if>
+      <if test="prechargeGive != null" >
+        #{prechargeGive,jdbcType=INTEGER},
+      </if>
+      <if test="payRatio != null" >
+        #{payRatio,jdbcType=DOUBLE},
+      </if>
+      <if test="midchargeMoney != null" >
+        #{midchargeMoney,jdbcType=INTEGER},
+      </if>
+      <if test="prepayType != null" >
+        #{prepayType,jdbcType=INTEGER},
+      </if>
+      <if test="sourceFunds != null" >
+        #{sourceFunds,jdbcType=TINYINT},
+      </if>
+      <if test="appFlag != null" >
+        #{appFlag,jdbcType=TINYINT},
+      </if>
+      <if test="substId != null" >
+        #{substId,jdbcType=INTEGER},
+      </if>
+      <if test="pileId != null" >
+        #{pileId,jdbcType=INTEGER},
+      </if>
+      <if test="gunId != null" >
+        #{gunId,jdbcType=INTEGER},
+      </if>
+      <if test="pileCode != null" >
+        #{pileCode,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeState != null" >
+        #{chargeState,jdbcType=TINYINT},
+      </if>
+      <if test="payDate != null" >
+        #{payDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payCustomer != null" >
+        #{payCustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="memberCouponId != null" >
+        #{memberCouponId,jdbcType=INTEGER},
+      </if>
+      <if test="couponCode != null" >
+        #{couponCode,jdbcType=VARCHAR},
+      </if>
+      <if test="couponMoney != null" >
+        #{couponMoney,jdbcType=INTEGER},
+      </if>
+      <if test="chargeSerialnumber != null" >
+        #{chargeSerialnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="chargebeginDate != null" >
+        #{chargebeginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="beginpushFlag != null" >
+        #{beginpushFlag,jdbcType=TINYINT},
+      </if>
+      <if test="chargeendDate != null" >
+        #{chargeendDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chargeDl != null" >
+        #{chargeDl,jdbcType=DOUBLE},
+      </if>
+      <if test="chargeDur != null" >
+        #{chargeDur,jdbcType=INTEGER},
+      </if>
+      <if test="endCause != null" >
+        #{endCause,jdbcType=INTEGER},
+      </if>
+      <if test="errorCode != null" >
+        #{errorCode,jdbcType=INTEGER},
+      </if>
+      <if test="aftchargeMoney != null" >
+        #{aftchargeMoney,jdbcType=INTEGER},
+      </if>
+      <if test="endpushFlag != null" >
+        #{endpushFlag,jdbcType=TINYINT},
+      </if>
+      <if test="chargeMoney != null" >
+        #{chargeMoney,jdbcType=INTEGER},
+      </if>
+      <if test="serviceMoney != null" >
+        #{serviceMoney,jdbcType=INTEGER},
+      </if>
+      <if test="serviceMoneyj != null" >
+        #{serviceMoneyj,jdbcType=INTEGER},
+      </if>
+      <if test="serviceMoneyf != null" >
+        #{serviceMoneyf,jdbcType=INTEGER},
+      </if>
+      <if test="serviceMoneyp != null" >
+        #{serviceMoneyp,jdbcType=INTEGER},
+      </if>
+      <if test="serviceMoneyg != null" >
+        #{serviceMoneyg,jdbcType=INTEGER},
+      </if>
+      <if test="discountMoney != null" >
+        #{discountMoney,jdbcType=INTEGER},
+      </if>
+      <if test="tradeMoney != null" >
+        #{tradeMoney,jdbcType=INTEGER},
+      </if>
+      <if test="refundMoney != null" >
+        #{refundMoney,jdbcType=INTEGER},
+      </if>
+      <if test="refundPrincipal != null" >
+        #{refundPrincipal,jdbcType=INTEGER},
+      </if>
+      <if test="refundGive != null" >
+        #{refundGive,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="leveldesc != null" >
+        #{leveldesc,jdbcType=VARCHAR},
+      </if>
+      <if test="refundSerialnumber != null" >
+        #{refundSerialnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="refundopDate != null" >
+        #{refundopDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="refundDate != null" >
+        #{refundDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="refundErrcode != null" >
+        #{refundErrcode,jdbcType=INTEGER},
+      </if>
+      <if test="refundErrinfo != null" >
+        #{refundErrinfo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateMemberOrders" parameterType="com.ke.model.MemberOrders" >
+    update member_orders
+    <set >
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="operatorId != null" >
+        operator_id = #{operatorId,jdbcType=INTEGER},
+      </if>
+      <if test="serialnumber != null" >
+        serialnumber = #{serialnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeDate != null" >
+        trade_date = #{tradeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="prechargeMoney != null" >
+        precharge_money = #{prechargeMoney,jdbcType=INTEGER},
+      </if>
+      <if test="prechargePrincipal != null" >
+        precharge_principal = #{prechargePrincipal,jdbcType=INTEGER},
+      </if>
+      <if test="prechargeGive != null" >
+        precharge_give = #{prechargeGive,jdbcType=INTEGER},
+      </if>
+      <if test="payRatio != null" >
+        pay_ratio = #{payRatio,jdbcType=DOUBLE},
+      </if>
+      <if test="midchargeMoney != null" >
+        midcharge_money = #{midchargeMoney,jdbcType=INTEGER},
+      </if>
+      <if test="prepayType != null" >
+        prepay_type = #{prepayType,jdbcType=INTEGER},
+      </if>
+      <if test="sourceFunds != null" >
+        source_funds = #{sourceFunds,jdbcType=TINYINT},
+      </if>
+      <if test="appFlag != null" >
+        app_flag = #{appFlag,jdbcType=TINYINT},
+      </if>
+      <if test="substId != null" >
+        subst_id = #{substId,jdbcType=INTEGER},
+      </if>
+      <if test="pileId != null" >
+        pile_id = #{pileId,jdbcType=INTEGER},
+      </if>
+      <if test="gunId != null" >
+        gun_id = #{gunId,jdbcType=INTEGER},
+      </if>
+      <if test="pileCode != null" >
+        pile_code = #{pileCode,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeState != null" >
+        charge_state = #{chargeState,jdbcType=TINYINT},
+      </if>
+      <if test="payDate != null" >
+        pay_date = #{payDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payCustomer != null" >
+        pay_customer = #{payCustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="memberCouponId != null" >
+        member_coupon_id = #{memberCouponId,jdbcType=INTEGER},
+      </if>
+      <if test="couponCode != null" >
+        coupon_code = #{couponCode,jdbcType=VARCHAR},
+      </if>
+      <if test="couponMoney != null" >
+        coupon_money = #{couponMoney,jdbcType=INTEGER},
+      </if>
+      <if test="chargeSerialnumber != null" >
+        charge_serialnumber = #{chargeSerialnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="chargebeginDate != null" >
+        chargebegin_date = #{chargebeginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="beginpushFlag != null" >
+        beginpush_flag = #{beginpushFlag,jdbcType=TINYINT},
+      </if>
+      <if test="chargeendDate != null" >
+        chargeend_date = #{chargeendDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chargeDl != null" >
+        charge_dl = #{chargeDl,jdbcType=DOUBLE},
+      </if>
+      <if test="chargeDur != null" >
+        charge_dur = #{chargeDur,jdbcType=INTEGER},
+      </if>
+      <if test="endCause != null" >
+        end_cause = #{endCause,jdbcType=INTEGER},
+      </if>
+      <if test="errorCode != null" >
+        error_code = #{errorCode,jdbcType=INTEGER},
+      </if>
+      <if test="aftchargeMoney != null" >
+        aftcharge_money = #{aftchargeMoney,jdbcType=INTEGER},
+      </if>
+      <if test="endpushFlag != null" >
+        endpush_flag = #{endpushFlag,jdbcType=TINYINT},
+      </if>
+      <if test="chargeMoney != null" >
+        charge_money = #{chargeMoney,jdbcType=INTEGER},
+      </if>
+      <if test="serviceMoney != null" >
+        service_money = #{serviceMoney,jdbcType=INTEGER},
+      </if>
+      <if test="serviceMoneyj != null" >
+        service_moneyj = #{serviceMoneyj,jdbcType=INTEGER},
+      </if>
+      <if test="serviceMoneyf != null" >
+        service_moneyf = #{serviceMoneyf,jdbcType=INTEGER},
+      </if>
+      <if test="serviceMoneyp != null" >
+        service_moneyp = #{serviceMoneyp,jdbcType=INTEGER},
+      </if>
+      <if test="serviceMoneyg != null" >
+        service_moneyg = #{serviceMoneyg,jdbcType=INTEGER},
+      </if>
+      <if test="discountMoney != null" >
+        discount_money = #{discountMoney,jdbcType=INTEGER},
+      </if>
+      <if test="tradeMoney != null" >
+        trade_money = #{tradeMoney,jdbcType=INTEGER},
+      </if>
+      <if test="refundMoney != null" >
+        refund_money = #{refundMoney,jdbcType=INTEGER},
+      </if>
+      <if test="refundPrincipal != null" >
+        refund_principal = #{refundPrincipal,jdbcType=INTEGER},
+      </if>
+      <if test="refundGive != null" >
+        refund_give = #{refundGive,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="leveldesc != null" >
+        leveldesc = #{leveldesc,jdbcType=VARCHAR},
+      </if>
+      <if test="refundSerialnumber != null" >
+        refund_serialnumber = #{refundSerialnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="refundopDate != null" >
+        refundop_date = #{refundopDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="refundDate != null" >
+        refund_date = #{refundDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="refundErrcode != null" >
+        refund_errcode = #{refundErrcode,jdbcType=INTEGER},
+      </if>
+      <if test="refundErrinfo != null" >
+        refund_errinfo = #{refundErrinfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+	<select id="getMemberIdByPhone" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT id from members where username = #{phone,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="getPaySerialNumber" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT serialnumber from members 
+		where charge_serialnumber = #{chargeSerialNumber,jdbcType=VARCHAR}	
+	</select>
+</mapper>

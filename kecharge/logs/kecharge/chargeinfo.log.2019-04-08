@@ -1,0 +1,57 @@
+[2019-04-08 11:04:35.961] INFO [http-nio-8080-exec-10] ChargeServiceImpl.java:84 - 接收开始充电请求：{"pileNo":"KE10002","gunNo":"1","serialNumber":"9800000001","chargeMoney":"10"}
+[2019-04-08 11:04:42.568] INFO [http-nio-8080-exec-10] ChargeServiceImpl.java:190 - web service 下发错误{"pileNo":"KE10002","gunNo":"1","serialNumber":"9800000001","chargeMoney":"10"}
+[2019-04-08 11:04:42.568] INFO [http-nio-8080-exec-10] ChargeServiceImpl.java:198 - 流水号 ：009800000001请求充电成功！
+[2019-04-08 11:05:00.619] INFO [scheduling-1] ChargeServiceImpl.java:689 - 发送充电开始消息：{"serialNumber":"009800000001"} ,返回结果 ：{"error":"","status":0} 
+[2019-04-08 11:25:47.197] INFO [http-nio-8080-exec-3] ChargeServiceImpl.java:84 - 接收开始充电请求：{"pileNo":"KE10002","gunNo":"1","serialNumber":"9900000001","chargeMoney":"10"}
+[2019-04-08 11:26:00.424] INFO [scheduling-1] ChargeServiceImpl.java:689 - 发送充电开始消息：{"serialNumber":"009900000001"} ,返回结果 ：{"error":"","status":0} 
+[2019-04-08 11:26:11.285] INFO [http-nio-8080-exec-3] ChargeServiceImpl.java:190 - web service 下发错误{"pileNo":"KE10002","gunNo":"1","serialNumber":"9900000001","chargeMoney":"10"}
+[2019-04-08 11:26:11.285] INFO [http-nio-8080-exec-3] ChargeServiceImpl.java:198 - 流水号 ：009900000001请求充电成功！
+[2019-04-08 11:31:05.306] INFO [http-nio-8080-exec-6] ChargeServiceImpl.java:816 - 接送获取充电桩充电记录请求:{"pileNo":"KE0000000001","gunNo":"1","serialNumber":"9900000001"}
+[2019-04-08 11:37:31.809] INFO [http-nio-8080-exec-3] ChargeServiceImpl.java:84 - 接收开始充电请求：{"pileNo":"KE0000000001","gunNo":"1","serialNumber":"9900000002","chargeMoney":"10"}
+[2019-04-08 11:37:51.759] INFO [http-nio-8080-exec-3] ChargeServiceImpl.java:190 - web service 下发错误{"pileNo":"KE0000000001","gunNo":"1","serialNumber":"9900000002","chargeMoney":"10"}
+[2019-04-08 11:37:51.759] INFO [http-nio-8080-exec-3] ChargeServiceImpl.java:198 - 流水号 ：009900000002请求充电成功！
+[2019-04-08 15:11:40.502] INFO [http-nio-19999-exec-9] ChargeServiceImpl.java:497 - 接收获取充电过程实时信息请求:{"serialNumber":"9900000001"}
+[2019-04-08 15:11:40.547] INFO [http-nio-19999-exec-9] ChargeServiceImpl.java:537 - 获取充电过程返回结果 : {"remainSecond":0,"gunNo":0,"SOC":0,"pileType":0,"pileNo":"","chargeMoney":0,"error":"","chargElectricity":0.0,"status":0,"chargeSecond":0}
+[2019-04-08 15:52:17.874] INFO [http-nio-19999-exec-9] ChargeServiceImpl.java:497 - 接收获取充电过程实时信息请求:{"serialNumber":"9900000001"}
+[2019-04-08 15:52:17.892] INFO [http-nio-19999-exec-9] ChargeServiceImpl.java:537 - 获取充电过程返回结果 : {"remainSecond":0,"gunNo":0,"SOC":0,"pileType":0,"pileNo":"","chargeMoney":0,"error":"","chargElectricity":0.0,"status":0,"chargeSecond":0}
+[2019-04-08 15:52:31.585] INFO [http-nio-19999-exec-8] ChargeServiceImpl.java:814 - 接送获取充电桩充电记录请求:{"pileNo":"KE0000000001","gunNo":"1","serialNumber":"9900000001"}
+[2019-04-08 15:52:43.689] INFO [http-nio-19999-exec-5] ChargeServiceImpl.java:814 - 接送获取充电桩充电记录请求:{"pileNo":"KE10002","gunNo":"1","serialNumber":"9900000001"}
+[2019-04-08 15:52:44.516] INFO [http-nio-19999-exec-2] ChargeServiceImpl.java:814 - 接送获取充电桩充电记录请求:{"pileNo":"KE10002","gunNo":"1","serialNumber":"9900000001"}
+[2019-04-08 15:59:40.582] INFO [http-nio-19999-exec-10] ChargeServiceImpl.java:408 - 接收获取充电过程信息请求:{"serialNumber":"9900000001"}
+[2019-04-08 15:59:40.586] INFO [http-nio-19999-exec-10] ChargeServiceImpl.java:461 - 获取充电过程请求结束 ,返回结果: {"chargHighElectricity":"","CVoltage":"","chargFlatElectricity":"","chargTipElectricity":"","CCurrent":"","BCurrent":"","ACurrent":"","AVoltage":"","BVoltage":"","error":"","chargLowElectricity":"","chargTotalElectricity":"","status":0}
+[2019-04-08 15:59:45.160] INFO [http-nio-19999-exec-3] ChargeServiceImpl.java:408 - 接收获取充电过程信息请求:{"serialNumber":"9900000001"}
+[2019-04-08 15:59:45.164] INFO [http-nio-19999-exec-3] ChargeServiceImpl.java:461 - 获取充电过程请求结束 ,返回结果: {"chargHighElectricity":"","CVoltage":"","chargFlatElectricity":"","chargTipElectricity":"","CCurrent":"","BCurrent":"","ACurrent":"","AVoltage":"","BVoltage":"","error":"","chargLowElectricity":"","chargTotalElectricity":"","status":0}
+[2019-04-08 15:59:45.557] INFO [http-nio-19999-exec-7] ChargeServiceImpl.java:408 - 接收获取充电过程信息请求:{"serialNumber":"9900000001"}
+[2019-04-08 15:59:45.561] INFO [http-nio-19999-exec-7] ChargeServiceImpl.java:461 - 获取充电过程请求结束 ,返回结果: {"chargHighElectricity":"","CVoltage":"","chargFlatElectricity":"","chargTipElectricity":"","CCurrent":"","BCurrent":"","ACurrent":"","AVoltage":"","BVoltage":"","error":"","chargLowElectricity":"","chargTotalElectricity":"","status":0}
+[2019-04-08 15:59:45.808] INFO [http-nio-19999-exec-9] ChargeServiceImpl.java:408 - 接收获取充电过程信息请求:{"serialNumber":"9900000001"}
+[2019-04-08 15:59:45.811] INFO [http-nio-19999-exec-9] ChargeServiceImpl.java:461 - 获取充电过程请求结束 ,返回结果: {"chargHighElectricity":"","CVoltage":"","chargFlatElectricity":"","chargTipElectricity":"","CCurrent":"","BCurrent":"","ACurrent":"","AVoltage":"","BVoltage":"","error":"","chargLowElectricity":"","chargTotalElectricity":"","status":0}
+[2019-04-08 15:59:46.040] INFO [http-nio-19999-exec-1] ChargeServiceImpl.java:408 - 接收获取充电过程信息请求:{"serialNumber":"9900000001"}
+[2019-04-08 15:59:46.044] INFO [http-nio-19999-exec-1] ChargeServiceImpl.java:461 - 获取充电过程请求结束 ,返回结果: {"chargHighElectricity":"","CVoltage":"","chargFlatElectricity":"","chargTipElectricity":"","CCurrent":"","BCurrent":"","ACurrent":"","AVoltage":"","BVoltage":"","error":"","chargLowElectricity":"","chargTotalElectricity":"","status":0}
+[2019-04-08 15:59:46.329] INFO [http-nio-19999-exec-8] ChargeServiceImpl.java:408 - 接收获取充电过程信息请求:{"serialNumber":"9900000001"}
+[2019-04-08 15:59:46.332] INFO [http-nio-19999-exec-8] ChargeServiceImpl.java:461 - 获取充电过程请求结束 ,返回结果: {"chargHighElectricity":"","CVoltage":"","chargFlatElectricity":"","chargTipElectricity":"","CCurrent":"","BCurrent":"","ACurrent":"","AVoltage":"","BVoltage":"","error":"","chargLowElectricity":"","chargTotalElectricity":"","status":0}
+[2019-04-08 15:59:46.620] INFO [http-nio-19999-exec-5] ChargeServiceImpl.java:408 - 接收获取充电过程信息请求:{"serialNumber":"9900000001"}
+[2019-04-08 15:59:46.624] INFO [http-nio-19999-exec-5] ChargeServiceImpl.java:461 - 获取充电过程请求结束 ,返回结果: {"chargHighElectricity":"","CVoltage":"","chargFlatElectricity":"","chargTipElectricity":"","CCurrent":"","BCurrent":"","ACurrent":"","AVoltage":"","BVoltage":"","error":"","chargLowElectricity":"","chargTotalElectricity":"","status":0}
+[2019-04-08 15:59:46.895] INFO [http-nio-19999-exec-2] ChargeServiceImpl.java:408 - 接收获取充电过程信息请求:{"serialNumber":"9900000001"}
+[2019-04-08 15:59:46.898] INFO [http-nio-19999-exec-2] ChargeServiceImpl.java:461 - 获取充电过程请求结束 ,返回结果: {"chargHighElectricity":"","CVoltage":"","chargFlatElectricity":"","chargTipElectricity":"","CCurrent":"","BCurrent":"","ACurrent":"","AVoltage":"","BVoltage":"","error":"","chargLowElectricity":"","chargTotalElectricity":"","status":0}
+[2019-04-08 15:59:47.449] INFO [http-nio-19999-exec-4] ChargeServiceImpl.java:408 - 接收获取充电过程信息请求:{"serialNumber":"9900000001"}
+[2019-04-08 15:59:47.453] INFO [http-nio-19999-exec-4] ChargeServiceImpl.java:461 - 获取充电过程请求结束 ,返回结果: {"chargHighElectricity":"","CVoltage":"","chargFlatElectricity":"","chargTipElectricity":"","CCurrent":"","BCurrent":"","ACurrent":"","AVoltage":"","BVoltage":"","error":"","chargLowElectricity":"","chargTotalElectricity":"","status":0}
+[2019-04-08 16:00:20.891] INFO [http-nio-19999-exec-6] ChargeServiceImpl.java:408 - 接收获取充电过程信息请求:{"serialNumber":"9900000001"}
+[2019-04-08 16:00:57.702] INFO [http-nio-19999-exec-6] ChargeServiceImpl.java:408 - 接收获取充电过程信息请求:{"serialNumber":"9900000001"}
+[2019-04-08 16:00:57.708] INFO [http-nio-19999-exec-6] ChargeServiceImpl.java:461 - 获取充电过程请求结束 ,返回结果: {"chargHighElectricity":"","CVoltage":"","chargFlatElectricity":"","chargTipElectricity":"","CCurrent":"","BCurrent":"","ACurrent":"","AVoltage":"","BVoltage":"","error":"","chargLowElectricity":"","chargTotalElectricity":"","status":0}
+[2019-04-08 16:09:54.145] INFO [http-nio-19999-exec-5] ChargeServiceImpl.java:814 - 接送获取充电桩充电记录请求:{"pileNo":"KE0000000001","gunNo":"1","serialNumber":"9900000001"}
+[2019-04-08 16:10:01.535] INFO [http-nio-19999-exec-2] ChargeServiceImpl.java:814 - 接送获取充电桩充电记录请求:{"pileNo":"KE10002","gunNo":"1","serialNumber":"9900000001"}
+[2019-04-08 16:10:02.474] INFO [http-nio-19999-exec-4] ChargeServiceImpl.java:814 - 接送获取充电桩充电记录请求:{"pileNo":"KE10002","gunNo":"1","serialNumber":"9900000001"}
+[2019-04-08 16:10:02.688] INFO [http-nio-19999-exec-6] ChargeServiceImpl.java:814 - 接送获取充电桩充电记录请求:{"pileNo":"KE10002","gunNo":"1","serialNumber":"9900000001"}
+[2019-04-08 16:10:40.532] INFO [http-nio-19999-exec-10] ChargeServiceImpl.java:814 - 接送获取充电桩充电记录请求:{"pileNo":"KE10002","gunNo":"1","serialNumber":"9900000001"}
+[2019-04-08 16:12:03.103] INFO [http-nio-19999-exec-4] ChargeServiceImpl.java:814 - 接送获取充电桩充电记录请求:{"pileNo":"KE10002","gunNo":"1","serialNumber":"990000001"}
+[2019-04-08 16:12:15.694] INFO [http-nio-19999-exec-6] ChargeServiceImpl.java:814 - 接送获取充电桩充电记录请求:{"pileNo":"KE10002","gunNo":"1","serialNumber":"990000001"}
+[2019-04-08 16:12:24.782] INFO [http-nio-19999-exec-10] ChargeServiceImpl.java:814 - 接送获取充电桩充电记录请求:{"pileNo":"KE0000000001","gunNo":"1","serialNumber":"9900000001"}
+[2019-04-08 16:12:32.126] INFO [http-nio-19999-exec-3] ChargeServiceImpl.java:497 - 接收获取充电过程实时信息请求:{"serialNumber":"9900000001"}
+[2019-04-08 16:12:32.129] INFO [http-nio-19999-exec-3] ChargeServiceImpl.java:537 - 获取充电过程返回结果 : {"remainSecond":0,"gunNo":0,"SOC":0,"pileType":0,"pileNo":"","chargeMoney":0,"error":"","chargElectricity":0.0,"status":0,"chargeSecond":0}
+[2019-04-08 16:12:44.013] INFO [http-nio-19999-exec-9] ChargeServiceImpl.java:497 - 接收获取充电过程实时信息请求:{"serialNumber":"9900000001"}
+[2019-04-08 16:12:44.017] INFO [http-nio-19999-exec-9] ChargeServiceImpl.java:537 - 获取充电过程返回结果 : {"remainSecond":0,"gunNo":0,"SOC":0,"pileType":0,"pileNo":"","chargeMoney":0,"error":"","chargElectricity":0.0,"status":0,"chargeSecond":0}
+[2019-04-08 16:15:25.200] INFO [http-nio-19999-exec-5] ChargeServiceImpl.java:814 - 接送获取充电桩充电记录请求:{"pileNo":"KE0000000001","gunNo":"1","serialNumber":"9900000001"}
+[2019-04-08 17:53:10.463] INFO [http-nio-19999-exec-6] ChargeServiceImpl.java:814 - 接送获取充电桩充电记录请求:{"pileNo":"ke1000210002","gunNo":"1","serialNumber":"9800000001"}
+[2019-04-08 17:53:35.966] INFO [http-nio-19999-exec-3] ChargeServiceImpl.java:84 - 接收开始充电请求：{"pileNo":"ke1000210002","gunNo":"1","serialNumber":"9800000001","chargeMoney":"10"}
+[2019-04-08 17:53:35.995] INFO [http-nio-19999-exec-3] ChargeServiceImpl.java:104 - 流水号[009800000001]已存在
+[2019-04-08 17:53:46.474] INFO [http-nio-19999-exec-9] ChargeServiceImpl.java:84 - 接收开始充电请求：{"pileNo":"ke1000210002","gunNo":"1","serialNumber":"9800000005","chargeMoney":"10"}

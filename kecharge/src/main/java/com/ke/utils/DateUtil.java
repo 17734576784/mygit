@@ -132,6 +132,10 @@ public class DateUtil {
 	 * @return
 	 */
 	public static Date parseDate(String strDate, String pattern) {
+		
+		if (strDate == null || strDate.isEmpty()) {
+			return null;
+		}
 		try {
 			SimpleDateFormat format = new SimpleDateFormat(pattern);
 			Date nowDate = format.parse(strDate);

@@ -8,11 +8,13 @@
 */
 package com.ke.task;
 
-import java.text.SimpleDateFormat;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import com.ke.service.ITaskService;
 
 /**
  * @ClassName: ScheduledTasks
@@ -25,18 +27,44 @@ import org.springframework.stereotype.Component;
 @Configurable
 @EnableScheduling
 public class ScheduledTasks {
-	@Scheduled(fixedRate = 1000 * 30)
-	public void reportCurrentTime() {
-//		System.out.println("Scheduling Tasks Examples: The time is now " + dateFormat().format(new Date()));
+	
+	@Autowired
+	private ITaskService taskService;
+	
+	/** 
+	* @Title: pushMessageTask 
+	* @Description: 消息推送任务 一分钟执行一次
+	* @param     设定文件 
+	* @return void    返回类型 
+	* @throws 
+	*/
+	@Scheduled(cron = "0 */1 * * * ?")
+	public void pushMessageTask() {
+		taskService.pushMessageTask();
+	
 	}
 
-	// 每1分钟执行一次
-	@Scheduled(cron = "0 */1 *  * * * ")
-	public void reportCurrentByCron() {
-//		System.out.println("Scheduling Tasks Examples By Cron: The time is now " + dateFormat().format(new Date()));
-	}
-
-	private SimpleDateFormat dateFormat() {
-		return new SimpleDateFormat("HH:mm:ss");
+	/** 
+	* @Title: backupChargeMonitorTask 
+	* @Description: 备份充电记录监控任务  每天一点执行
+	* @param     设定文件 
+	* @return void    返回类型 
+	* @throws 
+	*/
+	@Scheduled(cron = "0 0 1 * * ?")
+	public void backupChargeMonitorTask() {
+		taskService.backupChargeMonitorTask();
+ 	}
+	
+	/** 
+	* @Title: backUpChargeOrderTask 
+	* @Description: 备份充电单   每天一点执行
+	* @param     设定文件 
+	* @return void    返回类型 
+	* @throws 
+	*/
+	@Scheduled(cron = "0 0 1 * * ?")
+	public void backUpChargeOrderTask() {
+		taskService.backUpChargeOrderTask();
 	}
 }

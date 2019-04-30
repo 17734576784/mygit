@@ -1,0 +1,232 @@
+/**   
+* @Title: TaskServiceImpl.java 
+* @Package com.ke.serviceimpl 
+* @Description: TODO(用一句话描述该文件做什么) 
+* @author dbr
+* @date 2019年1月10日 下午4:43:32 
+* @version V1.0   
+*/
+package com.ke.serviceimpl;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.alibaba.fastjson.JSONObject;
+import com.ke.common.CommFunc;
+import com.ke.common.Constant;
+import com.ke.logger.LogName;
+import com.ke.logger.LoggerUtil;
+import com.ke.mapper.ChargeMonitorMapper;
+import com.ke.mapper.MemberOrdersMapper;
+import com.ke.model.ChargeMonitor;
+import com.ke.model.MemberOrders;
+import com.ke.service.IChargeService;
+import com.ke.service.ITaskService;
+import com.ke.utils.ConverterUtil;
+import com.ke.utils.DateUtil;
+import com.ke.utils.JedisUtil;
+
+/** 
+* @ClassName: TaskServiceImpl 
+* @Description: 自动任务服务实现类
+* @author dbr
+* @date 2019年1月10日 下午4:43:32 
+*  
+*/
+@Service
+public class TaskServiceImpl implements ITaskService {
+	
+	@Resource
+	private ChargeMonitorMapper chargeMonitorMapper;
+	
+	@Autowired
+	private IChargeService chargeService;
+	
+	@Resource
+	private MemberOrdersMapper memberOrdersMapper;
+
+	/** (非 Javadoc) 
+	* <p>Title: pushMessageTask</p> 
+	* <p>Description: </p>  
+	* @see com.ke.service.ITaskService#pushMessageTask() 
+	*/
+	@Override
+	public void pushMessageTask() {
+		// TODO Auto-generated method stub
+		try {
+			List<ChargeMonitor> chargeMonitorList = chargeMonitorMapper.listChargeMonitorTask();
+			for (ChargeMonitor chargeMonitor : chargeMonitorList) {
+				if (null == chargeMonitor) {
+					continue;
+				}
+
+				JSONObject json = new JSONObject();
+				if (chargeMonitor.getStartPush() == Constant.NOPUSH) {
+					json.put("serialNumber", chargeMonitor.getSerialnumber());
+					json.put("chargeFlag", chargeMonitor.getStartFlag());
+
+					if (chargeService.SendChargeStartRequest(json, Constant.RETRY)) {
+						chargeMonitor.setStartPush(Constant.PUSHED);
+						chargeMonitor.setStartPushTime(new Date());
+						chargeMonitorMapper.updateChargeMonitor(chargeMonitor);
+						Thread.sleep(5000);
+					}
+
+				} else if (chargeMonitor.getEndPush() == Constant.NOPUSH) {
+
+					MemberOrders order = this.memberOrdersMapper.getmemberOrders(chargeMonitor.getSerialnumber());
+
+					if (null == order) {
+						return;
+					}
+
+					boolean checkWasteNo = CommFunc.checkWasteno(order.getSerialnumber());
+					if (!checkWasteNo) {
+						continue;
+					}
+
+					double totalElectricity = 0, trade_money = 0, serviceMoney = 0;
+					String endCause = "未知";
+
+					totalElectricity = ConverterUtil.toDouble(order.getChargeDl());
+					trade_money = ConverterUtil.toDouble(order.getTradeMoney() / 100);
+					serviceMoney = ConverterUtil.toDouble(order.getServiceMoney() / 100);
+
+					int m_cause = ConverterUtil.toInt(order.getEndCause());
+					Map<String, String> endCauseMap = JedisUtil.hgetAll(Constant.ENDCAUSE_DICTION);
+					endCause = endCauseMap.get(m_cause);
+					if (null == endCause || endCause.equals("")) {
+						endCause = "未知";
+					}
+
+					JSONObject rtnJson = CommFunc.errorInfo(Constant.SUCCESS, "");
+					String pileNo = order.getPileCode();
+
+					rtnJson.put("serialNumber", order.getSerialnumber());
+					rtnJson.put("pileNo", pileNo);
+					rtnJson.put("gunNo", order.getGunId());
+					rtnJson.put("startDate", DateUtil.formatTimesTampDate(order.getChargebeginDate()));
+					rtnJson.put("endDate", DateUtil.formatTimesTampDate(order.getChargeendDate()));
+
+					rtnJson.put("totalElectricity", ConverterUtil.roundTosString(totalElectricity, 2));
+					rtnJson.put("chargeMoney", ConverterUtil.roundTosString(trade_money, 2));
+					rtnJson.put("serviceMoney", ConverterUtil.roundTosString(serviceMoney, 2));
+
+					rtnJson.put("endCause", endCause);
+
+					// 发送充电结束请求
+					if (chargeService.SendChargeOverRequest(rtnJson, Constant.RETRY)) {
+						chargeMonitor.setEndPush(Constant.PUSHED);
+						chargeMonitor.setEndPushTime(new Date());
+						chargeMonitorMapper.updateChargeMonitor(chargeMonitor);
+						Thread.sleep(2000);
+					}
+				}
+			}
+		} catch (Exception e) {
+			LoggerUtil.logger(LogName.ERROR).error("推送消息任务异常！", e);
+			e.printStackTrace();
+		}
+	}
+
+	/** (非 Javadoc) 
+	* <p>Title: backupChargeMonitorTask</p> 
+	* <p>Description: </p>  
+	* @see com.ke.service.ITaskService#backupChargeMonitorTask() 
+	*/
+	@Override
+	public void backupChargeMonitorTask() {
+		try {
+			Calendar c = Calendar.getInstance();
+			int nowYear = c.get(Calendar.YEAR);
+			c.add(Calendar.DAY_OF_YEAR, -10);
+			int lastYear = c.get(Calendar.YEAR);
+
+			String tableNowYear = "chargedata.charge_monitor" + nowYear;
+			String tableLastYear = "chargedata.charge_monitor" + lastYear;
+
+			Map<String, Object> param = new HashMap<String, Object>();
+			if (nowYear == lastYear) {
+				param.put("tableName", tableNowYear);
+				param.put("symd", nowYear + "0101");
+				param.put("eymd", DateUtil.curDate());
+				if (chargeMonitorMapper.backupChargeMonitor(param)) {
+					chargeMonitorMapper.deleteChargeMonitors(param);
+				}
+			} else {
+				param.put("tableName", tableLastYear);
+				param.put("symd", lastYear + "0101");
+				param.put("eymd", lastYear + "1231");
+				if (chargeMonitorMapper.backupChargeMonitor(param)) {
+					chargeMonitorMapper.deleteChargeMonitors(param);
+				}
+
+				param.put("tableName", tableNowYear);
+				param.put("symd", nowYear + "0101");
+				param.put("eymd", DateUtil.curDate());
+				if (chargeMonitorMapper.backupChargeMonitor(param)) {
+					chargeMonitorMapper.deleteChargeMonitors(param);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("备份充电监控记录任务失败");
+			LoggerUtil.logger(LogName.ERROR).error("备份充电记录监控任务失败", e);
+		}
+	}
+
+	/** (非 Javadoc) 
+	* <p>Title: backUpChargeOrderTask</p> 
+	* <p>Description: </p>  
+	* @see com.ke.service.ITaskService#backUpChargeOrderTask() 
+	*/
+	@Override
+	public void backUpChargeOrderTask() {
+		try {
+			Calendar c = Calendar.getInstance();
+			int nowYear = c.get(Calendar.YEAR);
+			c.add(Calendar.DAY_OF_YEAR, -30);
+			int lastYear = c.get(Calendar.YEAR);
+
+			String tableNowYear = "chargedata.orders" + nowYear;
+			String tableLastYear = "chargedata.orders" + lastYear;
+
+			Map<String, Object> param = new HashMap<String, Object>();
+			if (nowYear == lastYear) {
+				param.put("tableName", tableNowYear);
+				param.put("symd", nowYear + "0101");
+				param.put("eymd", DateUtil.curDate());
+				if (chargeMonitorMapper.backupChargeOrder(param)) {
+					chargeMonitorMapper.deleteChargeOrder(param);
+				}
+			} else {
+				param.put("tableName", tableLastYear);
+				param.put("symd", lastYear + "0101");
+				param.put("eymd", lastYear + "1231235959");
+				if (chargeMonitorMapper.backupChargeOrder(param)) {
+					chargeMonitorMapper.deleteChargeOrder(param);
+				}
+
+				param.put("tableName", tableNowYear);
+				param.put("symd", nowYear + "0101");
+				param.put("eymd", DateUtil.curDate());
+				if (chargeMonitorMapper.backupChargeOrder(param)) {
+					chargeMonitorMapper.deleteChargeOrder(param);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("备份充电单任务失败");
+			LoggerUtil.logger(LogName.ERROR).error("备份充电单任务失败", e);
+		}
+	}
+
+}

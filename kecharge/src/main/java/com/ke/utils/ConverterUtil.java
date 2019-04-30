@@ -8,6 +8,7 @@
 */
 package com.ke.utils;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -194,4 +195,45 @@ public class ConverterUtil {
 		}
 		return result;
 	}
+	
+	/**
+	 * 四舍五入返回String
+	 * @example1 roundBase(34.56, 1)->"34.6"
+	 * @example2 roundBase(34.81, 1)->"34.8"
+	 * @param    d      {传入Double类型变量d}
+	 * @param    scale  {传入四舍五入后结果保留的精度scale}
+	 * @return   string {返回String对象}
+	 * @throws   IllegalAccessException {抛出安全权限异常}
+	 */	
+	public static String roundTosString(Double d, int scale) throws IllegalAccessException {
+		BigDecimal b = roundBase(d, scale);
+		if (b == null)
+			return "";
+		else
+			return b.toString();
+	}
+	
+	/**
+	 * 四舍五入返回BigDecimal
+	 * @example1 roundBase(34.56,1)->34.6
+	 * @example2 roundBase(34.81,1)->34.8
+	 * @param    d     {传入Double类型变量d}
+	 * @param    scale {传入四舍五入后结果保留的精度scale}
+	 * @return   返回BigDecimal对象
+	 * @throws   IllegalAccessException {抛出安全权限异常}
+	 */	
+	public static BigDecimal roundBase(Double d, int scale)throws IllegalAccessException {
+		if (d == null) {
+			return null;
+		}
+		if (scale < 0) {
+			scale = Math.abs(scale);
+			// throw new
+			// IllegalAccessException("scale must be a positive integer or zero!");
+		}
+		BigDecimal b1 = new BigDecimal(Double.toString(d));
+		BigDecimal b2 = new BigDecimal("1");
+		return b1.divide(b2, scale, BigDecimal.ROUND_HALF_UP);
+	}
+
 }

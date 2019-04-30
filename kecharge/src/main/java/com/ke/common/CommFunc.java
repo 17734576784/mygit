@@ -10,6 +10,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.imageio.stream.FileImageInputStream;
 import javax.imageio.stream.FileImageOutputStream;
@@ -17,6 +20,12 @@ import javax.imageio.stream.FileImageOutputStream;
 import org.springframework.core.io.ClassPathResource;
 
 import com.alibaba.fastjson.JSONObject;
+import com.ke.model.LoginUser;
+import com.ke.model.OperatorConfig;
+import com.ke.utils.ConverterUtil;
+import com.ke.utils.JedisUtil;
+import com.ke.utils.JsonUtil;
+import com.ke.utils.SerializeUtil;
 
 /**
  * @ClassName: CommFunc
@@ -177,5 +186,111 @@ public class CommFunc {
 		json.put("error", errorInfo);
 		
 		return json;
+	}
+	
+	public static LoginUser getLoginUserByToken(String token) {
+		String key = Constant.TOKEN_PREFIX + token;
+
+		String value = JedisUtil.get(key);
+		if (value == null) {
+			return null;
+		}
+
+		LoginUser loginUser = JsonUtil.jsonString2SimpleObj(value, LoginUser.class);
+		return loginUser;
+	}
+	
+	/**
+     * 不够位数的在前面补0，保留num的长度位数字
+     * @param code
+     * @return
+     */
+    public static String autoGenericCode(String code, int num) {
+        String result = "";
+        result = String.format("%0" + num + "d", ConverterUtil.toLong(code));
+        return result;
+    }
+    
+	/**
+	 * 判断终端是否在线 在线返回true 不在线返回false
+	 */
+	public static boolean rtuOnlineFlag(int rtuId) {
+		boolean rtnFlag = false;
+		String key = Constant.RTUSTATE + rtuId;
+		Map<String, String> rtuState = JedisUtil.hgetAll(key);
+		if (null != rtuState) {
+			byte state = ConverterUtil.toByte(rtuState.get("status"));
+			rtnFlag = state == (byte) 1 ? true : false;
+
+		}
+		return rtnFlag;
+	}
+	
+	/** 
+	* @Title: initOperatorConfig 
+	* @Description: 初始化运营商配置信息 
+	* @param @param operatorConfig    设定文件 
+	* @return void    返回类型 
+	* @throws 
+	*/
+	public static void initOperatorConfig(OperatorConfig operatorConfig) {
+		String key = Constant.OPERATORCONFIG_PREFIX + operatorConfig.getOperatorId();
+		JedisUtil.set(key.getBytes(), SerializeUtil.serialize(operatorConfig));
+		
+		key = Constant.SERIALNUMBER_PREFIX;
+		JedisUtil.hset(key, operatorConfig.getSerialnumberPrefix(), operatorConfig.getSerialnumberPrefix());
+	}
+
+	/**
+	 * 验证流水号
+	 */
+	public static boolean checkWasteno(String wasteno) {
+		if (null == wasteno || wasteno.length() > Constant.PAY_SERIALNUMBER_LENGTH) {
+			return false;
+		}
+
+		wasteno = ConverterUtil.toStr(ConverterUtil.toLong(wasteno));
+		if (wasteno.length() != Constant.CHARGE_SERIALNUMBER_LENGTH) {
+			return false;
+		}
+
+		String prefix = wasteno.substring(Constant.ZERO, Constant.CHARGE_SERIALNUMBER_PREFIX);
+
+		String key = Constant.SERIALNUMBER_PREFIX;
+		Map<String, String> map = JedisUtil.hgetAll(key);
+		if (!map.containsKey(prefix)) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	/** 
+	* @Title: beanToHMap 
+	* @Description: 将java实体类转换为redis存储的HMap类型
+	* @param @param javaBean
+	* @param @return    设定文件 
+	* @return Map<String,String>    返回类型 
+	* @throws 
+	*/
+	public static Map<String, String> beanToHMap(Object javaBean) {
+		Map<String, String> result = new HashMap<String, String>();
+		Method[] methods = javaBean.getClass().getDeclaredMethods();
+
+		for (Method method : methods) {
+			try {
+				if (method.getName().startsWith("get")) {
+					String field = method.getName();
+					field = field.substring(field.indexOf("get") + 3);
+					field = field.toLowerCase().charAt(0) + field.substring(1);
+
+					Object value = method.invoke(javaBean, (Object[]) null);
+					result.put(field, ConverterUtil.toStr(value));
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return result;
 	}
 }

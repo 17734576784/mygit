@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ke.mapper.ChargeMonitorMapper" >
+  <resultMap id="BaseResultMap" type="com.ke.model.ChargeMonitor" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="serialnumber" property="serialnumber" jdbcType="VARCHAR" />
+    <result column="charge_money" property="chargeMoney" jdbcType="INTEGER" />
+    <result column="pile_code" property="pileCode" jdbcType="VARCHAR" />
+    <result column="gun_id" property="gunId" jdbcType="INTEGER" />
+    <result column="start_date" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="start_receive_time" property="startReceiveTime" jdbcType="TIMESTAMP" />
+    <result column="start_flag" property="startFlag" jdbcType="TINYINT" />
+    <result column="start_push" property="startPush" jdbcType="TINYINT" />
+    <result column="start_push_time" property="startPushTime" jdbcType="TIMESTAMP" />
+    <result column="end_date" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="end_receive_time" property="endReceiveTime" jdbcType="TIMESTAMP" />
+    <result column="end_push" property="endPush" jdbcType="TINYINT" />
+    <result column="end_push_time" property="endPushTime" jdbcType="TIMESTAMP" />
+    <result column="soc_push" property="socPush" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, serialnumber, charge_money, pile_code, gun_id, start_date, start_receive_time, 
+    start_flag, start_push, start_push_time, end_date, end_receive_time, end_push, end_push_time, 
+    soc_push
+  </sql>
+  <select id="getChargeMonitor" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from charge_monitor
+    where serialnumber = #{paySerialNumber,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteChargeMonitor" parameterType="java.lang.Integer" >
+    delete from charge_monitor
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+ 
+  <insert id="insertChargeMonitor" parameterType="com.ke.model.ChargeMonitor" >
+    insert into charge_monitor
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="serialnumber != null" >
+        serialnumber,
+      </if>
+      <if test="chargeMoney != null" >
+        charge_money,
+      </if>
+      <if test="pileCode != null" >
+        pile_code,
+      </if>
+      <if test="gunId != null" >
+        gun_id,
+      </if>
+      <if test="startDate != null" >
+        start_date,
+      </if>
+      <if test="startReceiveTime != null" >
+        start_receive_time,
+      </if>
+      <if test="startFlag != null" >
+        start_flag,
+      </if>
+      <if test="startPush != null" >
+        start_push,
+      </if>
+      <if test="startPushTime != null" >
+        start_push_time,
+      </if>
+      <if test="endDate != null" >
+        end_date,
+      </if>
+      <if test="endReceiveTime != null" >
+        end_receive_time,
+      </if>
+      <if test="endPush != null" >
+        end_push,
+      </if>
+      <if test="endPushTime != null" >
+        end_push_time,
+      </if>
+      <if test="socPush != null" >
+        soc_push,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="serialnumber != null" >
+        #{serialnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeMoney != null" >
+        #{chargeMoney,jdbcType=INTEGER},
+      </if>
+      <if test="pileCode != null" >
+        #{pileCode,jdbcType=VARCHAR},
+      </if>
+      <if test="gunId != null" >
+        #{gunId,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startReceiveTime != null" >
+        #{startReceiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startFlag != null" >
+        #{startFlag,jdbcType=TINYINT},
+      </if>
+      <if test="startPush != null" >
+        #{startPush,jdbcType=TINYINT},
+      </if>
+      <if test="startPushTime != null" >
+        #{startPushTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endReceiveTime != null" >
+        #{endReceiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endPush != null" >
+        #{endPush,jdbcType=TINYINT},
+      </if>
+      <if test="endPushTime != null" >
+        #{endPushTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="socPush != null" >
+        #{socPush,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateChargeMonitor" parameterType="com.ke.model.ChargeMonitor" >
+    update charge_monitor
+    <set >
+      <if test="chargeMoney != null" >
+        charge_money = #{chargeMoney,jdbcType=INTEGER},
+      </if>
+      <if test="pileCode != null" >
+        pile_code = #{pileCode,jdbcType=VARCHAR},
+      </if>
+      <if test="gunId != null" >
+        gun_id = #{gunId,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null" >
+        start_date = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startReceiveTime != null" >
+        start_receive_time = #{startReceiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startFlag != null" >
+        start_flag = #{startFlag,jdbcType=TINYINT},
+      </if>
+      <if test="startPush != null" >
+        start_push = #{startPush,jdbcType=TINYINT},
+      </if>
+      <if test="startPushTime != null" >
+        start_push_time = #{startPushTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        end_date = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endReceiveTime != null" >
+        end_receive_time = #{endReceiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endPush != null" >
+        end_push = #{endPush,jdbcType=TINYINT},
+      </if>
+      <if test="endPushTime != null" >
+        end_push_time = #{endPushTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="socPush != null" >
+        soc_push = #{socPush,jdbcType=TINYINT},
+      </if>
+    </set>
+    where serialnumber = #{serialnumber,jdbcType=VARCHAR}
+  </update>
+  
+  <insert id ="backupChargeMonitor" parameterType="map">
+   <![CDATA[
+    insert ${tableName}
+    select * from charge_monitor 
+    where  DATE_FORMAT(start_date,'%Y%m%d') <= #{eymd} and  DATE_FORMAT(start_date,'%Y%m%d') >=  #{symd} 
+    and ((end_push_time is not null and end_push = 1) or (start_flag = 0 and start_push = 1))
+    ]]>
+  </insert>
+  
+  <delete id="deleteChargeMonitors"  parameterType="map">
+ 	 <![CDATA[
+      delete from charge_monitor 
+      where  DATE_FORMAT(start_date,'%Y%m%d') <= #{eymd} and  DATE_FORMAT(start_date,'%Y%m%d') >=  #{symd} 
+      and ((end_push_time is not null and end_push = 1) or (start_flag = 0 and start_push = 1))
+      ]]>
+  </delete>
+  
+  <insert id ="backupChargeOrder" parameterType="map">
+    INSERT ${tableName}
+	(member_id,operator_id,serialnumber,trade_date,precharge_money,precharge_principal,precharge_give,pay_ratio	,midcharge_money
+	,prepay_type,source_funds,app_flag,subst_id	,pile_id,gun_id,pile_code,charge_state,pay_date,pay_customer,member_coupon_id	
+	,coupon_code,coupon_money,charge_serialnumber,chargebegin_date,beginpush_flag,chargeend_date,charge_dl,charge_dur,end_cause,error_code,aftcharge_money
+	,endpush_flag,service_money,service_moneyj,service_moneyf,service_moneyp,service_moneyg,charge_money,trade_money,discount_money,refund_money	
+	,refund_principal,refund_give,level	,leveldesc,refund_serialnumber,refundop_date,refund_date,refund_errcode	,refund_errinfo	)
+	SELECT member_id,operator_id,serialnumber,trade_date,precharge_money,precharge_principal,precharge_give,pay_ratio	,midcharge_money
+	,prepay_type,source_funds,app_flag,subst_id	,pile_id,gun_id,pile_code,charge_state,pay_date,pay_customer,member_coupon_id	
+	,coupon_code,coupon_money,charge_serialnumber,chargebegin_date,beginpush_flag,chargeend_date,charge_dl,charge_dur,end_cause,error_code,aftcharge_money
+	,endpush_flag,service_money,service_moneyj,service_moneyf,service_moneyp,service_moneyg,charge_money,trade_money,discount_money,refund_money	
+	,refund_principal,refund_give,level	,leveldesc,refund_serialnumber,refundop_date,refund_date,refund_errcode	,refund_errinfo	
+	from member_orders  
+	WHERE app_flag = 3 and charge_state = 7 
+	<![CDATA[	
+	and chargeend_date >= #{symd} and  chargeend_date < #{eymd} 
+    ]]>
+  </insert>
+  
+   <delete id="deleteChargeOrder"  parameterType="map">
+ 	 <![CDATA[
+      	delete from member_orders
+		where chargeend_date >= #{symd} and  chargeend_date < #{eymd}  and app_flag = 3 and charge_state = 7
+      ]]>
+  </delete>
+  
+  <select id="getEndCause" parameterType="integer"  resultType="string">
+     SELECT item_name from diction  where type_no = 770 
+     AND value = #{endCause,jdbcType=VARCHAR}
+   </select>
+   
+   
+   <select id="listChargeMonitorTask" resultMap="BaseResultMap">
+	    select 
+	    <include refid="Base_Column_List" />
+	    from charge_monitor 
+		where (start_push = 0  and start_receive_time is not null)
+		or (end_push = 0 and end_receive_time is not null )
+   </select>
+   
+   <select id="listChargeMonitor"  parameterType="map"  resultMap="BaseResultMap">
+   	select m.* from substpara s ,pilepara p ,charge_monitor m
+	where s.id = p.subst_id and p.serial_code =  m.pile_code
+	and DATE_FORMAT(start_date,'%Y%m%d') between #{beginDate} AND #{endDate}
+	and s.operator_id in (select id from operator 
+	where tree_path like CONCAT('%',#{operatorId},'%') or id =#{operatorId})
+	<if test="serialnumber !=''">
+		and m.serialnumber like CONCAT('%',#{serialnumber},'%')
+	</if>
+	union
+	<foreach collection="yearList" index="index" item="year" open="" separator=" union all" close="">
+	 	select m.* from substpara s ,pilepara p ,chargedata.charge_monitor${year} m
+		where s.id = p.subst_id and p.serial_code =  m.pile_code
+		and DATE_FORMAT(start_date,'%Y%m%d') between #{beginDate} AND #{endDate}
+		and s.operator_id in (select id from operator 
+		where tree_path like CONCAT('%',#{operatorId},'%') or id =#{operatorId})
+		<if test="serialnumber !=''">
+			and m.serialnumber like CONCAT('%',#{serialnumber},'%')
+		</if>
+	</foreach>	
+   </select>
+  
+</mapper>

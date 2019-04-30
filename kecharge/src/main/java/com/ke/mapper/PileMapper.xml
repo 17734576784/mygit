@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ke.mapper.PileMapper">
+    <select id="getPileState" parameterType="java.lang.String" resultType="map">
+	    SELECT p.id pileId,pd.`status` pileState,gd.gun_id gunId,
+		gd.`status` gunState,p.gun_num gunNum,p.cp_flag cpFlag,p.serial_code pileNo
+		from piledata pd,pilegun_data gd ,pilepara p 
+		where  pd.subst_id = gd.subst_id and pd.pile_id = gd.pile_id
+		and gd.subst_id = p.subst_id and gd.pile_id = p.id
+		and p.serial_code = #{pileNo,jdbcType=VARCHAR}
+    </select>
+
+	<select id="getPileGps" parameterType="java.lang.String" resultType="map">
+		SELECT s.id ,s.longitude,s.latitude
+		from pilepara p,substpara s
+		where p.subst_id = s.id and p.serial_code = #{pileNo,jdbcType=VARCHAR}
+	</select>
+    
+    <select id="getPileRate" parameterType="java.lang.String" resultType="map">
+       select fee_type RateType,rated_z rateZ,ratef_j SharpRate,ratef_f PeakRate,ratef_p FlatRate,
+		ratef_g ValleyRate,rate_service ServiceCharge,rate_servicej SharpService,rate_servicef PeakService,
+		rate_servicep FlatService,rate_serviceg ValleyService    
+		from pilepara p,operator_rate r
+		where p.rate_id = r.id and p.serial_code = #{pileNo,jdbcType=VARCHAR}
+    </select>
+    
+    <select id="getRtuByPile" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		SELECT rtu_id from pilepara p where p.serial_code = #{pileNo,jdbcType=VARCHAR}
+    </select>
+    
+    <select id="isPileOfOperator" parameterType="map" resultType="boolean">
+	    select count('x') from substpara s ,pilepara p
+		where s.id = p.subst_id and p.serial_code = #{pileNo,jdbcType=VARCHAR}
+		and s.operator_id in (select id from operator 
+		where tree_path like CONCAT('%',#{operatorId},'%') or id =#{operatorId}
+		)
+    </select>
+    
+    
+    <select id="listPileInfo" parameterType="string" resultType="map">
+		select p.serial_code pileNo,p.type pileType,(p.gun_num+p.bike_gun_num) gunNum,s.longitude,
+		s.latitude,p.rv ratedOutputVoltage,p.ri ratedOutputCurrent,p.limit_p ratedOutputPower
+		FROM pilepara p,substpara s
+		where p.subst_id = s.id  and s.serial_code = #{stationNo,jdbcType=VARCHAR}
+	</select>
+    
+    <select id="listGunInfo" parameterType="string" resultType="map">
+		select p.serial_code pileNo,g.gun_id gunId,p.ri ratedOutputCurrent,p.v_up voltageMax,p.v_down voltageMin
+		from pilegun_data g,pilepara p,substpara s
+		where p.subst_id = s.id  and g.subst_id = p.subst_id and g.pile_id = p.id 
+		and s.serial_code = #{stationNo,jdbcType=VARCHAR}
+	</select>
+    
+    <select id="listGunState" parameterType="string" resultType="map">
+		select p.serial_code pileNo,g.gun_id gunId,g.status 
+		from pilegun_data g,pilepara p,substpara s
+		where p.subst_id = s.id  and g.subst_id = p.subst_id and g.pile_id = p.id 
+		and s.serial_code = #{stationNo,jdbcType=VARCHAR}
+	</select>
+  
+</mapper>

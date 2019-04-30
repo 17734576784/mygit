@@ -8,12 +8,17 @@
 */
 package com.ke.configuration;
 
+import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -37,18 +42,21 @@ public class SpringMVCConfig implements WebMvcConfigurer{
 	@Value("#{'${interceptor.urls}'.split(',')}")
 	private List<String> urlList;
 	
-	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		WebMvcConfigurer.super.addInterceptors(registry);
 		registry.addInterceptor(accessInterceptor).excludePathPatterns(urlList).addPathPatterns("/*.json");
+		WebMvcConfigurer.super.addInterceptors(registry);
 	}
 
+	@Bean
+	public HttpMessageConverter<String> responseBodyConverter(){
+		return new StringHttpMessageConverter(Charset.forName("UTF-8"));
+	}
 
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 		// TODO Auto-generated method stub
-		WebMvcConfigurer.super.configureMessageConverters(converters);
+		converters.add(responseBodyConverter());
 		/**
 		 * 1.需要先定义一个convert 转换消息的对象； 2.添加fastjson 的配置信息，比如：是否要转换格式化返回的json数据；
 		 * 3.在convert中添加配置信息 4.将convert添加到converters当中
@@ -57,7 +65,13 @@ public class SpringMVCConfig implements WebMvcConfigurer{
 		FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
 		// 2.添加fastjson 的配置信息，比如：是否要转换格式化返回的json数据；
 		FastJsonConfig fastJsonConfig = new FastJsonConfig();
-		fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat);
+		fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat				
+				);
+		
+		// 解决中文乱码
+		List<MediaType> fastMediaType = new ArrayList<>();
+		fastMediaType.add(MediaType.APPLICATION_JSON_UTF8);
+		fastConverter.setSupportedMediaTypes(fastMediaType);
 		// 3.在convert中添加配置信息
 		fastConverter.setFastJsonConfig(fastJsonConfig);
 		// 4.将convert添加到converters当中

@@ -132,7 +132,7 @@ public class DruidConfig {
 		try {
 			datasource.setFilters(filters);
 		} catch (SQLException e) {
-			LoggerUtil.Logger(LogName.ERROR).error("druid configuration initialization filter", e);
+			LoggerUtil.logger(LogName.ERROR).error("druid configuration initialization filter", e);
 		}
 		return datasource;
 	}
@@ -156,7 +156,7 @@ public class DruidConfig {
 		VFS.addImplClass(SpringBootVFS.class);
 		PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
 		sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath:com/ke/mapper/*/*.xml"));
-		LoggerUtil.Logger(LogName.INFO).info("dao层扫描包为:com/ke/mapper/*/*.xml");
+		LoggerUtil.logger(LogName.INFO).info("dao层扫描包为:com/ke/mapper/*/*.xml");
 		return sqlSessionFactoryBean.getObject();
 	}
 

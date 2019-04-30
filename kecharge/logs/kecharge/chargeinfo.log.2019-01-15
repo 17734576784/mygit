@@ -1,0 +1,26 @@
+[2019-01-15 11:43:24.710] INFO [http-nio-8080-exec-8] ChargeServiceImpl.java:85 - 接收开始充电请求：{"pileNo":"KE10002","gunNo":"1","serialNumber":"9900000001","chargeMoney":"10"}
+[2019-01-15 14:56:53.597] INFO [http-nio-8080-exec-7] ChargeServiceImpl.java:385 - 接收获取充电过程信息请求:{"serialNumber":"9900000001"}
+[2019-01-15 14:57:02.603] INFO [http-nio-8080-exec-5] ChargeServiceImpl.java:385 - 接收获取充电过程信息请求:{"serialNumber":"9900000001"}
+[2019-01-15 14:57:38.561] INFO [http-nio-8080-exec-9] ChargeServiceImpl.java:385 - 接收获取充电过程信息请求:{"serialNumber":"9900000001"}
+[2019-01-15 14:58:06.924] INFO [http-nio-8080-exec-8] ChargeServiceImpl.java:385 - 接收获取充电过程信息请求:{"serialNumber":"9900000001"}
+[2019-01-15 14:58:25.467] INFO [http-nio-8080-exec-4] ChargeServiceImpl.java:385 - 接收获取充电过程信息请求:{"serialNumber":"9900000001"}
+[2019-01-15 14:58:54.385] INFO [http-nio-8080-exec-2] ChargeServiceImpl.java:474 - 接收获取充电过程实时信息请求:{"serialNumber":"9900000001"}
+[2019-01-15 14:59:42.314] INFO [http-nio-8080-exec-6] ChargeServiceImpl.java:474 - 接收获取充电过程实时信息请求:{"serialNumber":"9900000001"}
+[2019-01-15 14:59:46.491] INFO [http-nio-8080-exec-6] ChargeServiceImpl.java:514 - 获取充电过程返回结果 : {"remainSecond":0,"gunNo":0,"SOC":0,"pileType":0,"pileNo":"","chargeMoney":0,"error":"","chargElectricity":0.0,"status":0,"chargeSecond":0}
+[2019-01-15 15:00:05.434] INFO [http-nio-8080-exec-10] ChargeServiceImpl.java:385 - 接收获取充电过程信息请求:{"serialNumber":"9900000001"}
+[2019-01-15 15:00:06.045] INFO [http-nio-8080-exec-10] ChargeServiceImpl.java:438 - 获取充电过程请求结束 ,返回结果: {"chargHighElectricity":"","CVoltage":"","chargFlatElectricity":"","chargTipElectricity":"","CCurrent":"","BCurrent":"","ACurrent":"","AVoltage":"","BVoltage":"","error":"","chargLowElectricity":"","chargTotalElectricity":"","status":0}
+[2019-01-15 15:00:16.794] INFO [http-nio-8080-exec-3] ChargeServiceImpl.java:385 - 接收获取充电过程信息请求:{"serialNumber":"9900000001"}
+[2019-01-15 15:00:21.594] INFO [http-nio-8080-exec-3] ChargeServiceImpl.java:438 - 获取充电过程请求结束 ,返回结果: {"chargHighElectricity":"","CVoltage":"","chargFlatElectricity":"","chargTipElectricity":"","CCurrent":"","BCurrent":"","ACurrent":"","AVoltage":"","BVoltage":"","error":"","chargLowElectricity":"","chargTotalElectricity":"","status":0}
+[2019-01-15 15:14:41.185] INFO [http-nio-8080-exec-3] ChargeServiceImpl.java:387 - 接收获取充电过程信息请求:{"serialNumber":"9900000001"}
+[2019-01-15 15:14:41.951] INFO [http-nio-8080-exec-3] ChargeServiceImpl.java:440 - 获取充电过程请求结束 ,返回结果: {"chargHighElectricity":"","CVoltage":"","chargFlatElectricity":"","chargTipElectricity":"","CCurrent":"","BCurrent":"","ACurrent":"","AVoltage":"","BVoltage":"","error":"","chargLowElectricity":"","chargTotalElectricity":"","status":0}
+[2019-01-15 15:14:43.593] INFO [http-nio-8080-exec-7] ChargeServiceImpl.java:387 - 接收获取充电过程信息请求:{"serialNumber":"9900000001"}
+[2019-01-15 15:14:43.968] INFO [http-nio-8080-exec-7] ChargeServiceImpl.java:440 - 获取充电过程请求结束 ,返回结果: {"chargHighElectricity":"","CVoltage":"","chargFlatElectricity":"","chargTipElectricity":"","CCurrent":"","BCurrent":"","ACurrent":"","AVoltage":"","BVoltage":"","error":"","chargLowElectricity":"","chargTotalElectricity":"","status":0}
+[2019-01-15 15:14:52.351] INFO [http-nio-8080-exec-2] ChargeServiceImpl.java:387 - 接收获取充电过程信息请求:{"serialNumber":"9900000001"}
+[2019-01-15 15:14:52.355] INFO [http-nio-8080-exec-2] ChargeServiceImpl.java:440 - 获取充电过程请求结束 ,返回结果: {"chargHighElectricity":"","CVoltage":"","chargFlatElectricity":"","chargTipElectricity":"","CCurrent":"","BCurrent":"","ACurrent":"","AVoltage":"","BVoltage":"","error":"","chargLowElectricity":"","chargTotalElectricity":"","status":0}
+[2019-01-15 15:14:53.400] INFO [http-nio-8080-exec-6] ChargeServiceImpl.java:387 - 接收获取充电过程信息请求:{"serialNumber":"9900000001"}
+[2019-01-15 15:14:53.404] INFO [http-nio-8080-exec-6] ChargeServiceImpl.java:440 - 获取充电过程请求结束 ,返回结果: {"chargHighElectricity":"","CVoltage":"","chargFlatElectricity":"","chargTipElectricity":"","CCurrent":"","BCurrent":"","ACurrent":"","AVoltage":"","BVoltage":"","error":"","chargLowElectricity":"","chargTotalElectricity":"","status":0}
+[2019-01-15 15:14:53.930] INFO [http-nio-8080-exec-10] ChargeServiceImpl.java:387 - 接收获取充电过程信息请求:{"serialNumber":"9900000001"}
+[2019-01-15 15:14:53.934] INFO [http-nio-8080-exec-10] ChargeServiceImpl.java:440 - 获取充电过程请求结束 ,返回结果: {"chargHighElectricity":"","CVoltage":"","chargFlatElectricity":"","chargTipElectricity":"","CCurrent":"","BCurrent":"","ACurrent":"","AVoltage":"","BVoltage":"","error":"","chargLowElectricity":"","chargTotalElectricity":"","status":0}
+[2019-01-15 15:15:40.816] INFO [http-nio-8080-exec-8] ChargeServiceImpl.java:387 - 接收获取充电过程信息请求:{"serialNumber":"990000002"}
+[2019-01-15 15:15:49.545] INFO [http-nio-8080-exec-3] ChargeServiceImpl.java:476 - 接收获取充电过程实时信息请求:{"serialNumber":"9900000001"}
+[2019-01-15 15:15:49.576] INFO [http-nio-8080-exec-3] ChargeServiceImpl.java:516 - 获取充电过程返回结果 : {"remainSecond":0,"gunNo":0,"SOC":0,"pileType":0,"pileNo":"","chargeMoney":0,"error":"","chargElectricity":0.0,"status":0,"chargeSecond":0}

@@ -48,18 +48,20 @@ public class BatchCommand {
        
        List<String> deviceList = new ArrayList<>();
        deviceList.add("63c04ac0-a0ae-4e87-bd0c-9cad975202a3");
-       json.put("deviceList", deviceList.toString());
+       json.put("deviceList", deviceList);
        json.put("commandId", "1");
        json.put("operatorId", 3);
        String serviceId = "SettingReportPeriod";
        String method = "SET_REPORT_PERIOD";
        
+       serviceId = "Valve";
+       method ="Open";
+       
        json.put("serviceId", serviceId);
        json.put("method", method);
        
        JSONObject param = new JSONObject();
-       param.put("value", 1);
-       
+       param.put("value", "16");
        
        json.put("param", param.toString());
        

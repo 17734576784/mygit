@@ -27,7 +27,8 @@ public class LoginUser implements Serializable {
 
 	private String loginName;
 	private String describe;
-	private Integer partnerId;
+	private Integer memberId;
+	private Integer operatorId;
 	private List<String> permList;
 
 	public String getLoginName() {
@@ -46,14 +47,6 @@ public class LoginUser implements Serializable {
 		this.describe = describe;
 	}
 
-	public Integer getPartnerId() {
-		return partnerId;
-	}
-
-	public void setPartnerId(Integer partnerId) {
-		this.partnerId = partnerId;
-	}
-
 	public List<String> getPermList() {
 		return permList;
 	}
@@ -61,5 +54,34 @@ public class LoginUser implements Serializable {
 	public void setPermList(List<String> permList) {
 		this.permList = permList;
 	}
+
+	/**
+	 * @return the operatorId
+	 */
+	public Integer getOperatorId() {
+		return operatorId;
+	}
+
+	/**
+	 * @param operatorId the operatorId to set
+	 */
+	public void setOperatorId(Integer operatorId) {
+		this.operatorId = operatorId;
+	}
+
+	/**
+	 * @return the memberId
+	 */
+	public Integer getMemberId() {
+		return memberId;
+	}
+
+	/**
+	 * @param memberId the memberId to set
+	 */
+	public void setMemberId(Integer memberId) {
+		this.memberId = memberId;
+	}
+	
 
 }

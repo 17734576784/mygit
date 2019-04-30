@@ -121,7 +121,6 @@ public class RedisSessionDao extends AbstractSessionDAO{
 			return null;
 		}
 		
-		System.out.println("read session");
 		byte[] key = getKey(sessionId.toString());
 		byte[] value = JedisUtil.get(key);
 		return (Session) SerializeUtil.deserialize(value);

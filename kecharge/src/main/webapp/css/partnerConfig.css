@@ -1,0 +1,5 @@
+.searchDiv{float:left;width:60%;}
+.searchDiv input{width:25%;}
+.searchDiv select{width:25%;}
+.searchBtn button{width:50px;font-size:14px!important}
+.searchBtn{float:right;margin-bottom:10px;}

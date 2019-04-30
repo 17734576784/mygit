@@ -39,6 +39,10 @@ public class RedisConfig {
 	@Value("${spring.redis.port}")
 	private int port;
 	
+	@Value("${spring.redis.database}")
+	private int database;
+	
+	
 	@Value("${spring.redis.password}")
 	private String password;
 	
@@ -60,7 +64,7 @@ public class RedisConfig {
 		config.setMaxTotal(maxActive);
 		config.setMaxIdle(maxIdle);
 		config.setMaxWaitMillis(timeout);
-		return new JedisPool(config, host, port,timeout, password);
+		return new JedisPool(config, host, port,timeout, password,database);
 	}
 
 //	@Bean

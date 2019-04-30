@@ -1,0 +1,71 @@
+use chargepara;
+drop table if exists charge_monitor;
+create table charge_monitor
+(
+	id								int				        not null AUTO_INCREMENT,	/*ID*/
+	serialnumber   		varchar(32)       not null,       					/*流水号*/
+	charge_money  	  int					      not	null,        		  		/*充电金额 (分)*/ 
+	pile_code	  			varchar(16)		  not null,									/*充电桩编号*/
+	gun_id        		int               not null,        					/*充电枪*/
+	
+	start_date 		     	datetime            null,               	/*请求开始充电日期*/
+	start_receive_time 	datetime  		  		null,           		  /*前置机推送充电开始时间*/
+	start_flag    			tinyint	 					  null,      					  /*充电开始推送结果*/
+	start_push        	tinyint    					null,     						/*推送标志 0:未推送 1:已推送*/
+	start_push_time			datetime				  	null,                	/*推送充电开始时间*/	
+	
+	end_date   					datetime         		null,                 /*请求结束充电日期*/
+	end_receive_time		datetime						null,                	/*前置机推送充电结束时间*/
+  end_push   					tinyint    					null,     						/*推送标志 0:未推送 1:已推送*/ 	
+ 	end_push_time				datetime						null,                	/*推送充电结束时间*/
+ 	
+	soc_push          	tinyint    					null,     						/*推送标志 0:未推送 1:已推送*/
+
+
+	PRIMARY KEY (id)
+);
+create unique index uk_charge_monitor on charge_monitor(serialnumber);
+
+-- 运营商配置表
+drop table if EXISTS operator_config;
+create table operator_config(
+	id 		   					int  					not null AUTO_INCREMENT PRIMARY KEY,
+	operator_id    		  int 				not null UNIQUE,			-- 运营商ID
+	operator_loginname varchar(32) 	not null UNIQUE,			-- 运营商登录账户
+	member_id				  int				    not null,						  -- 所属会员
+	use_flag 					TINYINT				not null DEFAULT 0,		-- 使用标志
+  username					VARCHAR(16)		not null,							-- 科林登录用户名
+	password					VARCHAR(32)		not null,							-- 科林登录密码
+	token   					VARCHAR(64)	  		null,							-- 回调登录token
+	login_url					VARCHAR(128)	not null,							-- 回调登录url
+	charge_start_url 	VARCHAR(128)	not null,							-- 回调推送充电开始地址
+	charge_over_url  	VARCHAR(128)	not null,							-- 回调推送充电结束地址
+	charge_dc_info_url VARCHAR(128)	not null, 						-- 回调推送直流首次充电信息地址
+	serialnumber_prefix VARCHAR(128)	not null  					-- 流水号前缀
+);
+
+use chargedata;
+drop table if exists charge_monitor2018;
+create table charge_monitor2018
+(
+	id								int				        not null AUTO_INCREMENT,	/*ID*/
+	serialnumber   		varchar(32)       not null,       					/*流水号*/
+	charge_money  	  int					      not	null,        		  		/*充电金额 (分)*/ 
+	pile_code	  			  varchar(16)			  not null,								/*充电桩编号*/
+	gun_id        		int               not null,        					/*充电枪*/
+	
+	start_date 		     	datetime            null,               	/*请求开始充电日期*/
+	start_receive_time 	datetime  		  		null,           		  /*前置机推送充电开始时间*/
+	start_flag    			tinyint	 					  null,      					  /*充电开始推送结果*/
+	start_push        	tinyint   default 0 null,     						/*推送标志 0:未推送 1:已推送*/
+	start_push_time			datetime				  	null,                	/*推送充电开始时间*/	
+	
+	end_date   					datetime         		null,                 /*请求结束充电日期*/
+	end_receive_time		datetime						null,                	/*前置机推送充电结束时间*/
+  end_push   					tinyint   default 0	null,     						/*推送标志 0:未推送 1:已推送*/ 	
+ 	end_push_time				datetime						null,                	/*推送充电结束时间*/
+	soc_push          	tinyint   default 0	null,     						/*推送标志 0:未推送 1:已推送*/
+
+	PRIMARY KEY (id)
+);
+create unique index uk_charge_monitor2018 on charge_monitor2018(serialnumber);

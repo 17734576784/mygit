@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ke.mapper.SubstparaMapper" >
+  <resultMap id="BaseResultMap" type="com.ke.model.Substpara" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="subst_name" property="substName" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="serial_code" property="serialCode" jdbcType="VARCHAR" />
+    <result column="operator_id" property="operatorId" jdbcType="INTEGER" />
+    <result column="model" property="model" jdbcType="TINYINT" />
+    <result column="longitude" property="longitude" jdbcType="DOUBLE" />
+    <result column="latitude" property="latitude" jdbcType="DOUBLE" />
+    <result column="area" property="area" jdbcType="INTEGER" />
+    <result column="addr" property="addr" jdbcType="VARCHAR" />
+    <result column="office_flag" property="officeFlag" jdbcType="TINYINT" />
+    <result column="fz_man" property="fzMan" jdbcType="VARCHAR" />
+    <result column="telphone" property="telphone" jdbcType="VARCHAR" />
+    <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+    <result column="view_count" property="viewCount" jdbcType="INTEGER" />
+    <result column="upvote_count" property="upvoteCount" jdbcType="INTEGER" />
+    <result column="charge_count" property="chargeCount" jdbcType="INTEGER" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, subst_name, description, serial_code, operator_id, model, longitude, latitude, 
+    area, addr, office_flag, fz_man, telphone, image_url, view_count, upvote_count, charge_count, 
+    create_date, update_date
+  </sql>
+  <select id="listStationGPS" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+	  SELECT * from substpara s
+		where s.operator_id in (
+		SELECT id from operator where tree_path like  CONCAT('%',#{operatorId},'%')  or id = #{operatorId} 
+		)
+   </select>
+
+	<select id="isStationOfOperator" parameterType="map" resultType="boolean">
+		SELECT count('X') from substpara s
+		where s.operator_id in (
+		SELECT id
+		from operator where tree_path like CONCAT('%',#{operatorId},'%') or id
+		= #{operatorId}
+		) and s.serial_code = #{stationNo,jdbcType=VARCHAR}
+	</select>
+	
+	  <select id="listChargeOrders" parameterType="map" resultType="map">
+   		<foreach collection="monthList" item="month" index="index" open="" close="" separator=" union ">
+   		 	select serialnumber ,trade_begin,trade_end,end_bd - begin_bd chargedl,
+			p.serial_code pileNo,gunid gunNo,charge_money, cardno
+			from chargedata.charge${month} d,substpara s,pilepara p
+			where d.substid = s.id and s.serial_code = #{stationNo,jdbcType=VARCHAR}
+			and d.substid = p.subst_id and d.pileid = p.id
+			<![CDATA[
+			and trade_begin >= #{startDate,jdbcType=INTEGER}  
+			and trade_begin <= #{endDate,jdbcType=INTEGER} 
+			]]>
+   		</foreach>
+   </select>
+</mapper>

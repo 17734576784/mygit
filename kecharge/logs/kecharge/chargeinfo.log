@@ -1,0 +1,8 @@
+[2019-04-09 16:22:56.980] INFO [http-nio-8080-exec-3] ChargeServiceImpl.java:84 - 接收开始充电请求：{"pileNo":"KE10002","gunNo":"1","serialNumber":"9900000021","chargeMoney":"10"}
+[2019-04-09 16:22:59.376] INFO [http-nio-8080-exec-3] ChargeServiceImpl.java:196 - 流水号 ：009900000021请求充电成功！
+[2019-04-09 16:46:31.951] INFO [http-nio-8080-exec-5] ChargeServiceImpl.java:84 - 接收开始充电请求：{"pileNo":"KE10002","gunNo":"1","serialNumber":"9900000022","chargeMoney":"10"}
+[2019-04-09 16:46:33.060] INFO [http-nio-8080-exec-5] ChargeServiceImpl.java:196 - 流水号 ：009900000022请求充电成功！
+[2019-04-09 16:48:14.462] INFO [http-nio-8080-exec-2] ChargeServiceImpl.java:280 - 接收充电结束请求：{"pileNo":"KE10002","gunNo":"1","serialNumber":"9900000022"}
+[2019-04-09 16:48:15.075] INFO [http-nio-8080-exec-2] ChargeServiceImpl.java:360 - 流水号：009900000022请求结束充电成功
+[2019-04-09 16:57:55.311] INFO [http-nio-8080-exec-4] ChargeServiceImpl.java:84 - 接收开始充电请求：{"pileNo":"KE10002","gunNo":"1","serialNumber":"9900000023","chargeMoney":"1"}
+[2019-04-09 16:57:56.070] INFO [http-nio-8080-exec-4] ChargeServiceImpl.java:196 - 流水号 ：009900000023请求充电成功！

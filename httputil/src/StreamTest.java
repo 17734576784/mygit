@@ -1,7 +1,10 @@
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -23,40 +26,64 @@ import java.util.concurrent.TimeUnit;
  */
 public class StreamTest {
 	public static void main(String[] args) {
-//		  int num = Runtime.getRuntime().availableProcessors();
-//		     System.out.println(num);
-//		     
-//		 int size = 1000;
-//	        List<String> uuisList = new ArrayList<>(size);
-//	 
-//	        System.out.println("开始生成 = " + new Date());
-//	        //生成500万个uuid
-//	        for (int i = 0; i< size; i++){
-//	            uuisList.add(UUID.randomUUID().toString());
-//	        }
-//	        System.out.println("生成结束 = " + new Date());
-//	 
-//	        System.out.println("开始串行排序");
-//	        //long starttime = System.currentTimeMillis();//毫秒
-//	        long startTime = System.nanoTime();//纳秒，更为精确
-//	        uuisList.stream().sorted().count();//串行排序
-//	        long endTime = System.nanoTime();//纳秒，更为精确
-//	        long distanceTime = TimeUnit.NANOSECONDS.toMillis(endTime - startTime);
-//	        System.out.println("结束串行排序 耗时为 " + distanceTime); 
-	 
-//	        System.out.println("开始并行排序");
-//	        //long starttime = System.currentTimeMillis();//毫秒
-//	        long startTime = System.nanoTime();//纳秒，更为精确
-//	 
-//	        uuisList.parallelStream().sorted().count();//并行排序
-//	 
-//	        long endTime = System.nanoTime();//纳秒，更为精确
-//	        long  distanceTime = TimeUnit.NANOSECONDS.toMillis(endTime - startTime);
-//	        System.out.println("结束并行排序 耗时为 " + distanceTime);
-		compareForAndStream();
-		
+		  System.out.println(utcToLocal("20190428T012017Z")); 
 	}
 	
+	/**
+     * local时间转换成UTC时间
+     * @param localTime
+     * @return
+     */
+    public static Date localToUTC(String localTime) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date localDate= null;
+        try {
+            localDate = sdf.parse(localTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        long localTimeInMillis=localDate.getTime();
+        /** long时间转换成Calendar */
+        Calendar calendar= Calendar.getInstance();
+        calendar.setTimeInMillis(localTimeInMillis);
+        /** 取得时间偏移量 */
+        int zoneOffset = calendar.get(java.util.Calendar.ZONE_OFFSET);
+        /** 取得夏令时差 */
+        int dstOffset = calendar.get(java.util.Calendar.DST_OFFSET);
+        /** 从本地时间里扣除这些差量，即可以取得UTC时间*/
+        calendar.add(java.util.Calendar.MILLISECOND, -(zoneOffset + dstOffset));
+        /** 取得的时间就是UTC标准时间 */
+        Date utcDate=new Date(calendar.getTimeInMillis());
+        return utcDate;
+    }
+    
+	/**
+     * utc时间转成local时间
+     * @param utcTime
+     * @return
+     */
+    public static Date utcToLocal(String utcTime){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date utcDate = null;
+        try {
+            utcDate = sdf.parse(utcTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        sdf.setTimeZone(TimeZone.getDefault());
+        Date locatlDate = null;
+        String localTime = sdf.format(utcDate.getTime());
+        try {
+            locatlDate = sdf.parse(localTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return locatlDate;
+    }
+    
+    
+    
 	public static void compareForAndStream() {
         //p1表示for性能,p2表示流处理性能
         long p1 = 0, p2 = 0;

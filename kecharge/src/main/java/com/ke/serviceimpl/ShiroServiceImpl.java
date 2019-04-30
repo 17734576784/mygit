@@ -8,8 +8,8 @@
 */
 package com.ke.serviceimpl;
 
-import java.security.MessageDigest;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -30,10 +30,10 @@ import com.ke.logger.LoggerUtil;
 import com.ke.mapper.ShiroMapper;
 import com.ke.model.LoginUser;
 import com.ke.service.IShiroService;
-import com.ke.utils.BytesUtil;
+import com.ke.utils.ConverterUtil;
 import com.ke.utils.GenerateToken;
 import com.ke.utils.JedisUtil;
-import com.ke.utils.SerializeUtil;
+import com.ke.utils.JsonUtil;
 
 /** 
 * @ClassName: ShiroServiceImpl 
@@ -47,6 +47,7 @@ public class ShiroServiceImpl implements IShiroService {
 
 	@Resource
 	private ShiroMapper shiroMapper;
+	
 	/** (非 Javadoc) 
 	* <p>Title: getPermissionByUserName</p> 
 	* <p>Description: </p> 
@@ -82,13 +83,19 @@ public class ShiroServiceImpl implements IShiroService {
 	* @see com.ke.service.IShiroService#doLogin(java.lang.String, java.lang.String) 
 	*/
 	@Override
-	public JSONObject doLogin(String queryJsonStr) {
+	public String doLogin(String queryJsonStr) throws Exception{
 		
 		JSONObject param = JSONObject.parseObject(queryJsonStr);
 		String userName = param.getString("userName");
 		String passWord = param.getString("passWord");
-		
+
 		JSONObject rtnJson = new JSONObject();
+		// 判断用户有无接入权限
+		if (!this.shiroMapper.getAccessAuthority(userName)) {
+			rtnJson = CommFunc.errorInfo(Constant.REQUEST_BAD, "没有接入权限");
+			return rtnJson.toJSONString();
+		}
+		
 		Subject currentUser = SecurityUtils.getSubject();
 		if (!currentUser.isAuthenticated()) {
 			UsernamePasswordToken token = new UsernamePasswordToken(userName, passWord);
@@ -100,13 +107,22 @@ public class ShiroServiceImpl implements IShiroService {
 				rtnJson = CommFunc.errorInfo(Constant.SUCCESS, "");
 				rtnJson.put("token", userToken);
 
-				List<String> perms = getPermissionByUserName(userName);
 				LoginUser loginUser = new LoginUser();
 				loginUser.setLoginName(userName);
+				Map<String, Object> operatorInfo = this.shiroMapper.getOperatorIdByUsername(userName);
+				loginUser.setOperatorId(ConverterUtil.toInt(operatorInfo.get("operator_id")));
+				loginUser.setMemberId(ConverterUtil.toInt(operatorInfo.get("member_id")));
+
+				List<String> perms = getPermissionByUserName(userName);
 				loginUser.setPermList(perms);
+
 				
-				byte[] key = (Constant.TOKEN_PREFIX + userToken).getBytes();
-				JedisUtil.set(key, SerializeUtil.serialize(loginUser));
+				String sessionTokenKey = Constant.SESSION_TOKEN_PREFIX + currentUser.getSession().getId();
+				JedisUtil.set(sessionTokenKey, userToken);
+				JedisUtil.expire(sessionTokenKey, Constant.CACHE_TIME_OUT);
+				
+				String key = Constant.TOKEN_PREFIX + userToken;
+				JedisUtil.set(key, JsonUtil.jsonObj2Sting(loginUser));
 				JedisUtil.expire(key, Constant.CACHE_TIME_OUT);
 				
 			} catch (UnknownAccountException uae) {
@@ -124,12 +140,17 @@ public class ShiroServiceImpl implements IShiroService {
 				rtnJson.put(Constant.RESULT_DETAIL, "未知错误");
 			} catch (Exception e) {
 				e.printStackTrace();
-				LoggerUtil.Logger(LogName.ERROR).error("登录异常" + e.getMessage());
+				LoggerUtil.logger(LogName.ERROR).error("登录异常" + e.getMessage());
 				rtnJson.put(Constant.RESULT_CODE, Constant.REQUEST_BAD);
 				rtnJson.put(Constant.RESULT_DETAIL, "请求错误");
 			}
+		} else {
+			String sessionTokenKey = Constant.SESSION_TOKEN_PREFIX + currentUser.getSession().getId();
+			String userToken = JedisUtil.get(sessionTokenKey);
+			rtnJson = CommFunc.errorInfo(Constant.SUCCESS, "");
+			rtnJson.put("token", userToken);
 		}
-		return rtnJson;
+		return rtnJson.toJSONString();
 	}
 
 }

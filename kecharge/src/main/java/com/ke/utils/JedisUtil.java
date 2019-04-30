@@ -1153,6 +1153,31 @@ public class JedisUtil {
 		return value;
 	}
 	
+	/**
+	 * 移出并获取列表的【最后一个元素】， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。
+	 * @param timeout 单位为秒
+	 * @param keys
+	 * <li>当有多个key时，只要某个key值的列表有内容，即马上返回，不再阻塞。</li>
+	 * <li>当所有key都没有内容或不存在时，则会阻塞，直到有值返回或者超时。</li>
+	 * <li>当超期时间到达时，keys列表仍然没有内容，则返回Null</li>
+	 * @return List<String>
+	 */
+	public static Object brpop(String key, int timeout) {
+		Jedis jedis = null;
+		Object value = null;
+		try {
+			jedis = getResource();
+			List<String> values = jedis.brpop(timeout, key);
+			if (values != null && !values.isEmpty()) {
+				value = values.get(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			returnRource(jedis);
+		}
+		return value;
+	}
 	
 	/**
 	 * 移出并获取列表的【最后一个元素】， 如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止。
