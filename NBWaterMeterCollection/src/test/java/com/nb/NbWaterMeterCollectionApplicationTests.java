@@ -108,7 +108,7 @@ public class NbWaterMeterCollectionApplicationTests {
 
 	@Resource
 	private TaskMapper taskMapper;
-	@Test
+//	@Test
 	public void testCommon() {
 		 
 		String className = FxTelecomCallDataTask.class.getName();
@@ -210,7 +210,7 @@ public class NbWaterMeterCollectionApplicationTests {
 		}
 	}
 	
-//	@Test
+	@Test
 	public void testEve() {
 //		NbBattery nbBattery = new NbBattery();
 //		nbBattery.setTableName("201904");
@@ -244,46 +244,46 @@ public class NbWaterMeterCollectionApplicationTests {
 //		}
 //		
 		
-		for (int i = 0; i < 1000000; i++) {
-
-			Eve eve = new Eve();
-			eve.setTableName(toStr(201904));
-			eve.setYmd(20190413);
-			eve.setHmsms(i * 1000+i);
-			eve.setMemberId0(1);
-			eve.setMemberId1(2);
-			eve.setMemberId2(-1);
-			eve.setClassno(Constant.NB_ALARM);
-			eve.setTypeno((short)12);
-			eve.setCharInfo("23");
-
-			JedisUtils.lpush(Constant.ALARM_EVENT_QUEUE, JsonUtil.jsonObj2Sting(eve));
-		}
+//		for (int i = 0; i < 1000000; i++) {
+//
+//			Eve eve = new Eve();
+//			eve.setTableName(toStr(201904));
+//			eve.setYmd(20190413);
+//			eve.setHmsms(i * 1000+i);
+//			eve.setMemberId0(1);
+//			eve.setMemberId1(2);
+//			eve.setMemberId2(-1);
+//			eve.setClassno(Constant.NB_ALARM);
+//			eve.setTypeno((short)12);
+//			eve.setCharInfo("23");
+//
+//			JedisUtils.lpush(Constant.ALARM_EVENT_QUEUE, JsonUtil.jsonObj2Sting(eve));
+//		}
 
 		
-		for (int i = 0; i < 1000000; i++) {
-			NbDailyData nbDailyData = new NbDailyData();
-			nbDailyData.setTableName("201904");
-			nbDailyData.setReportType((byte) 0);
-			nbDailyData.setRtuId(1);
-			nbDailyData.setMpId((short) 2);
-			nbDailyData.setYmd(20190413);
-			nbDailyData.setHms(i);
-
-			String a = NumberUtils.formatNumber(new Random().nextDouble(), 2);
-
-			nbDailyData.setTotalFlow(i *ConverterUtils.toDouble(a));
-			nbDailyData.setDailyPositiveFlow(i * ConverterUtils.toDouble(a));
-			nbDailyData.setDailyNegativeFlow(i * ConverterUtils.toDouble(a));
-			nbDailyData.setDailyMaxVelocity(i * ConverterUtils.toDouble(a));
-
-			JedisUtils.lpush(Constant.HISTORY_DAILY_QUEUE, JsonUtil.jsonObj2Sting(nbDailyData));
-		}
+//		for (int i = 0; i < 1000000; i++) {
+//			NbDailyData nbDailyData = new NbDailyData();
+//			nbDailyData.setTableName("201904");
+//			nbDailyData.setReportType((byte) 0);
+//			nbDailyData.setRtuId(1);
+//			nbDailyData.setMpId((short) 2);
+//			nbDailyData.setYmd(20190413);
+//			nbDailyData.setHms(i);
+//
+//			String a = NumberUtils.formatNumber(new Random().nextDouble(), 2);
+//
+//			nbDailyData.setTotalFlow(i *ConverterUtils.toDouble(a));
+//			nbDailyData.setDailyPositiveFlow(i * ConverterUtils.toDouble(a));
+//			nbDailyData.setDailyNegativeFlow(i * ConverterUtils.toDouble(a));
+//			nbDailyData.setDailyMaxVelocity(i * ConverterUtils.toDouble(a));
+//
+//			JedisUtils.lpush(Constant.HISTORY_DAILY_QUEUE, JsonUtil.jsonObj2Sting(nbDailyData));
+//		}
 		
-		for (int i = 0; i < 10000; i++) {
+		for (int i = 0; i < 100; i++) {
 			NbInstantaneous nbInstantaneous = new NbInstantaneous();
 			nbInstantaneous.setTableName("201904");
-			nbInstantaneous.setRtuId(1);
+			nbInstantaneous.setRtuId(10);
 			nbInstantaneous.setMpId((short)i);
 			nbInstantaneous.setYmd(20190401 + i);
 

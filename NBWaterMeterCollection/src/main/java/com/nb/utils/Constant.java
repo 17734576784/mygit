@@ -316,7 +316,7 @@ public class Constant {
 
 	public static final int ZERO = 0;
 	
-	public static final int REDIS_TIMEOUT = 30;
+	public static final int REDIS_TIMEOUT = 0;
 
 	/** 命令类型 抄收图片 */
 	public static final int COMMAND_TYPE_IMAGE = 1;
