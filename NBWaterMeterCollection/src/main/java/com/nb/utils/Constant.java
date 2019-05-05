@@ -475,7 +475,7 @@ public class Constant {
 	/** 补招T-2前几日的数据 */
 	public static final int TASK_CALL_DAYS = 6;
 
-	/** 电信平台获取设备历史数据pagesize */
+	/** 电信平台获取设备历史数据 补招前PAGE_SIZE条记录*/
 	public static final int PAGE_SIZE = 100;
 }
 
