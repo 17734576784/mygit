@@ -16,7 +16,7 @@ import java.io.File;
 
 /** 
 * @ClassName: Constant 
-* @Description: TODO(这里用一句话描述这个类的作用) 
+* @Description: 常量定义类
 * @author dbr
 * @date 2019年4月18日 下午4:51:44 
 *  
@@ -281,22 +281,7 @@ public class Constant {
 	public static final String COMMAND = "command_";
 
 	public static final String EMPTY = "";
-
-	/** 询问设备是否升级服务名 */
-	public static String UPVERSIONSERVICE = "UpversionService";
-
-	/** 询问设备是否升级方法名 */
-	public static String UPVERSION = "upversion";
-
-	/** 升级服务名 */
-	public static String UPDATASERVICE = "UpdataService";
-
-	/** 升级服务方法名 */
-	public static String UPDATACMD = "updatacmd";
-
-	/** CHECK上报缓存键前缀 */
-	public static String CHECK = "CHECK";
-
+	
 	/** 中国电信服务前缀 */
 	public static String CHINA_TELECOM_SERVICE = "chinaTelecom";
 
@@ -317,23 +302,6 @@ public class Constant {
 	public static final int ZERO = 0;
 	
 	public static final int REDIS_TIMEOUT = 0;
-
-	/** 命令类型 抄收图片 */
-	public static final int COMMAND_TYPE_IMAGE = 1;
-	/** 命令类型 抄收数据命令 */
-	public static final int COMMAND_TYPE_DATA = 2;
-	/** 命令类型 开阀命令 */
-	public static final int COMMAND_TYPE_OPEN = 10;
-	/** 命令类型 关阀命令 */
-	public static final int COMMAND_TYPE_CLOSE = 11;
-	/** 命令类型 设置抄表时间命令 */
-	public static final int COMMAND_TYPE_CBTIME = 20;
-	/** 命令类型 设置告警开关命令 */
-	public static final int COMMAND_TYPE_ALARM = 21;
-	/** 命令类型 调整摄像头命令 */
-	public static final int COMMAND_TYPE_CAMERA = 22;
-	/** 命令类型 完成激活命令 */
-	public static final int COMMAND_TYPE_ACTIVATE = 99;
 
 	/** 命令类型 redis Key */
 	public static final String COMMAND_TYPE_REIDS = "command_type";
@@ -362,14 +330,10 @@ public class Constant {
 	public static final String HISTORY_INSTAN_BAK_QUEUE = "HISTORY_INSTAN_BAK_QUEUE";
 	public static final String HISTORY_INSTAN_ERROR_QUEUE = "HISTORY_INSTAN_ERROR_QUEUE";
 
-
-
 	/** 告警事项队列redis前缀 */
 	public static final String ALARM_EVENT_QUEUE = "ALARM_EVENT_QUEUE";
 	public static final String ALARM_EVENT_BAK_QUEUE = "ALARM_EVENT_BAK_QUEUE";
 	public static final String ALARM_EVENT_ERROR_QUEUE = "ALARM_EVENT_ERROR_QUEUE";
-
-
 	
 	/** 竟达电池电压告警标志 */
 	public static final String BATTERY_ALARM = "Y";
