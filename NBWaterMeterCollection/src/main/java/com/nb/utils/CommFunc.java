@@ -13,7 +13,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.security.MessageDigest;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import javax.imageio.stream.FileImageInputStream;
@@ -284,5 +287,47 @@ public class CommFunc {
 		command = JsonUtil.jsonString2SimpleObj(JedisUtils.get(Constant.COMMAND_TYPE_REIDS), command.getClass());
 		String commandKey = ConverterUtils.toStr(nbType * 1000 + commandType);
 		return command.get(commandKey);
+	}
+	
+	/** 
+	* @Title: getTaskParamList 
+	* @Description: 获取补招任务执行的表名和日期列表
+	* @param @return    设定文件 
+	* @return List<Map<String,Object>>    返回类型 
+	* @throws 
+	*/
+	public static List<Map<String, Object>> getTaskParamList() {
+		/** 默认补招从T-1起 */
+		Calendar endDate = Calendar.getInstance();
+		endDate.add(Calendar.DAY_OF_MONTH, Constant.TASK_ENDDATE);
+
+		List<Map<String, Object>> paramList = new LinkedList<Map<String, Object>>();
+
+		for (int i = 0; i < Constant.TASK_CALL_DAYS; i++) {
+			String date = DateUtils.formatDateByFormat(endDate.getTime(), DateUtils.DATE_PATTERN);
+			String tableName = "YDData.dbo.nb_daily_data_" + date.substring(0, 6);
+			Map<String, Object> param = new HashMap<>();
+			param.put("date", date);
+			param.put("tableName", tableName);
+
+			paramList.add(param);
+			endDate.add(Calendar.DAY_OF_YEAR, -1);
+		}
+		return paramList;
+	}
+	
+	/** 
+	* @Title: getTaskStartTime 
+	* @Description: 获取补招任务产生时间的开始时间
+	* @param @return    设定文件 
+	* @return String    返回类型 
+	* @throws 
+	*/
+	public static String getTaskStartTime() {
+		/** 默认补招从T-1起 */
+		Calendar endDate = Calendar.getInstance();
+		endDate.add(Calendar.DAY_OF_MONTH, Constant.TASK_ENDDATE);
+		endDate.add(Calendar.DAY_OF_MONTH, -1 * (Constant.TASK_CALL_DAYS + 1));
+		return DateUtils.parseDate(endDate.getTime(), DateUtils.UTC_PATTERN);
 	}
 }

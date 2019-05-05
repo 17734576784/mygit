@@ -13,10 +13,13 @@
 	</select>
 	
 	<select id="listDeviceIdByAppModel" parameterType="map" resultType="string">
-		SELECT device_id from nb_water_meter m 
-		LEFT JOIN ${tableName} data
-		on m.rtu_id = data.rtu_id and m.mp_id = data.mp_id and data.ymd = #{ymd,jdbcType=INTEGER}
-		where data.total_flow is NULL and  m.appinfo_id = #{appInfoId} and m.device_model_id = #{modelId}
+		 
+		<foreach collection="paramList" item="param" index="index" open="" close="" separator=" union ">
+			SELECT device_id from nb_water_meter m 
+			LEFT JOIN ${param.tableName} data
+			on m.rtu_id = data.rtu_id and m.mp_id = data.mp_id and data.ymd = #{param.date,jdbcType=INTEGER}
+			where data.total_flow is NULL and  m.appinfo_id = #{appInfoId} and m.device_model_id = #{modelId}
+		</foreach>
 	</select>
 	
  

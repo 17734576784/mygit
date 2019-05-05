@@ -8,7 +8,6 @@
 */
 package com.nb.task;
 
-
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -16,18 +15,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.nb.service.ITaskService;
 
-/**
- * @ClassName: FxTelecomCallDataTask
- * @Description: 府星电信平台补招任务
- * @author dbr
- * @date 2019年4月15日 上午10:22:55
- * 
- */
-public class FxTelecomCallDataTask implements Job {
+/** 
+* @ClassName: JdTelecomCallDataTask 
+* @Description: 竞达电信平台补招任务
+* @author dbr
+* @date 2019年5月5日 下午3:06:29 
+*  
+*/
+public class JdTelecomCallDataTask implements Job {
 	
 	@Autowired
 	private ITaskService taskService;
-
+	
 	/** (非 Javadoc) 
 	* <p>Title: execute</p> 
 	* <p>Description: </p> 
@@ -39,5 +38,6 @@ public class FxTelecomCallDataTask implements Job {
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 
 		taskService.callHistoryData(this.getClass().getName());
+
 	}
 }

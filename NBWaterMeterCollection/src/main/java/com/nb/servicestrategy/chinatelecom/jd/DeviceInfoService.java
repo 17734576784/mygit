@@ -28,22 +28,14 @@ import com.nb.utils.JsonUtil;
  */
 @Service
 public class DeviceInfoService implements IServiceStrategy {
-
-	/**
-	 * (非 Javadoc)
-	 * <p>
-	 * Title: parse
-	 * </p>
-	 * <p>
-	 * Description:
-	 * </p>
-	 * 
-	 * @param deviceId
-	 * @param serviceMap
-	 * @see com.nb.servicestrategy.IServiceStrategy#parse(java.lang.String,
-	 *      java.util.Map)
-	 */
 	
+	/** (非 Javadoc) 
+	* <p>Title: parse</p> 
+	* <p>Description: </p> 
+	* @param deviceId
+	* @param serviceMap 
+	* @see com.nb.servicestrategy.IServiceStrategy#parse(java.lang.String, java.util.Map) 
+	*/
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
 		// TODO Auto-generated method stub
@@ -53,11 +45,10 @@ public class DeviceInfoService implements IServiceStrategy {
 		Map<String, String> dataMap = new HashMap<String, String>();
 		dataMap = JsonUtil.jsonString2SimpleObj(data, dataMap.getClass());
 
-//		String evnetTime = serviceMap.get("evnetTime");
 		DeviceInfo deviceInfo = JsonUtil.map2Bean(dataMap, DeviceInfo.class);
-//		deviceInfo.setEvnetTime(evnetTime);
+		deviceInfo.setEvnetTime(serviceMap);
 
-		System.out.println("上报竟达设备信息 : " + deviceInfo.toString());
+//		System.out.println("上报竟达设备信息 : " + deviceInfo.toString());
 	}
 
 }

@@ -148,9 +148,9 @@ public class Constant {
 	public static final String CHINA_TELECOM_QUERY_DEVICES = CHINA_TELECOM_BASE_URL + "/iocm/app/dm/v1.3.0/devices";
 	public static final String CHINA_TELECOM_QUERY_DEVICE_DATA = CHINA_TELECOM_BASE_URL + "/iocm/app/dm/v1.3.0/devices";
 	public static final String CHINA_TELECOM_QUERY_DEVICE_HISTORY_DATA = CHINA_TELECOM_BASE_URL
-			+ "/iocm/app/data/v1.1.0/deviceDataHistory";
+			+ "/iocm/app/data/v1.2.0/deviceDataHistory";
 	public static final String CHINA_TELECOM_QUERY_DEVICE_CAPABILITIES = CHINA_TELECOM_BASE_URL
-			+ "/iocm/app/data/v1.1.0/deviceCapabilities";
+			+ "/iocm/app/data/v1.2.0/deviceCapabilities";
 	public static final String CHINA_TELECOM_SUBSCRIBE_NOTIFYCATION = CHINA_TELECOM_BASE_URL
 			+ "/iocm/app/sub/v1.2.0/subscriptions";
 
@@ -198,9 +198,9 @@ public class Constant {
 	public static final String CHINA_UNICOM_QUERY_DEVICES = CHINA_UNICOM_BASE_URL + "/iocm/app/dm/v1.3.0/devices";
 	public static final String CHINA_UNICOM_QUERY_DEVICE_DATA = CHINA_UNICOM_BASE_URL + "/iocm/app/dm/v1.3.0/devices";
 	public static final String CHINA_UNICOM_QUERY_DEVICE_HISTORY_DATA = CHINA_UNICOM_BASE_URL
-			+ "/iocm/app/data/v1.1.0/deviceDataHistory";
+			+ "/iocm/app/data/v1.2.0/deviceDataHistory";
 	public static final String CHINA_UNICOM_QUERY_DEVICE_CAPABILITIES = CHINA_UNICOM_BASE_URL
-			+ "/iocm/app/data/v1.1.0/deviceCapabilities";
+			+ "/iocm/app/data/v1.2.0/deviceCapabilities";
 	public static final String CHINA_UNICOM_SUBSCRIBE_NOTIFYCATION = CHINA_UNICOM_BASE_URL
 			+ "/iocm/app/sub/v1.1.0/subscribe";
 
@@ -456,9 +456,6 @@ public class Constant {
 	public static final String MONTH = "month";
 
 	
-
-	
-	
 	public static final int ONE = 1;
 	public static final int TWO = 2;
 	public static final int THREE = 3;
@@ -472,11 +469,14 @@ public class Constant {
 	public static final int NUM_200000 = 200000;
 	public static final int NUM_200 = 200;
 	public static final int NUM_1000 = 1000;
-	
+
 	/** 补招数据 从T-2日起 */
-	public static final int TASK_ENDDATE = -2;
+	public static final int TASK_ENDDATE = -1;
 	/** 补招T-2前几日的数据 */
-	public static final int TASK_CALL_DAYS = 3;
+	public static final int TASK_CALL_DAYS = 6;
+
+	/** 电信平台获取设备历史数据pagesize */
+	public static final int PAGE_SIZE = 100;
 }
 
 

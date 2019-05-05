@@ -42,21 +42,14 @@ public class RealtimeReportService implements IServiceStrategy {
 	@Resource
 	private CommonMapper commonMapper;
 
-	/**
-	 * (非 Javadoc)
-	 * <p>
-	 * Title: parse
-	 * </p>
-	 * <p>
-	 * Description:
-	 * </p>
-	 * 
-	 * @param deviceId
-	 * @param serviceMap
-	 * @see com.nb.servicestrategy.IServiceStrategy#parse(java.lang.String,
-	 *      java.util.Map)
-	 */
 	
+	/** (非 Javadoc) 
+	* <p>Title: parse</p> 
+	* <p>Description: </p> 
+	* @param deviceId
+	* @param serviceMap 
+	* @see com.nb.servicestrategy.IServiceStrategy#parse(java.lang.String, java.util.Map) 
+	*/
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
 		// TODO Auto-generated method stub
@@ -71,8 +64,6 @@ public class RealtimeReportService implements IServiceStrategy {
 			}
 
 			RealtimeReport realtimeReport = JsonUtil.map2Bean(dataMap, RealtimeReport.class);
-			System.out.println(realtimeReport.toString());
-
 			String evnetTime = realtimeReport.getReadTime();
 			int date = toInt(evnetTime.substring(0, 8));
 			int time = toInt(evnetTime.substring(9, 15));

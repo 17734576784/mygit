@@ -34,6 +34,7 @@ import com.nb.model.jd.DeviceAlarm;
 import com.nb.model.jd.PeriodReport;
 import com.nb.model.xt.XtBattery;
 import com.nb.task.FxTelecomCallDataTask;
+import com.nb.utils.CommFunc;
 import com.nb.utils.CommandEnum;
 import com.nb.utils.Constant;
 import com.nb.utils.ConverterUtils;
@@ -60,14 +61,16 @@ public class MainTest {
 	* @throws 
 	*/
 	public static void main(String[] args) {
-		
-		XtBattery x = new XtBattery();
-		x.setEvnetTime("20180417T121245Z");
-		System.out.println(x.getEventDate() + "  " + x.getEventTime());
+		System.out.println(CommFunc.getTaskStartTime());
 		
 		
-		Date date = DateUtils.utcToLocal("20190428T012017Z", DateUtils.UTC_PATTERN);
-		System.out.println(DateUtils.formatDateByFormat(date, DateUtils.DATE_PATTERN)+" " + DateUtils.formatDateByFormat(date,DateUtils.TIME_PATTERN));
+//		XtBattery x = new XtBattery();
+//		x.setEvnetTime("20180417T121245Z");
+//		System.out.println(x.getEventDate() + "  " + x.getEventTime());
+//		
+//		
+//		Date date = DateUtils.utcToLocal("20190428T012017Z", DateUtils.UTC_PATTERN);
+//		System.out.println(DateUtils.formatDateByFormat(date, DateUtils.DATE_PATTERN)+" " + DateUtils.formatDateByFormat(date,DateUtils.TIME_PATTERN));
 //		Calendar endDate = Calendar.getInstance();
 //		endDate.add(Calendar.DAY_OF_MONTH, Constant.TASK_ENDDATE);
 //		System.out.println(DateUtils.formatDateByFormat(endDate.getTime(), DateUtils.DATE_PATTERN));

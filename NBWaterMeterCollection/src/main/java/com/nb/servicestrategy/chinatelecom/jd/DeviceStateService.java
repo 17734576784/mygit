@@ -46,11 +46,10 @@ public class DeviceStateService implements IServiceStrategy {
 		Map<String, String> dataMap = new HashMap<String, String>();
 		dataMap = JsonUtil.jsonString2SimpleObj(data, dataMap.getClass());
 
-		String evnetTime = serviceMap.get("eventTime");
 		DeviceState deviceState = JsonUtil.map2Bean(dataMap, DeviceState.class);
-		deviceState.setEvnetTime(evnetTime);
+		deviceState.setEvnetTime(serviceMap);
 
-		System.out.println("上报竟达水表设备状态：" + deviceState.toString());
+//		System.out.println("上报竟达水表设备状态：" + deviceState.toString());
 
 	}
 

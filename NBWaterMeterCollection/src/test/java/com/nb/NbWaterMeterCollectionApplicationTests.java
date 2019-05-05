@@ -108,6 +108,43 @@ public class NbWaterMeterCollectionApplicationTests {
 
 	@Resource
 	private TaskMapper taskMapper;
+	
+	
+	@Test
+	public void TaskTest() {
+		/** 根据任务名称获取任务信息 */
+ 		Map<String, Object> taskInfo = taskMapper.getBatchCommandByClass("com.nb.task.FxTelecomCallDataTask");
+		if (taskInfo == null) {
+			return;
+		}
+
+		String appId = toStr(taskInfo.get("appId"));
+		String secret = toStr(taskInfo.get("secret"));
+
+		/** 默认补招从T-1起 */
+		Calendar endDate = Calendar.getInstance();
+		endDate.add(Calendar.DAY_OF_MONTH, Constant.TASK_ENDDATE);
+
+		List<Map<String, Object>> tableNameList = new LinkedList<Map<String, Object>>();
+
+		for (int i = 0; i < Constant.TASK_CALL_DAYS; i++) {
+			String date = DateUtils.formatDateByFormat(endDate.getTime(), DateUtils.DATE_PATTERN);
+			String tableName = "YDData.dbo.nb_daily_data_" + date.substring(0, 6);
+			Map<String, Object> param = new HashMap<>();
+			param.put("date", date);
+			param.put("tableName", tableName);
+
+			tableNameList.add(param);
+			endDate.add(Calendar.DAY_OF_YEAR, -1);
+		}
+
+		taskInfo.put("tableNameList", tableNameList);
+
+		List<String> deviceIdList = taskMapper.listDeviceIdByAppModel(taskInfo);
+		System.out.println(deviceIdList);
+	}
+	
+	
 //	@Test
 	public void testCommon() {
 		 
@@ -210,7 +247,7 @@ public class NbWaterMeterCollectionApplicationTests {
 		}
 	}
 	
-	@Test
+//	@Test
 	public void testEve() {
 //		NbBattery nbBattery = new NbBattery();
 //		nbBattery.setTableName("201904");

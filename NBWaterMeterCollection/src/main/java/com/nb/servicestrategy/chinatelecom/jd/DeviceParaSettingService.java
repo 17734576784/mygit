@@ -46,11 +46,10 @@ public class DeviceParaSettingService implements IServiceStrategy {
 		Map<String, String> dataMap = new HashMap<String, String>();
 		dataMap = JsonUtil.jsonString2SimpleObj(data, dataMap.getClass());
 
-		String eventTime = serviceMap.get("eventTime");
 		DeviceParaSetting deviceParaSetting = JsonUtil.map2Bean(dataMap, DeviceParaSetting.class);
-		deviceParaSetting.setEvnetTime(eventTime);
+		deviceParaSetting.setEvnetTime(serviceMap);
 
-		System.out.println("上报竟达设备参数 :" + deviceParaSetting.toString());
+//		System.out.println("上报竟达设备参数 :" + deviceParaSetting.toString());
 
 	}
 

@@ -44,26 +44,19 @@ public class PeriodReportService implements IServiceStrategy {
 	@Resource
 	private CommonMapper commonMapper;
 
-	/**
-	 * (非 Javadoc)
-	 * <p>
-	 * Title: parse
-	 * </p>
-	 * <p>
-	 * Description:
-	 * </p>
-	 * 
-	 * @param deviceId
-	 * @param serviceMap
-	 * @see com.nb.servicestrategy.IServiceStrategy#parse(java.lang.String,
-	 *      java.util.Map)
-	 */
+	
+	/** (非 Javadoc) 
+	* <p>Title: parse</p> 
+	* <p>Description: </p> 
+	* @param deviceId
+	* @param serviceMap 
+	* @see com.nb.servicestrategy.IServiceStrategy#parse(java.lang.String, java.util.Map) 
+	*/
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
 		// TODO Auto-generated method stub
 		String logInfo = "上报竟达水表周期数据：" + deviceId + " ,内容：" + serviceMap.toString();
 		LoggerUtil.logger(LogName.CALLBACK).info(logInfo);
-		System.out.println(logInfo);
 
 		Object data = serviceMap.get("data");
 		Map<String, String> dataMap = new HashMap<String, String>();

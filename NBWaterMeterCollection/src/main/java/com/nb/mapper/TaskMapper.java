@@ -35,7 +35,7 @@ public interface TaskMapper {
 	
 	/** 
 	* @Title: listDeviceIdByAppModel 
-	* @Description: 根据应用设备类型获取为采集成功的deviceId
+	* @Description: 根据应用设备类型获取未采集成功的deviceId
 	* @param @param param
 	* @param @return    设定文件 
 	* @return List<String>    返回类型 

@@ -45,21 +45,14 @@ public class DeviceAlarmService implements IServiceStrategy {
 	@Resource
 	private EveMapper eveMapper;
 
-	/**
-	 * (非 Javadoc)
-	 * <p>
-	 * Title: parse
-	 * </p>
-	 * <p>
-	 * Description:
-	 * </p>
-	 * 
-	 * @param deviceId
-	 * @param serviceMap
-	 * @see com.nb.servicestrategy.IServiceStrategy#parse(java.lang.String,
-	 *      java.util.Map)
-	 */
 	
+	/** (非 Javadoc) 
+	* <p>Title: parse</p> 
+	* <p>Description: </p> 
+	* @param deviceId
+	* @param serviceMap 
+	* @see com.nb.servicestrategy.IServiceStrategy#parse(java.lang.String, java.util.Map) 
+	*/
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
 		// TODO Auto-generated method stub
@@ -74,7 +67,7 @@ public class DeviceAlarmService implements IServiceStrategy {
 			}
 
 			DeviceAlarm deviceAlarm = JsonUtil.map2Bean(dataMap, DeviceAlarm.class);
-			deviceAlarm.setEvnetTime(serviceMap.get("eventTime"));
+			deviceAlarm.setEvnetTime(serviceMap);
 
 			String eveInfo = "";
 			Short typeNo = 0;
