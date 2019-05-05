@@ -35,12 +35,12 @@ public class Constant {
 //    public static final String SECRET = "uOL_C0yP6pl4Gals5dJkrfF1vSka";
     	
     //竟达电信
-    public static final String APPID = "kFIBMLfUCggAtt9dwgSFeYTP9Ssa";
-    public static final String SECRET = "PyVL5CMym0X_3XmSsfAuza2rc_Ma";
+//    public static final String APPID = "kFIBMLfUCggAtt9dwgSFeYTP9Ssa";
+//    public static final String SECRET = "PyVL5CMym0X_3XmSsfAuza2rc_Ma";
 //    
     //府星电信 595yVAxsUL1HnK84TnylSC6xaY8a
-//    public static final String APPID = "595yVAxsUL1HnK84TnylSC6xaY8a";
-//    public static final String SECRET = "FD9Rz9ayh80D1KM6146VXxQwU54a";
+    public static final String APPID = "595yVAxsUL1HnK84TnylSC6xaY8a";
+    public static final String SECRET = "FD9Rz9ayh80D1KM6146VXxQwU54a";
     
     /*
      *IP and port of callback url.
@@ -131,8 +131,8 @@ public class Constant {
      */
     public static final String QUERY_DEVICES = BASE_URL + "/iocm/app/dm/v1.3.0/devices";
     public static final String QUERY_DEVICE_DATA = BASE_URL + "/iocm/app/dm/v1.3.0/devices";
-    public static final String QUERY_DEVICE_HISTORY_DATA = BASE_URL + "/iocm/app/data/v1.1.0/deviceDataHistory";
-    public static final String QUERY_DEVICE_CAPABILITIES = BASE_URL + "/iocm/app/data/v1.1.0/deviceCapabilities";
+    public static final String QUERY_DEVICE_HISTORY_DATA = BASE_URL + "/iocm/app/data/v1.2.0/deviceDataHistory";
+    public static final String QUERY_DEVICE_CAPABILITIES = BASE_URL + "/iocm/app/data/v1.2.0/deviceCapabilities";
     public static final String SUBSCRIBE_NOTIFYCATION = BASE_URL + "/iocm/app/sub/v1.1.0/subscribe";
     
     
