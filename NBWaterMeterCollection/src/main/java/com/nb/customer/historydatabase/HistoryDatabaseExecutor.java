@@ -107,10 +107,15 @@ public class HistoryDatabaseExecutor {
 		try {
 			NbDailyData nbDailyData = JsonUtil.convertJsonStringToObject(obj.toString(), NbDailyData.class);
 
-			if (null == nbDailyDataMapper.getNbDailyData(nbDailyData)) {
+			if (!nbDailyDataMapper.isExist(nbDailyData)) {
 				flag = nbDailyDataMapper.insertNbDailyData(nbDailyData);
+			} else {
+				flag = nbDailyDataMapper.updateNbDailyData(nbDailyData);
+			}
+			if (nbDailyData.getTotalFlow() != null) {
 				flag &= insertJFDayFlow(nbDailyData);
 			}
+
 		} catch (Exception e) {
 			flag = false;
 			JedisUtils.lpush(Constant.HISTORY_DAILY_ERROR_QUEUE, JsonUtil.jsonObj2Sting(obj));

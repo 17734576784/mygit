@@ -91,7 +91,7 @@ public class ReportBeforeOpenAccountService implements IServiceStrategy {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			LoggerUtil.logger(LogName.CALLBACK).error(logInfo + "异常" + e.getMessage());
+			LoggerUtil.logger(LogName.ERROR).error(logInfo + "异常" + e.getMessage());
 		}
 	}
 	

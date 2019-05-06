@@ -11,20 +11,20 @@ package com.nb.model.xt;
 import com.nb.model.BaseModel;
 
 /** 
-* @ClassName: XtValve 
+* @ClassName: SuntrontValve 
 * @Description:新天科技Valve服务上报数据项
 * @author dbr
 * @date 2019年4月26日 上午10:06:27 
 *  
 */
-public class XtValve extends BaseModel {
+public class SuntrontValve extends BaseModel {
 
 	/** 
 	* @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 
 	*/ 
 	private static final long serialVersionUID = -6180931491454162305L;
 	
-	/** 阀门状态 */
+	/** 阀门状态 1开 2关 3异常 */
 	private Integer valveStatus; 
 	
 	/**

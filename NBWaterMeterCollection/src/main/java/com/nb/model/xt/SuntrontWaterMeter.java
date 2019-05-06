@@ -10,36 +10,41 @@ package com.nb.model.xt;
 
 import static com.nb.utils.ConverterUtils.toInt;
 
+import java.util.Date;
+
 import com.nb.model.BaseModel;
+import com.nb.utils.Constant;
+import com.nb.utils.DateUtils;
 
 /**
- * @ClassName: XtWaterMeter
+ * @ClassName: SuntrontWaterMeter
  * @Description: 新天科技WaterMeter服务上报数据项
  * @author dbr
  * @date 2019年4月26日 上午9:15:46
  * 
  */
-public class XtWaterMeter extends BaseModel {
+public class SuntrontWaterMeter extends BaseModel {
 
 	/**
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)
 	 */
 	private static final long serialVersionUID = 1753212176395842175L;
-	/** 数据的采集时间 */
+	/** 数据的采集时间 yyyy-MM-ddTHH:mm:ssZ*/
 	private String timeOfReading;
-	/** 日结累计正流量 */
-	private String dailyFlow;
-	/** 日结累计逆流值 */
-	private String dailyReverseFlow;
-	/** 日最高流速 */
-	private String peakFlowRate;
-	/** 日最高流速时间 */
-	private String peakFlowRateTime;
-	/** 间隔流量起始时间 */
+	
+	/** 日结累计正流量 单位：L */
+	private Double dailyFlow;
+	/** 日结累计逆流值 单位：L */
+	private Double dailyReverseFlow;
+	/** 日最高流速 单位：L */
+	private Double peakFlowRate;
+	/** 日最高流速时间 秒*/
+	private Integer peakFlowRateTime;
+	/** 间隔流量起始时间 yyyy-MM-ddTHH:mm:ssZ*/
 	private String intervalFlowStartingTime;
-	/** list<int> 间隔流量(30 分钟) */
+	/** list<int> 间隔流量(30 分钟)  单位：L*/
 	private Object intervalFlow;
-	/** list<int> 瞬时流量(30 分钟) */
+	/** list<int> 瞬时流量(30 分钟)  单位：L*/
 	private Object instantFlow;
 	/** 信号质量 */
 	private Integer csq;
@@ -55,14 +60,21 @@ public class XtWaterMeter extends BaseModel {
 	private Object highRateReverseFlow;
 	/** 日冻结（年月日） */
 	private String uploadFreezeDate;
-	/** list<int> 当日 48 个点累计增量 */
-	// private Object dailyFlow;
+	/** list<int> 累计流量 单位为 L */
+	private Object monthlyDailyFlow;
 	
 	/** 事项上报日期 */
 	private int readDate; 
 	
 	/** 事项上报时间 */
 	private int readTime; 
+	
+	/** 间隔日期 */
+	private int intervalDate; 
+	
+	/** 间隔时间 */
+	private int intervalTime; 
+	
 	
 	/**
 	 * @return the serialversionuid
@@ -72,7 +84,20 @@ public class XtWaterMeter extends BaseModel {
 	}
 
 	
-	
+	/**
+	 * @return the monthlyDailyFlow
+	 */
+	public Object getMonthlyDailyFlow() {
+		return monthlyDailyFlow;
+	}
+
+	/**
+	 * @param monthlyDailyFlow the monthlyDailyFlow to set
+	 */
+	public void setMonthlyDailyFlow(Object monthlyDailyFlow) {
+		this.monthlyDailyFlow = monthlyDailyFlow;
+	}
+
 	/**
 	 * @return the readDate
 	 */
@@ -98,58 +123,80 @@ public class XtWaterMeter extends BaseModel {
 	 */
 	public void setTimeOfReading(String timeOfReading) {
 		this.timeOfReading = timeOfReading;
-		this.readDate = toInt(timeOfReading.substring(0, 8));
-		this.readTime = toInt(timeOfReading.substring(9, 15)) + 80000;
+		Date date = new Date();
+		if (timeOfReading != null && !timeOfReading.isEmpty()) {
+			date = DateUtils.utcToLocal(timeOfReading, DateUtils.UTC_PATTERN);
+
+		}
+		this.readDate = toInt(DateUtils.formatDateByFormat(date, DateUtils.DATE_PATTERN));
+		this.readTime = toInt(DateUtils.formatDateByFormat(date, DateUtils.TIME_PATTERN));
 	}
+	
 	
 	/**
 	 * @return the dailyFlow
 	 */
-	public String getDailyFlow() {
+	public Double getDailyFlow() {
 		return dailyFlow;
 	}
+
+
 	/**
 	 * @param dailyFlow the dailyFlow to set
 	 */
-	public void setDailyFlow(String dailyFlow) {
-		this.dailyFlow = dailyFlow;
+	public void setDailyFlow(Integer dailyFlow) {
+		this.dailyFlow = dailyFlow * 1D / Constant.NUM_1000;
 	}
+
+
 	/**
 	 * @return the dailyReverseFlow
 	 */
-	public String getDailyReverseFlow() {
+	public Double getDailyReverseFlow() {
 		return dailyReverseFlow;
 	}
+
+
 	/**
 	 * @param dailyReverseFlow the dailyReverseFlow to set
 	 */
-	public void setDailyReverseFlow(String dailyReverseFlow) {
-		this.dailyReverseFlow = dailyReverseFlow;
+	public void setDailyReverseFlow(Integer dailyReverseFlow) {
+		this.dailyReverseFlow = dailyReverseFlow * 1D / Constant.NUM_1000;
 	}
+
+
 	/**
 	 * @return the peakFlowRate
 	 */
-	public String getPeakFlowRate() {
+	public Double getPeakFlowRate() {
 		return peakFlowRate;
 	}
+
+
 	/**
 	 * @param peakFlowRate the peakFlowRate to set
 	 */
-	public void setPeakFlowRate(String peakFlowRate) {
-		this.peakFlowRate = peakFlowRate;
+	public void setPeakFlowRate(Integer peakFlowRate) {
+		this.peakFlowRate = peakFlowRate * 1D / Constant.NUM_1000;
 	}
+
+
 	/**
 	 * @return the peakFlowRateTime
 	 */
-	public String getPeakFlowRateTime() {
+	public Integer getPeakFlowRateTime() {
 		return peakFlowRateTime;
 	}
+
+
 	/**
 	 * @param peakFlowRateTime the peakFlowRateTime to set
 	 */
-	public void setPeakFlowRateTime(String peakFlowRateTime) {
+	public void setPeakFlowRateTime(Integer peakFlowRateTime) {
 		this.peakFlowRateTime = peakFlowRateTime;
 	}
+
+
 	/**
 	 * @return the intervalFlowStartingTime
 	 */
@@ -161,7 +208,28 @@ public class XtWaterMeter extends BaseModel {
 	 */
 	public void setIntervalFlowStartingTime(String intervalFlowStartingTime) {
 		this.intervalFlowStartingTime = intervalFlowStartingTime;
+		Date date = DateUtils.utcToLocal(intervalFlowStartingTime, DateUtils.UTC_PATTERN);
+		this.intervalDate = toInt(DateUtils.formatDateByFormat(date, DateUtils.DATE_PATTERN));
+		this.intervalTime = toInt(DateUtils.formatDateByFormat(date, DateUtils.TIME_PATTERN));
 	}
+	
+	
+	/**
+	 * @return the intervalDate
+	 */
+	public int getIntervalDate() {
+		return intervalDate;
+	}
+
+
+	/**
+	 * @return the intervalTime
+	 */
+	public int getIntervalTime() {
+		return intervalTime;
+	}
+
+
 	/**
 	 * @return the intervalFlow
 	 */

@@ -1,20 +1,19 @@
 /**   
-* @Title: ReportExceptionService.java 
-* @Package com.nb.servicestrategy.chinatelecom.fx 
+* @Title: SuntrontValveService.java 
+* @Package com.nb.servicestrategy.chinatelecom.xt 
 * @Description: TODO(用一句话描述该文件做什么) 
 * @author dbr
-* @date 2019年4月15日 下午5:08:36 
+* @date 2019年5月6日 下午5:22:09 
 * @version V1.0   
 */
-package com.nb.servicestrategy.chinatelecom.fx;
+package com.nb.servicestrategy.chinatelecom.xt;
 
 import static com.nb.utils.ConverterUtils.toInt;
 import static com.nb.utils.ConverterUtils.toStr;
-import static com.nb.utils.ConverterUtils.toShort;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -23,25 +22,24 @@ import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtil;
 import com.nb.mapper.CommonMapper;
 import com.nb.model.Eve;
+import com.nb.model.xt.SuntrontValve;
 import com.nb.servicestrategy.IServiceStrategy;
 import com.nb.utils.Constant;
-import com.nb.utils.DateUtils;
 import com.nb.utils.JedisUtils;
 import com.nb.utils.JsonUtil;
 
 /** 
-* @ClassName: ReportExceptionService 
-* @Description: 府星水表异常数据上报内容
+* @ClassName: SuntrontValveService 
+* @Description: 上报新天科技SuntrontValveService服务 
 * @author dbr
-* @date 2019年4月15日 下午5:08:36 
+* @date 2019年5月6日 下午5:22:09 
 *  
 */
 @Service
-public class ReportExceptionService implements IServiceStrategy {
+public class SuntrontValveService implements IServiceStrategy {
 
 	@Resource
 	private CommonMapper commonMapper;
-	
 	/** (非 Javadoc) 
 	* <p>Title: parse</p> 
 	* <p>Description: </p> 
@@ -49,46 +47,43 @@ public class ReportExceptionService implements IServiceStrategy {
 	* @param serviceMap 
 	* @see com.nb.servicestrategy.IServiceStrategy#parse(java.lang.String, java.util.Map) 
 	*/
-	
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
 		// TODO Auto-generated method stub
-		String logInfo = "上报府星水表异常数据上报内容 ：" + deviceId + " ,内容：" + serviceMap.toString();
+		String logInfo = "上报新天科技SuntrontValveService服务 ：" + deviceId + " ,内容：" + serviceMap.toString();
 		LoggerUtil.logger(LogName.CALLBACK).info(logInfo);
 		if (serviceMap == null || serviceMap.isEmpty()) {
 			return;
 		}
-		
+
 		Object data = serviceMap.get("data");
 		Map<String, String> dataMap = new HashMap<String, String>();
-		
 		try {
 			dataMap = JsonUtil.jsonString2SimpleObj(data, dataMap.getClass());
 			if (dataMap == null) {
 				return;
 			}
+
+			SuntrontValve suntrontValve = JsonUtil.map2Bean(dataMap, SuntrontValve.class);
+			suntrontValve.setEvnetTime(serviceMap);
 			
-			Short typeNo = toShort(dataMap.get("ErrorNo"));
-			String eveInfo = "";
-			// 阀门异常
-			if (typeNo == Constant.FX_VALVE_ERROR) { 
-				eveInfo = "阀门异常";
-				typeNo = Constant.ALARM_2010;
-			}
-			// 强磁异常
-			else if (typeNo == Constant.FX_MAGNETIC) {
-				eveInfo = "强磁异常（双干簧管异常），连续10秒2个干簧管都吸合，关阀门并自动上报，有5次按键打开阀门的机会，第5次按键打卡阀门后，如果还是出现强磁只有服务器下发“开阀命令”才能打开阀门。";
-				typeNo = Constant.ALARM_2004;
-			} else if (typeNo == Constant.FX_BATTERY_1 || typeNo == Constant.FX_BATTERY_2) {
-				eveInfo = "电池电压低压告警，电压值:" + dataMap.get("BatteryVoltage");
-				typeNo = Constant.ALARM_2008;
+			Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
+			if (meterInfo == null) {
+				return;
+			} 
+			/** 更新表计阀门状态 */
+			meterInfo.put("valveState", suntrontValve.getValveStatus() * Constant.TWO);
+			commonMapper.updateWaterMeterValve(meterInfo);
+			
+			/** 保存阀门异常 */
+			if (suntrontValve.getValveStatus() >= Constant.THREE) {
+				String eveInfo = "阀门异常";
+				Short typeNo = Constant.ALARM_2010;
+				insertEve(suntrontValve, deviceId, eveInfo, typeNo);
 			}
 
-			if (!eveInfo.isEmpty()) {
-				insertEve(dataMap, deviceId, eveInfo, typeNo);
-			}
- 			
 		} catch (Exception e) {
+			// TODO: handle exception
 			e.printStackTrace();
 			LoggerUtil.logger(LogName.ERROR).error(logInfo + "异常" + e.getMessage());
 		}
@@ -96,8 +91,8 @@ public class ReportExceptionService implements IServiceStrategy {
 	
 	/** 
 	* @Title: insertEve 
-	* @Description: 插入告警事项 
-	* @param @param fxReport
+	* @Description: 插入告警事项
+	* @param @param suntrontValve
 	* @param @param deviceId
 	* @param @param eveInfo
 	* @param @param typeNo
@@ -105,24 +100,20 @@ public class ReportExceptionService implements IServiceStrategy {
 	* @return void    返回类型 
 	* @throws 
 	*/
-	private void insertEve(Map<String, String> dataMap, String deviceId, String eveInfo, short typeNo)
+	private void insertEve(SuntrontValve suntrontValve, String deviceId, String eveInfo, short typeNo)
 			throws Exception {
 		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
 		if (meterInfo == null) {
 			return;
 		}
 
-		Date dateTime = DateUtils.parseTimesTampDate(dataMap.get("CurrentDateTime"));
-		int date = toInt(DateUtils.formatDateByFormat(dateTime, "yyyyMMdd"));
-		int time = toInt(DateUtils.formatDateByFormat(dateTime, "HHmmss"));
-		
 		int rtuId = toInt(meterInfo.get("rtuId"));
 		int mpId = toInt(meterInfo.get("mpId"));
 
 		Eve eve = new Eve();
-		eve.setTableName(toStr(date / 100));
-		eve.setYmd(date);
-		eve.setHmsms(time * 1000);
+		eve.setTableName(toStr(suntrontValve.getEventDate() / 100));
+		eve.setYmd(suntrontValve.getEventDate());
+		eve.setHmsms(suntrontValve.getEventTime() * 1000);
 		eve.setMemberId0(rtuId);
 		eve.setMemberId1(mpId);
 		eve.setMemberId2(-1);
@@ -132,6 +123,5 @@ public class ReportExceptionService implements IServiceStrategy {
 
 		JedisUtils.lpush(Constant.ALARM_EVENT_QUEUE, JsonUtil.jsonObj2Sting(eve));
 	}
-
 
 }

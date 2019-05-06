@@ -32,7 +32,8 @@ import com.nb.model.fx.FXReport;
 import com.nb.model.jd.Battery;
 import com.nb.model.jd.DeviceAlarm;
 import com.nb.model.jd.PeriodReport;
-import com.nb.model.xt.XtBattery;
+import com.nb.model.xt.SuntrontBattery;
+import com.nb.model.xt.SuntrontWaterMeterAlarm;
 import com.nb.task.FxTelecomCallDataTask;
 import com.nb.utils.CommFunc;
 import com.nb.utils.CommandEnum;
@@ -61,9 +62,12 @@ public class MainTest {
 	* @throws 
 	*/
 	public static void main(String[] args) {
-		System.out.println(CommFunc.getTaskStartTime());
 		
-		
+		Map<String, String> dataMap = new HashMap<String, String>();
+		dataMap.put("highFlowAlarm", "0");
+		SuntrontWaterMeterAlarm suntrontwatermeteralarm = JsonUtil.map2Bean(dataMap, SuntrontWaterMeterAlarm.class);
+			
+		System.out.println(suntrontwatermeteralarm.getHighFlowAlarm());
 //		XtBattery x = new XtBattery();
 //		x.setEvnetTime("20180417T121245Z");
 //		System.out.println(x.getEventDate() + "  " + x.getEventTime());
