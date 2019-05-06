@@ -82,7 +82,6 @@ public class TaskServiceImpl implements ITaskService {
 			String appId = toStr(taskInfo.get("appId"));
 			String secret = toStr(taskInfo.get("secret"));
 			String accessToken = AuthenticationUtils.getChinaTelecomAccessToken(httpsUtil, appId, secret);
-			System.out.println(accessToken);
 			Map<String, String> header = new HashMap<>();
 			header.put(Constant.HEADER_APP_KEY, appId);
 			header.put(Constant.HEADER_APP_AUTH, "Bearer" + " " + accessToken);
