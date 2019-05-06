@@ -35,7 +35,7 @@
       and hms = #{hms,jdbcType=INTEGER}
   </select>
   
-   <select id="isExist" resultMap="boolean" parameterType="com.nb.model.NbDailyDataKey" >
+   <select id="isExist" resultType="boolean" parameterType="com.nb.model.NbDailyDataKey" >
     select  count('X')  from ${tableName}
     where rtu_id = #{rtuId,jdbcType=INTEGER}
       and mp_id = #{mpId,jdbcType=SMALLINT}
