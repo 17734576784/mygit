@@ -33,6 +33,7 @@ public class AuthenticationUtils {
 		appInfo.put("secret", secret);
 		try {
 			StreamClosedHttpResponse responseLogin = httpsUtil.doPostFormUrlEncodedGetStatusLine(urlLogin, appInfo);
+			System.out.println("responseLogin : "+ responseLogin);
 			Map<String, String> data = new HashMap<>();
 			data = JsonUtil.jsonString2SimpleObj(responseLogin.getContent(), data.getClass());
 			accessToken = data.get("accessToken");
