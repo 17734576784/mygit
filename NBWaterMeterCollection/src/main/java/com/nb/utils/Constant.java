@@ -441,6 +441,8 @@ public class Constant {
 
 	/** 电信平台获取设备历史数据 补招前PAGE_SIZE条记录*/
 	public static final int PAGE_SIZE = 100;
+	/** 电信平台鉴权凭证*/
+	public static final String ACCESS_TOKEN = "accessToken:";
 }
 
 

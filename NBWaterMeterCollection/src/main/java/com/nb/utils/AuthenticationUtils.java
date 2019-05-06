@@ -20,9 +20,13 @@ import com.nb.model.StreamClosedHttpResponse;
  */
 public class AuthenticationUtils {
 	
-	@SuppressWarnings({"unchecked" })
 	public static String getChinaTelecomAccessToken(ChinaTelecomIotHttpsUtil httpsUtil, String appId, String secret) {
-		String accessToken = "";
+		String key = Constant.ACCESS_TOKEN + appId;
+		String accessToken = JedisUtils.get(key);
+		if (accessToken != null) {
+			return accessToken;
+		}
+		
 		String urlLogin = Constant.CHINA_TELECOM_APP_AUTH;
 		Map<String, String> appInfo = new HashMap<>();
 		appInfo.put("appId", appId);
@@ -32,6 +36,9 @@ public class AuthenticationUtils {
 			Map<String, String> data = new HashMap<>();
 			data = JsonUtil.jsonString2SimpleObj(responseLogin.getContent(), data.getClass());
 			accessToken = data.get("accessToken");
+			int expiresIn = ConverterUtils.toInt(data.get("expiresIn"));
+			
+			JedisUtils.set(key, accessToken, expiresIn);
 		} catch (Exception e) {
 			e.printStackTrace();
 			LoggerUtil.logger(LogName.ERROR).error("鉴权异常");
