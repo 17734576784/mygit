@@ -69,7 +69,7 @@ public class TaskServiceImpl implements ITaskService {
 		if (deviceIdList.isEmpty()) {
 			return;
 		}
-		LoggerUtil.logger(LogName.HISTORYDATA).info("执行府星水表补招任务,补招表计:{}",deviceIdList.toString());
+		LoggerUtil.logger(LogName.HISTORYDATA).info("执行{}水表补招任务,补招表计:{}",className,deviceIdList.toString());
 		/** 遍历未采集成功表计,向电信平台获取历史数据 */
 		for (String deviceId : deviceIdList) {
 			ChinaTelecomIotHttpsUtil httpsUtil = new ChinaTelecomIotHttpsUtil();
@@ -82,7 +82,7 @@ public class TaskServiceImpl implements ITaskService {
 			String appId = toStr(taskInfo.get("appId"));
 			String secret = toStr(taskInfo.get("secret"));
 			String accessToken = AuthenticationUtils.getChinaTelecomAccessToken(httpsUtil, appId, secret);
-
+			System.out.println(accessToken);
 			Map<String, String> header = new HashMap<>();
 			header.put(Constant.HEADER_APP_KEY, appId);
 			header.put(Constant.HEADER_APP_AUTH, "Bearer" + " " + accessToken);
@@ -111,9 +111,8 @@ public class TaskServiceImpl implements ITaskService {
 					chinaTelecomServiceContext.parseService(deviceId, serviceMap);
 				}
 			} catch (Exception e) {
+				LoggerUtil.logger(LogName.HISTORYDATA).error("执行{}水表补招任务,发生异常:{}", className, e.getMessage());
 				e.printStackTrace();
-				LoggerUtil.logger(LogName.HISTORYDATA).error("执行府星水表补招任务,发生异常:{}", e.getMessage());
-
 			}
 		}
 	}
