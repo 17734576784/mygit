@@ -50,7 +50,7 @@ public class SuntrontWaterMeterAlarmService implements IServiceStrategy {
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
 		// TODO Auto-generated method stub
-		String logInfo = "上报新天科技SuntrontWaterMeterAlarm服务 ：" + deviceId + " ,内容：" + serviceMap.toString();
+		String logInfo = "上报新天科技SuntrontWaterMeterAlarm服务 ,设备：" + deviceId + " ,数据：" + serviceMap.toString();
 		LoggerUtil.logger(LogName.CALLBACK).info(logInfo);
 		if (serviceMap == null || serviceMap.isEmpty()) {
 			return;

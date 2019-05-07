@@ -51,8 +51,8 @@ public class SuntrontBattery  extends BaseModel {
 	/**
 	 * @param batteryThreshold the batteryThreshold to set
 	 */
-	public void setBatteryThreshold(Integer batteryThreshold) {
-		this.batteryThreshold = batteryThreshold * 1D / Constant.NUM_1000;
+	public void setBatteryThreshold(Double batteryThreshold) {
+		this.batteryThreshold = batteryThreshold / Constant.NUM_1000;
 	}
 	/**
 	 * @return the batteryVoltage

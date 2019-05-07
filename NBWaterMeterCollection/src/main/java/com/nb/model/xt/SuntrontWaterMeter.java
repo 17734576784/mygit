@@ -144,8 +144,8 @@ public class SuntrontWaterMeter extends BaseModel {
 	/**
 	 * @param dailyFlow the dailyFlow to set
 	 */
-	public void setDailyFlow(Integer dailyFlow) {
-		this.dailyFlow = dailyFlow * 1D / Constant.NUM_1000;
+	public void setDailyFlow(Double dailyFlow) {
+		this.dailyFlow = dailyFlow / Constant.NUM_1000;
 	}
 
 
@@ -160,8 +160,8 @@ public class SuntrontWaterMeter extends BaseModel {
 	/**
 	 * @param dailyReverseFlow the dailyReverseFlow to set
 	 */
-	public void setDailyReverseFlow(Integer dailyReverseFlow) {
-		this.dailyReverseFlow = dailyReverseFlow * 1D / Constant.NUM_1000;
+	public void setDailyReverseFlow(Double dailyReverseFlow) {
+		this.dailyReverseFlow = dailyReverseFlow / Constant.NUM_1000;
 	}
 
 
@@ -176,8 +176,8 @@ public class SuntrontWaterMeter extends BaseModel {
 	/**
 	 * @param peakFlowRate the peakFlowRate to set
 	 */
-	public void setPeakFlowRate(Integer peakFlowRate) {
-		this.peakFlowRate = peakFlowRate * 1D / Constant.NUM_1000;
+	public void setPeakFlowRate(Double peakFlowRate) {
+		this.peakFlowRate = peakFlowRate / Constant.NUM_1000;
 	}
 
 

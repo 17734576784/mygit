@@ -50,13 +50,12 @@ public class SuntrontBatteryService implements IServiceStrategy {
 	*/
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
-		// TODO Auto-generated method stub
-		String logInfo = "上报新天科技电池服务 ：" + deviceId + " ,内容：" + serviceMap.toString();
+		String logInfo = "上报新天科技电池服务，设备 ：" + deviceId + " ,数据：" + serviceMap.toString();
 		LoggerUtil.logger(LogName.CALLBACK).info(logInfo);
 		if (serviceMap == null || serviceMap.isEmpty()) {
 			return;
 		}
-		
+
 		Object data = serviceMap.get("data");
 		Map<String, String> dataMap = new HashMap<String, String>();
 		try {
@@ -67,16 +66,15 @@ public class SuntrontBatteryService implements IServiceStrategy {
 
 			SuntrontBattery battery = JsonUtil.map2Bean(dataMap, SuntrontBattery.class);
 			battery.setEvnetTime(serviceMap);
-		
+
 			insertBattery(battery, deviceId);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			LoggerUtil.logger(LogName.ERROR).error(logInfo + ",异常:" + e.getMessage());
 		}
-		
-	}
 
+	}
 
 	/** 
 	* @Title: insertBattery 

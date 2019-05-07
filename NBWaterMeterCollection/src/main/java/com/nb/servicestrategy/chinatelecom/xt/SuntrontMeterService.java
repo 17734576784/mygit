@@ -49,7 +49,7 @@ public class SuntrontMeterService implements IServiceStrategy {
 	*/
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
-		String logInfo = "上报新天科技SuntrontMeter服务 ：" + deviceId + " ,内容：" + serviceMap.toString();
+		String logInfo = "上报新天科技SuntrontMeter服务,设备 ：" + deviceId + " ,数据：" + serviceMap.toString();
 		LoggerUtil.logger(LogName.CALLBACK).info(logInfo);
 		if (serviceMap == null || serviceMap.isEmpty()) {
 			return;

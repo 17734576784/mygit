@@ -55,8 +55,8 @@ public class SuntrontMeter extends BaseModel {
 	/**
 	 * @param currentReading the currentReading to set
 	 */
-	public void setCurrentReading(Integer currentReading) {
-		this.currentReading = currentReading * 1D / Constant.NUM_1000;
+	public void setCurrentReading(Double currentReading) {
+		this.currentReading = currentReading / Constant.NUM_1000;
 	}
 	/**
 	 * @return the dailyActivityTime

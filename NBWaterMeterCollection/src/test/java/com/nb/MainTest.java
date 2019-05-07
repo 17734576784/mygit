@@ -33,6 +33,8 @@ import com.nb.model.jd.Battery;
 import com.nb.model.jd.DeviceAlarm;
 import com.nb.model.jd.PeriodReport;
 import com.nb.model.xt.SuntrontBattery;
+import com.nb.model.xt.SuntrontMeter;
+import com.nb.model.xt.SuntrontWaterMeter;
 import com.nb.model.xt.SuntrontWaterMeterAlarm;
 import com.nb.task.FxTelecomCallDataTask;
 import com.nb.utils.CommFunc;
@@ -63,13 +65,21 @@ public class MainTest {
 	*/
 	public static void main(String[] args) {
 		
-		System.out.println(DateUtils.formatTimesTampDate(new Date(1557191836620L)));
 		
-		Calendar c = Calendar.getInstance();
-		c.setTime(DateUtils.parseTimesTampDate("20190507", DateUtils.DATE_PATTERN));
-//		c.set(Calendar.MINUTE, 0);
+		Map<String, String> dataMap = new HashMap<String, String>();
+		dataMap.put("dailyFlow", "12400");
+		dataMap.put("dailyReverseFlow", "2400");
+
+		SuntrontWaterMeter suntrontWaterMeter = JsonUtil.map2Bean(dataMap, SuntrontWaterMeter.class);
+		System.out.println(suntrontWaterMeter.getDailyFlow()+" "+ suntrontWaterMeter.getDailyReverseFlow());
 		
-		System.out.println(DateUtils.formatTimesTampDate(c.getTime()));
+//		System.out.println(DateUtils.formatTimesTampDate(new Date(1557191836620L)));
+//		
+//		Calendar c = Calendar.getInstance();
+//		c.setTime(DateUtils.parseTimesTampDate("20190507", DateUtils.DATE_PATTERN));
+////		c.set(Calendar.MINUTE, 0);
+//		
+//		System.out.println(DateUtils.formatTimesTampDate(c.getTime()));
 		
 //		Map<String, String> dataMap = new HashMap<String, String>();
 //		dataMap.put("highFlowAlarm", "0");
