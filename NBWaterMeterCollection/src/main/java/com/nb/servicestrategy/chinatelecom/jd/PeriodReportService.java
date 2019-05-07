@@ -57,7 +57,6 @@ public class PeriodReportService implements IServiceStrategy {
 		// TODO Auto-generated method stub
 		String logInfo = "上报竟达水表周期数据：" + deviceId + " ,内容：" + serviceMap.toString();
 		LoggerUtil.logger(LogName.CALLBACK).info(logInfo);
-
 		Object data = serviceMap.get("data");
 		Map<String, String> dataMap = new HashMap<String, String>();
 		try {
