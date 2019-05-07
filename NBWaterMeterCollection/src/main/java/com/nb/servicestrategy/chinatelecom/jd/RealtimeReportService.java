@@ -64,12 +64,8 @@ public class RealtimeReportService implements IServiceStrategy {
 			}
 
 			RealtimeReport realtimeReport = JsonUtil.map2Bean(dataMap, RealtimeReport.class);
-			String evnetTime = realtimeReport.getReadTime();
-			int date = toInt(evnetTime.substring(0, 8));
-			int time = toInt(evnetTime.substring(9, 15));
-			String tableNameDate = toStr(date / 100);
 
-			insertRealReport(tableNameDate, date, time, realtimeReport, deviceId);
+			insertRealReport(realtimeReport, deviceId);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -78,12 +74,17 @@ public class RealtimeReportService implements IServiceStrategy {
 
 	}
 
-	/**
-	 * @Title: insertRealReport @Description: 插入实时数据上报 @param @param
-	 * YM @param @param date @param @param time @param @param
-	 * realtimeReport @param @param deviceId 设定文件 @return void 返回类型 @throws
-	 */
-	private void insertRealReport(String tableNameDate, int date, int time, RealtimeReport realtimeReport, String deviceId)
+
+	/** 
+	* @Title: insertRealReport 
+	* @Description: 插入实时数据上报 
+	* @param @param realtimeReport
+	* @param @param deviceId
+	* @param @throws Exception    设定文件 
+	* @return void    返回类型 
+	* @throws 
+	*/
+	private void insertRealReport(RealtimeReport realtimeReport, String deviceId)
 			throws Exception {
 
 		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
@@ -95,12 +96,12 @@ public class RealtimeReportService implements IServiceStrategy {
 		short mpId = toShort(meterInfo.get("mpId"));
 
 		NbDailyData nbDailyData = new NbDailyData();
-		nbDailyData.setTableName(tableNameDate);
+		nbDailyData.setTableName(toStr(realtimeReport.getReadYmd()/100));
 		nbDailyData.setReportType((byte) Constant.ZERO);
 		nbDailyData.setRtuId(rtuId);
 		nbDailyData.setMpId(mpId);
-		nbDailyData.setYmd(date);
-		nbDailyData.setHms(time);
+		nbDailyData.setYmd(realtimeReport.getReadYmd());
+		nbDailyData.setHms(realtimeReport.getReadHms());
 
 		nbDailyData.setTotalFlow(realtimeReport.getCumulativeFlow());
 		nbDailyData.setDailyPositiveFlow(realtimeReport.getPositiveCumulativeFlow());

@@ -8,6 +8,8 @@
 */
 package com.nb.model.jd;
 
+import java.util.Date;
+
 import com.nb.model.BaseModel;
 import com.nb.utils.ConverterUtils;
 import com.nb.utils.DateUtils;
@@ -38,6 +40,9 @@ public class RealtimeReport extends BaseModel {
 	private String peakFlowRateTime;
 	/** 脉冲当量 单位:L */
 	private Integer pulseEq;
+	
+	private Integer readYmd;
+	private Integer readHms;
 	/**
 	 * @return the readTime
 	 */
@@ -48,7 +53,23 @@ public class RealtimeReport extends BaseModel {
 	 * @param readTime the readTime to set
 	 */
 	public void setReadTime(String readTime) {
-		this.readTime = DateUtils.stampToNoCharDate(ConverterUtils.toLong(readTime));
+		Date date = new Date(ConverterUtils.toLong(readTime));
+		this.readTime = DateUtils.formatNoCharDate(date);
+		this.readYmd = ConverterUtils.toInt( DateUtils.formatDateByFormat(date, DateUtils.DATE_PATTERN));
+		this.readHms = ConverterUtils.toInt( DateUtils.formatDateByFormat(date, DateUtils.TIME_PATTERN));
+	}
+	
+	/**
+	 * @return the readYmd
+	 */
+	public Integer getReadYmd() {
+		return readYmd;
+	}
+	/**
+	 * @return the readHms
+	 */
+	public Integer getReadHms() {
+		return readHms;
 	}
 	/**
 	 * @return the cumulativeFlow

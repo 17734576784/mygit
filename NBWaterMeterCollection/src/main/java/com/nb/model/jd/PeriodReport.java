@@ -10,6 +10,8 @@ package com.nb.model.jd;
 
 import static com.nb.utils.ConverterUtils.toInt;
 
+import java.util.Date;
+
 import com.nb.model.BaseModel;
 import com.nb.utils.CommFunc;
 import com.nb.utils.ConverterUtils;
@@ -94,9 +96,10 @@ public class PeriodReport extends BaseModel {
 	 * @param readTime the readTime to set
 	 */
 	public void setReadTime(String readTime) {
-		this.readTime = DateUtils.stampToNoCharDate(ConverterUtils.toLong(readTime));
-		this.readYmd = toInt(this.readTime.substring(0, 8));
-		this.readHms = toInt(this.readTime.substring(9, 15));
+		Date date = new Date(ConverterUtils.toLong(readTime));
+		this.readTime = DateUtils.formatNoCharDate(date);
+		this.readYmd = ConverterUtils.toInt( DateUtils.formatDateByFormat(date, DateUtils.DATE_PATTERN));
+		this.readHms = ConverterUtils.toInt( DateUtils.formatDateByFormat(date, DateUtils.TIME_PATTERN));
 	}
 	/**
 	 * @return the cumulativeFlow
@@ -168,7 +171,9 @@ public class PeriodReport extends BaseModel {
 	 * @param startTime the startTime to set
 	 */
 	public void setStartTime(Long startTime) {
-		this.startTime = DateUtils.stampToDate(ConverterUtils.toLong(startTime));;
+		Date date = new Date(ConverterUtils.toLong(startTime));
+		this.startTime = DateUtils.formatNoCharDate(date);
+		this.startYmd = ConverterUtils.toInt( DateUtils.formatDateByFormat(date, DateUtils.DATE_PATTERN));
 	}
 	/**
 	 * @return the period

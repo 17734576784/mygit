@@ -63,11 +63,13 @@ public class MainTest {
 	*/
 	public static void main(String[] args) {
 		
-		Map<String, String> dataMap = new HashMap<String, String>();
-		dataMap.put("highFlowAlarm", "0");
-		SuntrontWaterMeterAlarm suntrontwatermeteralarm = JsonUtil.map2Bean(dataMap, SuntrontWaterMeterAlarm.class);
-			
-		System.out.println(suntrontwatermeteralarm.getHighFlowAlarm());
+		System.out.println(new Date(1557158400986L));
+		
+//		Map<String, String> dataMap = new HashMap<String, String>();
+//		dataMap.put("highFlowAlarm", "0");
+//		SuntrontWaterMeterAlarm suntrontwatermeteralarm = JsonUtil.map2Bean(dataMap, SuntrontWaterMeterAlarm.class);
+//			
+//		System.out.println(suntrontwatermeteralarm.getHighFlowAlarm());
 //		XtBattery x = new XtBattery();
 //		x.setEvnetTime("20180417T121245Z");
 //		System.out.println(x.getEventDate() + "  " + x.getEventTime());
