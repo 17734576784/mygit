@@ -14,8 +14,8 @@ create table nb_daily_data_200808
 		report_type		tinyint				null,				/*上报方式 0：正常上报 1：按键上报 2：补招*/
 
 		battery_voltage 		DECIMAL(4,2) 	null,			/*当前电池电压*/
-		total_flow 					DECIMAL(10,3) null,			/*当前累计流量*/
-		month_total_flow 		DECIMAL(10,3) null,			/*当月累计水量*/
+		total_flow 					DECIMAL(10,3) null,			/*当前累计流量 m3*/
+		month_total_flow 		DECIMAL(10,3) null,			/*当月累计水量 m3*/
 		daily_positive_flow DECIMAL(10,3) 	null,		/*日结正累积流量*/
 		daily_negative_flow DECIMAL(10,3) 	null,		/*日结负累积流量*/
 		hydraulic_pressure  DECIMAL(10,3) 	null,		/*当前水压*/
