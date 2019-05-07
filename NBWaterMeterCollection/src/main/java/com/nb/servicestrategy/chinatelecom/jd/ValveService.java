@@ -45,12 +45,17 @@ public class ValveService implements IServiceStrategy {
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
 		// TODO Auto-generated method stub
-		String logInfo = "上报竟达阀门服务 ：" + deviceId + " ,内容：" + serviceMap.toString();
+		String logInfo = "上报竟达阀门服务数据，设备：" + deviceId + "，数据：" + serviceMap.toString();
 		LoggerUtil.logger(LogName.CALLBACK).info(logInfo);
 		if (serviceMap == null || serviceMap.isEmpty()) {
 			return;
 		}
 
+		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
+		if (meterInfo == null) {
+			return;
+		}
+		
 		Object data = serviceMap.get("data");
 		Map<String, String> dataMap = new HashMap<String, String>();
 		dataMap = JsonUtil.jsonString2SimpleObj(data, dataMap.getClass());
@@ -74,10 +79,6 @@ public class ValveService implements IServiceStrategy {
 			break;
 		}
 
-		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
-		if (meterInfo == null) {
-			return;
-		}
 		try {
 			meterInfo.put("valveState", valveState);
 			commonMapper.updateWaterMeterValve(meterInfo);

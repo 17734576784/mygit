@@ -39,9 +39,12 @@ public class DeviceStateService implements IServiceStrategy {
 	
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
-		// TODO Auto-generated method stub
-		String logInfo = "上报竟达水表设备状态：" + deviceId + " ,内容：" + serviceMap.toString();
+		String logInfo = "上报竟达水表设备状态，设备：" + deviceId + " ,数据：" + serviceMap.toString();
 		LoggerUtil.logger(LogName.CALLBACK).info(logInfo);
+		if (serviceMap == null || serviceMap.isEmpty()) {
+			return;
+		}
+
 		Object data = serviceMap.get("data");
 		Map<String, String> dataMap = new HashMap<String, String>();
 		dataMap = JsonUtil.jsonString2SimpleObj(data, dataMap.getClass());

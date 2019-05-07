@@ -52,8 +52,7 @@ public class ReportBeforeOpenAccountService implements IServiceStrategy {
 	
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
-		// TODO Auto-generated method stub
-		String logInfo = "上报府星水表上报数据 ：" + deviceId + " ,内容：" + serviceMap.toString();
+		String logInfo = "府星开户前数据上报,设备 ：" + deviceId + ",数据：" + serviceMap.toString();
 		LoggerUtil.logger(LogName.CALLBACK).info(logInfo);
 		if (serviceMap == null || serviceMap.isEmpty()) {
 			return;
@@ -67,6 +66,7 @@ public class ReportBeforeOpenAccountService implements IServiceStrategy {
 				return;
 			}
 			
+			/** 根据设备Id获取表计的终端和测定id */
 			Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
 			if (meterInfo == null) {
 				return;
@@ -74,7 +74,7 @@ public class ReportBeforeOpenAccountService implements IServiceStrategy {
 
 			int rtuId = toInt(meterInfo.get("rtuId"));
 			int mpId = toInt(meterInfo.get("mpId"));
-			
+
 			Date dateTime = DateUtils.parseTimesTampDate(dataMap.get("CurrentDateTime"));
 			int date = toInt(DateUtils.formatDateByFormat(dateTime, "yyyyMMdd"));
 			int time = toInt(DateUtils.formatDateByFormat(dateTime, "HHmmss"));
@@ -83,7 +83,7 @@ public class ReportBeforeOpenAccountService implements IServiceStrategy {
 			insertBattery(dataMap, rtuId, mpId, date, time);
 			// 插入设备上报日数据
 			insertDailyData(rtuId, mpId, dataMap, deviceId, date, time);
-			
+
 			// 更新水表的阀门状态和固件版本
 			meterInfo.put("valveState", toByte(dataMap.get("ValveState")));
 			meterInfo.put("version", dataMap.get("Version"));
@@ -91,7 +91,7 @@ public class ReportBeforeOpenAccountService implements IServiceStrategy {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			LoggerUtil.logger(LogName.ERROR).error(logInfo + "异常" + e.getMessage());
+			LoggerUtil.logger(LogName.ERROR).error(logInfo + ",异常:" + e.getMessage());
 		}
 	}
 	
@@ -107,7 +107,7 @@ public class ReportBeforeOpenAccountService implements IServiceStrategy {
 	* @throws 
 	*/
 	private void insertBattery(Map<String, String> dataMap, int rtuId, int mpId, int date, int time) throws Exception {
-		
+
 		NbBattery nbBattery = new NbBattery();
 		nbBattery.setTableName(toStr(date / 100));
 		nbBattery.setYmd(date);
@@ -118,7 +118,7 @@ public class ReportBeforeOpenAccountService implements IServiceStrategy {
 
 		JedisUtils.lpush(Constant.HISTORY_BATTERY_QUEUE, JsonUtil.jsonObj2Sting(nbBattery));
 	}
-	
+
 	/** 
 	* @Title: insertDailyData 
 	* @Description: 插入日数据数据
@@ -130,7 +130,8 @@ public class ReportBeforeOpenAccountService implements IServiceStrategy {
 	* @return void    返回类型 
 	* @throws 
 	*/
-	private void insertDailyData(int rtuId, int mpId, Map<String, String> dataMap, String deviceId, int date, int time) throws Exception {
+	private void insertDailyData(int rtuId, int mpId, Map<String, String> dataMap, String deviceId, int date, int time)
+			throws Exception {
 
 		NbDailyData nbDailyData = new NbDailyData();
 		nbDailyData.setTableName(toStr(date / 100));

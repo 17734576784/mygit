@@ -70,16 +70,17 @@ public class SuntrontValveService implements IServiceStrategy {
 			Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
 			if (meterInfo == null) {
 				return;
-			} 
+			}
+
 			/** 更新表计阀门状态 */
 			meterInfo.put("valveState", suntrontValve.getValveStatus() * Constant.TWO);
 			commonMapper.updateWaterMeterValve(meterInfo);
-			
+
 			/** 保存阀门异常 */
 			if (suntrontValve.getValveStatus() >= Constant.THREE) {
 				String eveInfo = "阀门异常";
 				Short typeNo = Constant.ALARM_2010;
-				insertEve(suntrontValve, deviceId, eveInfo, typeNo);
+				insertEve(suntrontValve, meterInfo, eveInfo, typeNo);
 			}
 
 		} catch (Exception e) {
@@ -93,19 +94,15 @@ public class SuntrontValveService implements IServiceStrategy {
 	* @Title: insertEve 
 	* @Description: 插入告警事项
 	* @param @param suntrontValve
-	* @param @param deviceId
+	* @param @param meterInfo
 	* @param @param eveInfo
 	* @param @param typeNo
 	* @param @throws Exception    设定文件 
 	* @return void    返回类型 
 	* @throws 
 	*/
-	private void insertEve(SuntrontValve suntrontValve, String deviceId, String eveInfo, short typeNo)
+	private void insertEve(SuntrontValve suntrontValve, Map<String, Object> meterInfo, String eveInfo, short typeNo)
 			throws Exception {
-		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
-		if (meterInfo == null) {
-			return;
-		}
 
 		int rtuId = toInt(meterInfo.get("rtuId"));
 		int mpId = toInt(meterInfo.get("mpId"));

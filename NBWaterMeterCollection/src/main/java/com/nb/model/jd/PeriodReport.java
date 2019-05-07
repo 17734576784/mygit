@@ -25,7 +25,6 @@ import com.nb.utils.DateUtils;
  * 
  */
 public class PeriodReport extends BaseModel {
-
 	/**
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)
 	 */
@@ -173,7 +172,7 @@ public class PeriodReport extends BaseModel {
 	public void setStartTime(Long startTime) {
 		Date date = new Date(ConverterUtils.toLong(startTime));
 		this.startTime = DateUtils.formatNoCharDate(date);
-		this.startYmd = ConverterUtils.toInt( DateUtils.formatDateByFormat(date, DateUtils.DATE_PATTERN));
+		this.startYmd = ConverterUtils.toInt(DateUtils.formatDateByFormat(date, DateUtils.DATE_PATTERN));
 	}
 	/**
 	 * @return the period

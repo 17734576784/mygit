@@ -56,6 +56,11 @@ public class SuntrontWaterMeterAlarmService implements IServiceStrategy {
 			return;
 		}
 
+		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
+		if (meterInfo == null) {
+			return;
+		}
+		
 		Object data = serviceMap.get("data");
 		Map<String, String> dataMap = new HashMap<String, String>();
 		try {
@@ -72,43 +77,43 @@ public class SuntrontWaterMeterAlarmService implements IServiceStrategy {
 			if (suntrontwatermeteralarm.getHighFlowAlarm()) {
 				eveInfo = "持续高流量告警";
 				typeNo = Constant.ALARM_2001;
-				insertEve(suntrontwatermeteralarm, deviceId, eveInfo, typeNo);
+				insertEve(suntrontwatermeteralarm, meterInfo, eveInfo, typeNo);
 			}
 
 			if (suntrontwatermeteralarm.getLowBatteryAlarm()) {
 				eveInfo = "电池低电压告警";
 				typeNo = Constant.ALARM_2005;
-				insertEve(suntrontwatermeteralarm, deviceId, eveInfo, typeNo);
+				insertEve(suntrontwatermeteralarm, meterInfo, eveInfo, typeNo);
 			}
 
 			if (suntrontwatermeteralarm.getReverseFlow()) {
 				eveInfo = "反流告警";
 				typeNo = Constant.ALARM_2003;
-				insertEve(suntrontwatermeteralarm, deviceId, eveInfo, typeNo);
+				insertEve(suntrontwatermeteralarm, meterInfo, eveInfo, typeNo);
 			}
 
 			if (suntrontwatermeteralarm.getLowPressure()) {
 				eveInfo = "低压告警";
 				typeNo = Constant.ALARM_2008;
-				insertEve(suntrontwatermeteralarm, deviceId, eveInfo, typeNo);
+				insertEve(suntrontwatermeteralarm, meterInfo, eveInfo, typeNo);
 			}
 
 			if (suntrontwatermeteralarm.getHighPressure()) {
 				eveInfo = "高压告警";
 				typeNo = Constant.ALARM_2009;
-				insertEve(suntrontwatermeteralarm, deviceId, eveInfo, typeNo);
+				insertEve(suntrontwatermeteralarm, meterInfo, eveInfo, typeNo);
 			}
 
 			if (suntrontwatermeteralarm.getStorageFault()) {
 				eveInfo = "存储器异常";
 				typeNo = Constant.ALARM_2011;
-				insertEve(suntrontwatermeteralarm, deviceId, eveInfo, typeNo);
+				insertEve(suntrontwatermeteralarm, meterInfo, eveInfo, typeNo);
 			}
 
 			if (suntrontwatermeteralarm.getMagneticInterference()) {
 				eveInfo = "磁干扰告警";
 				typeNo = Constant.ALARM_2004;
-				insertEve(suntrontwatermeteralarm, deviceId, eveInfo, typeNo);
+				insertEve(suntrontwatermeteralarm, meterInfo, eveInfo, typeNo);
 			}
 
 		} catch (Exception e) {
@@ -128,12 +133,8 @@ public class SuntrontWaterMeterAlarmService implements IServiceStrategy {
 	* @return void    返回类型 
 	* @throws 
 	*/
-	private void insertEve(SuntrontWaterMeterAlarm suntrontwatermeteralarm, String deviceId, String eveInfo,
-			short typeNo) throws Exception {
-		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
-		if (meterInfo == null) {
-			return;
-		}
+	private void insertEve(SuntrontWaterMeterAlarm suntrontwatermeteralarm, Map<String, Object> meterInfo,
+			String eveInfo, short typeNo) throws Exception {
 
 		int rtuId = toInt(meterInfo.get("rtuId"));
 		int mpId = toInt(meterInfo.get("mpId"));

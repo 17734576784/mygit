@@ -1,7 +1,7 @@
 /**   
 * @Title: PeriodReportService.java 
 * @Package com.nb.servicestrategy.chinatelecom.jd 
-* @Description: TODO(用一句话描述该文件做什么) 
+* @Description: 竟达水表周期数据服务
 * @author dbr
 * @date 2019年4月10日 上午11:45:43 
 * @version V1.0   
@@ -54,9 +54,18 @@ public class PeriodReportService implements IServiceStrategy {
 	*/
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
-		// TODO Auto-generated method stub
-		String logInfo = "上报竟达水表周期数据：" + deviceId + " ,内容：" + serviceMap.toString();
+		String logInfo = "上报竟达水表周期数据，设备：" + deviceId + ",数据：" + serviceMap.toString();
 		LoggerUtil.logger(LogName.CALLBACK).info(logInfo);
+		
+		if (serviceMap == null || serviceMap.isEmpty()) {
+			return;
+		}
+
+		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
+		if (meterInfo == null) {
+			return;
+		}
+		
 		Object data = serviceMap.get("data");
 		Map<String, String> dataMap = new HashMap<String, String>();
 		try {
@@ -66,9 +75,8 @@ public class PeriodReportService implements IServiceStrategy {
 			}
 
 			PeriodReport periodReport = JsonUtil.map2Bean(dataMap, PeriodReport.class);
-
-			insertDailyData(periodReport, deviceId);
-			insertInstantaneous(periodReport, deviceId);
+			insertDailyData(periodReport, meterInfo);
+			insertInstantaneous(periodReport, meterInfo);
 		} catch (Exception e) {
 			e.printStackTrace();
 			LoggerUtil.logger(LogName.ERROR).error("解析竟达水表周期数据异常" + e.getMessage());
@@ -80,17 +88,12 @@ public class PeriodReportService implements IServiceStrategy {
 	* @Title: insertInstantaneous 
 	* @Description: 插入瞬时量
 	* @param @param periodReport
-	* @param @param deviceId
+	* @param @param meterInfo
 	* @param @throws Exception    设定文件 
 	* @return void    返回类型 
 	* @throws 
 	*/
-	private void insertInstantaneous(PeriodReport periodReport, String deviceId) throws Exception {
-
-		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
-		if (meterInfo == null) {
-			return;
-		}
+	private void insertInstantaneous(PeriodReport periodReport, Map<String, Object> meterInfo) throws Exception {
 
 		int rtuId = toInt(meterInfo.get("rtuId"));
 		short mpId = toShort(meterInfo.get("mpId"));
@@ -101,10 +104,11 @@ public class PeriodReportService implements IServiceStrategy {
 		nbInstantaneous.setMpId(mpId);
 		nbInstantaneous.setYmd(periodReport.getStartYmd());
 
-		JSONArray arrays = JSONArray.parseArray(periodReport.getFlows().toString());
+		/** 时间设置到当天0点0分 */
 		Calendar c = Calendar.getInstance();
 		c.setTime(DateUtils.parseTimesTampDate(toStr(periodReport.getStartYmd()), DateUtils.DATE_PATTERN));
-		c.set(Calendar.MINUTE, 0);
+		
+		JSONArray arrays = JSONArray.parseArray(periodReport.getFlows().toString());
 		for (int i = 0; i < arrays.size(); i++) {
 			int time = toInt(DateUtils.formatTimePattern(c.getTime()));
 			nbInstantaneous.setHms(time);
@@ -117,19 +121,14 @@ public class PeriodReportService implements IServiceStrategy {
 
 	/** 
 	* @Title: insertDailyData 
-	* @Description: 将周期数据插入日数据表中 
+	* @Description: 将周期数据插入日数据表中  
 	* @param @param periodReport
-	* @param @param deviceId
+	* @param @param meterInfo
 	* @param @throws Exception    设定文件 
 	* @return void    返回类型 
 	* @throws 
 	*/
-	private void insertDailyData(PeriodReport periodReport, String deviceId) throws Exception {
-
-		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
-		if (meterInfo == null) {
-			return;
-		}
+	private void insertDailyData(PeriodReport periodReport, Map<String, Object> meterInfo) throws Exception {
 
 		int rtuId = toInt(meterInfo.get("rtuId"));
 		short mpId = toShort(meterInfo.get("mpId"));

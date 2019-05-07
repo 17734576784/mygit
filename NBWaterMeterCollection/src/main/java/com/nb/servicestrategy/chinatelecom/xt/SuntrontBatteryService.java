@@ -67,19 +67,12 @@ public class SuntrontBatteryService implements IServiceStrategy {
 
 			SuntrontBattery battery = JsonUtil.map2Bean(dataMap, SuntrontBattery.class);
 			battery.setEvnetTime(serviceMap);
-			
-			Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
-			if (meterInfo == null) {
-				return;
-			}
-
-			int rtuId = ConverterUtils.toInt(meterInfo.get("rtuId"));
-			int mpId =  ConverterUtils.toInt(meterInfo.get("mpId"));
-			insertBattery(battery, rtuId, mpId);
+		
+			insertBattery(battery, deviceId);
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			LoggerUtil.logger(LogName.CALLBACK).error(logInfo + ",异常:" + e.getMessage());
+			LoggerUtil.logger(LogName.ERROR).error(logInfo + ",异常:" + e.getMessage());
 		}
 		
 	}
@@ -87,14 +80,23 @@ public class SuntrontBatteryService implements IServiceStrategy {
 
 	/** 
 	* @Title: insertBattery 
-	* @Description: 插入电池电压上报信息  nb_battery_200808
+	* @Description:  插入电池电压上报信息  nb_battery_200808 
 	* @param @param battery
-	* @param @param rtuId
-	* @param @param mpId    设定文件 
+	* @param @param deviceId
+	* @param @throws Exception    设定文件 
 	* @return void    返回类型 
 	* @throws 
 	*/
-	private void insertBattery(SuntrontBattery battery, int rtuId, int mpId) throws Exception {
+	private void insertBattery(SuntrontBattery battery, String deviceId) throws Exception {
+		
+		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
+		if (meterInfo == null) {
+			return;
+		}
+
+		int rtuId = ConverterUtils.toInt(meterInfo.get("rtuId"));
+		int mpId =  ConverterUtils.toInt(meterInfo.get("mpId"));
+		
 		NbBattery nbBattery = new NbBattery();
 		nbBattery.setTableName(toStr(battery.getEventDate() / 100));
 		nbBattery.setYmd(battery.getEventDate());

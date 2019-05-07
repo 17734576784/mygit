@@ -63,7 +63,13 @@ public class MainTest {
 	*/
 	public static void main(String[] args) {
 		
-		System.out.println(new Date(1557158400986L));
+		System.out.println(DateUtils.formatTimesTampDate(new Date(1557191836620L)));
+		
+		Calendar c = Calendar.getInstance();
+		c.setTime(DateUtils.parseTimesTampDate("20190507", DateUtils.DATE_PATTERN));
+//		c.set(Calendar.MINUTE, 0);
+		
+		System.out.println(DateUtils.formatTimesTampDate(c.getTime()));
 		
 //		Map<String, String> dataMap = new HashMap<String, String>();
 //		dataMap.put("highFlowAlarm", "0");

@@ -52,9 +52,13 @@ public class RealtimeReportService implements IServiceStrategy {
 	*/
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
-		// TODO Auto-generated method stub
-		String logInfo = "上报竟达水表实时数据：" + deviceId + " ,内容：" + serviceMap.toString();
+		String logInfo = "上报竟达水表实时数据,设备：" + deviceId + ",数据：" + serviceMap.toString();
 		LoggerUtil.logger(LogName.CALLBACK).info(logInfo);
+		if (serviceMap == null || serviceMap.isEmpty()) {
+			return;
+		}
+
+		
 		Object data = serviceMap.get("data");
 		Map<String, String> dataMap = new HashMap<String, String>();
 		try {
@@ -64,10 +68,8 @@ public class RealtimeReportService implements IServiceStrategy {
 			}
 
 			RealtimeReport realtimeReport = JsonUtil.map2Bean(dataMap, RealtimeReport.class);
-
 			insertRealReport(realtimeReport, deviceId);
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 			LoggerUtil.logger(LogName.ERROR).error(logInfo + "，异常" + e.getMessage());
 		}
@@ -96,7 +98,7 @@ public class RealtimeReportService implements IServiceStrategy {
 		short mpId = toShort(meterInfo.get("mpId"));
 
 		NbDailyData nbDailyData = new NbDailyData();
-		nbDailyData.setTableName(toStr(realtimeReport.getReadYmd()/100));
+		nbDailyData.setTableName(toStr(realtimeReport.getReadYmd() / 100));
 		nbDailyData.setReportType((byte) Constant.ZERO);
 		nbDailyData.setRtuId(rtuId);
 		nbDailyData.setMpId(mpId);

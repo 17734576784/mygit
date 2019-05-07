@@ -53,12 +53,18 @@ public class BatteryService implements IServiceStrategy {
 	
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
-		// TODO Auto-generated method stub
-		String logInfo = "上报竟达电池服务 ：" + deviceId + " ,内容：" + serviceMap.toString();
+		String logInfo = "上报竟达电池服务,设备：" + deviceId + ",数据：" + serviceMap.toString();
 		LoggerUtil.logger(LogName.CALLBACK).info(logInfo);
 		if (serviceMap == null || serviceMap.isEmpty()) {
 			return;
 		}
+
+		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
+		if (meterInfo == null) {
+			return;
+		}
+		int rtuId = toInt(meterInfo.get("rtuId"));
+		int mpId = toInt(meterInfo.get("mpId"));
 		
 		Object data = serviceMap.get("data");
 		Map<String, String> dataMap = new HashMap<String, String>();
@@ -71,18 +77,10 @@ public class BatteryService implements IServiceStrategy {
 			Battery battery = JsonUtil.map2Bean(dataMap, Battery.class);
 			battery.setEvnetTime(serviceMap);
 			
-			Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
-			if (meterInfo == null) {
-				return;
-			}
-
-			int rtuId = toInt(meterInfo.get("rtuId"));
-			int mpId = toInt(meterInfo.get("mpId"));
-			
-			// 电池电压告警
+			/** 电池电压告警 */ 
 			if (battery.isAlarm()) {
 				insertEve(battery, rtuId, mpId);
-			} else { // 正常上报电池电压
+			} else { /** 正常上报电池电压 */
 				insertBattery(battery, rtuId, mpId);
 			}
 		} catch (Exception e) {

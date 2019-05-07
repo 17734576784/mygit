@@ -62,6 +62,11 @@ public class SuntrontWaterMeterService implements IServiceStrategy {
 		if (serviceMap == null || serviceMap.isEmpty()) {
 			return;
 		}
+		
+		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
+		if (meterInfo == null) {
+			return;
+		}
 
 		Object data = serviceMap.get("data");
 		Map<String, String> dataMap = new HashMap<String, String>();
@@ -74,8 +79,8 @@ public class SuntrontWaterMeterService implements IServiceStrategy {
 			SuntrontWaterMeter suntrontWaterMeter = JsonUtil.map2Bean(dataMap, SuntrontWaterMeter.class);
 			suntrontWaterMeter.setEvnetTime(serviceMap);
 			
-			insertNbDailyData(suntrontWaterMeter, deviceId);
-			insertInstantaneous(suntrontWaterMeter, deviceId);
+			insertNbDailyData(suntrontWaterMeter, meterInfo);
+			insertInstantaneous(suntrontWaterMeter, meterInfo);
 
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -94,12 +99,7 @@ public class SuntrontWaterMeterService implements IServiceStrategy {
 	* @return void    返回类型 
 	* @throws 
 	*/
-	private void insertInstantaneous(SuntrontWaterMeter suntrontWaterMeter, String deviceId) throws Exception {
-
-		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
-		if (meterInfo == null) {
-			return;
-		}
+	private void insertInstantaneous(SuntrontWaterMeter suntrontWaterMeter,Map<String, Object> meterInfo) throws Exception {
 
 		int rtuId = toInt(meterInfo.get("rtuId"));
 		short mpId = toShort(meterInfo.get("mpId"));
@@ -127,16 +127,12 @@ public class SuntrontWaterMeterService implements IServiceStrategy {
 	* @Title: insertNbDailyData 
 	* @Description: TODO(这里用一句话描述这个方法的作用) 
 	* @param @param suntrontWaterMeter
-	* @param @param deviceId    设定文件 
+	* @param @param meterInfo    设定文件 
 	* @return void    返回类型 
 	* @throws 
 	*/
-	private void insertNbDailyData(SuntrontWaterMeter suntrontWaterMeter, String deviceId) {
+	private void insertNbDailyData(SuntrontWaterMeter suntrontWaterMeter, Map<String, Object> meterInfo) {
 		// TODO Auto-generated method stub
-		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
-		if (meterInfo == null) {
-			return;
-		}
 		NbDailyData nbDailyData = new NbDailyData();
 		nbDailyData.setTableName(ConverterUtils.toStr(suntrontWaterMeter.getEventDate() / 100));
 		nbDailyData.setReportType((byte) Constant.ZERO);
