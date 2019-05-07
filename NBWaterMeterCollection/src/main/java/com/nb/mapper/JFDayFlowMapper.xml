@@ -123,4 +123,13 @@
       </if>
     </trim>
   </insert>
+  
+   <select id="isExist" resultType="boolean" parameterType="com.nb.model.JFDayFlow" >
+      select  count('X') from ${tableName}
+      where rtu_id = #{rtuId,jdbcType=INTEGER}
+      and mp_id = #{mpId,jdbcType=SMALLINT}
+      and date = #{date,jdbcType=INTEGER}
+  </select>
+  
+  
 </mapper>

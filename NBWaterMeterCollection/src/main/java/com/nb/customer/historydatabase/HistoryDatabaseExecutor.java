@@ -144,7 +144,9 @@ public class HistoryDatabaseExecutor {
 		jfDayFlow.setLjllZx(nbDailyData.getTotalFlow());
 		jfDayFlow.setLlLjllZx(nbDailyData.getDailyPositiveFlow());
 		jfDayFlow.setLlLjllFx(nbDailyData.getDailyNegativeFlow());
-
+		if (jfDayFlowMapper.isExist(jfDayFlow)) {
+			return true;
+		}
 		return jfDayFlowMapper.insertJFDayFlow(jfDayFlow);
 	}
 	
