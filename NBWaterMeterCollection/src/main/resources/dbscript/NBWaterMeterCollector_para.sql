@@ -48,7 +48,7 @@ if (not exists (select name from sysobjects where name='nb_command'))
 		(
 			model_id					int 				not null,		/*设备类型编号*/
 			appinfo_id				int					not null,		/*厂家NB平台应用编号*/
-			command_id				varchar(64)	not null,		/*命令编号*/
+			command_id				int					not null,		/*命令编号*/
 			command_name			varchar(64)	not null,		/*服务名称*/
 			service_type			int   	not null default 0,		/*服务类型 0：命令服务 1 ：数据服务*/
 			service_id				varchar(64)	not null,		/*服务i服务类型 0：命令服务 1 ：数据服务d 电信平台对应：service_id 移动平台对应:obj_id*/
@@ -128,7 +128,7 @@ if (not exists (select name from sysobjects where name='schedule_job'))
 			
 			model_id					int 				 null,		  /*设备类型编号*/
 			appinfo_id				int					 null,		  /*厂家NB平台应用编号*/
-			command_id				varchar(64)	 null		    /*命令编号*/
+			command_id				int				 	 null		    /*命令编号*/
 			
 		)		
 	end
