@@ -120,7 +120,7 @@ public class HistoryDatabaseExecutor {
 			flag = false;
 			JedisUtils.lpush(Constant.HISTORY_DAILY_ERROR_QUEUE, JsonUtil.jsonObj2Sting(obj));
 			e.printStackTrace();
-			LoggerUtil.logger(LogName.CALLBACK).info(obj.toString() + "存库失败");
+			LoggerUtil.logger(LogName.HISTORYDATA).error(obj.toString() + "存库失败," + e.getMessage());
 		}
 		return flag;
 	}
