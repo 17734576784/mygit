@@ -13,17 +13,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.security.MessageDigest;
-import java.util.Calendar;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
-
 import javax.imageio.stream.FileImageInputStream;
 import javax.imageio.stream.FileImageOutputStream;
-
 import org.springframework.core.io.ClassPathResource;
-
 import com.alibaba.fastjson.JSONObject;
 
 /**
@@ -35,6 +29,15 @@ import com.alibaba.fastjson.JSONObject;
  */
 public class CommFunc {
 
+	/** 
+	* @Title: getCertPath 
+	* @Description: 获取证书路径
+	* @param @param path
+	* @param @return
+	* @param @throws IOException    设定文件 
+	* @return String    返回类型 
+	* @throws 
+	*/
 	public static String getCertPath(String path) throws IOException {
 		ClassPathResource resource = new ClassPathResource(path);
 		BufferedReader br = new BufferedReader(new InputStreamReader(resource.getInputStream()));
@@ -49,11 +52,15 @@ public class CommFunc {
 	}
 
 
-	/**
-	 * @param errorCode
-	 * @param errorMsg
-	 * @return
-	 */
+	/** 
+	* @Title: result 
+	* @Description: 返回结果结构
+	* @param @param errorCode
+	* @param @param errorMsg
+	* @param @return    设定文件 
+	* @return JSONObject    返回类型 
+	* @throws 
+	*/
 	public static JSONObject result(int errorCode, String errorMsg) {
 		JSONObject result = new JSONObject();
 		result.put("status", errorCode);
@@ -61,22 +68,26 @@ public class CommFunc {
 		return result;
 	}
 
-	/**
-	 * 编码
-	 * 
-	 * @param bstr
-	 * @return String
-	 */
+	/** 
+	* @Title: encode 
+	* @Description: base64编码 
+	* @param @param bstr
+	* @param @return    设定文件 
+	* @return String    返回类型 
+	* @throws 
+	*/
 	public static String encode(byte[] bstr) {
 		return new sun.misc.BASE64Encoder().encode(bstr);
 	}
 
-	/**
-	 * 解码
-	 * 
-	 * @param str
-	 * @return string
-	 */
+	/** 
+	* @Title: decode 
+	* @Description: base64解码
+	* @param @param str
+	* @param @return    设定文件 
+	* @return byte[]    返回类型 
+	* @throws 
+	*/
 	public static byte[] decode(String str) {
 		byte[] bt = null;
 		try {
@@ -190,13 +201,14 @@ public class CommFunc {
 		return bt3;
 	}
 	
-	/**
-	 * 对字符串md5加密(大写+数字)
-	 *
-	 * @param str 传入要加密的字符串
-	 * @return MD5加密后的字符串
-	 */
-    
+	/** 
+	* @Title: getMD5 
+	* @Description: 对字符串md5加密(大写+数字) 
+	* @param @param s 传入要加密的字符串
+	* @param @return    加密后的字符串 
+	* @return String    返回类型 
+	* @throws 
+	*/
 	public static String getMD5(String s) {
 		char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
 
@@ -224,13 +236,14 @@ public class CommFunc {
 		}
 	}
 	
-	/**
-	 * 对字符串md5加密(大写+数字)
-	 *
-	 * @param str 传入要加密的字符串
-	 * @return MD5加密后的字符串
-	 */
-    
+	/** 
+	* @Title: getMD5 
+	* @Description: 对字符串md5加密(大写+数字)
+	* @param @param btInput 传入要加密的字符串
+	* @param @return    MD5加密后的字符串
+	* @return String    返回类型 
+	* @throws 
+	*/
 	public static String getMD5(byte[] btInput) {
 		char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
 
@@ -257,6 +270,14 @@ public class CommFunc {
 		}
 	}
 	
+	/** 
+	* @Title: getChinaMobileHeader 
+	* @Description: 组合中国移动请求header信息 
+	* @param @param appInfo
+	* @param @return    设定文件 
+	* @return Map<String,String>    返回类型 
+	* @throws 
+	*/
 	public static Map<String, String> getChinaMobileHeader(JSONObject appInfo) {
 		Map<String, String> header = new HashMap<String, String>(2);
 		header.put("api-key", appInfo.getString("appId"));
@@ -289,45 +310,4 @@ public class CommFunc {
 		return command.get(commandKey);
 	}
 	
-	/** 
-	* @Title: getTaskParamList 
-	* @Description: 获取补招任务执行的表名和日期列表
-	* @param @return    设定文件 
-	* @return List<Map<String,Object>>    返回类型 
-	* @throws 
-	*/
-	public static List<Map<String, Object>> getTaskParamList() {
-		/** 默认补招从T-1起 */
-		Calendar endDate = Calendar.getInstance();
-		endDate.add(Calendar.DAY_OF_MONTH, Constant.TASK_ENDDATE);
-
-		List<Map<String, Object>> paramList = new LinkedList<Map<String, Object>>();
-
-		for (int i = 0; i < Constant.TASK_CALL_DAYS; i++) {
-			String date = DateUtils.formatDateByFormat(endDate.getTime(), DateUtils.DATE_PATTERN);
-			String tableName = "YDData.dbo.nb_daily_data_" + date.substring(0, 6);
-			Map<String, Object> param = new HashMap<>();
-			param.put("date", date);
-			param.put("tableName", tableName);
-
-			paramList.add(param);
-			endDate.add(Calendar.DAY_OF_YEAR, -1);
-		}
-		return paramList;
-	}
-	
-	/** 
-	* @Title: getTaskStartTime 
-	* @Description: 获取补招任务产生时间的开始时间
-	* @param @return    设定文件 
-	* @return String    返回类型 
-	* @throws 
-	*/
-	public static String getTaskStartTime() {
-		/** 默认补招从T-1起 */
-		Calendar endDate = Calendar.getInstance();
-		endDate.add(Calendar.DAY_OF_MONTH, Constant.TASK_ENDDATE);
-		endDate.add(Calendar.DAY_OF_MONTH, -1 * (Constant.TASK_CALL_DAYS + 1));
-		return DateUtils.parseDate(endDate.getTime(), DateUtils.UTC_PATTERN);
-	}
 }

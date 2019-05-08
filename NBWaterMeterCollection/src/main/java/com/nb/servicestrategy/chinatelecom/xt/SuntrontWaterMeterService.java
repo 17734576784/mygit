@@ -56,7 +56,6 @@ public class SuntrontWaterMeterService implements IServiceStrategy {
 	*/
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
-		// TODO Auto-generated method stub
 		String logInfo = "上报新天科技SuntrontWaterMeter服务 ：" + deviceId + " ,内容：" + serviceMap.toString();
 		LoggerUtil.logger(LogName.CALLBACK).info(logInfo);
 		if (serviceMap == null || serviceMap.isEmpty()) {
@@ -78,12 +77,11 @@ public class SuntrontWaterMeterService implements IServiceStrategy {
 
 			SuntrontWaterMeter suntrontWaterMeter = JsonUtil.map2Bean(dataMap, SuntrontWaterMeter.class);
 			suntrontWaterMeter.setEvnetTime(serviceMap);
-			
+
 			insertNbDailyData(suntrontWaterMeter, meterInfo);
 			insertInstantaneous(suntrontWaterMeter, meterInfo);
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 			LoggerUtil.logger(LogName.ERROR).error(logInfo + "异常" + e.getMessage());
 		}
@@ -110,10 +108,10 @@ public class SuntrontWaterMeterService implements IServiceStrategy {
 		nbInstantaneous.setMpId(mpId);
 		nbInstantaneous.setYmd(suntrontWaterMeter.getIntervalDate());
 
-		JSONArray arrays = JSONArray.parseArray(suntrontWaterMeter.getInstantFlow().toString());
 		Calendar c = Calendar.getInstance();
-		c.setTime(DateUtils.parseTimesTampDate(suntrontWaterMeter.getIntervalFlowStartingTime(), DateUtils.UTC_PATTERN));
-		c.set(Calendar.MINUTE, 0);
+		c.setTime(DateUtils.parseTimesTampDate(toStr(suntrontWaterMeter.getReadDate()), DateUtils.DATE_PATTERN));
+		
+		JSONArray arrays = JSONArray.parseArray(suntrontWaterMeter.getInstantFlow().toString());
 		for (int i = 0; i < arrays.size(); i++) {
 			int time = toInt(DateUtils.formatTimePattern(c.getTime()));
 			nbInstantaneous.setHms(time);

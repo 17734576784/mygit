@@ -65,14 +65,19 @@ public class MainTest {
 	*/
 	public static void main(String[] args) {
 		
-		
-		Map<String, String> dataMap = new HashMap<String, String>();
-		dataMap.put("dailyFlow", "12400");
-		dataMap.put("dailyReverseFlow", "2400");
+		Date date = DateUtils.utcToLocal("20190506T162216Z", DateUtils.UTC_PATTERN);
+		System.out.println(DateUtils.formatTimesTampDate(date));
+		date = DateUtils.localToUTC("2019-05-07 00:22:16", DateUtils.TIMESTAMP_PATTERN);
+		System.out.println(DateUtils.formatDateByFormat(date,  DateUtils.UTC_PATTERN));
 
-		SuntrontWaterMeter suntrontWaterMeter = JsonUtil.map2Bean(dataMap, SuntrontWaterMeter.class);
-		System.out.println(suntrontWaterMeter.getDailyFlow()+" "+ suntrontWaterMeter.getDailyReverseFlow());
 		
+//		Map<String, String> dataMap = new HashMap<String, String>();
+//		dataMap.put("dailyFlow", "12400");
+//		dataMap.put("dailyReverseFlow", "2400");
+//
+//		SuntrontWaterMeter suntrontWaterMeter = JsonUtil.map2Bean(dataMap, SuntrontWaterMeter.class);
+//		System.out.println(suntrontWaterMeter.getDailyFlow()+" "+ suntrontWaterMeter.getDailyReverseFlow());
+//		
 //		System.out.println(DateUtils.formatTimesTampDate(new Date(1557191836620L)));
 //		
 //		Calendar c = Calendar.getInstance();

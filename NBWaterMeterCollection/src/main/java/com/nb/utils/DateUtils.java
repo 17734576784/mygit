@@ -202,6 +202,19 @@ public class DateUtils {
 	public static Date parseTimesTampDate(String date, String pattern) {
 		return parseDate(date, pattern);
 	}
+	
+	/** 
+	* @Title: parseUTCDate 
+	* @Description: 讲字符串转成utc格式的日期
+	* @param @param date
+	* @param @param pattern
+	* @param @return    设定文件 
+	* @return Date    返回类型 
+	* @throws 
+	*/
+	public static Date parseUTCDate(String date) {
+		return parseDate(date, UTC_PATTERN);
+	}
 
 	/**
 	 * 获得当前时间
