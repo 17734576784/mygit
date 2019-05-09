@@ -87,9 +87,7 @@ public class ChinaTelecomDeviceServiceImpl implements IChinaTelecomDeviceService
 		register.put("nodeId", deviceInfo.getImei());
 		register.put("timeout", Constant.ZERO);
 
-		
 		JSONObject paramModifyDevice = new JSONObject();
-//		paramModifyDevice.put("deviceId", deviceId);
 		paramModifyDevice.put("manufacturerId", deviceInfo.getManufacturerId());
 		paramModifyDevice.put("manufacturerName", deviceInfo.getManufacturerName());
 		paramModifyDevice.put("deviceType", deviceInfo.getDeviceType());
@@ -99,17 +97,18 @@ public class ChinaTelecomDeviceServiceImpl implements IChinaTelecomDeviceService
 		register.put("deviceInfo", paramModifyDevice);
 
 		String jsonRequest = register.toJSONString();
+		
+		StreamClosedHttpResponse httpResponse = httpsUtil.doPostJsonGetStatusLine(urlReg, header, jsonRequest);
 		Map<String, Object> responseMap = new HashMap<>();
-		responseMap = JsonUtil.jsonString2SimpleObj(httpsUtil.doPostJsonGetStatusLine(urlReg, header, jsonRequest).getContent(), responseMap.getClass());
+		responseMap = JsonUtil.jsonString2SimpleObj(httpResponse.getContent(), responseMap.getClass());
 		deviceId = ConverterUtils.toStr(responseMap.get("deviceId"));
 		if (null != deviceId && !deviceId.isEmpty()) {
-//			return modifyDeviceInfo(deviceId, deviceInfo);
 			ResultBean<JSONObject> result = new ResultBean<>();
 			JSONObject rtnJson = new JSONObject();
 			rtnJson.put("deviceId", deviceId);
 			result.setData(rtnJson);
 			return result;
-		}else {
+		} else {
 			ResultBean<String> result = new ResultBean<String>(Constant.ERROR, "请求错误");
 			return result;
 		}
