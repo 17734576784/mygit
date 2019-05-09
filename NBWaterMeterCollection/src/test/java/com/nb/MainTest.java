@@ -11,7 +11,9 @@ package com.nb;
 import static com.nb.utils.ConverterUtils.toInt;
 import static com.nb.utils.ConverterUtils.toStr;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -56,14 +58,23 @@ import io.lettuce.core.protocol.CommandEncoder;
 */
 public class MainTest {
 
-	/** 
+	/**
+	 * @throws UnsupportedEncodingException  
 	* @Title: main 
 	* @Description: TODO(这里用一句话描述这个方法的作用) 
 	* @param @param args    设定文件 
 	* @return void    返回类型 
 	* @throws 
 	*/
-	public static void main(String[] args) {
+	public static void main(String[] args) throws UnsupportedEncodingException {
+		
+		String name ="杜宝瑞";
+		byte[] nameByte = name.getBytes();
+		
+		String encode = Base64.getEncoder().encodeToString(nameByte);
+		System.out.println(encode);
+		System.out.println(new String(Base64.getDecoder().decode(encode), "UTF-8"));
+
 		
 //		Date date = DateUtils.utcToLocal("20190506T162216Z", DateUtils.UTC_PATTERN);
 //		System.out.println(DateUtils.formatTimesTampDate(date));
@@ -78,7 +89,7 @@ public class MainTest {
 //		SuntrontWaterMeter suntrontWaterMeter = JsonUtil.map2Bean(dataMap, SuntrontWaterMeter.class);
 //		System.out.println(suntrontWaterMeter.getDailyFlow()+" "+ suntrontWaterMeter.getDailyReverseFlow());
 //		
-		System.out.println(DateUtils.formatTimesTampDate(new Date(1557311171497L)));
+//		System.out.println(DateUtils.formatTimesTampDate(new Date(1557311171497L)));
 //		
 //		Calendar c = Calendar.getInstance();
 //		c.setTime(DateUtils.parseTimesTampDate("20190507", DateUtils.DATE_PATTERN));

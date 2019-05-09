@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.security.MessageDigest;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import javax.imageio.stream.FileImageInputStream;
@@ -77,7 +78,7 @@ public class CommFunc {
 	* @throws 
 	*/
 	public static String encode(byte[] bstr) {
-		return new sun.misc.BASE64Encoder().encode(bstr);
+		return Base64.getEncoder().encodeToString(bstr);
 	}
 
 	/** 
@@ -90,13 +91,7 @@ public class CommFunc {
 	*/
 	public static byte[] decode(String str) {
 		byte[] bt = null;
-		try {
-			sun.misc.BASE64Decoder decoder = new sun.misc.BASE64Decoder();
-			bt = decoder.decodeBuffer(str);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
+		bt = Base64.getDecoder().decode(str);
 		return bt;
 	}
 
