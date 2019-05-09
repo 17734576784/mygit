@@ -103,10 +103,10 @@ public class SuntrontWaterMeterService implements IServiceStrategy {
 		short mpId = toShort(meterInfo.get("mpId"));
 
 		NbInstantaneous nbInstantaneous = new NbInstantaneous();
-		nbInstantaneous.setTableName(toStr(suntrontWaterMeter.getIntervalDate() / 100));
+		nbInstantaneous.setTableName(toStr(suntrontWaterMeter.getReadDate() / 100));
 		nbInstantaneous.setRtuId(rtuId);
 		nbInstantaneous.setMpId(mpId);
-		nbInstantaneous.setYmd(suntrontWaterMeter.getIntervalDate());
+		nbInstantaneous.setYmd(suntrontWaterMeter.getReadDate());
 
 		Calendar c = Calendar.getInstance();
 		c.setTime(DateUtils.parseTimesTampDate(toStr(suntrontWaterMeter.getReadDate()), DateUtils.DATE_PATTERN));

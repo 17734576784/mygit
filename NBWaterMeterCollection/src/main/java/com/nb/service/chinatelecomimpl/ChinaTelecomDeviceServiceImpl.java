@@ -87,12 +87,28 @@ public class ChinaTelecomDeviceServiceImpl implements IChinaTelecomDeviceService
 		register.put("nodeId", deviceInfo.getImei());
 		register.put("timeout", Constant.ZERO);
 
+		
+		JSONObject paramModifyDevice = new JSONObject();
+//		paramModifyDevice.put("deviceId", deviceId);
+		paramModifyDevice.put("manufacturerId", deviceInfo.getManufacturerId());
+		paramModifyDevice.put("manufacturerName", deviceInfo.getManufacturerName());
+		paramModifyDevice.put("deviceType", deviceInfo.getDeviceType());
+		paramModifyDevice.put("model", deviceInfo.getModel());
+		paramModifyDevice.put("protocolType", deviceInfo.getProtocolType());
+		
+		register.put("deviceInfo", paramModifyDevice);
+
 		String jsonRequest = register.toJSONString();
 		Map<String, Object> responseMap = new HashMap<>();
 		responseMap = JsonUtil.jsonString2SimpleObj(httpsUtil.doPostJsonGetStatusLine(urlReg, header, jsonRequest).getContent(), responseMap.getClass());
 		deviceId = ConverterUtils.toStr(responseMap.get("deviceId"));
 		if (null != deviceId && !deviceId.isEmpty()) {
-			return modifyDeviceInfo(deviceId, deviceInfo);
+//			return modifyDeviceInfo(deviceId, deviceInfo);
+			ResultBean<JSONObject> result = new ResultBean<>();
+			JSONObject rtnJson = new JSONObject();
+			rtnJson.put("deviceId", deviceId);
+			result.setData(rtnJson);
+			return result;
 		}else {
 			ResultBean<String> result = new ResultBean<String>(Constant.ERROR, "请求错误");
 			return result;

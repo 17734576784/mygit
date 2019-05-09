@@ -8,7 +8,6 @@
 */
 package com.nb.configuration;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,16 +56,16 @@ public class ScheduleFactory {
 
 	/** 
 	* @Title: scheduleUpdateCronTrigger 
-	* @Description: 每隔5分钟查库，并根据查询结果决定是否重新设置定时任务
+	* @Description: 每隔1分钟查库，并根据查询结果决定是否重新设置定时任务
 	* @param @throws Exception    设定文件 
 	* @return void    返回类型 
 	* @throws 
 	*/
 	@SuppressWarnings("unlikely-arg-type")
-	@Scheduled(fixedRate = 1000 * 60 * 5)  
+	@Scheduled(fixedRate = 1000 * 60)
 	public void scheduleUpdateCronTrigger() throws Exception {
 		try {
-			System.out.println("fixedRate : " + LocalDateTime.now());
+//			System.out.println("fixedRate : " + LocalDateTime.now());
 			// schedulerFactoryBean 由spring创建注入
 			Scheduler scheduler = schedulerFactoryBean.getScheduler();
 

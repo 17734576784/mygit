@@ -69,13 +69,6 @@ public class SuntrontWaterMeter extends BaseModel {
 	/** 事项上报时间 */
 	private int readTime; 
 	
-	/** 间隔日期 */
-	private int intervalDate; 
-	
-	/** 间隔时间 */
-	private int intervalTime; 
-	
-	
 	/**
 	 * @return the serialversionuid
 	 */
@@ -208,28 +201,11 @@ public class SuntrontWaterMeter extends BaseModel {
 	 */
 	public void setIntervalFlowStartingTime(String intervalFlowStartingTime) {
 		this.intervalFlowStartingTime = intervalFlowStartingTime;
-		Date date = DateUtils.utcToLocal(intervalFlowStartingTime, DateUtils.UTC_PATTERN);
-		this.intervalDate = toInt(DateUtils.formatDateByFormat(date, DateUtils.DATE_PATTERN));
-		this.intervalTime = toInt(DateUtils.formatDateByFormat(date, DateUtils.TIME_PATTERN));
+//		Date date = DateUtils.utcToLocal(intervalFlowStartingTime, DateUtils.UTC_PATTERN);
+//		this.intervalDate = toInt(DateUtils.formatDateByFormat(date, DateUtils.DATE_PATTERN));
+//		this.intervalTime = toInt(DateUtils.formatDateByFormat(date, DateUtils.TIME_PATTERN));
 	}
 	
-	
-	/**
-	 * @return the intervalDate
-	 */
-	public int getIntervalDate() {
-		return intervalDate;
-	}
-
-
-	/**
-	 * @return the intervalTime
-	 */
-	public int getIntervalTime() {
-		return intervalTime;
-	}
-
-
 	/**
 	 * @return the intervalFlow
 	 */
