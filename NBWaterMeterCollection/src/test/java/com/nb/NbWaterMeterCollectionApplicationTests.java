@@ -113,7 +113,15 @@ public class NbWaterMeterCollectionApplicationTests {
 	@Test
 	public void TaskTest() {
 		
-		System.out.println(JedisUtils.get(Constant.ACCESS_TOKEN + "595yVAxsUL1HnK84TnylSC6xaY8a"));
+		Eve eve = new Eve();
+		eve.setMemberId0(1);
+		eve.setMemberId1(2);
+		eve.setYmd(20190506);
+		eve.setHmsms(2510000);
+		eve.setTypeno((short)2004);
+		eve.setTableName("201905");
+		System.out.println(eveMapper.isExist(eve));
+//		System.out.println(JedisUtils.get(Constant.ACCESS_TOKEN + "595yVAxsUL1HnK84TnylSC6xaY8a"));
 		
 	}
 	

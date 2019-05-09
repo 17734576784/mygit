@@ -26,6 +26,16 @@
     <result column="char_info" property="charInfo" jdbcType="VARCHAR" />
   </resultMap>
 
+
+  <select id="isExist" resultType="boolean" parameterType="com.nb.model.Eve" >
+      select count('X') from ${tableName}
+   	  where member_id0 = #{memberId0,jdbcType=INTEGER}
+      and member_id1 = #{memberId1,jdbcType=SMALLINT}
+      and ymd = #{ymd,jdbcType=INTEGER}
+      and hmsms = #{hmsms,jdbcType=INTEGER}
+      and typeno = #{typeno,jdbcType=SMALLINT}
+  </select>
+  
   <insert id="insertEve" parameterType="com.nb.model.Eve" >
     insert into ${tableName}
     <trim prefix="(" suffix=")" suffixOverrides="," >

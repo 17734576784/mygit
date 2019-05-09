@@ -23,4 +23,15 @@ public interface EveMapper {
     * @throws 
     */
     boolean insertEve(Eve record);
+    
+    
+	/** 
+	* @Title: isExist 
+	* @Description: 判断事项是否存在
+	* @param @param Eve
+	* @param @return    设定文件 
+	* @return boolean    返回类型 
+	* @throws 
+	*/
+	boolean isExist(Eve record);
 }

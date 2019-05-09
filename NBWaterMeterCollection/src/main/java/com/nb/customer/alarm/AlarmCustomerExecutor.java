@@ -37,7 +37,9 @@ public class AlarmCustomerExecutor {
 		boolean flag = true;
 		try {
 			Eve eve = JsonUtil.convertJsonStringToObject(obj.toString(), Eve.class);
-			flag = eveMapper.insertEve(eve);
+			if (!eveMapper.insertEve(eve)) {
+				flag = eveMapper.insertEve(eve);
+			}
 		} catch (Exception e) {
 			flag = false;
 			JedisUtils.lpush(Constant.ALARM_EVENT_ERROR_QUEUE, JsonUtil.jsonObj2Sting(obj));
