@@ -17,10 +17,12 @@ package com.nb.utils;
 */
 public enum CommandEnum {
 	/**
-	 * 命令发送 SEND 1 命令交付 DELIVERED 2 命令超时 TIMEOUT 4 命令成功 SUCCESSFUL 3 命令失败 FAILED 5
+	 * 命令发送 SEND:1,  命令交付 DELIVERED:2,
+	 * 命令成功 SUCCESSFUL:3, 命令超时 TIMEOUT:4, 命令失败 FAILED:5
 	 */
-	SEND("SEND", (byte) 1), DELIVERED("DELIVERED", (byte) 2), SUCCESSFUL("SUCCESSFUL", (byte) 3), TIMEOUT("TIMEOUT",
-			(byte) 4), FAILED("FAILED", (byte) 5);
+	SEND("SEND", (byte) 1), DELIVERED("DELIVERED", (byte) 2), 
+	SUCCESSFUL("SUCCESSFUL", (byte) 3), TIMEOUT("TIMEOUT",(byte) 4),
+	FAILED("FAILED", (byte) 5);
 	
 	private String resultCode;
 	private Byte resultValue;
@@ -63,7 +65,7 @@ public enum CommandEnum {
 		this.resultValue = resultValue;
 	}
 	
-	public static Byte getresultValue(String value) {
+	public static Byte getResultValue(String value) {
 		CommandEnum[] arr = values();
 		for (CommandEnum item : arr) {
 			if (item.getResultCode().equals(value)) {
