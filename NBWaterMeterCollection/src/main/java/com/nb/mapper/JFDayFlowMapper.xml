@@ -129,6 +129,7 @@
       where rtu_id = #{rtuId,jdbcType=INTEGER}
       and mp_id = #{mpId,jdbcType=SMALLINT}
       and date = #{date,jdbcType=INTEGER}
+      and time = #{time,jdbcType=INTEGER}
   </select>
   
   
