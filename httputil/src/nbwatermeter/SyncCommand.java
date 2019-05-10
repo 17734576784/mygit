@@ -41,7 +41,7 @@ public class SyncCommand {
        
        JSONObject json = new JSONObject();
        json.put("nbType", "2");
-       json.put("rtuId", "2");
+       json.put("rtuId", "4");
        json.put("mpId", "1");
        json.put("commandId", "4");
 
@@ -52,7 +52,7 @@ public class SyncCommand {
 //       param.put("DIR", 0);
 //       param.put("ValveOperate", 1);
 //       
-       param.put("value", 1);
+       param.put("SET_Control_Valve", 1);
        json.put("param", param.toJSONString());
        
        HttpsClientUtil httpsClientUtil = new HttpsClientUtil();

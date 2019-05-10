@@ -61,29 +61,30 @@ public class PostAsynCommandV4 {
         String appId = Constant.APPID;
 
         //please replace the deviceId, when you use the demo.
-        String deviceId = "63c04ac0-a0ae-4e87-bd0c-9cad975202a3";
+        String deviceId = "d382ab24-8772-48ac-84a3-5c238efb7504";
 //        String callbackUrl = Constant.REPORT_CMD_EXEC_RESULT_CALLBACK_URL;
         String callbackUrl = "https://222.222.60.178:18213/chinatelecom/reportCmdExecResult";
 
         //please replace the following parameter values, when you use the demo.
         //And those parameter values must be consistent with the content of profile that have been preset to IoT platform.
         //The following parameter values of this demo are use the watermeter profile that already initialized to IoT platform.
-        String serviceId = "SettingReportPeriod";
-        String method = "SET_REPORT_PERIOD";
+        String serviceId = "SuntrontWaterMeter";
+        String method = "SET_REPORT_FREQ_VAL";
 //        {"AFN":19 ,"IMSI":"xxx" ,"CNT":"xxx", "DIR":"xxx","ReportBaseTime":"xxx"," ReportIntervalHours":"xxx"}
         
         
-        serviceId = "SettingValveState";
-        method = "SET_VALVE_STATE";
-        
-        serviceId = "Valve";
-        method = "Open";
+//        serviceId = "SuntrontWaterMeterAlarm";
+//        method = "SET_HIGHFLOW_ALARM";
+//        
+//        serviceId = "SuntrontValve";
+//        method = "SET_Control_Valve";
         
         JSONObject json = new JSONObject();
-        json.put("value", 10);
+//        json.put("valveStatus", 2);
 
-//        json.put("AFN", 19);
-//        json.put("AFN", 27);
+//        json.put("highFlow ", 190);        
+        
+        json.put("freqVal", 2);
 //
 //        json.put("IMSI", "00000867726032982805");
 //        json.put("CNT", 3);

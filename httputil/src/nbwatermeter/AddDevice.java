@@ -39,8 +39,8 @@ public class AddDevice {
        
        JSONObject json = new JSONObject();
        json.put("nbType", "2");
-       json.put("rtuId", "3");
-       json.put("mpId", "2");
+       json.put("rtuId", "4");
+       json.put("mpId", "1");
        
        HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
        StreamClosedHttpResponse responseReg = httpsClientUtil.doPostJsonGetStatusLine(urlReg, json.toJSONString());
