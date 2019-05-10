@@ -241,7 +241,7 @@ public class ChinaTelecomCommandServiceImpl implements IChinaTelecomCommandServi
 		nbCommand.setCommandClass(commandClass);
 		nbCommand.setCommandType(toByte(param.get("commandId")));
 
-		String tableNameDate = DateUtils.curDate().substring(0, 6);
+		String tableNameDate = DateUtils.curDate();
 		nbCommand.setCommandContent(paramCommand.toString());
 		nbCommand.setOperatorId(toInt(param.get("operatorId")));
 		nbCommand.setTableName(tableNameDate);
