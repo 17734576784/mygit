@@ -395,7 +395,7 @@ public class Constant {
 	/** 任务类型 */ 
 	public static final String TASK_DEVICEREG = "DeviceReg";
 	public static final String TASK_DEVICECMD = "DeviceCmd";
-	/** 任务超时时间 */ 
+	/** 任务超时时间 */
 	public static final int TASK_TIMEOUT = 2880;
 	/** 命令redis超时时间 */
 	public static final int COMMAND_TIME_OUT = 60 * 60 * 36;

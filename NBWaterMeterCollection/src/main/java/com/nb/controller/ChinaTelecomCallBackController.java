@@ -180,13 +180,13 @@ public class ChinaTelecomCallBackController {
 			}
 			
 			Object result = messageMap.get("result");
-			
+
 			Map<String, String> dataMap = new HashMap<String, String>();
 			dataMap = JsonUtil.jsonString2SimpleObj(result, dataMap.getClass());
 			String resultCode = toStr(dataMap.get("resultCode"));
 			// Object resultDetail = dataMap.get("resultDetail");
 			// 根据下行命令上报结果信息更新命令状态
-			Byte resultValue = CommandEnum.getresultValue(resultCode);
+			Byte resultValue = CommandEnum.getResultValue(resultCode);
 			String tableNameDate = JedisUtils.get(Constant.COMMAND + commandId);
 			if (tableNameDate != null && resultValue != null) {
 				NbCommand nbCommand = new NbCommand();
