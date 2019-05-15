@@ -30,8 +30,10 @@ public class Constant {
 
 	/** 中国联通平台地址 */
 	public static final String CHINA_UNICOM_BASE_URL = "https://58.240.96.46:8743";
-	/** 中国电信平台地址 */
-	public static final String CHINA_TELECOM_BASE_URL = "https://180.101.147.89:8743";//"https://device.api.ct10649.com:8743";
+	/** 中国电信正式平台地址 */
+	public static final String CHINA_TELECOM_BASE_URL = "https://device.api.ct10649.com:8743";
+	/** 中国电信测试平台地址 */
+//	public static final String CHINA_TELECOM_BASE_URL = "https://180.101.147.89:8743";
 
 	// please replace the appId and secret, when you use the demo.
 	/** 中国移动平台APPID */
