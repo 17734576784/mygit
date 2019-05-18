@@ -113,15 +113,12 @@ public class ChinaTelecomDeviceService {
 		StreamClosedHttpResponse responseModifyDeviceInfo = httpsUtil.doPutJsonGetStatusLine(urlModifyDeviceInfo,
 				header, jsonRequest);
  
-		JSONObject response = JSONObject.parseObject(responseModifyDeviceInfo.getContent());
- 			
-// 		System.out.println(response);
- 		
+		int statusCode = responseModifyDeviceInfo.getStatusLine().getStatusCode();
+		if (statusCode == Constant.STATUS_204) {
+ 
+		}
+  		 	
 		ResultBean<JSONObject> result = new ResultBean<JSONObject>();
-		JSONObject rtnJson = new JSONObject();
-		rtnJson.put("device_id", deviceId);
-		result.setData(rtnJson);
-
 		return result;
 	}
 	

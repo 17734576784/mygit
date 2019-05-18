@@ -9,6 +9,9 @@
 package com.nb.service.chinamobileimpl;
 
 import static com.nb.utils.ConverterUtils.toInt;
+
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -23,6 +26,7 @@ import com.nb.model.NbDailyData;
 import com.nb.service.IChinaMobileSuntrontService;
 import com.nb.utils.Constant;
 import com.nb.utils.ConverterUtils;
+import com.nb.utils.DateUtils;
 import com.nb.utils.JedisUtils;
 import com.nb.utils.JsonUtil;
 import com.nb.utils.SuntrontProtocolUtil;
@@ -59,12 +63,14 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 		int msgType = msgJson.getIntValue("type");
 		String deviceId = msgJson.getString("dev_id");
 		String dsId = msgJson.getString("ds_id");
-
+		long at = msgJson.getLongValue("at");
+		String reportDate = DateUtils.formatNoCharDate(new Date(at));
+		
 		// 数据点消息
 		if (msgType == Constant.CHINA_MOBILE_DATA_MSG) {
 			if (dsId.equals(Constant.SUNTRONTDSID)) {
 				JSONObject dataJson = SuntrontProtocolUtil.parseDataMsg(msgJson);
-				saveReportData(deviceId, dataJson);
+				saveReportData(deviceId, dataJson, reportDate);
 			}
 		}
 		// 下行命令的应答（仅限NB设备）
@@ -81,7 +87,7 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 	* @return void    返回类型 
 	* @throws 
 	*/
-	private void saveReportData(String deviceId, JSONObject dataJson) {
+	private void saveReportData(String deviceId, JSONObject dataJson, String reportDate) {
 		if (dataJson == null || dataJson.isEmpty()) {
 			return;
 		}
@@ -93,8 +99,8 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 			return;
 		}
 
-		saveData(dataJson, meterInfo);
-		saveAlarm(dataJson, meterInfo);
+		saveData(dataJson, meterInfo, reportDate);
+		saveAlarm(dataJson, meterInfo, reportDate);
 	}
 
 	/** 
@@ -105,14 +111,13 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 	* @return void    返回类型 
 	* @throws 
 	*/
-	private void saveAlarm(JSONObject dataJson, Map<String, Object> meterInfo) {
+	private void saveAlarm(JSONObject dataJson, Map<String, Object> meterInfo, String reportDate) {
 		JSONObject comm = dataJson.getJSONObject("comm");
 		JSONObject st0 = comm.getJSONObject("st0");
 		JSONObject st2 = comm.getJSONObject("st2");
-		String deviceTime = comm.getString("deviceTime");
-		String tableNameDate = deviceTime.substring(0, 6);
-		int ymd = toInt(deviceTime.substring(0, 8));
-		int hms = toInt(deviceTime.substring(9, 15));
+		String tableNameDate = reportDate.substring(0, 6);
+		int ymd = toInt(reportDate.substring(0, 8));
+		int hms = toInt(reportDate.substring(9, 15));
 		int rtuId = toInt(meterInfo.get("rtuId"));
 		int mpId = toInt(meterInfo.get("mpId"));
 		
@@ -182,7 +187,7 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 	* @return void    返回类型 
 	* @throws 
 	*/
-	private void saveData(JSONObject dataJson, Map<String, Object> meterInfo) {
+	private void saveData(JSONObject dataJson, Map<String, Object> meterInfo,String reportDate) {
 		
 		JSONObject comm = dataJson.getJSONObject("comm");
 		JSONObject st0 = comm.getJSONObject("st0");
@@ -193,7 +198,7 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 		int rtuId = toInt(meterInfo.get("rtuId"));
 		short mpId = ConverterUtils.toShort(meterInfo.get("mpId"));
 
-		/** 插入日数据 */
+		/** 插入日数据 data0 */
 		NbDailyData nbDailyData = new NbDailyData();
 		nbDailyData.setTableName(tableNameDate);
 		nbDailyData.setReportType((byte) Constant.ZERO);
@@ -209,6 +214,18 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 		nbDailyData.setValveStatus(getValveStatus(valveStatus));
 		JedisUtils.lpush(Constant.HISTORY_DAILY_QUEUE, JsonUtil.jsonObj2Sting(nbDailyData));
 		
+		/** 插入data11 */
+		if (dataJson.getInteger("historyDate") != -1) {
+			Calendar c = Calendar.getInstance();
+			c.setTime(DateUtils.parseDate(reportTime.substring(0, 8), DateUtils.DATE_PATTERN));
+			c.add(Calendar.DAY_OF_YEAR, Constant.ONE);
+			String ymdStr = DateUtils.parseDate(c.getTime(), DateUtils.DATE_PATTERN);
+			nbDailyData.setTableName(ymdStr.substring(0, 6));
+			nbDailyData.setYmd(toInt(ymdStr));
+			nbDailyData.setTotalFlow(dataJson.getDouble("historyTotalFlow"));
+			JedisUtils.lpush(Constant.HISTORY_DAILY_QUEUE, JsonUtil.jsonObj2Sting(nbDailyData));
+		}
+		
 		/** 更新表计阀门状态 */
 		meterInfo.put("valveState", getValveStatus(valveStatus));
 		meterInfo.put("version", comm.getString("version"));
@@ -217,8 +234,8 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 		/** 保存电池电压信息 */
 		NbBattery nbBattery = new NbBattery();
 		nbBattery.setTableName(tableNameDate);
-		nbBattery.setYmd(ymd);
-		nbBattery.setHms(hms);
+		nbBattery.setYmd(toInt(reportDate.substring(0, 8)));
+		nbBattery.setHms(toInt(reportDate.substring(9, 15)));
 		nbBattery.setRtuId(rtuId);
 		nbBattery.setMpId((short) mpId);
 		nbBattery.setBatteryVoltage(comm.getDouble("batteryVoltage"));

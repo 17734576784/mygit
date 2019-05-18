@@ -109,8 +109,10 @@ public class SuntrontProtocolUtil {
 			byte[] data11 = new byte[Constant.FOUR];
 			dis.read(data11);
 			Double historyTotalFlow = 0D;
+			int historyDate = -1;
 			if (bcdToInt(data10) >= Constant.ONE && bcdToInt(data10) <= Constant.NUM_31) {
 				historyTotalFlow = BytesUtils.getReserveInt(data11) * 1D / Constant.NUM_1000;
+				historyDate = bcdToInt(data10);
 			}
 
 			/** 备用字节 */			
@@ -128,7 +130,7 @@ public class SuntrontProtocolUtil {
 			dataJson.put("IMEI", bytesToHex(data5));
 			dataJson.put("forwardTotalFlow", forwardTotalFlow);
 			dataJson.put("reverseTotalFlow", reverseTotalFlow);
-			dataJson.put("historyDate", bcdToInt(data10));
+			dataJson.put("historyDate", historyDate);
 			dataJson.put("historyTotalFlow", historyTotalFlow);
 			dataJson.putAll(parseCumulativeIncrementalData(data2, data9));
 			dataJson.put("comm", parseCommData(comm));
@@ -250,30 +252,21 @@ public class SuntrontProtocolUtil {
 		DataInputStream dis = new DataInputStream(bais);
 		try {
 			/** bit7 */
-			byte bit7 = dis.readByte();
+			json.put("bit7", dis.readByte());
 			/** 反流告警 */
-			byte reverseFlow = dis.readByte();
+			json.put("reverseFlow", dis.readByte());
 			/** 电子模块分离 */
-			byte electronicModuleSeparation = dis.readByte();
+			json.put("electronicModuleSeparation", dis.readByte());
 			/** 管段空管 */
-			byte emptyPipe = dis.readByte();
+			json.put("emptyPipe", dis.readByte());
 			/** 电池无电 */
-			byte batteryWithoutElectricity = dis.readByte();
+			json.put("batteryWithoutElectricity", dis.readByte());
 			/** 倾斜 */
-			byte tiltAlarm = dis.readByte();
+			json.put("tiltAlarm", dis.readByte());
 			/** 微漏 */
-			byte microleakage = dis.readByte();
+			json.put("microleakage", dis.readByte());
 			/** 不通讯关阀状态 */
-			byte noncommunicatingShutdownStatus = dis.readByte();
-
-			json.put("reverseFlow", reverseFlow);
-			json.put("bit7", bit7);
-			json.put("electronicModuleSeparation", electronicModuleSeparation);
-			json.put("emptyPipe", emptyPipe);
-			json.put("batteryWithoutElectricity", batteryWithoutElectricity);
-			json.put("tiltAlarm", tiltAlarm);
-			json.put("microleakage", microleakage);
-			json.put("noncommunicatingShutdownStatus", noncommunicatingShutdownStatus);
+			json.put("noncommunicatingShutdownStatus", dis.readByte());
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -297,30 +290,21 @@ public class SuntrontProtocolUtil {
 		DataInputStream dis = new DataInputStream(bais);
 		try {
 			/** 漏气 */
-			byte leakFlag = dis.readByte();
+			json.put("leakFlag", dis.readByte());
 			/** 流量异常 */
-			byte flowAnomaly = dis.readByte();
+			json.put("flowAnomaly", dis.readByte());
 			/** 不采样关阀 */
-			byte unsampledShutoff = dis.readByte();
+			json.put("unsampledShutoff", dis.readByte());
 			/** 直读模块异常 */
-			byte directReadingAbnormal = dis.readByte();
+			json.put("directReadingAbnormal", dis.readByte());
 			/** 校时状态 */
-			byte timingStatus = dis.readByte();
+			json.put("timingStatus", dis.readByte());
 			/** 强制开阀状态 */
-			byte forcedOpeningstate = dis.readByte();
+			json.put("forcedOpeningstate", dis.readByte());
 			/** 透支状态 */
-			byte overdraft = dis.readByte();
+			json.put("overdraft", dis.readByte());
 			/** 余额不足状态 */
-			byte insufficientBalance = dis.readByte();
-
-			json.put("leakFlag", leakFlag);
-			json.put("flowAnomaly", flowAnomaly);
-			json.put("unsampledShutoff", unsampledShutoff);
-			json.put("directReadingAbnormal", directReadingAbnormal);
-			json.put("timingStatus", timingStatus);
-			json.put("forcedOpeningstate", forcedOpeningstate);
-			json.put("overdraft", overdraft);
-			json.put("insufficientBalance", insufficientBalance);
+			json.put("insufficientBalance", dis.readByte());
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -345,27 +329,19 @@ public class SuntrontProtocolUtil {
 		DataInputStream dis = new DataInputStream(bais);
 		try {
 			/** 开窗标志 */
-			byte windowFlag = dis.readByte();
+			json.put("windowFlag", dis.readByte());
 			/** 终端启用标志 */
-			byte terminalEnablationFlag = dis.readByte();
+			json.put("terminalEnablationFlag", dis.readByte());
 			/** 终端电池电压 */
-			byte terminalBatteryVoltage = dis.readByte();
+			json.put("terminalBatteryVoltage", dis.readByte());
 			/** 磁干扰 */
-			byte magneticInterference = dis.readByte();
+			json.put("magneticInterference", dis.readByte());
 			/** 按键触发位 */
-			byte keyTrigger = dis.readByte();
+			json.put("keyTrigger", dis.readByte());
 			/** 表计电池电压 */
-			byte meterBatteryVoltage = dis.readByte();
+			json.put("meterBatteryVoltage", dis.readByte());
 			/** 阀门状态 */
-			short valveStatus = dis.readShort();
-
-			json.put("windowFlag", windowFlag);
-			json.put("terminalEnablationFlag", terminalEnablationFlag);
-			json.put("terminalBatteryVoltage", terminalBatteryVoltage);
-			json.put("magneticInterference", magneticInterference);
-			json.put("keyTrigger", keyTrigger);
-			json.put("meterBatteryVoltage", meterBatteryVoltage);
-			json.put("valveStatus", valveStatus);
+			json.put("valveStatus", dis.readShort());
 
 		} catch (Exception e) {
 			e.printStackTrace();
