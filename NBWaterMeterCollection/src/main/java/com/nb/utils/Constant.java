@@ -434,7 +434,10 @@ public class Constant {
 	public static final int TEN = 10;
 	public static final int NUM_200000 = 200000;
 	public static final int NUM_200 = 200;
+	public static final int NUM_31 = 31;
+
 	public static final int NUM_1000 = 1000;
+	public static final int NUM_48 = 48;
 
 	/** 补招数据 从T-2日起 */
 	public static final int TASK_ENDDATE = -1;
@@ -445,6 +448,9 @@ public class Constant {
 	public static final int PAGE_SIZE = 100;
 	/** 电信平台鉴权凭证*/
 	public static final String ACCESS_TOKEN = "accessToken:";
+	
+	/** 新天科技移动平台上报数据项ds_id */
+	public static final String SUNTRONTDSID = "3200_0_5505";
 }
 
 

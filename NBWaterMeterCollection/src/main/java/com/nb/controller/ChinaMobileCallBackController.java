@@ -1,5 +1,6 @@
 package com.nb.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import java.io.UnsupportedEncodingException;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,9 +14,9 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtil;
+import com.nb.service.IChinaMobileSuntrontService;
 import com.nb.utils.ChinaMobileUtil;
 import com.nb.utils.Constant;
-import com.nb.utils.DateUtils;
 
 /** 
 * @ClassName: ChinaMobileCallBackController 
@@ -26,6 +27,9 @@ import com.nb.utils.DateUtils;
 */
 @RestController
 public class ChinaMobileCallBackController {
+	
+	@Autowired
+	private IChinaMobileSuntrontService chinaMobileSuntrontService;
 
 	/** 
 	* @Title: URLVerification 
@@ -59,12 +63,12 @@ public class ChinaMobileCallBackController {
 				if (dataRight) {
 					try {
 						JSONObject msgJson = JSONObject.parseObject(obj.getMsg().toString());
-						parseMsg(msgJson);
+						chinaMobileSuntrontService.parseMsg(msgJson);
 					} catch (Exception e) {
 						JSONArray msgArray = JSON.parseArray(obj.getMsg().toString());
 						for (Object object : msgArray) {
 							JSONObject msgJson = (JSONObject) object;
-							parseMsg(msgJson);
+							chinaMobileSuntrontService.parseMsg(msgJson);
 						}
 					}
 					LoggerUtil.logger(LogName.INFO).info("data receive: content" + obj.toString());
@@ -78,61 +82,6 @@ public class ChinaMobileCallBackController {
 			e.printStackTrace();
 		}
 		return Constant.OK;
-	}
-	
-	/** 
-	* @Title: parseMsg 
-	* @Description: 解析移动NB平台推送的数据 
-	* @param @param msgJson
-	* @param @throws Exception    设定文件 
-	* @return void    返回类型 
-	* @throws 
-	*/
-	private void parseMsg(JSONObject msgJson) throws Exception {
-
-		// 标识消息类型
-		int msgType = msgJson.getIntValue("type");
-		// 数据点消息
-		if (msgType == Constant.CHINA_MOBILE_DATA_MSG) {
-			parseDateMsg(msgJson);
-
-		}
-		// 下行命令的应答（仅限NB设备）
-		else if (msgType == Constant.CHINA_MOBILE_COMMAND_MSG) {
-			parseCommandMsg(msgJson);
-		}
-	}
-	
-	
-	/** 
-	* @Title: parseDateMsg 
-	* @Description: 解析数据点信息 不同的数据存入对应的的redis队列中 
-	* @param @param msgJson    设定文件 
-	* @return void    返回类型 
-	* @throws 
-	*/
-	private void parseDateMsg(JSONObject msgJson){
-		long at = msgJson.getLongValue("at");
-		String date = DateUtils.stampToDate(at);
-		double value = Long.parseLong(msgJson.getString("value"), 16) * 1.0D / 100;
-		
-
-	}
-	
-	/** 
-	* @Title: parseCommandMsg 
-	* @Description: 解析下行命令上报结果信息，更新命令的执行状态
-	* @param @param msgJson    设定文件 
-	* @return void    返回类型 
-	* @throws 
-	*/
-	private void parseCommandMsg(JSONObject msgJson){
-		String cmdID = msgJson.getString("cmd_id");
-		String imei = msgJson.getString("imei");
-		String deviceId = msgJson.getString("dev_id");
-		int confirmStatus = msgJson.getIntValue("confirm_status");
-		long confirmTime = msgJson.getLong("confirm_time");
-		String confirmDate = DateUtils.stampToDate(confirmTime);
 	}
 	
 }

@@ -53,6 +53,7 @@ import com.nb.model.jd.Battery;
 import com.nb.model.jd.DeviceAlarm;
 import com.nb.model.jd.PeriodReport;
 import com.nb.model.jd.RealtimeReport;
+import com.nb.service.IChinaMobileSuntrontService;
 import com.nb.service.IScheduleService;
 import com.nb.servicestrategy.ChinaTelecomServiceContext;
 import com.nb.task.FxTelecomCallDataTask;
@@ -109,8 +110,25 @@ public class NbWaterMeterCollectionApplicationTests {
 	@Resource
 	private TaskMapper taskMapper;
 	
-	
+	@Autowired
+	private IChinaMobileSuntrontService chinaMobileSuntrontService;
 	@Test
+	public void testXT() {
+		JSONObject xt = new JSONObject();
+		xt.put("at", 1557909036230L);
+		xt.put("imei", "867726030828687");
+		xt.put("type", 1);
+		xt.put("ds_id", "3200_0_5505");
+		xt.put("value", "68a107250419208000d0bdad001505190201000000000000000000000000000000000000000000000000000"
+				+ "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+				+ "0000000000000000000000000000000000000000000000000000000000000008986043716189007154808607650404404780"
+				+ "0000000000000000000000000000000000000005416150519241946314435300808affcc90000eeeeeeeeeea1a816");
+		xt.put("dev_id", 526298861);
+		
+		chinaMobileSuntrontService.parseMsg(xt);
+	}
+	
+//	@Test
 	public void TaskTest() {
 		
 		Eve eve = new Eve();

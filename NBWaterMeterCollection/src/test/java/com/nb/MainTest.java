@@ -11,6 +11,8 @@ package com.nb;
 import static com.nb.utils.ConverterUtils.toInt;
 import static com.nb.utils.ConverterUtils.toStr;
 
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -39,6 +41,7 @@ import com.nb.model.xt.SuntrontMeter;
 import com.nb.model.xt.SuntrontWaterMeter;
 import com.nb.model.xt.SuntrontWaterMeterAlarm;
 import com.nb.task.FxTelecomCallDataTask;
+import com.nb.utils.BytesUtils;
 import com.nb.utils.CommFunc;
 import com.nb.utils.CommandEnum;
 import com.nb.utils.Constant;
@@ -46,6 +49,7 @@ import com.nb.utils.ConverterUtils;
 import com.nb.utils.DateUtils;
 import com.nb.utils.JsonUtil;
 import com.nb.utils.SerializeUtils;
+import com.nb.utils.SuntrontProtocolUtil;
 
 import io.lettuce.core.protocol.CommandEncoder;
 
@@ -57,6 +61,21 @@ import io.lettuce.core.protocol.CommandEncoder;
 *  
 */
 public class MainTest {
+	
+	/**
+     * 获取一个字节的bit数组
+     *
+     * @param value
+     * @return
+     */
+    public static byte[] getByteArray(byte value) {
+        byte[] byteArr = new byte[8]; //一个字节八位
+        for (int i = 7; i > 0; i--) {
+            byteArr[i] = (byte) (value & 1); //获取最低位
+            value = (byte) (value >> 1); //每次右移一位
+        }
+        return byteArr;
+    }
 
 	/**
 	 * @throws UnsupportedEncodingException  
@@ -67,13 +86,47 @@ public class MainTest {
 	* @throws 
 	*/
 	public static void main(String[] args) throws UnsupportedEncodingException {
+//		byte[] test = new byte[] {(byte) 139,1};
+//		if ((test[0] & 0x80) == 0x80) { //fu
+//			test[0] = (byte) (test[0] & 0x7F);
+//		}
+//		System.out.println(BytesUtils.getShort(test)); 
 		
-		String name ="杜宝瑞";
-		byte[] nameByte = name.getBytes();
+		JSONObject xt = new JSONObject();
+		xt.put("at", 1557909036230L);
+		xt.put("imei", "867726030828687");
+		xt.put("type", 1);
+		xt.put("ds_id", "3200_0_5505");
+		xt.put("value", "68a107250419208000d0bdad001505190201000000000000000000000000000000000000000000000000000"
+				+ "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+				+ "0000000000000000000000000000000000000000000000000000000000000008986043716189007154808607650404404780"
+				+ "0000000000000000000000000000000000000005416150519241946314435300808affcc90000eeeeeeeeee6FDD16");
+		xt.put("dev_id", 526298861);
+//		
+		System.out.println(SuntrontProtocolUtil.parseDataMsg(xt));;
 		
-		String encode = Base64.getEncoder().encodeToString(nameByte);
-		System.out.println(encode);
-		System.out.println(new String(Base64.getDecoder().decode(encode), "UTF-8"));
+		String data ="68a107250419208000d0bdad0015051902010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000089860437161890071548086076504044047800000000000000000000000000000000000000005416150519241946314435300808affcc90000eeeeeeeeee";
+		byte[] msg = BytesUtils.hexStringToBytes(data);
+		
+//		byte[] a = new byte[]{104, -95, 7, 37, 4, 25, 32, -128, 0, -48, -67, -83, 0, 21, 5, 25, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -119, -122, 4, 55, 22, 24, -112, 7, 21, 72, 8, 96, 118, 80, 64, 68, 4, 120, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 84, 22, 21, 5, 25, 36, 25, 70, 49, 68, 53, 48, 8, 8, -81, -4, -55, 0, 0, -18, -18, -18, -18, -18};
+//		System.out.println(BytesUtils.getReserveCrc(msg));
+
+//		int csq = BytesUtils.bcdToInt((byte)15);			
+//		System.out.println(csq + " "+ BytesUtils.byteToHex((byte)15));
+		
+//		JSONObject data = new JSONObject();
+//		data.put("msg", xt.toJSONString());
+//		data.put("nonce", "3aVj1y9+");
+//		data.put("signature", "iZI3Kut7Q7qGDqSq7A6tkw==");
+		
+		
+		
+//		String name ="杜宝瑞";
+//		byte[] nameByte = name.getBytes();
+//		
+//		String encode = Base64.getEncoder().encodeToString(nameByte);
+//		System.out.println(encode);
+//		System.out.println(new String(Base64.getDecoder().decode(encode), "UTF-8"));
 
 		
 //		Date date = DateUtils.utcToLocal("20190506T162216Z", DateUtils.UTC_PATTERN);
