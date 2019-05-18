@@ -29,13 +29,15 @@ import static com.nb.utils.BytesUtils.*;
 public class SuntrontProtocolUtil {
 	
 	/** 
-	* @Title: parseDateMsg 
+	* @Title: parseDataMsg 
 	* @Description: 解析数据点信息 不同的数据存入对应的的redis队列中 
-	* @param @param msgJson    设定文件 
-	* @return void    返回类型 
+	* @param @param msgJson
+	* @param @return
+	* @param @throws Exception    设定文件 
+	* @return JSONObject    返回类型 
 	* @throws 
 	*/
-	public static JSONObject parseDataMsg(JSONObject msgJson) {
+	public static JSONObject parseDataMsg(JSONObject msgJson) throws Exception {
 		byte[] msg = BytesUtils.hexStringToBytes(msgJson.getString("value"));
 		/** 验证接收到的消息，并返回数据部分 */
 		byte[] data = validateMsg(msg);
@@ -48,13 +50,15 @@ public class SuntrontProtocolUtil {
 	
 	/** 
 	* @Title: parseData 
-	* @Description: 解析数据
+	* @Description: 解析数据部分
 	* @param @param data
-	* @param @param msgJson    设定文件 
-	* @return void    返回类型 
+	* @param @param msgJson
+	* @param @return
+	* @param @throws Exception    设定文件 
+	* @return JSONObject    返回类型 
 	* @throws 
 	*/
-	private static JSONObject parseData(byte[] data, JSONObject msgJson) {
+	private static JSONObject parseData(byte[] data, JSONObject msgJson) throws Exception {
 		ByteArrayInputStream bais = new ByteArrayInputStream(data);
 		DataInputStream dis = new DataInputStream(bais);
 		JSONObject dataJson = new JSONObject();
@@ -125,9 +129,9 @@ public class SuntrontProtocolUtil {
 			dataJson.put("reportTime", reportTime);
 			dataJson.put("totalFlow", totalFlow);
 			dataJson.put("currenttotalFlow", currentTotalFlow);
-
 			dataJson.put("CCID", bytesToHex(data4));
 			dataJson.put("IMEI", bytesToHex(data5));
+			
 			dataJson.put("forwardTotalFlow", forwardTotalFlow);
 			dataJson.put("reverseTotalFlow", reverseTotalFlow);
 			dataJson.put("historyDate", historyDate);
@@ -151,7 +155,7 @@ public class SuntrontProtocolUtil {
 	* @return JSONObject    返回类型 
 	* @throws 
 	*/
-	private static JSONObject parseCumulativeIncrementalData(byte[] data2, byte data9) {
+	private static JSONObject parseCumulativeIncrementalData(byte[] data2, byte data9) throws Exception{
 		JSONObject crementDataJson = new JSONObject();
 		ByteArrayInputStream bais = new ByteArrayInputStream(data2);
 		DataInputStream dis = new DataInputStream(bais);
@@ -354,11 +358,12 @@ public class SuntrontProtocolUtil {
 	* @Title: validateMsg 
 	* @Description: 验证消息，并返回数据部分 
 	* @param @param msg
-	* @param @return    设定文件 
+	* @param @return
+	* @param @throws Exception    设定文件 
 	* @return byte[]    返回类型 
 	* @throws 
 	*/
-	private static byte[] validateMsg(byte[] msg) {
+	private static byte[] validateMsg(byte[] msg) throws Exception {
 
 		ByteArrayInputStream bais = new ByteArrayInputStream(msg);
 		DataInputStream dis = new DataInputStream(bais);

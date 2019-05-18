@@ -65,29 +65,36 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 		String dsId = msgJson.getString("ds_id");
 		long at = msgJson.getLongValue("at");
 		String reportDate = DateUtils.formatNoCharDate(new Date(at));
-		
-		// 数据点消息
-		if (msgType == Constant.CHINA_MOBILE_DATA_MSG) {
-			if (dsId.equals(Constant.SUNTRONTDSID)) {
-				JSONObject dataJson = SuntrontProtocolUtil.parseDataMsg(msgJson);
-				saveReportData(deviceId, dataJson, reportDate);
+		try {
+			// 数据点消息
+			if (msgType == Constant.CHINA_MOBILE_DATA_MSG) {
+				if (dsId.equals(Constant.SUNTRONTDSID)) {
+					JSONObject dataJson = SuntrontProtocolUtil.parseDataMsg(msgJson);
+					saveReportData(deviceId, dataJson, reportDate);
+				}
 			}
+			// 下行命令的应答（仅限NB设备）
+			else if (msgType == Constant.CHINA_MOBILE_COMMAND_MSG) {
+				SuntrontProtocolUtil.parseCommandMsg(msgJson);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			LoggerUtil.logger(LogName.ERROR).error("解析新天科技移动平台异常，接收数据{}", msgJson);
 		}
-		// 下行命令的应答（仅限NB设备）
-		else if (msgType == Constant.CHINA_MOBILE_COMMAND_MSG) {
-			SuntrontProtocolUtil.parseCommandMsg(msgJson);
-		}
+		
 	}
 
 	/** 
 	* @Title: saveReportData 
-	* @Description: 保存上报数据
+	* @Description: 保存上报数据 
 	* @param @param deviceId
-	* @param @param dataJson    设定文件 
+	* @param @param dataJson
+	* @param @param reportDate
+	* @param @throws Exception    设定文件 
 	* @return void    返回类型 
 	* @throws 
 	*/
-	private void saveReportData(String deviceId, JSONObject dataJson, String reportDate) {
+	private void saveReportData(String deviceId, JSONObject dataJson, String reportDate) throws Exception{
 		if (dataJson == null || dataJson.isEmpty()) {
 			return;
 		}
@@ -107,11 +114,13 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 	* @Title: saveAlarm 
 	* @Description: 保存异常事项 
 	* @param @param dataJson
-	* @param @param meterInfo    设定文件 
+	* @param @param meterInfo
+	* @param @param reportDate
+	* @param @throws Exception    设定文件 
 	* @return void    返回类型 
 	* @throws 
 	*/
-	private void saveAlarm(JSONObject dataJson, Map<String, Object> meterInfo, String reportDate) {
+	private void saveAlarm(JSONObject dataJson, Map<String, Object> meterInfo, String reportDate) throws Exception {
 		JSONObject comm = dataJson.getJSONObject("comm");
 		JSONObject st0 = comm.getJSONObject("st0");
 		JSONObject st2 = comm.getJSONObject("st2");
@@ -183,11 +192,13 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 	* @Title: saveData 
 	* @Description: 保存日数据、电池数据、更新版本信息和阀门状态 
 	* @param @param dataJson
-	* @param @param meterInfo    设定文件 
+	* @param @param meterInfo
+	* @param @param reportDate
+	* @param @throws Exception    设定文件 
 	* @return void    返回类型 
 	* @throws 
 	*/
-	private void saveData(JSONObject dataJson, Map<String, Object> meterInfo,String reportDate) {
+	private void saveData(JSONObject dataJson, Map<String, Object> meterInfo, String reportDate) throws Exception {
 		
 		JSONObject comm = dataJson.getJSONObject("comm");
 		JSONObject st0 = comm.getJSONObject("st0");
