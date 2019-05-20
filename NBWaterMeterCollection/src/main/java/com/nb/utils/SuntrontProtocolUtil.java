@@ -150,17 +150,17 @@ public class SuntrontProtocolUtil {
 	* @Title: parseCumulativeIncrementalData 
 	* @Description: 解析累计增量数据
 	* @param @param data2
-	* @param @param data9
+	* @param @param data9 	符号标识
 	* @param @return    设定文件 
 	* @return JSONObject    返回类型 
 	* @throws 
 	*/
-	private static JSONObject parseCumulativeIncrementalData(byte[] data2, byte data9) throws Exception{
+	private static JSONObject parseCumulativeIncrementalData(byte[] data2, byte data9) throws Exception {
 		JSONObject crementDataJson = new JSONObject();
 		ByteArrayInputStream bais = new ByteArrayInputStream(data2);
 		DataInputStream dis = new DataInputStream(bais);
 		List<Double> dataList = new LinkedList<>();
-		for (int i = 0; i < data2.length/Constant.TWO; i++) {
+		for (int i = 0; i < data2.length / Constant.TWO; i++) {
 			byte[] data = new byte[2];
 			try {
 				dis.read(data);
@@ -168,7 +168,7 @@ public class SuntrontProtocolUtil {
 				e.printStackTrace();
 			}
 			double symbol = 1.0;
-			if ((data[0] & 0x80) == 0x80 && data9 == 0xAA) { // fu
+			if (data9 == 0xAA && (data[0] & 0x80) == 0x80) { // fu
 				data[0] = (byte) (data[0] & 0x7F);
 				symbol = -1;
 			}
@@ -384,7 +384,6 @@ public class SuntrontProtocolUtil {
 			/** 控制码 */
 			byte[] control = new byte[Constant.TWO];
 			dis.read(control);
-
 			if (!bytesToHex(control).equals("D0BD")) {
 				System.out.println("控制码错误");
 				return null;
@@ -399,11 +398,11 @@ public class SuntrontProtocolUtil {
 			/** 校验字节 */
 			byte[] crc = new byte[Constant.TWO];
 			dis.read(crc);
-
+			/** 获取待验证数据，并计算CRC值 */
 			byte[] crcData = new byte[Constant.TEN + Constant.THREE + getReserveShort(len)];
 			System.arraycopy(msg, Constant.ZERO, crcData, Constant.ZERO, crcData.length);
 			String calcCrc = getReserveCrc(crcData);
-			/** 判断CRC */
+			/** 验证CRC与计算值 */
 			if (!bytesToHex(crc).equals(calcCrc)) {
 				System.out.println("CRC校验失败 " + bytesToHex(crc) + ":" + calcCrc);
 				return null;

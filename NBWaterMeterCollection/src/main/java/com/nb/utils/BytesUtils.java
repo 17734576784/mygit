@@ -262,7 +262,7 @@ public class BytesUtils {
 	}
 	
 	/**
-	 * 将字节数组前4字节转换为整型数值
+	 * 将字节数组前4字节转换为整型数值 低位在前 高位在后
 	 * 
 	 * @param bytes
 	 * @return
