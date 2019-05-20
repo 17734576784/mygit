@@ -22,7 +22,19 @@ public interface JFDayFlowMapper {
     * @return boolean    返回类型 
     * @throws 
     */
-    boolean insertJFDayFlow(JFDayFlow record);/** 
+    boolean insertJFDayFlow(JFDayFlow record);
+    
+	/** 
+	* @Title: updateJFDayFlow 
+	* @Description: 更新表底 
+	* @param @param record
+	* @param @return    设定文件 
+	* @return boolean    返回类型 
+	* @throws 
+	*/
+	boolean updateJFDayFlow(JFDayFlow record);    
+    
+    /** 
 	* @Title: isExist 
 	* @Description: 判断日数据是否存在
 	* @param @param nbDailyData

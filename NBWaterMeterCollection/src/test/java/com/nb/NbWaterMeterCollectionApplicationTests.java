@@ -115,15 +115,28 @@ public class NbWaterMeterCollectionApplicationTests {
 	private IChinaMobileSuntrontService chinaMobileSuntrontService;
 	@Test
 	public void testXT() {
-		JSONObject xt = new JSONObject();
-		xt.put("at", new Date().getTime());
-		xt.put("imei", "867726030828687");
-		xt.put("type", 1);
-		xt.put("ds_id", "3200_0_5505");
-		xt.put("value", "68a107250419208000d0bdad0017051900000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000089860437161890071548086076504044047800000000000000000018110000000000000000005416150519241946314435300808affcc90000eeeeeeeeeeD4DC16");
-		xt.put("dev_id", 526298861);
+		JFDayFlow jfDayFlow = new JFDayFlow();
+		jfDayFlow.setTableName("201905");
+		jfDayFlow.setRtuId(5);
+		jfDayFlow.setMpId((short)1);
+		jfDayFlow.setDate(20190518);
+
+		jfDayFlow.setTime(10000);
+		jfDayFlow.setLjllZx(111D);
+		jfDayFlow.setLlLjllZx(22D);
+		jfDayFlow.setLlLjllFx(3D);
+		System.out.println(jfDayFlowMapper.isExist(jfDayFlow));
 		
-		chinaMobileSuntrontService.parseMsg(xt);
+		System.out.println(jfDayFlowMapper.updateJFDayFlow(jfDayFlow));
+//		JSONObject xt = new JSONObject();
+//		xt.put("at", new Date().getTime());
+//		xt.put("imei", "867726030828687");
+//		xt.put("type", 1);
+//		xt.put("ds_id", "3200_0_5505");
+//		xt.put("value", "68a107250419208000d0bdad0017051900000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000089860437161890071548086076504044047800000000000000000018110000000000000000005416150519241946314435300808affcc90000eeeeeeeeeeD4DC16");
+//		xt.put("dev_id", 526298861);
+//		
+//		chinaMobileSuntrontService.parseMsg(xt);
 	}
 	
 //	@Test

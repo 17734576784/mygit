@@ -20,6 +20,55 @@
     <result column="source" property="source" jdbcType="TINYINT" />
   </resultMap>
   
+  <update id="updateJFDayFlow" parameterType="com.nb.model.JFDayFlow" >
+    update  ${tableName}
+   <set>
+      <if test="time != null" >
+       time = #{time,jdbcType=INTEGER},
+      </if>
+      <if test="ljllZx != null" >
+        ljll_zx = #{ljllZx,jdbcType=DECIMAL},
+      </if>
+      <if test="ljrlZx != null" >
+       ljrl_zx = #{ljrlZx,jdbcType=DECIMAL},
+      </if>
+      <if test="ljllFx != null" >
+        ljll_fx = #{ljllFx,jdbcType=DECIMAL},
+      </if>
+      <if test="ljrlFx != null" >
+        ljrl_fx = #{ljrlFx,jdbcType=DECIMAL},
+      </if>
+      <if test="llLjllZx != null" >
+        ll_ljll_zx = #{llLjllZx,jdbcType=DECIMAL},
+      </if>
+      <if test="llLjllFx != null" >
+        ll_ljll_fx = #{llLjllFx,jdbcType=DECIMAL},
+      </if>
+      <if test="rlLjrlZx != null" >
+        rl_ljrl_zx = #{rlLjrlZx,jdbcType=DECIMAL},
+      </if>
+      <if test="rlLjrlFx != null" >
+        rl_ljrl_fx = #{rlLjrlFx,jdbcType=DECIMAL},
+      </if>
+      <if test="ljsjRun != null" >
+        ljsj_run = #{ljsjRun,jdbcType=INTEGER},
+      </if>
+      <if test="nowTime != null" >
+        now_time = #{nowTime,jdbcType=INTEGER},
+      </if>
+      <if test="st != null" >
+        st = #{st,jdbcType=INTEGER},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=TINYINT},
+      </if>
+      </set>
+      where rtu_id = #{rtuId,jdbcType=INTEGER}
+      and mp_id = #{mpId,jdbcType=SMALLINT}
+      and date = #{date,jdbcType=INTEGER}
+  </update>
+  
+  
   <insert id="insertJFDayFlow" parameterType="com.nb.model.JFDayFlow" >
     insert into ${tableName}
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -124,12 +173,14 @@
     </trim>
   </insert>
   
+  
+  
    <select id="isExist" resultType="boolean" parameterType="com.nb.model.JFDayFlow" >
-      select  count('X') from ${tableName}
-      where rtu_id = #{rtuId,jdbcType=INTEGER}
-      and mp_id = #{mpId,jdbcType=SMALLINT}
-      and date = #{date,jdbcType=INTEGER}
-      and time = #{time,jdbcType=INTEGER}
+	select count('X') from ${tableName}
+	where rtu_id = #{rtuId,jdbcType=INTEGER}
+	and mp_id = #{mpId,jdbcType=SMALLINT}
+	and date = #{date,jdbcType=INTEGER}
+	<!--and time = #{time,jdbcType=INTEGER} --> 
   </select>
   
   

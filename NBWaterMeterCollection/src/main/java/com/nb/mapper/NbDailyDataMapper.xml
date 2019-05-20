@@ -40,7 +40,7 @@
     where rtu_id = #{rtuId,jdbcType=INTEGER}
       and mp_id = #{mpId,jdbcType=SMALLINT}
       and ymd = #{ymd,jdbcType=INTEGER}
-      and hms = #{hms,jdbcType=INTEGER}
+     <!--  and hms = #{hms,jdbcType=INTEGER} -->
   </select>
   
   <delete id="deleteNbDailyData" parameterType="com.nb.model.NbDailyDataKey" >
