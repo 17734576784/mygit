@@ -106,9 +106,9 @@ public class RealtimeReportService implements IServiceStrategy {
 		nbDailyData.setHms(realtimeReport.getReadHms());
 
 		nbDailyData.setTotalFlow(realtimeReport.getCumulativeFlow());
-		nbDailyData.setDailyPositiveFlow(realtimeReport.getPositiveCumulativeFlow());
-		nbDailyData.setDailyNegativeFlow(realtimeReport.getNegativeCumulativeFlow());
-		nbDailyData.setDailyMaxVelocity(realtimeReport.getPeakFlowRate());
+//		nbDailyData.setDailyPositiveFlow(realtimeReport.getPositiveCumulativeFlow());
+//		nbDailyData.setDailyNegativeFlow(realtimeReport.getNegativeCumulativeFlow());
+//		nbDailyData.setDailyMaxVelocity(realtimeReport.getPeakFlowRate());
 
 //		JedisUtils.lpush(Constant.HISTORY_DAILY_QUEUE, JsonUtil.jsonObj2Sting(nbDailyData));
 	}
