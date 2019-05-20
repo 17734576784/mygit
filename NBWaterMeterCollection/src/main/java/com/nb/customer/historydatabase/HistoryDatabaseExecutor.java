@@ -144,10 +144,13 @@ public class HistoryDatabaseExecutor {
 		jfDayFlow.setLjllZx(nbDailyData.getTotalFlow());
 		jfDayFlow.setLlLjllZx(nbDailyData.getDailyPositiveFlow());
 		jfDayFlow.setLlLjllFx(nbDailyData.getDailyNegativeFlow());
+		boolean flag = false;
 		if (!jfDayFlowMapper.isExist(jfDayFlow)) {
-			jfDayFlowMapper.updateJFDayFlow(jfDayFlow);
+			flag = jfDayFlowMapper.insertJFDayFlow(jfDayFlow);
+		} else {
+			flag = jfDayFlowMapper.updateJFDayFlow(jfDayFlow);
 		}
-		return jfDayFlowMapper.insertJFDayFlow(jfDayFlow);
+		return flag;
 	}
 	
 	/** 
