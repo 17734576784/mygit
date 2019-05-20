@@ -25,31 +25,31 @@
     total_online_success, total_online_failure, valve_status
   </sql>
   
-  <select id="getNbDailyData" resultMap="BaseResultMap" parameterType="com.nb.model.NbDailyDataKey" >
-    select 
-    <include refid="Base_Column_List" />
-    from ${tableName}
-    where rtu_id = #{rtuId,jdbcType=INTEGER}
-      and mp_id = #{mpId,jdbcType=SMALLINT}
-      and ymd = #{ymd,jdbcType=INTEGER}
-      and hms = #{hms,jdbcType=INTEGER}
-  </select>
-  
-   <select id="isExist" resultType="boolean" parameterType="com.nb.model.NbDailyDataKey" >
-    select  count('X')  from ${tableName}
-    where rtu_id = #{rtuId,jdbcType=INTEGER}
-      and mp_id = #{mpId,jdbcType=SMALLINT}
-      and ymd = #{ymd,jdbcType=INTEGER}
-     <!--  and hms = #{hms,jdbcType=INTEGER} -->
-  </select>
-  
-  <delete id="deleteNbDailyData" parameterType="com.nb.model.NbDailyDataKey" >
-    delete from ${tableName}
-    where rtu_id = #{rtuId,jdbcType=INTEGER}
-      and mp_id = #{mpId,jdbcType=SMALLINT}
-      and ymd = #{ymd,jdbcType=INTEGER}
-      and hms = #{hms,jdbcType=INTEGER}
-  </delete>
+  <select id="getNbDailyData" resultMap="BaseResultMap" parameterType="com.nb.model.NbDailyDataKey">
+	select
+	<include refid="Base_Column_List" />
+	from ${tableName}
+	where rtu_id = #{rtuId,jdbcType=INTEGER}
+	and mp_id = #{mpId,jdbcType=SMALLINT}
+	and ymd = #{ymd,jdbcType=INTEGER}
+	and hms = #{hms,jdbcType=INTEGER}
+</select>
+
+	<select id="isExist" resultType="boolean" parameterType="com.nb.model.NbDailyDataKey">
+		select count('X') from ${tableName}
+		where rtu_id = #{rtuId,jdbcType=INTEGER}
+		and mp_id = #{mpId,jdbcType=SMALLINT}
+		and ymd = #{ymd,jdbcType=INTEGER}
+		<!-- and hms = #{hms,jdbcType=INTEGER} -->
+	</select>
+
+	<delete id="deleteNbDailyData" parameterType="com.nb.model.NbDailyDataKey">
+		delete from ${tableName}
+		where rtu_id = #{rtuId,jdbcType=INTEGER}
+		and mp_id = #{mpId,jdbcType=SMALLINT}
+		and ymd = #{ymd,jdbcType=INTEGER}
+		and hms = #{hms,jdbcType=INTEGER}
+	</delete>
   
    <insert id="insertNbDailyData" parameterType="com.nb.model.NbDailyData" >
     insert into ${tableName}
@@ -152,6 +152,9 @@
   <update id="updateNbDailyData" parameterType="com.nb.model.NbDailyData" >
     update ${tableName}
     <set >
+      <if test="hms != null" >
+        hms = #{hms,jdbcType=INTEGER},
+      </if>
       <if test="reportType != null" >
         report_type = #{reportType,jdbcType=TINYINT},
       </if>
@@ -186,10 +189,10 @@
         valve_status = #{valveStatus,jdbcType=TINYINT},
       </if>
     </set>
-    where rtu_id = #{rtuId,jdbcType=INTEGER}
-      and mp_id = #{mpId,jdbcType=SMALLINT}
-      and ymd = #{ymd,jdbcType=INTEGER}
-      and hms = #{hms,jdbcType=INTEGER}
+	where rtu_id = #{rtuId,jdbcType=INTEGER}
+	and mp_id = #{mpId,jdbcType=SMALLINT}
+	and ymd = #{ymd,jdbcType=INTEGER}
+<!-- 	and hms <![CDATA[<=]]> #{hms,jdbcType=INTEGER} -->
   </update>
  
 </mapper>
