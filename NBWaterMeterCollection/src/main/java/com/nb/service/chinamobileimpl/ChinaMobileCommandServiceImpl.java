@@ -150,6 +150,7 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 		url = HttpsClientUtil.setcompleteUrl(url, urlParams);
 		
 		JSONObject argsJson = new JSONObject();
+		/** 将传过来的命令参数，根据规约转成16进制字符串 */
 		argsJson.put("args", getCommandData(deviceInfo.getManufacturerId(), command));
 		
 		JSONObject appInfo = new JSONObject();
@@ -221,6 +222,7 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 	*/
 	private String getCommandData(String manufacturerId, JSONObject command) {
 		String commandData = "";
+		/** 新天科技移动规约 */
 		if (manufacturerId.equals(Constant.SUNTRONT_OBJID)) {
 			JSONObject param = command.getJSONObject("param");
 			commandData = SuntrontProtocolUtil.sendVavleCommand(param.getIntValue("operate"));
