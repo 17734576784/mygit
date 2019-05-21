@@ -41,7 +41,7 @@ public class ChinaMobileDeviceServiceImpl implements IChinaMobileDeviceService {
 
 		JSONObject registerJson = new JSONObject();
 		registerJson.put("title", deviceInfo.getString("title"));
-		registerJson.put("protocol", deviceInfo.getString("protocolType"));
+		registerJson.put("protocol", Constant.LWM2M);
 		JSONObject authInfo = new JSONObject();
 		authInfo.put(deviceInfo.getString("imei"), deviceInfo.getString("imsi"));
 		registerJson.put("auth_info", authInfo);

@@ -1,5 +1,5 @@
 /**   
-* @Title: XtProtocolUtil.java 
+s* @Title: XtProtocolUtil.java 
 * @Package com.nb.utils 
 * @Description: TODO(用一句话描述该文件做什么) 
 * @author dbr
