@@ -62,11 +62,10 @@ public class ChinaMobileDeviceServiceImpl implements IChinaMobileDeviceService {
 		
 		JSONObject registerJson = new JSONObject();
 		registerJson.put("title", deviceInfo.getImei());
-		registerJson.put("protocol", Constant.LWM2M);
+		registerJson.put("protocol", deviceInfo.getProtocolType());
 		JSONObject authInfo = new JSONObject();
 		authInfo.put(deviceInfo.getImei(), deviceInfo.getImsi());
 		registerJson.put("auth_info", authInfo);
-		
 
 		JSONObject appInfo = new JSONObject();
 		appInfo.put("appId", deviceInfo.getAppId());
@@ -89,12 +88,25 @@ public class ChinaMobileDeviceServiceImpl implements IChinaMobileDeviceService {
 	* @see com.nb.service.IChinaMobileDeviceService#deleteDevice(com.alibaba.fastjson.JSONObject) 
 	*/
 	@Override
-	public ResultBean<?> deleteDevice(JSONObject deviceInfo) throws Exception {
-		String deviceId = deviceInfo.getString("deviceId");
-		String url = Constant.CHINA_MOBILE_BASE_URL + "devices/" + deviceId;
+	public ResultBean<?> deleteDevice(JSONObject deviceMsg) throws Exception {
+
+		Map<String, String> deviceMap = new HashMap<>();
+		deviceMap = JsonUtil.jsonString2SimpleObj(deviceMsg, deviceMap.getClass());
+
+		DeviceInfo deviceInfo = commonMapper.getDeviceInfo(deviceMap);
+		if (deviceInfo == null) {
+			ResultBean<JSONObject> result = new ResultBean<JSONObject>(Constant.ERROR, "配置信息错误");
+			return result;
+		}
+
+		String url = Constant.CHINA_MOBILE_BASE_URL + "devices/" + deviceInfo.getDeviceId();
+
+		JSONObject appInfo = new JSONObject();
+		appInfo.put("appId", deviceInfo.getAppId());
 
 		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
-		StreamClosedHttpResponse response = httpsClientUtil.doDeleteGetStatusLine(url, CommFunc.getChinaMobileHeader(deviceInfo));
+		StreamClosedHttpResponse response = httpsClientUtil.doDeleteGetStatusLine(url,
+				CommFunc.getChinaMobileHeader(appInfo));
 
 		ResultBean<?> result = new ResultBean<>(response.getContent());
 
