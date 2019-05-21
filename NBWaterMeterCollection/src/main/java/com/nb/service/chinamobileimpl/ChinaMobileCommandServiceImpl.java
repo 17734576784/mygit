@@ -8,7 +8,6 @@
 */
 package com.nb.service.chinamobileimpl;
 
-import static com.nb.utils.ConverterUtils.toInt;
 import static com.nb.utils.ConverterUtils.toStr;
 
 import java.util.Calendar;
@@ -201,9 +200,8 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 		nbCommand.setCommandType(command.getByte("commandId"));
 
 		String tableNameDate = DateUtils.curDate();
-		JSONObject param = command.getJSONObject("param");
 		nbCommand.setCommandContent(command.toString());
-		nbCommand.setOperatorId(toInt(param.get("operatorId")));
+		nbCommand.setOperatorId(command.getInteger("operatorId"));
 		nbCommand.setTableName(tableNameDate);
 		nbCommand.setCommandId(commandId);
 		nbCommandMapper.insertNbCommand(nbCommand);
