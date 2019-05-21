@@ -8,14 +8,22 @@
 */
 package com.nb.service.chinamobileimpl;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONObject;
 import com.nb.exception.ResultBean;
 import com.nb.httputil.HttpsClientUtil;
+import com.nb.mapper.CommonMapper;
+import com.nb.model.DeviceInfo;
 import com.nb.model.StreamClosedHttpResponse;
 import com.nb.service.IChinaMobileDeviceService;
 import com.nb.utils.CommFunc;
 import com.nb.utils.Constant;
+import com.nb.utils.JsonUtil;
 
 /** 
 * @ClassName: ChinaMobileDeviceServiceImpl 
@@ -26,6 +34,10 @@ import com.nb.utils.Constant;
 */
 @Service
 public class ChinaMobileDeviceServiceImpl implements IChinaMobileDeviceService {
+	
+	@Resource
+	private CommonMapper commonMapper;
+	
 	/** (非 Javadoc) 
 	* <p>Title: registerDevice</p> 
 	* <p>Description: </p> 
@@ -35,20 +47,32 @@ public class ChinaMobileDeviceServiceImpl implements IChinaMobileDeviceService {
 	* @see com.nb.service.IChinaMobileDeviceService#registerDevice(com.alibaba.fastjson.JSONObject) 
 	*/
 	@Override
-	public ResultBean<?> registerDevice(JSONObject deviceInfo) throws Exception {
+	public ResultBean<?> registerDevice(JSONObject deviceMsg) throws Exception {
 
 		String url = Constant.CHINA_MOBILE_BASE_URL + "devices";
 
+		Map<String, String> deviceMap = new HashMap<>();
+		deviceMap = JsonUtil.jsonString2SimpleObj(deviceMsg, deviceMap.getClass());
+		
+		DeviceInfo deviceInfo = commonMapper.getDeviceInfo(deviceMap);
+		if (deviceInfo == null) {
+			ResultBean<JSONObject> result = new ResultBean<JSONObject>(Constant.ERROR, "配置信息错误");
+			return result;
+		}
+		
 		JSONObject registerJson = new JSONObject();
-		registerJson.put("title", deviceInfo.getString("title"));
+		registerJson.put("title", deviceInfo.getImei());
 		registerJson.put("protocol", Constant.LWM2M);
 		JSONObject authInfo = new JSONObject();
-		authInfo.put(deviceInfo.getString("imei"), deviceInfo.getString("imsi"));
+		authInfo.put(deviceInfo.getImei(), deviceInfo.getImsi());
 		registerJson.put("auth_info", authInfo);
+		
 
+		JSONObject appInfo = new JSONObject();
+		appInfo.put("appId", deviceInfo.getAppId());
 		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 		StreamClosedHttpResponse response = httpsClientUtil.doPostJsonGetStatusLine(url,
-				CommFunc.getChinaMobileHeader(deviceInfo), registerJson.toJSONString());
+				CommFunc.getChinaMobileHeader(appInfo), registerJson.toJSONString());
 
 		ResultBean<?> result = new ResultBean<>(response.getContent());
 
