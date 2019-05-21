@@ -68,7 +68,6 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 	public ResultBean<?> instantReadDeviceResources(JSONObject commandInfo) throws Exception {
 
 		String url = Constant.CHINA_MOBILE_BASE_URL + "nbiot";
-		
 		Map<String, String> params = JSONObject.toJavaObject(commandInfo, Map.class);
 
 		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
@@ -97,7 +96,6 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 		urlJson.remove("data");
 		
 		Map<String, Object> params = JSONObject.toJavaObject(urlJson, Map.class);
-
 		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 		url = HttpsClientUtil.setcompleteUrl(url, params);
 		StreamClosedHttpResponse response = httpsClientUtil.doPostJsonGetStatusLine(url,
