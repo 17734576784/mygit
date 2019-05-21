@@ -9,7 +9,7 @@
 	</select>
 
 	<select id="getCommand" parameterType="map" resultType="map">
-		select c.service_id serviceId,method 
+		select c.service_id serviceId,method,res_id
 		from nb_water_meter m
 		LEFT JOIN nb_command c
 		ON m.appinfo_id =c.appinfo_id and m.device_model_id = c.model_id

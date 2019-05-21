@@ -223,9 +223,9 @@ public class ApiController {
 		case Constant.CHINA_TELECOM:
 			result = this.chinaTelecomCommandService.batchCommand(commandInfo);
 			break;
-//		case Constant.CHINA_MOBILE:
-//			result = this.chinaMobileCommandService.asynCommand(commandInfo);
-//			break;
+		case Constant.CHINA_MOBILE:
+			result = this.chinaMobileCommandService.asynCommand(commandInfo);
+			break;
 		default:
 			break;
 		}

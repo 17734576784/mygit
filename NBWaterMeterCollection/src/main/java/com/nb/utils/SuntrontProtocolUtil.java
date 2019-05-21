@@ -9,7 +9,9 @@
 package com.nb.utils;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,15 +21,16 @@ import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtil;
 import static com.nb.utils.DateUtils.*;
 import static com.nb.utils.BytesUtils.*;
-/** 
-* @ClassName: XtProtocolUtil 
-* @Description:  新天科技移动规约解析工具
-* @author dbr
-* @date 2019年5月15日 下午3:38:34 
-*  
-*/
+
+/**
+ * @ClassName: XtProtocolUtil
+ * @Description: 新天科技移动规约解析工具
+ * @author dbr
+ * @date 2019年5月15日 下午3:38:34
+ * 
+ */
 public class SuntrontProtocolUtil {
-	
+
 	/** 
 	* @Title: parseDataMsg 
 	* @Description: 解析数据点信息 不同的数据存入对应的的redis队列中 
@@ -47,7 +50,7 @@ public class SuntrontProtocolUtil {
 		JSONObject dataJson = parseData(data, msgJson);
 		return dataJson;
 	}
-	
+
 	/** 
 	* @Title: parseData 
 	* @Description: 解析数据部分
@@ -68,43 +71,43 @@ public class SuntrontProtocolUtil {
 			dis.read(data0);
 			String reportTime = BytesUtils.bcdToString(data0);
 			reportTime = formatNoCharDate(parseDate(reportTime, "ddMMyy"));
-			
+
 			/** data0的 0 点冻结表底数 */
 			byte[] data1 = new byte[Constant.FOUR];
 			dis.read(data1);
-			double totalFlow = BytesUtils.getReserveInt(data1) * 1D / Constant.NUM_1000; 
+			double totalFlow = BytesUtils.getReserveInt(data1) * 1D / Constant.NUM_1000;
 
 			/** 当天48 个点累计增量数据 */
 			byte[] data2 = new byte[Constant.NUM_48 * Constant.TWO];
 			dis.read(data2);
-			
-			/**当前表底数*/
+
+			/** 当前表底数 */
 			byte[] data3 = new byte[Constant.FOUR];
 			dis.read(data3);
 			double currentTotalFlow = BytesUtils.getReserveInt(data3) * 1D / Constant.NUM_1000;
 
-			/** 备用字节 */			
+			/** 备用字节 */
 			byte[] NC = new byte[Constant.FOUR];
 			dis.read(NC);
-			
-			/** CCID 号 */			
+
+			/** CCID 号 */
 			byte[] data4 = new byte[Constant.TEN];
 			dis.read(data4);
-			
-			/** IMEI 号 */	
+
+			/** IMEI 号 */
 			byte[] data5 = new byte[Constant.EIGHT];
 			dis.read(data5);
-			
-			/** 当前正向累计流量 */			
+
+			/** 当前正向累计流量 */
 			byte[] data6 = new byte[Constant.FOUR];
 			dis.read(data6);
 			double forwardTotalFlow = BytesUtils.getReserveInt(data6) * 1D / Constant.NUM_1000;
-			
-			/** 当前正向累计流量 */			
+
+			/** 当前正向累计流量 */
 			byte[] data7 = new byte[Constant.FOUR];
 			dis.read(data7);
 			double reverseTotalFlow = BytesUtils.getReserveInt(data7) * 1D / Constant.NUM_1000;
-			
+
 			/** 当天 48 个点增量（Data2）符号标识 */
 			byte data9 = dis.readByte();
 			/** data0的下一天 */
@@ -119,19 +122,19 @@ public class SuntrontProtocolUtil {
 				historyDate = bcdToInt(data10);
 			}
 
-			/** 备用字节 */			
+			/** 备用字节 */
 			byte[] bak2 = new byte[Constant.SIX];
 			dis.read(bak2);
-			
+
 			byte[] comm = new byte[Constant.FOUR * Constant.SIX];
 			dis.read(comm);
-			
+
 			dataJson.put("reportTime", reportTime);
 			dataJson.put("totalFlow", totalFlow);
 			dataJson.put("currenttotalFlow", currentTotalFlow);
 			dataJson.put("CCID", bytesToHex(data4));
 			dataJson.put("IMEI", bytesToHex(data5));
-			
+
 			dataJson.put("forwardTotalFlow", forwardTotalFlow);
 			dataJson.put("reverseTotalFlow", reverseTotalFlow);
 			dataJson.put("historyDate", historyDate);
@@ -144,14 +147,14 @@ public class SuntrontProtocolUtil {
 		}
 		return dataJson;
 	}
-	
-	
+
 	/** 
 	* @Title: parseCumulativeIncrementalData 
 	* @Description: 解析累计增量数据
 	* @param @param data2
-	* @param @param data9 	符号标识
-	* @param @return    设定文件 
+	* @param @param data9
+	* @param @return
+	* @param @throws Exception    设定文件 
 	* @return JSONObject    返回类型 
 	* @throws 
 	*/
@@ -172,20 +175,20 @@ public class SuntrontProtocolUtil {
 				data[0] = (byte) (data[0] & 0x7F);
 				symbol = -1;
 			}
-			double result = symbol * BytesUtils.getShort(data) /Constant.NUM_1000;
+			double result = symbol * BytesUtils.getShort(data) / Constant.NUM_1000;
 			dataList.add(result);
 		}
 		crementDataJson.put("dataList", dataList);
-		
+
 		return crementDataJson;
 	}
 
-
 	/** 
 	* @Title: parseCommData 
-	* @Description: 解析用户数据域的公共部分 
-	* @param @param comm    设定文件 
-	* @return void    返回类型 
+	* @Description: 解析用户数据域的公共部分
+	* @param @param comm
+	* @param @return    设定文件 
+	* @return JSONObject    返回类型 
 	* @throws 
 	*/
 	public static JSONObject parseCommData(byte[] comm) {
@@ -221,7 +224,7 @@ public class SuntrontProtocolUtil {
 			byte cc = dis.readByte();
 			/** ST2 */
 			byte st2 = dis.readByte();
-			
+
 			commJson.put("deviceTime", deviceTime);
 			commJson.put("batteryVoltage", batteryVoltage);
 			commJson.put("csq", csq);
@@ -237,10 +240,10 @@ public class SuntrontProtocolUtil {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return commJson;
 	}
-	
+
 	/** 
 	* @Title: parsetSt2 
 	* @Description: 解析st2
@@ -278,10 +281,10 @@ public class SuntrontProtocolUtil {
 		}
 		return json;
 	}
-	
+
 	/** 
 	* @Title: parsetSt1 
-	* @Description: 解析st1
+	* @Description: 解析st1 
 	* @param @param st1
 	* @param @return    设定文件 
 	* @return JSONObject    返回类型 
@@ -317,10 +320,9 @@ public class SuntrontProtocolUtil {
 		return json;
 	}
 
-	
 	/** 
 	* @Title: parsetSt0 
-	* @Description: 解析St0
+	* @Description: 解析St0 
 	* @param @param st0
 	* @param @return    设定文件 
 	* @return JSONObject    返回类型 
@@ -356,7 +358,7 @@ public class SuntrontProtocolUtil {
 
 	/** 
 	* @Title: validateMsg 
-	* @Description: 验证消息，并返回数据部分 
+	* @Description: T验证消息，并返回数据部分
 	* @param @param msg
 	* @param @return
 	* @param @throws Exception    设定文件 
@@ -384,7 +386,7 @@ public class SuntrontProtocolUtil {
 			/** 控制码 */
 			byte[] control = new byte[Constant.TWO];
 			dis.read(control);
-			if (!bytesToHex(control).equals("D0BD")) {
+			if (!bytesToHex(control).equals("D0BD") || !bytesToHex(control).equals("D00F")) {
 				System.out.println("控制码错误");
 				return null;
 			}
@@ -418,20 +420,110 @@ public class SuntrontProtocolUtil {
 		}
 		return byteData;
 	}
-	
+
 	/** 
 	* @Title: parseCommandMsg 
-	* @Description: 解析下行命令上报结果信息，更新命令的执行状态
-	* @param @param msgJson    设定文件 
-	* @return void    返回类型 
+	* @Description: 解析下行命令上报结果信息 
+	* @param @param msgJson
+	* @param @return    设定文件 
+	* @return JSONObject    返回类型 
 	* @throws 
 	*/
-	public static void parseCommandMsg(JSONObject msgJson){
-//		String cmdID = msgJson.getString("cmd_id");
-//		String imei = msgJson.getString("imei");
-//		String deviceId = msgJson.getString("dev_id");
-//		int confirmStatus = msgJson.getIntValue("confirm_status");
-//		long confirmTime = msgJson.getLong("confirm_time");
-//		String confirmDate = DateUtils.stampToDate(confirmTime);
+	public static JSONObject parseCommandMsg(JSONObject res) {
+		System.out.println(res);
+		byte[] msg = BytesUtils.hexStringToBytes(res.getString("value"));
+		/** 验证接收到的消息，并返回数据部分 */
+		byte[] data;
+		try {
+			data = validateMsg(msg);
+			if (data == null || data.length == Constant.ZERO) {
+				return null;
+			}
+			
+			JSONObject dataJson = parseCommandData(data);
+			return dataJson;
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	/** 
+	* @Title: parseCommandData 
+	* @Description: 解析上报命令回复数据 
+	* @param @param data
+	* @param @return    设定文件 
+	* @return JSONObject    返回类型 
+	* @throws 
+	*/
+	public static JSONObject parseCommandData(byte[] data) {
+		ByteArrayInputStream bais = new ByteArrayInputStream(data);
+		DataInputStream dis = new DataInputStream(bais);
+		JSONObject dataJson = new JSONObject();
+
+		/** 当前阀控状态 */
+		byte vavleState;
+		try {
+			vavleState = dis.readByte();
+			if (vavleState == 0xAA) {
+				vavleState = Constant.TWO;
+			} else if (vavleState == 0x55) {
+				vavleState = Constant.FOUR;
+			}
+			dataJson.put("vavleState", vavleState);
+			byte[] comm = new byte[Constant.FOUR * Constant.SIX];
+			dis.read(comm);
+
+			dataJson.put("comm", parseCommData(comm));
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return dataJson;
+	}
+
+	/** 
+	* @Title: sendVavleCommand 
+	* @Description: 新天科技移动平台下发阀门控制命令
+	* @param @param vavleOperate
+	* @param @return    设定文件 
+	* @return String    返回类型 
+	* @throws 
+	*/
+	public static String sendVavleCommand(int vavleOperate) {
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		DataOutputStream dos = new DataOutputStream(bos);
+		String dataFrame = "";
+		try {
+			/** 起始字符 */
+			dos.writeByte(0X68);
+			byte[] addr = new byte[Constant.SEVEN];
+			dos.write(addr);
+			dos.writeShort(0X500F);
+			dos.writeShort(Constant.ELEVEN);
+			byte operate = 0;
+			/** 开阀操作 */
+			if (vavleOperate == Constant.ONE) {
+				operate = (byte) 0xAA;
+			} else if (vavleOperate == Constant.TWO) {
+				operate = (byte) 0x55;
+			}
+			dos.writeByte(operate);
+			dos.writeByte(Constant.ZERO);
+			byte[] nc = new byte[Constant.NINE];
+			dos.write(nc);
+
+			dos.write(BytesUtils.hexStringToBytes(getReserveCrc(bos.toByteArray())));
+			dos.writeByte(0X16);
+			dataFrame = BytesUtils.bytesToHex(bos.toByteArray());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return dataFrame;
 	}
 }

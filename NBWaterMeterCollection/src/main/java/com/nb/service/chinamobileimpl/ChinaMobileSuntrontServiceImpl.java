@@ -16,14 +16,18 @@ import java.util.Map;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtil;
 import com.nb.mapper.CommonMapper;
+import com.nb.mapper.NbCommandMapper;
 import com.nb.model.Eve;
 import com.nb.model.NbBattery;
+import com.nb.model.NbCommand;
 import com.nb.model.NbDailyData;
 import com.nb.service.IChinaMobileSuntrontService;
+import com.nb.utils.CommandEnum;
 import com.nb.utils.Constant;
 import com.nb.utils.ConverterUtils;
 import com.nb.utils.DateUtils;
@@ -43,6 +47,9 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 
 	@Resource
 	private CommonMapper commonMapper;
+	
+	@Resource
+	private NbCommandMapper nbCommandMapper;
 
 	/**
 	 * (非 Javadoc)
@@ -75,7 +82,10 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 			}
 			// 下行命令的应答（仅限NB设备）
 			else if (msgType == Constant.CHINA_MOBILE_COMMAND_MSG) {
-				SuntrontProtocolUtil.parseCommandMsg(msgJson);
+				if (dsId.equals(Constant.SUNTRONTDSID)) {
+					parseCommandMsg(msgJson);
+				}
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -83,7 +93,69 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 		}
 		
 	}
+	
+	/** 
+	* @Title: parseCommandMsg 
+	* @Description: 解析缓存命令下发后结果上报
+	* @param @param msgJson    设定文件 
+	* @return void    返回类型 
+	* @throws 
+	*/
+	public void parseCommandMsg(JSONObject msgJson) {
+		JSONObject confirmBody = msgJson.getJSONObject("confirm_body");
+		JSONArray objInst = confirmBody.getJSONArray("obj_inst");
+		for (int i = 0; i < objInst.size(); i++) {
+			JSONObject res = objInst.getJSONObject(i);
+			JSONObject dataJson = SuntrontProtocolUtil.parseCommandMsg(res);
+			if (dataJson == null) {
+				continue;
+			}
+			saveCommandData(dataJson, msgJson);
 
+		}
+	}
+	
+	/** 
+	* @Title: saveCommandData 
+	* @Description: 更新命令执行结果，更新水表阀门状态
+	* @param @param dataJson
+	* @param @param msgJson    设定文件 
+	* @return void    返回类型 
+	* @throws 
+	*/
+	public void saveCommandData(JSONObject dataJson, JSONObject msgJson) {
+
+		JSONObject comm = dataJson.getJSONObject("comm");
+
+		String commandId = msgJson.getString("cmd_id");
+		String deviceId = msgJson.getString("dev_id");
+		int confirmStatus = msgJson.getIntValue("confirm_status");
+		if (confirmStatus == Constant.ZERO) {
+			confirmStatus = CommandEnum.SUCCESSFUL.getResultValue();
+		} else {
+			confirmStatus = CommandEnum.FAILED.getResultValue();
+		}
+
+		String tableNameDate = JedisUtils.get(Constant.COMMAND + commandId);
+		if (tableNameDate != null) {
+			NbCommand nbCommand = new NbCommand();
+			nbCommand.setTableName(tableNameDate);
+			nbCommand.setCommandId(commandId);
+			nbCommand.setExecuteResult((byte) confirmStatus);
+			nbCommandMapper.updateNbCommand(nbCommand);
+		}
+
+		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
+		if (meterInfo == null) {
+			return;
+		}
+
+		/** 更新表计阀门状态 */
+		meterInfo.put("valveState", dataJson.getInteger("vavleState"));
+		meterInfo.put("version", comm.getString("version"));
+		commonMapper.updateWaterMeterValve(meterInfo);
+	}
+		
 	/** 
 	* @Title: saveReportData 
 	* @Description: 保存上报数据 

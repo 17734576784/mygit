@@ -432,6 +432,8 @@ public class Constant {
 	public static final int EIGHT = 8;
 	public static final int NINE = 9;
 	public static final int TEN = 10;
+	public static final int ELEVEN = 11;
+
 	public static final int NUM_200000 = 200000;
 	public static final int NUM_200 = 200;
 	public static final int NUM_31 = 31;
@@ -451,6 +453,8 @@ public class Constant {
 	
 	/** 新天科技移动平台上报数据项ds_id */
 	public static final String SUNTRONTDSID = "3200_0_5505";
+	public static final String SUNTRONT_OBJID = "3200";
+
 }
 
 

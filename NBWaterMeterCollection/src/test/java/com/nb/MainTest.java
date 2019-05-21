@@ -8,11 +8,15 @@
 */
 package com.nb;
 
+import static com.nb.utils.BytesUtils.getReserveCrc;
 import static com.nb.utils.ConverterUtils.toInt;
 import static com.nb.utils.ConverterUtils.toStr;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -50,6 +54,7 @@ import com.nb.utils.DateUtils;
 import com.nb.utils.JsonUtil;
 import com.nb.utils.SerializeUtils;
 import com.nb.utils.SuntrontProtocolUtil;
+import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 
 import io.lettuce.core.protocol.CommandEncoder;
 
@@ -87,8 +92,39 @@ public class MainTest {
 	*/
 	public static void main(String[] args) throws UnsupportedEncodingException {
 		
-		Date date = new Date(1558281600362L);
-		System.out.println(date);
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		DataOutputStream dos = new DataOutputStream(bos);
+		int vavleOperate = 1;
+		try {
+			dos.writeByte(0X68);
+			byte[] addr = new byte[Constant.SEVEN];
+			dos.write(addr);
+			dos.writeShort(0X500F);
+			dos.writeShort(0X0B00);
+			byte operate = 0;
+			/** 开阀操作 */
+			if (vavleOperate == Constant.ONE) {
+				operate = (byte) 0xAA;
+			} else if (vavleOperate == Constant.TWO) {
+				operate = (byte) 0x55;
+			}
+			dos.writeByte(operate);
+			dos.writeByte(Constant.ZERO);
+			byte[] nc = new byte[Constant.NINE];
+			dos.write(nc);
+			
+			dos.write(BytesUtils.hexStringToBytes(getReserveCrc(bos.toByteArray())));
+			dos.writeByte(0X16);
+			String result = BytesUtils.bytesToHex(bos.toByteArray());
+			System.out.println(result);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+//		Date date = new Date(1558281600362L);
+//		System.out.println(BytesUtils.str2Bcd("34234")[0]);
 //		Calendar c = Calendar.getInstance();
 //		c.add(Calendar.DAY_OF_WEEK, Constant.ONE);
 //		
@@ -112,6 +148,10 @@ public class MainTest {
 		
 //		String data ="68a107250419208000d0bdad0017051900000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000089860437161890071548086076504044047800000000000000000018110000000000000000005416150519241946314435300808affcc90000eeeeeeeeee";
 //		byte[] msg = BytesUtils.hexStringToBytes(data);
+//		String result = BytesUtils.bytesToHex(msg);
+//		System.out.println(data);
+//		System.out.println(result);
+//		System.out.println(data.equals(result));
 //		
 ////		byte[] a = new byte[]{104, -95, 7, 37, 4, 25, 32, -128, 0, -48, -67, -83, 0, 21, 5, 25, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -119, -122, 4, 55, 22, 24, -112, 7, 21, 72, 8, 96, 118, 80, 64, 68, 4, 120, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 84, 22, 21, 5, 25, 36, 25, 70, 49, 68, 53, 48, 8, 8, -81, -4, -55, 0, 0, -18, -18, -18, -18, -18};
 //		System.out.println(BytesUtils.getReserveCrc(msg));
