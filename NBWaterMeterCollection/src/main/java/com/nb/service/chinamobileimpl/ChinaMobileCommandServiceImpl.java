@@ -79,8 +79,7 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 		/** 获取命令信息 */
 		Map<String, String> commandMap = commonMapper.getCommand(deviceMap);
 		if (null == commandMap || commandMap.isEmpty()) {
-			result.setStatus(Constant.ERROR);
-			result.setError("命令类型不存在");
+			result = new ResultBean<JSONObject>(Constant.ERROR, "命令类型不存在");
 			return result;
 		}
 
