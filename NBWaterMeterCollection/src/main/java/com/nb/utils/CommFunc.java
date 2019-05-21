@@ -273,9 +273,9 @@ public class CommFunc {
 	* @return Map<String,String>    返回类型 
 	* @throws 
 	*/
-	public static Map<String, String> getChinaMobileHeader(JSONObject appInfo) {
+	public static Map<String, String> getChinaMobileHeader(String appId) {
 		Map<String, String> header = new HashMap<String, String>(2);
-		header.put("api-key", appInfo.getString("appId"));
+		header.put("api-key", appId);
 		header.put("Content-Type", "application/json");
 		return header;
 	}
