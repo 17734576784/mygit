@@ -106,8 +106,8 @@ public class ApiController {
 	}
 	
 	/** 
-	* @Title: instantReadDeviceResources 
-	* @Description: 即时命令-读设备资源
+	* @Title: offlineReadDeviceResources 
+	* @Description: 缓存命令-读设备资源
 	* @param @param commandInfo
 	* @param @return
 	* @param @throws Exception    设定文件 
@@ -115,55 +115,31 @@ public class ApiController {
 	* @throws 
 	*/
 	@RequestMapping(value = "/readresource", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResultBean<?> instantReadDeviceResources(@RequestBody JSONObject commandInfo) throws Exception {
-
+	public ResultBean<?> offlineReadDeviceResources(@RequestBody JSONObject commandInfo) throws Exception {
 		ResultBean<?> result = new ResultBean<>();
-		result = chinaMobileCommandService.instantReadDeviceResources(commandInfo);
+		result = chinaMobileCommandService.offlineReadDeviceResources(commandInfo);
 		return result;
 	}
 
 	/** 
-	* @Title: instantWriteDeviceResources 
-	* @Description: 即时命令-写设备资源
+	* @Title: offlineWriteDeviceResources 
+	* @Description: 缓存命令-写设备资源
 	* @param @param commandInfo
 	* @param @return
 	* @param @throws Exception    设定文件 
 	* @return ResultBean<?>    返回类型 
 	* @throws 
 	*/
-//	@RequestMapping(value = "/writeresource", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-//	public ResultBean<?> instantWriteDeviceResources(@RequestBody JSONObject commandInfo) throws Exception {
-//		ResultBean<?> result = new ResultBean<>();
-//		
-//		int nbType = commandInfo.getIntValue("nbType");
-//		int commandType = commandInfo.getIntValue("commandType");
-//		Map<String, String> commandMap = CommFunc.getCommandType(nbType, commandType);
-//		if (null == commandMap || commandMap.isEmpty()) {
-//			result.setStatus(Constant.ERROR);
-//			result.setError("命令类型不存在");
-//			return result;
-//		}
-//		
-//		commandMap.remove("res_id");
-//		Map<String, Object> params = new HashMap<String, Object>(16);
-//		params.put("imei", commandInfo.getString("imei"));
-//		params.put("mode", commandInfo.getString("mode"));
-//		params.putAll(commandMap);
-//
-//		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
-//		String url = Constant.CHINA_MOBILE_BASE_URL + "nbiot";
-//		url = HttpsClientUtil.setcompleteUrl(url, params);
-//		StreamClosedHttpResponse response = httpsClientUtil.doPostJsonGetStatusLine(url,
-//				CommFunc.getChinaMobileHeader(commandInfo), commandInfo.getString("data"));
-//
-//		result = new ResultBean<>(response.getContent());
-//
-//		return result;
-//	}
+	@RequestMapping(value = "/writeresource", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResultBean<?> offlineWriteDeviceResources(@RequestBody JSONObject commandInfo) throws Exception {
+		ResultBean<?> result = new ResultBean<>();
+		result = chinaMobileCommandService.offlineWriteDeviceResources(commandInfo);
+		return result;
+	}
 
 	/** 
-	* @Title: instantSendCommand 
-	* @Description: 即时命令-命令下发 
+	* @Title: asynCommand 
+	* @Description: 缓存命令-命令下发 
 	* @param @param commandInfo
 	* @param @return
 	* @param @throws Exception    设定文件 
@@ -171,7 +147,7 @@ public class ApiController {
 	* @throws 
 	*/
 	@RequestMapping(value = "/command", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResultBean<?> instantSendCommand(@RequestBody JSONObject commandInfo) throws Exception {
+	public ResultBean<?> asynCommand(@RequestBody JSONObject commandInfo) throws Exception {
 		ResultBean<?> result = new ResultBean<>();
 		int nbType = commandInfo.getIntValue("nbType");
 
@@ -207,7 +183,5 @@ public class ApiController {
 
 		return result;
 	}
-
-	
 	
 }

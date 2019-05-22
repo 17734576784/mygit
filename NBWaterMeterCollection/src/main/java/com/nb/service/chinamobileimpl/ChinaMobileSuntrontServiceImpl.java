@@ -65,7 +65,6 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 	 */
 	@Override
 	public void parseMsg(JSONObject msgJson) {
-		// TODO Auto-generated method stub
 		// 标识消息类型
 		int msgType = msgJson.getIntValue("type");
 		String deviceId = msgJson.getString("dev_id");
@@ -73,14 +72,14 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 		long at = msgJson.getLongValue("at");
 		String reportDate = DateUtils.formatNoCharDate(new Date(at));
 		try {
-			// 数据点消息
+			/** 数据点消息 */ 
 			if (msgType == Constant.CHINA_MOBILE_DATA_MSG) {
 				if (dsId.equals(Constant.SUNTRONTDSID)) {
 					JSONObject dataJson = SuntrontProtocolUtil.parseDataMsg(msgJson);
 					saveReportData(deviceId, dataJson, reportDate);
 				}
 			}
-			// 下行命令的应答（仅限NB设备）
+			/** 下行命令的应答（仅限NB设备） */ 
 			else if (msgType == Constant.CHINA_MOBILE_COMMAND_MSG) {
 				if (dsId.equals(Constant.SUNTRONTDSID)) {
 					parseCommandMsg(msgJson);

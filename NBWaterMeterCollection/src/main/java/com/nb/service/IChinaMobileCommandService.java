@@ -21,26 +21,26 @@ import com.nb.exception.ResultBean;
 public interface IChinaMobileCommandService {
 
 	/** 
-	* @Title: instantReadDeviceResources 
-	* @Description: 即时命令-读设备资源
+	* @Title: offlineReadDeviceResources 
+	* @Description: 缓存命令-读设备资源
 	* @param @param commandInfo
 	* @param @return
 	* @param @throws Exception    设定文件 
 	* @return ResultBean<?>    返回类型 
 	* @throws 
 	*/
-	ResultBean<?> instantReadDeviceResources(JSONObject commandInfo) throws Exception;
+	ResultBean<?> offlineReadDeviceResources(JSONObject commandInfo) throws Exception;
 
 	/** 
-	* @Title: 即时命令-写设备资源 
-	* @Description: TODO(这里用一句话描述这个方法的作用) 
+	* @Title: offlineWriteDeviceResources
+	* @Description: 缓存命令-写设备资源 
 	* @param @param commandInfo
 	* @param @return
 	* @param @throws Exception    设定文件 
 	* @return ResultBean<?>    返回类型 
 	* @throws 
 	*/
-	ResultBean<?> instantWriteDeviceResources(JSONObject commandInfo) throws Exception;
+	ResultBean<?> offlineWriteDeviceResources(JSONObject commandInfo) throws Exception;
 
 	/** 
 	* @Title: asynCommand 

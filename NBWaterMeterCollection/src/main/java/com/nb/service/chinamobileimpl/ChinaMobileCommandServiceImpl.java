@@ -8,12 +8,9 @@
 */
 package com.nb.service.chinamobileimpl;
 
-import static com.nb.utils.ConverterUtils.toStr;
-
-import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -57,7 +54,7 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 	private NbCommandMapper nbCommandMapper;
 
 	/** (非 Javadoc) 
-	* <p>Title: instantReadDeviceResources</p> 
+	* <p>Title: offlineReadDeviceResources</p> 
 	* <p>Description: </p> 
 	* @param commandInfo
 	* @return
@@ -65,30 +62,26 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 	* @see com.nb.service.IChinaMobileCommandService#instantReadDeviceResources(com.alibaba.fastjson.JSONObject)
 	*/
 	@Override
-	public ResultBean<?> instantReadDeviceResources(JSONObject commandInfo) throws Exception {
+	public ResultBean<?> offlineReadDeviceResources(JSONObject commandInfo) throws Exception {
+
 		Map<String, String> deviceMap = new HashMap<>();
 		deviceMap = JsonUtil.jsonString2SimpleObj(commandInfo, deviceMap.getClass());
 		/** 获取设备信息 */
 		DeviceInfo deviceInfo = commonMapper.getDeviceInfo(deviceMap);
-		if (deviceInfo == null) {
-			ResultBean<JSONObject> result = new ResultBean<JSONObject>(Constant.ERROR, "配置信息错误");
-			return result;
+		if (null == deviceInfo) {
+			return new ResultBean<JSONObject>(Constant.ERROR, "配置信息错误");
 		}
-
-		ResultBean<?> result = new ResultBean<>();
 		/** 获取命令信息 */
 		Map<String, String> commandMap = commonMapper.getCommand(deviceMap);
 		if (null == commandMap || commandMap.isEmpty()) {
-			result = new ResultBean<JSONObject>(Constant.ERROR, "命令类型不存在");
-			return result;
+			return new ResultBean<JSONObject>(Constant.ERROR, "命令类型不存在");
 		}
-
+		/** url参数 */
 		Map<String, Object> urlParams = new HashMap<String, Object>();
 		urlParams.put("imei", deviceInfo.getImei());
 		urlParams.put("obj_id", commandMap.get("serviceId"));
-		Calendar expiredTime = Calendar.getInstance();
-		expiredTime.add(Calendar.DAY_OF_YEAR, commandExpiredTime);
-		urlParams.put("expired_time", DateUtils.formatDateByFormat(expiredTime.getTime(), "yyyy-MM-dd'T'HH:mm:ss"));
+		Date expiredTime = DateUtils.addDate(new Date(), commandExpiredTime);
+		urlParams.put("expired_time", DateUtils.formatDateByFormat(expiredTime, "yyyy-MM-dd'T'HH:mm:ss"));
 
 		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 		String url = Constant.CHINA_MOBILE_BASE_URL + "nbiot/offline";
@@ -96,13 +89,11 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 
 		StreamClosedHttpResponse response = httpsClientUtil.doGetWithParasGetStatusLine(url, null,
 				CommFunc.getChinaMobileHeader(deviceInfo.getAppId()));
-
-		result = commandResult(response, commandInfo);
-		return result;
+		return commandResult(response, commandInfo);
 	}
 
 	/** (非 Javadoc) 
-	* <p>Title: instantWriteDeviceResources</p> 
+	* <p>Title: offlineWriteDeviceResources</p> 
 	* <p>Description: </p> 
 	* @param commandInfo
 	* @return
@@ -110,49 +101,42 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 	* @see com.nb.service.IChinaMobileCommandService#instantWriteDeviceResources(com.alibaba.fastjson.JSONObject) 
 	*/
 	@Override
-	public ResultBean<?> instantWriteDeviceResources(JSONObject commandInfo) throws Exception {
+	public ResultBean<?> offlineWriteDeviceResources(JSONObject commandInfo) throws Exception {
 
 		Map<String, String> deviceMap = new HashMap<>();
 		deviceMap = JsonUtil.jsonString2SimpleObj(commandInfo, deviceMap.getClass());
 		/** 获取设备信息 */
 		DeviceInfo deviceInfo = commonMapper.getDeviceInfo(deviceMap);
 		if (deviceInfo == null) {
-			ResultBean<JSONObject> result = new ResultBean<JSONObject>(Constant.ERROR, "配置信息错误");
-			return result;
+			return new ResultBean<JSONObject>(Constant.ERROR, "配置信息错误");
 		}
 		
-		ResultBean<?> result = new ResultBean<>();
 		/** 获取命令信息 */
 		Map<String, String> commandMap = commonMapper.getCommand(deviceMap);
 		if (null == commandMap || commandMap.isEmpty()) {
-			result.setStatus(Constant.ERROR);
-			result.setError("命令类型不存在");
-			return result;
+			return new ResultBean<JSONObject>(Constant.ERROR, "命令类型不存在");
 		}
-		
+		/** url参数 */
 		Map<String, Object> urlParams = new HashMap<String, Object>();
 		urlParams.put("imei", deviceInfo.getImei());
 		urlParams.put("obj_id", commandMap.get("serviceId"));
 		urlParams.put("obj_inst_id", commandMap.get("method"));
 		urlParams.put("mode", Constant.ONE);
 
-		Calendar expiredTime = Calendar.getInstance();
-		expiredTime.add(Calendar.DAY_OF_YEAR, commandExpiredTime);
-		urlParams.put("expired_time", DateUtils.formatDateByFormat(expiredTime.getTime(), "yyyy-MM-dd'T'HH:mm:ss"));
+		Date expiredTime = DateUtils.addDate(new Date(), commandExpiredTime);
+		urlParams.put("expired_time", DateUtils.formatDateByFormat(expiredTime, "yyyy-MM-dd'T'HH:mm:ss"));
 
 		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 		String url = Constant.CHINA_MOBILE_BASE_URL + "nbiot/offline";
 		url = HttpsClientUtil.setcompleteUrl(url, urlParams);
 		
-		Map<String, String> param = new HashMap<String, String>();
+		JSONObject param = new JSONObject();
 		param.put("data", commandInfo.getJSONArray("data").toJSONString());
 		
-		StreamClosedHttpResponse response = httpsClientUtil.doGetWithParasGetStatusLine(url, param,
-				CommFunc.getChinaMobileHeader(deviceInfo.getAppId()));
+		StreamClosedHttpResponse response = httpsClientUtil.doPostJsonGetStatusLine(url,
+				CommFunc.getChinaMobileHeader(deviceInfo.getAppId()), param.toJSONString());
 
-		result = commandResult(response, commandInfo);
-
-		return result;
+		return commandResult(response, commandInfo);
 	}
 
 	/** 
@@ -167,7 +151,6 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 	*/
 	private ResultBean<?> commandResult(StreamClosedHttpResponse response, JSONObject command) throws Exception {
 		ResultBean<?> result = new ResultBean<>();
-
 		JSONObject responseJson = JSON.parseObject(response.getContent());
 		if (!responseJson.containsKey("data")) {
 			result.setStatus(Constant.ERROR);
@@ -176,17 +159,15 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 		}
 
 		JSONObject data = responseJson.getJSONObject("data");
-		String commandId = toStr(data.getString("uuid"));
-		if (commandId.isEmpty()) {
+		String commandId = data.getString("uuid");
+		if (null == commandId || commandId.isEmpty()) {
 			result.setStatus(Constant.ERROR);
 			result.setError(responseJson.toJSONString());
 		} else {
 			insertNbCommand(command, commandId, Constant.ASYN_COMMAND);
 		}
 
-		result = new ResultBean<>(response.getContent());
-
-		return result;
+		return new ResultBean<>(response.getContent());
 	}
 	
 	/** (非 Javadoc) 
@@ -199,31 +180,27 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 	*/
 	@Override
 	public ResultBean<?> asynCommand(JSONObject command) throws Exception {
-		
 		Map<String, String> param = new HashMap<>();
 		param = JsonUtil.jsonString2SimpleObj(command, param.getClass());
-		
+		/** 获取设备信息 */
 		DeviceInfo deviceInfo = commonMapper.getDeviceInfo(param);
 		if (deviceInfo == null) {
-			ResultBean<JSONObject> result = new ResultBean<JSONObject>(Constant.ERROR, "配置信息错误");
-			return result;
+			return new ResultBean<JSONObject>(Constant.ERROR, "配置信息错误");
 		}
 		
-		ResultBean<?> result = new ResultBean<String>();
+		/** 获取设备信息 */
 		Map<String, String> commandMap = commonMapper.getCommand(param);
 		if (null == commandMap || commandMap.isEmpty()) {
-			result = new ResultBean<JSONObject>(Constant.ERROR, "命令类型不存在");
-			return result;
+			return new ResultBean<JSONObject>(Constant.ERROR, "命令类型不存在");
 		}
-		
+		/** url参数 */
 		Map<String, Object> urlParams = new HashMap<String, Object>();
 		urlParams.put("imei", deviceInfo.getImei());
 		urlParams.put("obj_id", commandMap.get("serviceId"));
 		urlParams.put("obj_inst_id", commandMap.get("method"));
 		urlParams.put("res_id", commandMap.get("res_id"));
-		Calendar expiredTime = Calendar.getInstance();
-		expiredTime.add(Calendar.DAY_OF_YEAR, commandExpiredTime);
-		urlParams.put("expired_time", DateUtils.formatDateByFormat(expiredTime.getTime(), "yyyy-MM-dd'T'HH:mm:ss"));
+		Date expiredTime = DateUtils.addDate(new Date(), commandExpiredTime);
+		urlParams.put("expired_time", DateUtils.formatDateByFormat(expiredTime, "yyyy-MM-dd'T'HH:mm:ss"));
 
 		String url = Constant.CHINA_MOBILE_BASE_URL + "nbiot/execute/offline";
 		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
@@ -236,8 +213,7 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 		StreamClosedHttpResponse response = httpsClientUtil.doPostJsonGetStatusLine(url,
 				CommFunc.getChinaMobileHeader(deviceInfo.getAppId()), argsJson.toJSONString());
 
-		result = commandResult(response, command);
-		return result;
+		return commandResult(response, command);
 	}
 	
 	/** 

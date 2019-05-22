@@ -35,6 +35,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.nb.exception.ResultBean;
+import com.nb.httputil.HttpsClientUtil;
 import com.nb.model.NbCommand;
 import com.nb.model.fx.FXReport;
 import com.nb.model.jd.Battery;
@@ -91,36 +92,40 @@ public class MainTest {
 	* @throws 
 	*/
 	public static void main(String[] args) throws UnsupportedEncodingException {
+		JSONObject param = new JSONObject();
+		String commandData = SuntrontProtocolUtil.sendVavleCommand(param.getIntValue("operate"));
+		System.out.println(commandData);
 		
-		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-		DataOutputStream dos = new DataOutputStream(bos);
-		int vavleOperate = 1;
-		try {
-			dos.writeByte(0X68);
-			byte[] addr = new byte[Constant.SEVEN];
-			dos.write(addr);
-			dos.writeShort(0X500F);
-			dos.writeShort(0X0B00);
-			byte operate = 0;
-			/** 开阀操作 */
-			if (vavleOperate == Constant.ONE) {
-				operate = (byte) 0xAA;
-			} else if (vavleOperate == Constant.TWO) {
-				operate = (byte) 0x55;
-			}
-			dos.writeByte(operate);
-			dos.writeByte(Constant.ZERO);
-			byte[] nc = new byte[Constant.NINE];
-			dos.write(nc);
-			
-			dos.write(BytesUtils.hexStringToBytes(getReserveCrc(bos.toByteArray())));
-			dos.writeByte(0X16);
-			String result = BytesUtils.bytesToHex(bos.toByteArray());
-			System.out.println(result);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+//		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+//		DataOutputStream dos = new DataOutputStream(bos);
+//		int vavleOperate = 1;
+//		try {
+//			dos.writeByte(0X68);
+//			byte[] addr = new byte[Constant.SEVEN];
+//			dos.write(addr);
+//			dos.writeShort(0X500F);
+//			dos.writeShort(0X0B00);
+//			byte operate = 0;
+//			/** 开阀操作 */
+//			if (vavleOperate == Constant.ONE) {
+//				operate = (byte) 0xAA;
+//			} else if (vavleOperate == Constant.TWO) {
+//				operate = (byte) 0x55;
+//			}
+//			dos.writeByte(operate);
+//			dos.writeByte(Constant.ZERO);
+//			byte[] nc = new byte[Constant.NINE];
+//			dos.write(nc);
+//			
+//			dos.write(BytesUtils.hexStringToBytes(getReserveCrc(bos.toByteArray())));
+//			dos.writeByte(0X16);
+//			String result = BytesUtils.bytesToHex(bos.toByteArray());
+//			System.out.println(result);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 		
 //		Date date = new Date(1558281600362L);

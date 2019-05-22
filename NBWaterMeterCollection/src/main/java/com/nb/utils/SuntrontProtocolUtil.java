@@ -373,7 +373,7 @@ public class SuntrontProtocolUtil {
 		try {
 			/** 起始字符 */
 			byte start = dis.readByte();
-			if (start != 0X68) {
+			if (start != 0x68) {
 				System.out.println("起始字符错误");
 				return null;
 			}
@@ -411,7 +411,7 @@ public class SuntrontProtocolUtil {
 			}
 			/** 结束字符 */
 			byte end = dis.readByte();
-			if (end != 0X16) {
+			if (end != 0x16) {
 				System.out.println("结束字符错误");
 				return null;
 			}
@@ -500,10 +500,10 @@ public class SuntrontProtocolUtil {
 		String dataFrame = "";
 		try {
 			/** 起始字符 */
-			dos.writeByte(0X68);
+			dos.writeByte(0x68);
 			byte[] addr = new byte[Constant.SEVEN];
 			dos.write(addr);
-			dos.writeShort(0X500F);
+			dos.writeShort(0x500F);
 			dos.writeShort(Constant.ELEVEN);
 			byte operate = 0;
 			/** 开阀操作 */
@@ -517,11 +517,10 @@ public class SuntrontProtocolUtil {
 			byte[] nc = new byte[Constant.NINE];
 			dos.write(nc);
 
-			dos.write(BytesUtils.hexStringToBytes(getReserveCrc(bos.toByteArray())));
-			dos.writeByte(0X16);
+			dos.write(hexStringToBytes(getReserveCrc(bos.toByteArray())));
+			dos.writeByte(0x16);
 			dataFrame = BytesUtils.bytesToHex(bos.toByteArray());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return dataFrame;

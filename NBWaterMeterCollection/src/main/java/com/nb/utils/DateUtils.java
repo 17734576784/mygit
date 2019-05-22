@@ -343,8 +343,8 @@ public class DateUtils {
 	 * @return Date
 	 */
 	public static Date addDate(Date date, int day) {
-		java.util.Calendar c = java.util.Calendar.getInstance();
-		c.setTimeInMillis(getMillis(date) + ((long) day) * 24 * 3600 * 1000);
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.DAY_OF_YEAR, day);
 		return c.getTime();
 	}
 
