@@ -26,6 +26,7 @@ import com.nb.model.Eve;
 import com.nb.model.NbBattery;
 import com.nb.model.NbCommand;
 import com.nb.model.NbDailyData;
+import com.nb.protocolutil.SuntrontProtocolUtil;
 import com.nb.service.IChinaMobileSuntrontService;
 import com.nb.utils.CommandEnum;
 import com.nb.utils.Constant;
@@ -33,7 +34,6 @@ import com.nb.utils.ConverterUtils;
 import com.nb.utils.DateUtils;
 import com.nb.utils.JedisUtils;
 import com.nb.utils.JsonUtil;
-import com.nb.utils.SuntrontProtocolUtil;
 
 /**
  * @ClassName: ChinaMobileSuntrontServiceImpl

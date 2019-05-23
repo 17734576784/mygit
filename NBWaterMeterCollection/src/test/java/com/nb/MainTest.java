@@ -45,6 +45,7 @@ import com.nb.model.xt.SuntrontBattery;
 import com.nb.model.xt.SuntrontMeter;
 import com.nb.model.xt.SuntrontWaterMeter;
 import com.nb.model.xt.SuntrontWaterMeterAlarm;
+import com.nb.protocolutil.SuntrontProtocolUtil;
 import com.nb.task.FxTelecomCallDataTask;
 import com.nb.utils.BytesUtils;
 import com.nb.utils.CommFunc;
@@ -54,7 +55,6 @@ import com.nb.utils.ConverterUtils;
 import com.nb.utils.DateUtils;
 import com.nb.utils.JsonUtil;
 import com.nb.utils.SerializeUtils;
-import com.nb.utils.SuntrontProtocolUtil;
 import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 
 import io.lettuce.core.protocol.CommandEncoder;

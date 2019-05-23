@@ -25,13 +25,13 @@ import com.nb.mapper.NbCommandMapper;
 import com.nb.model.DeviceInfo;
 import com.nb.model.NbCommand;
 import com.nb.model.StreamClosedHttpResponse;
+import com.nb.protocolutil.SuntrontProtocolUtil;
 import com.nb.service.IChinaMobileCommandService;
 import com.nb.utils.CommFunc;
 import com.nb.utils.Constant;
 import com.nb.utils.DateUtils;
 import com.nb.utils.JedisUtils;
 import com.nb.utils.JsonUtil;
-import com.nb.utils.SuntrontProtocolUtil;
 
 /**
  * @ClassName: ChinaMobileDeviceController

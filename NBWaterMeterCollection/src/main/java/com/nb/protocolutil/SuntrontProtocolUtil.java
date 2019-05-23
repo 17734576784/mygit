@@ -6,7 +6,7 @@ s* @Title: XtProtocolUtil.java
 * @date 2019年5月15日 下午3:38:34 
 * @version V1.0   
 */
-package com.nb.utils;
+package com.nb.protocolutil;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -19,6 +19,9 @@ import java.util.List;
 import com.alibaba.fastjson.JSONObject;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtil;
+import com.nb.utils.BytesUtils;
+import com.nb.utils.Constant;
+
 import static com.nb.utils.DateUtils.*;
 import static com.nb.utils.BytesUtils.*;
 
