@@ -21,6 +21,8 @@ import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtil;
 import com.nb.utils.BytesUtils;
 import com.nb.utils.Constant;
+import com.nb.utils.ConverterUtils;
+import com.nb.utils.JedisUtils;
 
 import static com.nb.utils.DateUtils.*;
 import static com.nb.utils.BytesUtils.*;
@@ -513,7 +515,7 @@ public class SuntrontProtocolUtil {
 	* @return String    返回类型 
 	* @throws 
 	*/
-	public static String sendVavleCommand(int vavleOperate) {
+	public static String sendVavleCommand(int vavleOperate, String meterAddr) {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		DataOutputStream dos = new DataOutputStream(bos);
 		String dataFrame = "";
@@ -521,7 +523,10 @@ public class SuntrontProtocolUtil {
 			/** 起始字符 */
 			dos.writeByte(0x68);
 			byte[] addr = new byte[Constant.SEVEN];
+			byte[] r = BytesUtils.str2Bcd(meterAddr);
+			System.arraycopy(r, 0, addr, addr.length - r.length, r.length);
 			dos.write(addr);
+			
 			dos.writeShort(0x500F);
 			dos.writeShort(Constant.ELEVEN);
 			byte operate = 0;
@@ -538,7 +543,9 @@ public class SuntrontProtocolUtil {
 
 			dos.write(hexStringToBytes(getReserveCrc(bos.toByteArray())));
 			dos.writeByte(0x16);
+			dos.writeInt(ConverterUtils.toInt(JedisUtils.incr(Constant.COMMAND_ID)));
 			dataFrame = BytesUtils.bytesToHex(bos.toByteArray());
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

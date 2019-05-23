@@ -456,6 +456,8 @@ public class Constant {
 	public static final String SUNTRONT_OBJID = "3200";
 	
 	public static final String LWM2M = "LWM2M";
+	
+	public static final String COMMAND_ID = "commandId";
 
 }
 

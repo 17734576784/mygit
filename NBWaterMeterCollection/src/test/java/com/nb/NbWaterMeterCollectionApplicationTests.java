@@ -115,6 +115,9 @@ public class NbWaterMeterCollectionApplicationTests {
 	private IChinaMobileSuntrontService chinaMobileSuntrontService;
 	@Test
 	public void testXT() {
+		
+		System.out.println(JedisUtils.incr("a"));
+		
 		JFDayFlow jfDayFlow = new JFDayFlow();
 		jfDayFlow.setTableName("201905");
 		jfDayFlow.setRtuId(5);
@@ -125,9 +128,9 @@ public class NbWaterMeterCollectionApplicationTests {
 		jfDayFlow.setLjllZx(111D);
 		jfDayFlow.setLlLjllZx(22D);
 		jfDayFlow.setLlLjllFx(3D);
-		System.out.println(jfDayFlowMapper.isExist(jfDayFlow));
-		
-		System.out.println(jfDayFlowMapper.updateJFDayFlow(jfDayFlow));
+//		System.out.println(jfDayFlowMapper.isExist(jfDayFlow));
+//		
+//		System.out.println(jfDayFlowMapper.updateJFDayFlow(jfDayFlow));
 //		JSONObject xt = new JSONObject();
 //		xt.put("at", new Date().getTime());
 //		xt.put("imei", "867726030828687");

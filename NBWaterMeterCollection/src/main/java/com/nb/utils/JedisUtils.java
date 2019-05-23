@@ -89,6 +89,22 @@ public class JedisUtils {
 		}
 	}
 	
+	
+	public static Long incr(String key) {
+		Jedis jedis = null;
+		try {
+			jedis = getResource();
+			return jedis.incr(key);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			returnRource(jedis);
+		}
+
+		return 0L;
+	}
+
+
 	/** 
      * 成功返回true 
      * @param key 

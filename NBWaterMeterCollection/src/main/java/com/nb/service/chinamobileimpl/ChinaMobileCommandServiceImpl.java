@@ -157,9 +157,7 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 			result.setError(responseJson.toJSONString());
 			return result;
 		}
-
-		JSONObject data = responseJson.getJSONObject("data");
-		String commandId = data.getString("uuid");
+		String commandId = command.getString("commandId");
 		if (null == commandId || commandId.isEmpty()) {
 			result.setStatus(Constant.ERROR);
 			result.setError(responseJson.toJSONString());
@@ -208,11 +206,13 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 		
 		JSONObject argsJson = new JSONObject();
 		/** 将传过来的命令参数，根据规约转成16进制字符串 */
-		argsJson.put("args", getCommandData(deviceInfo.getManufacturerId(), command));
+		String commandContext = getCommandData(deviceInfo.getManufacturerId(), command);
+		String commandId = commandContext.substring(commandContext.length()-Constant.EIGHT, commandContext.length());
+		argsJson.put("args", commandContext);
 
 		StreamClosedHttpResponse response = httpsClientUtil.doPostJsonGetStatusLine(url,
 				CommFunc.getChinaMobileHeader(deviceInfo.getAppId()), argsJson.toJSONString());
-
+		command.put("commandId", commandId);
 		return commandResult(response, command);
 	}
 	
@@ -260,7 +260,8 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 		/** 新天科技移动规约 */
 		if (manufacturerId.equals(Constant.SUNTRONT_OBJID)) {
 			JSONObject param = command.getJSONObject("param");
-			commandData = SuntrontProtocolUtil.sendVavleCommand(param.getIntValue("operate"));
+			String meterAddr = command.getString("meterAddr");
+			commandData = SuntrontProtocolUtil.sendVavleCommand(param.getIntValue("operate"), meterAddr);
 		}
 		return commandData;
 	}
