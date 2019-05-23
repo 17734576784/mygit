@@ -16,7 +16,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtil;
@@ -79,17 +78,13 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 					if (dataJson.containsKey("historyDate")) {
 						saveReportData(deviceId, dataJson, reportDate);
 					}else {
-						parseCommandMsg(msgJson);
+						saveCommandData(dataJson, msgJson);
 					}
 				}
 			}
 			/** 下行命令的应答（仅限NB设备） */ 
 			else if (msgType == Constant.CHINA_MOBILE_COMMAND_MSG) {
-				//{"send_time":1558594320506,"imei":"860765040439686","send_status":5,"type":7,"cmd_type":2,"cmd_id":"b079d2a8-58a8-5eeb-b32b-eb926a073d9f","confirm_time":1558594321798,"confirm_status":0,"dev_id":527315263}
-				if (dsId.equals(Constant.SUNTRONT_DSID)) {
 					parseCommandMsg(msgJson);
-				}
-
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -106,33 +101,9 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 	* @throws 
 	*/
 	public void parseCommandMsg(JSONObject msgJson) {
-		JSONObject confirmBody = msgJson.getJSONObject("confirm_body");
-		JSONArray objInst = confirmBody.getJSONArray("obj_inst");
-		for (int i = 0; i < objInst.size(); i++) {
-			JSONObject res = objInst.getJSONObject(i);
-			JSONObject dataJson = SuntrontProtocolUtil.parseCommandMsg(res);
-			if (dataJson == null) {
-				continue;
-			}
-			saveCommandData(dataJson, msgJson);
-
-		}
-	}
-	
-	/** 
-	* @Title: saveCommandData 
-	* @Description: 更新命令执行结果，更新水表阀门状态
-	* @param @param dataJson
-	* @param @param msgJson    设定文件 
-	* @return void    返回类型 
-	* @throws 
-	*/
-	public void saveCommandData(JSONObject dataJson, JSONObject msgJson) {
-
-		JSONObject comm = dataJson.getJSONObject("comm");
+		//{"send_time":1558594320506,"imei":"860765040439686","send_status":5,"type":7,"cmd_type":2,"cmd_id":"b079d2a8-58a8-5eeb-b32b-eb926a073d9f","confirm_time":1558594321798,"confirm_status":0,"dev_id":527315263}
 
 		String commandId = msgJson.getString("cmd_id");
-		String deviceId = msgJson.getString("dev_id");
 		int confirmStatus = msgJson.getIntValue("confirm_status");
 		if (confirmStatus == Constant.ZERO) {
 			confirmStatus = CommandEnum.SUCCESSFUL.getResultValue();
@@ -148,6 +119,50 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 			nbCommand.setExecuteResult((byte) confirmStatus);
 			nbCommandMapper.updateNbCommand(nbCommand);
 		}
+
+		
+//		JSONObject confirmBody = msgJson.getJSONObject("confirm_body");
+//		JSONArray objInst = confirmBody.getJSONArray("obj_inst");
+//		for (int i = 0; i < objInst.size(); i++) {
+//			JSONObject res = objInst.getJSONObject(i);
+//			JSONObject dataJson = SuntrontProtocolUtil.parseCommandMsg(res);
+//			if (dataJson == null) {
+//				continue;
+//			}
+//			saveCommandData(dataJson, msgJson);
+//
+//		}
+	}
+	
+	/** 
+	* @Title: saveCommandData 
+	* @Description: 更新命令执行结果，更新水表阀门状态
+	* @param @param dataJson
+	* @param @param msgJson    设定文件 
+	* @return void    返回类型 
+	* @throws 
+	*/
+	public void saveCommandData(JSONObject dataJson, JSONObject msgJson) {
+
+		JSONObject comm = dataJson.getJSONObject("comm");
+
+//		String commandId = msgJson.getString("cmd_id");
+		String deviceId = msgJson.getString("dev_id");
+//		int confirmStatus = msgJson.getIntValue("confirm_status");
+//		if (confirmStatus == Constant.ZERO) {
+//			confirmStatus = CommandEnum.SUCCESSFUL.getResultValue();
+//		} else {
+//			confirmStatus = CommandEnum.FAILED.getResultValue();
+//		}
+
+//		String tableNameDate = JedisUtils.get(Constant.COMMAND + commandId);
+//		if (tableNameDate != null) {
+//			NbCommand nbCommand = new NbCommand();
+//			nbCommand.setTableName(tableNameDate);
+//			nbCommand.setCommandId(commandId);
+//			nbCommand.setExecuteResult((byte) confirmStatus);
+//			nbCommandMapper.updateNbCommand(nbCommand);
+//		}
 
 		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
 		if (meterInfo == null) {

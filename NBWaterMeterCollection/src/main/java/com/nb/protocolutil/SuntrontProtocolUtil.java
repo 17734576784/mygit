@@ -46,11 +46,22 @@ public class SuntrontProtocolUtil {
 	public static JSONObject parseDataMsg(JSONObject msgJson) throws Exception {
 		byte[] msg = BytesUtils.hexStringToBytes(msgJson.getString("value"));
 		/** 验证接收到的消息，并返回数据部分 */
-		byte[] data = validateMsg(msg);
+		JSONObject json = validateMsg(msg);
+		if (json.isEmpty()) {
+			return json;
+		}
+		String control = json.getString("control");
+		byte[] data = (byte[]) json.get("byteData");
 		if (data == null || data.length == Constant.ZERO) {
 			return null;
 		}
-		JSONObject dataJson = parseData(data, msgJson);
+		JSONObject dataJson = new JSONObject();
+		if (control.equals("D0BD")) {
+			dataJson = parseData(data, msgJson);
+		} else if (control.equals("D00F")) {
+			dataJson = parseCommandData(data);
+		}
+
 		return dataJson;
 	}
 
@@ -368,8 +379,9 @@ public class SuntrontProtocolUtil {
 	* @return byte[]    返回类型 
 	* @throws 
 	*/
-	private static byte[] validateMsg(byte[] msg) throws Exception {
+	private static JSONObject validateMsg(byte[] msg) throws Exception {
 
+		JSONObject json = new JSONObject();
 		ByteArrayInputStream bais = new ByteArrayInputStream(msg);
 		DataInputStream dis = new DataInputStream(bais);
 		byte[] byteData = null;
@@ -418,10 +430,14 @@ public class SuntrontProtocolUtil {
 				System.out.println("结束字符错误");
 				return null;
 			}
+			json.put("control", bytesToHex(control));
+			json.put("byteData", byteData);
+
 		} catch (IOException e) {
 			e.printStackTrace();
+			return null;
 		}
-		return byteData;
+		return json;
 	}
 
 	/** 
@@ -432,27 +448,27 @@ public class SuntrontProtocolUtil {
 	* @return JSONObject    返回类型 
 	* @throws 
 	*/
-	public static JSONObject parseCommandMsg(JSONObject res) {
-		System.out.println(res);
-		byte[] msg = BytesUtils.hexStringToBytes(res.getString("value"));
-		/** 验证接收到的消息，并返回数据部分 */
-		byte[] data;
-		try {
-			data = validateMsg(msg);
-			if (data == null || data.length == Constant.ZERO) {
-				return null;
-			}
-			
-			JSONObject dataJson = parseCommandData(data);
-			return dataJson;
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return null;
-	}
+//	public static JSONObject parseCommandMsg(JSONObject res) {
+//		System.out.println(res);
+//		byte[] msg = BytesUtils.hexStringToBytes(res.getString("value"));
+//		/** 验证接收到的消息，并返回数据部分 */
+//		byte[] data;
+//		try {
+//			data = validateMsg(msg);
+//			if (data == null || data.length == Constant.ZERO) {
+//				return null;
+//			}
+//			
+//			JSONObject dataJson = parseCommandData(data);
+//			return dataJson;
+//			
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		return null;
+//	}
 	
 	/** 
 	* @Title: parseCommandData 
