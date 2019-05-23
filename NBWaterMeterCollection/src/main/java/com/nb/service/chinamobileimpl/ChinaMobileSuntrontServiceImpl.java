@@ -114,7 +114,7 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 		String tableNameDate = JedisUtils.get(Constant.COMMAND + commandId);
 		if (tableNameDate != null) {
 			NbCommand nbCommand = new NbCommand();
-			nbCommand.setTableName(tableNameDate);
+			nbCommand.setTableName(tableNameDate.substring(0, 6));
 			nbCommand.setCommandId(commandId);
 			nbCommand.setExecuteResult((byte) confirmStatus);
 			nbCommandMapper.updateNbCommand(nbCommand);
