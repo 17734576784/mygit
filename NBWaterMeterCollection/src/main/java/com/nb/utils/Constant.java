@@ -456,8 +456,13 @@ public class Constant {
 	public static final String SUNTRONT_OBJID = "3200";
 	
 	public static final String LWM2M = "LWM2M";
-	
+	/**全局唯一命令Id redis键值*/
 	public static final String COMMAND_ID = "commandId";
+	/** 新天科技上报数据控制码 */
+	public static final String D0BD = "D0BD";
+	public static final String D00F = "D00F";
+	/** 新天科技表类型 */
+	public static final byte SUNTRONT_METERTYPE = (byte) 0xB1;
 
 }
 

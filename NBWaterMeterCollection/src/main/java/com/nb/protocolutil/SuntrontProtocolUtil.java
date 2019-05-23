@@ -13,6 +13,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,6 +23,7 @@ import com.nb.logger.LoggerUtil;
 import com.nb.utils.BytesUtils;
 import com.nb.utils.Constant;
 import com.nb.utils.ConverterUtils;
+import com.nb.utils.DateUtils;
 import com.nb.utils.JedisUtils;
 
 import static com.nb.utils.DateUtils.*;
@@ -58,13 +60,13 @@ public class SuntrontProtocolUtil {
 			return null;
 		}
 		JSONObject dataJson = new JSONObject();
-		if (control.equals("D0BD")) {
+		if (control.equals(Constant.D0BD)) {
 			dataJson = parseData(data, msgJson);
-		} else if (control.equals("D00F")) {
+		} else if (control.equals(Constant.D00F)) {
 			dataJson = parseCommandData(data);
 			dataJson.put("commandId", json.getString("commandId"));
 		}
-
+		dataJson.put("control", control);
 		return dataJson;
 	}
 
@@ -405,7 +407,7 @@ public class SuntrontProtocolUtil {
 			byte[] control = new byte[Constant.TWO];
 			dis.read(control);
 			String ctrlCode = bytesToHex(control);
-			if (!ctrlCode.equals("D0BD") && !ctrlCode.equals("D00F")) {
+			if (!ctrlCode.equals(Constant.D0BD) && !ctrlCode.equals(Constant.D00F)) {
 				System.out.println("控制码错误" + bytesToHex(control));
 				return null;
 			}
@@ -434,7 +436,7 @@ public class SuntrontProtocolUtil {
 				System.out.println("结束字符错误");
 				return null;
 			}
-			if (ctrlCode.equals("D00F")) {
+			if (ctrlCode.equals(Constant.D00F)) {
 				byte[] cmd = new byte[Constant.FOUR];
 				dis.read(cmd);
 				json.put("commandId", BytesUtils.bcdToString(cmd));
@@ -530,13 +532,13 @@ public class SuntrontProtocolUtil {
 		try {
 			/** 起始字符 */
 			dos.writeByte(0x68);
-			dos.writeByte(0xB1);
+			dos.writeByte(Constant.SUNTRONT_METERTYPE);
 
-			byte[] r = BytesUtils.str2Bcd(meterAddr);
-			r= BytesUtils.invertArray(r);
+			byte[] address = BytesUtils.str2Bcd(meterAddr);
+			address= BytesUtils.invertArray(address);
 
 			byte[] addr = new byte[Constant.SEVEN];
-			System.arraycopy(r, 0, addr, 0, r.length);
+			System.arraycopy(address, 0, addr, 0, address.length);
 			dos.write(addr);
 			
 			dos.writeShort(0x500F);
@@ -556,6 +558,50 @@ public class SuntrontProtocolUtil {
 			dos.write(hexStringToBytes(getReserveCrc(bos.toByteArray())));
 			dos.writeByte(0x16);
 			dos.writeInt(ConverterUtils.toInt(JedisUtils.incr(Constant.COMMAND_ID)));
+			dataFrame = BytesUtils.bytesToHex(bos.toByteArray());
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return dataFrame;
+	}
+	
+	/** 
+	* @Title: get50BD 
+	* @Description: 50BD应答 
+	* @param @param meterAddr
+	* @param @return    设定文件 
+	* @return String    返回类型 
+	* @throws 
+	*/
+	public static String get50BD(String meterAddr) {
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		DataOutputStream dos = new DataOutputStream(bos);
+		String dataFrame = "";
+		try {
+			/** 起始字符 */
+			dos.writeByte(0x68);
+			dos.writeByte(Constant.SUNTRONT_METERTYPE);
+			byte[] address = BytesUtils.str2Bcd(meterAddr);
+			address= BytesUtils.invertArray(address);
+
+			byte[] addr = new byte[Constant.SEVEN];
+			System.arraycopy(address, 0, addr, 0, address.length);
+			dos.write(addr);
+			
+			dos.writeShort(0x50BD);
+			dos.writeShort(0x0A00);
+			
+			byte[] time = new byte[Constant.FIVE];
+			String serverTime = DateUtils.formatDateByFormat(new Date(), "mmHHddMMyy");
+			time = BytesUtils.str2Bcd(serverTime);
+			dos.write(time);
+			
+			byte[] nc = new byte[Constant.FIVE];
+			dos.write(nc);
+
+			dos.write(hexStringToBytes(getReserveCrc(bos.toByteArray())));
+			dos.writeByte(0x16);
 			dataFrame = BytesUtils.bytesToHex(bos.toByteArray());
 			
 		} catch (IOException e) {

@@ -71,13 +71,18 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 		long at = msgJson.getLongValue("at");
 		String reportDate = DateUtils.formatNoCharDate(new Date(at));
 		try {
-			/** 数据点消息 */ 
+			/** 数据点消息 */
 			if (msgType == Constant.CHINA_MOBILE_DATA_MSG) {
 				if (dsId.equals(Constant.SUNTRONT_DSID)) {
 					JSONObject dataJson = SuntrontProtocolUtil.parseDataMsg(msgJson);
-					if (dataJson.containsKey("historyDate")) {
+					if (dataJson.isEmpty()) {
+						return;
+					}
+					
+					String control = dataJson.getString("control");
+					if (control.equals(Constant.D0BD)) {
 						saveReportData(deviceId, dataJson, reportDate);
-					}else {
+					} else if (control.equals(Constant.D00F)) {
 						saveCommandData(dataJson, msgJson);
 					}
 				}
@@ -145,7 +150,6 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 	public void saveCommandData(JSONObject dataJson, JSONObject msgJson) {
 
 		JSONObject comm = dataJson.getJSONObject("comm");
-
 		String commandId = dataJson.getString("commandId");
 		String deviceId = msgJson.getString("dev_id");
 
@@ -214,7 +218,7 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 		int hms = toInt(reportDate.substring(9, 15));
 		int rtuId = toInt(meterInfo.get("rtuId"));
 		int mpId = toInt(meterInfo.get("mpId"));
-		
+
 		String eveInfo = "";
 		Short typeNo = 0;
 		if (st2.getBooleanValue("reverseFlow")) {
@@ -234,7 +238,7 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 			typeNo = Constant.ALARM_2004;
 			insertEve(rtuId, mpId, tableNameDate, ymd, hms, eveInfo, typeNo);
 		}
-		
+
 		if (st0.getInteger("valveStatus") >= Constant.THREE) {
 			eveInfo = "阀门异常";
 			typeNo = Constant.ALARM_2010;
@@ -309,7 +313,7 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 		byte valveStatus = st0.getByte("valveStatus");
 		nbDailyData.setValveStatus(getValveStatus(valveStatus));
 		JedisUtils.lpush(Constant.HISTORY_DAILY_QUEUE, JsonUtil.jsonObj2Sting(nbDailyData));
-		
+
 		/** 插入data11 */
 		if (dataJson.getInteger("historyDate") != -1) {
 			Calendar c = Calendar.getInstance();
