@@ -74,14 +74,14 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 		try {
 			/** 数据点消息 */ 
 			if (msgType == Constant.CHINA_MOBILE_DATA_MSG) {
-				if (dsId.equals(Constant.SUNTRONTDSID)) {
+				if (dsId.equals(Constant.SUNTRONT_DSID)) {
 					JSONObject dataJson = SuntrontProtocolUtil.parseDataMsg(msgJson);
 					saveReportData(deviceId, dataJson, reportDate);
 				}
 			}
 			/** 下行命令的应答（仅限NB设备） */ 
 			else if (msgType == Constant.CHINA_MOBILE_COMMAND_MSG) {
-				if (dsId.equals(Constant.SUNTRONTDSID)) {
+				if (dsId.equals(Constant.SUNTRONT_DSID)) {
 					parseCommandMsg(msgJson);
 				}
 

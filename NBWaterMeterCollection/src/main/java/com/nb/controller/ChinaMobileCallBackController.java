@@ -63,12 +63,12 @@ public class ChinaMobileCallBackController {
 				if (dataRight) {
 					try {
 						JSONObject msgJson = JSONObject.parseObject(obj.getMsg().toString());
-						chinaMobileSuntrontService.parseMsg(msgJson);
+						parseMsg(msgJson);
 					} catch (Exception e) {
 						JSONArray msgArray = JSON.parseArray(obj.getMsg().toString());
 						for (Object object : msgArray) {
 							JSONObject msgJson = (JSONObject) object;
-							chinaMobileSuntrontService.parseMsg(msgJson);
+							parseMsg(msgJson);
 						}
 					}
 					LoggerUtil.logger(LogName.INFO).info("data receive: content" + obj.toString());
@@ -82,6 +82,28 @@ public class ChinaMobileCallBackController {
 			e.printStackTrace();
 		}
 		return Constant.OK;
+	}
+	
+	/** 
+	* @Title: parseMsg 
+	* @Description: 根据上报的ds_id适配解析工具 
+	* @param @param msgJson
+	* @param @throws Exception    设定文件 
+	* @return void    返回类型 
+	* @throws 
+	*/
+	private void parseMsg(JSONObject msgJson) throws Exception {
+		String dsId = msgJson.getString("ds_id");
+
+		switch (dsId) {
+		case Constant.SUNTRONT_DSID:
+			chinaMobileSuntrontService.parseMsg(msgJson);
+			break;
+
+		default:
+			break;
+		}
+
 	}
 	
 }

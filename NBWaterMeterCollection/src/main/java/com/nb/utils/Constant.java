@@ -452,7 +452,7 @@ public class Constant {
 	public static final String ACCESS_TOKEN = "accessToken:";
 	
 	/** 新天科技移动平台上报数据项ds_id */
-	public static final String SUNTRONTDSID = "3200_0_5505";
+	public static final String SUNTRONT_DSID = "3200_0_5505";
 	public static final String SUNTRONT_OBJID = "3200";
 	
 	public static final String LWM2M = "LWM2M";

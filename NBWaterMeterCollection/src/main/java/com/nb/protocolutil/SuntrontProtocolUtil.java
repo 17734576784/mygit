@@ -1,6 +1,6 @@
 /**   
 s* @Title: XtProtocolUtil.java 
-* @Package com.nb.utils 
+* @Package com.nb.protocolutil 
 * @Description: TODO(用一句话描述该文件做什么) 
 * @author dbr
 * @date 2019年5月15日 下午3:38:34 
