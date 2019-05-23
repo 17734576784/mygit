@@ -80,6 +80,7 @@ public class ChinaMobileCallBackController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			LoggerUtil.logger(LogName.ERROR).error(pushMessages);
 		}
 		return Constant.OK;
 	}
@@ -93,16 +94,18 @@ public class ChinaMobileCallBackController {
 	* @throws 
 	*/
 	private void parseMsg(JSONObject msgJson) throws Exception {
-		String dsId = msgJson.getString("ds_id");
+//		String dsId = msgJson.getString("ds_id");
 
-		switch (dsId) {
-		case Constant.SUNTRONT_DSID:
-			chinaMobileSuntrontService.parseMsg(msgJson);
-			break;
+		chinaMobileSuntrontService.parseMsg(msgJson);
 
-		default:
-			break;
-		}
+//		switch (dsId) {
+//		case Constant.SUNTRONT_DSID:
+//			chinaMobileSuntrontService.parseMsg(msgJson);
+//			break;
+//
+//		default:
+//			break;
+//		}
 
 	}
 	

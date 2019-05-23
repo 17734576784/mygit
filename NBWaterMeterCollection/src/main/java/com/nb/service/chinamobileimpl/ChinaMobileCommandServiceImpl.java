@@ -232,12 +232,13 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 		nbCommand.setRtuId(command.getInteger("rtuId"));
 		nbCommand.setMpId(command.getShort("mpId"));
 		nbCommand.setCommandClass(commandClass);
-		nbCommand.setCommandType(command.getByte("commandId"));
-
+		nbCommand.setCommandId(command.getString("commandId"));
+		nbCommand.setCommandType((byte)Constant.ZERO);
+		
 		String tableNameDate = DateUtils.curDate();
 		nbCommand.setCommandContent(command.toString());
 		nbCommand.setOperatorId(command.getInteger("operatorId"));
-		nbCommand.setTableName(tableNameDate);
+		nbCommand.setTableName(tableNameDate.substring(0, 6));
 		nbCommand.setCommandId(commandId);
 		nbCommandMapper.insertNbCommand(nbCommand);
 

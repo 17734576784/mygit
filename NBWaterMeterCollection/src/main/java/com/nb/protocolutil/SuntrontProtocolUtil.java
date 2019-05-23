@@ -389,8 +389,8 @@ public class SuntrontProtocolUtil {
 			/** 控制码 */
 			byte[] control = new byte[Constant.TWO];
 			dis.read(control);
-			if (!bytesToHex(control).equals("D0BD") || !bytesToHex(control).equals("D00F")) {
-				System.out.println("控制码错误");
+			if (!bytesToHex(control).equals("D0BD") && !bytesToHex(control).equals("D00F")) {
+				System.out.println("控制码错误" + bytesToHex(control));
 				return null;
 			}
 			/** 数据长度 */

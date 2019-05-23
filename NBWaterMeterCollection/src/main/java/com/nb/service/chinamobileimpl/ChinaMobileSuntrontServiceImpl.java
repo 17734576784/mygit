@@ -76,11 +76,16 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 			if (msgType == Constant.CHINA_MOBILE_DATA_MSG) {
 				if (dsId.equals(Constant.SUNTRONT_DSID)) {
 					JSONObject dataJson = SuntrontProtocolUtil.parseDataMsg(msgJson);
-					saveReportData(deviceId, dataJson, reportDate);
+					if (dataJson.containsKey("historyDate")) {
+						saveReportData(deviceId, dataJson, reportDate);
+					}else {
+						parseCommandMsg(msgJson);
+					}
 				}
 			}
 			/** 下行命令的应答（仅限NB设备） */ 
 			else if (msgType == Constant.CHINA_MOBILE_COMMAND_MSG) {
+				//{"send_time":1558594320506,"imei":"860765040439686","send_status":5,"type":7,"cmd_type":2,"cmd_id":"b079d2a8-58a8-5eeb-b32b-eb926a073d9f","confirm_time":1558594321798,"confirm_status":0,"dev_id":527315263}
 				if (dsId.equals(Constant.SUNTRONT_DSID)) {
 					parseCommandMsg(msgJson);
 				}
