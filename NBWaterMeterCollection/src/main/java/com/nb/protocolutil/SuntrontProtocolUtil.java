@@ -62,6 +62,7 @@ public class SuntrontProtocolUtil {
 			dataJson = parseData(data, msgJson);
 		} else if (control.equals("D00F")) {
 			dataJson = parseCommandData(data);
+			dataJson.put("commandId", json.getString("commandId"));
 		}
 
 		return dataJson;
@@ -403,7 +404,8 @@ public class SuntrontProtocolUtil {
 			/** 控制码 */
 			byte[] control = new byte[Constant.TWO];
 			dis.read(control);
-			if (!bytesToHex(control).equals("D0BD") && !bytesToHex(control).equals("D00F")) {
+			String ctrlCode = bytesToHex(control);
+			if (!ctrlCode.equals("D0BD") && !ctrlCode.equals("D00F")) {
 				System.out.println("控制码错误" + bytesToHex(control));
 				return null;
 			}
@@ -431,6 +433,10 @@ public class SuntrontProtocolUtil {
 			if (end != 0x16) {
 				System.out.println("结束字符错误");
 				return null;
+			}
+			if (ctrlCode.equals("D00F")) {
+				json.put("commandId", dis.readInt());
+
 			}
 			json.put("control", bytesToHex(control));
 			json.put("byteData", byteData);

@@ -82,10 +82,10 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 					}
 				}
 			}
-			/** 下行命令的应答（仅限NB设备） */ 
-			else if (msgType == Constant.CHINA_MOBILE_COMMAND_MSG) {
-					parseCommandMsg(msgJson);
-			}
+//			/** 下行命令的应答（仅限NB设备） */ 
+//			else if (msgType == Constant.CHINA_MOBILE_COMMAND_MSG) {
+//					parseCommandMsg(msgJson);
+//			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			LoggerUtil.logger(LogName.ERROR).error("解析新天科技移动平台异常，接收数据{}", msgJson);
@@ -146,23 +146,17 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 
 		JSONObject comm = dataJson.getJSONObject("comm");
 
-//		String commandId = msgJson.getString("cmd_id");
+		String commandId = dataJson.getString("commandId");
 		String deviceId = msgJson.getString("dev_id");
-//		int confirmStatus = msgJson.getIntValue("confirm_status");
-//		if (confirmStatus == Constant.ZERO) {
-//			confirmStatus = CommandEnum.SUCCESSFUL.getResultValue();
-//		} else {
-//			confirmStatus = CommandEnum.FAILED.getResultValue();
-//		}
 
-//		String tableNameDate = JedisUtils.get(Constant.COMMAND + commandId);
-//		if (tableNameDate != null) {
-//			NbCommand nbCommand = new NbCommand();
-//			nbCommand.setTableName(tableNameDate);
-//			nbCommand.setCommandId(commandId);
-//			nbCommand.setExecuteResult((byte) confirmStatus);
-//			nbCommandMapper.updateNbCommand(nbCommand);
-//		}
+		String tableNameDate = JedisUtils.get(Constant.COMMAND + commandId);
+		if (tableNameDate != null) {
+			NbCommand nbCommand = new NbCommand();
+			nbCommand.setTableName(tableNameDate);
+			nbCommand.setCommandId(commandId);
+			nbCommand.setExecuteResult(CommandEnum.SUCCESSFUL.getResultValue());
+			nbCommandMapper.updateNbCommand(nbCommand);
+		}
 
 		Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
 		if (meterInfo == null) {
