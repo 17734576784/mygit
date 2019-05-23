@@ -522,13 +522,17 @@ public class SuntrontProtocolUtil {
 		try {
 			/** 起始字符 */
 			dos.writeByte(0x68);
-			byte[] addr = new byte[Constant.SEVEN];
+			dos.writeByte(0xB1);
+
 			byte[] r = BytesUtils.str2Bcd(meterAddr);
-			System.arraycopy(r, 0, addr, addr.length - r.length, r.length);
+			r= BytesUtils.invertArray(r);
+
+			byte[] addr = new byte[Constant.SEVEN];
+			System.arraycopy(r, 0, addr, 0, r.length);
 			dos.write(addr);
 			
 			dos.writeShort(0x500F);
-			dos.writeShort(Constant.ELEVEN);
+			dos.writeShort(0x0B00);
 			byte operate = 0;
 			/** 开阀操作 */
 			if (vavleOperate == Constant.ONE) {

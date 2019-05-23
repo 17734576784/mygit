@@ -8,6 +8,7 @@
 */
 package com.nb.utils;
 
+import java.lang.reflect.Array;
 import java.nio.charset.Charset;
 import org.apache.commons.lang.ArrayUtils;
 
@@ -176,7 +177,29 @@ public class BytesUtils {
 	public static boolean getBoolean(byte[] bytes) {
 		return bytes[0] == 1;
 	}
-
+	 /** 
+     * 反转数组 
+     *  
+     */  
+    public static <T> T invertArray(T array) {  
+        int len = Array.getLength(array);  
+  
+        Class<?> classz = array.getClass().getComponentType();  
+  
+        Object dest = Array.newInstance(classz, len);  
+  
+        System.arraycopy(array, 0, dest, 0, len);  
+  
+        Object temp;  
+  
+        for (int i = 0; i < (len / 2); i++) {  
+            temp = Array.get(dest, i);  
+            Array.set(dest, i, Array.get(dest, len - i - 1));  
+            Array.set(dest, len - i - 1, temp);  
+        }  
+  
+        return (T)dest;  
+    }  
 	/**
 	 * 将字节数组的第index字节转换为布尔值
 	 * 

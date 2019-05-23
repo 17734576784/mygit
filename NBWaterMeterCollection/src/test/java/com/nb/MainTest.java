@@ -95,12 +95,16 @@ public class MainTest {
 //		JSONObject param = new JSONObject();
 //		String commandData = SuntrontProtocolUtil.sendVavleCommand(param.getIntValue("operate"));
 //		System.out.println(commandData);
-//		byte[] addr = new byte[Constant.SEVEN];
-//		byte[] r = BytesUtils.hexStringToBytes("3000000000080008");
-//		System.out.println(r.length);
-//		
-		String test ="68B108000000003000500F0B00BBEEEEEEEEEEEEEEEEEEEE69DC1605000000";
-		System.out.println(test.substring(test.length() - 8, test.length()));
+		byte[] addr = new byte[Constant.SEVEN];
+		byte[] r = BytesUtils.str2Bcd("300000000008");
+		r= BytesUtils.invertArray(r);
+
+		System.arraycopy(r, 0, addr, 0, r.length);
+		System.out.println(BytesUtils.bcdToString(addr));
+ 
+//		for (byte b : r) {
+//			System.out.println(b);
+//		}
 //		System.arraycopy(r, 0, addr, addr.length-r.length, r.length);;
 //		System.out.println(BytesUtils.bcdToString(addr));
 		
