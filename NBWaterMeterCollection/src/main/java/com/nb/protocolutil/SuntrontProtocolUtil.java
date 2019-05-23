@@ -435,7 +435,9 @@ public class SuntrontProtocolUtil {
 				return null;
 			}
 			if (ctrlCode.equals("D00F")) {
-				json.put("commandId", dis.readInt());
+				byte[] cmd = new byte[Constant.FOUR];
+				dis.read(cmd);
+				json.put("commandId", BytesUtils.bcdToString(cmd));
 
 			}
 			json.put("control", bytesToHex(control));

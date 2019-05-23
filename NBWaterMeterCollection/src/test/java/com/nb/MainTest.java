@@ -92,15 +92,20 @@ public class MainTest {
 	* @throws 
 	*/
 	public static void main(String[] args) throws UnsupportedEncodingException {
+		byte[] cmd = BytesUtils.str2Bcd("00000002");
+
+		System.out.println(BytesUtils.bcdToString(cmd)); 
+		
+		
 //		JSONObject param = new JSONObject();
 //		String commandData = SuntrontProtocolUtil.sendVavleCommand(param.getIntValue("operate"));
 //		System.out.println(commandData);
-		byte[] addr = new byte[Constant.SEVEN];
-		byte[] r = BytesUtils.str2Bcd("300000000008");
-		r= BytesUtils.invertArray(r);
-
-		System.arraycopy(r, 0, addr, 0, r.length);
-		System.out.println(BytesUtils.bcdToString(addr));
+//		byte[] addr = new byte[Constant.SEVEN];
+//		byte[] r = BytesUtils.str2Bcd("300000000008");
+//		r= BytesUtils.invertArray(r);
+//
+//		System.arraycopy(r, 0, addr, 0, r.length);
+//		System.out.println(BytesUtils.bcdToString(addr));
  
 //		for (byte b : r) {
 //			System.out.println(b);
