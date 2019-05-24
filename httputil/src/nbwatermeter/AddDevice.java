@@ -38,8 +38,8 @@ public class AddDevice {
        String urlReg="https://192.168.1.130:18213/api/register";
        
        JSONObject json = new JSONObject();
-       json.put("nbType", "2");
-       json.put("rtuId", "4");
+       json.put("nbType", "0");
+       json.put("rtuId", "5");
        json.put("mpId", "1");
        
        HttpsClientUtil httpsClientUtil = new HttpsClientUtil();

@@ -75,10 +75,6 @@ public class DiscoverNonDirectlyConnectedDevice {
 
     }
 
-
-
-
-
     /**
      * Authentication��get token
      * */

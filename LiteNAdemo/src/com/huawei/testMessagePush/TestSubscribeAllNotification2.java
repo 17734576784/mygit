@@ -34,7 +34,7 @@ public class TestSubscribeAllNotification2 {
          */
         List<String> notifyTypes = NotifyType.getNotifyTypes();
         for (String notifyType : notifyTypes) {
-            String deleteURl ="https://device.api.ct10649.com:8743/iocm/app/sub/v1.2.0/subscriptions?appId=YXnpwWndC3ioc15OGALXZvHLB1oa";
+			String deleteURl = "https://device.api.ct10649.com:8743/iocm/app/sub/v1.2.0/subscriptions?appId="+appId;
 
 			String callbackurl1 = callbackurl + "/chinatelecom/" + notifyType;
 			System.out.println("callbackurl1 : "+ callbackurl1);
