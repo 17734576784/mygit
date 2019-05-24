@@ -55,6 +55,7 @@ public class ChinaMobileCallBackController {
 	@RequestMapping(value = "receivingPushMessages", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String urlVerification(@RequestBody String pushMessages) {
 		LoggerUtil.logger(LogName.INFO).info("data receive:  body String --- " + pushMessages);
+		System.out.println(pushMessages);
 		try {
 			ChinaMobileUtil.BodyObj obj = ChinaMobileUtil.resolveBody(pushMessages, false);
 			LoggerUtil.logger(LogName.INFO).info("data receive:  body Object --- " + obj);
@@ -80,6 +81,7 @@ public class ChinaMobileCallBackController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println(pushMessages);
 			LoggerUtil.logger(LogName.ERROR).error(pushMessages);
 		}
 		return Constant.OK;
@@ -95,6 +97,9 @@ public class ChinaMobileCallBackController {
 	*/
 	private void parseMsg(JSONObject msgJson) throws Exception {
 		String dsId = msgJson.getString("ds_id");
+		if (null == dsId) {
+			return;
+		}
 		switch (dsId) {
 		case Constant.SUNTRONT_DSID:
 			chinaMobileSuntrontService.parseMsg(msgJson);

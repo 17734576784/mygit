@@ -82,9 +82,10 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 			if (msgType == Constant.CHINA_MOBILE_DATA_MSG) {
 				if (dsId.equals(Constant.SUNTRONT_DSID)) {
 					JSONObject dataJson = SuntrontProtocolUtil.parseDataMsg(msgJson);
-					if (dataJson.isEmpty()) {
+					if (dataJson == null || dataJson.isEmpty()) {
 						return;
 					}
+					System.out.println("dataJson : " + dataJson);
 					
 					String control = dataJson.getString("control");
 					if (control.equals(Constant.D0BD)) {

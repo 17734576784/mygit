@@ -51,7 +51,7 @@ public class SuntrontProtocolUtil {
 		byte[] msg = BytesUtils.hexStringToBytes(msgJson.getString("value"));
 		/** 验证接收到的消息，并返回数据部分 */
 		JSONObject json = validateMsg(msg);
-		if (json.isEmpty()) {
+		if (json == null || json.isEmpty()) {
 			return json;
 		}
 		String control = json.getString("control");
@@ -502,12 +502,12 @@ public class SuntrontProtocolUtil {
 		JSONObject dataJson = new JSONObject();
 
 		/** 当前阀控状态 */
-		byte vavleState;
+		byte vavleState = 0;
 		try {
-			vavleState = dis.readByte();
-			if (vavleState == 0xAA) {
+			String status = BytesUtils.byteToHex(dis.readByte());
+			if (status.equals("AA")) {
 				vavleState = Constant.TWO;
-			} else if (vavleState == 0x55) {
+			} else if (status.equals("55")) {
 				vavleState = Constant.FOUR;
 			}
 			dataJson.put("vavleState", vavleState);
