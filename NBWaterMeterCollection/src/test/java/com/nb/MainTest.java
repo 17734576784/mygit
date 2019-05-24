@@ -92,12 +92,20 @@ public class MainTest {
 	* @throws 
 	*/
 	public static void main(String[] args) throws UnsupportedEncodingException {
+		
+		String menteAddr ="08000000003000";
+		byte[] msg = BytesUtils.hexStringToBytes(menteAddr);
+		msg= BytesUtils.invertArray(msg);
+
+		System.out.println(BytesUtils.bcdToString(msg));
+		
+
 //		byte[] cmd = BytesUtils.str2Bcd("00000002");
 //
 //		System.out.println(BytesUtils.bcdToString(cmd)); 
 //		String serverTime = DateUtils.formatDateByFormat(new Date(), "mmHHddMMyy");
 
-		System.out.println(SuntrontProtocolUtil.get50BD("300000000008"));		
+//		System.out.println(SuntrontProtocolUtil.get50BD("300000000008"));		
 		
 //		JSONObject param = new JSONObject();
 //		String commandData = SuntrontProtocolUtil.sendVavleCommand(param.getIntValue("operate"));

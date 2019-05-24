@@ -216,6 +216,8 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 		return commandResult(response, command);
 	}
 	
+	
+	
 	/** 
 	* @Title: insertNbCommand 
 	* @Description: 插入nb命令 
@@ -261,7 +263,19 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 		if (manufacturerId.equals(Constant.SUNTRONT_OBJID)) {
 			JSONObject param = command.getJSONObject("param");
 			String meterAddr = command.getString("meterAddr");
-			commandData = SuntrontProtocolUtil.sendVavleCommand(param.getIntValue("operate"), meterAddr);
+			String control = command.getString("control");
+			switch (control) {
+			case Constant.VALVE_CMD:
+				commandData = SuntrontProtocolUtil.sendVavleCommand(param.getIntValue("operate"), meterAddr);
+				break;
+			case Constant.D0BD_CON:
+				commandData = SuntrontProtocolUtil.get50BD(meterAddr);
+				break;
+
+			default:
+				break;
+			}
+			
 		}
 		return commandData;
 	}
@@ -288,6 +302,51 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 //		result = new ResultBean<>(response.getContent());
 
 		return result;
+	}
+
+	/** (非 Javadoc) 
+	* <p>Title: instantCommand</p> 
+	* <p>Description: </p> 
+	* @param commandInfo
+	* @return
+	* @throws Exception 
+	* @see com.nb.service.IChinaMobileCommandService#instantCommand(com.alibaba.fastjson.JSONObject) 
+	*/
+	@Override
+	public ResultBean<?> instantCommand(JSONObject commandInfo) throws Exception {
+		Map<String, String> param = new HashMap<>();
+		param = JsonUtil.jsonString2SimpleObj(commandInfo, param.getClass());
+		/** 获取设备信息 */
+		DeviceInfo deviceInfo = commonMapper.getDeviceInfo(param);
+		if (deviceInfo == null) {
+			return new ResultBean<JSONObject>(Constant.ERROR, "配置信息错误");
+		}
+		
+		/** 获取设备信息 */
+		Map<String, String> commandMap = commonMapper.getCommand(param);
+		if (null == commandMap || commandMap.isEmpty()) {
+			return new ResultBean<JSONObject>(Constant.ERROR, "命令类型不存在");
+		}
+		/** url参数 */
+		Map<String, Object> urlParams = new HashMap<String, Object>();
+		urlParams.put("imei", deviceInfo.getImei());
+		urlParams.put("obj_id", commandMap.get("serviceId"));
+		urlParams.put("obj_inst_id", commandMap.get("method"));
+		urlParams.put("res_id", commandMap.get("res_id"));
+
+		String url = Constant.CHINA_MOBILE_BASE_URL + "nbiot/execute";
+		
+		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
+		url = HttpsClientUtil.setcompleteUrl(url, urlParams);
+		
+		JSONObject argsJson = new JSONObject();
+		/** 将传过来的命令参数，根据规约转成16进制字符串 */
+		String commandContext = getCommandData(deviceInfo.getManufacturerId(), commandInfo);
+		argsJson.put("args", commandContext);
+
+		StreamClosedHttpResponse response = httpsClientUtil.doPostJsonGetStatusLine(url,
+				CommFunc.getChinaMobileHeader(deviceInfo.getAppId()), argsJson.toJSONString());
+		return commandResult(response, commandInfo);
 	}
 
 }

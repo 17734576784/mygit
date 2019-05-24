@@ -460,7 +460,12 @@ public class Constant {
 	public static final String COMMAND_ID = "commandId";
 	/** 新天科技上报数据控制码 */
 	public static final String D0BD = "D0BD";
+	public static final String D0BD_CON = "50BD";
+
 	public static final String D00F = "D00F";
+	public static final String VALVE_CMD = "500F";
+
+	
 	/** 新天科技表类型 */
 	public static final byte SUNTRONT_METERTYPE = (byte) 0xB1;
 

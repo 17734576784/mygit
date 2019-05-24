@@ -67,6 +67,7 @@ public class SuntrontProtocolUtil {
 			dataJson.put("commandId", json.getString("commandId"));
 		}
 		dataJson.put("control", control);
+		dataJson.put("meterAddr", json.getString("meterAddr"));
 		return dataJson;
 	}
 
@@ -403,6 +404,10 @@ public class SuntrontProtocolUtil {
 			/** 地址域 */
 			byte[] addr = new byte[Constant.SEVEN];
 			dis.read(addr);
+			
+			addr = BytesUtils.invertArray(addr);
+			String meterAddr = BytesUtils.bcdToString(addr);
+
 			/** 控制码 */
 			byte[] control = new byte[Constant.TWO];
 			dis.read(control);
@@ -444,7 +449,8 @@ public class SuntrontProtocolUtil {
 			}
 			json.put("control", bytesToHex(control));
 			json.put("byteData", byteData);
-
+			json.put("meterAddr", meterAddr);
+			 
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;

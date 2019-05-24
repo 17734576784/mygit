@@ -52,6 +52,19 @@ public interface IChinaMobileCommandService {
 	* @throws 
 	*/
 	ResultBean<?> asynCommand(JSONObject commandInfo) throws Exception;
+	
+	
+	/** 
+	* @Title: instantCommand 
+	* @Description: 即时命令 
+	* @param @param commandInfo
+	* @param @return
+	* @param @throws Exception    设定文件 
+	* @return ResultBean<?>    返回类型 
+	* @throws 
+	*/
+	ResultBean<?> instantCommand(JSONObject commandInfo) throws Exception;
+
 
 	/** 
 	* @Title: observe 

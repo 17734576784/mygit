@@ -14,8 +14,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtil;
@@ -26,6 +29,7 @@ import com.nb.model.NbBattery;
 import com.nb.model.NbCommand;
 import com.nb.model.NbDailyData;
 import com.nb.protocolutil.SuntrontProtocolUtil;
+import com.nb.service.IChinaMobileCommandService;
 import com.nb.service.IChinaMobileSuntrontService;
 import com.nb.utils.CommandEnum;
 import com.nb.utils.Constant;
@@ -44,6 +48,9 @@ import com.nb.utils.JsonUtil;
 @Service
 public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontService {
 
+	@Autowired
+	private IChinaMobileCommandService chinaMobileCommandService;
+	
 	@Resource
 	private CommonMapper commonMapper;
 	
@@ -197,6 +204,12 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 
 		saveData(dataJson, meterInfo, reportDate);
 		saveAlarm(dataJson, meterInfo, reportDate);
+		
+		meterInfo.put("commandId", Constant.ONE);
+		meterInfo.put("control", Constant.D0BD_CON);
+		meterInfo.put("meterAddr", dataJson.getString("meterAddr"));
+
+ 		chinaMobileCommandService.instantCommand(JSONObject.parseObject(JSON.toJSONString(meterInfo)));
 	}
 
 	/** 
