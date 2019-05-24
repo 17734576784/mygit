@@ -22,7 +22,7 @@ import com.nb.servicestrategy.IServiceStrategy;
 *  
 */
 @Service
-public class ReportExceptionService implements IServiceStrategy {
+public class ReportExceptionService1 implements IServiceStrategy {
 
 	/** (非 Javadoc) 
 	* <p>Title: parse</p> 
