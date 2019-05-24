@@ -55,6 +55,7 @@ import com.nb.utils.ConverterUtils;
 import com.nb.utils.DateUtils;
 import com.nb.utils.JsonUtil;
 import com.nb.utils.SerializeUtils;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 
 import io.lettuce.core.protocol.CommandEncoder;
@@ -93,11 +94,24 @@ public class MainTest {
 	*/
 	public static void main(String[] args) throws UnsupportedEncodingException {
 		
-		String menteAddr ="08000000003000";
-		byte[] msg = BytesUtils.hexStringToBytes(menteAddr);
-		msg= BytesUtils.invertArray(msg);
+		
+		JSONObject json = new JSONObject();
+		json.put("SettingResponseState", 2);
+		json.put("BatteryVoltage", 2.5);
+		
+		Model m  = new Model();
+		m = JsonUtil.jsonString2SimpleObj(json, Model.class);
+		System.out.println(m.getBatteryVoltage() + " " + m.getSettingResponseState());
 
-		System.out.println(BytesUtils.bcdToString(msg));
+		
+		
+//		byte a = -86;t`
+//		System.out.println(BytesUtils.byteToHex(a));
+//		String menteAddr ="08000000003000";
+//		byte[] msg = BytesUtils.hexStringToBytes(menteAddr);
+//		msg= BytesUtils.invertArray(msg);
+//
+//		System.out.println(BytesUtils.bcdToString(msg));
 		
 
 //		byte[] cmd = BytesUtils.str2Bcd("00000002");

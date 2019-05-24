@@ -260,7 +260,7 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 	private String getCommandData(String manufacturerId, JSONObject command) {
 		String commandData = "";
 		/** 新天科技移动规约 */
-		if (manufacturerId.equals(Constant.SUNTRONT_OBJID)) {
+		if (manufacturerId.equals(Constant.SUNTRONT_DSID)) {
 			JSONObject param = command.getJSONObject("param");
 			String meterAddr = command.getString("meterAddr");
 			String control = command.getString("control");
@@ -275,7 +275,9 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 			default:
 				break;
 			}
-			
+
+		} else if (manufacturerId.equals(Constant.FX_DSID)) {
+
 		}
 		return commandData;
 	}

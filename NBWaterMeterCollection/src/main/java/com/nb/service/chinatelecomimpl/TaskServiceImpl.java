@@ -28,7 +28,7 @@ import com.nb.logger.LoggerUtil;
 import com.nb.mapper.TaskMapper;
 import com.nb.model.StreamClosedHttpResponse;
 import com.nb.service.ITaskService;
-import com.nb.servicestrategy.ChinaTelecomServiceContext;
+import com.nb.servicestrategy.ServiceStrategyContext;
 import com.nb.utils.AuthenticationUtils;
 import com.nb.utils.Constant;
 import com.nb.utils.DateUtils;
@@ -49,7 +49,7 @@ public class TaskServiceImpl implements ITaskService {
 	private TaskMapper taskMapper;
 
 	@Resource
-	private ChinaTelecomServiceContext chinaTelecomServiceContext;
+	private ServiceStrategyContext chinaTelecomServiceContext;
 	/** (非 Javadoc) 
 	* <p>Title: callHistoryData</p> 
 	* <p>Description: </p> 

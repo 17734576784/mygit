@@ -30,7 +30,7 @@ import com.nb.model.NbCommand;
 import com.nb.model.NbDailyData;
 import com.nb.protocolutil.SuntrontProtocolUtil;
 import com.nb.service.IChinaMobileCommandService;
-import com.nb.service.IChinaMobileSuntrontService;
+import com.nb.service.IChinaMobileService;
 import com.nb.utils.CommandEnum;
 import com.nb.utils.Constant;
 import com.nb.utils.ConverterUtils;
@@ -46,7 +46,7 @@ import com.nb.utils.JsonUtil;
  * 
  */
 @Service
-public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontService {
+public class ChinaMobileSuntrontServiceImpl implements IChinaMobileService {
 
 	@Autowired
 	private IChinaMobileCommandService chinaMobileCommandService;
@@ -67,7 +67,7 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 	 * </p>
 	 * 
 	 * @param msgJson
-	 * @see com.nb.service.IChinaMobileSuntrontService#parseMsg(com.alibaba.fastjson.JSONObject)
+	 * @see com.nb.service.IChinaMobileService#parseMsg(com.alibaba.fastjson.JSONObject)
 	 */
 	@Override
 	public void parseMsg(JSONObject msgJson) {
@@ -85,7 +85,6 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileSuntrontServi
 					if (dataJson == null || dataJson.isEmpty()) {
 						return;
 					}
-					System.out.println("dataJson : " + dataJson);
 					
 					String control = dataJson.getString("control");
 					if (control.equals(Constant.D0BD)) {

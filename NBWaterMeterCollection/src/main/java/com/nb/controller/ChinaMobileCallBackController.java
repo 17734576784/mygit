@@ -3,6 +3,7 @@ package com.nb.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import java.io.UnsupportedEncodingException;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,7 +15,8 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtil;
-import com.nb.service.IChinaMobileSuntrontService;
+import com.nb.service.chinamobileimpl.ChinaMobileFxServiceImpl;
+import com.nb.service.chinamobileimpl.ChinaMobileSuntrontServiceImpl;
 import com.nb.utils.ChinaMobileUtil;
 import com.nb.utils.Constant;
 
@@ -27,10 +29,13 @@ import com.nb.utils.Constant;
 */
 @RestController
 public class ChinaMobileCallBackController {
-	
-	@Autowired
-	private IChinaMobileSuntrontService chinaMobileSuntrontService;
 
+	@Autowired
+	private ChinaMobileSuntrontServiceImpl chinaMobileSuntrontService;
+
+	@Autowired
+	private ChinaMobileFxServiceImpl chinaMobileFxService;
+	
 	/** 
 	* @Title: URLVerification 
 	* @Description:  URL&Token验证接口。如果验证成功返回msg的值，否则返回其他值
@@ -103,6 +108,9 @@ public class ChinaMobileCallBackController {
 		switch (dsId) {
 		case Constant.SUNTRONT_DSID:
 			chinaMobileSuntrontService.parseMsg(msgJson);
+			break;
+		case Constant.FX_DSID:
+			chinaMobileFxService.parseMsg(msgJson);
 			break;
 
 		default:

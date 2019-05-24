@@ -54,9 +54,9 @@ import com.nb.model.jd.Battery;
 import com.nb.model.jd.DeviceAlarm;
 import com.nb.model.jd.PeriodReport;
 import com.nb.model.jd.RealtimeReport;
-import com.nb.service.IChinaMobileSuntrontService;
+import com.nb.service.IChinaMobileService;
 import com.nb.service.IScheduleService;
-import com.nb.servicestrategy.ChinaTelecomServiceContext;
+import com.nb.servicestrategy.ServiceStrategyContext;
 import com.nb.task.FxTelecomCallDataTask;
 import com.nb.utils.Constant;
 import com.nb.utils.ConverterUtils;
@@ -97,7 +97,7 @@ public class NbWaterMeterCollectionApplicationTests {
 	private NbDailyDataMapper nbDailyDataMapper;
 	
 	@Autowired
-	private ChinaTelecomServiceContext chinaTelecomServiceContext;
+	private ServiceStrategyContext chinaTelecomServiceContext;
 	
 	@Resource
 	private CommonMapper commonMapper;
@@ -112,7 +112,7 @@ public class NbWaterMeterCollectionApplicationTests {
 	private TaskMapper taskMapper;
 	
 	@Autowired
-	private IChinaMobileSuntrontService chinaMobileSuntrontService;
+	private IChinaMobileService chinaMobileSuntrontService;
 	@Test
 	public void testXT() {
 		

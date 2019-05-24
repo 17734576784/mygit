@@ -1,5 +1,6 @@
 package com.nb;
 
+import com.nb.service.IFXCryptoService;
 import com.sun.jna.Library;
 import com.sun.jna.Native;
 
@@ -25,5 +26,10 @@ public class DllTest {
 		System.out.println("add(5,3) = "+sum);
 		System.out.println("substract(5,3) = "+sub);
 		Dll.instance.printHello();
+		int hasmore = 0,mid=0;
+		String result =IFXCryptoService.instance.toString();
+	
+		System.out.println(result);
 	}
+
 }

@@ -11,12 +11,12 @@ package com.nb.service;
 import com.alibaba.fastjson.JSONObject;
 
 /** 
-* @ClassName: IChinaMobileSuntrontService 
+* @ClassName: IChinaMobileService 
 * @Description: 新天科技移动平台规约解析服务 
 * @author dbr
 * @date 2019年5月17日 下午2:05:32 
 *  
 */
-public interface IChinaMobileSuntrontService {
+public interface IChinaMobileService {
 	void parseMsg(JSONObject msgJson);
 }

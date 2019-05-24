@@ -17,7 +17,7 @@ import com.nb.logger.LoggerUtil;
 import com.nb.mapper.CommonMapper;
 import com.nb.mapper.NbCommandMapper;
 import com.nb.model.NbCommand;
-import com.nb.servicestrategy.ChinaTelecomServiceContext;
+import com.nb.servicestrategy.ServiceStrategyContext;
 import com.nb.utils.CommandEnum;
 import com.nb.utils.Constant;
 import com.nb.utils.JedisUtils;
@@ -36,7 +36,7 @@ import static com.nb.utils.ConverterUtils.*;
 @RequestMapping("/chinatelecom")
 public class ChinaTelecomCallBackController {
 	@Resource
-	private ChinaTelecomServiceContext chinaTelecomServiceContext;
+	private ServiceStrategyContext chinaTelecomServiceContext;
 
 	@Resource
 	private CommonMapper commonMapper;
