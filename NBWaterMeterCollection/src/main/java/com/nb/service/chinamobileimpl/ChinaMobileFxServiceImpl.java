@@ -20,6 +20,7 @@ import com.nb.service.IChinaMobileService;
 import com.nb.service.IFXCryptoService;
 import com.nb.servicestrategy.ServiceStrategyContext;
 import com.nb.utils.JsonUtil;
+import com.nb.utils.StringUtil;
 
 /**
  * @ClassName: ChinaMobileFxServiceImpl
@@ -54,6 +55,9 @@ public class ChinaMobileFxServiceImpl implements IChinaMobileService {
 		int hasmore = 0, mid = 0;
 		String msg = IFXCryptoService.instance.ServerReceiveData(data, hasmore, mid);
 		JSONObject json = JSONObject.parseObject(msg);
+		String serviceId = json.getString("ServiceId");
+		serviceId = "FxMoile" + StringUtil.toLowerCaseFirstOne(serviceId);
+		json.put("ServiceId", serviceId);
 		
 		Map<String, String> serviceMap = new HashMap<>();
 		serviceMap = JsonUtil.jsonString2SimpleObj(json, serviceMap.getClass());

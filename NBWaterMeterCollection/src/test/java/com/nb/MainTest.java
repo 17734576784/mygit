@@ -99,9 +99,9 @@ public class MainTest {
 		json.put("SettingResponseState", 2);
 		json.put("BatteryVoltage", 2.5);
 		
-		Model m  = new Model();
-		m = JsonUtil.jsonString2SimpleObj(json, Model.class);
-		System.out.println(m.getBatteryVoltage() + " " + m.getSettingResponseState());
+//		Model m  = new Model();
+//		m = JsonUtil.jsonString2SimpleObj(json, Model.class);
+//		System.out.println(m.getBatteryVoltage() + " " + m.getSettingResponseState());
 
 		
 		

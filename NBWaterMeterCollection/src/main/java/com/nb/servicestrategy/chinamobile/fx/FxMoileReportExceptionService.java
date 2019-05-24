@@ -15,14 +15,14 @@ import org.springframework.stereotype.Service;
 import com.nb.servicestrategy.IServiceStrategy;
 
 /** 
-* @ClassName: ReportExceptionService 
+* @ClassName: FxMoileReportExceptionService 
 * @Description: TODO(这里用一句话描述这个类的作用) 
 * @author dbr
 * @date 2019年5月24日 下午3:27:01 
 *  
 */
 @Service
-public class ReportExceptionService1 implements IServiceStrategy {
+public class FxMoileReportExceptionService implements IServiceStrategy {
 
 	/** (非 Javadoc) 
 	* <p>Title: parse</p> 

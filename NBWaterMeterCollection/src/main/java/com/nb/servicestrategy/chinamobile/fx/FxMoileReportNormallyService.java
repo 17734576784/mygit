@@ -1,5 +1,5 @@
 /**   
-* @Title: ReportNormallyService.java 
+* @Title: FxMoileReportNormallyService.java 
 * @Package com.nb.servicestrategy.chinamobile.fx 
 * @Description: TODO(用一句话描述该文件做什么) 
 * @author dbr
@@ -17,14 +17,14 @@ import com.nb.servicestrategy.IServiceStrategy;
 import com.nb.utils.JsonUtil;
 
 /** 
-* @ClassName: ReportNormallyService 
+* @ClassName: FxMoileReportNormallyService 
 * @Description: TODO(这里用一句话描述这个类的作用) 
 * @author dbr
 * @date 2019年5月24日 下午3:26:15 
 *  
 */
 @Service
-public class ReportNormallyService implements IServiceStrategy {
+public class FxMoileReportNormallyService implements IServiceStrategy {
 
 	/** (非 Javadoc) 
 	* <p>Title: parse</p> 
