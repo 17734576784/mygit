@@ -48,12 +48,13 @@ public class ChinaMobileFxServiceImpl implements IChinaMobileService {
 	 * @see com.nb.service.IChinaMobileService#parseMsg(com.alibaba.fastjson.JSONObject)
 	 */
 	@Override
-	public void parseMsg(JSONObject msgJson) {
+	public void parseDataPointMsg(JSONObject msgJson) {
 		// 标识消息类型
 		String deviceId = msgJson.getString("dev_id");
 		String data = msgJson.getString("value");
 		int hasmore = 0, mid = 0;
 		String msg = IFXCryptoService.instance.ServerReceiveData(data, hasmore, mid);
+		
 		JSONObject json = JSONObject.parseObject(msg);
 		String serviceId = json.getString("ServiceId");
 		serviceId = "FxMoile" + StringUtil.toLowerCaseFirstOne(serviceId);
@@ -63,6 +64,18 @@ public class ChinaMobileFxServiceImpl implements IChinaMobileService {
 		serviceMap = JsonUtil.jsonString2SimpleObj(json, serviceMap.getClass());
 		serviceStrategyContext.parseService(deviceId, serviceMap);
 
+	}
+
+	/** (非 Javadoc) 
+	* <p>Title: parseCommandMsg</p> 
+	* <p>Description: </p> 
+	* @param msgJson 
+	* @see com.nb.service.IChinaMobileService#parseCommandMsg(com.alibaba.fastjson.JSONObject) 
+	*/
+	@Override
+	public void parseCommandMsg(JSONObject msgJson) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

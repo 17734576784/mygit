@@ -56,53 +56,36 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileService {
 	
 	@Resource
 	private NbCommandMapper nbCommandMapper;
-
-	/**
-	 * (非 Javadoc)
-	 * <p>
-	 * Title: parseMsg
-	 * </p>
-	 * <p>
-	 * Description:
-	 * </p>
-	 * 
-	 * @param msgJson
-	 * @see com.nb.service.IChinaMobileService#parseMsg(com.alibaba.fastjson.JSONObject)
-	 */
+	
+	/** (非 Javadoc) 
+	* <p>Title: parseMsg</p> 
+	* <p>Description: </p> 
+	* @param msgJson 
+	* @see com.nb.service.IChinaMobileService#parseMsg(com.alibaba.fastjson.JSONObject) 
+	*/
 	@Override
-	public void parseMsg(JSONObject msgJson) {
+	public void parseDataPointMsg(JSONObject msgJson) {
 		// 标识消息类型
-		int msgType = msgJson.getIntValue("type");
 		String deviceId = msgJson.getString("dev_id");
-		String dsId = msgJson.getString("ds_id");
 		long at = msgJson.getLongValue("at");
 		String reportDate = DateUtils.formatNoCharDate(new Date(at));
 		try {
-			/** 数据点消息 */
-			if (msgType == Constant.CHINA_MOBILE_DATA_MSG) {
-				if (dsId.equals(Constant.SUNTRONT_DSID)) {
-					JSONObject dataJson = SuntrontProtocolUtil.parseDataMsg(msgJson);
-					if (dataJson == null || dataJson.isEmpty()) {
-						return;
-					}
-					
-					String control = dataJson.getString("control");
-					if (control.equals(Constant.D0BD)) {
-						saveReportData(deviceId, dataJson, reportDate);
-					} else if (control.equals(Constant.D00F)) {
-						saveCommandData(dataJson, msgJson);
-					}
-				}
+			JSONObject dataJson = SuntrontProtocolUtil.parseDataPointMsg(msgJson);
+			if (dataJson == null || dataJson.isEmpty()) {
+				return;
 			}
-//			/** 下行命令的应答（仅限NB设备） */ 
-//			else if (msgType == Constant.CHINA_MOBILE_COMMAND_MSG) {
-//					parseCommandMsg(msgJson);
-//			}
+
+			String control = dataJson.getString("control");
+			if (control.equals(Constant.D0BD)) {
+				saveReportData(deviceId, dataJson, reportDate);
+			} else if (control.equals(Constant.D00F)) {
+				saveCommandData(dataJson, msgJson);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			LoggerUtil.logger(LogName.ERROR).error("解析新天科技移动平台异常，接收数据{}", msgJson);
 		}
-		
+
 	}
 	
 	/** 

@@ -39,7 +39,7 @@ import static com.nb.utils.BytesUtils.*;
 public class SuntrontProtocolUtil {
 
 	/** 
-	* @Title: parseDataMsg 
+	* @Title: parseDataPointMsg 
 	* @Description: 解析数据点信息 不同的数据存入对应的的redis队列中 
 	* @param @param msgJson
 	* @param @return
@@ -47,7 +47,7 @@ public class SuntrontProtocolUtil {
 	* @return JSONObject    返回类型 
 	* @throws 
 	*/
-	public static JSONObject parseDataMsg(JSONObject msgJson) throws Exception {
+	public static JSONObject parseDataPointMsg(JSONObject msgJson) throws Exception {
 		byte[] msg = BytesUtils.hexStringToBytes(msgJson.getString("value"));
 		/** 验证接收到的消息，并返回数据部分 */
 		JSONObject json = validateMsg(msg);
@@ -59,11 +59,12 @@ public class SuntrontProtocolUtil {
 		if (data == null || data.length == Constant.ZERO) {
 			return null;
 		}
+		
 		JSONObject dataJson = new JSONObject();
 		if (control.equals(Constant.D0BD)) {
-			dataJson = parseData(data, msgJson);
+			dataJson = parseD0BDData(data, msgJson);
 		} else if (control.equals(Constant.D00F)) {
-			dataJson = parseCommandData(data);
+			dataJson = parseD00FData(data);
 			dataJson.put("commandId", json.getString("commandId"));
 		}
 		dataJson.put("control", control);
@@ -72,7 +73,7 @@ public class SuntrontProtocolUtil {
 	}
 
 	/** 
-	* @Title: parseData 
+	* @Title: parseD0BDData 
 	* @Description: 解析数据部分
 	* @param @param data
 	* @param @param msgJson
@@ -81,7 +82,7 @@ public class SuntrontProtocolUtil {
 	* @return JSONObject    返回类型 
 	* @throws 
 	*/
-	private static JSONObject parseData(byte[] data, JSONObject msgJson) throws Exception {
+	private static JSONObject parseD0BDData(byte[] data, JSONObject msgJson) throws Exception {
 		ByteArrayInputStream bais = new ByteArrayInputStream(data);
 		DataInputStream dis = new DataInputStream(bais);
 		JSONObject dataJson = new JSONObject();
@@ -191,7 +192,8 @@ public class SuntrontProtocolUtil {
 				e.printStackTrace();
 			}
 			double symbol = 1.0;
-			if (data9 == 0xAA && (data[0] & 0x80) == 0x80) { // fu
+			/** 负数 */
+			if (data9 == (byte) 0xAA && (data[0] & 0x80) == 0x80) { 
 				data[0] = (byte) (data[0] & 0x7F);
 				symbol = -1;
 			}
@@ -378,11 +380,11 @@ public class SuntrontProtocolUtil {
 
 	/** 
 	* @Title: validateMsg 
-	* @Description: T验证消息，并返回数据部分
+	* @Description: 验证消息，并返回数据部分
 	* @param @param msg
 	* @param @return
 	* @param @throws Exception    设定文件 
-	* @return byte[]    返回类型 
+	* @return JSONObject    返回类型 
 	* @throws 
 	*/
 	private static JSONObject validateMsg(byte[] msg) throws Exception {
@@ -390,7 +392,6 @@ public class SuntrontProtocolUtil {
 		JSONObject json = new JSONObject();
 		ByteArrayInputStream bais = new ByteArrayInputStream(msg);
 		DataInputStream dis = new DataInputStream(bais);
-		byte[] byteData = null;
 		try {
 			/** 起始字符 */
 			byte start = dis.readByte();
@@ -399,12 +400,11 @@ public class SuntrontProtocolUtil {
 				return null;
 			}
 			/** 表类型 */
-//			byte meterType = 
 			dis.readByte();
+			
 			/** 地址域 */
 			byte[] addr = new byte[Constant.SEVEN];
 			dis.read(addr);
-			
 			addr = BytesUtils.invertArray(addr);
 			String meterAddr = BytesUtils.bcdToString(addr);
 
@@ -412,22 +412,24 @@ public class SuntrontProtocolUtil {
 			byte[] control = new byte[Constant.TWO];
 			dis.read(control);
 			String ctrlCode = bytesToHex(control);
+			/** 判断控制码合法化 */
 			if (!ctrlCode.equals(Constant.D0BD) && !ctrlCode.equals(Constant.D00F)) {
-				System.out.println("控制码错误" + bytesToHex(control));
+				System.out.println("控制码错误" + ctrlCode);
 				return null;
 			}
+			
 			/** 数据长度 */
 			byte[] len = new byte[Constant.TWO];
 			dis.read(len);
 			/** 数据 */
-			byte[] datas = new byte[getReserveShort(len)];
+			short dataLength = getReserveShort(len);
+			byte[] datas = new byte[dataLength];
 			dis.read(datas);
-			byteData = datas;
 			/** 校验字节 */
 			byte[] crc = new byte[Constant.TWO];
 			dis.read(crc);
 			/** 获取待验证数据，并计算CRC值 */
-			byte[] crcData = new byte[Constant.TEN + Constant.THREE + getReserveShort(len)];
+			byte[] crcData = new byte[Constant.TEN + Constant.THREE + dataLength];
 			System.arraycopy(msg, Constant.ZERO, crcData, Constant.ZERO, crcData.length);
 			String calcCrc = getReserveCrc(crcData);
 			/** 验证CRC与计算值 */
@@ -435,22 +437,23 @@ public class SuntrontProtocolUtil {
 				System.out.println("CRC校验失败 " + bytesToHex(crc) + ":" + calcCrc);
 				return null;
 			}
+			
 			/** 结束字符 */
 			byte end = dis.readByte();
 			if (end != 0x16) {
 				System.out.println("结束字符错误");
 				return null;
 			}
+			
 			if (ctrlCode.equals(Constant.D00F)) {
 				byte[] cmd = new byte[Constant.FOUR];
 				dis.read(cmd);
 				json.put("commandId", BytesUtils.bcdToString(cmd));
-
 			}
-			json.put("control", bytesToHex(control));
-			json.put("byteData", byteData);
+			json.put("control", ctrlCode);
+			json.put("byteData", datas);
 			json.put("meterAddr", meterAddr);
-			 
+
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
@@ -496,7 +499,7 @@ public class SuntrontProtocolUtil {
 	* @return JSONObject    返回类型 
 	* @throws 
 	*/
-	public static JSONObject parseCommandData(byte[] data) {
+	public static JSONObject parseD00FData(byte[] data) {
 		ByteArrayInputStream bais = new ByteArrayInputStream(data);
 		DataInputStream dis = new DataInputStream(bais);
 		JSONObject dataJson = new JSONObject();
@@ -504,10 +507,10 @@ public class SuntrontProtocolUtil {
 		/** 当前阀控状态 */
 		byte vavleState = 0;
 		try {
-			String status = BytesUtils.byteToHex(dis.readByte());
-			if (status.equals("AA")) {
+			vavleState = dis.readByte();
+			if (vavleState == (byte) 0xAA) {
 				vavleState = Constant.TWO;
-			} else if (status.equals("55")) {
+			} else if (vavleState == (byte) 0x55) {
 				vavleState = Constant.FOUR;
 			}
 			dataJson.put("vavleState", vavleState);

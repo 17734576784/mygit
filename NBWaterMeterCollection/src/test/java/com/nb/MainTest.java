@@ -95,9 +95,15 @@ public class MainTest {
 	public static void main(String[] args) throws UnsupportedEncodingException {
 		
 		
-		JSONObject json = new JSONObject();
-		json.put("SettingResponseState", 2);
-		json.put("BatteryVoltage", 2.5);
+		
+		byte aa = -65;
+		System.out.println((aa & 0x80) == 0x80);	
+		System.out.println(aa & 0x7F);		
+
+		
+//		JSONObject json = new JSONObject();
+//		json.put("SettingResponseState", 2);
+//		json.put("BatteryVoltage", 2.5);
 		
 //		Model m  = new Model();
 //		m = JsonUtil.jsonString2SimpleObj(json, Model.class);

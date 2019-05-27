@@ -60,7 +60,6 @@ public class ChinaMobileCallBackController {
 	@RequestMapping(value = "receivingPushMessages", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String urlVerification(@RequestBody String pushMessages) {
 		LoggerUtil.logger(LogName.INFO).info("data receive:  body String --- " + pushMessages);
-		System.out.println(pushMessages);
 		try {
 			ChinaMobileUtil.BodyObj obj = ChinaMobileUtil.resolveBody(pushMessages, false);
 			LoggerUtil.logger(LogName.INFO).info("data receive:  body Object --- " + obj);
@@ -101,22 +100,27 @@ public class ChinaMobileCallBackController {
 	* @throws 
 	*/
 	private void parseMsg(JSONObject msgJson) throws Exception {
-		String dsId = msgJson.getString("ds_id");
-		if (null == dsId) {
-			return;
-		}
-		switch (dsId) {
-		case Constant.SUNTRONT_DSID:
-			chinaMobileSuntrontService.parseMsg(msgJson);
-			break;
-		case Constant.FX_DSID:
-			chinaMobileFxService.parseMsg(msgJson);
-			break;
+		
+		int type = msgJson.getIntValue("type");
+		/** 设备上传数据点消息 */
+		if (type == Constant.CHINA_MOBILE_DATA_MSG) {
+			String dsId = msgJson.getString("ds_id");
+			switch (dsId) {
+			case Constant.SUNTRONT_DSID:
+				chinaMobileSuntrontService.parseDataPointMsg(msgJson);
+				break;
+			case Constant.FX_DSID:
+				chinaMobileFxService.parseDataPointMsg(msgJson);
+				break;
 
-		default:
-			break;
+			default:
+				break;
+			}
 		}
+		/** 缓存命令下发后结果上报 */
+		else if (type == Constant.CHINA_MOBILE_COMMAND_MSG) {
 
+		}
 	}
 	
 }
