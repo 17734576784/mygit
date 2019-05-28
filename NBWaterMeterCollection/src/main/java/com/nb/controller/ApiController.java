@@ -53,8 +53,9 @@ public class ApiController {
 	* @return ResultBean<?>    返回类型 
 	* @throws 
 	*/
-	@RequestMapping(value = "register", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResultBean<?> addDevice(@RequestBody JSONObject deviceInfo) throws Exception {
+	@RequestMapping(value = "register", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResultBean<?> addDevice(String param) throws Exception {
+		JSONObject deviceInfo = JSONObject.parseObject(param);
 		ResultBean<?> result = new ResultBean<>();
 		int nbType = deviceInfo.getIntValue("nbType");
 
@@ -83,9 +84,9 @@ public class ApiController {
 	* @return ResultBean<?>    返回类型 
 	* @throws 
 	*/
-	@RequestMapping(value = "deleteDevice", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResultBean<?> deleteDevice(@RequestBody JSONObject deviceInfo) throws Exception {
-
+	@RequestMapping(value = "deleteDevice", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResultBean<?> deleteDevice(String param) throws Exception {
+		JSONObject deviceInfo = JSONObject.parseObject(param);
 		ResultBean<?> result = new ResultBean<>();
 		int nbType = deviceInfo.getIntValue("nbType");
 
@@ -146,8 +147,9 @@ public class ApiController {
 	* @return ResultBean<?>    返回类型 
 	* @throws 
 	*/
-	@RequestMapping(value = "/command", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResultBean<?> asynCommand(@RequestBody JSONObject commandInfo) throws Exception {
+	@RequestMapping(value = "/command", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResultBean<?> asynCommand(String param) throws Exception {
+		JSONObject commandInfo = JSONObject.parseObject(param);
 		ResultBean<?> result = new ResultBean<>();
 		int nbType = commandInfo.getIntValue("nbType");
 
