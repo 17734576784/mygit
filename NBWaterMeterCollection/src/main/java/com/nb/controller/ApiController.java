@@ -1,7 +1,7 @@
 /**   
 * @Title: APIController.java 
 * @Package com.nb.controller 
-* @Description: TODO(用一句话描述该文件做什么) 
+* @Description: API接入控制器
 * @author dbr
 * @date 2019年2月13日 下午1:56:56 
 * @version V1.0   

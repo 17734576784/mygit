@@ -206,13 +206,12 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 		
 		JSONObject argsJson = new JSONObject();
 		/** 将传过来的命令参数，根据规约转成16进制字符串 */
-		String commandContext = getCommandData(deviceInfo.getManufacturerId(), command);
-		String commandId = commandContext.substring(commandContext.length()-Constant.EIGHT, commandContext.length());
-		argsJson.put("args", commandContext);
+		JSONObject cmdJson = getCommandData(deviceInfo.getManufacturerId(), command);
+		argsJson.put("args", cmdJson.getString("commandData"));
 
 		StreamClosedHttpResponse response = httpsClientUtil.doPostJsonGetStatusLine(url,
 				CommFunc.getChinaMobileHeader(deviceInfo.getAppId()), argsJson.toJSONString());
-		command.put("commandId", commandId);
+		command.put("commandId", cmdJson.getString("commandId"));
 		return commandResult(response, command);
 	}
 	
@@ -257,8 +256,9 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 	* @return String    返回类型 
 	* @throws 
 	*/
-	private String getCommandData(String manufacturerId, JSONObject command) {
-		String commandData = "";
+	private JSONObject getCommandData(String manufacturerId, JSONObject command) {
+		JSONObject cmdJson = new JSONObject();
+		String commandData = "", commandId = "";
 		/** 新天科技移动规约 */
 		if (manufacturerId.equals(Constant.SUNTRONT_DSID)) {
 			JSONObject param = command.getJSONObject("param");
@@ -267,6 +267,7 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 			switch (control) {
 			case Constant.VALVE_CMD:
 				commandData = SuntrontProtocolUtil.sendVavleCommand(param.getIntValue("operate"), meterAddr);
+				commandId = commandData.substring(commandData.length()-Constant.EIGHT, commandData.length());
 				break;
 			case Constant.D0BD_CON:
 				commandData = SuntrontProtocolUtil.get50BD(meterAddr);
@@ -279,7 +280,10 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 		} else if (manufacturerId.equals(Constant.FX_DSID)) {
 
 		}
-		return commandData;
+		cmdJson.put("commandData", commandData);
+		cmdJson.put("commandId", commandId);
+		
+		return cmdJson;
 	}
 
 	/** (非 Javadoc) 
@@ -343,8 +347,8 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 		
 		JSONObject argsJson = new JSONObject();
 		/** 将传过来的命令参数，根据规约转成16进制字符串 */
-		String commandContext = getCommandData(deviceInfo.getManufacturerId(), commandInfo);
-		argsJson.put("args", commandContext);
+		JSONObject cmdJson = getCommandData(deviceInfo.getManufacturerId(), commandInfo);
+		argsJson.put("args", cmdJson.getString("commandData"));
 
 		StreamClosedHttpResponse response = httpsClientUtil.doPostJsonGetStatusLine(url,
 				CommFunc.getChinaMobileHeader(deviceInfo.getAppId()), argsJson.toJSONString());

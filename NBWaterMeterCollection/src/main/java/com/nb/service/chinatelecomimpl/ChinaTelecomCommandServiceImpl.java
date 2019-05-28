@@ -62,7 +62,7 @@ public class ChinaTelecomCommandServiceImpl implements IChinaTelecomCommandServi
 	public ResultBean<?> asynCommand(JSONObject command) throws Exception {
 		
 		LoggerUtil.logger(LogName.INFO).info("接收下发命令请求：" + command);
-		
+
 		Map<String, String> param = new HashMap<>();
 		param = JsonUtil.jsonString2SimpleObj(command, param.getClass());
 		DeviceInfo deviceInfo = commonMapper.getDeviceInfo(param);
