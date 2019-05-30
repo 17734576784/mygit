@@ -49,12 +49,14 @@ if (not exists (select name from sysobjects where name='nb_command'))
 			model_id					int 				not null,		/*设备类型编号*/
 			appinfo_id				int					not null,		/*厂家NB平台应用编号*/
 			command_id				int					not null,		/*命令编号 */
+			use_flag 					tinyint     not null defalut 1; /*使用标志*/
 			command_name			varchar(64)	not null,		/*服务名称 */
 			service_type			int   	not null default 0,		/*服务类型 0：命令服务 1 ：数据服务*/
 			service_id				varchar(64)	not null,		/*服务i服务类型 0：命令服务 1 ：数据服务d 电信平台对应：service_id 移动平台对应:obj_id*/
 			method						varchar(64)	not null, 	/*方法 电信平台对应method ，移动平台对应:obj_inst_id*/
       res_id						varchar(64)		  null, 	/*资源编号 移动平台专用*/
-			param 						varchar(128)		null, 	/*参数说明*/
+      control_code			varchar(64)		  null, 	/*控制码*/
+			param 						varchar(256)		null, 	/*参数说明*/
 			CONSTRAINT pk_nb_command PRIMARY KEY (appinfo_id,model_id,command_id)			
 
 		)

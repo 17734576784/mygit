@@ -17,10 +17,12 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.nb.service.IChinaMobileService;
-import com.nb.service.IFXCryptoService;
 import com.nb.servicestrategy.ServiceStrategyContext;
 import com.nb.utils.JsonUtil;
-import com.nb.utils.StringUtil;
+import com.thrid.party.codec.ef.Out;
+import com.thrid.party.codec.ef.ReturnObject;
+import com.thrid.party.codec.ef.SendReceiveHelper;
+import com.thrid.party.codec.ef.SendReceiveHelperEF;
 
 /**
  * @ClassName: ChinaMobileFxServiceImpl
@@ -35,33 +37,38 @@ public class ChinaMobileFxServiceImpl implements IChinaMobileService {
 	@Resource
 	private ServiceStrategyContext serviceStrategyContext;
 	
-	/**
-	 * (非 Javadoc)
-	 * <p>
-	 * Title: parseMsg
-	 * </p>
-	 * <p>
-	 * Description:
-	 * </p>
-	 * 
-	 * @param msgJson
-	 * @see com.nb.service.IChinaMobileService#parseMsg(com.alibaba.fastjson.JSONObject)
-	 */
+	
+	/** (非 Javadoc) 
+	* <p>Title: parseDataPointMsg</p> 
+	* <p>Description: </p> 
+	* @param msgJson 
+	* @see com.nb.service.IChinaMobileService#parseDataPointMsg(com.alibaba.fastjson.JSONObject) 
+	*/
 	@Override
 	public void parseDataPointMsg(JSONObject msgJson) {
 		// 标识消息类型
 		String deviceId = msgJson.getString("dev_id");
 		String data = msgJson.getString("value");
-		int hasmore = 0, mid = 0;
-		String msg = IFXCryptoService.instance.ServerReceiveData(data, hasmore, mid);
+		Out<Integer> hasmore = new Out<>();// 是否还有后续数据
+		Out<Integer> mid = new Out<>();// 消息ID
+	    SendReceiveHelper helper = new SendReceiveHelperEF();
+		String msg = null;
+		/** 解码 */ 
+		try {
+			msg = helper.ServerReceiveData(data, hasmore, mid);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return;
+		}
 		
-		JSONObject json = JSONObject.parseObject(msg);
-		String serviceId = json.getString("ServiceId");
-		serviceId = "FxMoile" + StringUtil.toLowerCaseFirstOne(serviceId);
-		json.put("ServiceId", serviceId);
+		ReturnObject obj = JsonUtil.GsonToBean(msg, ReturnObject.class);
 		
 		Map<String, String> serviceMap = new HashMap<>();
-		serviceMap = JsonUtil.jsonString2SimpleObj(json, serviceMap.getClass());
+		serviceMap = JsonUtil.bean2Map(obj);
+		String serviceId = "FxMoile" + obj.getServiceId();
+		serviceMap.put("serviceId", serviceId);
+		serviceMap.put("msg", msg);
 		serviceStrategyContext.parseService(deviceId, serviceMap);
 
 	}

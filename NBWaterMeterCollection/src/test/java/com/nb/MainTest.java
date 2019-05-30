@@ -23,6 +23,7 @@ import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ScheduledExecutorService;
@@ -55,6 +56,7 @@ import com.nb.utils.ConverterUtils;
 import com.nb.utils.DateUtils;
 import com.nb.utils.JsonUtil;
 import com.nb.utils.SerializeUtils;
+import com.nb.utils.StringUtil;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 
@@ -94,11 +96,15 @@ public class MainTest {
 	*/
 	public static void main(String[] args) throws UnsupportedEncodingException {
 		
-		
-		
-		byte aa = -65;
-		System.out.println((aa & 0x80) == 0x80);	
-		System.out.println(aa & 0x7F);		
+//		JSONObject json = new JSONObject();
+//		json.put("HighPressureAlarmThreshold",2.9);
+//		json.put("LowPressureAlarmThreshold", 5);
+//		
+//		System.out.println(json);
+		System.out.println(new Date(1558594321798L));
+//		byte aa = -65;
+//		System.out.println((aa & 0x80) == 0x80);	
+//		System.out.println(aa & 0x7F);		
 
 		
 //		JSONObject json = new JSONObject();

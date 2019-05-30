@@ -106,7 +106,7 @@
 		update ${tableName}
 		set
 		execute_result = #{executeResult,jdbcType=TINYINT},
-		report_time = GETDATE()
+		report_time =  #{reportTime,jdbcType=TIMESTAMP}
 		where command_id = #{commandId,jdbcType=VARCHAR}
 	</update>
   

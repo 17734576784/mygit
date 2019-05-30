@@ -437,6 +437,7 @@ public class Constant {
 	public static final int NUM_200000 = 200000;
 	public static final int NUM_200 = 200;
 	public static final int NUM_31 = 31;
+	public static final int NUM_20 = 20;
 
 	public static final int NUM_1000 = 1000;
 	public static final int NUM_48 = 48;
@@ -461,12 +462,26 @@ public class Constant {
 	/**全局唯一命令Id redis键值*/
 	public static final String COMMAND_ID = "commandId";
 	/** 新天科技上报数据控制码 */
+	/** 上传累计流量信息（水表->平台） */
 	public static final String D0BD = "D0BD";
+	/** 上传累计流量信息应答命令 */
 	public static final String D0BD_CON = "50BD";
-
-	public static final String D00F = "D00F";
+	/** 控制开关阀（平台->水表） */
 	public static final String VALVE_CMD = "500F";
+	/** 控制开关阀正常应答命令 */
+	public static final String D00F = "D00F";
 
+	/** 府星移动平台命令控制码 */
+	/** 设置表端压力告警参数 */
+	public static final String SettingPressureAlarmThreshold = "22";
+	/** 设置表端流量告警参数 */
+	public static final String SettingFlowAlarmThreshold = "21";
+	/** 阀门控制命令 */
+	public static final String SettingValveState = "1B";
+	/** 设置表端日期时间 */
+	public static final String SettingDateTime = "14";
+	/** 设置表端上报时间周期 */
+	public static final String SettingReportPeriod = "13";
 	
 	/** 新天科技表类型 */
 	public static final byte SUNTRONT_METERTYPE = (byte) 0xB1;

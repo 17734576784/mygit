@@ -114,19 +114,6 @@ public class ChinaMobileSuntrontServiceImpl implements IChinaMobileService {
 			nbCommand.setExecuteResult((byte) confirmStatus);
 			nbCommandMapper.updateNbCommand(nbCommand);
 		}
-
-		
-//		JSONObject confirmBody = msgJson.getJSONObject("confirm_body");
-//		JSONArray objInst = confirmBody.getJSONArray("obj_inst");
-//		for (int i = 0; i < objInst.size(); i++) {
-//			JSONObject res = objInst.getJSONObject(i);
-//			JSONObject dataJson = SuntrontProtocolUtil.parseCommandMsg(res);
-//			if (dataJson == null) {
-//				continue;
-//			}
-//			saveCommandData(dataJson, msgJson);
-//
-//		}
 	}
 	
 	/** 

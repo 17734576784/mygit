@@ -14,6 +14,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.nb.model.DeviceInfo;
+import com.nb.model.NbWaterMeter;
 
 /** 
 * @ClassName: CommonMapper 
@@ -44,6 +45,16 @@ public interface CommonMapper {
 	* @throws 
 	*/
 	boolean updateWaterMeterValve(Map<String, Object> param);
+	
+	/** 
+	* @Title: updateWaterMeter 
+	* @Description: TODO(这里用一句话描述这个方法的作用) 
+	* @param @param nbWaterMeter
+	* @param @return    设定文件 
+	* @return boolean    返回类型 
+	* @throws 
+	*/
+	boolean updateWaterMeter(NbWaterMeter nbWaterMeter);
 	
 	/** 
 	* @Title: updateDeviceIdByImei 

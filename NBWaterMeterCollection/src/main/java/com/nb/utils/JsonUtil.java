@@ -13,6 +13,7 @@ package com.nb.utils;
 
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -219,4 +220,40 @@ public class JsonUtil {
 		}
 		return map;
 	} 
+	
+	private static Gson gson = null;
+	static {
+		if (gson == null) {
+			gson = new Gson();
+		}
+	}
+	
+	/**
+	 * 将gsonString转成泛型bean
+	 *
+	 * @param gsonString
+	 * @param cls
+	 * @return
+	 */
+	public static <T> T GsonToBean(String gsonString, Class<T> cls) {
+		T t = null;
+		if (gson != null) {
+			t = gson.fromJson(gsonString, cls);
+		}
+		return t;
+	}
+
+	/**
+     * 将object对象转成json字符串
+     *
+     * @param object
+     * @return
+     */
+    public static String GsonString(Object object) {
+        String gsonString = null;
+        if (gson != null) {
+            gsonString = gson.toJson(object);
+        }
+        return gsonString;
+    }
 }

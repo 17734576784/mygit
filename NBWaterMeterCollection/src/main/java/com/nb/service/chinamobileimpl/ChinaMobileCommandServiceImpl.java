@@ -25,6 +25,7 @@ import com.nb.mapper.NbCommandMapper;
 import com.nb.model.DeviceInfo;
 import com.nb.model.NbCommand;
 import com.nb.model.StreamClosedHttpResponse;
+import com.nb.protocolutil.FxProtocolUtil;
 import com.nb.protocolutil.SuntrontProtocolUtil;
 import com.nb.service.IChinaMobileCommandService;
 import com.nb.utils.CommFunc;
@@ -157,6 +158,7 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 			result.setError(responseJson.toJSONString());
 			return result;
 		}
+		
 		String commandId = command.getString("commandId");
 		if (null == commandId || commandId.isEmpty()) {
 			result.setStatus(Constant.ERROR);
@@ -206,12 +208,21 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 		
 		JSONObject argsJson = new JSONObject();
 		/** 将传过来的命令参数，根据规约转成16进制字符串 */
-		JSONObject cmdJson = getCommandData(deviceInfo.getManufacturerId(), command);
+		JSONObject cmdJson = getCommandData(deviceInfo, command);
 		argsJson.put("args", cmdJson.getString("commandData"));
 
 		StreamClosedHttpResponse response = httpsClientUtil.doPostJsonGetStatusLine(url,
 				CommFunc.getChinaMobileHeader(deviceInfo.getAppId()), argsJson.toJSONString());
-		command.put("commandId", cmdJson.getString("commandId"));
+		String commandId = "";
+		if (cmdJson.containsKey("commandId")) {
+			commandId = cmdJson.getString("commandId");
+		} else {
+			JSONObject resJson = JSONObject.parseObject(response.getContent());
+			JSONObject dataJson = resJson.getJSONObject("data");
+			commandId = dataJson.getString("uuid");
+		}
+
+		command.put("commandId", commandId);
 		return commandResult(response, command);
 	}
 	
@@ -229,6 +240,10 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 	* @throws 
 	*/
 	private void insertNbCommand(JSONObject command, String commandId, byte commandClass) throws Exception {
+		if (!command.containsKey("operatorId")) {
+			return;
+		}
+		
 		NbCommand nbCommand = new NbCommand();
 		nbCommand.setRtuId(command.getInteger("rtuId"));
 		nbCommand.setMpId(command.getShort("mpId"));
@@ -247,7 +262,8 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 		JedisUtils.set(Constant.COMMAND + commandId, tableNameDate, Constant.COMMAND_TIME_OUT);
 	}
 
-	/** 
+	/**
+	 * @throws Exception  
 	* @Title: getCommandData 
 	* @Description: 根据nb_device_model中的manufacturer_id判断是厂家，然后调用对应的解析
 	* @param @param manufacturerId
@@ -256,18 +272,20 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 	* @return String    返回类型 
 	* @throws 
 	*/
-	private JSONObject getCommandData(String manufacturerId, JSONObject command) {
+	private JSONObject getCommandData(DeviceInfo deviceInfo, JSONObject command) throws Exception {
 		JSONObject cmdJson = new JSONObject();
 		String commandData = "", commandId = "";
+		JSONObject param = command.getJSONObject("param");
+		String meterAddr = command.getString("meterAddr");
+		String control = command.getString("control");
+		String manufacturerId = deviceInfo.getManufacturerId();
 		/** 新天科技移动规约 */
 		if (manufacturerId.equals(Constant.SUNTRONT_DSID)) {
-			JSONObject param = command.getJSONObject("param");
-			String meterAddr = command.getString("meterAddr");
-			String control = command.getString("control");
 			switch (control) {
 			case Constant.VALVE_CMD:
 				commandData = SuntrontProtocolUtil.sendVavleCommand(param.getIntValue("operate"), meterAddr);
 				commandId = commandData.substring(commandData.length()-Constant.EIGHT, commandData.length());
+				cmdJson.put("commandId", commandId);
 				break;
 			case Constant.D0BD_CON:
 				commandData = SuntrontProtocolUtil.get50BD(meterAddr);
@@ -278,10 +296,26 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 			}
 
 		} else if (manufacturerId.equals(Constant.FX_DSID)) {
-
+			switch (control) {
+			case Constant.SettingValveState:
+				commandData = FxProtocolUtil.setValveState(deviceInfo, param);
+			case Constant.SettingReportPeriod:
+				commandData = FxProtocolUtil.setReportPeriod(deviceInfo, param);
+				break;
+			case Constant.SettingDateTime:
+				commandData = FxProtocolUtil.setDateTime(deviceInfo, param);
+				break;
+			case Constant.SettingFlowAlarmThreshold:
+				commandData = FxProtocolUtil.setFlowAlarmThreshold(deviceInfo, param);
+				break;
+			case Constant.SettingPressureAlarmThreshold:
+				commandData = FxProtocolUtil.setPressureAlarmThreshold(deviceInfo, param);
+				break;
+			default:
+				break;
+			}
 		}
 		cmdJson.put("commandData", commandData);
-		cmdJson.put("commandId", commandId);
 		
 		return cmdJson;
 	}
@@ -347,7 +381,7 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 		
 		JSONObject argsJson = new JSONObject();
 		/** 将传过来的命令参数，根据规约转成16进制字符串 */
-		JSONObject cmdJson = getCommandData(deviceInfo.getManufacturerId(), commandInfo);
+		JSONObject cmdJson = getCommandData(deviceInfo, commandInfo);
 		argsJson.put("args", cmdJson.getString("commandData"));
 
 		StreamClosedHttpResponse response = httpsClientUtil.doPostJsonGetStatusLine(url,

@@ -3,6 +3,9 @@ package com.nb.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
+
+import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,10 +18,14 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtil;
+import com.nb.mapper.NbCommandMapper;
+import com.nb.model.NbCommand;
 import com.nb.service.chinamobileimpl.ChinaMobileFxServiceImpl;
 import com.nb.service.chinamobileimpl.ChinaMobileSuntrontServiceImpl;
 import com.nb.utils.ChinaMobileUtil;
+import com.nb.utils.CommandEnum;
 import com.nb.utils.Constant;
+import com.nb.utils.JedisUtils;
 
 /** 
 * @ClassName: ChinaMobileCallBackController 
@@ -35,6 +42,9 @@ public class ChinaMobileCallBackController {
 
 	@Autowired
 	private ChinaMobileFxServiceImpl chinaMobileFxService;
+
+	@Resource
+	private NbCommandMapper nbCommandMapper;
 	
 	/** 
 	* @Title: URLVerification 
@@ -119,7 +129,25 @@ public class ChinaMobileCallBackController {
 		}
 		/** 缓存命令下发后结果上报 */
 		else if (type == Constant.CHINA_MOBILE_COMMAND_MSG) {
+			String commandId = msgJson.getString("cmd_id");
+			int confirmStatus = msgJson.getIntValue("confirm_status");
+			long confirmTime = msgJson.getLongValue("confirm_time");
+			if (confirmStatus == Constant.ZERO) {
+				confirmStatus = CommandEnum.SUCCESSFUL.getResultValue();
+			} else {
+				confirmStatus = CommandEnum.FAILED.getResultValue();
+			}
 
+			String tableNameDate = JedisUtils.get(Constant.COMMAND + commandId);
+			if (tableNameDate != null) {
+				NbCommand nbCommand = new NbCommand();
+				nbCommand.setTableName(tableNameDate);
+				nbCommand.setCommandId(commandId);
+				nbCommand.setExecuteResult((byte) confirmStatus);
+				nbCommand.setReportTime(new Date(confirmTime));
+				nbCommandMapper.updateNbCommand(nbCommand);
+				JedisUtils.del(Constant.COMMAND + commandId);
+			}
 		}
 	}
 	

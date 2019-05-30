@@ -62,5 +62,79 @@
 		where rtu_id = #{rtuId,jdbcType=INTEGER}
 		and mp_id = #{mpId,jdbcType=INTEGER}
 	</update>
+	
+	
+	<update id="updateWaterMeter" parameterType="com.nb.model.NbWaterMeter" >
+    update nb_water_meter
+    <set >
+      <if test="appinfoId != null" >
+        appinfo_id = #{appinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="deviceModelId != null" >
+        device_model_id = #{deviceModelId,jdbcType=INTEGER},
+      </if>
+      <if test="meterNumber != null" >
+        meter_number = #{meterNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="meterCaliber != null" >
+        meter_caliber = #{meterCaliber,jdbcType=INTEGER},
+      </if>
+      <if test="imeiCode != null" >
+        imei_code = #{imeiCode,jdbcType=VARCHAR},
+      </if>
+      <if test="imsiCode != null" >
+        imsi_code = #{imsiCode,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null" >
+        device_id = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="lowVoltageThreshold != null" >
+        low_voltage_threshold = #{lowVoltageThreshold,jdbcType=DECIMAL},
+      </if>
+      <if test="lowPressureThreshold != null" >
+        low_pressure_threshold = #{lowPressureThreshold,jdbcType=DECIMAL},
+      </if>
+      <if test="highPressureThreshold != null" >
+        high_pressure_threshold = #{highPressureThreshold,jdbcType=DECIMAL},
+      </if>
+      <if test="highVoltageThreshold != null" >
+        high_voltage_threshold = #{highVoltageThreshold,jdbcType=DECIMAL},
+      </if>
+      <if test="largeFlowThreshold != null" >
+        large_flow_threshold = #{largeFlowThreshold,jdbcType=DECIMAL},
+      </if>
+      <if test="largeFlowDuration != null" >
+        large_flow_duration = #{largeFlowDuration,jdbcType=INTEGER},
+      </if>
+      <if test="longTimeWaterUseThreshold != null" >
+        long_time_water_use_threshold = #{longTimeWaterUseThreshold,jdbcType=INTEGER},
+      </if>
+      <if test="smallFlowThreshold != null" >
+        small_flow_threshold = #{smallFlowThreshold,jdbcType=DECIMAL},
+      </if>
+      <if test="smallFlowDuration != null" >
+        small_flow_duration = #{smallFlowDuration,jdbcType=INTEGER},
+      </if>
+      <if test="onlineDelayWaitTime != null" >
+        online_delay_wait_time = #{onlineDelayWaitTime,jdbcType=INTEGER},
+      </if>
+      <if test="reportBaseTime != null" >
+        report_base_time = #{reportBaseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reportIntervalTime != null" >
+        report_interval_time = #{reportIntervalTime,jdbcType=INTEGER},
+      </if>
+      <if test="valveStatus != null" >
+        valve_status = #{valveStatus,jdbcType=TINYINT},
+      </if>
+      <if test="firmwareVersion != null" >
+        firmware_version = #{firmwareVersion,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rtu_id = #{rtuId,jdbcType=INTEGER}
+      and mp_id = #{mpId,jdbcType=SMALLINT}
+  </update>
+	
+	
  
 </mapper>

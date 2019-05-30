@@ -63,4 +63,28 @@ public class StringUtil {
 			return (new StringBuilder()).append(Character.toUpperCase(s.charAt(0))).append(s.substring(1)).toString();
 		}
 	}
+	
+	/** 
+	* @Title: flushLeft 
+	* @Description: 要填充的字符 length 填充后字符串的总长度 content 要格式化的字符串 格式化字符串，左对齐 
+	* @param @param c
+	* @param @param length
+	* @param @param content
+	* @param @return    设定文件 
+	* @return String    返回类型 
+	* @throws 
+	*/
+	public static String flushLeft(String c, long length, String content) {
+		String str = "";
+		String cs = "";
+		if (content.length() > length) {
+			str = content;
+		} else {
+			for (int i = 0; i < length - content.length(); i++) {
+				cs = c + cs;
+			}
+		}
+		str = cs + content;
+		return str;
+	} 
 }

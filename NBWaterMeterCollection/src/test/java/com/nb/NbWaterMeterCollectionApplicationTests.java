@@ -56,6 +56,7 @@ import com.nb.model.jd.PeriodReport;
 import com.nb.model.jd.RealtimeReport;
 import com.nb.service.IChinaMobileService;
 import com.nb.service.IScheduleService;
+import com.nb.service.chinamobileimpl.ChinaMobileSuntrontServiceImpl;
 import com.nb.servicestrategy.ServiceStrategyContext;
 import com.nb.task.FxTelecomCallDataTask;
 import com.nb.utils.Constant;
@@ -112,22 +113,29 @@ public class NbWaterMeterCollectionApplicationTests {
 	private TaskMapper taskMapper;
 	
 	@Autowired
-	private IChinaMobileService chinaMobileSuntrontService;
+	private ChinaMobileSuntrontServiceImpl chinaMobileSuntrontService;
 	@Test
 	public void testXT() {
 		
-		System.out.println(JedisUtils.incr("a"));
+		NbCommand nbCommand = new NbCommand();
+		nbCommand.setTableName("201905");
+		nbCommand.setCommandId("00000001");
+		nbCommand.setExecuteResult((byte) 0);
+		nbCommand.setReportTime(new Date(1558594321798L));
+		System.out.println(nbCommandMapper.updateNbCommand(nbCommand));
 		
-		JFDayFlow jfDayFlow = new JFDayFlow();
-		jfDayFlow.setTableName("201905");
-		jfDayFlow.setRtuId(5);
-		jfDayFlow.setMpId((short)1);
-		jfDayFlow.setDate(20190518);
-
-		jfDayFlow.setTime(10000);
-		jfDayFlow.setLjllZx(111D);
-		jfDayFlow.setLlLjllZx(22D);
-		jfDayFlow.setLlLjllFx(3D);
+//		System.out.println(JedisUtils.incr("a"));
+//		
+//		JFDayFlow jfDayFlow = new JFDayFlow();
+//		jfDayFlow.setTableName("201905");
+//		jfDayFlow.setRtuId(5);
+//		jfDayFlow.setMpId((short)1);
+//		jfDayFlow.setDate(20190518);
+//
+//		jfDayFlow.setTime(10000);
+//		jfDayFlow.setLjllZx(111D);
+//		jfDayFlow.setLlLjllZx(22D);
+//		jfDayFlow.setLlLjllFx(3D);
 //		System.out.println(jfDayFlowMapper.isExist(jfDayFlow));
 //		
 //		System.out.println(jfDayFlowMapper.updateJFDayFlow(jfDayFlow));
