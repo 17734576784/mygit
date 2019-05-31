@@ -207,6 +207,7 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 		urlParams.put("res_id", commandMap.get("res_id"));
 		Date expiredTime = DateUtils.addDate(new Date(), commandExpiredTime);
 		urlParams.put("expired_time", DateUtils.formatDateByFormat(expiredTime, "yyyy-MM-dd'T'HH:mm:ss"));
+		urlParams.put("timeout", 40);
 
 		String url = Constant.CHINA_MOBILE_BASE_URL + "nbiot/execute/offline";
 		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
@@ -379,7 +380,9 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 		urlParams.put("obj_id", commandMap.get("serviceId"));
 		urlParams.put("obj_inst_id", commandMap.get("method"));
 		urlParams.put("res_id", commandMap.get("res_id"));
+		urlParams.put("timeout", 40);
 
+		
 		String url = Constant.CHINA_MOBILE_BASE_URL + "nbiot/execute";
 		
 		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();

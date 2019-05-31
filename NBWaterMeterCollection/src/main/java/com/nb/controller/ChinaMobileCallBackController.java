@@ -70,6 +70,7 @@ public class ChinaMobileCallBackController {
 	@RequestMapping(value = "receivingPushMessages", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String urlVerification(@RequestBody String pushMessages) {
 		LoggerUtil.logger(LogName.INFO).info("data receive:  body String --- " + pushMessages);
+		System.out.println("pushMessages : " + pushMessages);
 		try {
 			ChinaMobileUtil.BodyObj obj = ChinaMobileUtil.resolveBody(pushMessages, false);
 			if (obj != null) {
