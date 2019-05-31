@@ -100,8 +100,13 @@ public class MainTest {
 //		json.put("HighPressureAlarmThreshold",2.9);
 //		json.put("LowPressureAlarmThreshold", 5);
 //		
+		
+		JSONObject responseJson= new JSONObject();
+		String commandId = toStr(responseJson.getString("commandId"));
+		System.out.println(commandId);
+		
 //		System.out.println(json);
-		System.out.println(new Date(1558594321798L));
+//		System.out.println(new Date(1558594321798L));
 //		byte aa = -65;
 //		System.out.println((aa & 0x80) == 0x80);	
 //		System.out.println(aa & 0x7F);		

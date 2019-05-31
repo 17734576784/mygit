@@ -49,15 +49,16 @@ public class ChinaMobileFxServiceImpl implements IChinaMobileService {
 		// 标识消息类型
 		String deviceId = msgJson.getString("dev_id");
 		String data = msgJson.getString("value");
-		Out<Integer> hasmore = new Out<>();// 是否还有后续数据
-		Out<Integer> mid = new Out<>();// 消息ID
+		// 是否还有后续数据
+		Out<Integer> hasmore = new Out<>();
+		// 消息ID
+		Out<Integer> mid = new Out<>();
 	    SendReceiveHelper helper = new SendReceiveHelperEF();
 		String msg = null;
 		/** 解码 */ 
 		try {
 			msg = helper.ServerReceiveData(data, hasmore, mid);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return;
 		}
@@ -65,9 +66,7 @@ public class ChinaMobileFxServiceImpl implements IChinaMobileService {
 		ReturnObject obj = JsonUtil.GsonToBean(msg, ReturnObject.class);
 		
 		Map<String, String> serviceMap = new HashMap<>();
-		serviceMap = JsonUtil.bean2Map(obj);
-		String serviceId = "FxMoile" + obj.getServiceId();
-		serviceMap.put("serviceId", serviceId);
+		serviceMap.put("serviceId", "FxMoile" + obj.getServiceId());
 		serviceMap.put("msg", msg);
 		serviceStrategyContext.parseService(deviceId, serviceMap);
 

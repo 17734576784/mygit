@@ -54,6 +54,7 @@ public class FxMoileReportNormallyService implements IServiceStrategy {
 	
 	@Resource
 	private CommonMapper commonMapper;
+	
 	/** (非 Javadoc) 
 	* <p>Title: parse</p> 
 	* <p>Description: </p> 
@@ -91,9 +92,9 @@ public class FxMoileReportNormallyService implements IServiceStrategy {
 			insertDailyData(rtuId, mpId, receiveCode, deviceId, date, time);
 			// 插入瞬时量
 			insertInstantaneous(receiveCode, rtuId, mpId, date);
-			//更新水表状态
+			// 更新水表状态
 			updateNbWaterMeter(receiveCode, rtuId, mpId);
-			//插入丢失的日结
+			// 插入丢失的日结
 			supplementDailyData(receiveCode, rtuId, mpId, date);
 
 		} catch (Exception e) {
@@ -120,12 +121,12 @@ public class FxMoileReportNormallyService implements IServiceStrategy {
 		c.setTime(DateUtils.parseTimesTampDate(toStr(date), DateUtils.DATE_PATTERN));
 		c.add(Calendar.DAY_OF_YEAR, -1);
 		
-		for (int i = 0; i < daysPositiveList.size(); i++) {
-			NbDailyData nbDailyData = new NbDailyData();
-			nbDailyData.setRtuId(rtuId);
-			nbDailyData.setMpId((short) mpId);
-			nbDailyData.setHms(Constant.ZERO);
+		NbDailyData nbDailyData = new NbDailyData();
+		nbDailyData.setRtuId(rtuId);
+		nbDailyData.setMpId((short) mpId);
+		nbDailyData.setHms(Constant.ZERO);
 
+		for (int i = 0; i < daysPositiveList.size(); i++) {
 			int ymd = toInt(DateUtils.parseDate(c.getTime(), DateUtils.DATE_PATTERN));
 			nbDailyData.setYmd(ymd);
 			nbDailyData.setTableName(toStr(ymd / 100));
@@ -158,7 +159,7 @@ public class FxMoileReportNormallyService implements IServiceStrategy {
 		Calendar c = Calendar.getInstance();
 		c.setTime(DateUtils.parseTimesTampDate(toStr(date), DateUtils.DATE_PATTERN));
 		c.add(Calendar.DAY_OF_YEAR, -1);
-		
+
 		List<BigDecimal> list = receiveCode.getYesterdayPerHourPositiveWaterList();
 		for (int i = 0; i < list.size(); i++) {
 			int ymd = toInt(DateUtils.parseDate(c.getTime(), DateUtils.DATE_PATTERN));
@@ -251,9 +252,9 @@ public class FxMoileReportNormallyService implements IServiceStrategy {
 		nbDailyData.setTotalFlow(receiveCode.getTotalPositiveCumulateWater().doubleValue());
 		nbDailyData.setMonthTotalFlow(receiveCode.getMonthPositiveCumulateWater().doubleValue());
 		nbDailyData.setBatteryVoltage(receiveCode.getBatteryVoltage().doubleValue());
+		
 		byte valveState = toByte(receiveCode.getValveState());
 		valveState = (byte) (valveState == Constant.ZERO ? Constant.FOUR : Constant.TWO);
-	
 		nbDailyData.setValveStatus(valveState);
 
 		JedisUtils.lpush(Constant.HISTORY_DAILY_QUEUE, JsonUtil.jsonObj2Sting(nbDailyData));

@@ -72,7 +72,6 @@ public class ChinaMobileCallBackController {
 		LoggerUtil.logger(LogName.INFO).info("data receive:  body String --- " + pushMessages);
 		try {
 			ChinaMobileUtil.BodyObj obj = ChinaMobileUtil.resolveBody(pushMessages, false);
-			LoggerUtil.logger(LogName.INFO).info("data receive:  body Object --- " + obj);
 			if (obj != null) {
 				boolean dataRight = ChinaMobileUtil.checkSignature(obj, Constant.CHINA_MOBILE_TOKEN);
 				if (dataRight) {
@@ -86,7 +85,6 @@ public class ChinaMobileCallBackController {
 							parseMsg(msgJson);
 						}
 					}
-					LoggerUtil.logger(LogName.INFO).info("data receive: content" + obj.toString());
 				} else {
 					LoggerUtil.logger(LogName.INFO).info("data receive: signature error");
 				}

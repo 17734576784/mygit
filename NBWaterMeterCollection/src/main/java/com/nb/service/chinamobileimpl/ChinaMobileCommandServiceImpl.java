@@ -8,8 +8,10 @@
 */
 package com.nb.service.chinamobileimpl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
 
@@ -17,11 +19,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.nb.exception.ResultBean;
 import com.nb.httputil.HttpsClientUtil;
+import com.nb.logger.LogName;
+import com.nb.logger.LoggerUtil;
 import com.nb.mapper.CommonMapper;
 import com.nb.mapper.NbCommandMapper;
+import com.nb.model.CmdResult;
 import com.nb.model.DeviceInfo;
 import com.nb.model.NbCommand;
 import com.nb.model.StreamClosedHttpResponse;
@@ -387,6 +393,81 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 		StreamClosedHttpResponse response = httpsClientUtil.doPostJsonGetStatusLine(url,
 				CommFunc.getChinaMobileHeader(deviceInfo.getAppId()), argsJson.toJSONString());
 		return commandResult(response, commandInfo);
+	}
+
+	/** (非 Javadoc) 
+	* <p>Title: batchCommand</p> 
+	* <p>Description: </p> 
+	* @param commandInfo
+	* @return
+	* @throws Exception 
+	* @see com.nb.service.IChinaMobileCommandService#batchCommand(com.alibaba.fastjson.JSONObject) 
+	*/
+	@Override
+	public ResultBean<?> batchCommand(JSONObject commandInfo) throws Exception {
+		LoggerUtil.logger(LogName.INFO).info("接收批量下发命令请求：" + commandInfo);
+		JSONArray cmdArray = commandInfo.getJSONArray("cmds");
+		// 命令执行结果列表 用于返回给web
+		List<CmdResult> resultList = new ArrayList<CmdResult>();
+		for (Object cmd : cmdArray) {
+			JSONObject json = (JSONObject) cmd;
+			Map<String, String> param = new HashMap<>();
+			param = JsonUtil.jsonString2SimpleObj(cmd, param.getClass());
+			/** 获取设备信息 */
+			DeviceInfo deviceInfo = commonMapper.getDeviceInfo(param);
+			if (deviceInfo == null) {
+				resultList.add(new CmdResult(param.get("mpId"), Constant.ERROR, "档案配置错误"));
+				continue;
+			}
+			
+			/** 获取设备信息 */
+			Map<String, String> commandMap = commonMapper.getCommand(param);
+			if (null == commandMap || commandMap.isEmpty()) {
+				resultList.add(new CmdResult(param.get("mpId"), Constant.ERROR, "命令类型不存在"));
+				continue;
+			}
+			/** url参数 */
+			Map<String, Object> urlParams = new HashMap<String, Object>();
+			urlParams.put("imei", deviceInfo.getImei());
+			urlParams.put("obj_id", commandMap.get("serviceId"));
+			urlParams.put("obj_inst_id", commandMap.get("method"));
+			urlParams.put("res_id", commandMap.get("res_id"));
+			Date expiredTime = DateUtils.addDate(new Date(), commandExpiredTime);
+			urlParams.put("expired_time", DateUtils.formatDateByFormat(expiredTime, "yyyy-MM-dd'T'HH:mm:ss"));
+
+			String url = Constant.CHINA_MOBILE_BASE_URL + "nbiot/execute/offline";
+			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
+			url = HttpsClientUtil.setcompleteUrl(url, urlParams);
+			
+			JSONObject argsJson = new JSONObject();
+			/** 将传过来的命令参数，根据规约转成16进制字符串 */
+			JSONObject cmdJson = getCommandData(deviceInfo, json);
+			argsJson.put("args", cmdJson.getString("commandData"));
+
+			StreamClosedHttpResponse response = httpsClientUtil.doPostJsonGetStatusLine(url,
+					CommFunc.getChinaMobileHeader(deviceInfo.getAppId()), argsJson.toJSONString());
+			String commandId = "";
+			if (cmdJson.containsKey("commandId")) {
+				commandId = cmdJson.getString("commandId");
+			} else {
+				JSONObject resJson = JSONObject.parseObject(response.getContent());
+				if (!resJson.containsKey("data")) {
+					resultList.add(new CmdResult(param.get("mpId"), Constant.ERROR, response.getContent()));
+					continue;
+				}
+				JSONObject dataJson = resJson.getJSONObject("data");
+				commandId = dataJson.getString("uuid");
+			}
+			
+			if (null == commandId || commandId.isEmpty()) {
+				resultList.add(new CmdResult(param.get("mpId"), Constant.ERROR, response.getContent()));
+				continue;
+			} else {
+				insertNbCommand(json, commandId, Constant.ASYN_COMMAND);
+				resultList.add(new CmdResult(param.get("mpId"), Constant.SUCCESS, ""));
+			}
+		}
+		return null;
 	}
 
 }

@@ -44,7 +44,7 @@ public interface IChinaMobileCommandService {
 
 	/** 
 	* @Title: asynCommand 
-	* @Description: 即时命令-命令下发 
+	* @Description: 缓存命令-命令下发 
 	* @param @param commandInfo
 	* @param @return
 	* @param @throws Exception    设定文件 
@@ -53,6 +53,16 @@ public interface IChinaMobileCommandService {
 	*/
 	ResultBean<?> asynCommand(JSONObject commandInfo) throws Exception;
 	
+	/** 
+	* @Title: batchCommand 
+	* @Description: 缓存命令-批量下发
+	* @param @param commandInfo
+	* @param @return
+	* @param @throws Exception    设定文件 
+	* @return ResultBean<?>    返回类型 
+	* @throws 
+	*/
+	ResultBean<?> batchCommand(JSONObject commandInfo) throws Exception;
 	
 	/** 
 	* @Title: instantCommand 

@@ -1,6 +1,8 @@
 package com.nb.service.chinatelecomimpl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.nb.exception.ResultBean;
@@ -18,6 +21,7 @@ import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtil;
 import com.nb.mapper.CommonMapper;
 import com.nb.mapper.NbCommandMapper;
+import com.nb.model.CmdResult;
 import com.nb.model.DeviceInfo;
 import com.nb.model.NbCommand;
 import com.nb.service.IChinaTelecomCommandService;
@@ -139,88 +143,74 @@ public class ChinaTelecomCommandServiceImpl implements IChinaTelecomCommandServi
 	*/
 	
 	@Override
-	public ResultBean<?> batchCommand(JSONObject command) throws Exception {
-		// TODO Auto-generated method stub
-		LoggerUtil.logger(LogName.INFO).info("接收批量下发命令请求：" + command);
-		
-		Map<String, String> commandInfo = new HashMap<>();
-		commandInfo = JsonUtil.jsonString2SimpleObj(command, commandInfo.getClass());
-		if (commandInfo == null || commandInfo.isEmpty()) {
-			ResultBean<JSONObject> result = new ResultBean<JSONObject>(Constant.ERROR, "配置信息错误");
-			return result;
+	public ResultBean<?> batchCommand(JSONObject commands) throws Exception {
+		LoggerUtil.logger(LogName.INFO).info("接收批量下发命令请求：" + commands);
+		JSONArray cmdArray = commands.getJSONArray("cmds");
+
+		// 命令执行结果列表 用于返回给web
+		List<CmdResult> resultList = new ArrayList<CmdResult>();
+
+		for (Object cmd : cmdArray) {
+			Map<String, String> param = new HashMap<>();
+			param = JsonUtil.jsonString2SimpleObj(cmd, param.getClass());
+			DeviceInfo deviceInfo = commonMapper.getDeviceInfo(param);
+			if (deviceInfo == null) {
+				resultList.add(new CmdResult(param.get("mpId"), Constant.ERROR, "档案配置错误"));
+				continue;
+			}
+
+			ObjectNode paras = JsonUtil.convertObject2ObjectNode(param.get("param"));
+
+			Map<String, String> commandMap = commonMapper.getCommand(param);
+			if (null == commandMap || commandMap.isEmpty()) {
+				resultList.add(new CmdResult(param.get("mpId"), Constant.ERROR, "命令类型不存在"));
+				continue;
+			}
+			
+			String appId = deviceInfo.getAppId();
+			String deviceId = deviceInfo.getDeviceId();
+
+			ChinaTelecomIotHttpsUtil httpsUtil = new ChinaTelecomIotHttpsUtil();
+			httpsUtil.initSSLConfigForTwoWay();
+			String accessToken = AuthenticationUtils.getChinaTelecomAccessToken(httpsUtil, appId,
+					deviceInfo.getSecret());
+
+			String urlPostAsynCmd = Constant.CHINA_TELECOM_POST_ASYN_CMD;
+			String callbackUrl = Constant.CHINA_TELECOM_REPORT_CMD_EXEC_RESULT_CALLBACK_URL;
+
+			Map<String, Object> paramCommand = new HashMap<>();
+			paramCommand.putAll(commandMap);
+			paramCommand.put("paras", paras);
+
+			Map<String, Object> paramPostAsynCmd = new HashMap<>();
+			paramPostAsynCmd.put("deviceId", deviceId);
+			paramPostAsynCmd.put("command", paramCommand);
+			paramPostAsynCmd.put("callbackUrl", callbackUrl);
+
+			String jsonRequest = JsonUtil.jsonObj2Sting(paramPostAsynCmd);
+
+			Map<String, String> header = new HashMap<>();
+			header.put(Constant.HEADER_APP_KEY, appId);
+			header.put(Constant.HEADER_APP_AUTH, "Bearer" + " " + accessToken);
+
+			HttpResponse responsePostAsynCmd = httpsUtil.doPostJson(urlPostAsynCmd, header, jsonRequest);
+			String responseBody = httpsUtil.getHttpResponseBody(responsePostAsynCmd);
+
+			JSONObject responseJson = JSON.parseObject(responseBody);
+			String commandId = toStr(responseJson.getString("commandId"));
+			if (commandId.isEmpty()) {
+				resultList.add(new CmdResult(param.get("mpId"), Constant.ERROR, responseBody));
+				continue;
+			} else {
+				insertNbCommand(param, paramCommand, commandId, Constant.ASYN_COMMAND);
+				resultList.add(new CmdResult(param.get("mpId"), Constant.SUCCESS, ""));
+			}
 		}
-		
-		String appId = commandInfo.get("appId");
-		String secret = commandInfo.get("secret");
+		ResultBean<List<CmdResult>> result = new ResultBean<List<CmdResult>>();
+		result.setData(resultList);
 
-		ChinaTelecomIotHttpsUtil httpsUtil = new ChinaTelecomIotHttpsUtil();
-		httpsUtil.initSSLConfigForTwoWay();
-		String accessToken = AuthenticationUtils.getChinaTelecomAccessToken(httpsUtil, appId, secret);
-
-		String urlPostAsynCmd = Constant.CHINA_TELECOM_BATCHTASK_CMD;
-		String jsonRequest = JsonUtil.jsonObj2Sting(getBatchCmdParam(commandInfo));
-
-		Map<String, String> header = new HashMap<>();
-		header.put(Constant.HEADER_APP_KEY, appId);
-		header.put(Constant.HEADER_APP_AUTH, "Bearer" + " " + accessToken);
-
-		HttpResponse responsePostAsynCmd = httpsUtil.doPostJson(urlPostAsynCmd, header, jsonRequest);
-		String responseBody = httpsUtil.getHttpResponseBody(responsePostAsynCmd);
-		
-		JSONObject responseJson = JSON.parseObject(responseBody);
-		String taskID = toStr(responseJson.getString("taskID"));
-		
-		ResultBean<String> result = new ResultBean<String>();
-		if (taskID.isEmpty()) {
-			result.setStatus(Constant.ERROR);
-			result.setError(responseBody);
-
-		} else {
-//			insertNbBatchCommand(commandInfo, commandInfo, taskID, Constant.BATCH_COMMAND);
-		}
-
-		result.setData(responseBody);
-		
 		return result;
 	}
-	
-	/** 
-	* @Title: getBatchCmdParam 
-	* @Description: 构建批量任务参数 
-	* @param @param commandInfo
-	* @param @return
-	* @param @throws Exception    设定文件 
-	* @return Map<String,Object>    返回类型 
-	* @throws 
-	*/
-	private Map<String, Object> getBatchCmdParam(Map<String, String> commandInfo) throws Exception {
-
-		ObjectNode paras = JsonUtil.convertObject2ObjectNode(commandInfo.get("param"));
-		String callbackUrl = Constant.CHINA_TELECOM_REPORT_CMD_EXEC_RESULT_CALLBACK_URL;
-
-		// 命令结构体
-		JSONObject paramCommand = new JSONObject();
-		paramCommand.put("serviceId", commandInfo.get("serviceId"));
-		paramCommand.put("method", commandInfo.get("method"));
-		paramCommand.put("paras", paras);
-
-		// DeviceCmd（批量下发命令任务），param 参数
-		Map<String, Object> taskTypeParam = new HashMap<>();
-		taskTypeParam.put("type", Constant.TASK_DEVICELIST);
-		taskTypeParam.put("deviceList", commandInfo.get("deviceList"));
-		taskTypeParam.put("command", paramCommand);
-		taskTypeParam.put("callbackUrl", callbackUrl);
-
-		// 请求参数
-		Map<String, Object> paramPostAsynCmd = new HashMap<>();
-		paramPostAsynCmd.put("appId", commandInfo.get("appId"));
-		paramPostAsynCmd.put("timeout", Constant.TASK_TIMEOUT);
-		paramPostAsynCmd.put("taskName", "Task_" + DateUtils.curTime());
-		paramPostAsynCmd.put("taskType", Constant.TASK_DEVICECMD);
-		paramPostAsynCmd.put("param", JsonUtil.convertObject2ObjectNode(taskTypeParam));
-		return paramPostAsynCmd;
-	}
-	
 	
 	/** 
 	* @Title: insertNbCommand 
@@ -251,35 +241,4 @@ public class ChinaTelecomCommandServiceImpl implements IChinaTelecomCommandServi
 		// 将命令对应数据表日期存入redis
 		JedisUtils.set(Constant.COMMAND + commandId, tableNameDate, Constant.COMMAND_TIME_OUT);
 	}
-	
-//	/** 
-//	* @Title: insertNbCommand 
-//	* @Description: 插入nb命令 
-//	* @param @param param
-//	* @param @param paramCommand
-//	* @param @param commandId
-//	* @param @param commandClass
-//	* @param @throws Exception    设定文件 
-//	* @return void    返回类型 
-//	* @throws 
-//	*/
-//	private void insertNbBatchCommand(Map<String, String> param, Map<String, String> paramCommand, String commandId,
-//			byte commandClass) throws Exception {
-//		NbCommand nbCommand = new NbCommand();
-//		nbCommand.setRtuId(toInt(param.get("rtuId")));
-//		nbCommand.setMpId(toShort(param.get("mpId")));
-//		nbCommand.setCommandClass(commandClass);
-//		nbCommand.setCommandType(toByte(param.get("commandId")));
-//
-//		String tableNameDate = DateUtils.curDate().substring(0, 6);
-//		nbCommand.setCommandContent(paramCommand.toString());
-//		nbCommand.setOperatorId(toInt(param.get("operatorId")));
-//		nbCommand.setTableName(tableNameDate);
-//		nbCommand.setCommandId(commandId);
-//		nbCommandMapper.insertNbCommand(nbCommand);
-//
-//		JedisUtils.set(Constant.COMMAND + commandId, tableNameDate, Constant.COMMAND_TIME_OUT);
-//	}
-//	
-	
 }
