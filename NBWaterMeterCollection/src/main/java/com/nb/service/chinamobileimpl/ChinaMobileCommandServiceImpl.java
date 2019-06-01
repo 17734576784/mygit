@@ -14,11 +14,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.nb.exception.ResultBean;
@@ -92,7 +90,7 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 
 		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 		String url = Constant.CHINA_MOBILE_BASE_URL + "nbiot/offline";
-		url = HttpsClientUtil.setcompleteUrl(url, urlParams);
+		url = HttpsClientUtil.setCompleteUrl(url, urlParams);
 
 		StreamClosedHttpResponse response = httpsClientUtil.doGetWithParasGetStatusLine(url, null,
 				CommFunc.getChinaMobileHeader(deviceInfo.getAppId()));
@@ -135,7 +133,7 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 
 		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 		String url = Constant.CHINA_MOBILE_BASE_URL + "nbiot/offline";
-		url = HttpsClientUtil.setcompleteUrl(url, urlParams);
+		url = HttpsClientUtil.setCompleteUrl(url, urlParams);
 		
 		JSONObject param = new JSONObject();
 		param.put("data", commandInfo.getJSONArray("data").toJSONString());
@@ -157,22 +155,18 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 	* @throws 
 	*/
 	private ResultBean<?> commandResult(StreamClosedHttpResponse response, JSONObject command) throws Exception {
-		ResultBean<?> result = new ResultBean<>();
-		JSONObject responseJson = JSON.parseObject(response.getContent());
-		if (!responseJson.containsKey("data")) {
-			result.setStatus(Constant.ERROR);
-			result.setError(responseJson.toJSONString());
-			return result;
-		}
-		
 		String commandId = command.getString("commandId");
 		if (null == commandId || commandId.isEmpty()) {
-			result.setStatus(Constant.ERROR);
-			result.setError(responseJson.toJSONString());
-		} else {
-			insertNbCommand(command, commandId, Constant.ASYN_COMMAND);
+			JSONObject resJson = JSONObject.parseObject(response.getContent());
+			if (resJson.containsKey("data")) {
+				JSONObject dataJson = resJson.getJSONObject("data");
+				commandId = dataJson.getString("uuid");
+			} else {
+				return new ResultBean<JSONObject>(Constant.ERROR, response.getContent());
+			}
 		}
 
+		insertNbCommand(command, commandId, Constant.ASYN_COMMAND);
 		return new ResultBean<>(response.getContent());
 	}
 	
@@ -199,6 +193,7 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 		if (null == commandMap || commandMap.isEmpty()) {
 			return new ResultBean<JSONObject>(Constant.ERROR, "命令类型不存在");
 		}
+		
 		/** url参数 */
 		Map<String, Object> urlParams = new HashMap<String, Object>();
 		urlParams.put("imei", deviceInfo.getImei());
@@ -207,11 +202,10 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 		urlParams.put("res_id", commandMap.get("res_id"));
 		Date expiredTime = DateUtils.addDate(new Date(), commandExpiredTime);
 		urlParams.put("expired_time", DateUtils.formatDateByFormat(expiredTime, "yyyy-MM-dd'T'HH:mm:ss"));
-		urlParams.put("timeout", 40);
 
 		String url = Constant.CHINA_MOBILE_BASE_URL + "nbiot/execute/offline";
 		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
-		url = HttpsClientUtil.setcompleteUrl(url, urlParams);
+		url = HttpsClientUtil.setCompleteUrl(url, urlParams);
 		
 		JSONObject argsJson = new JSONObject();
 		/** 将传过来的命令参数，根据规约转成16进制字符串 */
@@ -223,10 +217,6 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 		String commandId = "";
 		if (cmdJson.containsKey("commandId")) {
 			commandId = cmdJson.getString("commandId");
-		} else {
-			JSONObject resJson = JSONObject.parseObject(response.getContent());
-			JSONObject dataJson = resJson.getJSONObject("data");
-			commandId = dataJson.getString("uuid");
 		}
 
 		command.put("commandId", commandId);
@@ -386,7 +376,7 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 		String url = Constant.CHINA_MOBILE_BASE_URL + "nbiot/execute";
 		
 		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
-		url = HttpsClientUtil.setcompleteUrl(url, urlParams);
+		url = HttpsClientUtil.setCompleteUrl(url, urlParams);
 		
 		JSONObject argsJson = new JSONObject();
 		/** 将传过来的命令参数，根据规约转成16进制字符串 */
@@ -440,11 +430,12 @@ public class ChinaMobileCommandServiceImpl implements IChinaMobileCommandService
 
 			String url = Constant.CHINA_MOBILE_BASE_URL + "nbiot/execute/offline";
 			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
-			url = HttpsClientUtil.setcompleteUrl(url, urlParams);
+			url = HttpsClientUtil.setCompleteUrl(url, urlParams);
 			
-			JSONObject argsJson = new JSONObject();
 			/** 将传过来的命令参数，根据规约转成16进制字符串 */
 			JSONObject cmdJson = getCommandData(deviceInfo, json);
+			
+			JSONObject argsJson = new JSONObject();
 			argsJson.put("args", cmdJson.getString("commandData"));
 
 			StreamClosedHttpResponse response = httpsClientUtil.doPostJsonGetStatusLine(url,

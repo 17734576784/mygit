@@ -244,11 +244,11 @@ public class JsonUtil {
 	}
 
 	/**
-     * 将object对象转成json字符串
-     *
-     * @param object
-     * @return
-     */
+	 * 将object对象转成json字符串
+	 *
+	 * @param object
+	 * @return
+	 */
     public static String GsonString(Object object) {
         String gsonString = null;
         if (gson != null) {

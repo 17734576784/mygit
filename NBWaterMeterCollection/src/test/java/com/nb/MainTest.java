@@ -18,6 +18,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
+import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Calendar;
@@ -87,6 +89,27 @@ public class MainTest {
     }
 
 	/**
+	 * 判断 CPU Endian 是否为 Little
+	 * 
+	 * @return 判断结果
+	 */
+	private static boolean isLittleEndian() {
+		return ByteOrder.nativeOrder() == ByteOrder.LITTLE_ENDIAN;
+	}
+
+	public static byte[] getBytes(short data) {
+		byte[] bytes = new byte[2];
+		if (isLittleEndian()) {
+			bytes[0] = (byte) (data & 0xff);
+			bytes[1] = (byte) ((data & 0xff00) >> 8);
+		} else {
+			bytes[1] = (byte) (data & 0xff);
+			bytes[0] = (byte) ((data & 0xff00) >> 8);
+		}
+		return bytes;
+	}
+
+	/**
 	 * @throws UnsupportedEncodingException  
 	* @Title: main 
 	* @Description: TODO(这里用一句话描述这个方法的作用) 
@@ -95,15 +118,20 @@ public class MainTest {
 	* @throws 
 	*/
 	public static void main(String[] args) throws UnsupportedEncodingException {
-		
+
+		System.out.println(isLittleEndian());
+		byte[] result = getBytes((short) 2);
+		for (byte b : result) {
+			System.out.print(b + "  ");
+		}
 //		JSONObject json = new JSONObject();
 //		json.put("HighPressureAlarmThreshold",2.9);
 //		json.put("LowPressureAlarmThreshold", 5);
-//		
-		
-		JSONObject responseJson= new JSONObject();
-		String commandId = toStr(responseJson.getString("commandId"));
-		System.out.println(commandId);
+//		System.out.println(BigDecimal.ROUND_HALF_UP);
+
+//		JSONObject responseJson= new JSONObject();
+//		String commandId = toStr(responseJson.getString("commandId"));
+//		System.out.println(commandId);
 		
 //		System.out.println(json);
 //		System.out.println(new Date(1558594321798L));

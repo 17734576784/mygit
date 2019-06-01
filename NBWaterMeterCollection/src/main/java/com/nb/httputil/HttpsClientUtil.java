@@ -542,7 +542,7 @@ public class HttpsClientUtil {
 	}
 	
 	/** 
-	* @Title: setcompleteUrl 
+	* @Title: setCompleteUrl 
 	* @Description: 将参数绑定到url上组合成url参数 
 	* @param @param url
 	* @param @param params
@@ -550,7 +550,7 @@ public class HttpsClientUtil {
 	* @return String    返回类型 
 	* @throws 
 	*/
-	public static String setcompleteUrl(String url, Map<String, Object> params) {
+	public static String setCompleteUrl(String url, Map<String, Object> params) {
 		// TODO Auto-generated method stub
 		if (params != null) {
 			url += "?";

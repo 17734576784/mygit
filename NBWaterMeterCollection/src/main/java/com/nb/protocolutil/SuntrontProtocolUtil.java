@@ -54,6 +54,7 @@ public class SuntrontProtocolUtil {
 		if (json == null || json.isEmpty()) {
 			return json;
 		}
+		
 		String control = json.getString("control");
 		byte[] data = (byte[]) json.get("byteData");
 		if (data == null || data.length == Constant.ZERO) {
@@ -67,6 +68,7 @@ public class SuntrontProtocolUtil {
 			dataJson = parseD00FData(data);
 			dataJson.put("commandId", json.getString("commandId"));
 		}
+		
 		dataJson.put("control", control);
 		dataJson.put("meterAddr", json.getString("meterAddr"));
 		return dataJson;
@@ -450,6 +452,7 @@ public class SuntrontProtocolUtil {
 				dis.read(cmd);
 				json.put("commandId", BytesUtils.bcdToString(cmd));
 			}
+			
 			json.put("control", ctrlCode);
 			json.put("byteData", datas);
 			json.put("meterAddr", meterAddr);
