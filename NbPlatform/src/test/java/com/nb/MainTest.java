@@ -14,6 +14,7 @@ import static org.assertj.core.api.Assertions.contentOf;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Calendar;
@@ -53,10 +54,13 @@ public class MainTest {
 	*/
 	public static void main(String[] args) throws Exception {
 		
-		CommFunc.byte2image(new byte[] {11,2,4,2,4 }, "C:" + File.separator + "a" + File.separator + "b" + File.separator + "test.txt");
-		
-		
-		
+//		CommFunc.byte2image(new byte[] {11,2,4,2,4 }, "C:" + File.separator + "a" + File.separator + "b" + File.separator + "test.txt");
+
+		BigDecimal bDouble1 = BigDecimal.valueOf(2.3);
+		BigDecimal bDouble2 = new BigDecimal(Double.toString(2.3));
+
+		System.out.println("bDouble1=" + bDouble1);
+		System.out.println("bDouble2=" + bDouble2);
 		
 		
 //		String apiUrl = "http://222.222.60.178:18130/Enterprise_MeterPay/pay/nbiot/" + "nbNotifyAction!checkExistOrders.action";

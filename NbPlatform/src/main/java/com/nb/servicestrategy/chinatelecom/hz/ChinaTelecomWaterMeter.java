@@ -66,13 +66,14 @@ public class ChinaTelecomWaterMeter implements IServiceStrategy{
 		paramJson.put("deviceId", deviceId);
 		paramJson.put("date", waterMeter.getDate());
 		paramJson.put("time", waterMeter.getTime());
-		paramJson.put("cumulativeFlow", waterMeter.getCumulativeFlow());
+		paramJson.put("value", waterMeter.getCumulativeFlow());
+		paramJson.put("dataStreamId", "");
 
 		
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("param", paramJson.toJSONString());
 
-		String apiUrl = baseUrl + Constant.UPLOAD_ALARM_URL;
+		String apiUrl = baseUrl + Constant.UPLOAD_DATA_URL;
 		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 		try {
 			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostFormUrlEncodedGetStatusLine(apiUrl, paramMap);
