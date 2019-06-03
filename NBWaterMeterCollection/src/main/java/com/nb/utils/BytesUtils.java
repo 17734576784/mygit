@@ -177,10 +177,11 @@ public class BytesUtils {
 	public static boolean getBoolean(byte[] bytes) {
 		return bytes[0] == 1;
 	}
-	 /** 
-     * 反转数组 
-     *  
-     */  
+
+	/**
+	 * 反转数组
+	 * 
+	 */
     public static <T> T invertArray(T array) {  
         int len = Array.getLength(array);  
   
@@ -1156,8 +1157,8 @@ public class BytesUtils {
 	}
 	
 	/**
-	 * 将计算的CRC值 转换为加空格的 比如 ： crc值为 A30A ->  0A A3
-	 * 低位在前 高位在后
+	 * 将计算的CRC值 转换为加空格的 比如 ： crc值为 A30A -> 0A A3 低位在前 高位在后
+	 * 
 	 * @param res
 	 * @return
 	 */
