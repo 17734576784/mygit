@@ -398,5 +398,21 @@ public class HzWaterMeter implements Serializable {
 	public void setPressInteveral(Integer pressInteveral) {
 		this.pressInteveral = pressInteveral;
 	}
+	@Override
+	public String toString() {
+		return "HzWaterMeter [timeOfReading=" + timeOfReading + ", internalTemperature=" + internalTemperature
+				+ ", dailyUseWaterTime=" + dailyUseWaterTime + ", cumulativeFlow=" + cumulativeFlow
+				+ ", positiveCumulativeFlow=" + positiveCumulativeFlow + ", negativeCumulativeFlow="
+				+ negativeCumulativeFlow + ", dailyFlow=" + dailyFlow + ", dailyReverseFlow=" + dailyReverseFlow
+				+ ", peakFlowRate=" + peakFlowRate + ", peakFlowRateTime=" + peakFlowRateTime + ", lowestFlowRate="
+				+ lowestFlowRate + ", lowestFlowRateTime=" + lowestFlowRateTime + ", peakReverseFlowRate="
+				+ peakReverseFlowRate + ", peakReverseFlowRateTime=" + peakReverseFlowRateTime
+				+ ", lowestReverseFlowRate=" + lowestReverseFlowRate + ", lowestReverseFlowRateTime="
+				+ lowestReverseFlowRateTime + ", rawData=" + rawData + ", intervalFlow=" + intervalFlow
+				+ ", flowInterval=" + flowInterval + ", reverseIntervalFlow=" + reverseIntervalFlow
+				+ ", reverseFlowIntervral=" + reverseFlowIntervral + ", temperature=" + temperature
+				+ ", temperatureInterval=" + temperatureInterval + ", pressure=" + pressure + ", pressInteveral="
+				+ pressInteveral + ", date=" + date + ", time=" + time + "]";
+	}
 
 }

@@ -203,4 +203,14 @@ public class HzWaterMeterAlarmStatus implements Serializable {
 		this.communicationAlarm = communicationAlarm;
 	}
 
+	@Override
+	public String toString() {
+		return "HzWaterMeterAlarmStatus [lowFlowAlarm=" + lowFlowAlarm + ", highFlowAlarm=" + highFlowAlarm
+				+ ", lowBatteryAlarm=" + lowBatteryAlarm + ", batteryRunOutAlarm=" + batteryRunOutAlarm
+				+ ", highTemperatureAlarm=" + highTemperatureAlarm + ", lowTemperatureAlarm=" + lowTemperatureAlarm
+				+ ", innerErrorAlarm=" + innerErrorAlarm + ", storageFault=" + storageFault
+				+ ", waterTempratureSensorFault=" + waterTempratureSensorFault + ", communicationAlarm="
+				+ communicationAlarm + ", eventDate=" + eventDate + ", eventTime=" + eventTime + "]";
+	}
+
 }
