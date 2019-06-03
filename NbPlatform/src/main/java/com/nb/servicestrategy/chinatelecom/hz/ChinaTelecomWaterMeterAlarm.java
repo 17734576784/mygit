@@ -45,6 +45,7 @@ public class ChinaTelecomWaterMeterAlarm implements IServiceStrategy {
 	* @param serviceMap 
 	* @see com.nb.servicestrategy.IServiceStrategy#parse(java.lang.String, java.util.Map) 
 	*/
+	@SuppressWarnings("unchecked")
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
 

@@ -13,9 +13,21 @@ package com.nb.utils;
 
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
 
+import org.apache.commons.beanutils.BeanUtils;
+
+/** 
+* @ClassName: JsonUtil 
+* @Description: Json转换工具类 
+* @author dbr
+* @date 2019年4月18日 下午4:50:58 
+*  
+*/
 public class JsonUtil {
 
     private static ObjectMapper objectMapper;
@@ -30,12 +42,14 @@ public class JsonUtil {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
-    /**
-     * Convert Object to JsonString
-     * 
-     * @param jsonObj
-     * @return
-     */
+    /** 
+    * @Title: jsonObj2Sting 
+    * @Description: Object to JsonString
+    * @param @param jsonObj
+    * @param @return    设定文件 
+    * @return String    返回类型 
+    * @throws 
+    */
     public static String jsonObj2Sting(Object jsonObj) {
         String jsonString = null;
 
@@ -48,13 +62,15 @@ public class JsonUtil {
         return jsonString;
     }
 
-    /**
-     * Convert JsonString to Simple Object
-     * 
-     * @param jsonString
-     * @param cls
-     * @return
-     */
+    /** 
+    * @Title: jsonString2SimpleObj 
+    * @Description: Convert JsonString to Simple Objec 
+    * @param @param jsonString
+    * @param @param cls
+    * @param @return    设定文件 
+    * @return T    返回类型 
+    * @throws 
+    */
     public static <T> T jsonString2SimpleObj(String jsonString, Class<T> cls) {
         T jsonObj = null;
 
@@ -66,14 +82,15 @@ public class JsonUtil {
 
         return jsonObj;
     }
-    
-    /**
-     * Convert JsonString to Simple Object
-     * 
-     * @param jsonString
-     * @param cls
-     * @return
-     */
+	/** 
+	* @Title: jsonString2SimpleObj 
+	* @Description:  Convert JsonString to Simple Object
+	* @param @param object
+	* @param @param cls
+	* @param @return    设定文件 
+	* @return T    返回类型 
+	* @throws 
+	*/
 	public static <T> T jsonString2SimpleObj(Object object, Class<T> cls) {
 		T jsonObj = null;
 
@@ -87,14 +104,15 @@ public class JsonUtil {
 		return jsonObj;
 	}
    
-    /**
-     * Method that will convert object to the ObjectNode.
-     *
-     * @param value
-     *            the source data; if null, will return null.
-     * @return the ObjectNode data after converted.
-     * @throws JsonException
-     */
+    /** 
+    * @Title: convertObject2ObjectNode 
+    * @Description:  Method that will convert object to the ObjectNode 
+    * @param @param object the source data; if null, will return null
+    * @param @return the ObjectNode data after converted
+    * @param @throws Exception    设定文件 
+    * @return ObjectNode    返回类型 
+    * @throws 
+    */
     public static <T> ObjectNode convertObject2ObjectNode(T object)
             throws Exception {
         if (null == object) {
@@ -113,16 +131,16 @@ public class JsonUtil {
         return objectNode;
     }
     
-    /**
-     * Method that will convert the json string to destination by the type(cls).
-     * 
-     * @param jsonString
-     *            the source json string; if null, will return null.
-     * @param cls
-     *            the destination data type.
-     * @return
-     * @throws JsonException
-     */
+    /** 
+    * @Title: convertJsonStringToObject 
+    * @Description: Method that will convert the json string to destination by the type(cls) 
+    * @param @param jsonString the source json string; if null, will return null.
+    * @param @param cls the destination data type.
+    * @param @return
+    * @param @throws Exception    设定文件 
+    * @return T    返回类型 
+    * @throws 
+    */
     public static <T> T convertJsonStringToObject(String jsonString,
             Class<T> cls) throws Exception {
         if (StringUtil.strIsNullOrEmpty(jsonString)) {
@@ -136,16 +154,16 @@ public class JsonUtil {
             throw new Exception(e);
         }
     }
-    
-    /**
-     * Method that will convert from given value into instance of given value
-     * type.
-     * 
-     * @param fromValue
-     * @param toValueType
-     * @return
-     * @throws JsonException
-     */
+    /** 
+    * @Title: convertValue 
+    * @Description: Method that will convert from given value into instance of given value type.
+    * @param @param fromValue
+    * @param @param toValueType
+    * @param @return
+    * @param @throws Exception    设定文件 
+    * @return T    返回类型 
+    * @throws 
+    */
     private static <T> T convertValue(Object fromValue, Class<T> toValueType)
             throws Exception {
         try {
@@ -153,5 +171,89 @@ public class JsonUtil {
         } catch (IllegalArgumentException e) {
             throw new Exception(e);
         }
+    }
+    
+	/** 
+	* @Title: map2Bean 
+	* @Description: Map转换成Bean，使用泛型免去了类型转换的麻烦 
+	* @param @param map
+	* @param @param class1
+	* @param @return    设定文件 
+	* @return T    返回类型 
+	* @throws 
+	*/
+	public static <T> T map2Bean(Map<String, String> map, Class<T> class1) {
+		T bean = null;
+		try {
+			bean = class1.newInstance();
+			BeanUtils.populate(bean, map);
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+		return bean;
+	} 
+	
+	/** 
+	* @Title: bean2Map 
+	* @Description: Bean转换成Map，使用泛型免去了类型转换的麻烦。
+	* @param @param t
+	* @param @return    设定文件 
+	* @return Map<String,String>    返回类型 
+	* @throws 
+	*/
+	public static Map<String, String> bean2Map(Object t) {
+		Map<String, String> map = null;
+		try {
+			try {
+				map = BeanUtils.describe(t);
+			} catch (NoSuchMethodException e) {
+				e.printStackTrace();
+			}
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+		return map;
+	} 
+	
+	private static Gson gson = null;
+	static {
+		if (gson == null) {
+			gson = new Gson();
+		}
+	}
+	
+	/**
+	 * 将gsonString转成泛型bean
+	 *
+	 * @param gsonString
+	 * @param cls
+	 * @return
+	 */
+	public static <T> T GsonToBean(String gsonString, Class<T> cls) {
+		T t = null;
+		if (gson != null) {
+			t = gson.fromJson(gsonString, cls);
+		}
+		return t;
+	}
+
+	/**
+     * 将object对象转成json字符串
+     *
+     * @param object
+     * @return
+     */
+    public static String GsonString(Object object) {
+        String gsonString = null;
+        if (gson != null) {
+            gsonString = gson.toJson(object);
+        }
+        return gsonString;
     }
 }

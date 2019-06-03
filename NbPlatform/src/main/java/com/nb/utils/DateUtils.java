@@ -29,7 +29,8 @@ public class DateUtils {
 	public static String NOCHAR_PATTERN = "yyyyMMddHHmmss";
 	public static String DATE_PATTERN = "yyyyMMdd";
 	public static String TIME_PATTERN = "HHmmss";
-	
+	public static String UTC_PATTERN = "yyyyMMdd'T'HHmmss'Z'";
+
 	/**
 	 * 获取当前时间戳
 	 *
@@ -59,6 +60,20 @@ public class DateUtils {
 		}
 		return result;
 	}
+	
+	/** 
+	* @Title: parseUTCDate 
+	* @Description: 讲字符串转成utc格式的日期
+	* @param @param date
+	* @param @param pattern
+	* @param @return    设定文件 
+	* @return Date    返回类型 
+	* @throws 
+	*/
+	public static Date parseUTCDate(String date) {
+		return parseDate(date, UTC_PATTERN);
+	}
+
 
 	/**
 	 * 转换为默认格式(yyyy-MM-dd)的日期字符串
