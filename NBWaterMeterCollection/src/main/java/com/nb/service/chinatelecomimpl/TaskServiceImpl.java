@@ -157,7 +157,7 @@ public class TaskServiceImpl implements ITaskService {
 		/** 默认补招从T-1起 */
 		Calendar endDate = Calendar.getInstance();
 		endDate.add(Calendar.DAY_OF_MONTH, Constant.TASK_ENDDATE);
-		endDate.add(Calendar.DAY_OF_MONTH, -1 * (Constant.TASK_CALL_DAYS + 1));
+		endDate.add(Calendar.DAY_OF_MONTH, -1 * (Constant.TASK_CALL_DAYS + Constant.ONE));
 		return DateUtils.parseDate(endDate.getTime(), DateUtils.UTC_PATTERN);
 	}
 }

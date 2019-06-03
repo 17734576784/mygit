@@ -14,6 +14,8 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.nb.logger.LogName;
+import com.nb.logger.LoggerUtil;
 import com.nb.service.ITaskService;
 
 /**
@@ -37,7 +39,10 @@ public class FxTelecomCallDataTask implements Job {
 	*/
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
-
-		taskService.callHistoryData(this.getClass().getName());
+		try {
+			taskService.callHistoryData(this.getClass().getName());
+		} catch (Exception e) {
+			LoggerUtil.logger(LogName.ERROR).error(this.getClass().getName() + "补招任务执行异常,{}", e.getMessage());
+		}
 	}
 }
