@@ -187,7 +187,6 @@ public class FxMoileReportNormallyService implements IServiceStrategy {
 	private void updateNbWaterMeter(ReceiveCodeEF receiveCode, int rtuId, int mpId) throws Exception {
 
 		byte valveState = toByte(receiveCode.getValveState());
-		valveState = (byte) (valveState == Constant.ZERO ? Constant.FOUR : Constant.TWO);
 
 		NbWaterMeter nbWaterMeter = new NbWaterMeter();
 		nbWaterMeter.setRtuId(rtuId);
@@ -254,7 +253,6 @@ public class FxMoileReportNormallyService implements IServiceStrategy {
 		nbDailyData.setBatteryVoltage(receiveCode.getBatteryVoltage().doubleValue());
 		
 		byte valveState = toByte(receiveCode.getValveState());
-		valveState = (byte) (valveState == Constant.ZERO ? Constant.FOUR : Constant.TWO);
 		nbDailyData.setValveStatus(valveState);
 
 		JedisUtils.lpush(Constant.HISTORY_DAILY_QUEUE, JsonUtil.jsonObj2Sting(nbDailyData));

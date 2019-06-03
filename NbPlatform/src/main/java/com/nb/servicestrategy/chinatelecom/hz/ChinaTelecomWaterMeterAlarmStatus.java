@@ -64,6 +64,7 @@ public class ChinaTelecomWaterMeterAlarmStatus implements IServiceStrategy {
 
 		HzWaterMeterAlarmStatus alarm = JsonUtil.map2Bean(dataMap, HzWaterMeterAlarmStatus.class);
 		alarm.setEvnetTime(serviceMap);
+		System.out.println(alarm.toString());
 		JSONObject paramJson = new JSONObject();
 
 		if (alarm.getLowBatteryAlarm()) {

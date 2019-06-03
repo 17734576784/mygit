@@ -45,7 +45,7 @@ public class ChinaMobileFxServiceImpl implements IChinaMobileService {
 	* @see com.nb.service.IChinaMobileService#parseDataPointMsg(com.alibaba.fastjson.JSONObject) 
 	*/
 	@Override
-	public void parseDataPointMsg(JSONObject msgJson) {
+	public void parseDataPointMsg(JSONObject msgJson) throws Exception{
 		// 标识消息类型
 		String deviceId = msgJson.getString("dev_id");
 		String data = msgJson.getString("value");
@@ -79,7 +79,7 @@ public class ChinaMobileFxServiceImpl implements IChinaMobileService {
 	* @see com.nb.service.IChinaMobileService#parseCommandMsg(com.alibaba.fastjson.JSONObject) 
 	*/
 	@Override
-	public void parseCommandMsg(JSONObject msgJson) {
+	public void parseCommandMsg(JSONObject msgJson) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}

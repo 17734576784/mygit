@@ -62,6 +62,7 @@ public class ChinaTelecomWaterMeter implements IServiceStrategy{
 		}
 		
 		HzWaterMeter waterMeter = JsonUtil.map2Bean(dataMap, HzWaterMeter.class);
+		System.out.println(waterMeter.toString());
 		JSONObject paramJson = new JSONObject();
 		paramJson.put("deviceId", deviceId);
 		paramJson.put("date", waterMeter.getDate());
