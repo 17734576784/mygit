@@ -52,7 +52,7 @@ public class FxMoileReportExceptionService implements IServiceStrategy {
 	*/
 	@Override
 	public void parse(String deviceId, Map<String, String> serviceMap) {
-		String logInfo = "府星移动 定时主动上报,设备 ：" + deviceId + ",数据：" + serviceMap.toString();
+		String logInfo = "府星移动上报告警,设备 ：" + deviceId + ",数据：" + serviceMap.toString();
 		LoggerUtil.logger(LogName.CALLBACK).info(logInfo);
 		if (serviceMap == null || serviceMap.isEmpty()) {
 			return;

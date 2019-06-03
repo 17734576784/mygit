@@ -18,8 +18,8 @@ import com.alibaba.fastjson.JSONObject;
 *  
 */
 public interface IChinaMobileService {
-	void parseDataPointMsg(JSONObject msgJson);
+	void parseDataPointMsg(JSONObject msgJson)  throws Exception;
 	
-	void parseCommandMsg(JSONObject msgJson);
+	void parseCommandMsg(JSONObject msgJson)  throws Exception;
 
 }

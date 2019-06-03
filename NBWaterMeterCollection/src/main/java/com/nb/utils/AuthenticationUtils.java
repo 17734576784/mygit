@@ -38,8 +38,10 @@ public class AuthenticationUtils {
 			data = JsonUtil.jsonString2SimpleObj(responseLogin.getContent(), data.getClass());
 			accessToken = data.get("accessToken");
 			int expiresIn = ConverterUtils.toInt(data.get("expiresIn"));
-			
-			JedisUtils.set(key, accessToken, expiresIn);
+			if (accessToken != null) {
+				JedisUtils.set(key, accessToken, expiresIn);
+
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			LoggerUtil.logger(LogName.ERROR).error("鉴权异常");

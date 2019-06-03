@@ -112,9 +112,9 @@ public class HistoryDatabaseExecutor {
 			} else {
 				flag = nbDailyDataMapper.updateNbDailyData(nbDailyData);
 			}
-			if (nbDailyData.getTotalFlow() != null) {
+//			if (nbDailyData.getTotalFlow() != null) {
 				flag &= insertJFDayFlow(nbDailyData);
-			}
+//			}
 
 		} catch (Exception e) {
 			flag = false;
