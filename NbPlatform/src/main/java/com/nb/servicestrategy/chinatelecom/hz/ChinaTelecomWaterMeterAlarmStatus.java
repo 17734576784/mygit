@@ -1,5 +1,5 @@
 /**   
-* @Title: ChinaTelecomWaterMeterAlarm.java 
+* @Title: ChinaTelecomWaterMeterAlarmStatus.java 
 * @Package com.nb.servicestrategy.chinatelecom.hz 
 * @Description: TODO(用一句话描述该文件做什么) 
 * @author dbr
@@ -19,21 +19,21 @@ import com.nb.http.HttpsClientUtil;
 import com.nb.logger.LogName;
 import com.nb.logger.LoggerUtils;
 import com.nb.model.StreamClosedHttpResponse;
-import com.nb.model.hz.HzWaterMeterAlarm;
+import com.nb.model.hz.HzWaterMeterAlarmStatus;
 import com.nb.servicestrategy.IServiceStrategy;
 import com.nb.utils.CommFunc;
 import com.nb.utils.Constant;
 import com.nb.utils.JsonUtil;
 
 /** 
-* @ClassName: ChinaTelecomWaterMeterAlarm 
+* @ClassName: ChinaTelecomWaterMeterAlarmStatus 
 * @Description: 汇中仪表水表告警数据服务解析
 * @author dbr
 * @date 2019年5月31日 上午9:16:55 
 *  
 */
 @Service
-public class ChinaTelecomWaterMeterAlarm implements IServiceStrategy {
+public class ChinaTelecomWaterMeterAlarmStatus implements IServiceStrategy {
 
 	@Value("${website.baseurl}")
 	private String baseUrl;
@@ -62,13 +62,19 @@ public class ChinaTelecomWaterMeterAlarm implements IServiceStrategy {
 			return;
 		}
 
-		HzWaterMeterAlarm alarm = JsonUtil.map2Bean(dataMap, HzWaterMeterAlarm.class);
+		HzWaterMeterAlarmStatus alarm = JsonUtil.map2Bean(dataMap, HzWaterMeterAlarmStatus.class);
+		alarm.setEvnetTime(serviceMap);
 		JSONObject paramJson = new JSONObject();
-		paramJson.put("deviceId", deviceId);
-		paramJson.put("date", alarm.getDate());
-		paramJson.put("time", alarm.getTime());
-		paramJson.put("alarmName", alarm.getAlarmName());
-		paramJson.put("status", alarm.getStatus());
+
+		if (alarm.getLowBatteryAlarm()) {
+			paramJson.put("deviceId", deviceId);
+			paramJson.put("date", alarm.getEventDate());
+			paramJson.put("time", alarm.getEventTime());
+			paramJson.put("alramType", Constant.ALARM_TYPE_LOWBATTERYALARM);
+
+		} else {
+			return;
+		}
 
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("param", paramJson.toJSONString());

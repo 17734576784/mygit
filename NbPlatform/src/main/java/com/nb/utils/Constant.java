@@ -359,5 +359,16 @@ public class Constant {
 	public static final int CHINA_MOBILE_DEVICE_MSG = 2;
 	/** 标识消息类型 7：缓存命令下发后结果上报（仅支持NB设备） */
 	public static final int CHINA_MOBILE_COMMAND_MSG = 3;
+	
+	public static final int ALARM_TYPE_LOWFLOWALARM = 0;// 持续低流量告警
+	public static final int ALARM_TYPE_HIGHFLOWALARM = 0;// 持续高流量告警
+	public static final int ALARM_TYPE_LOWBATTERYALARM = 0;// 低电压告警
+	public static final int ALARM_TYPE_BATTERYRUNOUTALARM = 0;// 电量严重不足即将耗尽
+	public static final int ALARM_TYPE_HIGHTEMPERATUREALARM = 0;// 高温告警
+	public static final int ALARM_TYPE_LOWTEMPERATUREALARM = 0;// 低温告警
+	public static final int ALARM_TYPE_INNERERRORALARM = 0;// 内部错误告警
+	public static final int ALARM_TYPE_STORAGEFAULT = 0;// 存储故障告警
+	public static final int ALARM_TYPE_WATERTEMPRATURESENSORFAULT = 0;// 水温传感器故障告警
+	public static final int ALARM_TYPE_COMMUNICATIONALARM = 0;// 通讯异常告警
 
 }
