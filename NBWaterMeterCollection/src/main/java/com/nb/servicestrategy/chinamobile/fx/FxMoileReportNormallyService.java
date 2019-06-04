@@ -73,6 +73,7 @@ public class FxMoileReportNormallyService implements IServiceStrategy {
 		try {
 			ReturnObject obj = JsonUtil.GsonToBean(serviceMap.get("msg"), ReturnObject.class);
 			ReceiveCodeEF receiveCode = obj.getContentObj();
+
 			/** 根据设备Id获取表计的终端和测定id */
 			Map<String, Object> meterInfo = this.commonMapper.getRtuMpIdByDeviceId(deviceId);
 			if (meterInfo == null) {

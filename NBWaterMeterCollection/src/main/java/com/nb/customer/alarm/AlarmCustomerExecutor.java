@@ -37,7 +37,7 @@ public class AlarmCustomerExecutor {
 		boolean flag = true;
 		try {
 			Eve eve = JsonUtil.convertJsonStringToObject(obj.toString(), Eve.class);
-			if (!eveMapper.insertEve(eve)) {
+			if (!eveMapper.isExist(eve)) {
 				flag = eveMapper.insertEve(eve);
 			}
 		} catch (Exception e) {

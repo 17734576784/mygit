@@ -80,57 +80,49 @@ public class FxMoileReportExceptionService implements IServiceStrategy {
 			/** BIT0 阀门异常 */
 			if ((typeNo & 0x01) == 0x01) {
 				eveInfo = "阀门异常";
-				typeNo = Constant.ALARM_2010;
-				insertEve(receiveCode, rtuId, mpId, eveInfo, typeNo, date, time);
+				insertEve(receiveCode, rtuId, mpId, eveInfo, Constant.ALARM_2010, date, time);
 			}
 
 			/** BIT3：强磁异常 */
 			if ((typeNo & 0x08) == 0x08) {
 				eveInfo = "强磁异常（双干簧管异常），连续10秒2个干簧管都吸合，关阀门并自动上报，有5次按键打开阀门的机会，第5次按键打卡阀门后，如果还是出现强磁只有服务器下发“开阀命令”才能打开阀门。";
-				typeNo = Constant.ALARM_2004;
-				insertEve(receiveCode, rtuId, mpId, eveInfo, typeNo, date, time);
+				insertEve(receiveCode, rtuId, mpId, eveInfo, Constant.ALARM_2004, date, time);
 			}
 
 			/** BIT4：一级低压 BIT5：二级低压 */
 			if ((typeNo & 0x10) == 0x10 || (typeNo & 0x20) == 0x20) {
 				eveInfo = "电池电压低压告警，电压值:" + receiveCode.getBatteryVoltage();
-				typeNo = Constant.ALARM_2008;
-				insertEve(receiveCode, rtuId, mpId, eveInfo, typeNo, date, time);
+				insertEve(receiveCode, rtuId, mpId, eveInfo, Constant.ALARM_2008, date, time);
 			}
 
 			/** BIT6：存储器异常 */
 			if ((typeNo & 0x40) == 0x40) {
 				eveInfo = "存储器异常";
-				typeNo = Constant.ALARM_2011;
-				insertEve(receiveCode, rtuId, mpId, eveInfo, typeNo, date, time);
+				insertEve(receiveCode, rtuId, mpId, eveInfo, Constant.ALARM_2011, date, time);
 			}
 
 			/** BIT8：大流量告警 */
 			if ((typeNo & 0x100) == 0x100) {
 				eveInfo = "大流量告警";
-				typeNo = Constant.ALARM_2001;
-				insertEve(receiveCode, rtuId, mpId, eveInfo, typeNo, date, time);
+				insertEve(receiveCode, rtuId, mpId, eveInfo, Constant.ALARM_2001, date, time);
 			}
 
 			/** BIT9：小流量告警 */
 			if ((typeNo & 0x200) == 0x200) {
 				eveInfo = "小流量告警";
-				typeNo = Constant.ALARM_2002;
-				insertEve(receiveCode, rtuId, mpId, eveInfo, typeNo, date, time);
+				insertEve(receiveCode, rtuId, mpId, eveInfo, Constant.ALARM_2002, date, time);
 			}
 
 			/** BIT11: 高压力告警 */
 			if ((typeNo & 0x800) == 0x800) {
 				eveInfo = "高压力告警";
-				typeNo = Constant.ALARM_2009;
-				insertEve(receiveCode, rtuId, mpId, eveInfo, typeNo, date, time);
+				insertEve(receiveCode, rtuId, mpId, eveInfo, Constant.ALARM_2009, date, time);
 			}
 
 			/** BIT12: 低压力告警 */
 			if ((typeNo & 0x1000) == 0x1000) {
 				eveInfo = "低压力告警";
-				typeNo = Constant.ALARM_2008;
-				insertEve(receiveCode, rtuId, mpId, eveInfo, typeNo, date, time);
+				insertEve(receiveCode, rtuId, mpId, eveInfo, Constant.ALARM_2008, date, time);
 			}
 		 
 		} catch (Exception e) {
