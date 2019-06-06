@@ -78,7 +78,7 @@ public class ChinaTelecomCallBackController {
 	@RequestMapping(value = "deviceDataChanged", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<HttpStatus> recvDataChangeNotify(@RequestBody Object updateDeviceDataNotifyMessage) {
 
-		LoggerUtil.logger(LogName.CALLBACK).info("接收updateDeviceData:" + updateDeviceDataNotifyMessage);
+		LoggerUtil.logger(LogName.CALLBACK).info("接收deviceDataChanged:" + updateDeviceDataNotifyMessage);
 		Map<String, String> messageMap = new HashMap<String, String>();
 		try {
 			messageMap = JsonUtil.jsonString2SimpleObj(updateDeviceDataNotifyMessage, messageMap.getClass());
