@@ -110,18 +110,18 @@ public class ChinaTelecomIotHttpsUtil {
 		return executeHttpRequest(request);
 	}
 	
-	public StreamClosedHttpResponse doPostMultipartFile(String url, Map<String, String> headerMap, File file) {
-		HttpPost request = new HttpPost(url);
-		addRequestHeader(request, headerMap);
-
-		FileBody fileBody = new FileBody(file);
-		// Content-Type:multipart/form-data;
-		// boundary=----WebKitFormBoundarypJTQXMOZ3dLEzJ4b
-		HttpEntity reqEntity = (HttpEntity) MultipartEntityBuilder.create().addPart("file", fileBody).build();
-		request.setEntity(reqEntity);
-
-		return (StreamClosedHttpResponse) executeHttpRequest(request);
-	}
+	   public StreamClosedHttpResponse doPostMultipartFile(String url, Map<String, String> headerMap,
+	           File file) {
+	        HttpPost request = new HttpPost(url);
+	        addRequestHeader(request, headerMap);
+	        
+	        FileBody fileBody = new FileBody(file);
+	        // Content-Type:multipart/form-data; boundary=----WebKitFormBoundarypJTQXMOZ3dLEzJ4b
+	        HttpEntity reqEntity = (HttpEntity) MultipartEntityBuilder.create().addPart("file", fileBody).build();
+	        request.setEntity(reqEntity);
+	        
+	        return (StreamClosedHttpResponse) executeHttpRequest(request);
+	    }
 
 	public StreamClosedHttpResponse doPostJsonGetStatusLine(
 			String url, Map<String, String> headerMap, String content) {
@@ -251,16 +251,32 @@ public class ChinaTelecomIotHttpsUtil {
 		return (StreamClosedHttpResponse) response;
 	}
 
-	public HttpResponse doDelete(String url, Map<String, String> headerMap) {
+	public HttpResponse doDeleteWithParas(String url, 
+			Map<String, String> queryParams, Map<String, String> headerMap)
+			throws Exception {
 		HttpDelete request = new HttpDelete(url);
 		addRequestHeader(request, headerMap);
+		
+		URIBuilder builder;
+		try {
+			builder = new URIBuilder(url);
+		} catch (URISyntaxException e) {
+			System.out.printf("URISyntaxException: {}", e);
+			throw new Exception(e);
+		}
+		
+		if (queryParams != null && !queryParams.isEmpty()) {
+			builder.setParameters(paramsConverter(queryParams));
+		}
+		request.setURI(builder.build());
 
 		return executeHttpRequest(request);
 	}
 
-	public StreamClosedHttpResponse doDeleteGetStatusLine(String url,
-			Map<String, String> headerMap) {
-		HttpResponse response = doDelete(url, headerMap);
+	public StreamClosedHttpResponse doDeleteWithParasGetStatusLine(String url,
+			Map<String, String> queryParams, Map<String, String> headerMap)
+			throws Exception {
+		HttpResponse response = doDeleteWithParas(url, queryParams, headerMap);
 		if (null == response) {
 			System.out.println("The response body is null.");
 		}
