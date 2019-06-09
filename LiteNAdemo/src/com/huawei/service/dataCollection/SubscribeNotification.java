@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.http.HttpResponse;
 
+import com.huawei.testMessagePush.NotifyType;
 import com.huawei.utils.Constant;
 import com.huawei.utils.HttpsUtil;
 import com.huawei.utils.JsonUtil;
@@ -30,17 +31,18 @@ public class SubscribeNotification {
         String appId = Constant.APPID;
         String urlSubscribe = Constant.SUBSCRIBE_NOTIFYCATION;
         
+        String callbackurl = NotifyType.TEST_CALLBACK_BASE_URL; // please replace the IP and Port of BASE_URL, when you use the demo.
+		String callbackurl1 = callbackurl + "/chinatelecom/callbackurl1";
 
         /*
          * subscribe deviceAdded notification
          */
-        String callbackurl_deviceAdded = Constant.DEVICE_ADDED_CALLBACK_URL;
+//        String callbackurl_deviceAdded = Constant.DEVICE_ADDED_CALLBACK_URL;
         String notifyType_deviceAdded = Constant.DEVICE_ADDED;
 
         Map<String, Object> paramSubscribe = new HashMap<>();
         paramSubscribe.put("notifyType", notifyType_deviceAdded);
-        paramSubscribe.put("callbackurl", callbackurl_deviceAdded);
-
+        paramSubscribe.put("callbackurl", callbackurl1);
         String jsonRequest = JsonUtil.jsonObj2Sting(paramSubscribe);
 
         Map<String, String> header = new HashMap<>();
@@ -48,7 +50,6 @@ public class SubscribeNotification {
         header.put(Constant.HEADER_APP_AUTH, "Bearer" + " " + accessToken);
 
         HttpResponse httpResponse = httpsUtil.doPostJson(urlSubscribe, header, jsonRequest);
-
         String bodySubscribe = httpsUtil.getHttpResponseBody(httpResponse);
 
         System.out.println("SubscribeNotification: " + notifyType_deviceAdded + ", response content:");

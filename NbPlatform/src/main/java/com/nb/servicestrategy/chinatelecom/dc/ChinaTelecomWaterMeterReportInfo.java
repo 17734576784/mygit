@@ -73,7 +73,7 @@ public class ChinaTelecomWaterMeterReportInfo implements IServiceStrategy {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("param", paramJson.toJSONString());
 
-		String apiUrl = baseUrl + Constant.UPLOAD_ALARM_URL;
+		String apiUrl = baseUrl + Constant.UPLOAD_DATA_URL;
 		HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 		try {
 			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostFormUrlEncodedGetStatusLine(apiUrl, paramMap);

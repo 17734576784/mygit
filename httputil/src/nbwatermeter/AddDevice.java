@@ -39,7 +39,7 @@ public class AddDevice {
        
        JSONObject json = new JSONObject();
        json.put("nbType", "0");
-       json.put("rtuId", "5");
+       json.put("rtuId", "6");
        json.put("mpId", "1");
        
        HttpsClientUtil httpsClientUtil = new HttpsClientUtil();

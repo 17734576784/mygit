@@ -8,13 +8,8 @@
 */
 package nbwatermeter;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import org.apache.http.client.utils.DateUtils;
 
 import com.alibaba.fastjson.JSONObject;
 
@@ -28,7 +23,7 @@ import httpUtil.StreamClosedHttpResponse;
 * @date 2019年1月3日 上午9:10:33 
 *  
 */
-public class SyncCommand {
+public class AddDevice2 {
 
 	/**
 	 * @throws Exception  
@@ -41,38 +36,19 @@ public class SyncCommand {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 
-       String urlReg="https://192.168.1.130:18213/api/command";
+       String urlReg="https://192.168.1.130:18213/api/register";
        
        JSONObject json = new JSONObject();
        json.put("nbType", "0");
        json.put("rtuId", "6");
        json.put("mpId", "1");
-       json.put("commandId", "3");
-       json.put("operatorId", "1");
-       json.put("meterAddr", "300000000008");
-       json.put("control", "14");
-
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("param", json.toJSONString());
        
+//       urlReg = HttpsClientUtil.setcompleteUrl(urlReg, params);
        
-
-       JSONObject param = new JSONObject();
-//       param.put("AFN", 27);
-//       param.put("IMSI", "00000867726032982805");
-//       param.put("CNT", 3);
-//       param.put("DIR", 0);
-//       param.put("ValveOperate", 1);
-//       
-       param.put("CurrentDateTime", DateUtils.formatDate(new Date(), "YYYY-MM-dd HH:mm:ss"));
-       json.put("param", param.toJSONString());
-       
-      	Map<String, String> params = new HashMap<String, String>();
-	  params.put("param", json.toJSONString());
        HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
        StreamClosedHttpResponse responseReg = httpsClientUtil.doGetWithParasGetStatusLine(urlReg, params, null);
-
-       
-//       HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
-//       StreamClosedHttpResponse responseReg = httpsClientUtil.doPostJsonGetStatusLine(urlReg, json.toJSONString());
 
        System.out.println("RegisterDirectlyConnectedDevice, response content:");
        System.out.print(responseReg.getStatusLine());

@@ -3,9 +3,9 @@ package httpUtil;
 /**   
 * @Title: HTTPSClientUtil.java 
 * @Package utils 
-* @Description: TODO(用一句话描述该文件做什么) 
+* @Description: TODO(鐢ㄤ竴鍙ヨ瘽鎻忚堪璇ユ枃浠跺仛浠�涔�) 
 * @author dbr
-* @date 2018年12月26日 下午4:27:18 
+* @date 2018骞�12鏈�26鏃� 涓嬪崍4:27:18 
 * @version V1.0   
 */
 
@@ -21,6 +21,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
@@ -63,9 +64,9 @@ import utils.StreamUtil;
 
 /**
  * @ClassName: HTTPSClientUtil
- * @Description: http工具类 有无证书https访问，http访问
+ * @Description: http宸ュ叿绫� 鏈夋棤璇佷功https璁块棶锛宧ttp璁块棶
  * @author dbr
- * @date 2018年12月26日 下午4:27:18
+ * @date 2018骞�12鏈�26鏃� 涓嬪崍4:27:18
  * 
  */
 public class HttpsClientUtil {
@@ -85,9 +86,9 @@ public class HttpsClientUtil {
 	public final static String CHARSET_UTF8 = "UTF-8";
 
 	/**
-	 * @Title: sslClientByCert @Description: 创建证书访问的
-	 * HttpClient @param @return @param @throws Exception 设定文件 @return HttpClient
-	 * 返回类型 @throws
+	 * @Title: sslClientByCert @Description: 鍒涘缓璇佷功璁块棶鐨�
+	 * HttpClient @param @return @param @throws Exception 璁惧畾鏂囦欢 @return HttpClient
+	 * 杩斿洖绫诲瀷 @throws
 	 */
 	public HttpClient sslClientByCert() throws Exception {
 		// 1 Import your own certificate
@@ -111,16 +112,16 @@ public class HttpsClientUtil {
 
 		SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(sslcontext,
 				NoopHostnameVerifier.INSTANCE);
-		// 创建Registry
+		// 鍒涘缓Registry
 		RequestConfig requestConfig = RequestConfig.custom().setCookieSpec(CookieSpecs.STANDARD_STRICT)
 				.setExpectContinueEnabled(Boolean.TRUE)
 				.setTargetPreferredAuthSchemes(Arrays.asList(AuthSchemes.NTLM, AuthSchemes.DIGEST))
 				.setProxyPreferredAuthSchemes(Arrays.asList(AuthSchemes.BASIC)).build();
 
-		// 设置协议http和https对应的处理socket链接工厂的对象
+		// 璁剧疆鍗忚http鍜宧ttps瀵瑰簲鐨勫鐞唖ocket閾炬帴宸ュ巶鐨勫璞�
 		Registry<ConnectionSocketFactory> socketFactoryRegistry = RegistryBuilder.<ConnectionSocketFactory>create()
 				.register("http", PlainConnectionSocketFactory.INSTANCE).register("https", socketFactory).build();
-		// 创建ConnectionManager，添加Connection配置信息
+		// 鍒涘缓ConnectionManager锛屾坊鍔燙onnection閰嶇疆淇℃伅
 		PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager(
 				socketFactoryRegistry);
 		CloseableHttpClient closeableHttpClient = HttpClients.custom().setConnectionManager(connectionManager)
@@ -129,15 +130,15 @@ public class HttpsClientUtil {
 	}
 
 	/**
-	 * @Title: sslClient @Description: 创建无证书访问的
-	 * HttpClient @param @return @param @throws Exception 设定文件 @return HttpClient
-	 * 返回类型 @throws
+	 * @Title: sslClient @Description: 鍒涘缓鏃犺瘉涔﹁闂殑
+	 * HttpClient @param @return @param @throws Exception 璁惧畾鏂囦欢 @return HttpClient
+	 * 杩斿洖绫诲瀷 @throws
 	 */
 	public HttpClient sslClient() throws Exception {
 		CloseableHttpClient closeableHttpClient = null;
 		try {
 			SSLContext sslcontext = SSLContext.getInstance("SSL");
-			// 鍒涘缓TrustManager
+			// 閸掓稑缂揟rustManager
 			X509TrustManager tm = new X509TrustManager() {
 
 				public void checkClientTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
@@ -155,16 +156,16 @@ public class HttpsClientUtil {
 
 			SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(sslcontext,
 					NoopHostnameVerifier.INSTANCE);
-			// 创建Registry
+			// 鍒涘缓Registry
 			RequestConfig requestConfig = RequestConfig.custom().setCookieSpec(CookieSpecs.STANDARD_STRICT)
 					.setExpectContinueEnabled(Boolean.TRUE)
 					.setTargetPreferredAuthSchemes(Arrays.asList(AuthSchemes.NTLM, AuthSchemes.DIGEST))
 					.setProxyPreferredAuthSchemes(Arrays.asList(AuthSchemes.BASIC)).build();
 
-			// 设置协议http和https对应的处理socket链接工厂的对象
+			// 璁剧疆鍗忚http鍜宧ttps瀵瑰簲鐨勫鐞唖ocket閾炬帴宸ュ巶鐨勫璞�
 			Registry<ConnectionSocketFactory> socketFactoryRegistry = RegistryBuilder.<ConnectionSocketFactory>create()
 					.register("http", PlainConnectionSocketFactory.INSTANCE).register("https", socketFactory).build();
-			// 创建ConnectionManager，添加Connection配置信息
+			// 鍒涘缓ConnectionManager锛屾坊鍔燙onnection閰嶇疆淇℃伅
 			PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager(
 					socketFactoryRegistry);
 			closeableHttpClient = HttpClients.custom().setConnectionManager(connectionManager)
@@ -556,4 +557,31 @@ public class HttpsClientUtil {
 
 		return body;
 	}
+	
+	/** 
+	* @Title: setcompleteUrl 
+	* @Description: 将参数绑定到url上组合成url参数 
+	* @param @param url
+	* @param @param params
+	* @param @return    设定文件 
+	* @return String    返回类型 
+	* @throws 
+	*/
+	public static String setcompleteUrl(String url, Map<String, Object> params) {
+		// TODO Auto-generated method stub
+		if (params != null) {
+			url += "?";
+			Set<Entry<String, Object>> entrys = params.entrySet();
+			int size = entrys.size();
+			int index = 0;
+			for (Entry<String, Object> entry : entrys) {
+				url += entry.getKey() + "=" + entry.getValue();
+				if (++index < size){
+					url += "&";
+				}
+			}
+		}
+		return url;
+	}
+	
 }

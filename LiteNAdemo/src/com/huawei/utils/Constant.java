@@ -15,12 +15,10 @@ package com.huawei.utils;
 
 public class Constant {
 
-    //please replace the IP and Port, when you use the demo.
-    public static final String BASE_URL = "https://device.api.ct10649.com:8743"; //电信
-//    public static final String BASE_URL = "https://180.101.147.89:8743"; //电信
+	// please replace the IP and Port, when you use the demo.
+	// public static final String BASE_URL = "https://device.api.ct10649.com:8743"; //电信
+	public static final String BASE_URL = "https://180.101.147.89:8743"; // 电信
 
-    
-	
 //    public static final String BASE_URL = "https://58.240.96.46:8743"; //联通
 
 
@@ -35,9 +33,21 @@ public class Constant {
 //    public static final String SECRET = "uOL_C0yP6pl4Gals5dJkrfF1vSka";
     	
     //竟达电信
-    public static final String APPID = "kFIBMLfUCggAtt9dwgSFeYTP9Ssa";
-    public static final String SECRET = "PyVL5CMym0X_3XmSsfAuza2rc_Ma";
+//    public static final String APPID = "kFIBMLfUCggAtt9dwgSFeYTP9Ssa";
+//    public static final String SECRET = "PyVL5CMym0X_3XmSsfAuza2rc_Ma";
+
+//	// 汇中电信
+//	public static final String APPID = "VmfKc5kSaahMKp4Axhi0oCYdfEIa";
+//	public static final String SECRET = "mRh6f5Ztb48fSOtVwkCyJmOu36sa";
     
+	// 道成电信
+//	public static final String APPID = "7CCV11GCHL6e6Zpj0L3D6_BbpWEa";
+//	public static final String SECRET = "Oex1rueQUThcjTxZqFRp2TtdDZMa";
+    
+	// 平台电信测试
+	public static final String APPID = "fMGd_rcfIZWtL9XA8pppuvtfq1Ma";
+	public static final String SECRET = "fTqg62CwkgBKRL8fNaaT62LxnjQa";
+
     //府星电信 595yVAxsUL1HnK84TnylSC6xaY8a
 //    public static final String APPID = "595yVAxsUL1HnK84TnylSC6xaY8a";
 //    public static final String SECRET = "FD9Rz9ayh80D1KM6146VXxQwU54a";
