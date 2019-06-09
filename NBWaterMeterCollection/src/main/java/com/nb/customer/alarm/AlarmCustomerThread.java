@@ -13,7 +13,7 @@ import com.nb.utils.JedisUtils;
 
 /** 
 * @ClassName: AlarmCustomerThread 
-* @Description: TODO(这里用一句话描述这个类的作用) 
+* @Description: 事项告警处理线程
 * @author dbr
 * @date 2019年3月11日 下午4:08:32 
 *  
@@ -48,18 +48,11 @@ public class AlarmCustomerThread implements Runnable {
 			if (alarmCustomerRunFlag) {
 				Object alaram = null;
 				try {
-//					alaram = JedisUtils.brpopLpush(Constant.ALARM_EVENT_QUEUE, Constant.ALARM_EVENT_BAK_QUEUE, 1);
 					alaram = JedisUtils.brpop(Constant.ALARM_EVENT_QUEUE, Constant.REDIS_TIMEOUT);
-//					System.out.println(LocalDateTime.now() + "  alaram" + Thread.currentThread().getName());
 					if (null != alaram) {
-						if (alarmCustomerExecutor.saveAlarmEvent(alaram)) {
-//							JedisUtils.rpop(Constant.ALARM_EVENT_BAK_QUEUE);
-						} else {
-//							JedisUtils.brpopLpush(Constant.ALARM_EVENT_BAK_QUEUE, Constant.ALARM_EVENT_ERROR_QUEUE, 1);
-						}
+						alarmCustomerExecutor.saveAlarmEvent(alaram);
 					}
 				} catch (Exception e) {
-					// TODO: handle exception
 					e.printStackTrace();
 				}
 			}

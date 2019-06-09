@@ -33,7 +33,7 @@ import com.nb.model.NbInstantaneous;
 import com.nb.model.NbWaterMeter;
 import com.nb.servicestrategy.IServiceStrategy;
 import com.nb.utils.Constant;
-import com.nb.utils.DateUtils;
+import static com.nb.utils.DateUtils.*;
 import com.nb.utils.JedisUtils;
 import com.nb.utils.JsonUtil;
 import com.thrid.party.codec.ef.ReceiveCodeEF;
@@ -51,7 +51,7 @@ public class FxMoileReportNormallyService implements IServiceStrategy {
 
 	@Resource
 	private NbDailyDataMapper nbDailyDataMapper;
-	
+
 	@Resource
 	private CommonMapper commonMapper;
 	
@@ -83,19 +83,19 @@ public class FxMoileReportNormallyService implements IServiceStrategy {
 			int rtuId = toInt(meterInfo.get("rtuId"));
 			int mpId = toInt(meterInfo.get("mpId"));
 
-			Date dateTime = DateUtils.parseTimesTampDate(receiveCode.getCurrentDateTime());
-			int date = toInt(DateUtils.formatDateByFormat(dateTime, "yyyyMMdd"));
-			int time = toInt(DateUtils.formatDateByFormat(dateTime, "HHmmss"));
+			Date dateTime = parseTimesTampDate(receiveCode.getCurrentDateTime());
+			int date = toInt(formatDateByFormat(dateTime, "yyyyMMdd"));
+			int time = toInt(formatDateByFormat(dateTime, "HHmmss"));
 
-			// 插入设备电池电压数据
+			/** 插入设备电池电压数据 */
 			insertBattery(receiveCode, rtuId, mpId, date, time);
-			// 插入设备上报日数据
+			/** 插入设备上报日数据 */
 			insertDailyData(rtuId, mpId, receiveCode, deviceId, date, time);
-			// 插入瞬时量
+			/** 插入瞬时量 */ 
 			insertInstantaneous(receiveCode, rtuId, mpId, date);
-			// 更新水表状态
+			/** 更新水表状态 */
 			updateNbWaterMeter(receiveCode, rtuId, mpId);
-			// 插入丢失的日结
+			/** 插入丢失的日结 */ 
 			supplementDailyData(receiveCode, rtuId, mpId, date);
 
 		} catch (Exception e) {
@@ -115,11 +115,13 @@ public class FxMoileReportNormallyService implements IServiceStrategy {
 	* @throws 
 	*/
 	private void supplementDailyData(ReceiveCodeEF receiveCode, int rtuId, int mpId, int date) {
+		/** 前 1 天~15 天日结正向水量 */
 		List<BigDecimal> daysPositiveList = receiveCode.getFifteenDaysPositiveWaterList();
+		/** 前 1 天~15 天日结反向水量 */
 		List<BigDecimal> daysReverseList = receiveCode.getFifteenDaysReverseWaterList();
 		
 		Calendar c = Calendar.getInstance();
-		c.setTime(DateUtils.parseTimesTampDate(toStr(date), DateUtils.DATE_PATTERN));
+		c.setTime(parseTimesTampDate(toStr(date), DATE_PATTERN));
 		c.add(Calendar.DAY_OF_YEAR, -1);
 		
 		NbDailyData nbDailyData = new NbDailyData();
@@ -128,7 +130,7 @@ public class FxMoileReportNormallyService implements IServiceStrategy {
 		nbDailyData.setHms(Constant.ZERO);
 
 		for (int i = 0; i < daysPositiveList.size(); i++) {
-			int ymd = toInt(DateUtils.parseDate(c.getTime(), DateUtils.DATE_PATTERN));
+			int ymd = toInt(parseDate(c.getTime(), DATE_PATTERN));
 			nbDailyData.setYmd(ymd);
 			nbDailyData.setTableName(toStr(ymd / 100));
 
@@ -158,16 +160,16 @@ public class FxMoileReportNormallyService implements IServiceStrategy {
 
 		/** 时间设置到当天0点0分 */
 		Calendar c = Calendar.getInstance();
-		c.setTime(DateUtils.parseTimesTampDate(toStr(date), DateUtils.DATE_PATTERN));
+		c.setTime(parseTimesTampDate(toStr(date), DATE_PATTERN));
 		c.add(Calendar.DAY_OF_YEAR, -1);
 
 		List<BigDecimal> list = receiveCode.getYesterdayPerHourPositiveWaterList();
 		for (int i = 0; i < list.size(); i++) {
-			int ymd = toInt(DateUtils.parseDate(c.getTime(), DateUtils.DATE_PATTERN));
+			int ymd = toInt(parseDate(c.getTime(), DATE_PATTERN));
 			nbInstantaneous.setYmd(ymd);
 			nbInstantaneous.setTableName(toStr(ymd / 100));
 			
-			int time = toInt(DateUtils.formatTimePattern(c.getTime()));
+			int time = toInt(formatTimePattern(c.getTime()));
 			nbInstantaneous.setHms(time);
 			nbInstantaneous.setTotalFlow(list.get(i).doubleValue());
 			JedisUtils.lpush(Constant.HISTORY_INSTAN_QUEUE, JsonUtil.jsonObj2Sting(nbInstantaneous));
@@ -199,7 +201,7 @@ public class FxMoileReportNormallyService implements IServiceStrategy {
 		nbWaterMeter.setLargeFlowDuration(receiveCode.getLargeFlowContinuousMonitorTime().intValue());
 		nbWaterMeter.setSmallFlowThreshold(receiveCode.getLowFlowAlarmThreshold());
 		nbWaterMeter.setSmallFlowDuration(receiveCode.getLowFlowContinuousMonitorTime().intValue());
-		nbWaterMeter.setReportBaseTime(DateUtils.parseDate(receiveCode.getReportBaseTime(), "YYYYMMDDhhmmss"));
+		nbWaterMeter.setReportBaseTime(parseDate(receiveCode.getReportBaseTime(), NOSEPARATOR_PATTERN));
 		nbWaterMeter.setReportIntervalTime(toInt(receiveCode.getReportIntervalHours()));
 		commonMapper.updateWaterMeter(nbWaterMeter);
 	}

@@ -43,23 +43,14 @@ public class InstanceDataCustomerThread implements Runnable {
 	*/
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		while (true) {
 			if (historyDatabaseRunFlag) {
 				// 瞬时数据
 				Object instanceData = null;
-//				instanceData = JedisUtils.brpopLpush(Constant.HISTORY_INSTAN_QUEUE, Constant.HISTORY_INSTAN_BAK_QUEUE,
-//						0);
 				instanceData = JedisUtils.brpop(Constant.HISTORY_INSTAN_QUEUE, Constant.REDIS_TIMEOUT);
 				if (null != instanceData) {
-					if (historyDatabaseExecutor.saveInstanceData(instanceData)) {
-//						JedisUtils.rpop(Constant.HISTORY_INSTAN_BAK_QUEUE);
-					} else {
-//						JedisUtils.brpopLpush(Constant.HISTORY_INSTAN_BAK_QUEUE, Constant.HISTORY_INSTAN_ERROR_QUEUE,
-//								1);
-					}
+					historyDatabaseExecutor.saveInstanceData(instanceData);
 				}
-
 			}
 		}
 

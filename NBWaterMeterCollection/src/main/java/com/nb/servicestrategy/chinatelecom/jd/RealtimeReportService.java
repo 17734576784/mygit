@@ -26,7 +26,6 @@ import com.nb.model.NbDailyData;
 import com.nb.model.jd.RealtimeReport;
 import com.nb.servicestrategy.IServiceStrategy;
 import com.nb.utils.Constant;
-import com.nb.utils.JedisUtils;
 import com.nb.utils.JsonUtil;
 
 /**

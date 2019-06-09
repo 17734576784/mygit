@@ -32,6 +32,7 @@ public class DateUtils {
 	public static String DATE_PATTERN = "yyyyMMdd";
 	public static String TIME_PATTERN = "HHmmss";
 	public static String UTC_PATTERN = "yyyyMMdd'T'HHmmss'Z'";
+	public static String NOSEPARATOR_PATTERN = "YYYYMMDDhhmmss";
 	
 	/**
 	 * 获取当前时间戳

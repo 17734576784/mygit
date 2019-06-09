@@ -78,41 +78,35 @@ public class DeviceAlarmService implements IServiceStrategy {
 			deviceAlarm.setEvnetTime(serviceMap);
 
 			String eveInfo = "";
-			Short typeNo = 0;
 			/** 篡改告警 */
 			if (deviceAlarm.getTampered() == Constant.ALARM) {
 				eveInfo = "序列号,生产日期,累计流量至少有一项被篡改";
-				typeNo = Constant.ALARM_2012;
-				insertEve(deviceAlarm, meterInfo, eveInfo, typeNo);
+				insertEve(deviceAlarm, meterInfo, eveInfo, Constant.ALARM_2012);
 			}
 
 			/** 反流告警 */
 			if (deviceAlarm.getReverseFlowAlarm() == Constant.ALARM) {
 				eveInfo = "反流告警";
-				typeNo = Constant.ALARM_2003;
-				insertEve(deviceAlarm, meterInfo, eveInfo, typeNo);
+				insertEve(deviceAlarm, meterInfo, eveInfo, Constant.ALARM_2003);
 			}
 
 			/** 磁干扰 */
 			if (deviceAlarm.getMagneticInterferenceAlarm() == Constant.ALARM) {
 				eveInfo = "磁干扰告警";
-				typeNo = Constant.ALARM_2004;
-				insertEve(deviceAlarm, meterInfo, eveInfo, typeNo);
+				insertEve(deviceAlarm, meterInfo, eveInfo, Constant.ALARM_2004);
 			}
 
 			/** 远传模块分离告警 */
 			if (deviceAlarm.getDisconnectAlarm() == Constant.ALARM) {
 				eveInfo = "远传模块分离告警";
-				typeNo = Constant.ALARM_2006;
-				insertEve(deviceAlarm, meterInfo, eveInfo, typeNo);
+				insertEve(deviceAlarm, meterInfo, eveInfo, Constant.ALARM_2006);
 			}
 
 			/** 大流量告警 */
 			if (deviceAlarm.getPeakFlow() > Constant.ZERO) {
-				typeNo = Constant.ALARM_2001;
 				eveInfo = "大流量报警 开始时间:" + deviceAlarm.getPeakFlowStartTime() + ",最大流速:" + deviceAlarm.getPeakFlow()
 						+ " L/h";
-				insertEve(deviceAlarm, meterInfo, eveInfo, typeNo);
+				insertEve(deviceAlarm, meterInfo, eveInfo, Constant.ALARM_2001);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

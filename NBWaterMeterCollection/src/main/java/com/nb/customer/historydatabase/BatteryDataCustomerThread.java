@@ -47,15 +47,9 @@ public class BatteryDataCustomerThread implements Runnable {
 			if (historyDatabaseRunFlag) {
 				// 电池电压
 				Object battery = null;
-//				battery = JedisUtils.brpopLpush(Constant.HISTORY_BATTERY_QUEUE, Constant.HISTORY_BATTERY_BAK_QUEUE, 1);
 				battery = JedisUtils.brpop(Constant.HISTORY_BATTERY_QUEUE, Constant.REDIS_TIMEOUT);
 				if (null != battery) {
-					if (historyDatabaseExecutor.saveNbBattery(battery)) {
-//						JedisUtils.rpop(Constant.HISTORY_BATTERY_BAK_QUEUE);
-					} else {
-//						JedisUtils.brpopLpush(Constant.HISTORY_BATTERY_BAK_QUEUE, Constant.HISTORY_BATTERY_ERROR_QUEUE,
-//								1);
-					}
+					historyDatabaseExecutor.saveNbBattery(battery);
 				}
 			}
 		}

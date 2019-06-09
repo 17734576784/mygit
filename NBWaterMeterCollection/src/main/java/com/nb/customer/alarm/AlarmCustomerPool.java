@@ -38,7 +38,7 @@ public class AlarmCustomerPool {
 	@PostConstruct
 	public void init() {
 		ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(alarmEventPoolsize,
-				new BasicThreadFactory.Builder().namingPattern("-schedule-pool-%d").daemon(true).build());
+				new BasicThreadFactory.Builder().namingPattern("alarm-schedule-pool-%d").daemon(true).build());
 
 		for (int i = 0; i < alarmEventPoolsize; i++) {
 			executorService.execute(new AlarmCustomerThread(alarmCustomerExecutor));

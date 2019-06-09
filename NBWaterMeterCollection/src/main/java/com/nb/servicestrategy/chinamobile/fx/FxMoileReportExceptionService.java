@@ -76,7 +76,7 @@ public class FxMoileReportExceptionService implements IServiceStrategy {
 
 			int typeNo = toInt(receiveCode.getErrorNo());
 			String eveInfo = "";
-			
+
 			/** BIT0 阀门异常 */
 			if ((typeNo & 0x01) == 0x01) {
 				eveInfo = "阀门异常";
@@ -124,7 +124,7 @@ public class FxMoileReportExceptionService implements IServiceStrategy {
 				eveInfo = "低压力告警";
 				insertEve(receiveCode, rtuId, mpId, eveInfo, Constant.ALARM_2008, date, time);
 			}
-		 
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			LoggerUtil.logger(LogName.ERROR).error(logInfo + ",异常:" + e.getMessage());

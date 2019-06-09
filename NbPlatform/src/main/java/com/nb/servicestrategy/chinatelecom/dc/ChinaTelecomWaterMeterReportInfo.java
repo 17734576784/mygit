@@ -67,8 +67,8 @@ public class ChinaTelecomWaterMeterReportInfo implements IServiceStrategy {
 		paramJson.put("deviceId", deviceId);
 		paramJson.put("date", waterMeter.getDate());
 		paramJson.put("time", waterMeter.getTime());
-		paramJson.put("cumulativeFlow", waterMeter.getReadingNumber());
-
+		paramJson.put("value", waterMeter.getReadingNumber());
+		paramJson.put("dataStreamId", "");
 		
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("param", paramJson.toJSONString());
