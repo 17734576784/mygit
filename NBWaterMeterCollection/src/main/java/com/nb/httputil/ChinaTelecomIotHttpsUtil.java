@@ -17,7 +17,6 @@ import javax.net.ssl.TrustManagerFactory;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
@@ -25,15 +24,14 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.conn.ClientConnectionManager;
-import org.apache.http.conn.scheme.Scheme;
-import org.apache.http.conn.scheme.SchemeRegistry;
-import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.apache.http.conn.ssl.DefaultHostnameVerifier;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.springframework.util.ResourceUtils;
 
@@ -48,8 +46,7 @@ import com.nb.utils.StreamUtil;
 * @date 2019年4月18日 下午4:34:13 
 *  
 */
-@SuppressWarnings("deprecation")
-public class ChinaTelecomIotHttpsUtil extends DefaultHttpClient {
+public class ChinaTelecomIotHttpsUtil {
 	public final static String HTTPGET = "GET";
 
 	public final static String HTTPPUT = "PUT";
@@ -64,7 +61,7 @@ public class ChinaTelecomIotHttpsUtil extends DefaultHttpClient {
 
 	public final static String CHARSET_UTF8 = "UTF-8";
 
-	private static HttpClient httpClient;
+	private static CloseableHttpClient httpClient;
 
 	/**
 	 * Two-Way Authentication In the two-way authentication, the client needs: 1
@@ -80,9 +77,11 @@ public class ChinaTelecomIotHttpsUtil extends DefaultHttpClient {
 		String trustcapath = ResourceUtils.getFile(Constant.CHINA_TELECOM_TRUSTCAPATH).getAbsolutePath();
 		
 		KeyStore selfCert = KeyStore.getInstance("pkcs12");
-		selfCert.load(new FileInputStream(selfcertpath),Constant.CHINA_TELECOM_SELFCERTPWD.toCharArray());
+		selfCert.load(new FileInputStream(selfcertpath),
+				Constant.CHINA_TELECOM_SELFCERTPWD.toCharArray());
 		KeyManagerFactory kmf = KeyManagerFactory.getInstance("sunx509");
 		kmf.init(selfCert, Constant.CHINA_TELECOM_SELFCERTPWD.toCharArray());
+		
 
 		// 2 Import the CA certificate of the server,
 		KeyStore caCert = KeyStore.getInstance("jks");
@@ -92,57 +91,13 @@ public class ChinaTelecomIotHttpsUtil extends DefaultHttpClient {
 
 		SSLContext sc = SSLContext.getInstance("TLS");
 		sc.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
-
 		// 3 Set the domain name to not verify
 		// (Non-commercial IoT platform, no use domain name access generally.)
-		SSLSocketFactory ssf = new SSLSocketFactory(sc,
-				SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+		SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(sc, new DefaultHostnameVerifier());
 
-		// If the platform has already applied for a domain name which matches
-		// the domain name in the certificate information, the certificate
-		// domain name check can be enabled (open by default)
-		// SSLSocketFactory ssf = new SSLSocketFactory(sc);
+		httpClient = HttpClients.custom().setSSLSocketFactory(sslsf).build();
 
-		ClientConnectionManager ccm = this.getConnectionManager();
-		SchemeRegistry sr = ccm.getSchemeRegistry();
-		sr.register(new Scheme("https", 8743, ssf));
-
-		httpClient = new DefaultHttpClient(ccm);
 	}
-
-	/**
-	 * One-Way Authentication In the One-way authentication, the client needs: 1
-	 * Import the CA certificate of the server, and use the CA certificate to
-	 * verify the certificate sent by the server; 2 Set the domain name to not
-	 * verify (Non-commercial IoT platform, no use domain name access.)
-	 * */
-	/*
-	 * public void initSSLConfigForOneWay() throws Exception {
-	 * 
-	 * // 1 Import the CA certificate of the server, KeyStore caCert =
-	 * KeyStore.getInstance("jks"); caCert.load(new
-	 * FileInputStream(TRUSTCAPATH), TRUSTCAPWD.toCharArray());
-	 * TrustManagerFactory tmf = TrustManagerFactory.getInstance("sunx509");
-	 * tmf.init(caCert);
-	 * 
-	 * SSLContext sc = SSLContext.getInstance("TLS"); sc.init(null,
-	 * tmf.getTrustManagers(), null);
-	 * 
-	 * // 2 Set the domain name to not verify // (Non-commercial IoT platform,
-	 * no use domain name access generally.) SSLSocketFactory ssf = new
-	 * SSLSocketFactory(sc, SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
-	 * 
-	 * //If the platform has already applied for a domain name which matches the
-	 * domain name in the certificate information, the certificate //domain name
-	 * check can be enabled (open by default) // SSLSocketFactory ssf = new
-	 * SSLSocketFactory(sc);
-	 * 
-	 * ClientConnectionManager ccm = this.getConnectionManager(); SchemeRegistry
-	 * sr = ccm.getSchemeRegistry(); sr.register(new Scheme("https", 8743,
-	 * ssf));
-	 * 
-	 * httpClient = new DefaultHttpClient(ccm); }
-	 */
 
 	public HttpResponse doPostJson(String url, Map<String, String> headerMap,
 			String content) {
@@ -155,18 +110,18 @@ public class ChinaTelecomIotHttpsUtil extends DefaultHttpClient {
 		return executeHttpRequest(request);
 	}
 	
-	   public StreamClosedHttpResponse doPostMultipartFile(String url, Map<String, String> headerMap,
-	           File file) {
-	        HttpPost request = new HttpPost(url);
-	        addRequestHeader(request, headerMap);
-	        
-	        FileBody fileBody = new FileBody(file);
-	        // Content-Type:multipart/form-data; boundary=----WebKitFormBoundarypJTQXMOZ3dLEzJ4b
-	        HttpEntity reqEntity = (HttpEntity) MultipartEntityBuilder.create().addPart("file", fileBody).build();
-	        request.setEntity(reqEntity);
-	        
-	        return (StreamClosedHttpResponse) executeHttpRequest(request);
-	    }
+	public StreamClosedHttpResponse doPostMultipartFile(String url, Map<String, String> headerMap, File file) {
+		HttpPost request = new HttpPost(url);
+		addRequestHeader(request, headerMap);
+
+		FileBody fileBody = new FileBody(file);
+		// Content-Type:multipart/form-data;
+		// boundary=----WebKitFormBoundarypJTQXMOZ3dLEzJ4b
+		HttpEntity reqEntity = (HttpEntity) MultipartEntityBuilder.create().addPart("file", fileBody).build();
+		request.setEntity(reqEntity);
+
+		return (StreamClosedHttpResponse) executeHttpRequest(request);
+	}
 
 	public StreamClosedHttpResponse doPostJsonGetStatusLine(
 			String url, Map<String, String> headerMap, String content) {
