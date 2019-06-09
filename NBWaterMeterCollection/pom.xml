@@ -138,7 +138,13 @@
 			<artifactId>gson</artifactId>
 		</dependency>
 
-
+		<dependency>
+			<groupId>com.fx</groupId>
+			<artifactId>SLZY_PLUGIN</artifactId>
+			<version>1.0.0</version>
+			<scope>system</scope>
+			<systemPath>${pom.basedir}/lib/SLZY_PLUGIN.jar</systemPath>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -146,6 +152,17 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<includeSystemScope>true</includeSystemScope>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>build-info</goal>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
