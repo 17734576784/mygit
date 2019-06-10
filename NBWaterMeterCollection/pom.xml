@@ -145,7 +145,7 @@
 			<scope>system</scope>
 			<systemPath>${pom.basedir}/lib/SLZY_PLUGIN.jar</systemPath>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/sqljdbc4 -->
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
@@ -154,7 +154,7 @@
 			<scope>system</scope>
 			<systemPath>${pom.basedir}/lib/sqljdbc4-3.0.jar</systemPath>
 		</dependency>
-		
+
 	</dependencies>
 
 	<build>
@@ -175,6 +175,18 @@
 				</executions>
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>${project.basedir}/src/main/resources</directory>
+			</resource>
+		</resources>
+
 	</build>
 
 </project>
