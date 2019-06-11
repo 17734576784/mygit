@@ -4,7 +4,7 @@ http:
 server:
   port: 18213
   servlet:
-    context-path: /nbwater
+#    context-path: /nbwater
     jsp:
       init-parameters: 
         development: true
@@ -79,6 +79,6 @@ spring:
     logSlowSql: true
   mvc:
     view:
-        prefix: /
+        prefix: /jsp/
         suffix: .jsp
        

@@ -178,17 +178,18 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				 <version>1.4.2.RELEASE</version>
 				<configuration>
 					<includeSystemScope>true</includeSystemScope>
+					 <mainClass>com.nb.NbWaterMeterCollectionApplication</mainClass>
 				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>build-info</goal>
-							<goal>repackage</goal>
-						</goals>
-					</execution>
-				</executions>
+				 <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
 			</plugin>
 		</plugins>
 		<resources>
