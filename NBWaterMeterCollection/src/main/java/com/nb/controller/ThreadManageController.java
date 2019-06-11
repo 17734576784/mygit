@@ -27,16 +27,36 @@ import com.nb.utils.Constant;
 @RestController
 public class ThreadManageController {
 	
+	@RequestMapping("/start")
+	public String startAll() {
+		DailyDataCustomerThread.historyDatabaseRunFlag = true;
+		InstanceDataCustomerThread.historyDatabaseRunFlag = true;
+		BatteryDataCustomerThread.historyDatabaseRunFlag = true;
+		AlarmCustomerThread.alarmCustomerRunFlag = true;
+		return Constant.OK;
+	}
+	
+	@RequestMapping("/stopHistoryDatabase")
+	public String stopAll() {
+		DailyDataCustomerThread.historyDatabaseRunFlag = false;
+		InstanceDataCustomerThread.historyDatabaseRunFlag = false;
+		BatteryDataCustomerThread.historyDatabaseRunFlag = false;
+		AlarmCustomerThread.alarmCustomerRunFlag = false;
+
+		return Constant.OK;
+	}
+	
 	@RequestMapping("/startHistoryDatabase")
 	public String startHistoryDatabase() {
 		DailyDataCustomerThread.historyDatabaseRunFlag = true;
 		InstanceDataCustomerThread.historyDatabaseRunFlag = true;
 		BatteryDataCustomerThread.historyDatabaseRunFlag = true;
+
 		return Constant.OK;
 	}
 
 	@RequestMapping("/stopHistoryDatabase")
-	public String stoptHistoryDatabase() {
+	public String stopHistoryDatabase() {
 		DailyDataCustomerThread.historyDatabaseRunFlag = false;
 		InstanceDataCustomerThread.historyDatabaseRunFlag = false;
 		BatteryDataCustomerThread.historyDatabaseRunFlag = false;
