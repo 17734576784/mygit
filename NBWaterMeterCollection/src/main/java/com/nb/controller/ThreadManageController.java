@@ -36,7 +36,7 @@ public class ThreadManageController {
 		return Constant.OK;
 	}
 	
-	@RequestMapping("/stopHistoryDatabase")
+	@RequestMapping("/stop")
 	public String stopAll() {
 		DailyDataCustomerThread.historyDatabaseRunFlag = false;
 		InstanceDataCustomerThread.historyDatabaseRunFlag = false;
