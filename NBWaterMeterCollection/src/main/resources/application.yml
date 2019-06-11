@@ -3,6 +3,11 @@ http:
 #默认为443，可以修改为自己需要的端口
 server:
   port: 18213
+  servlet:
+    context-path: /nbwater
+    jsp:
+      init-parameters: 
+        development: true
   tomcat: 
     uri-encoding: UTF-8
     max-threads: 150
@@ -16,6 +21,7 @@ server:
     trust-store-password: 1029384756
     key-store-type: JKS
     key-alias: tomcat
+    
     
 logging:
   level: 
