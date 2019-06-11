@@ -81,7 +81,7 @@ public class ChinaTelecomWaterMeterReportInfo implements IServiceStrategy {
 			JSONObject httpResult = JSONObject.parseObject(CommFunc.handleJsonStr(response));
 			if (httpResult != null && !httpResult.isEmpty()) {
 				if (httpResult.getInteger("status") == Constant.ERROR) {
-					LoggerUtils.Logger(LogName.CALLBACK).info("上传汇中水表日表底失败：" + logInfo);
+					LoggerUtils.Logger(LogName.CALLBACK).info("上传道成水表日表底失败：" + paramMap);
 				}
 			}
 		} catch (Exception e) {

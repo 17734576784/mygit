@@ -120,7 +120,7 @@ public class WaterMeterReportInfo implements Serializable{
 	 */
 	public void setRealTime(String realTime) {
 		this.realTime = realTime;
-		Date date = DateUtils.parseDate(realTime, DateUtils.TIMESTAMP_PATTERN);
+		Date date = DateUtils.parseDate(realTime, DateUtils.UTC_PATTERN);
 		this.date = DateUtils.formatDateByFormat(date, DateUtils.DATE_PATTERN);
 		this.time = DateUtils.formatDateByFormat(date, DateUtils.TIME_PATTERN);
 	}
