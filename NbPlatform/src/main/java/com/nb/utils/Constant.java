@@ -374,5 +374,8 @@ public class Constant {
 	public static final int ALARM_TYPE_WATERTEMPRATURESENSORFAULT = 108;// 水温传感器故障告警
 	public static final int ALARM_TYPE_COMMUNICATIONALARM = 109;// 通讯异常告警
 	public static final int TWO = 2;
+	
+	public static final String DataStream_bddata  = "3200_0_5750";
+	public static final String DataStream_trip  = "3342_0_5850";
 
 }
