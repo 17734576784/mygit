@@ -52,7 +52,7 @@
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>logs/NBWaterMeterCollection/callback.log.%d</fileNamePattern>
-            <maxHistory>12</maxHistory>
+            <maxHistory>180</maxHistory>
         </rollingPolicy>
         <encoder charset="UTF-8">
             <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] %level [%thread] %file:%line - %msg%n</pattern>
@@ -74,7 +74,7 @@
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>logs/NBWaterMeterCollection/historyData.log.%d</fileNamePattern>
-            <maxHistory>12</maxHistory>
+            <maxHistory>120</maxHistory>
         </rollingPolicy>
         <encoder charset="UTF-8">
             <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] %level [%thread] %file:%line - %msg%n</pattern>
