@@ -41,12 +41,12 @@ public class Constant {
 //	public static final String SECRET = "mRh6f5Ztb48fSOtVwkCyJmOu36sa";
     
 	// 道成电信
-//	public static final String APPID = "7CCV11GCHL6e6Zpj0L3D6_BbpWEa";
-//	public static final String SECRET = "Oex1rueQUThcjTxZqFRp2TtdDZMa";
+	public static final String APPID = "7CCV11GCHL6e6Zpj0L3D6_BbpWEa";
+	public static final String SECRET = "aYfgrZUhHKNBOeUSceF_xKPC8koa";
     
 	// 平台电信测试
-	public static final String APPID = "fMGd_rcfIZWtL9XA8pppuvtfq1Ma";
-	public static final String SECRET = "fTqg62CwkgBKRL8fNaaT62LxnjQa";
+//	public static final String APPID = "fMGd_rcfIZWtL9XA8pppuvtfq1Ma";
+//	public static final String SECRET = "fTqg62CwkgBKRL8fNaaT62LxnjQa";
 
     //府星电信 595yVAxsUL1HnK84TnylSC6xaY8a
 //    public static final String APPID = "595yVAxsUL1HnK84TnylSC6xaY8a";

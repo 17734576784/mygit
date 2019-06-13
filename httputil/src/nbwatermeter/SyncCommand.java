@@ -44,8 +44,8 @@ public class SyncCommand {
        String urlReg="https://192.168.1.130:18213/api/command";
        
        JSONObject json = new JSONObject();
-       json.put("nbType", "0");
-       json.put("rtuId", "6");
+       json.put("nbType", "2");
+       json.put("rtuId", "2");
        json.put("mpId", "1");
        json.put("commandId", "3");
        json.put("operatorId", "1");
@@ -62,7 +62,7 @@ public class SyncCommand {
 //       param.put("DIR", 0);
 //       param.put("ValveOperate", 1);
 //       
-       param.put("CurrentDateTime", DateUtils.formatDate(new Date(), "YYYY-MM-dd HH:mm:ss"));
+//       param.put("CurrentDateTime", DateUtils.formatDate(new Date(), "YYYY-MM-dd HH:mm:ss"));
        json.put("param", param.toJSONString());
        
       	Map<String, String> params = new HashMap<String, String>();
