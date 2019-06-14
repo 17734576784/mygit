@@ -1,7 +1,0 @@
-.mainConfig select,.mainConfig input{width:50%!important;height:30px!important;border-radius:5px;border:1px solid #cccccc;padding:2px;}
-.mainConfig label{width:36%;text-align:right;font-weight: inherit!important;float:left;}
-.mainConfig input{padding:8px!important;}
-.formInput{margin-bottom:10px;max-height:50px;}
-.mainConfig select[disabled]{background-color:#eee}
-.mainConfig textarea{height:50px;border-radius:5px;border:1px solid #cccccc;width:50%;padding:8px}
-.formInput font{color:red;}

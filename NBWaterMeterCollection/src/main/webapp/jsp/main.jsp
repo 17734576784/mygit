@@ -38,9 +38,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="content" id="mainContent">
 			<h5 class="page-header"></h5>
 			<button type="button"  class="btn btn-primary btn-lg" style="width:200px" id="startHistory">开始执行历史库线程</button> 
+			<h5 class="page-header"></h5>
 			<button type="button" class="btn btn-primary" style="width:200px" id="stopHistory">暂停执行历史库线程!</button>
 			<h5 class="page-header"></h5>
-			<button type="button" class="btn btn-primary" style="width:200px" id="startEvent">开始执行告警事项线程!</button> 
+			<button type="button" class="btn btn-primary" style="width:200px" id="startEvent">开始执行告警事项线程!</button>
+			<h5 class="page-header"></h5>
 			<button type="button" class="btn btn-primary" style="width:200px" id="stopEvent">暂停执行告警事项线程!</button>
 		</div>
 	</div>
