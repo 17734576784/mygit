@@ -177,30 +177,34 @@ public class BytesUtils {
 	public static boolean getBoolean(byte[] bytes) {
 		return bytes[0] == 1;
 	}
+    /** 
+    * @Title: invertArray 
+    * @Description: 反转数组  高低位反转
+    * @param @param array
+    * @param @return    设定文件 
+    * @return T    返回类型 
+    * @throws 
+    */
+	public static <T> T invertArray(T array) {
+		int len = Array.getLength(array);
 
-	/**
-	 * 反转数组
-	 * 
-	 */
-    public static <T> T invertArray(T array) {  
-        int len = Array.getLength(array);  
-  
-        Class<?> classz = array.getClass().getComponentType();  
-  
-        Object dest = Array.newInstance(classz, len);  
-  
-        System.arraycopy(array, 0, dest, 0, len);  
-  
-        Object temp;  
-  
-        for (int i = 0; i < (len / 2); i++) {  
-            temp = Array.get(dest, i);  
-            Array.set(dest, i, Array.get(dest, len - i - 1));  
-            Array.set(dest, len - i - 1, temp);  
-        }  
-  
-        return (T)dest;  
-    }  
+		Class<?> classz = array.getClass().getComponentType();
+
+		Object dest = Array.newInstance(classz, len);
+
+		System.arraycopy(array, 0, dest, 0, len);
+
+		Object temp;
+
+		for (int i = 0; i < (len / 2); i++) {
+			temp = Array.get(dest, i);
+			Array.set(dest, i, Array.get(dest, len - i - 1));
+			Array.set(dest, len - i - 1, temp);
+		}
+
+		return (T) dest;
+	}
+
 	/**
 	 * 将字节数组的第index字节转换为布尔值
 	 * 

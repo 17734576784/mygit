@@ -98,21 +98,14 @@ public class MainTest {
 	public static void main(String[] args) throws UnsupportedEncodingException {
 
 		
+		byte[] result = BytesUtils.getBytes(1);
 		
-		JFDayFlow d = new JFDayFlow();
-		d.setDate(1);
-		String str = JsonUtil.GsonString(d);
-		System.out.println(str);
-		Map<String,Object> f = JsonUtil.GsonToBean(str, Map.class);
-		System.out.println(f.get("date")); 
-		
-		
-//		byte[] result = BytesUtils.getBytes((short) 2);
-//		for (byte b : result) {
-//			System.out.print(b + "  ");
-//		}
-//		System.out.println();
-//		result = BytesUtils.invertArray(result);
+		for (byte b : result) {
+			System.out.print(b + "  ");
+		}
+		System.out.println();
+		result = BytesUtils.invertArray(result);
+		System.out.println(BytesUtils.getInt(result));
 //		for (byte b : result) {
 //			System.out.print(b + "  ");
 //		}		
