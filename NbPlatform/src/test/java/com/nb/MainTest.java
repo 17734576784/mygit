@@ -56,12 +56,11 @@ public class MainTest {
 		
 //		CommFunc.byte2image(new byte[] {11,2,4,2,4 }, "C:" + File.separator + "a" + File.separator + "b" + File.separator + "test.txt");
 
-		BigDecimal bDouble1 = BigDecimal.valueOf(2.3);
-		BigDecimal bDouble2 = new BigDecimal(Double.toString(2.3));
-
-		System.out.println("bDouble1=" + bDouble1);
-		System.out.println("bDouble2=" + bDouble2);
+		Date date = DateUtils.parseDate("20190614T175111Z", DateUtils.UTC_PATTERN);
+		String d = DateUtils.formatDateByFormat(date, DateUtils.DATE_PATTERN);
+		String time = DateUtils.formatDateByFormat(date, DateUtils.TIME_PATTERN);
 		
+		System.out.println(d+"  "+ time);
 		
 //		String apiUrl = "http://222.222.60.178:18130/Enterprise_MeterPay/pay/nbiot/" + "nbNotifyAction!checkExistOrders.action";
 //

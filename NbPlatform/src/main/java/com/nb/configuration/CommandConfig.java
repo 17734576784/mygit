@@ -114,6 +114,17 @@ public class CommandConfig {
 		command.put(toStr(commandKey), cameraServiceMap);
 //		commandKey = Constant.CHINA_MOBILE * 1000 + Constant.COMMAND_TYPE_CAMERA;
 //		command.put(toStr(commandKey), cameraServiceMap);
+		
+		/** 命令类型 376透传 */
+		Map<String, String> frame376Map = new HashMap<String, String>();
+		frame376Map.put("serviceId", "KeLucentyCommand");
+		frame376Map.put("method", "KE_LUCENTY_CMD");
+		commandKey = Constant.CHINA_TELECOM * 1000 + Constant.COMMAND_TYPE_376;
+		command.put(toStr(commandKey), frame376Map);
+		commandKey = Constant.CHINA_UNICOM * 1000 + Constant.COMMAND_TYPE_376;
+		command.put(toStr(commandKey), frame376Map);
+//		commandKey = Constant.CHINA_MOBILE * 1000 + Constant.COMMAND_TYPE_CAMERA;
+//		command.put(toStr(commandKey), cameraServiceMap);
 
 		/** 命令类型 完成激活命令 */
 		Map<String, String> activateServiceMap = new HashMap<String, String>();

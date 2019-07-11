@@ -239,6 +239,9 @@ public class Constant {
 
 	/** 上传告警 */
 	public static final String UPLOAD_ALARM_URL = "nbNotifyAction!notifyAlarm.action";
+	
+	/** 上传376 */
+	public static final String UPLOAD_376_URL = "api/376frame";
 
 	/** 警开关开闭命令响应 */
 	public static final String UPLOAD_ALARMCOMMAND_URL = "nbNotifyAction!notifyAlarmConfigResult.action";
@@ -350,6 +353,11 @@ public class Constant {
 	public static final int COMMAND_TYPE_ALARM = 21;
 	/** 命令类型 调整摄像头命令 */
 	public static final int COMMAND_TYPE_CAMERA = 22;
+	
+	/** 命令类型 376透传下发 */
+	public static final int COMMAND_TYPE_376 = 30;
+	
+	
 	/** 命令类型 完成激活命令 */
 	public static final int COMMAND_TYPE_ACTIVATE = 99;
 

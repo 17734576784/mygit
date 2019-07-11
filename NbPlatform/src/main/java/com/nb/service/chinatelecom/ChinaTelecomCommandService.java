@@ -40,7 +40,6 @@ public class ChinaTelecomCommandService {
 	 * @throws Exception 
 	 */
 	public ResultBean<?> asynCommand(JSONObject command) throws Exception {
-		
 		LoggerUtils.Logger(LogName.INFO).info("接收下发命令请求：" + command);
 		ChinaTelecomIotHttpsUtil httpsUtil = new ChinaTelecomIotHttpsUtil();
 		httpsUtil.initSSLConfigForTwoWay();
