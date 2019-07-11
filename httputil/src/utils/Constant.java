@@ -25,8 +25,8 @@ public class Constant {
 //    public static final String APPID = "fn5I2QJuIRFJxsrXXbUzWXn0S3Ya";
 //    public static final String SECRET = "9IL8rmcruUPIbth4gRP1XGAns2Ya";
     
-    public static final String APPID = "YXnpwWndC3ioc15OGALXZvHLB1oa";
-    public static final String SECRET = "uOL_C0yP6pl4Gals5dJkrfF1vSka";
+	public static final String APPID = "ELDzeikyqwuWdRHr8WIXkJG05Tca";
+	public static final String SECRET = "ctW5uvRmYgsl0Mwj1T6ua2yJqFUa";
 
     /*
      *IP and port of callback url.

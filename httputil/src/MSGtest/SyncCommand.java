@@ -6,7 +6,7 @@
 * @date 2019年1月3日 上午9:10:33 
 * @version V1.0   
 */
-package nbwatermeter;
+package MSGtest;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,6 +20,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import httpUtil.HttpsClientUtil;
 import httpUtil.StreamClosedHttpResponse;
+import utils.Constant;
 
 /** 
 * @ClassName: AddDevice 
@@ -41,33 +42,26 @@ public class SyncCommand {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 
-       String urlReg="https://192.168.1.130:18213/api/command";
+       String urlReg="https://39.105.158.202:443/api/command";
        
        JSONObject json = new JSONObject();
-       json.put("nbType", "2");
-       json.put("rtuId", "2");
-       json.put("mpId", "1");
-       json.put("commandId", "3");
-       json.put("operatorId", "1");
-       json.put("meterAddr", "300000000008");
-       json.put("control", "14");
-       
+       json.put("appId", Constant.APPID);
+       json.put("secret", Constant.SECRET);
+       json.put("nbType", 2);
+       json.put("commandType", 30);
+       json.put("imei", "866971033912192");
+       json.put("deviceId", "bde6a88c-9c16-4f2d-b856-a16d860040ff");
 
        JSONObject param = new JSONObject();
-//       param.put("AFN", 27);
-//       param.put("IMSI", "00000867726032982805");
-//       param.put("CNT", 3);
-//       param.put("DIR", 0);
-//       param.put("ValveOperate", 1);
-//       
-//       param.put("CurrentDateTime", DateUtils.formatDate(new Date(), "YYYY-MM-dd HH:mm:ss"));
+       param.put("cmdValue", "6832003200688000000000400063010102002716");
        json.put("param", param.toJSONString());
        
-      	Map<String, String> params = new HashMap<String, String>();
-	  params.put("param", json.toJSONString());
+//    Map<String, String> params = new HashMap<String, String>();
+//	  params.put("commandInfo", json.toJSONString());
+       
        HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
-       StreamClosedHttpResponse responseReg = httpsClientUtil.doGetWithParasGetStatusLine(urlReg, params, null);
-
+		StreamClosedHttpResponse responseReg = httpsClientUtil.doPostJsonGetStatusLine(urlReg, null,
+				json.toJSONString());
        
 //       HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 //       StreamClosedHttpResponse responseReg = httpsClientUtil.doPostJsonGetStatusLine(urlReg, json.toJSONString());

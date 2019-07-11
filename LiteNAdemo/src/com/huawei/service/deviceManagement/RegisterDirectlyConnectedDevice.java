@@ -32,7 +32,7 @@ public class RegisterDirectlyConnectedDevice {
 		String urlReg = Constant.REGISTER_DEVICE;
 
         //please replace the verifyCode and nodeId and timeout, when you use the demo.
-        String verifyCode = "865352035213866";
+        String verifyCode = "869662032708353";
 		String nodeId = verifyCode;
         Integer timeout = 0;
 

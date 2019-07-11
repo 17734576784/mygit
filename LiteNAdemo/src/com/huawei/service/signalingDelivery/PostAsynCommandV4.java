@@ -61,15 +61,15 @@ public class PostAsynCommandV4 {
         String appId = Constant.APPID;
 
         //please replace the deviceId, when you use the demo.
-        String deviceId = "d382ab24-8772-48ac-84a3-5c238efb7504";
+        String deviceId = "d8c75625-e622-433c-9bd8-78a7bbd4040e";
 //        String callbackUrl = Constant.REPORT_CMD_EXEC_RESULT_CALLBACK_URL;
         String callbackUrl = "https://222.222.60.178:18213/chinatelecom/reportCmdExecResult";
 
         //please replace the following parameter values, when you use the demo.
         //And those parameter values must be consistent with the content of profile that have been preset to IoT platform.
         //The following parameter values of this demo are use the watermeter profile that already initialized to IoT platform.
-        String serviceId = "SuntrontWaterMeter";
-        String method = "SET_REPORT_FREQ_VAL";
+        String serviceId = "KeLucentyCommand";
+        String method = "KE_LUCENTY_CMD";
 //        {"AFN":19 ,"IMSI":"xxx" ,"CNT":"xxx", "DIR":"xxx","ReportBaseTime":"xxx"," ReportIntervalHours":"xxx"}
         
         
@@ -83,9 +83,11 @@ public class PostAsynCommandV4 {
 //        json.put("valveStatus", 2);
 
 //        json.put("highFlow ", 190);        
-        
-        json.put("freqVal", 2);
-//
+        byte[] data = new byte[] {
+        		68,32,00,32,00,68,0x5b,00,00,00,00,40,0x0C,73,01,01,01,04,21,16
+        };
+		json.put("cmdValue", data);
+        	//"6832003200685b00000000400c73010101042116"
 //        json.put("IMSI", "00000867726032982805");
 //        json.put("CNT", 3);
 //        json.put("DIR", 0);
