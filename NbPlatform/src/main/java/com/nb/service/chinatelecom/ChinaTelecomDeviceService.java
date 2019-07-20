@@ -118,7 +118,10 @@ public class ChinaTelecomDeviceService {
  
 		}
   		 	
+		paramModifyDevice.clear();
+		paramModifyDevice.put("device_id", deviceId);
 		ResultBean<JSONObject> result = new ResultBean<JSONObject>();
+		result.setData(paramModifyDevice);
 		return result;
 	}
 	

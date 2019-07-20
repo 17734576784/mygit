@@ -42,7 +42,7 @@ public class QuartzTask {
 	* @return void    返回类型 
 	* @throws 
 	*/
-	@Scheduled(cron = "0 */1 * * * ?")
+	@Scheduled(cron = "0 */5 * * * ?")
 	public void reSendChinaTelecomUpgrade() {
 
 		try {
@@ -63,7 +63,7 @@ public class QuartzTask {
 	* @return void    返回类型 
 	* @throws 
 	*/
-	@Scheduled(cron = "0 */1 * * * ?")
+	@Scheduled(cron = "0 */5 * * * ?")
 	public void reSendChinaUnicomUpgrade() {
 
 		try {

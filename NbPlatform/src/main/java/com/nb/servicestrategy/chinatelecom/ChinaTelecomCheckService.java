@@ -79,6 +79,7 @@ public class ChinaTelecomCheckService implements IServiceStrategy {
 //			System.out.println(LocalDateTime.now() +" response ： ??? ");
 
 			Map<String, String> paramMap = new HashMap<String, String>();
+			System.out.println( paramJson.toJSONString());
 			paramMap.put("param", paramJson.toJSONString());
 			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostFormUrlEncodedGetStatusLine(apiUrl, paramMap);
