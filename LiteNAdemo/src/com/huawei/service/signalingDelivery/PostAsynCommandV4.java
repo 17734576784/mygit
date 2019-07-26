@@ -61,7 +61,7 @@ public class PostAsynCommandV4 {
         String appId = Constant.APPID;
 
         //please replace the deviceId, when you use the demo.
-        String deviceId = "d8c75625-e622-433c-9bd8-78a7bbd4040e";
+        String deviceId = "598c9256-6b4f-43c0-b528-832464a4f8c9";
 //        String callbackUrl = Constant.REPORT_CMD_EXEC_RESULT_CALLBACK_URL;
         String callbackUrl = "https://222.222.60.178:18213/chinatelecom/reportCmdExecResult";
 
@@ -71,8 +71,6 @@ public class PostAsynCommandV4 {
         String serviceId = "KeLucentyCommand";
         String method = "KE_LUCENTY_CMD";
 //        {"AFN":19 ,"IMSI":"xxx" ,"CNT":"xxx", "DIR":"xxx","ReportBaseTime":"xxx"," ReportIntervalHours":"xxx"}
-        
-        
 //        serviceId = "SuntrontWaterMeterAlarm";
 //        method = "SET_HIGHFLOW_ALARM";
 //        
@@ -81,12 +79,11 @@ public class PostAsynCommandV4 {
         
         JSONObject json = new JSONObject();
 //        json.put("valveStatus", 2);
-
 //        json.put("highFlow ", 190);        
         byte[] data = new byte[] {
         		68,32,00,32,00,68,0x5b,00,00,00,00,40,0x0C,73,01,01,01,04,21,16
         };
-		json.put("cmdValue", data);
+		json.put("cmdValue", "6832003200685b00000000400c73010101042116");
         	//"6832003200685b00000000400c73010101042116"
 //        json.put("IMSI", "00000867726032982805");
 //        json.put("CNT", 3);

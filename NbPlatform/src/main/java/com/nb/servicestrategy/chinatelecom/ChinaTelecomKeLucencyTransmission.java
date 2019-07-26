@@ -54,11 +54,7 @@ public class ChinaTelecomKeLucencyTransmission implements IServiceStrategy{
 	 
 			paramJson.put("deviceId", deviceId);
 			paramJson.put("frame", lucentydata);
-		 
-//			Map<String, String> paramMap = new HashMap<String, String>();
-//			paramMap.put("param", paramJson.toJSONString());
  			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
-//			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostFormUrlEncodedGetStatusLine(apiUrl,paramMap);
  			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostJsonGetStatusLine(apiUrl, null,
 					paramJson.toJSONString());
  			
