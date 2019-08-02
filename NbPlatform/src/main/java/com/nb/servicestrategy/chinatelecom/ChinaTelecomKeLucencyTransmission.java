@@ -4,10 +4,8 @@
 package com.nb.servicestrategy.chinatelecom;
 
 import static com.nb.utils.ConverterUtils.*;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -54,6 +52,7 @@ public class ChinaTelecomKeLucencyTransmission implements IServiceStrategy{
 	 
 			paramJson.put("deviceId", deviceId);
 			paramJson.put("frame", lucentydata);
+			
  			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
  			StreamClosedHttpResponse httpResponse = httpsClientUtil.doPostJsonGetStatusLine(apiUrl, null,
 					paramJson.toJSONString());

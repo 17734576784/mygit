@@ -16,8 +16,8 @@ package com.huawei.utils;
 public class Constant {
 
 	// please replace the IP and Port, when you use the demo.
-//	 public static final String BASE_URL = "https://device.api.ct10649.com:8743"; //电信
-	public static final String BASE_URL = "https://180.101.147.89:8743"; // 电信
+	public static final String BASE_URL = "https://device.api.ct10649.com:8743"; //电信
+//	public static final String BASE_URL = "https://180.101.147.89:8743"; // 电信
 
 //    public static final String BASE_URL = "https://58.240.96.46:8743"; //联通
 
@@ -44,8 +44,8 @@ public class Constant {
 //	public static final String APPID = "Zak9JumxK7f3fzdi7opH0crHj14a";
 //	public static final String SECRET = "FPBqfpMkfPTfpDPAuYcC6oUyeika";
 	//沧州电信
-	public static final String APPID = "ELDzeikyqwuWdRHr8WIXkJG05Tca";
-	public static final String SECRET = "ctW5uvRmYgsl0Mwj1T6ua2yJqFUa";
+	public static final String APPID = "A4xBkTf1ijfwt1zSfxYe0Biw6aUa";
+	public static final String SECRET = "Q7gkxoWcOr9sO3eNz7QZCnH8c1Ea";
     
 	// 平台电信测试
 //	public static final String APPID = "fMGd_rcfIZWtL9XA8pppuvtfq1Ma";
