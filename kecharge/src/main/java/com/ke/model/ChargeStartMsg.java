@@ -25,6 +25,8 @@ public class ChargeStartMsg implements Serializable {
 	private static final long serialVersionUID = 20719434324358976L;
 	private String chargeSerialNumber;
 	private int resut;
+	private String readings;
+	
 	/**
 	 * @return the chargeSerialNumber
 	 */
@@ -49,6 +51,17 @@ public class ChargeStartMsg implements Serializable {
 	public void setResut(int resut) {
 		this.resut = resut;
 	}
-	
+	/**
+	 * @return the readings
+	 */
+	public String getReadings() {
+		return readings;
+	}
+	/**
+	 * @param readings the readings to set
+	 */
+	public void setReadings(String readings) {
+		this.readings = readings;
+	}
 	
 }

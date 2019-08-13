@@ -42,21 +42,23 @@ import com.ke.model.LoginUser;
 import com.ke.model.MemberOrders;
 import com.ke.model.OperatorConfig;
 import com.ke.service.IChargeService;
+import com.ke.utils.ConverterUtil;
 import com.ke.utils.DateUtil;
 import com.ke.utils.JedisUtil;
 import com.ke.utils.SerializeUtil;
+
 import static com.ke.utils.ConverterUtil.*;
 
-/** 
-* @ClassName: ChargeServiceImpl 
-* @Description: TODO(这里用一句话描述这个类的作用) 
-* @author dbr
-* @date 2019年1月12日 上午9:46:19 
-*  
-*/
+/**
+ * @ClassName: ChargeServiceImpl
+ * @Description: TODO(这里用一句话描述这个类的作用)
+ * @author dbr
+ * @date 2019年1月12日 上午9:46:19
+ * 
+ */
 @Service
 public class ChargeServiceImpl implements IChargeService {
-	
+
 	@Resource
 	private ChargeMapper chargeMapper;
 
@@ -69,14 +71,20 @@ public class ChargeServiceImpl implements IChargeService {
 	@Resource
 	private MemberOrdersMapper memberOrdersMapper;
 
-	/** (非 Javadoc) 
-	* <p>Title: chargeStart</p> 
-	* <p>Description: </p> 
-	* @param queryJsonStr
-	* @return 
-	 * @throws Exception 
-	* @see com.ke.service.IChargeService#chargeStart(java.lang.String) 
-	*/
+	/**
+	 * (非 Javadoc)
+	 * <p>
+	 * Title: chargeStart
+	 * </p>
+	 * <p>
+	 * Description:
+	 * </p>
+	 * 
+	 * @param queryJsonStr
+	 * @return
+	 * @throws Exception
+	 * @see com.ke.service.IChargeService#chargeStart(java.lang.String)
+	 */
 	@Override
 	public JSONObject chargeStart(String token, String queryJsonStr) throws Exception {
 
@@ -87,16 +95,16 @@ public class ChargeServiceImpl implements IChargeService {
 		String gunNo = json.getString("gunNo");
 		String chargeMoney = json.getString("chargeMoney");
 		String payserialNumber = json.getString("serialNumber");
-		
+
 		if (pileNo == null || pileNo.isEmpty() || gunNo == null || gunNo.isEmpty() || payserialNumber == null
 				|| payserialNumber.isEmpty() || chargeMoney == null || chargeMoney.isEmpty()) {
 			LoggerUtil.logger(LogName.CHARGE).info("请求参数错误" + queryJsonStr);
 			return CommFunc.errorInfo(Constant.REQUEST_BAD, "请求参数错误");
 		}
-		
+
 		// 将流水号转成12位
 		payserialNumber = CommFunc.autoGenericCode(payserialNumber, Constant.PAY_SERIALNUMBER_LENGTH);
-				
+
 		// 判断流水号是否已存在
 		boolean isExistWasteno = this.chargeMapper.checkWasteno(payserialNumber);
 		if (isExistWasteno) {
@@ -104,7 +112,7 @@ public class ChargeServiceImpl implements IChargeService {
 			LoggerUtil.logger(LogName.CHARGE).info("流水号[" + payserialNumber + "]已存在");
 			return rtnJson;
 		}
-	
+
 		// 判断终端是否在线
 		int rtuId = toInt(this.pileMapper.getRtuByPile(pileNo));
 		boolean rtuOnline = CommFunc.rtuOnlineFlag(rtuId);
@@ -112,7 +120,7 @@ public class ChargeServiceImpl implements IChargeService {
 			rtnJson = CommFunc.errorInfo(Constant.REQUEST_BAD, "充电桩不在线");
 			return rtnJson;
 		}
-		
+
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("pileNo", pileNo);
 		param.put("gunNo", gunNo);
@@ -127,7 +135,7 @@ public class ChargeServiceImpl implements IChargeService {
 		}
 
 		int gunState = toInt(this.chargeMapper.getGunState(param));
-		
+
 		Map<String, Object> pileInfo = this.chargeMapper.getPileInfo(param);
 		byte cpFlag = toByte(pileInfo.get("cpFlag"));
 		int chargeMoneyInt = (int) (toDouble(chargeMoney) * 100);
@@ -135,7 +143,7 @@ public class ChargeServiceImpl implements IChargeService {
 		// 获取登录用户对应的会员编码
 		LoginUser loginUser = CommFunc.getLoginUserByToken(token);
 		int memberId = loginUser.getMemberId();
-		
+
 		// 向前置发送充断电请求时，先判断一下当前枪的状态。没有cp信号 直接充电；有cp信号的，枪状态为2(连接)方可充电
 		if ((gunState < Constant.GUN_STATE_CHARGING && cpFlag == Constant.NOCP)
 				|| (gunState == Constant.GUN_STATE_CONNECTION && cpFlag == Constant.HAVECP
@@ -159,7 +167,7 @@ public class ChargeServiceImpl implements IChargeService {
 			appCharge.payType = Constant.PAY_MOENY;
 			appCharge.payMoney = chargeMoneyInt;
 			appCharge.payAmount = 0d;
-			
+
 			byte[] pileCode_byte = pileNo.getBytes();
 			for (int i = 0; i < pileCode_byte.length; i++) {
 				appCharge.pileCode[i] = pileCode_byte[i];
@@ -169,8 +177,7 @@ public class ChargeServiceImpl implements IChargeService {
 			for (int i = 0; i < wasteno_byte.length; i++) {
 				appCharge.orderWasteno[i] = wasteno_byte[i];
 			}
-			
-			
+
 			MemberOrders order = this.memberOrdersMapper.getmemberOrders(payserialNumber);
 			if (null == order) {
 				rtnJson = CommFunc.errorInfo(Constant.REQUEST_BAD, "不存在对应的充电单");
@@ -197,7 +204,7 @@ public class ChargeServiceImpl implements IChargeService {
 
 		return rtnJson;
 	}
-	
+
 	/**
 	 * 向前置发送请求
 	 */
@@ -220,17 +227,11 @@ public class ChargeServiceImpl implements IChargeService {
 		return ret_val;
 	}
 
-	/** 
-	* @Title: insertChargeOrder 
-	* @Description: 创建充电单和充电记录监控记录 
-	* @param @param payserialNumber
-	* @param @param pileNo
-	* @param @param gunNo
-	* @param @param chargeMoney
-	* @param @return    设定文件 
-	* @return boolean    返回类型 
-	* @throws 
-	*/
+	/**
+	 * @Title: insertChargeOrder @Description: 创建充电单和充电记录监控记录 @param @param
+	 * payserialNumber @param @param pileNo @param @param gunNo @param @param
+	 * chargeMoney @param @return 设定文件 @return boolean 返回类型 @throws
+	 */
 	@Transactional
 	private boolean insertChargeOrder(String payserialNumber, String pileNo, String gunNo, int chargeMoney,
 			Map<String, Object> pileInfo, int memberId) throws Exception {
@@ -264,14 +265,20 @@ public class ChargeServiceImpl implements IChargeService {
 
 		return flag;
 	}
-	
-	/** (非 Javadoc) 
-	* <p>Title: chargeOver</p> 
-	* <p>Description: </p> 
-	* @param queryJsonStr
-	* @return 
-	* @see com.ke.service.IChargeService#chargeOver(java.lang.String) 
-	*/
+
+	/**
+	 * (非 Javadoc)
+	 * <p>
+	 * Title: chargeOver
+	 * </p>
+	 * <p>
+	 * Description:
+	 * </p>
+	 * 
+	 * @param queryJsonStr
+	 * @return
+	 * @see com.ke.service.IChargeService#chargeOver(java.lang.String)
+	 */
 	@Override
 	public JSONObject chargeOver(String queryJsonStr) {
 
@@ -325,12 +332,12 @@ public class ChargeServiceImpl implements IChargeService {
 		appCharge.payType = Constant.PAY_MOENY;
 		appCharge.payMoney = order.getPrechargeMoney();
 		appCharge.payAmount = 0d;
-		
+
 		byte[] pileCode_byte = pileNo.getBytes();
 		for (int i = 0; i < pileCode_byte.length; i++) {
 			appCharge.pileCode[i] = pileCode_byte[i];
 		}
-		
+
 		byte[] wasteno_byte = paySerialNumber.getBytes();
 		for (int i = 0; i < wasteno_byte.length; i++) {
 			appCharge.orderWasteno[i] = wasteno_byte[i];
@@ -360,16 +367,12 @@ public class ChargeServiceImpl implements IChargeService {
 		LoggerUtil.logger(LogName.CHARGE).info("流水号：" + paySerialNumber + "请求结束充电成功");
 		return rtnJson;
 	}
-	
-	/** 
-	* @Title: getRtuParam 
-	* @Description: 查询充电桩终端及通道信息 
-	* @param @param rtuId
-	* @param @param pileInfo
-	* @param @return    设定文件 
-	* @return RTU_PARA    返回类型 
-	* @throws 
-	*/
+
+	/**
+	 * @Title: getRtuParam @Description: 查询充电桩终端及通道信息 @param @param
+	 * rtuId @param @param pileInfo @param @return 设定文件 @return RTU_PARA
+	 * 返回类型 @throws
+	 */
 	private RTU_PARA getRtuParam(int rtuId, Map<String, Object> pileInfo) {
 		ComntParaBase.RTU_PARA rtuPara = new RTU_PARA();
 		rtuPara.rtu_id = rtuId;
@@ -378,17 +381,23 @@ public class ChargeServiceImpl implements IChargeService {
 		return rtuPara;
 	}
 
-	/** (非 Javadoc) 
-	* <p>Title: getChargeData</p> 
-	* <p>Description: </p> 
-	* @param queryJsonStr
-	* @return 
-	* @see com.ke.service.IChargeService#getChargeData(java.lang.String) 
-	*/
+	/**
+	 * (非 Javadoc)
+	 * <p>
+	 * Title: getChargeData
+	 * </p>
+	 * <p>
+	 * Description:
+	 * </p>
+	 * 
+	 * @param queryJsonStr
+	 * @return
+	 * @see com.ke.service.IChargeService#getChargeData(java.lang.String)
+	 */
 	@Override
 	public JSONObject getChargeData(String queryJsonStr) {
 		// TODO Auto-generated method stub
-		
+
 		JSONObject rtnJson = new JSONObject();
 		String paySerialNumber = ""; // 流水号
 
@@ -406,7 +415,7 @@ public class ChargeServiceImpl implements IChargeService {
 		String BCurrent = ""; // B相电流
 		String CCurrent = ""; // C相电流
 		LoggerUtil.logger(LogName.CHARGE).info("接收获取充电过程信息请求:" + queryJsonStr);
-		
+
 		JSONObject json = JSONObject.parseObject(queryJsonStr);
 		paySerialNumber = json.getString("serialNumber");
 		// 将流水号转成12位
@@ -416,14 +425,13 @@ public class ChargeServiceImpl implements IChargeService {
 			rtnJson = CommFunc.errorInfo(Constant.REQUEST_BAD, "请求参数错误");
 			return rtnJson;
 		}
-		
-		
+
 		Map<String, String> gunStateMap = getGunStateMap(paySerialNumber);
 		if (null == gunStateMap || gunStateMap.isEmpty()) {
 			rtnJson = CommFunc.errorInfo(Constant.REQUEST_BAD, "充电枪状态不存在");
 			return rtnJson;
 		}
-		
+
 		// 充电状态时 获取数据；其他状态时，返回空值
 		if (toInt(gunStateMap.get("status")) == Constant.GUN_STATE_CHARGING) {
 
@@ -459,11 +467,11 @@ public class ChargeServiceImpl implements IChargeService {
 		rtnJson.put("CCurrent", CCurrent);
 
 		LoggerUtil.logger(LogName.CHARGE).info("获取充电过程请求结束 ,返回结果: " + rtnJson.toString());
-		
+
 		return rtnJson;
 	}
-	
-	private Map<String,String> getGunStateMap(String paySerialNumber){
+
+	private Map<String, String> getGunStateMap(String paySerialNumber) {
 		String orderKey = Constant.ORDER + paySerialNumber;
 		Map<String, String> orderMap = JedisUtil.hgetAll(orderKey);
 		String gunStateKey = Constant.GUNSTATE + orderMap.get("pileId") + "_" + orderMap.get("gunId");
@@ -476,13 +484,19 @@ public class ChargeServiceImpl implements IChargeService {
 		return gunStateMap;
 	}
 
-	/** (非 Javadoc) 
-	* <p>Title: getChargeRealData</p> 
-	* <p>Description: </p> 
-	* @param queryJsonStr
-	* @return 
-	* @see com.ke.service.IChargeService#getChargeRealData(java.lang.String) 
-	*/
+	/**
+	 * (非 Javadoc)
+	 * <p>
+	 * Title: getChargeRealData
+	 * </p>
+	 * <p>
+	 * Description:
+	 * </p>
+	 * 
+	 * @param queryJsonStr
+	 * @return
+	 * @see com.ke.service.IChargeService#getChargeRealData(java.lang.String)
+	 */
 	@Override
 	public JSONObject getChargeRealData(String queryJsonStr) {
 		// TODO Auto-generated method stub
@@ -539,17 +553,23 @@ public class ChargeServiceImpl implements IChargeService {
 		return rtnJson;
 	}
 
-	/** (非 Javadoc) 
-	* <p>Title: SendChargOverRequest</p> 
-	* <p>Description: </p> 
-	* @param json
-	* @param retry
-	* @return 
-	* @see com.ke.service.IChargeService#SendChargOverRequest(java.lang.String, int) 
-	*/
+	/**
+	 * (非 Javadoc)
+	 * <p>
+	 * Title: SendChargOverRequest
+	 * </p>
+	 * <p>
+	 * Description:
+	 * </p>
+	 * 
+	 * @param json
+	 * @param retry
+	 * @return
+	 * @see com.ke.service.IChargeService#SendChargOverRequest(java.lang.String,
+	 *      int)
+	 */
 	@Override
 	public boolean SendChargeOverRequest(JSONObject json, int retry) {
-		// TODO Auto-generated method stub
 		boolean flag = false;
 		Map<String, String> param = new HashMap<String, String>();
 		String paySerialNumber = json.getString("serialNumber");
@@ -557,13 +577,14 @@ public class ChargeServiceImpl implements IChargeService {
 		if (memberOrders == null) {
 			return false;
 		}
+
 		int operatorId = memberOrders.getOperatorId();
 		String key = Constant.OPERATORCONFIG_PREFIX + operatorId;
 		OperatorConfig operatorConfig = (OperatorConfig) SerializeUtil.deserialize(JedisUtil.get(key.getBytes()));
 		if (null == operatorConfig) {
 			return false;
 		}
-		
+
 		String token = operatorConfig.getToken();
 		if (null == token || token.isEmpty()) {
 			getOperatorToken(operatorId);
@@ -575,7 +596,7 @@ public class ChargeServiceImpl implements IChargeService {
 		}
 
 		param.put("token", token);
-		
+
 		JSONObject sendJson = new JSONObject();
 		sendJson.putAll(json);
 		sendJson.put("serialNumber", toLong(paySerialNumber));
@@ -584,7 +605,7 @@ public class ChargeServiceImpl implements IChargeService {
 		if (url == null || url.isEmpty()) {
 			return false;
 		}
-		
+
 		try {
 			param.put("queryJsonStr", java.net.URLEncoder.encode(sendJson.toString(), "UTF-8"));
 			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
@@ -592,7 +613,7 @@ public class ChargeServiceImpl implements IChargeService {
 			if (null == response) {
 				return false;
 			}
-			
+
 			JSONObject jsonItem = JSONObject.parseObject(response.getContent());
 			int status = jsonItem.getIntValue("status");
 			LoggerUtil.logger(LogName.CHARGE).info("发送充电结束消息：{} ,接收内容：() ", json.toString(), response.getContent());
@@ -627,17 +648,24 @@ public class ChargeServiceImpl implements IChargeService {
 		return flag;
 	}
 
-	/** (非 Javadoc) 
-	* <p>Title: SendChargStartRequest</p> 
-	* <p>Description: </p> 
-	* @param json
-	* @param retry
-	* @return 
-	* @see com.ke.service.IChargeService#SendChargStartRequest(java.lang.String, int) 
-	*/
+	/**
+	 * (非 Javadoc)
+	 * <p>
+	 * Title: SendChargStartRequest
+	 * </p>
+	 * <p>
+	 * Description:
+	 * </p>
+	 * 
+	 * @param json
+	 * @param retry
+	 * @return
+	 * @see com.ke.service.IChargeService#SendChargStartRequest(java.lang.String,
+	 *      int)
+	 */
 	@Override
 	public boolean SendChargeStartRequest(JSONObject json, int retry) {
-		
+
 		boolean flag = false;
 		Map<String, String> param = new HashMap<String, String>();
 		String paySerialNumber = json.getString("serialNumber");
@@ -651,7 +679,7 @@ public class ChargeServiceImpl implements IChargeService {
 		if (null == operatorConfig) {
 			return false;
 		}
-		
+
 		String token = operatorConfig.getToken();
 		if (null == token || token.isEmpty()) {
 			getOperatorToken(operatorId);
@@ -666,7 +694,7 @@ public class ChargeServiceImpl implements IChargeService {
 		JSONObject sendJson = new JSONObject();
 		sendJson.putAll(json);
 		sendJson.put("serialNumber", toLong(paySerialNumber));
-		
+
 		try {
 			param.put("queryJsonStr", java.net.URLEncoder.encode(sendJson.toString(), "UTF-8"));
 
@@ -680,7 +708,7 @@ public class ChargeServiceImpl implements IChargeService {
 			if (null == response) {
 				return false;
 			}
-			
+
 			JSONObject jsonItem = JSONObject.parseObject(response.getContent());
 			int status = jsonItem.getIntValue("status");
 			LoggerUtil.logger(LogName.CHARGE).info("发送充电开始消息：{} ,返回结果 ：{} ", json.toString(), response.getContent());
@@ -710,18 +738,25 @@ public class ChargeServiceImpl implements IChargeService {
 			LoggerUtil.logger(LogName.ERROR).error("发送充电开始消息异常，发送内容：" + json.toString(), e);
 			e.printStackTrace();
 		}
-		
+
 		return flag;
 	}
 
-	/** (非 Javadoc) 
-	* <p>Title: SendDCChargInfoRequest</p> 
-	* <p>Description: </p> 
-	* @param json
-	* @param retry
-	* @return 
-	* @see com.ke.service.IChargeService#SendDCChargInfoRequest(java.lang.String, int) 
-	*/
+	/**
+	 * (非 Javadoc)
+	 * <p>
+	 * Title: SendDCChargInfoRequest
+	 * </p>
+	 * <p>
+	 * Description:
+	 * </p>
+	 * 
+	 * @param json
+	 * @param retry
+	 * @return
+	 * @see com.ke.service.IChargeService#SendDCChargInfoRequest(java.lang.String,
+	 *      int)
+	 */
 	@Override
 	public boolean SendDCChargeInfoRequest(JSONObject json, int retry) {
 		boolean flag = false;
@@ -737,7 +772,7 @@ public class ChargeServiceImpl implements IChargeService {
 		if (null == operatorConfig) {
 			return false;
 		}
-		
+
 		String token = operatorConfig.getToken();
 		if (null == token || token.isEmpty()) {
 			getOperatorToken(operatorId);
@@ -752,20 +787,20 @@ public class ChargeServiceImpl implements IChargeService {
 		JSONObject sendJson = new JSONObject();
 		sendJson.putAll(json);
 		sendJson.put("serialNumber", toLong(paySerialNumber));
-		
+
 		try {
 			param.put("queryJsonStr", java.net.URLEncoder.encode(sendJson.toString(), "UTF-8"));
 			String url = operatorConfig.getChargeDcInfoUrl();
 			if (url == null || url.trim().isEmpty()) {
 				return false;
 			}
-			
+
 			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
 			StreamClosedHttpResponse response = httpsClientUtil.doPostFormUrlEncodedGetStatusLine(url, param);
 			if (null == response) {
 				return false;
 			}
-			
+
 			JSONObject jsonItem = JSONObject.parseObject(response.getContent());
 			int status = jsonItem.getIntValue("status");
 			LoggerUtil.logger(LogName.CHARGE).info("发送直流充电信息消息:{} 接收内容： {}", json.toString(), response.getContent());
@@ -799,14 +834,20 @@ public class ChargeServiceImpl implements IChargeService {
 		return flag;
 	}
 
-	/** (非 Javadoc) 
-	* <p>Title: getPileChargeRcd</p> 
-	* <p>Description: </p> 
-	* @param queryJsonStr
-	* @return 
-	 * @throws IllegalAccessException 
-	* @see com.ke.service.IChargeService#getPileChargeRcd(java.lang.String) 
-	*/
+	/**
+	 * (非 Javadoc)
+	 * <p>
+	 * Title: getPileChargeRcd
+	 * </p>
+	 * <p>
+	 * Description:
+	 * </p>
+	 * 
+	 * @param queryJsonStr
+	 * @return
+	 * @throws IllegalAccessException
+	 * @see com.ke.service.IChargeService#getPileChargeRcd(java.lang.String)
+	 */
 	@Override
 	public JSONObject getPileChargeRcd(String queryJsonStr) throws IllegalAccessException {
 		// TODO Auto-generated method stub
@@ -828,33 +869,33 @@ public class ChargeServiceImpl implements IChargeService {
 			rtnJson = CommFunc.errorInfo(Constant.REQUEST_BAD, "流水号非法");
 			return rtnJson;
 		}
-		
+
 		Calendar calendar = Calendar.getInstance();
 		int nowYear = DateUtil.getYear(calendar.getTime());
 		calendar.add(Calendar.DAY_OF_YEAR, -180);
 		int lastYear = DateUtil.getYear(calendar.getTime());
-		
+
 		List<Integer> yearList = new ArrayList<Integer>();
 		yearList.add(nowYear);
-		
+
 		if (nowYear != lastYear && lastYear >= Constant.INIT_YEAR) {
 			yearList.add(lastYear);
 		}
-		
+
 		// 查询最近180天内的数据
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("yearList", yearList);
 		param.put("serialNumber", paySerialNumber);
 		param.put("pileNo", pileNo);
 		param.put("gunNo", gunNo);
-		
+
 		Map<String, Object> chargeRcd = this.chargeMapper.getPileChargeRcd(param);
 		if (chargeRcd == null) {
 			rtnJson = CommFunc.errorInfo(Constant.REQUEST_BAD, "180天内不存在【" + paySerialNumber + "】的充电记录");
 			return rtnJson;
 		}
-		
-		double totalElectricity = toDouble(chargeRcd.get("totalElectricity")); 
+
+		double totalElectricity = toDouble(chargeRcd.get("totalElectricity"));
 		double chargeMoney = toDouble(chargeRcd.get("chargeMoney")) / 100;
 		double serviceMoney = toDouble(chargeRcd.get("serviceMoney")) / 100;
 		int endCause = toInt(chargeRcd.get("endCause"));
@@ -864,39 +905,31 @@ public class ChargeServiceImpl implements IChargeService {
 		rtnJson.put("serialNumber", toLong(paySerialNumber));
 		rtnJson.put("pileNo", pileNo);
 		rtnJson.put("gunNo", gunNo);
-		rtnJson.put("startDate", DateUtil.formatTimesTampDate((Date)chargeRcd.get("startDate")));
-		rtnJson.put("endDate", DateUtil.formatTimesTampDate((Date)chargeRcd.get("endDate")));
+		rtnJson.put("startDate", DateUtil.formatTimesTampDate((Date) chargeRcd.get("startDate")));
+		rtnJson.put("endDate", DateUtil.formatTimesTampDate((Date) chargeRcd.get("endDate")));
 
-		rtnJson.put("totalElectricity",roundTosString(totalElectricity, 2));
+		rtnJson.put("totalElectricity", roundTosString(totalElectricity, 2));
 		rtnJson.put("chargeMoney", roundTosString(chargeMoney, 2));
 		rtnJson.put("serviceMoney", roundTosString(serviceMoney, 2));
-		
+
 		rtnJson.put("endCause", getendCause(endCause));
-		
+
 		return rtnJson;
 	}
 
-	/** 
-	* @Title: getendCause 
-	* @Description: 获取充电结束原因 
-	* @param @param endCause
-	* @param @return    设定文件 
-	* @return String    返回类型 
-	* @throws 
-	*/
-	private String getendCause(int endCause){
-		Map<String,String> endCauseMap = JedisUtil.hgetAll(Constant.ENDCAUSE_DICTION);
+	/**
+	 * @Title: getendCause @Description: 获取充电结束原因 @param @param
+	 * endCause @param @return 设定文件 @return String 返回类型 @throws
+	 */
+	private String getendCause(int endCause) {
+		Map<String, String> endCauseMap = JedisUtil.hgetAll(Constant.ENDCAUSE_DICTION);
 		return endCauseMap.get(toStr(endCause));
 	}
-	
-	/** 
-	* @Title: getOperatorToken 
-	* @Description: 获取运营商token 
-	* @param @param operatorId
-	* @param @return    设定文件 
-	* @return boolean    返回类型 
-	* @throws 
-	*/
+
+	/**
+	 * @Title: getOperatorToken @Description: 获取运营商token @param @param
+	 * operatorId @param @return 设定文件 @return boolean 返回类型 @throws
+	 */
 	public boolean getOperatorToken(int operatorId) {
 		boolean flag = false;
 		try {
@@ -930,14 +963,20 @@ public class ChargeServiceImpl implements IChargeService {
 		return flag;
 	}
 
-	/** (非 Javadoc) 
-	* <p>Title: sendLoginTokenRequest</p> 
-	* <p>Description: </p> 
-	* @param json
-	* @return 
-	 * @throws Exception 
-	* @see com.ke.service.IChargeService#sendLoginTokenRequest(com.alibaba.fastjson.JSONObject) 
-	*/
+	/**
+	 * (非 Javadoc)
+	 * <p>
+	 * Title: sendLoginTokenRequest
+	 * </p>
+	 * <p>
+	 * Description:
+	 * </p>
+	 * 
+	 * @param json
+	 * @return
+	 * @throws Exception
+	 * @see com.ke.service.IChargeService#sendLoginTokenRequest(com.alibaba.fastjson.JSONObject)
+	 */
 	@Override
 	public String sendLoginTokenRequest(JSONObject json) {
 		// TODO Auto-generated method stub
@@ -979,5 +1018,674 @@ public class ChargeServiceImpl implements IChargeService {
 		}
 
 		return token;
+	}
+
+	/**
+	 * (非 Javadoc)
+	 * <p>
+	 * Title: chargeControl
+	 * </p>
+	 * <p>
+	 * Description:
+	 * </p>
+	 * 
+	 * @param token
+	 * @param queryJsonStr
+	 * @return
+	 * @throws Exception
+	 * @see com.ke.service.IChargeService#chargeControl(java.lang.String,
+	 *      java.lang.String)
+	 */
+	@Override
+	public JSONObject chargeControl(String token, String queryJsonStr) throws Exception {
+		LoggerUtil.logger(LogName.CHARGE).info("接收开始充电请求：" + queryJsonStr);
+		JSONObject json = JSONObject.parseObject(queryJsonStr);
+		Integer cmd = json.getIntValue("cmd");
+		if (cmd == Constant.CHARGE_START) {
+			return hydropwerStart(json, cmd, token);
+		} else if (cmd == Constant.CHARGE_OVER) {
+			return hydropwerOver(json, cmd, token);
+		}
+
+		return null;
+	}
+
+	/**
+	 * 水电桩结束 @Title: hydropwerOver @param @param json @param @param
+	 * cmd @param @param token @param @return @param @throws Exception
+	 * 设定文件 @return JSONObject 返回类型 @throws
+	 */
+	private JSONObject hydropwerOver(JSONObject json, int cmd, String token) throws Exception {
+		JSONObject rtnJson = new JSONObject();
+		String pileNo = "", gunNo = "", paySerialNumber = "";
+		LoggerUtil.logger(LogName.CHARGE).info("接收充电结束请求：" + json.toJSONString());
+		pileNo = json.getString("pileNo");
+		gunNo = json.getString("gunNo");
+		paySerialNumber = json.getString("serialNumber");
+		// 将流水号转成12位
+		paySerialNumber = CommFunc.autoGenericCode(paySerialNumber, Constant.PAY_SERIALNUMBER_LENGTH);
+
+		if (pileNo.isEmpty() || gunNo.isEmpty() || paySerialNumber.isEmpty()) {
+			rtnJson = CommFunc.errorInfo(Constant.REQUEST_BAD, "请求参数错误");
+			return rtnJson;
+		}
+
+		// 判断终端是否在线
+		int rtuId = toInt(this.pileMapper.getRtuByPile(pileNo));
+		boolean rtuOnline = CommFunc.rtuOnlineFlag(rtuId);
+		if (!rtuOnline) {
+			rtnJson = CommFunc.errorInfo(Constant.REQUEST_BAD, "充电桩不在线");
+			return rtnJson;
+		}
+
+		MemberOrders order = this.memberOrdersMapper.getmemberOrders(paySerialNumber);
+		if (null == order) {
+			rtnJson = CommFunc.errorInfo(Constant.REQUEST_BAD, "不存在对应的充电单");
+			return rtnJson;
+		}
+
+		// 更新接口充电监控中请求结束充电
+		ChargeMonitor chargemonitor = new ChargeMonitor();
+		chargemonitor.setSerialnumber(paySerialNumber);
+		chargemonitor.setEndDate(new Date());
+		chargeMonitorMapper.updateChargeMonitor(chargemonitor);
+
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("pileNo", pileNo);
+		param.put("gunNo", gunNo);
+
+		// 组织充断电请求结构体
+		ComntCfgEVCP.APP_CHARGE appCharge = new ComntCfgEVCP.APP_CHARGE();
+		appCharge.appFlag = Constant.CLIENTTYPE_INTERFACE;
+		appCharge.memberId = order.getMemberId();
+		appCharge.pileId = order.getPileId();
+		appCharge.gunId = toInt(gunNo);
+		appCharge.cmd = cmd;
+		appCharge.payType = Constant.PAY_MOENY;
+		appCharge.payMoney = order.getPrechargeMoney();
+		appCharge.payAmount = 0d;
+
+		byte[] pileCode_byte = pileNo.getBytes();
+		for (int i = 0; i < pileCode_byte.length; i++) {
+			appCharge.pileCode[i] = pileCode_byte[i];
+		}
+
+		byte[] wasteno_byte = paySerialNumber.getBytes();
+		for (int i = 0; i < wasteno_byte.length; i++) {
+			appCharge.orderWasteno[i] = wasteno_byte[i];
+		}
+
+		Map<String, Object> pileInfo = this.chargeMapper.getPileInfo(param);
+
+		// 更新接口充电记录中请求结束充电
+		ChargeMonitor chargeMonitor = new ChargeMonitor();
+		chargeMonitor.setSerialnumber(paySerialNumber);
+		chargeMonitor.setEndDate(new Date());
+		chargeMonitorMapper.updateChargeMonitor(chargeMonitor);
+
+		// 查询充电桩终端及通道信息
+		ComntParaBase.RTU_PARA rtuPara = getRtuParam(rtuId, pileInfo);
+		ComntVector.ByteVector task_data_vect = new ComntVector.ByteVector();
+		appCharge.toDataStream(task_data_vect);
+		StringBuffer opDetail = new StringBuffer();
+		if (!sendChargeRequest(ComntDef.EVCP_WEBMSGTYPE_APP_CHARGE_HYDROPWER, rtuPara, task_data_vect, opDetail)) {
+			rtnJson = CommFunc.errorInfo(Constant.REQUEST_BAD, "请求太频繁,请稍后重试!");
+			LoggerUtil.logger(LogName.CHARGE).info("web service 下发错误" + json.toJSONString());
+		} else {
+			JedisUtil.hset(Constant.ORDER + paySerialNumber, "chargeState",
+					toStr(Constant.CHARGINGSTATE_V2_ENDWAITING));
+			rtnJson = CommFunc.errorInfo(Constant.SUCCESS, "");
+		}
+		LoggerUtil.logger(LogName.CHARGE).info("流水号：" + paySerialNumber + "请求结束充电成功");
+		return rtnJson;
+	}
+
+	/**
+	 * 水电桩开始充电 @Title: hydropwerStart @param @param json @param @param
+	 * cmd @param @param token @param @return @param @throws Exception
+	 * 设定文件 @return JSONObject 返回类型 @throws
+	 */
+	private JSONObject hydropwerStart(JSONObject json, int cmd, String token) throws Exception {
+		JSONObject rtnJson = new JSONObject();
+
+		String pileNo = json.getString("pileNo");
+		String gunNo = json.getString("gunNo");
+		String payserialNumber = json.getString("serialNumber");
+
+		if (pileNo == null || pileNo.isEmpty() || gunNo == null || gunNo.isEmpty() || payserialNumber == null
+				|| payserialNumber.isEmpty()) {
+			LoggerUtil.logger(LogName.CHARGE).info("请求参数错误" + json.toJSONString());
+			return CommFunc.errorInfo(Constant.REQUEST_BAD, "请求参数错误");
+		}
+
+		// 将流水号转成12位
+		payserialNumber = CommFunc.autoGenericCode(payserialNumber, Constant.PAY_SERIALNUMBER_LENGTH);
+
+		// 判断流水号是否已存在
+		boolean isExistWasteno = this.chargeMapper.checkWasteno(payserialNumber);
+		if (isExistWasteno) {
+			rtnJson = CommFunc.errorInfo(Constant.REQUEST_BAD, "流水号[" + payserialNumber + "]已存在");
+			LoggerUtil.logger(LogName.CHARGE).info("流水号[" + payserialNumber + "]已存在");
+			return rtnJson;
+		}
+
+		// 判断终端是否在线
+		int rtuId = toInt(this.pileMapper.getRtuByPile(pileNo));
+		boolean rtuOnline = CommFunc.rtuOnlineFlag(rtuId);
+		if (!rtuOnline) {
+			rtnJson = CommFunc.errorInfo(Constant.REQUEST_BAD, "充电桩不在线");
+			return rtnJson;
+		}
+
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("pileNo", pileNo);
+		param.put("gunNo", gunNo);
+
+		byte gunFlag = Constant.GUN_STATE_NULL;
+		// 判断枪类型 1:电动汽车 0:电动自行车
+		boolean isCarCharge = this.chargeMapper.checkGunType(param);
+		if (isCarCharge) {
+			gunFlag = Constant.ELECTRIC_VEHICLE;
+		} else {
+			gunFlag = Constant.ELECTRIC_BICYCLE;
+		}
+
+		int gunState = toInt(this.chargeMapper.getGunState(param));
+
+		Map<String, Object> pileInfo = this.chargeMapper.getPileInfo(param);
+		byte cpFlag = 0;// toByte(pileInfo.get("cpFlag"));
+		int chargeMoneyInt = Constant.ZERO;
+
+		// 获取登录用户对应的会员编码
+		LoginUser loginUser = CommFunc.getLoginUserByToken(token);
+		int memberId = loginUser.getMemberId();
+
+		// 向前置发送充断电请求时，先判断一下当前枪的状态。没有cp信号 直接充电；有cp信号的，枪状态为2(连接)方可充电
+		if ((gunState < Constant.GUN_STATE_CHARGING && cpFlag == Constant.NOCP)
+				|| (gunState == Constant.GUN_STATE_CONNECTION && cpFlag == Constant.HAVECP
+						&& gunFlag == Constant.ELECTRIC_VEHICLE)
+				|| (gunState < Constant.GUN_STATE_CHARGING && cpFlag == Constant.HAVECP
+						&& gunFlag == Constant.ELECTRIC_BICYCLE)) {
+
+			/** 创建充电单和充电记录监控记录 */
+			if (!insertChargeOrder(payserialNumber, pileNo, gunNo, chargeMoneyInt, pileInfo, memberId)) {
+				rtnJson = CommFunc.errorInfo(Constant.REQUEST_BAD, "创建充电单失败");
+				return rtnJson;
+			}
+
+			// 组织充断电请求结构体
+			ComntCfgEVCP.APP_CHARGE appCharge = new ComntCfgEVCP.APP_CHARGE();
+			appCharge.appFlag = Constant.CLIENTTYPE_INTERFACE;
+			appCharge.pileId = toInt(pileInfo.get("pileId"));
+			appCharge.memberId = memberId;
+			appCharge.gunId = toInt(gunNo);
+			appCharge.cmd = cmd;
+			appCharge.payType = Constant.ZERO;
+			appCharge.payMoney = chargeMoneyInt;
+			appCharge.payAmount = 0d;
+
+			byte[] pileCode_byte = pileNo.getBytes();
+			for (int i = 0; i < pileCode_byte.length; i++) {
+				appCharge.pileCode[i] = pileCode_byte[i];
+			}
+
+			byte[] wasteno_byte = payserialNumber.getBytes();
+			for (int i = 0; i < wasteno_byte.length; i++) {
+				appCharge.orderWasteno[i] = wasteno_byte[i];
+			}
+
+			MemberOrders order = this.memberOrdersMapper.getmemberOrders(payserialNumber);
+			if (null == order) {
+				rtnJson = CommFunc.errorInfo(Constant.REQUEST_BAD, "不存在对应的充电单");
+				return rtnJson;
+			}
+
+			// 查询充电桩终端及通道信息
+			ComntParaBase.RTU_PARA rtuPara = getRtuParam(rtuId, pileInfo);
+
+			ComntVector.ByteVector task_data_vect = new ComntVector.ByteVector();
+			appCharge.toDataStream(task_data_vect);
+			StringBuffer opDetail = new StringBuffer();
+			if (!sendChargeRequest(ComntDef.EVCP_WEBMSGTYPE_APP_CHARGE_HYDROPWER, rtuPara, task_data_vect, opDetail)) {
+				rtnJson = CommFunc.errorInfo(Constant.REQUEST_BAD, "请求太频繁,请稍后重试!");
+				LoggerUtil.logger(LogName.CHARGE).info("web service 下发错误" + json.toJSONString());
+			} else {
+				rtnJson = CommFunc.errorInfo(Constant.SUCCESS, "");
+			}
+		} else {
+			rtnJson = CommFunc.errorInfo(Constant.SUCCESS, "当前充电枪状态不允许充电");
+		}
+
+		LoggerUtil.logger(LogName.CHARGE).info("流水号 ：" + payserialNumber + "请求充电成功！");
+		return rtnJson;
+	}
+
+	/**
+	 * (非 Javadoc)
+	 * <p>
+	 * Title: getPileRecord
+	 * </p>
+	 * <p>
+	 * Description:
+	 * </p>
+	 * 
+	 * @param queryJsonStr
+	 * @return
+	 * @throws Exception
+	 * @see com.ke.service.IChargeService#getPileRecord(java.lang.String)
+	 */
+	@Override
+	public JSONObject getPileRecord(String queryJsonStr) throws Exception {
+		JSONObject rtnJson = new JSONObject();
+		LoggerUtil.logger(LogName.CHARGE).info("接送获取充电桩充电记录请求:" + queryJsonStr);
+		JSONObject json = JSONObject.parseObject(queryJsonStr);
+		String paySerialNumber = json.getString("serialNumber");
+		paySerialNumber = CommFunc.autoGenericCode(paySerialNumber, Constant.PAY_SERIALNUMBER_LENGTH);
+
+		String pileNo = json.getString("pileNo");
+		String gunNo = json.getString("gunNo");
+		if (paySerialNumber.isEmpty() || pileNo.isEmpty() || gunNo.isEmpty()) {
+			rtnJson = CommFunc.errorInfo(Constant.SUCCESS, "请求参数错误");
+			return rtnJson;
+		}
+
+		boolean checkWasteNo = CommFunc.checkWasteno(paySerialNumber);
+		if (!checkWasteNo) {
+			rtnJson = CommFunc.errorInfo(Constant.REQUEST_BAD, "流水号非法");
+			return rtnJson;
+		}
+
+		Calendar calendar = Calendar.getInstance();
+		Calendar calendar1 = Calendar.getInstance();
+		calendar1.add(Calendar.DAY_OF_YEAR, -180);
+
+		List<Integer> monthList = new ArrayList<Integer>();
+		while (calendar.getTimeInMillis() >= calendar1.getTimeInMillis()) {
+			monthList.add(ConverterUtil.toInt(DateUtil.formatDateByFormat(calendar.getTime(), "yyyyMM")));
+			calendar.add(Calendar.MONTH, -1);
+		}
+
+		// 查询最近180天内的数据
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("monthList", monthList);
+		param.put("serialNumber", paySerialNumber);
+		param.put("pileNo", pileNo);
+		param.put("gunNo", gunNo);
+
+		Map<String, Object> chargeRcd = this.chargeMapper.getPileRecord(param);
+		if (chargeRcd == null) {
+			rtnJson = CommFunc.errorInfo(Constant.REQUEST_BAD, "180天内不存在【" + paySerialNumber + "】的充电记录");
+			return rtnJson;
+		}
+
+		double beginReadings = toDouble(chargeRcd.get("beginReadings"));
+		double endReadings = toDouble(chargeRcd.get("endReadings"));
+
+		rtnJson = CommFunc.errorInfo(Constant.SUCCESS, "");
+
+		rtnJson.put("serialNumber", toLong(paySerialNumber));
+		rtnJson.put("pileNo", pileNo);
+		rtnJson.put("gunNo", gunNo);
+		rtnJson.put("startDate", DateUtil.formatTimesTampDate((Date) chargeRcd.get("startDate")));
+		rtnJson.put("endDate", DateUtil.formatTimesTampDate((Date) chargeRcd.get("endDate")));
+
+		rtnJson.put("beginReadings", roundTosString(beginReadings, 4));
+		rtnJson.put("endReadings", roundTosString(endReadings, 4));
+
+		return rtnJson;
+	}
+
+	/**
+	 * (非 Javadoc)
+	 * <p>
+	 * Title: SendHydroPowerChargeStart
+	 * </p>
+	 * <p>
+	 * Description:
+	 * </p>
+	 * 
+	 * @param json
+	 * @param retry
+	 * @return
+	 * @throws Exception
+	 * @see com.ke.service.IChargeService#SendHydroPowerChargeStart(com.alibaba.fastjson.JSONObject,
+	 *      int)
+	 */
+	@Override
+	public boolean SendHydroPowerChargeStart(JSONObject json, int retry) throws Exception {
+		boolean flag = false;
+		Map<String, String> param = new HashMap<String, String>();
+		String paySerialNumber = json.getString("serialNumber");
+		MemberOrders memberOrders = memberOrdersMapper.getmemberOrders(paySerialNumber);
+		if (memberOrders == null) {
+			return false;
+		}
+		int operatorId = memberOrders.getOperatorId();
+		String key = Constant.OPERATORCONFIG_PREFIX + operatorId;
+		OperatorConfig operatorConfig = (OperatorConfig) SerializeUtil.deserialize(JedisUtil.get(key.getBytes()));
+		if (null == operatorConfig) {
+			return false;
+		}
+
+		String token = operatorConfig.getToken();
+		if (null == token || token.isEmpty()) {
+			getOperatorToken(operatorId);
+			operatorConfig = (OperatorConfig) SerializeUtil.deserialize(JedisUtil.get(key.getBytes()));
+			if (null == operatorConfig) {
+				return false;
+			}
+			token = operatorConfig.getToken();
+		}
+
+		param.put("token", token);
+		JSONObject sendJson = new JSONObject();
+		sendJson.putAll(json);
+		sendJson.put("serialNumber", toLong(paySerialNumber));
+
+		try {
+			param.put("queryJsonStr", java.net.URLEncoder.encode(sendJson.toString(), "UTF-8"));
+
+			String url = operatorConfig.getChargeStartUrl();
+			if (url == null || url.trim().isEmpty()) {
+				return false;
+			}
+
+			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
+			StreamClosedHttpResponse response = httpsClientUtil.doPostFormUrlEncodedGetStatusLine(url, param);
+			if (null == response) {
+				return false;
+			}
+
+			JSONObject jsonItem = JSONObject.parseObject(response.getContent());
+			int status = jsonItem.getIntValue("status");
+			LoggerUtil.logger(LogName.CHARGE).info("发送充电开始消息：{} ,返回结果 ：{} ", json.toString(), response.getContent());
+
+			if (status == Constant.SUCCESS || status == Constant.REQUEST_BAD) {
+				flag = true;
+				if (status == Constant.REQUEST_BAD) {
+					LoggerUtil.logger(LogName.CHARGE).info("丢弃充电开始消息推送	流水号：" + json.toString());
+				}
+
+				ChargeMonitor chargeMonitor = new ChargeMonitor();
+				chargeMonitor.setSerialnumber(paySerialNumber);
+				chargeMonitor.setStartPush((byte) 1);
+				chargeMonitor.setStartPushTime(new Date());
+				chargeMonitorMapper.updateChargeMonitor(chargeMonitor);
+			} else if (status == Constant.TIME_OUT) { // 身份过期
+				LoggerUtil.logger(LogName.CHARGE).info("身份过期 重新获取token,发送内容：" + json.toString());
+
+				if (retry == 0) {
+					throw new RuntimeException("连接超时·····");
+				}
+				retry--;
+				getOperatorToken(operatorId);
+				SendChargeStartRequest(json, retry);
+			}
+		} catch (Exception e) {
+			LoggerUtil.logger(LogName.ERROR).error("发送充电开始消息异常，发送内容：" + json.toString(), e);
+			e.printStackTrace();
+		}
+
+		return flag;
+	}
+
+	/**
+	 * (非 Javadoc)
+	 * <p>
+	 * Title: SendHydroPowerChargeOver
+	 * </p>
+	 * <p>
+	 * Description:
+	 * </p>
+	 * 
+	 * @param json
+	 * @param retry
+	 * @return
+	 * @throws Exception
+	 * @see com.ke.service.IChargeService#SendHydroPowerChargeOver(com.alibaba.fastjson.JSONObject,
+	 *      int)
+	 */
+	@Override
+	public boolean SendHydroPowerChargeOver(JSONObject json, int retry) throws Exception {
+		boolean flag = false;
+		Map<String, String> param = new HashMap<String, String>();
+		String paySerialNumber = json.getString("serialNumber");
+		MemberOrders memberOrders = memberOrdersMapper.getmemberOrders(paySerialNumber);
+		if (memberOrders == null) {
+			return false;
+		}
+
+		int operatorId = memberOrders.getOperatorId();
+		String key = Constant.OPERATORCONFIG_PREFIX + operatorId;
+		OperatorConfig operatorConfig = (OperatorConfig) SerializeUtil.deserialize(JedisUtil.get(key.getBytes()));
+		if (null == operatorConfig) {
+			return false;
+		}
+
+		String token = operatorConfig.getToken();
+		if (null == token || token.isEmpty()) {
+			getOperatorToken(operatorId);
+			operatorConfig = (OperatorConfig) SerializeUtil.deserialize(JedisUtil.get(key.getBytes()));
+			if (null == operatorConfig) {
+				return false;
+			}
+			token = operatorConfig.getToken();
+		}
+
+		param.put("token", token);
+
+		JSONObject sendJson = new JSONObject();
+		sendJson.putAll(json);
+		sendJson.put("serialNumber", toLong(paySerialNumber));
+
+		String url = operatorConfig.getChargeOverUrl();
+		if (url == null || url.isEmpty()) {
+			return false;
+		}
+
+		try {
+			param.put("queryJsonStr", java.net.URLEncoder.encode(sendJson.toString(), "UTF-8"));
+			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
+			StreamClosedHttpResponse response = httpsClientUtil.doPostFormUrlEncodedGetStatusLine(url, param);
+			if (null == response) {
+				return false;
+			}
+
+			JSONObject jsonItem = JSONObject.parseObject(response.getContent());
+			int status = jsonItem.getIntValue("status");
+			LoggerUtil.logger(LogName.CHARGE).info("发送充电结束消息：{} ,接收内容：() ", json.toString(), response.getContent());
+			if (status == Constant.SUCCESS || status == Constant.REQUEST_BAD) {
+
+				if (status == Constant.REQUEST_BAD) {
+					LoggerUtil.logger(LogName.ERROR).error("丢弃充电结束消息推送,流水号：" + json.toString());
+				}
+
+				ChargeMonitor chargeMonitor = new ChargeMonitor();
+				chargeMonitor.setSerialnumber(paySerialNumber);
+				chargeMonitor.setEndPush(Constant.PUSHED);
+				chargeMonitor.setEndPushTime(new Date());
+				chargeMonitorMapper.updateChargeMonitor(chargeMonitor);
+				flag = true;
+			} else if (status == Constant.TIME_OUT) { // 身份过期
+				LoggerUtil.logger(LogName.CHARGE).info("身份过期 重新获取token,发送内容：" + json.toString());
+
+				if (retry == 0) {
+					throw new RuntimeException("连接超时·····");
+				}
+				retry--;
+				getOperatorToken(operatorId);
+				SendChargeOverRequest(json, retry);
+			}
+		} catch (Exception e) {
+			LoggerUtil.logger(LogName.ERROR).error("发送充电结束请求异常,发送内容：" + json.toString(), e);
+			flag = false;
+			e.printStackTrace();
+		}
+
+		return flag;
+	}
+
+	/**
+	 * (非 Javadoc)
+	 * <p>
+	 * Title: SendHydroPowerHeartBeat
+	 * </p>
+	 * <p>
+	 * Description:
+	 * </p>
+	 * 
+	 * @param json
+	 * @param retry
+	 * @return
+	 * @throws Exception
+	 * @see com.ke.service.IChargeService#SendHydroPowerHeartBeat(com.alibaba.fastjson.JSONObject,
+	 *      int)
+	 */
+	@Override
+	public boolean SendHydroPowerHeartBeat(JSONObject json, int retry) throws Exception {
+		boolean flag = false;
+		Map<String, String> param = new HashMap<String, String>();
+		int operatorId = json.getIntValue("operatorId");
+		String key = Constant.OPERATORCONFIG_PREFIX + operatorId;
+		OperatorConfig operatorConfig = (OperatorConfig) SerializeUtil.deserialize(JedisUtil.get(key.getBytes()));
+		if (null == operatorConfig) {
+			return false;
+		}
+
+		String token = operatorConfig.getToken();
+		if (null == token || token.isEmpty()) {
+			getOperatorToken(operatorId);
+			operatorConfig = (OperatorConfig) SerializeUtil.deserialize(JedisUtil.get(key.getBytes()));
+			if (null == operatorConfig) {
+				return false;
+			}
+			token = operatorConfig.getToken();
+		}
+
+		param.put("token", token);
+		String url = operatorConfig.getChargeHeartUrl();
+		if (url == null || url.isEmpty()) {
+			return false;
+		}
+		json.remove("operatorId");
+		try {
+			param.put("queryJsonStr", java.net.URLEncoder.encode(json.toJSONString(), "UTF-8"));
+
+			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
+			StreamClosedHttpResponse response = httpsClientUtil.doPostFormUrlEncodedGetStatusLine(url, param);
+			if (null == response) {
+				return false;
+			}
+
+			JSONObject jsonItem = JSONObject.parseObject(response.getContent());
+			int status = jsonItem.getIntValue("status");
+			LoggerUtil.logger(LogName.CHARGE).info("发送水电桩心跳消息：{} ,接收内容：() ", json.toString(), response.getContent());
+			if (status == Constant.SUCCESS || status == Constant.REQUEST_BAD) {
+
+				if (status == Constant.REQUEST_BAD) {
+					LoggerUtil.logger(LogName.ERROR).error("丢弃充电水电桩心跳推送,：" + json.toString());
+				}
+				flag = true;
+			} else if (status == Constant.TIME_OUT) { // 身份过期
+				LoggerUtil.logger(LogName.CHARGE).info("身份过期 重新获取token,发送内容：" + json.toString());
+				if (retry == 0) {
+					throw new RuntimeException("连接超时·····");
+				}
+				retry--;
+				getOperatorToken(operatorId);
+				SendChargeOverRequest(json, retry);
+			}
+		} catch (Exception e) {
+			LoggerUtil.logger(LogName.ERROR).error("发送水电桩心跳消息异常,发送内容：" + json.toString(), e);
+			flag = false;
+			e.printStackTrace();
+		}
+
+		return flag;
+	}
+
+	/**
+	 * (非 Javadoc)
+	 * <p>
+	 * Title: SendHydroPowerAlarm
+	 * </p>
+	 * <p>
+	 * Description:
+	 * </p>
+	 * 
+	 * @param json
+	 * @param retry
+	 * @return
+	 * @throws Exception
+	 * @see com.ke.service.IChargeService#SendHydroPowerAlarm(com.alibaba.fastjson.JSONObject,
+	 *      int)
+	 */
+	@Override
+	public boolean SendHydroPowerAlarm(JSONObject json, int retry) throws Exception {
+		boolean flag = false;
+		Map<String, String> param = new HashMap<String, String>();
+		String pileNo = json.getString("pileNo");
+		int operatorId = this.pileMapper.getOperatorIdByPileNo(pileNo);
+		String key = Constant.OPERATORCONFIG_PREFIX + operatorId;
+		OperatorConfig operatorConfig = (OperatorConfig) SerializeUtil.deserialize(JedisUtil.get(key.getBytes()));
+		if (null == operatorConfig) {
+			return false;
+		}
+
+		String token = operatorConfig.getToken();
+		if (null == token || token.isEmpty()) {
+			getOperatorToken(operatorId);
+			operatorConfig = (OperatorConfig) SerializeUtil.deserialize(JedisUtil.get(key.getBytes()));
+			if (null == operatorConfig) {
+				return false;
+			}
+			token = operatorConfig.getToken();
+		}
+
+		param.put("token", token);
+
+		JSONObject sendJson = new JSONObject();
+		sendJson.putAll(json);
+
+		String url = operatorConfig.getChargeAlramUrl();
+		if (url == null || url.isEmpty()) {
+			return false;
+		}
+
+		try {
+			param.put("queryJsonStr", java.net.URLEncoder.encode(sendJson.toString(), "UTF-8"));
+			HttpsClientUtil httpsClientUtil = new HttpsClientUtil();
+			StreamClosedHttpResponse response = httpsClientUtil.doPostFormUrlEncodedGetStatusLine(url, param);
+			if (null == response) {
+				return false;
+			}
+
+			JSONObject jsonItem = JSONObject.parseObject(response.getContent());
+			int status = jsonItem.getIntValue("status");
+			LoggerUtil.logger(LogName.CHARGE).info("发送充电结束消息：{} ,接收内容：() ", json.toString(), response.getContent());
+			if (status == Constant.SUCCESS || status == Constant.REQUEST_BAD) {
+
+				if (status == Constant.REQUEST_BAD) {
+					LoggerUtil.logger(LogName.ERROR).error("丢弃充电结束消息推送,流水号：" + json.toString());
+				}
+
+				flag = true;
+			} else if (status == Constant.TIME_OUT) { // 身份过期
+				LoggerUtil.logger(LogName.CHARGE).info("身份过期 重新获取token,发送内容：" + json.toString());
+
+				if (retry == 0) {
+					throw new RuntimeException("连接超时·····");
+				}
+				retry--;
+				getOperatorToken(operatorId);
+				SendChargeOverRequest(json, retry);
+			}
+		} catch (Exception e) {
+			LoggerUtil.logger(LogName.ERROR).error("发送充电结束请求异常,发送内容：" + json.toString(), e);
+			flag = false;
+			e.printStackTrace();
+		}
+
+		return flag;
 	}
 }

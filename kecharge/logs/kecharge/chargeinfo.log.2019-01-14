@@ -1,8 +1,0 @@
-[2019-01-14 17:31:03.214] INFO [main] ChargeServiceImpl.java:567 - 接送获取充电桩充电记录请求:{"serialNumber":"20191016152325000001245125","gunNo":"1","pileNo":"KE0000001000"}
-[2019-01-14 17:32:58.437] INFO [main] ChargeServiceImpl.java:567 - 接送获取充电桩充电记录请求:{"serialNumber":"9900000001","gunNo":"1","pileNo":"KE0000001000"}
-[2019-01-14 17:34:02.492] INFO [main] ChargeServiceImpl.java:567 - 接送获取充电桩充电记录请求:{"serialNumber":"9900000001","gunNo":"1","pileNo":"KE0000001000"}
-[2019-01-14 17:35:18.239] INFO [main] ChargeServiceImpl.java:567 - 接送获取充电桩充电记录请求:{"serialNumber":"9900000001","gunNo":"1","pileNo":"KE0000001000"}
-[2019-01-14 17:37:04.792] INFO [main] ChargeServiceImpl.java:567 - 接送获取充电桩充电记录请求:{"serialNumber":"9900000001","gunNo":"1","pileNo":"KE0000001000"}
-[2019-01-14 17:37:27.483] INFO [main] ChargeServiceImpl.java:567 - 接送获取充电桩充电记录请求:{"serialNumber":"9900000001","gunNo":"13","pileNo":"KE0000001000"}
-[2019-01-14 17:38:12.546] INFO [main] ChargeServiceImpl.java:567 - 接送获取充电桩充电记录请求:{"serialNumber":"9900000001","gunNo":"1","pileNo":"KE0000001000"}
-[2019-01-14 17:39:27.386] INFO [main] ChargeServiceImpl.java:567 - 接送获取充电桩充电记录请求:{"serialNumber":"9900000001","gunNo":"1","pileNo":"KE0000001000"}

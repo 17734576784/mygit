@@ -104,6 +104,11 @@ public class MemberOrders {
     private Integer refundErrcode;
 
     private String refundErrinfo;
+    
+    private String startReadings;
+    
+    private String endReadings;
+    
 
     public Integer getId() {
         return id;
@@ -519,4 +524,33 @@ public class MemberOrders {
     public void setRefundErrinfo(String refundErrinfo) {
         this.refundErrinfo = refundErrinfo == null ? null : refundErrinfo.trim();
     }
+
+	/**
+	 * @return the startReadings
+	 */
+	public String getStartReadings() {
+		return startReadings;
+	}
+
+	/**
+	 * @param startReadings the startReadings to set
+	 */
+	public void setStartReadings(String startReadings) {
+		this.startReadings = startReadings;
+	}
+
+	/**
+	 * @return the endReadings
+	 */
+	public String getEndReadings() {
+		return endReadings;
+	}
+
+	/**
+	 * @param endReadings the endReadings to set
+	 */
+	public void setEndReadings(String endReadings) {
+		this.endReadings = endReadings;
+	}
+    
 }

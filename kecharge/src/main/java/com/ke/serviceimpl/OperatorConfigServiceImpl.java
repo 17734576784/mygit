@@ -234,4 +234,31 @@ public class OperatorConfigServiceImpl implements IOperatorConfigService {
 		rtnJson.put("rows", arrays);
 		return rtnJson;
 	}
+
+	/** (非 Javadoc) 
+	* <p>Title: listOperatorTest</p> 
+	* <p>Description: </p> 
+	* @return 
+	* @see com.ke.service.IOperatorConfigService#listOperatorTest() 
+	*/
+	@Override
+	public JSONObject listOperatorTest() {
+		JSONObject rtnJson = new JSONObject();
+		JSONArray arrays = new JSONArray();
+		List<Map<String, Object>> partnerList = operatorConfigMapper.listOperatorTest();
+		for (Map<String, Object> map : partnerList) {
+			JSONObject item = new JSONObject();
+			item.put("partnerId", ConverterUtil.toInt(map.get("id")));
+			item.put("partnerName", ConverterUtil.toStr(map.get("name")));
+			item.put("loginPartneruserName", ConverterUtil.toStr(map.get("thirdusername")));
+			item.put("loginPartnerpassWord", ConverterUtil.toStr(map.get("thirdpassword")));
+			item.put("loginKEuserName", ConverterUtil.toStr(map.get("keusername")));
+			item.put("loginKEpassWord", ConverterUtil.toStr(map.get("kepassword")));
+
+			arrays.add(item);
+		}
+		rtnJson = CommFunc.errorInfo(Constant.SUCCESS, "");
+		rtnJson.put("rows", arrays);
+		return rtnJson;
+	}
 }

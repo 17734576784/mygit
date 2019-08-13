@@ -236,7 +236,7 @@ public class CommFunc {
 	public static void initOperatorConfig(OperatorConfig operatorConfig) {
 		String key = Constant.OPERATORCONFIG_PREFIX + operatorConfig.getOperatorId();
 		JedisUtil.set(key.getBytes(), SerializeUtil.serialize(operatorConfig));
-		
+
 		key = Constant.SERIALNUMBER_PREFIX;
 		JedisUtil.hset(key, operatorConfig.getSerialnumberPrefix(), operatorConfig.getSerialnumberPrefix());
 	}

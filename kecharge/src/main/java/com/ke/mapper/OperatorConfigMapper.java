@@ -26,6 +26,8 @@ public interface OperatorConfigMapper {
 
 	List<Map<String, Object>> listOperator();
 	
+	List<Map<String, Object>> listOperatorTest();
+	
 	Integer checkOperatorUsername(Map<String,Object> param);
 	
 	boolean insertUserRole(int userId);

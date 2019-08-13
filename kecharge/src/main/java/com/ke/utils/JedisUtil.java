@@ -401,6 +401,19 @@ public class JedisUtil {
 		return null;  
 	}
 	
+	public static Set<String> keysStr(String key){
+		Jedis jedis = null;
+		try {
+			jedis = getResource();
+			return jedis.keys(key);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			returnRource(jedis);
+		}
+		return null;  
+	}
+	
 	 /** 
      * 设置超期时间 
      * @param key 

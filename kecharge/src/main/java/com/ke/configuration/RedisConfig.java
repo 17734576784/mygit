@@ -64,7 +64,7 @@ public class RedisConfig {
 		config.setMaxTotal(maxActive);
 		config.setMaxIdle(maxIdle);
 		config.setMaxWaitMillis(timeout);
-		return new JedisPool(config, host, port,timeout, password,database);
+		return new JedisPool(config, host, port, timeout, password, database);
 	}
 
 //	@Bean

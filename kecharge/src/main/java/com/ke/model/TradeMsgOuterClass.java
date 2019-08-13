@@ -15,6 +15,10 @@ public final class TradeMsgOuterClass {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   /**
+   * <pre>
+   *扩展部分字段，增加事项 Zhang Xiangping 2018.08.07
+   * </pre>
+   *
    * Protobuf enum {@code com.ke.model.TradeMsgType}
    */
   public enum TradeMsgType
@@ -163,6 +167,22 @@ public final class TradeMsgOuterClass {
      * <code>MSG_TRADE_CHARGE_INFO2 = 17;</code>
      */
     MSG_TRADE_CHARGE_INFO2(17),
+    /**
+     * <pre>
+     *桩体信息
+     * </pre>
+     *
+     * <code>MSG_TRADE_PILE_INFO = 18;</code>
+     */
+    MSG_TRADE_PILE_INFO(18),
+    /**
+     * <pre>
+     *事项信息
+     * </pre>
+     *
+     * <code>MSG_TRADE_EVENT = 19;</code>
+     */
+    MSG_TRADE_EVENT(19),
     UNRECOGNIZED(-1),
     ;
 
@@ -310,6 +330,22 @@ public final class TradeMsgOuterClass {
      * <code>MSG_TRADE_CHARGE_INFO2 = 17;</code>
      */
     public static final int MSG_TRADE_CHARGE_INFO2_VALUE = 17;
+    /**
+     * <pre>
+     *桩体信息
+     * </pre>
+     *
+     * <code>MSG_TRADE_PILE_INFO = 18;</code>
+     */
+    public static final int MSG_TRADE_PILE_INFO_VALUE = 18;
+    /**
+     * <pre>
+     *事项信息
+     * </pre>
+     *
+     * <code>MSG_TRADE_EVENT = 19;</code>
+     */
+    public static final int MSG_TRADE_EVENT_VALUE = 19;
 
 
     public final int getNumber() {
@@ -348,6 +384,8 @@ public final class TradeMsgOuterClass {
         case 15: return MSG_TRADE_SUPCARD_REQ;
         case 16: return MSG_TRADE_BEGINTRADE_SUPCARD;
         case 17: return MSG_TRADE_CHARGE_INFO2;
+        case 18: return MSG_TRADE_PILE_INFO;
+        case 19: return MSG_TRADE_EVENT;
         default: return null;
       }
     }
@@ -3363,6 +3401,15 @@ public final class TradeMsgOuterClass {
      * <code>int32 flag = 3;</code>
      */
     int getFlag();
+
+    /**
+     * <pre>
+     *当前表底
+     * </pre>
+     *
+     * <code>double readings = 4;</code>
+     */
+    double getReadings();
   }
   /**
    * Protobuf type {@code com.ke.model.TradeMsgChargeBegin}
@@ -3380,6 +3427,7 @@ public final class TradeMsgOuterClass {
       gun_ = 0;
       serial_ = "";
       flag_ = 0;
+      readings_ = 0D;
     }
 
     @java.lang.Override
@@ -3420,6 +3468,11 @@ public final class TradeMsgOuterClass {
             case 24: {
 
               flag_ = input.readInt32();
+              break;
+            }
+            case 33: {
+
+              readings_ = input.readDouble();
               break;
             }
             default: {
@@ -3522,6 +3575,19 @@ public final class TradeMsgOuterClass {
       return flag_;
     }
 
+    public static final int READINGS_FIELD_NUMBER = 4;
+    private double readings_;
+    /**
+     * <pre>
+     *当前表底
+     * </pre>
+     *
+     * <code>double readings = 4;</code>
+     */
+    public double getReadings() {
+      return readings_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -3545,6 +3611,9 @@ public final class TradeMsgOuterClass {
       if (flag_ != 0) {
         output.writeInt32(3, flag_);
       }
+      if (readings_ != 0D) {
+        output.writeDouble(4, readings_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -3564,6 +3633,10 @@ public final class TradeMsgOuterClass {
       if (flag_ != 0) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(3, flag_);
+      }
+      if (readings_ != 0D) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(4, readings_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -3587,6 +3660,10 @@ public final class TradeMsgOuterClass {
           .equals(other.getSerial());
       result = result && (getFlag()
           == other.getFlag());
+      result = result && (
+          java.lang.Double.doubleToLongBits(getReadings())
+          == java.lang.Double.doubleToLongBits(
+              other.getReadings()));
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -3604,6 +3681,9 @@ public final class TradeMsgOuterClass {
       hash = (53 * hash) + getSerial().hashCode();
       hash = (37 * hash) + FLAG_FIELD_NUMBER;
       hash = (53 * hash) + getFlag();
+      hash = (37 * hash) + READINGS_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          java.lang.Double.doubleToLongBits(getReadings()));
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -3743,6 +3823,8 @@ public final class TradeMsgOuterClass {
 
         flag_ = 0;
 
+        readings_ = 0D;
+
         return this;
       }
 
@@ -3772,6 +3854,7 @@ public final class TradeMsgOuterClass {
         result.gun_ = gun_;
         result.serial_ = serial_;
         result.flag_ = flag_;
+        result.readings_ = readings_;
         onBuilt();
         return result;
       }
@@ -3829,6 +3912,9 @@ public final class TradeMsgOuterClass {
         }
         if (other.getFlag() != 0) {
           setFlag(other.getFlag());
+        }
+        if (other.getReadings() != 0D) {
+          setReadings(other.getReadings());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -4020,6 +4106,44 @@ public final class TradeMsgOuterClass {
       public Builder clearFlag() {
         
         flag_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private double readings_ ;
+      /**
+       * <pre>
+       *当前表底
+       * </pre>
+       *
+       * <code>double readings = 4;</code>
+       */
+      public double getReadings() {
+        return readings_;
+      }
+      /**
+       * <pre>
+       *当前表底
+       * </pre>
+       *
+       * <code>double readings = 4;</code>
+       */
+      public Builder setReadings(double value) {
+        
+        readings_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *当前表底
+       * </pre>
+       *
+       * <code>double readings = 4;</code>
+       */
+      public Builder clearReadings() {
+        
+        readings_ = 0D;
         onChanged();
         return this;
       }
@@ -4474,10 +4598,28 @@ public final class TradeMsgOuterClass {
 
       /**
        * <pre>
+       *VIIN码
+       * </pre>
+       *
+       * <code>string vin = 22;</code>
+       */
+      java.lang.String getVin();
+      /**
+       * <pre>
+       *VIIN码
+       * </pre>
+       *
+       * <code>string vin = 22;</code>
+       */
+      com.google.protobuf.ByteString
+          getVinBytes();
+
+      /**
+       * <pre>
        *枪号 1:A枪 2:B枪...
        * </pre>
        *
-       * <code>int32 gun = 22;</code>
+       * <code>int32 gun = 23;</code>
        */
       int getGun();
 
@@ -4486,7 +4628,7 @@ public final class TradeMsgOuterClass {
        *结束原因
        * </pre>
        *
-       * <code>int32 end_cause = 23;</code>
+       * <code>int32 end_cause = 24;</code>
        */
       int getEndCause();
     }
@@ -4524,6 +4666,7 @@ public final class TradeMsgOuterClass {
         serviceFl_ = java.util.Collections.emptyList();
         tradePrice_ = 0;
         tradePriceFl_ = java.util.Collections.emptyList();
+        vin_ = "";
         gun_ = 0;
         endCause_ = 0;
       }
@@ -4724,12 +4867,18 @@ public final class TradeMsgOuterClass {
                 input.popLimit(limit);
                 break;
               }
-              case 176: {
+              case 178: {
+                java.lang.String s = input.readStringRequireUtf8();
+
+                vin_ = s;
+                break;
+              }
+              case 184: {
 
                 gun_ = input.readInt32();
                 break;
               }
-              case 184: {
+              case 192: {
 
                 endCause_ = input.readInt32();
                 break;
@@ -5210,27 +5359,69 @@ public final class TradeMsgOuterClass {
       }
       private int tradePriceFlMemoizedSerializedSize = -1;
 
-      public static final int GUN_FIELD_NUMBER = 22;
+      public static final int VIN_FIELD_NUMBER = 22;
+      private volatile java.lang.Object vin_;
+      /**
+       * <pre>
+       *VIIN码
+       * </pre>
+       *
+       * <code>string vin = 22;</code>
+       */
+      public java.lang.String getVin() {
+        java.lang.Object ref = vin_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          vin_ = s;
+          return s;
+        }
+      }
+      /**
+       * <pre>
+       *VIIN码
+       * </pre>
+       *
+       * <code>string vin = 22;</code>
+       */
+      public com.google.protobuf.ByteString
+          getVinBytes() {
+        java.lang.Object ref = vin_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          vin_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int GUN_FIELD_NUMBER = 23;
       private int gun_;
       /**
        * <pre>
        *枪号 1:A枪 2:B枪...
        * </pre>
        *
-       * <code>int32 gun = 22;</code>
+       * <code>int32 gun = 23;</code>
        */
       public int getGun() {
         return gun_;
       }
 
-      public static final int END_CAUSE_FIELD_NUMBER = 23;
+      public static final int END_CAUSE_FIELD_NUMBER = 24;
       private int endCause_;
       /**
        * <pre>
        *结束原因
        * </pre>
        *
-       * <code>int32 end_cause = 23;</code>
+       * <code>int32 end_cause = 24;</code>
        */
       public int getEndCause() {
         return endCause_;
@@ -5330,11 +5521,14 @@ public final class TradeMsgOuterClass {
         for (int i = 0; i < tradePriceFl_.size(); i++) {
           output.writeInt32NoTag(tradePriceFl_.get(i));
         }
+        if (!getVinBytes().isEmpty()) {
+          com.google.protobuf.GeneratedMessageV3.writeString(output, 22, vin_);
+        }
         if (gun_ != 0) {
-          output.writeInt32(22, gun_);
+          output.writeInt32(23, gun_);
         }
         if (endCause_ != 0) {
-          output.writeInt32(23, endCause_);
+          output.writeInt32(24, endCause_);
         }
         unknownFields.writeTo(output);
       }
@@ -5461,13 +5655,16 @@ public final class TradeMsgOuterClass {
           }
           tradePriceFlMemoizedSerializedSize = dataSize;
         }
+        if (!getVinBytes().isEmpty()) {
+          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(22, vin_);
+        }
         if (gun_ != 0) {
           size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(22, gun_);
+            .computeInt32Size(23, gun_);
         }
         if (endCause_ != 0) {
           size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(23, endCause_);
+            .computeInt32Size(24, endCause_);
         }
         size += unknownFields.getSerializedSize();
         memoizedSize = size;
@@ -5530,6 +5727,8 @@ public final class TradeMsgOuterClass {
             == other.getTradePrice());
         result = result && getTradePriceFlList()
             .equals(other.getTradePriceFlList());
+        result = result && getVin()
+            .equals(other.getVin());
         result = result && (getGun()
             == other.getGun());
         result = result && (getEndCause()
@@ -5597,6 +5796,8 @@ public final class TradeMsgOuterClass {
           hash = (37 * hash) + TRADE_PRICE_FL_FIELD_NUMBER;
           hash = (53 * hash) + getTradePriceFlList().hashCode();
         }
+        hash = (37 * hash) + VIN_FIELD_NUMBER;
+        hash = (53 * hash) + getVin().hashCode();
         hash = (37 * hash) + GUN_FIELD_NUMBER;
         hash = (53 * hash) + getGun();
         hash = (37 * hash) + END_CAUSE_FIELD_NUMBER;
@@ -5776,6 +5977,8 @@ public final class TradeMsgOuterClass {
 
           tradePriceFl_ = java.util.Collections.emptyList();
           bitField0_ = (bitField0_ & ~0x00100000);
+          vin_ = "";
+
           gun_ = 0;
 
           endCause_ = 0;
@@ -5845,6 +6048,7 @@ public final class TradeMsgOuterClass {
             bitField0_ = (bitField0_ & ~0x00100000);
           }
           result.tradePriceFl_ = tradePriceFl_;
+          result.vin_ = vin_;
           result.gun_ = gun_;
           result.endCause_ = endCause_;
           result.bitField0_ = to_bitField0_;
@@ -5987,6 +6191,10 @@ public final class TradeMsgOuterClass {
               ensureTradePriceFlIsMutable();
               tradePriceFl_.addAll(other.tradePriceFl_);
             }
+            onChanged();
+          }
+          if (!other.getVin().isEmpty()) {
+            vin_ = other.vin_;
             onChanged();
           }
           if (other.getGun() != 0) {
@@ -7176,13 +7384,102 @@ public final class TradeMsgOuterClass {
           return this;
         }
 
+        private java.lang.Object vin_ = "";
+        /**
+         * <pre>
+         *VIIN码
+         * </pre>
+         *
+         * <code>string vin = 22;</code>
+         */
+        public java.lang.String getVin() {
+          java.lang.Object ref = vin_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            vin_ = s;
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <pre>
+         *VIIN码
+         * </pre>
+         *
+         * <code>string vin = 22;</code>
+         */
+        public com.google.protobuf.ByteString
+            getVinBytes() {
+          java.lang.Object ref = vin_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            vin_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <pre>
+         *VIIN码
+         * </pre>
+         *
+         * <code>string vin = 22;</code>
+         */
+        public Builder setVin(
+            java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  
+          vin_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <pre>
+         *VIIN码
+         * </pre>
+         *
+         * <code>string vin = 22;</code>
+         */
+        public Builder clearVin() {
+          
+          vin_ = getDefaultInstance().getVin();
+          onChanged();
+          return this;
+        }
+        /**
+         * <pre>
+         *VIIN码
+         * </pre>
+         *
+         * <code>string vin = 22;</code>
+         */
+        public Builder setVinBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+          
+          vin_ = value;
+          onChanged();
+          return this;
+        }
+
         private int gun_ ;
         /**
          * <pre>
          *枪号 1:A枪 2:B枪...
          * </pre>
          *
-         * <code>int32 gun = 22;</code>
+         * <code>int32 gun = 23;</code>
          */
         public int getGun() {
           return gun_;
@@ -7192,7 +7489,7 @@ public final class TradeMsgOuterClass {
          *枪号 1:A枪 2:B枪...
          * </pre>
          *
-         * <code>int32 gun = 22;</code>
+         * <code>int32 gun = 23;</code>
          */
         public Builder setGun(int value) {
           
@@ -7205,7 +7502,7 @@ public final class TradeMsgOuterClass {
          *枪号 1:A枪 2:B枪...
          * </pre>
          *
-         * <code>int32 gun = 22;</code>
+         * <code>int32 gun = 23;</code>
          */
         public Builder clearGun() {
           
@@ -7220,7 +7517,7 @@ public final class TradeMsgOuterClass {
          *结束原因
          * </pre>
          *
-         * <code>int32 end_cause = 23;</code>
+         * <code>int32 end_cause = 24;</code>
          */
         public int getEndCause() {
           return endCause_;
@@ -7230,7 +7527,7 @@ public final class TradeMsgOuterClass {
          *结束原因
          * </pre>
          *
-         * <code>int32 end_cause = 23;</code>
+         * <code>int32 end_cause = 24;</code>
          */
         public Builder setEndCause(int value) {
           
@@ -7243,7 +7540,7 @@ public final class TradeMsgOuterClass {
          *结束原因
          * </pre>
          *
-         * <code>int32 end_cause = 23;</code>
+         * <code>int32 end_cause = 24;</code>
          */
         public Builder clearEndCause() {
           
@@ -7927,10 +8224,28 @@ public final class TradeMsgOuterClass {
 
     /**
      * <pre>
+     *有功功率
+     * </pre>
+     *
+     * <code>double p = 8;</code>
+     */
+    double getP();
+
+    /**
+     * <pre>
+     *无功功率
+     * </pre>
+     *
+     * <code>double q = 9;</code>
+     */
+    double getQ();
+
+    /**
+     * <pre>
      *充电电量
      * </pre>
      *
-     * <code>double energy = 8;</code>
+     * <code>double energy = 10;</code>
      */
     double getEnergy();
 
@@ -7939,7 +8254,7 @@ public final class TradeMsgOuterClass {
      *充电金额-分
      * </pre>
      *
-     * <code>int32 money = 9;</code>
+     * <code>int32 money = 11;</code>
      */
     int getMoney();
 
@@ -7948,7 +8263,7 @@ public final class TradeMsgOuterClass {
      *充电时长-秒
      * </pre>
      *
-     * <code>int32 time = 10;</code>
+     * <code>int32 time = 12;</code>
      */
     int getTime();
 
@@ -7957,7 +8272,7 @@ public final class TradeMsgOuterClass {
      *充电流水号
      * </pre>
      *
-     * <code>string serial = 11;</code>
+     * <code>string serial = 13;</code>
      */
     java.lang.String getSerial();
     /**
@@ -7965,10 +8280,55 @@ public final class TradeMsgOuterClass {
      *充电流水号
      * </pre>
      *
-     * <code>string serial = 11;</code>
+     * <code>string serial = 13;</code>
      */
     com.google.protobuf.ByteString
         getSerialBytes();
+
+    /**
+     * <pre>
+     *枪类型    1汽车口  2单车口  3水口
+     * </pre>
+     *
+     * <code>int32 gun_type = 14;</code>
+     */
+    int getGunType();
+
+    /**
+     * <pre>
+     *开关状态  0关闭 1打开
+     * </pre>
+     *
+     * <code>int32 switch_state = 15;</code>
+     */
+    int getSwitchState();
+
+    /**
+     * <pre>
+     *当前表底
+     * </pre>
+     *
+     * <code>double readings = 16;</code>
+     */
+    double getReadings();
+
+    /**
+     * <pre>
+     *数据时标
+     * </pre>
+     *
+     * <code>string datatime = 17;</code>
+     */
+    java.lang.String getDatatime();
+    /**
+     * <pre>
+     *数据时标
+     * </pre>
+     *
+     * <code>string datatime = 17;</code>
+     */
+    com.google.protobuf.ByteString
+        getDatatimeBytes();
   }
   /**
    * Protobuf type {@code com.ke.model.TradeMsgChargeInfo}
@@ -7990,10 +8350,16 @@ public final class TradeMsgOuterClass {
       ia_ = 0D;
       ib_ = 0D;
       ic_ = 0D;
+      p_ = 0D;
+      q_ = 0D;
       energy_ = 0D;
       money_ = 0;
       time_ = 0;
       serial_ = "";
+      gunType_ = 0;
+      switchState_ = 0;
+      readings_ = 0D;
+      datatime_ = "";
     }
 
     @java.lang.Override
@@ -8057,23 +8423,54 @@ public final class TradeMsgOuterClass {
             }
             case 65: {
 
+              p_ = input.readDouble();
+              break;
+            }
+            case 73: {
+
+              q_ = input.readDouble();
+              break;
+            }
+            case 81: {
+
               energy_ = input.readDouble();
               break;
             }
-            case 72: {
+            case 88: {
 
               money_ = input.readInt32();
               break;
             }
-            case 80: {
+            case 96: {
 
               time_ = input.readInt32();
               break;
             }
-            case 90: {
+            case 106: {
               java.lang.String s = input.readStringRequireUtf8();
 
               serial_ = s;
+              break;
+            }
+            case 112: {
+
+              gunType_ = input.readInt32();
+              break;
+            }
+            case 120: {
+
+              switchState_ = input.readInt32();
+              break;
+            }
+            case 129: {
+
+              readings_ = input.readDouble();
+              break;
+            }
+            case 138: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              datatime_ = s;
               break;
             }
             default: {
@@ -8199,53 +8596,79 @@ public final class TradeMsgOuterClass {
       return ic_;
     }
 
-    public static final int ENERGY_FIELD_NUMBER = 8;
+    public static final int P_FIELD_NUMBER = 8;
+    private double p_;
+    /**
+     * <pre>
+     *有功功率
+     * </pre>
+     *
+     * <code>double p = 8;</code>
+     */
+    public double getP() {
+      return p_;
+    }
+
+    public static final int Q_FIELD_NUMBER = 9;
+    private double q_;
+    /**
+     * <pre>
+     *无功功率
+     * </pre>
+     *
+     * <code>double q = 9;</code>
+     */
+    public double getQ() {
+      return q_;
+    }
+
+    public static final int ENERGY_FIELD_NUMBER = 10;
     private double energy_;
     /**
      * <pre>
      *充电电量
      * </pre>
      *
-     * <code>double energy = 8;</code>
+     * <code>double energy = 10;</code>
      */
     public double getEnergy() {
       return energy_;
     }
 
-    public static final int MONEY_FIELD_NUMBER = 9;
+    public static final int MONEY_FIELD_NUMBER = 11;
     private int money_;
     /**
      * <pre>
      *充电金额-分
      * </pre>
      *
-     * <code>int32 money = 9;</code>
+     * <code>int32 money = 11;</code>
      */
     public int getMoney() {
       return money_;
     }
 
-    public static final int TIME_FIELD_NUMBER = 10;
+    public static final int TIME_FIELD_NUMBER = 12;
     private int time_;
     /**
      * <pre>
      *充电时长-秒
      * </pre>
      *
-     * <code>int32 time = 10;</code>
+     * <code>int32 time = 12;</code>
      */
     public int getTime() {
       return time_;
     }
 
-    public static final int SERIAL_FIELD_NUMBER = 11;
+    public static final int SERIAL_FIELD_NUMBER = 13;
     private volatile java.lang.Object serial_;
     /**
      * <pre>
      *充电流水号
      * </pre>
      *
-     * <code>string serial = 11;</code>
+     * <code>string serial = 13;</code>
      */
     public java.lang.String getSerial() {
       java.lang.Object ref = serial_;
@@ -8264,7 +8687,7 @@ public final class TradeMsgOuterClass {
      *充电流水号
      * </pre>
      *
-     * <code>string serial = 11;</code>
+     * <code>string serial = 13;</code>
      */
     public com.google.protobuf.ByteString
         getSerialBytes() {
@@ -8274,6 +8697,87 @@ public final class TradeMsgOuterClass {
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
         serial_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int GUN_TYPE_FIELD_NUMBER = 14;
+    private int gunType_;
+    /**
+     * <pre>
+     *枪类型    1汽车口  2单车口  3水口
+     * </pre>
+     *
+     * <code>int32 gun_type = 14;</code>
+     */
+    public int getGunType() {
+      return gunType_;
+    }
+
+    public static final int SWITCH_STATE_FIELD_NUMBER = 15;
+    private int switchState_;
+    /**
+     * <pre>
+     *开关状态  0关闭 1打开
+     * </pre>
+     *
+     * <code>int32 switch_state = 15;</code>
+     */
+    public int getSwitchState() {
+      return switchState_;
+    }
+
+    public static final int READINGS_FIELD_NUMBER = 16;
+    private double readings_;
+    /**
+     * <pre>
+     *当前表底
+     * </pre>
+     *
+     * <code>double readings = 16;</code>
+     */
+    public double getReadings() {
+      return readings_;
+    }
+
+    public static final int DATATIME_FIELD_NUMBER = 17;
+    private volatile java.lang.Object datatime_;
+    /**
+     * <pre>
+     *数据时标
+     * </pre>
+     *
+     * <code>string datatime = 17;</code>
+     */
+    public java.lang.String getDatatime() {
+      java.lang.Object ref = datatime_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        datatime_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *数据时标
+     * </pre>
+     *
+     * <code>string datatime = 17;</code>
+     */
+    public com.google.protobuf.ByteString
+        getDatatimeBytes() {
+      java.lang.Object ref = datatime_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        datatime_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -8315,17 +8819,35 @@ public final class TradeMsgOuterClass {
       if (ic_ != 0D) {
         output.writeDouble(7, ic_);
       }
+      if (p_ != 0D) {
+        output.writeDouble(8, p_);
+      }
+      if (q_ != 0D) {
+        output.writeDouble(9, q_);
+      }
       if (energy_ != 0D) {
-        output.writeDouble(8, energy_);
+        output.writeDouble(10, energy_);
       }
       if (money_ != 0) {
-        output.writeInt32(9, money_);
+        output.writeInt32(11, money_);
       }
       if (time_ != 0) {
-        output.writeInt32(10, time_);
+        output.writeInt32(12, time_);
       }
       if (!getSerialBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 11, serial_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 13, serial_);
+      }
+      if (gunType_ != 0) {
+        output.writeInt32(14, gunType_);
+      }
+      if (switchState_ != 0) {
+        output.writeInt32(15, switchState_);
+      }
+      if (readings_ != 0D) {
+        output.writeDouble(16, readings_);
+      }
+      if (!getDatatimeBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 17, datatime_);
       }
       unknownFields.writeTo(output);
     }
@@ -8364,20 +8886,43 @@ public final class TradeMsgOuterClass {
         size += com.google.protobuf.CodedOutputStream
           .computeDoubleSize(7, ic_);
       }
+      if (p_ != 0D) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(8, p_);
+      }
+      if (q_ != 0D) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(9, q_);
+      }
       if (energy_ != 0D) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(8, energy_);
+          .computeDoubleSize(10, energy_);
       }
       if (money_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(9, money_);
+          .computeInt32Size(11, money_);
       }
       if (time_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(10, time_);
+          .computeInt32Size(12, time_);
       }
       if (!getSerialBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(11, serial_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(13, serial_);
+      }
+      if (gunType_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(14, gunType_);
+      }
+      if (switchState_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(15, switchState_);
+      }
+      if (readings_ != 0D) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(16, readings_);
+      }
+      if (!getDatatimeBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(17, datatime_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -8422,6 +8967,14 @@ public final class TradeMsgOuterClass {
           == java.lang.Double.doubleToLongBits(
               other.getIc()));
       result = result && (
+          java.lang.Double.doubleToLongBits(getP())
+          == java.lang.Double.doubleToLongBits(
+              other.getP()));
+      result = result && (
+          java.lang.Double.doubleToLongBits(getQ())
+          == java.lang.Double.doubleToLongBits(
+              other.getQ()));
+      result = result && (
           java.lang.Double.doubleToLongBits(getEnergy())
           == java.lang.Double.doubleToLongBits(
               other.getEnergy()));
@@ -8431,6 +8984,16 @@ public final class TradeMsgOuterClass {
           == other.getTime());
       result = result && getSerial()
           .equals(other.getSerial());
+      result = result && (getGunType()
+          == other.getGunType());
+      result = result && (getSwitchState()
+          == other.getSwitchState());
+      result = result && (
+          java.lang.Double.doubleToLongBits(getReadings())
+          == java.lang.Double.doubleToLongBits(
+              other.getReadings()));
+      result = result && getDatatime()
+          .equals(other.getDatatime());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -8462,6 +9025,12 @@ public final class TradeMsgOuterClass {
       hash = (37 * hash) + IC_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           java.lang.Double.doubleToLongBits(getIc()));
+      hash = (37 * hash) + P_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          java.lang.Double.doubleToLongBits(getP()));
+      hash = (37 * hash) + Q_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          java.lang.Double.doubleToLongBits(getQ()));
       hash = (37 * hash) + ENERGY_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           java.lang.Double.doubleToLongBits(getEnergy()));
@@ -8471,6 +9040,15 @@ public final class TradeMsgOuterClass {
       hash = (53 * hash) + getTime();
       hash = (37 * hash) + SERIAL_FIELD_NUMBER;
       hash = (53 * hash) + getSerial().hashCode();
+      hash = (37 * hash) + GUN_TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + getGunType();
+      hash = (37 * hash) + SWITCH_STATE_FIELD_NUMBER;
+      hash = (53 * hash) + getSwitchState();
+      hash = (37 * hash) + READINGS_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          java.lang.Double.doubleToLongBits(getReadings()));
+      hash = (37 * hash) + DATATIME_FIELD_NUMBER;
+      hash = (53 * hash) + getDatatime().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -8618,6 +9196,10 @@ public final class TradeMsgOuterClass {
 
         ic_ = 0D;
 
+        p_ = 0D;
+
+        q_ = 0D;
+
         energy_ = 0D;
 
         money_ = 0;
@@ -8625,6 +9207,14 @@ public final class TradeMsgOuterClass {
         time_ = 0;
 
         serial_ = "";
+
+        gunType_ = 0;
+
+        switchState_ = 0;
+
+        readings_ = 0D;
+
+        datatime_ = "";
 
         return this;
       }
@@ -8659,10 +9249,16 @@ public final class TradeMsgOuterClass {
         result.ia_ = ia_;
         result.ib_ = ib_;
         result.ic_ = ic_;
+        result.p_ = p_;
+        result.q_ = q_;
         result.energy_ = energy_;
         result.money_ = money_;
         result.time_ = time_;
         result.serial_ = serial_;
+        result.gunType_ = gunType_;
+        result.switchState_ = switchState_;
+        result.readings_ = readings_;
+        result.datatime_ = datatime_;
         onBuilt();
         return result;
       }
@@ -8732,6 +9328,12 @@ public final class TradeMsgOuterClass {
         if (other.getIc() != 0D) {
           setIc(other.getIc());
         }
+        if (other.getP() != 0D) {
+          setP(other.getP());
+        }
+        if (other.getQ() != 0D) {
+          setQ(other.getQ());
+        }
         if (other.getEnergy() != 0D) {
           setEnergy(other.getEnergy());
         }
@@ -8743,6 +9345,19 @@ public final class TradeMsgOuterClass {
         }
         if (!other.getSerial().isEmpty()) {
           serial_ = other.serial_;
+          onChanged();
+        }
+        if (other.getGunType() != 0) {
+          setGunType(other.getGunType());
+        }
+        if (other.getSwitchState() != 0) {
+          setSwitchState(other.getSwitchState());
+        }
+        if (other.getReadings() != 0D) {
+          setReadings(other.getReadings());
+        }
+        if (!other.getDatatime().isEmpty()) {
+          datatime_ = other.datatime_;
           onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -9040,13 +9655,89 @@ public final class TradeMsgOuterClass {
         return this;
       }
 
+      private double p_ ;
+      /**
+       * <pre>
+       *有功功率
+       * </pre>
+       *
+       * <code>double p = 8;</code>
+       */
+      public double getP() {
+        return p_;
+      }
+      /**
+       * <pre>
+       *有功功率
+       * </pre>
+       *
+       * <code>double p = 8;</code>
+       */
+      public Builder setP(double value) {
+        
+        p_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *有功功率
+       * </pre>
+       *
+       * <code>double p = 8;</code>
+       */
+      public Builder clearP() {
+        
+        p_ = 0D;
+        onChanged();
+        return this;
+      }
+
+      private double q_ ;
+      /**
+       * <pre>
+       *无功功率
+       * </pre>
+       *
+       * <code>double q = 9;</code>
+       */
+      public double getQ() {
+        return q_;
+      }
+      /**
+       * <pre>
+       *无功功率
+       * </pre>
+       *
+       * <code>double q = 9;</code>
+       */
+      public Builder setQ(double value) {
+        
+        q_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *无功功率
+       * </pre>
+       *
+       * <code>double q = 9;</code>
+       */
+      public Builder clearQ() {
+        
+        q_ = 0D;
+        onChanged();
+        return this;
+      }
+
       private double energy_ ;
       /**
        * <pre>
        *充电电量
        * </pre>
        *
-       * <code>double energy = 8;</code>
+       * <code>double energy = 10;</code>
        */
       public double getEnergy() {
         return energy_;
@@ -9056,7 +9747,7 @@ public final class TradeMsgOuterClass {
        *充电电量
        * </pre>
        *
-       * <code>double energy = 8;</code>
+       * <code>double energy = 10;</code>
        */
       public Builder setEnergy(double value) {
         
@@ -9069,7 +9760,7 @@ public final class TradeMsgOuterClass {
        *充电电量
        * </pre>
        *
-       * <code>double energy = 8;</code>
+       * <code>double energy = 10;</code>
        */
       public Builder clearEnergy() {
         
@@ -9084,7 +9775,7 @@ public final class TradeMsgOuterClass {
        *充电金额-分
        * </pre>
        *
-       * <code>int32 money = 9;</code>
+       * <code>int32 money = 11;</code>
        */
       public int getMoney() {
         return money_;
@@ -9094,7 +9785,7 @@ public final class TradeMsgOuterClass {
        *充电金额-分
        * </pre>
        *
-       * <code>int32 money = 9;</code>
+       * <code>int32 money = 11;</code>
        */
       public Builder setMoney(int value) {
         
@@ -9107,7 +9798,7 @@ public final class TradeMsgOuterClass {
        *充电金额-分
        * </pre>
        *
-       * <code>int32 money = 9;</code>
+       * <code>int32 money = 11;</code>
        */
       public Builder clearMoney() {
         
@@ -9122,7 +9813,7 @@ public final class TradeMsgOuterClass {
        *充电时长-秒
        * </pre>
        *
-       * <code>int32 time = 10;</code>
+       * <code>int32 time = 12;</code>
        */
       public int getTime() {
         return time_;
@@ -9132,7 +9823,7 @@ public final class TradeMsgOuterClass {
        *充电时长-秒
        * </pre>
        *
-       * <code>int32 time = 10;</code>
+       * <code>int32 time = 12;</code>
        */
       public Builder setTime(int value) {
         
@@ -9145,7 +9836,7 @@ public final class TradeMsgOuterClass {
        *充电时长-秒
        * </pre>
        *
-       * <code>int32 time = 10;</code>
+       * <code>int32 time = 12;</code>
        */
       public Builder clearTime() {
         
@@ -9160,7 +9851,7 @@ public final class TradeMsgOuterClass {
        *充电流水号
        * </pre>
        *
-       * <code>string serial = 11;</code>
+       * <code>string serial = 13;</code>
        */
       public java.lang.String getSerial() {
         java.lang.Object ref = serial_;
@@ -9179,7 +9870,7 @@ public final class TradeMsgOuterClass {
        *充电流水号
        * </pre>
        *
-       * <code>string serial = 11;</code>
+       * <code>string serial = 13;</code>
        */
       public com.google.protobuf.ByteString
           getSerialBytes() {
@@ -9199,7 +9890,7 @@ public final class TradeMsgOuterClass {
        *充电流水号
        * </pre>
        *
-       * <code>string serial = 11;</code>
+       * <code>string serial = 13;</code>
        */
       public Builder setSerial(
           java.lang.String value) {
@@ -9216,7 +9907,7 @@ public final class TradeMsgOuterClass {
        *充电流水号
        * </pre>
        *
-       * <code>string serial = 11;</code>
+       * <code>string serial = 13;</code>
        */
       public Builder clearSerial() {
         
@@ -9229,7 +9920,7 @@ public final class TradeMsgOuterClass {
        *充电流水号
        * </pre>
        *
-       * <code>string serial = 11;</code>
+       * <code>string serial = 13;</code>
        */
       public Builder setSerialBytes(
           com.google.protobuf.ByteString value) {
@@ -9239,6 +9930,209 @@ public final class TradeMsgOuterClass {
   checkByteStringIsUtf8(value);
         
         serial_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int gunType_ ;
+      /**
+       * <pre>
+       *枪类型    1汽车口  2单车口  3水口
+       * </pre>
+       *
+       * <code>int32 gun_type = 14;</code>
+       */
+      public int getGunType() {
+        return gunType_;
+      }
+      /**
+       * <pre>
+       *枪类型    1汽车口  2单车口  3水口
+       * </pre>
+       *
+       * <code>int32 gun_type = 14;</code>
+       */
+      public Builder setGunType(int value) {
+        
+        gunType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *枪类型    1汽车口  2单车口  3水口
+       * </pre>
+       *
+       * <code>int32 gun_type = 14;</code>
+       */
+      public Builder clearGunType() {
+        
+        gunType_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int switchState_ ;
+      /**
+       * <pre>
+       *开关状态  0关闭 1打开
+       * </pre>
+       *
+       * <code>int32 switch_state = 15;</code>
+       */
+      public int getSwitchState() {
+        return switchState_;
+      }
+      /**
+       * <pre>
+       *开关状态  0关闭 1打开
+       * </pre>
+       *
+       * <code>int32 switch_state = 15;</code>
+       */
+      public Builder setSwitchState(int value) {
+        
+        switchState_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *开关状态  0关闭 1打开
+       * </pre>
+       *
+       * <code>int32 switch_state = 15;</code>
+       */
+      public Builder clearSwitchState() {
+        
+        switchState_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private double readings_ ;
+      /**
+       * <pre>
+       *当前表底
+       * </pre>
+       *
+       * <code>double readings = 16;</code>
+       */
+      public double getReadings() {
+        return readings_;
+      }
+      /**
+       * <pre>
+       *当前表底
+       * </pre>
+       *
+       * <code>double readings = 16;</code>
+       */
+      public Builder setReadings(double value) {
+        
+        readings_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *当前表底
+       * </pre>
+       *
+       * <code>double readings = 16;</code>
+       */
+      public Builder clearReadings() {
+        
+        readings_ = 0D;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object datatime_ = "";
+      /**
+       * <pre>
+       *数据时标
+       * </pre>
+       *
+       * <code>string datatime = 17;</code>
+       */
+      public java.lang.String getDatatime() {
+        java.lang.Object ref = datatime_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          datatime_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *数据时标
+       * </pre>
+       *
+       * <code>string datatime = 17;</code>
+       */
+      public com.google.protobuf.ByteString
+          getDatatimeBytes() {
+        java.lang.Object ref = datatime_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          datatime_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *数据时标
+       * </pre>
+       *
+       * <code>string datatime = 17;</code>
+       */
+      public Builder setDatatime(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        datatime_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *数据时标
+       * </pre>
+       *
+       * <code>string datatime = 17;</code>
+       */
+      public Builder clearDatatime() {
+        
+        datatime_ = getDefaultInstance().getDatatime();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *数据时标
+       * </pre>
+       *
+       * <code>string datatime = 17;</code>
+       */
+      public Builder setDatatimeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        datatime_ = value;
         onChanged();
         return this;
       }
@@ -9343,6 +10237,24 @@ public final class TradeMsgOuterClass {
      */
     com.google.protobuf.ByteString
         getSerialBytes();
+
+    /**
+     * <pre>
+     *数据时标
+     * </pre>
+     *
+     * <code>string datatime = 5;</code>
+     */
+    java.lang.String getDatatime();
+    /**
+     * <pre>
+     *数据时标
+     * </pre>
+     *
+     * <code>string datatime = 5;</code>
+     */
+    com.google.protobuf.ByteString
+        getDatatimeBytes();
   }
   /**
    * <pre>
@@ -9365,6 +10277,7 @@ public final class TradeMsgOuterClass {
       soc_ = 0;
       remainTm_ = 0;
       serial_ = "";
+      datatime_ = "";
     }
 
     @java.lang.Override
@@ -9410,6 +10323,12 @@ public final class TradeMsgOuterClass {
               java.lang.String s = input.readStringRequireUtf8();
 
               serial_ = s;
+              break;
+            }
+            case 42: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              datatime_ = s;
               break;
             }
             default: {
@@ -9525,6 +10444,48 @@ public final class TradeMsgOuterClass {
       }
     }
 
+    public static final int DATATIME_FIELD_NUMBER = 5;
+    private volatile java.lang.Object datatime_;
+    /**
+     * <pre>
+     *数据时标
+     * </pre>
+     *
+     * <code>string datatime = 5;</code>
+     */
+    public java.lang.String getDatatime() {
+      java.lang.Object ref = datatime_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        datatime_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *数据时标
+     * </pre>
+     *
+     * <code>string datatime = 5;</code>
+     */
+    public com.google.protobuf.ByteString
+        getDatatimeBytes() {
+      java.lang.Object ref = datatime_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        datatime_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -9551,6 +10512,9 @@ public final class TradeMsgOuterClass {
       if (!getSerialBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 4, serial_);
       }
+      if (!getDatatimeBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, datatime_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -9574,6 +10538,9 @@ public final class TradeMsgOuterClass {
       }
       if (!getSerialBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, serial_);
+      }
+      if (!getDatatimeBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, datatime_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -9599,6 +10566,8 @@ public final class TradeMsgOuterClass {
           == other.getRemainTm());
       result = result && getSerial()
           .equals(other.getSerial());
+      result = result && getDatatime()
+          .equals(other.getDatatime());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -9618,6 +10587,8 @@ public final class TradeMsgOuterClass {
       hash = (53 * hash) + getRemainTm();
       hash = (37 * hash) + SERIAL_FIELD_NUMBER;
       hash = (53 * hash) + getSerial().hashCode();
+      hash = (37 * hash) + DATATIME_FIELD_NUMBER;
+      hash = (53 * hash) + getDatatime().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -9763,6 +10734,8 @@ public final class TradeMsgOuterClass {
 
         serial_ = "";
 
+        datatime_ = "";
+
         return this;
       }
 
@@ -9793,6 +10766,7 @@ public final class TradeMsgOuterClass {
         result.soc_ = soc_;
         result.remainTm_ = remainTm_;
         result.serial_ = serial_;
+        result.datatime_ = datatime_;
         onBuilt();
         return result;
       }
@@ -9852,6 +10826,10 @@ public final class TradeMsgOuterClass {
         }
         if (!other.getSerial().isEmpty()) {
           serial_ = other.serial_;
+          onChanged();
+        }
+        if (!other.getDatatime().isEmpty()) {
+          datatime_ = other.datatime_;
           onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -10082,6 +11060,95 @@ public final class TradeMsgOuterClass {
   checkByteStringIsUtf8(value);
         
         serial_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object datatime_ = "";
+      /**
+       * <pre>
+       *数据时标
+       * </pre>
+       *
+       * <code>string datatime = 5;</code>
+       */
+      public java.lang.String getDatatime() {
+        java.lang.Object ref = datatime_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          datatime_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *数据时标
+       * </pre>
+       *
+       * <code>string datatime = 5;</code>
+       */
+      public com.google.protobuf.ByteString
+          getDatatimeBytes() {
+        java.lang.Object ref = datatime_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          datatime_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *数据时标
+       * </pre>
+       *
+       * <code>string datatime = 5;</code>
+       */
+      public Builder setDatatime(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        datatime_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *数据时标
+       * </pre>
+       *
+       * <code>string datatime = 5;</code>
+       */
+      public Builder clearDatatime() {
+        
+        datatime_ = getDefaultInstance().getDatatime();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *数据时标
+       * </pre>
+       *
+       * <code>string datatime = 5;</code>
+       */
+      public Builder setDatatimeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        datatime_ = value;
         onChanged();
         return this;
       }
@@ -11318,7 +12385,7 @@ public final class TradeMsgOuterClass {
 
     /**
      * <pre>
-     *卡类型  1:充值卡/白名单卡  2:超级管理卡
+     *卡类型  1:充值卡  2:超级管理卡/白名单卡
      * </pre>
      *
      * <code>int32 cardtype = 1;</code>
@@ -11450,7 +12517,7 @@ public final class TradeMsgOuterClass {
     private int cardtype_;
     /**
      * <pre>
-     *卡类型  1:充值卡/白名单卡  2:超级管理卡
+     *卡类型  1:充值卡  2:超级管理卡/白名单卡
      * </pre>
      *
      * <code>int32 cardtype = 1;</code>
@@ -11858,7 +12925,7 @@ public final class TradeMsgOuterClass {
       private int cardtype_ ;
       /**
        * <pre>
-       *卡类型  1:充值卡/白名单卡  2:超级管理卡
+       *卡类型  1:充值卡  2:超级管理卡/白名单卡
        * </pre>
        *
        * <code>int32 cardtype = 1;</code>
@@ -11868,7 +12935,7 @@ public final class TradeMsgOuterClass {
       }
       /**
        * <pre>
-       *卡类型  1:充值卡/白名单卡  2:超级管理卡
+       *卡类型  1:充值卡  2:超级管理卡/白名单卡
        * </pre>
        *
        * <code>int32 cardtype = 1;</code>
@@ -11881,7 +12948,7 @@ public final class TradeMsgOuterClass {
       }
       /**
        * <pre>
-       *卡类型  1:充值卡/白名单卡  2:超级管理卡
+       *卡类型  1:充值卡  2:超级管理卡/白名单卡
        * </pre>
        *
        * <code>int32 cardtype = 1;</code>
@@ -12072,6 +13139,7174 @@ public final class TradeMsgOuterClass {
 
   }
 
+  public interface TradeMsgPileInfoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.ke.model.TradeMsgPileInfo)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     *运行状态
+     * </pre>
+     *
+     * <code>int32 run_state = 1;</code>
+     */
+    int getRunState();
+
+    /**
+     * <pre>
+     *告警状态
+     * </pre>
+     *
+     * <code>int32 alm_state = 2;</code>
+     */
+    int getAlmState();
+
+    /**
+     * <pre>
+     *桩体温度
+     * </pre>
+     *
+     * <code>double temperature = 3;</code>
+     */
+    double getTemperature();
+
+    /**
+     * <pre>
+     *桩体湿度
+     * </pre>
+     *
+     * <code>double humidity = 4;</code>
+     */
+    double getHumidity();
+
+    /**
+     * <pre>
+     *数据时标
+     * </pre>
+     *
+     * <code>string datatime = 5;</code>
+     */
+    java.lang.String getDatatime();
+    /**
+     * <pre>
+     *数据时标
+     * </pre>
+     *
+     * <code>string datatime = 5;</code>
+     */
+    com.google.protobuf.ByteString
+        getDatatimeBytes();
+  }
+  /**
+   * <pre>
+   *桩体信息
+   * </pre>
+   *
+   * Protobuf type {@code com.ke.model.TradeMsgPileInfo}
+   */
+  public  static final class TradeMsgPileInfo extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.ke.model.TradeMsgPileInfo)
+      TradeMsgPileInfoOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use TradeMsgPileInfo.newBuilder() to construct.
+    private TradeMsgPileInfo(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private TradeMsgPileInfo() {
+      runState_ = 0;
+      almState_ = 0;
+      temperature_ = 0D;
+      humidity_ = 0D;
+      datatime_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private TradeMsgPileInfo(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              runState_ = input.readInt32();
+              break;
+            }
+            case 16: {
+
+              almState_ = input.readInt32();
+              break;
+            }
+            case 25: {
+
+              temperature_ = input.readDouble();
+              break;
+            }
+            case 33: {
+
+              humidity_ = input.readDouble();
+              break;
+            }
+            case 42: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              datatime_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.ke.model.TradeMsgOuterClass.internal_static_com_ke_model_TradeMsgPileInfo_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.ke.model.TradeMsgOuterClass.internal_static_com_ke_model_TradeMsgPileInfo_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo.class, com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo.Builder.class);
+    }
+
+    public static final int RUN_STATE_FIELD_NUMBER = 1;
+    private int runState_;
+    /**
+     * <pre>
+     *运行状态
+     * </pre>
+     *
+     * <code>int32 run_state = 1;</code>
+     */
+    public int getRunState() {
+      return runState_;
+    }
+
+    public static final int ALM_STATE_FIELD_NUMBER = 2;
+    private int almState_;
+    /**
+     * <pre>
+     *告警状态
+     * </pre>
+     *
+     * <code>int32 alm_state = 2;</code>
+     */
+    public int getAlmState() {
+      return almState_;
+    }
+
+    public static final int TEMPERATURE_FIELD_NUMBER = 3;
+    private double temperature_;
+    /**
+     * <pre>
+     *桩体温度
+     * </pre>
+     *
+     * <code>double temperature = 3;</code>
+     */
+    public double getTemperature() {
+      return temperature_;
+    }
+
+    public static final int HUMIDITY_FIELD_NUMBER = 4;
+    private double humidity_;
+    /**
+     * <pre>
+     *桩体湿度
+     * </pre>
+     *
+     * <code>double humidity = 4;</code>
+     */
+    public double getHumidity() {
+      return humidity_;
+    }
+
+    public static final int DATATIME_FIELD_NUMBER = 5;
+    private volatile java.lang.Object datatime_;
+    /**
+     * <pre>
+     *数据时标
+     * </pre>
+     *
+     * <code>string datatime = 5;</code>
+     */
+    public java.lang.String getDatatime() {
+      java.lang.Object ref = datatime_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        datatime_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *数据时标
+     * </pre>
+     *
+     * <code>string datatime = 5;</code>
+     */
+    public com.google.protobuf.ByteString
+        getDatatimeBytes() {
+      java.lang.Object ref = datatime_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        datatime_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (runState_ != 0) {
+        output.writeInt32(1, runState_);
+      }
+      if (almState_ != 0) {
+        output.writeInt32(2, almState_);
+      }
+      if (temperature_ != 0D) {
+        output.writeDouble(3, temperature_);
+      }
+      if (humidity_ != 0D) {
+        output.writeDouble(4, humidity_);
+      }
+      if (!getDatatimeBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, datatime_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (runState_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, runState_);
+      }
+      if (almState_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, almState_);
+      }
+      if (temperature_ != 0D) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(3, temperature_);
+      }
+      if (humidity_ != 0D) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(4, humidity_);
+      }
+      if (!getDatatimeBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, datatime_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo)) {
+        return super.equals(obj);
+      }
+      com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo other = (com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo) obj;
+
+      boolean result = true;
+      result = result && (getRunState()
+          == other.getRunState());
+      result = result && (getAlmState()
+          == other.getAlmState());
+      result = result && (
+          java.lang.Double.doubleToLongBits(getTemperature())
+          == java.lang.Double.doubleToLongBits(
+              other.getTemperature()));
+      result = result && (
+          java.lang.Double.doubleToLongBits(getHumidity())
+          == java.lang.Double.doubleToLongBits(
+              other.getHumidity()));
+      result = result && getDatatime()
+          .equals(other.getDatatime());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + RUN_STATE_FIELD_NUMBER;
+      hash = (53 * hash) + getRunState();
+      hash = (37 * hash) + ALM_STATE_FIELD_NUMBER;
+      hash = (53 * hash) + getAlmState();
+      hash = (37 * hash) + TEMPERATURE_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          java.lang.Double.doubleToLongBits(getTemperature()));
+      hash = (37 * hash) + HUMIDITY_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          java.lang.Double.doubleToLongBits(getHumidity()));
+      hash = (37 * hash) + DATATIME_FIELD_NUMBER;
+      hash = (53 * hash) + getDatatime().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     *桩体信息
+     * </pre>
+     *
+     * Protobuf type {@code com.ke.model.TradeMsgPileInfo}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.ke.model.TradeMsgPileInfo)
+        com.ke.model.TradeMsgOuterClass.TradeMsgPileInfoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.ke.model.TradeMsgOuterClass.internal_static_com_ke_model_TradeMsgPileInfo_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.ke.model.TradeMsgOuterClass.internal_static_com_ke_model_TradeMsgPileInfo_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo.class, com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo.Builder.class);
+      }
+
+      // Construct using com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        runState_ = 0;
+
+        almState_ = 0;
+
+        temperature_ = 0D;
+
+        humidity_ = 0D;
+
+        datatime_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.ke.model.TradeMsgOuterClass.internal_static_com_ke_model_TradeMsgPileInfo_descriptor;
+      }
+
+      @java.lang.Override
+      public com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo getDefaultInstanceForType() {
+        return com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo build() {
+        com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo buildPartial() {
+        com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo result = new com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo(this);
+        result.runState_ = runState_;
+        result.almState_ = almState_;
+        result.temperature_ = temperature_;
+        result.humidity_ = humidity_;
+        result.datatime_ = datatime_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo) {
+          return mergeFrom((com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo other) {
+        if (other == com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo.getDefaultInstance()) return this;
+        if (other.getRunState() != 0) {
+          setRunState(other.getRunState());
+        }
+        if (other.getAlmState() != 0) {
+          setAlmState(other.getAlmState());
+        }
+        if (other.getTemperature() != 0D) {
+          setTemperature(other.getTemperature());
+        }
+        if (other.getHumidity() != 0D) {
+          setHumidity(other.getHumidity());
+        }
+        if (!other.getDatatime().isEmpty()) {
+          datatime_ = other.datatime_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private int runState_ ;
+      /**
+       * <pre>
+       *运行状态
+       * </pre>
+       *
+       * <code>int32 run_state = 1;</code>
+       */
+      public int getRunState() {
+        return runState_;
+      }
+      /**
+       * <pre>
+       *运行状态
+       * </pre>
+       *
+       * <code>int32 run_state = 1;</code>
+       */
+      public Builder setRunState(int value) {
+        
+        runState_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *运行状态
+       * </pre>
+       *
+       * <code>int32 run_state = 1;</code>
+       */
+      public Builder clearRunState() {
+        
+        runState_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int almState_ ;
+      /**
+       * <pre>
+       *告警状态
+       * </pre>
+       *
+       * <code>int32 alm_state = 2;</code>
+       */
+      public int getAlmState() {
+        return almState_;
+      }
+      /**
+       * <pre>
+       *告警状态
+       * </pre>
+       *
+       * <code>int32 alm_state = 2;</code>
+       */
+      public Builder setAlmState(int value) {
+        
+        almState_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *告警状态
+       * </pre>
+       *
+       * <code>int32 alm_state = 2;</code>
+       */
+      public Builder clearAlmState() {
+        
+        almState_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private double temperature_ ;
+      /**
+       * <pre>
+       *桩体温度
+       * </pre>
+       *
+       * <code>double temperature = 3;</code>
+       */
+      public double getTemperature() {
+        return temperature_;
+      }
+      /**
+       * <pre>
+       *桩体温度
+       * </pre>
+       *
+       * <code>double temperature = 3;</code>
+       */
+      public Builder setTemperature(double value) {
+        
+        temperature_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *桩体温度
+       * </pre>
+       *
+       * <code>double temperature = 3;</code>
+       */
+      public Builder clearTemperature() {
+        
+        temperature_ = 0D;
+        onChanged();
+        return this;
+      }
+
+      private double humidity_ ;
+      /**
+       * <pre>
+       *桩体湿度
+       * </pre>
+       *
+       * <code>double humidity = 4;</code>
+       */
+      public double getHumidity() {
+        return humidity_;
+      }
+      /**
+       * <pre>
+       *桩体湿度
+       * </pre>
+       *
+       * <code>double humidity = 4;</code>
+       */
+      public Builder setHumidity(double value) {
+        
+        humidity_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *桩体湿度
+       * </pre>
+       *
+       * <code>double humidity = 4;</code>
+       */
+      public Builder clearHumidity() {
+        
+        humidity_ = 0D;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object datatime_ = "";
+      /**
+       * <pre>
+       *数据时标
+       * </pre>
+       *
+       * <code>string datatime = 5;</code>
+       */
+      public java.lang.String getDatatime() {
+        java.lang.Object ref = datatime_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          datatime_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *数据时标
+       * </pre>
+       *
+       * <code>string datatime = 5;</code>
+       */
+      public com.google.protobuf.ByteString
+          getDatatimeBytes() {
+        java.lang.Object ref = datatime_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          datatime_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *数据时标
+       * </pre>
+       *
+       * <code>string datatime = 5;</code>
+       */
+      public Builder setDatatime(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        datatime_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *数据时标
+       * </pre>
+       *
+       * <code>string datatime = 5;</code>
+       */
+      public Builder clearDatatime() {
+        
+        datatime_ = getDefaultInstance().getDatatime();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *数据时标
+       * </pre>
+       *
+       * <code>string datatime = 5;</code>
+       */
+      public Builder setDatatimeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        datatime_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.ke.model.TradeMsgPileInfo)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.ke.model.TradeMsgPileInfo)
+    private static final com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo();
+    }
+
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<TradeMsgPileInfo>
+        PARSER = new com.google.protobuf.AbstractParser<TradeMsgPileInfo>() {
+      @java.lang.Override
+      public TradeMsgPileInfo parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new TradeMsgPileInfo(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<TradeMsgPileInfo> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<TradeMsgPileInfo> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.ke.model.TradeMsgOuterClass.TradeMsgPileInfo getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface TradeMsgEventOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.ke.model.TradeMsgEvent)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     *桩体号
+     * </pre>
+     *
+     * <code>string pilecode = 1;</code>
+     */
+    java.lang.String getPilecode();
+    /**
+     * <pre>
+     *桩体号
+     * </pre>
+     *
+     * <code>string pilecode = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getPilecodeBytes();
+
+    /**
+     * <code>int32 gun_type = 2;</code>
+     */
+    int getGunType();
+
+    /**
+     * <pre>
+     *事件分类号
+     * </pre>
+     *
+     * <code>int32 classno = 3;</code>
+     */
+    int getClassno();
+
+    /**
+     * <pre>
+     *事件类型
+     * </pre>
+     *
+     * <code>int32 typeno = 4;</code>
+     */
+    int getTypeno();
+
+    /**
+     * <pre>
+     *年月日
+     * </pre>
+     *
+     * <code>int32 ymd = 5;</code>
+     */
+    int getYmd();
+
+    /**
+     * <pre>
+     *时分秒毫秒
+     * </pre>
+     *
+     * <code>int32 hmsms = 6;</code>
+     */
+    int getHmsms();
+
+    /**
+     * <pre>
+     *电压等级
+     * </pre>
+     *
+     * <code>uint32 voltgrade = 7;</code>
+     */
+    int getVoltgrade();
+
+    /**
+     * <pre>
+     *输出级
+     * </pre>
+     *
+     * <code>uint32 output = 8;</code>
+     */
+    int getOutput();
+
+    /**
+     * <pre>
+     *事件对象ID0
+     * </pre>
+     *
+     * <code>int32 member_id0 = 9;</code>
+     */
+    int getMemberId0();
+
+    /**
+     * <pre>
+     * </pre>
+     *
+     * <code>int32 member_id1 = 10;</code>
+     */
+    int getMemberId1();
+
+    /**
+     * <pre>
+     * </pre>
+     *
+     * <code>int32 member_id2 = 11;</code>
+     */
+    int getMemberId2();
+
+    /**
+     * <pre>
+     *当前浮点值
+     * </pre>
+     *
+     * <code>double double_value0 = 12;</code>
+     */
+    double getDoubleValue0();
+
+    /**
+     * <code>double double_value1 = 13;</code>
+     */
+    double getDoubleValue1();
+
+    /**
+     * <code>double double_value2 = 14;</code>
+     */
+    double getDoubleValue2();
+
+    /**
+     * <code>double double_value3 = 15;</code>
+     */
+    double getDoubleValue3();
+
+    /**
+     * <pre>
+     *当前状态值(越限事项代表越限级别)
+     * </pre>
+     *
+     * <code>uint32 state_value0 = 16;</code>
+     */
+    int getStateValue0();
+
+    /**
+     * <code>uint32 state_value1 = 17;</code>
+     */
+    int getStateValue1();
+
+    /**
+     * <code>uint32 state_value2 = 18;</code>
+     */
+    int getStateValue2();
+
+    /**
+     * <code>uint32 state_value3 = 19;</code>
+     */
+    int getStateValue3();
+
+    /**
+     * <pre>
+     *事件对象组名
+     * </pre>
+     *
+     * <code>string group_name = 20;</code>
+     */
+    java.lang.String getGroupName();
+    /**
+     * <pre>
+     *事件对象组名
+     * </pre>
+     *
+     * <code>string group_name = 20;</code>
+     */
+    com.google.protobuf.ByteString
+        getGroupNameBytes();
+
+    /**
+     * <pre>
+     *事件对象名1
+     * </pre>
+     *
+     * <code>string member_name0 = 21;</code>
+     */
+    java.lang.String getMemberName0();
+    /**
+     * <pre>
+     *事件对象名1
+     * </pre>
+     *
+     * <code>string member_name0 = 21;</code>
+     */
+    com.google.protobuf.ByteString
+        getMemberName0Bytes();
+
+    /**
+     * <pre>
+     *事件对象名2
+     * </pre>
+     *
+     * <code>string member_name1 = 22;</code>
+     */
+    java.lang.String getMemberName1();
+    /**
+     * <pre>
+     *事件对象名2
+     * </pre>
+     *
+     * <code>string member_name1 = 22;</code>
+     */
+    com.google.protobuf.ByteString
+        getMemberName1Bytes();
+
+    /**
+     * <pre>
+     *事件对象名3
+     * </pre>
+     *
+     * <code>string member_name2 = 23;</code>
+     */
+    java.lang.String getMemberName2();
+    /**
+     * <pre>
+     *事件对象名3
+     * </pre>
+     *
+     * <code>string member_name2 = 23;</code>
+     */
+    com.google.protobuf.ByteString
+        getMemberName2Bytes();
+
+    /**
+     * <pre>
+     *文字描述信息
+     * </pre>
+     *
+     * <code>string char_info = 24;</code>
+     */
+    java.lang.String getCharInfo();
+    /**
+     * <pre>
+     *文字描述信息
+     * </pre>
+     *
+     * <code>string char_info = 24;</code>
+     */
+    com.google.protobuf.ByteString
+        getCharInfoBytes();
+  }
+  /**
+   * <pre>
+   *事项信息
+   * </pre>
+   *
+   * Protobuf type {@code com.ke.model.TradeMsgEvent}
+   */
+  public  static final class TradeMsgEvent extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.ke.model.TradeMsgEvent)
+      TradeMsgEventOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use TradeMsgEvent.newBuilder() to construct.
+    private TradeMsgEvent(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private TradeMsgEvent() {
+      pilecode_ = "";
+      gunType_ = 0;
+      classno_ = 0;
+      typeno_ = 0;
+      ymd_ = 0;
+      hmsms_ = 0;
+      voltgrade_ = 0;
+      output_ = 0;
+      memberId0_ = 0;
+      memberId1_ = 0;
+      memberId2_ = 0;
+      doubleValue0_ = 0D;
+      doubleValue1_ = 0D;
+      doubleValue2_ = 0D;
+      doubleValue3_ = 0D;
+      stateValue0_ = 0;
+      stateValue1_ = 0;
+      stateValue2_ = 0;
+      stateValue3_ = 0;
+      groupName_ = "";
+      memberName0_ = "";
+      memberName1_ = "";
+      memberName2_ = "";
+      charInfo_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private TradeMsgEvent(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              pilecode_ = s;
+              break;
+            }
+            case 16: {
+
+              gunType_ = input.readInt32();
+              break;
+            }
+            case 24: {
+
+              classno_ = input.readInt32();
+              break;
+            }
+            case 32: {
+
+              typeno_ = input.readInt32();
+              break;
+            }
+            case 40: {
+
+              ymd_ = input.readInt32();
+              break;
+            }
+            case 48: {
+
+              hmsms_ = input.readInt32();
+              break;
+            }
+            case 56: {
+
+              voltgrade_ = input.readUInt32();
+              break;
+            }
+            case 64: {
+
+              output_ = input.readUInt32();
+              break;
+            }
+            case 72: {
+
+              memberId0_ = input.readInt32();
+              break;
+            }
+            case 80: {
+
+              memberId1_ = input.readInt32();
+              break;
+            }
+            case 88: {
+
+              memberId2_ = input.readInt32();
+              break;
+            }
+            case 97: {
+
+              doubleValue0_ = input.readDouble();
+              break;
+            }
+            case 105: {
+
+              doubleValue1_ = input.readDouble();
+              break;
+            }
+            case 113: {
+
+              doubleValue2_ = input.readDouble();
+              break;
+            }
+            case 121: {
+
+              doubleValue3_ = input.readDouble();
+              break;
+            }
+            case 128: {
+
+              stateValue0_ = input.readUInt32();
+              break;
+            }
+            case 136: {
+
+              stateValue1_ = input.readUInt32();
+              break;
+            }
+            case 144: {
+
+              stateValue2_ = input.readUInt32();
+              break;
+            }
+            case 152: {
+
+              stateValue3_ = input.readUInt32();
+              break;
+            }
+            case 162: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              groupName_ = s;
+              break;
+            }
+            case 170: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              memberName0_ = s;
+              break;
+            }
+            case 178: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              memberName1_ = s;
+              break;
+            }
+            case 186: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              memberName2_ = s;
+              break;
+            }
+            case 194: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              charInfo_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.ke.model.TradeMsgOuterClass.internal_static_com_ke_model_TradeMsgEvent_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.ke.model.TradeMsgOuterClass.internal_static_com_ke_model_TradeMsgEvent_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.ke.model.TradeMsgOuterClass.TradeMsgEvent.class, com.ke.model.TradeMsgOuterClass.TradeMsgEvent.Builder.class);
+    }
+
+    public static final int PILECODE_FIELD_NUMBER = 1;
+    private volatile java.lang.Object pilecode_;
+    /**
+     * <pre>
+     *桩体号
+     * </pre>
+     *
+     * <code>string pilecode = 1;</code>
+     */
+    public java.lang.String getPilecode() {
+      java.lang.Object ref = pilecode_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        pilecode_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *桩体号
+     * </pre>
+     *
+     * <code>string pilecode = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getPilecodeBytes() {
+      java.lang.Object ref = pilecode_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        pilecode_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int GUN_TYPE_FIELD_NUMBER = 2;
+    private int gunType_;
+    /**
+     * <code>int32 gun_type = 2;</code>
+     */
+    public int getGunType() {
+      return gunType_;
+    }
+
+    public static final int CLASSNO_FIELD_NUMBER = 3;
+    private int classno_;
+    /**
+     * <pre>
+     *事件分类号
+     * </pre>
+     *
+     * <code>int32 classno = 3;</code>
+     */
+    public int getClassno() {
+      return classno_;
+    }
+
+    public static final int TYPENO_FIELD_NUMBER = 4;
+    private int typeno_;
+    /**
+     * <pre>
+     *事件类型
+     * </pre>
+     *
+     * <code>int32 typeno = 4;</code>
+     */
+    public int getTypeno() {
+      return typeno_;
+    }
+
+    public static final int YMD_FIELD_NUMBER = 5;
+    private int ymd_;
+    /**
+     * <pre>
+     *年月日
+     * </pre>
+     *
+     * <code>int32 ymd = 5;</code>
+     */
+    public int getYmd() {
+      return ymd_;
+    }
+
+    public static final int HMSMS_FIELD_NUMBER = 6;
+    private int hmsms_;
+    /**
+     * <pre>
+     *时分秒毫秒
+     * </pre>
+     *
+     * <code>int32 hmsms = 6;</code>
+     */
+    public int getHmsms() {
+      return hmsms_;
+    }
+
+    public static final int VOLTGRADE_FIELD_NUMBER = 7;
+    private int voltgrade_;
+    /**
+     * <pre>
+     *电压等级
+     * </pre>
+     *
+     * <code>uint32 voltgrade = 7;</code>
+     */
+    public int getVoltgrade() {
+      return voltgrade_;
+    }
+
+    public static final int OUTPUT_FIELD_NUMBER = 8;
+    private int output_;
+    /**
+     * <pre>
+     *输出级
+     * </pre>
+     *
+     * <code>uint32 output = 8;</code>
+     */
+    public int getOutput() {
+      return output_;
+    }
+
+    public static final int MEMBER_ID0_FIELD_NUMBER = 9;
+    private int memberId0_;
+    /**
+     * <pre>
+     *事件对象ID0
+     * </pre>
+     *
+     * <code>int32 member_id0 = 9;</code>
+     */
+    public int getMemberId0() {
+      return memberId0_;
+    }
+
+    public static final int MEMBER_ID1_FIELD_NUMBER = 10;
+    private int memberId1_;
+    /**
+     * <pre>
+     * </pre>
+     *
+     * <code>int32 member_id1 = 10;</code>
+     */
+    public int getMemberId1() {
+      return memberId1_;
+    }
+
+    public static final int MEMBER_ID2_FIELD_NUMBER = 11;
+    private int memberId2_;
+    /**
+     * <pre>
+     * </pre>
+     *
+     * <code>int32 member_id2 = 11;</code>
+     */
+    public int getMemberId2() {
+      return memberId2_;
+    }
+
+    public static final int DOUBLE_VALUE0_FIELD_NUMBER = 12;
+    private double doubleValue0_;
+    /**
+     * <pre>
+     *当前浮点值
+     * </pre>
+     *
+     * <code>double double_value0 = 12;</code>
+     */
+    public double getDoubleValue0() {
+      return doubleValue0_;
+    }
+
+    public static final int DOUBLE_VALUE1_FIELD_NUMBER = 13;
+    private double doubleValue1_;
+    /**
+     * <code>double double_value1 = 13;</code>
+     */
+    public double getDoubleValue1() {
+      return doubleValue1_;
+    }
+
+    public static final int DOUBLE_VALUE2_FIELD_NUMBER = 14;
+    private double doubleValue2_;
+    /**
+     * <code>double double_value2 = 14;</code>
+     */
+    public double getDoubleValue2() {
+      return doubleValue2_;
+    }
+
+    public static final int DOUBLE_VALUE3_FIELD_NUMBER = 15;
+    private double doubleValue3_;
+    /**
+     * <code>double double_value3 = 15;</code>
+     */
+    public double getDoubleValue3() {
+      return doubleValue3_;
+    }
+
+    public static final int STATE_VALUE0_FIELD_NUMBER = 16;
+    private int stateValue0_;
+    /**
+     * <pre>
+     *当前状态值(越限事项代表越限级别)
+     * </pre>
+     *
+     * <code>uint32 state_value0 = 16;</code>
+     */
+    public int getStateValue0() {
+      return stateValue0_;
+    }
+
+    public static final int STATE_VALUE1_FIELD_NUMBER = 17;
+    private int stateValue1_;
+    /**
+     * <code>uint32 state_value1 = 17;</code>
+     */
+    public int getStateValue1() {
+      return stateValue1_;
+    }
+
+    public static final int STATE_VALUE2_FIELD_NUMBER = 18;
+    private int stateValue2_;
+    /**
+     * <code>uint32 state_value2 = 18;</code>
+     */
+    public int getStateValue2() {
+      return stateValue2_;
+    }
+
+    public static final int STATE_VALUE3_FIELD_NUMBER = 19;
+    private int stateValue3_;
+    /**
+     * <code>uint32 state_value3 = 19;</code>
+     */
+    public int getStateValue3() {
+      return stateValue3_;
+    }
+
+    public static final int GROUP_NAME_FIELD_NUMBER = 20;
+    private volatile java.lang.Object groupName_;
+    /**
+     * <pre>
+     *事件对象组名
+     * </pre>
+     *
+     * <code>string group_name = 20;</code>
+     */
+    public java.lang.String getGroupName() {
+      java.lang.Object ref = groupName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        groupName_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *事件对象组名
+     * </pre>
+     *
+     * <code>string group_name = 20;</code>
+     */
+    public com.google.protobuf.ByteString
+        getGroupNameBytes() {
+      java.lang.Object ref = groupName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        groupName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int MEMBER_NAME0_FIELD_NUMBER = 21;
+    private volatile java.lang.Object memberName0_;
+    /**
+     * <pre>
+     *事件对象名1
+     * </pre>
+     *
+     * <code>string member_name0 = 21;</code>
+     */
+    public java.lang.String getMemberName0() {
+      java.lang.Object ref = memberName0_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        memberName0_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *事件对象名1
+     * </pre>
+     *
+     * <code>string member_name0 = 21;</code>
+     */
+    public com.google.protobuf.ByteString
+        getMemberName0Bytes() {
+      java.lang.Object ref = memberName0_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        memberName0_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int MEMBER_NAME1_FIELD_NUMBER = 22;
+    private volatile java.lang.Object memberName1_;
+    /**
+     * <pre>
+     *事件对象名2
+     * </pre>
+     *
+     * <code>string member_name1 = 22;</code>
+     */
+    public java.lang.String getMemberName1() {
+      java.lang.Object ref = memberName1_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        memberName1_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *事件对象名2
+     * </pre>
+     *
+     * <code>string member_name1 = 22;</code>
+     */
+    public com.google.protobuf.ByteString
+        getMemberName1Bytes() {
+      java.lang.Object ref = memberName1_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        memberName1_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int MEMBER_NAME2_FIELD_NUMBER = 23;
+    private volatile java.lang.Object memberName2_;
+    /**
+     * <pre>
+     *事件对象名3
+     * </pre>
+     *
+     * <code>string member_name2 = 23;</code>
+     */
+    public java.lang.String getMemberName2() {
+      java.lang.Object ref = memberName2_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        memberName2_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *事件对象名3
+     * </pre>
+     *
+     * <code>string member_name2 = 23;</code>
+     */
+    public com.google.protobuf.ByteString
+        getMemberName2Bytes() {
+      java.lang.Object ref = memberName2_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        memberName2_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int CHAR_INFO_FIELD_NUMBER = 24;
+    private volatile java.lang.Object charInfo_;
+    /**
+     * <pre>
+     *文字描述信息
+     * </pre>
+     *
+     * <code>string char_info = 24;</code>
+     */
+    public java.lang.String getCharInfo() {
+      java.lang.Object ref = charInfo_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        charInfo_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *文字描述信息
+     * </pre>
+     *
+     * <code>string char_info = 24;</code>
+     */
+    public com.google.protobuf.ByteString
+        getCharInfoBytes() {
+      java.lang.Object ref = charInfo_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        charInfo_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getPilecodeBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, pilecode_);
+      }
+      if (gunType_ != 0) {
+        output.writeInt32(2, gunType_);
+      }
+      if (classno_ != 0) {
+        output.writeInt32(3, classno_);
+      }
+      if (typeno_ != 0) {
+        output.writeInt32(4, typeno_);
+      }
+      if (ymd_ != 0) {
+        output.writeInt32(5, ymd_);
+      }
+      if (hmsms_ != 0) {
+        output.writeInt32(6, hmsms_);
+      }
+      if (voltgrade_ != 0) {
+        output.writeUInt32(7, voltgrade_);
+      }
+      if (output_ != 0) {
+        output.writeUInt32(8, output_);
+      }
+      if (memberId0_ != 0) {
+        output.writeInt32(9, memberId0_);
+      }
+      if (memberId1_ != 0) {
+        output.writeInt32(10, memberId1_);
+      }
+      if (memberId2_ != 0) {
+        output.writeInt32(11, memberId2_);
+      }
+      if (doubleValue0_ != 0D) {
+        output.writeDouble(12, doubleValue0_);
+      }
+      if (doubleValue1_ != 0D) {
+        output.writeDouble(13, doubleValue1_);
+      }
+      if (doubleValue2_ != 0D) {
+        output.writeDouble(14, doubleValue2_);
+      }
+      if (doubleValue3_ != 0D) {
+        output.writeDouble(15, doubleValue3_);
+      }
+      if (stateValue0_ != 0) {
+        output.writeUInt32(16, stateValue0_);
+      }
+      if (stateValue1_ != 0) {
+        output.writeUInt32(17, stateValue1_);
+      }
+      if (stateValue2_ != 0) {
+        output.writeUInt32(18, stateValue2_);
+      }
+      if (stateValue3_ != 0) {
+        output.writeUInt32(19, stateValue3_);
+      }
+      if (!getGroupNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 20, groupName_);
+      }
+      if (!getMemberName0Bytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 21, memberName0_);
+      }
+      if (!getMemberName1Bytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 22, memberName1_);
+      }
+      if (!getMemberName2Bytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 23, memberName2_);
+      }
+      if (!getCharInfoBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 24, charInfo_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getPilecodeBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, pilecode_);
+      }
+      if (gunType_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, gunType_);
+      }
+      if (classno_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, classno_);
+      }
+      if (typeno_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, typeno_);
+      }
+      if (ymd_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(5, ymd_);
+      }
+      if (hmsms_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(6, hmsms_);
+      }
+      if (voltgrade_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(7, voltgrade_);
+      }
+      if (output_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(8, output_);
+      }
+      if (memberId0_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(9, memberId0_);
+      }
+      if (memberId1_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(10, memberId1_);
+      }
+      if (memberId2_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(11, memberId2_);
+      }
+      if (doubleValue0_ != 0D) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(12, doubleValue0_);
+      }
+      if (doubleValue1_ != 0D) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(13, doubleValue1_);
+      }
+      if (doubleValue2_ != 0D) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(14, doubleValue2_);
+      }
+      if (doubleValue3_ != 0D) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(15, doubleValue3_);
+      }
+      if (stateValue0_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(16, stateValue0_);
+      }
+      if (stateValue1_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(17, stateValue1_);
+      }
+      if (stateValue2_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(18, stateValue2_);
+      }
+      if (stateValue3_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(19, stateValue3_);
+      }
+      if (!getGroupNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(20, groupName_);
+      }
+      if (!getMemberName0Bytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(21, memberName0_);
+      }
+      if (!getMemberName1Bytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(22, memberName1_);
+      }
+      if (!getMemberName2Bytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(23, memberName2_);
+      }
+      if (!getCharInfoBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(24, charInfo_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.ke.model.TradeMsgOuterClass.TradeMsgEvent)) {
+        return super.equals(obj);
+      }
+      com.ke.model.TradeMsgOuterClass.TradeMsgEvent other = (com.ke.model.TradeMsgOuterClass.TradeMsgEvent) obj;
+
+      boolean result = true;
+      result = result && getPilecode()
+          .equals(other.getPilecode());
+      result = result && (getGunType()
+          == other.getGunType());
+      result = result && (getClassno()
+          == other.getClassno());
+      result = result && (getTypeno()
+          == other.getTypeno());
+      result = result && (getYmd()
+          == other.getYmd());
+      result = result && (getHmsms()
+          == other.getHmsms());
+      result = result && (getVoltgrade()
+          == other.getVoltgrade());
+      result = result && (getOutput()
+          == other.getOutput());
+      result = result && (getMemberId0()
+          == other.getMemberId0());
+      result = result && (getMemberId1()
+          == other.getMemberId1());
+      result = result && (getMemberId2()
+          == other.getMemberId2());
+      result = result && (
+          java.lang.Double.doubleToLongBits(getDoubleValue0())
+          == java.lang.Double.doubleToLongBits(
+              other.getDoubleValue0()));
+      result = result && (
+          java.lang.Double.doubleToLongBits(getDoubleValue1())
+          == java.lang.Double.doubleToLongBits(
+              other.getDoubleValue1()));
+      result = result && (
+          java.lang.Double.doubleToLongBits(getDoubleValue2())
+          == java.lang.Double.doubleToLongBits(
+              other.getDoubleValue2()));
+      result = result && (
+          java.lang.Double.doubleToLongBits(getDoubleValue3())
+          == java.lang.Double.doubleToLongBits(
+              other.getDoubleValue3()));
+      result = result && (getStateValue0()
+          == other.getStateValue0());
+      result = result && (getStateValue1()
+          == other.getStateValue1());
+      result = result && (getStateValue2()
+          == other.getStateValue2());
+      result = result && (getStateValue3()
+          == other.getStateValue3());
+      result = result && getGroupName()
+          .equals(other.getGroupName());
+      result = result && getMemberName0()
+          .equals(other.getMemberName0());
+      result = result && getMemberName1()
+          .equals(other.getMemberName1());
+      result = result && getMemberName2()
+          .equals(other.getMemberName2());
+      result = result && getCharInfo()
+          .equals(other.getCharInfo());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + PILECODE_FIELD_NUMBER;
+      hash = (53 * hash) + getPilecode().hashCode();
+      hash = (37 * hash) + GUN_TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + getGunType();
+      hash = (37 * hash) + CLASSNO_FIELD_NUMBER;
+      hash = (53 * hash) + getClassno();
+      hash = (37 * hash) + TYPENO_FIELD_NUMBER;
+      hash = (53 * hash) + getTypeno();
+      hash = (37 * hash) + YMD_FIELD_NUMBER;
+      hash = (53 * hash) + getYmd();
+      hash = (37 * hash) + HMSMS_FIELD_NUMBER;
+      hash = (53 * hash) + getHmsms();
+      hash = (37 * hash) + VOLTGRADE_FIELD_NUMBER;
+      hash = (53 * hash) + getVoltgrade();
+      hash = (37 * hash) + OUTPUT_FIELD_NUMBER;
+      hash = (53 * hash) + getOutput();
+      hash = (37 * hash) + MEMBER_ID0_FIELD_NUMBER;
+      hash = (53 * hash) + getMemberId0();
+      hash = (37 * hash) + MEMBER_ID1_FIELD_NUMBER;
+      hash = (53 * hash) + getMemberId1();
+      hash = (37 * hash) + MEMBER_ID2_FIELD_NUMBER;
+      hash = (53 * hash) + getMemberId2();
+      hash = (37 * hash) + DOUBLE_VALUE0_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          java.lang.Double.doubleToLongBits(getDoubleValue0()));
+      hash = (37 * hash) + DOUBLE_VALUE1_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          java.lang.Double.doubleToLongBits(getDoubleValue1()));
+      hash = (37 * hash) + DOUBLE_VALUE2_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          java.lang.Double.doubleToLongBits(getDoubleValue2()));
+      hash = (37 * hash) + DOUBLE_VALUE3_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          java.lang.Double.doubleToLongBits(getDoubleValue3()));
+      hash = (37 * hash) + STATE_VALUE0_FIELD_NUMBER;
+      hash = (53 * hash) + getStateValue0();
+      hash = (37 * hash) + STATE_VALUE1_FIELD_NUMBER;
+      hash = (53 * hash) + getStateValue1();
+      hash = (37 * hash) + STATE_VALUE2_FIELD_NUMBER;
+      hash = (53 * hash) + getStateValue2();
+      hash = (37 * hash) + STATE_VALUE3_FIELD_NUMBER;
+      hash = (53 * hash) + getStateValue3();
+      hash = (37 * hash) + GROUP_NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getGroupName().hashCode();
+      hash = (37 * hash) + MEMBER_NAME0_FIELD_NUMBER;
+      hash = (53 * hash) + getMemberName0().hashCode();
+      hash = (37 * hash) + MEMBER_NAME1_FIELD_NUMBER;
+      hash = (53 * hash) + getMemberName1().hashCode();
+      hash = (37 * hash) + MEMBER_NAME2_FIELD_NUMBER;
+      hash = (53 * hash) + getMemberName2().hashCode();
+      hash = (37 * hash) + CHAR_INFO_FIELD_NUMBER;
+      hash = (53 * hash) + getCharInfo().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgEvent parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgEvent parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgEvent parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgEvent parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgEvent parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgEvent parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgEvent parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgEvent parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgEvent parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgEvent parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgEvent parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgEvent parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.ke.model.TradeMsgOuterClass.TradeMsgEvent prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     *事项信息
+     * </pre>
+     *
+     * Protobuf type {@code com.ke.model.TradeMsgEvent}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.ke.model.TradeMsgEvent)
+        com.ke.model.TradeMsgOuterClass.TradeMsgEventOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.ke.model.TradeMsgOuterClass.internal_static_com_ke_model_TradeMsgEvent_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.ke.model.TradeMsgOuterClass.internal_static_com_ke_model_TradeMsgEvent_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.ke.model.TradeMsgOuterClass.TradeMsgEvent.class, com.ke.model.TradeMsgOuterClass.TradeMsgEvent.Builder.class);
+      }
+
+      // Construct using com.ke.model.TradeMsgOuterClass.TradeMsgEvent.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        pilecode_ = "";
+
+        gunType_ = 0;
+
+        classno_ = 0;
+
+        typeno_ = 0;
+
+        ymd_ = 0;
+
+        hmsms_ = 0;
+
+        voltgrade_ = 0;
+
+        output_ = 0;
+
+        memberId0_ = 0;
+
+        memberId1_ = 0;
+
+        memberId2_ = 0;
+
+        doubleValue0_ = 0D;
+
+        doubleValue1_ = 0D;
+
+        doubleValue2_ = 0D;
+
+        doubleValue3_ = 0D;
+
+        stateValue0_ = 0;
+
+        stateValue1_ = 0;
+
+        stateValue2_ = 0;
+
+        stateValue3_ = 0;
+
+        groupName_ = "";
+
+        memberName0_ = "";
+
+        memberName1_ = "";
+
+        memberName2_ = "";
+
+        charInfo_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.ke.model.TradeMsgOuterClass.internal_static_com_ke_model_TradeMsgEvent_descriptor;
+      }
+
+      @java.lang.Override
+      public com.ke.model.TradeMsgOuterClass.TradeMsgEvent getDefaultInstanceForType() {
+        return com.ke.model.TradeMsgOuterClass.TradeMsgEvent.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.ke.model.TradeMsgOuterClass.TradeMsgEvent build() {
+        com.ke.model.TradeMsgOuterClass.TradeMsgEvent result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.ke.model.TradeMsgOuterClass.TradeMsgEvent buildPartial() {
+        com.ke.model.TradeMsgOuterClass.TradeMsgEvent result = new com.ke.model.TradeMsgOuterClass.TradeMsgEvent(this);
+        result.pilecode_ = pilecode_;
+        result.gunType_ = gunType_;
+        result.classno_ = classno_;
+        result.typeno_ = typeno_;
+        result.ymd_ = ymd_;
+        result.hmsms_ = hmsms_;
+        result.voltgrade_ = voltgrade_;
+        result.output_ = output_;
+        result.memberId0_ = memberId0_;
+        result.memberId1_ = memberId1_;
+        result.memberId2_ = memberId2_;
+        result.doubleValue0_ = doubleValue0_;
+        result.doubleValue1_ = doubleValue1_;
+        result.doubleValue2_ = doubleValue2_;
+        result.doubleValue3_ = doubleValue3_;
+        result.stateValue0_ = stateValue0_;
+        result.stateValue1_ = stateValue1_;
+        result.stateValue2_ = stateValue2_;
+        result.stateValue3_ = stateValue3_;
+        result.groupName_ = groupName_;
+        result.memberName0_ = memberName0_;
+        result.memberName1_ = memberName1_;
+        result.memberName2_ = memberName2_;
+        result.charInfo_ = charInfo_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.ke.model.TradeMsgOuterClass.TradeMsgEvent) {
+          return mergeFrom((com.ke.model.TradeMsgOuterClass.TradeMsgEvent)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.ke.model.TradeMsgOuterClass.TradeMsgEvent other) {
+        if (other == com.ke.model.TradeMsgOuterClass.TradeMsgEvent.getDefaultInstance()) return this;
+        if (!other.getPilecode().isEmpty()) {
+          pilecode_ = other.pilecode_;
+          onChanged();
+        }
+        if (other.getGunType() != 0) {
+          setGunType(other.getGunType());
+        }
+        if (other.getClassno() != 0) {
+          setClassno(other.getClassno());
+        }
+        if (other.getTypeno() != 0) {
+          setTypeno(other.getTypeno());
+        }
+        if (other.getYmd() != 0) {
+          setYmd(other.getYmd());
+        }
+        if (other.getHmsms() != 0) {
+          setHmsms(other.getHmsms());
+        }
+        if (other.getVoltgrade() != 0) {
+          setVoltgrade(other.getVoltgrade());
+        }
+        if (other.getOutput() != 0) {
+          setOutput(other.getOutput());
+        }
+        if (other.getMemberId0() != 0) {
+          setMemberId0(other.getMemberId0());
+        }
+        if (other.getMemberId1() != 0) {
+          setMemberId1(other.getMemberId1());
+        }
+        if (other.getMemberId2() != 0) {
+          setMemberId2(other.getMemberId2());
+        }
+        if (other.getDoubleValue0() != 0D) {
+          setDoubleValue0(other.getDoubleValue0());
+        }
+        if (other.getDoubleValue1() != 0D) {
+          setDoubleValue1(other.getDoubleValue1());
+        }
+        if (other.getDoubleValue2() != 0D) {
+          setDoubleValue2(other.getDoubleValue2());
+        }
+        if (other.getDoubleValue3() != 0D) {
+          setDoubleValue3(other.getDoubleValue3());
+        }
+        if (other.getStateValue0() != 0) {
+          setStateValue0(other.getStateValue0());
+        }
+        if (other.getStateValue1() != 0) {
+          setStateValue1(other.getStateValue1());
+        }
+        if (other.getStateValue2() != 0) {
+          setStateValue2(other.getStateValue2());
+        }
+        if (other.getStateValue3() != 0) {
+          setStateValue3(other.getStateValue3());
+        }
+        if (!other.getGroupName().isEmpty()) {
+          groupName_ = other.groupName_;
+          onChanged();
+        }
+        if (!other.getMemberName0().isEmpty()) {
+          memberName0_ = other.memberName0_;
+          onChanged();
+        }
+        if (!other.getMemberName1().isEmpty()) {
+          memberName1_ = other.memberName1_;
+          onChanged();
+        }
+        if (!other.getMemberName2().isEmpty()) {
+          memberName2_ = other.memberName2_;
+          onChanged();
+        }
+        if (!other.getCharInfo().isEmpty()) {
+          charInfo_ = other.charInfo_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.ke.model.TradeMsgOuterClass.TradeMsgEvent parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.ke.model.TradeMsgOuterClass.TradeMsgEvent) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object pilecode_ = "";
+      /**
+       * <pre>
+       *桩体号
+       * </pre>
+       *
+       * <code>string pilecode = 1;</code>
+       */
+      public java.lang.String getPilecode() {
+        java.lang.Object ref = pilecode_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          pilecode_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *桩体号
+       * </pre>
+       *
+       * <code>string pilecode = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getPilecodeBytes() {
+        java.lang.Object ref = pilecode_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          pilecode_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *桩体号
+       * </pre>
+       *
+       * <code>string pilecode = 1;</code>
+       */
+      public Builder setPilecode(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        pilecode_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *桩体号
+       * </pre>
+       *
+       * <code>string pilecode = 1;</code>
+       */
+      public Builder clearPilecode() {
+        
+        pilecode_ = getDefaultInstance().getPilecode();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *桩体号
+       * </pre>
+       *
+       * <code>string pilecode = 1;</code>
+       */
+      public Builder setPilecodeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        pilecode_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int gunType_ ;
+      /**
+       * <code>int32 gun_type = 2;</code>
+       */
+      public int getGunType() {
+        return gunType_;
+      }
+      /**
+       * <code>int32 gun_type = 2;</code>
+       */
+      public Builder setGunType(int value) {
+        
+        gunType_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 gun_type = 2;</code>
+       */
+      public Builder clearGunType() {
+        
+        gunType_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int classno_ ;
+      /**
+       * <pre>
+       *事件分类号
+       * </pre>
+       *
+       * <code>int32 classno = 3;</code>
+       */
+      public int getClassno() {
+        return classno_;
+      }
+      /**
+       * <pre>
+       *事件分类号
+       * </pre>
+       *
+       * <code>int32 classno = 3;</code>
+       */
+      public Builder setClassno(int value) {
+        
+        classno_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *事件分类号
+       * </pre>
+       *
+       * <code>int32 classno = 3;</code>
+       */
+      public Builder clearClassno() {
+        
+        classno_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int typeno_ ;
+      /**
+       * <pre>
+       *事件类型
+       * </pre>
+       *
+       * <code>int32 typeno = 4;</code>
+       */
+      public int getTypeno() {
+        return typeno_;
+      }
+      /**
+       * <pre>
+       *事件类型
+       * </pre>
+       *
+       * <code>int32 typeno = 4;</code>
+       */
+      public Builder setTypeno(int value) {
+        
+        typeno_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *事件类型
+       * </pre>
+       *
+       * <code>int32 typeno = 4;</code>
+       */
+      public Builder clearTypeno() {
+        
+        typeno_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int ymd_ ;
+      /**
+       * <pre>
+       *年月日
+       * </pre>
+       *
+       * <code>int32 ymd = 5;</code>
+       */
+      public int getYmd() {
+        return ymd_;
+      }
+      /**
+       * <pre>
+       *年月日
+       * </pre>
+       *
+       * <code>int32 ymd = 5;</code>
+       */
+      public Builder setYmd(int value) {
+        
+        ymd_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *年月日
+       * </pre>
+       *
+       * <code>int32 ymd = 5;</code>
+       */
+      public Builder clearYmd() {
+        
+        ymd_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int hmsms_ ;
+      /**
+       * <pre>
+       *时分秒毫秒
+       * </pre>
+       *
+       * <code>int32 hmsms = 6;</code>
+       */
+      public int getHmsms() {
+        return hmsms_;
+      }
+      /**
+       * <pre>
+       *时分秒毫秒
+       * </pre>
+       *
+       * <code>int32 hmsms = 6;</code>
+       */
+      public Builder setHmsms(int value) {
+        
+        hmsms_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *时分秒毫秒
+       * </pre>
+       *
+       * <code>int32 hmsms = 6;</code>
+       */
+      public Builder clearHmsms() {
+        
+        hmsms_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int voltgrade_ ;
+      /**
+       * <pre>
+       *电压等级
+       * </pre>
+       *
+       * <code>uint32 voltgrade = 7;</code>
+       */
+      public int getVoltgrade() {
+        return voltgrade_;
+      }
+      /**
+       * <pre>
+       *电压等级
+       * </pre>
+       *
+       * <code>uint32 voltgrade = 7;</code>
+       */
+      public Builder setVoltgrade(int value) {
+        
+        voltgrade_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *电压等级
+       * </pre>
+       *
+       * <code>uint32 voltgrade = 7;</code>
+       */
+      public Builder clearVoltgrade() {
+        
+        voltgrade_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int output_ ;
+      /**
+       * <pre>
+       *输出级
+       * </pre>
+       *
+       * <code>uint32 output = 8;</code>
+       */
+      public int getOutput() {
+        return output_;
+      }
+      /**
+       * <pre>
+       *输出级
+       * </pre>
+       *
+       * <code>uint32 output = 8;</code>
+       */
+      public Builder setOutput(int value) {
+        
+        output_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *输出级
+       * </pre>
+       *
+       * <code>uint32 output = 8;</code>
+       */
+      public Builder clearOutput() {
+        
+        output_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int memberId0_ ;
+      /**
+       * <pre>
+       *事件对象ID0
+       * </pre>
+       *
+       * <code>int32 member_id0 = 9;</code>
+       */
+      public int getMemberId0() {
+        return memberId0_;
+      }
+      /**
+       * <pre>
+       *事件对象ID0
+       * </pre>
+       *
+       * <code>int32 member_id0 = 9;</code>
+       */
+      public Builder setMemberId0(int value) {
+        
+        memberId0_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *事件对象ID0
+       * </pre>
+       *
+       * <code>int32 member_id0 = 9;</code>
+       */
+      public Builder clearMemberId0() {
+        
+        memberId0_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int memberId1_ ;
+      /**
+       * <pre>
+       * </pre>
+       *
+       * <code>int32 member_id1 = 10;</code>
+       */
+      public int getMemberId1() {
+        return memberId1_;
+      }
+      /**
+       * <pre>
+       * </pre>
+       *
+       * <code>int32 member_id1 = 10;</code>
+       */
+      public Builder setMemberId1(int value) {
+        
+        memberId1_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * </pre>
+       *
+       * <code>int32 member_id1 = 10;</code>
+       */
+      public Builder clearMemberId1() {
+        
+        memberId1_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int memberId2_ ;
+      /**
+       * <pre>
+       * </pre>
+       *
+       * <code>int32 member_id2 = 11;</code>
+       */
+      public int getMemberId2() {
+        return memberId2_;
+      }
+      /**
+       * <pre>
+       * </pre>
+       *
+       * <code>int32 member_id2 = 11;</code>
+       */
+      public Builder setMemberId2(int value) {
+        
+        memberId2_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * </pre>
+       *
+       * <code>int32 member_id2 = 11;</code>
+       */
+      public Builder clearMemberId2() {
+        
+        memberId2_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private double doubleValue0_ ;
+      /**
+       * <pre>
+       *当前浮点值
+       * </pre>
+       *
+       * <code>double double_value0 = 12;</code>
+       */
+      public double getDoubleValue0() {
+        return doubleValue0_;
+      }
+      /**
+       * <pre>
+       *当前浮点值
+       * </pre>
+       *
+       * <code>double double_value0 = 12;</code>
+       */
+      public Builder setDoubleValue0(double value) {
+        
+        doubleValue0_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *当前浮点值
+       * </pre>
+       *
+       * <code>double double_value0 = 12;</code>
+       */
+      public Builder clearDoubleValue0() {
+        
+        doubleValue0_ = 0D;
+        onChanged();
+        return this;
+      }
+
+      private double doubleValue1_ ;
+      /**
+       * <code>double double_value1 = 13;</code>
+       */
+      public double getDoubleValue1() {
+        return doubleValue1_;
+      }
+      /**
+       * <code>double double_value1 = 13;</code>
+       */
+      public Builder setDoubleValue1(double value) {
+        
+        doubleValue1_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>double double_value1 = 13;</code>
+       */
+      public Builder clearDoubleValue1() {
+        
+        doubleValue1_ = 0D;
+        onChanged();
+        return this;
+      }
+
+      private double doubleValue2_ ;
+      /**
+       * <code>double double_value2 = 14;</code>
+       */
+      public double getDoubleValue2() {
+        return doubleValue2_;
+      }
+      /**
+       * <code>double double_value2 = 14;</code>
+       */
+      public Builder setDoubleValue2(double value) {
+        
+        doubleValue2_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>double double_value2 = 14;</code>
+       */
+      public Builder clearDoubleValue2() {
+        
+        doubleValue2_ = 0D;
+        onChanged();
+        return this;
+      }
+
+      private double doubleValue3_ ;
+      /**
+       * <code>double double_value3 = 15;</code>
+       */
+      public double getDoubleValue3() {
+        return doubleValue3_;
+      }
+      /**
+       * <code>double double_value3 = 15;</code>
+       */
+      public Builder setDoubleValue3(double value) {
+        
+        doubleValue3_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>double double_value3 = 15;</code>
+       */
+      public Builder clearDoubleValue3() {
+        
+        doubleValue3_ = 0D;
+        onChanged();
+        return this;
+      }
+
+      private int stateValue0_ ;
+      /**
+       * <pre>
+       *当前状态值(越限事项代表越限级别)
+       * </pre>
+       *
+       * <code>uint32 state_value0 = 16;</code>
+       */
+      public int getStateValue0() {
+        return stateValue0_;
+      }
+      /**
+       * <pre>
+       *当前状态值(越限事项代表越限级别)
+       * </pre>
+       *
+       * <code>uint32 state_value0 = 16;</code>
+       */
+      public Builder setStateValue0(int value) {
+        
+        stateValue0_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *当前状态值(越限事项代表越限级别)
+       * </pre>
+       *
+       * <code>uint32 state_value0 = 16;</code>
+       */
+      public Builder clearStateValue0() {
+        
+        stateValue0_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int stateValue1_ ;
+      /**
+       * <code>uint32 state_value1 = 17;</code>
+       */
+      public int getStateValue1() {
+        return stateValue1_;
+      }
+      /**
+       * <code>uint32 state_value1 = 17;</code>
+       */
+      public Builder setStateValue1(int value) {
+        
+        stateValue1_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint32 state_value1 = 17;</code>
+       */
+      public Builder clearStateValue1() {
+        
+        stateValue1_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int stateValue2_ ;
+      /**
+       * <code>uint32 state_value2 = 18;</code>
+       */
+      public int getStateValue2() {
+        return stateValue2_;
+      }
+      /**
+       * <code>uint32 state_value2 = 18;</code>
+       */
+      public Builder setStateValue2(int value) {
+        
+        stateValue2_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint32 state_value2 = 18;</code>
+       */
+      public Builder clearStateValue2() {
+        
+        stateValue2_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int stateValue3_ ;
+      /**
+       * <code>uint32 state_value3 = 19;</code>
+       */
+      public int getStateValue3() {
+        return stateValue3_;
+      }
+      /**
+       * <code>uint32 state_value3 = 19;</code>
+       */
+      public Builder setStateValue3(int value) {
+        
+        stateValue3_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint32 state_value3 = 19;</code>
+       */
+      public Builder clearStateValue3() {
+        
+        stateValue3_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object groupName_ = "";
+      /**
+       * <pre>
+       *事件对象组名
+       * </pre>
+       *
+       * <code>string group_name = 20;</code>
+       */
+      public java.lang.String getGroupName() {
+        java.lang.Object ref = groupName_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          groupName_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *事件对象组名
+       * </pre>
+       *
+       * <code>string group_name = 20;</code>
+       */
+      public com.google.protobuf.ByteString
+          getGroupNameBytes() {
+        java.lang.Object ref = groupName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          groupName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *事件对象组名
+       * </pre>
+       *
+       * <code>string group_name = 20;</code>
+       */
+      public Builder setGroupName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        groupName_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *事件对象组名
+       * </pre>
+       *
+       * <code>string group_name = 20;</code>
+       */
+      public Builder clearGroupName() {
+        
+        groupName_ = getDefaultInstance().getGroupName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *事件对象组名
+       * </pre>
+       *
+       * <code>string group_name = 20;</code>
+       */
+      public Builder setGroupNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        groupName_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object memberName0_ = "";
+      /**
+       * <pre>
+       *事件对象名1
+       * </pre>
+       *
+       * <code>string member_name0 = 21;</code>
+       */
+      public java.lang.String getMemberName0() {
+        java.lang.Object ref = memberName0_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          memberName0_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *事件对象名1
+       * </pre>
+       *
+       * <code>string member_name0 = 21;</code>
+       */
+      public com.google.protobuf.ByteString
+          getMemberName0Bytes() {
+        java.lang.Object ref = memberName0_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          memberName0_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *事件对象名1
+       * </pre>
+       *
+       * <code>string member_name0 = 21;</code>
+       */
+      public Builder setMemberName0(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        memberName0_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *事件对象名1
+       * </pre>
+       *
+       * <code>string member_name0 = 21;</code>
+       */
+      public Builder clearMemberName0() {
+        
+        memberName0_ = getDefaultInstance().getMemberName0();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *事件对象名1
+       * </pre>
+       *
+       * <code>string member_name0 = 21;</code>
+       */
+      public Builder setMemberName0Bytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        memberName0_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object memberName1_ = "";
+      /**
+       * <pre>
+       *事件对象名2
+       * </pre>
+       *
+       * <code>string member_name1 = 22;</code>
+       */
+      public java.lang.String getMemberName1() {
+        java.lang.Object ref = memberName1_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          memberName1_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *事件对象名2
+       * </pre>
+       *
+       * <code>string member_name1 = 22;</code>
+       */
+      public com.google.protobuf.ByteString
+          getMemberName1Bytes() {
+        java.lang.Object ref = memberName1_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          memberName1_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *事件对象名2
+       * </pre>
+       *
+       * <code>string member_name1 = 22;</code>
+       */
+      public Builder setMemberName1(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        memberName1_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *事件对象名2
+       * </pre>
+       *
+       * <code>string member_name1 = 22;</code>
+       */
+      public Builder clearMemberName1() {
+        
+        memberName1_ = getDefaultInstance().getMemberName1();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *事件对象名2
+       * </pre>
+       *
+       * <code>string member_name1 = 22;</code>
+       */
+      public Builder setMemberName1Bytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        memberName1_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object memberName2_ = "";
+      /**
+       * <pre>
+       *事件对象名3
+       * </pre>
+       *
+       * <code>string member_name2 = 23;</code>
+       */
+      public java.lang.String getMemberName2() {
+        java.lang.Object ref = memberName2_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          memberName2_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *事件对象名3
+       * </pre>
+       *
+       * <code>string member_name2 = 23;</code>
+       */
+      public com.google.protobuf.ByteString
+          getMemberName2Bytes() {
+        java.lang.Object ref = memberName2_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          memberName2_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *事件对象名3
+       * </pre>
+       *
+       * <code>string member_name2 = 23;</code>
+       */
+      public Builder setMemberName2(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        memberName2_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *事件对象名3
+       * </pre>
+       *
+       * <code>string member_name2 = 23;</code>
+       */
+      public Builder clearMemberName2() {
+        
+        memberName2_ = getDefaultInstance().getMemberName2();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *事件对象名3
+       * </pre>
+       *
+       * <code>string member_name2 = 23;</code>
+       */
+      public Builder setMemberName2Bytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        memberName2_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object charInfo_ = "";
+      /**
+       * <pre>
+       *文字描述信息
+       * </pre>
+       *
+       * <code>string char_info = 24;</code>
+       */
+      public java.lang.String getCharInfo() {
+        java.lang.Object ref = charInfo_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          charInfo_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *文字描述信息
+       * </pre>
+       *
+       * <code>string char_info = 24;</code>
+       */
+      public com.google.protobuf.ByteString
+          getCharInfoBytes() {
+        java.lang.Object ref = charInfo_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          charInfo_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *文字描述信息
+       * </pre>
+       *
+       * <code>string char_info = 24;</code>
+       */
+      public Builder setCharInfo(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        charInfo_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *文字描述信息
+       * </pre>
+       *
+       * <code>string char_info = 24;</code>
+       */
+      public Builder clearCharInfo() {
+        
+        charInfo_ = getDefaultInstance().getCharInfo();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *文字描述信息
+       * </pre>
+       *
+       * <code>string char_info = 24;</code>
+       */
+      public Builder setCharInfoBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        charInfo_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.ke.model.TradeMsgEvent)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.ke.model.TradeMsgEvent)
+    private static final com.ke.model.TradeMsgOuterClass.TradeMsgEvent DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.ke.model.TradeMsgOuterClass.TradeMsgEvent();
+    }
+
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgEvent getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<TradeMsgEvent>
+        PARSER = new com.google.protobuf.AbstractParser<TradeMsgEvent>() {
+      @java.lang.Override
+      public TradeMsgEvent parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new TradeMsgEvent(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<TradeMsgEvent> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<TradeMsgEvent> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.ke.model.TradeMsgOuterClass.TradeMsgEvent getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface TradeMsgChargeBegin_InfOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.ke.model.TradeMsgChargeBegin_Inf)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     *桩体号
+     * </pre>
+     *
+     * <code>string pilecode = 1;</code>
+     */
+    java.lang.String getPilecode();
+    /**
+     * <pre>
+     *桩体号
+     * </pre>
+     *
+     * <code>string pilecode = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getPilecodeBytes();
+
+    /**
+     * <pre>
+     *枪号 1:A枪  2:B枪...
+     * </pre>
+     *
+     * <code>string gun = 2;</code>
+     */
+    java.lang.String getGun();
+    /**
+     * <pre>
+     *枪号 1:A枪  2:B枪...
+     * </pre>
+     *
+     * <code>string gun = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getGunBytes();
+
+    /**
+     * <pre>
+     *支付交易流水号
+     * </pre>
+     *
+     * <code>string pay_serial = 3;</code>
+     */
+    java.lang.String getPaySerial();
+    /**
+     * <pre>
+     *支付交易流水号
+     * </pre>
+     *
+     * <code>string pay_serial = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getPaySerialBytes();
+
+    /**
+     * <pre>
+     *成功失败标志  0:成功  1:失败
+     * </pre>
+     *
+     * <code>string flag = 4;</code>
+     */
+    java.lang.String getFlag();
+    /**
+     * <pre>
+     *成功失败标志  0:成功  1:失败
+     * </pre>
+     *
+     * <code>string flag = 4;</code>
+     */
+    com.google.protobuf.ByteString
+        getFlagBytes();
+
+    /**
+     * <pre>
+     *当前表底	
+     * </pre>
+     *
+     * <code>string readings = 5;</code>
+     */
+    java.lang.String getReadings();
+    /**
+     * <pre>
+     *当前表底	
+     * </pre>
+     *
+     * <code>string readings = 5;</code>
+     */
+    com.google.protobuf.ByteString
+        getReadingsBytes();
+  }
+  /**
+   * Protobuf type {@code com.ke.model.TradeMsgChargeBegin_Inf}
+   */
+  public  static final class TradeMsgChargeBegin_Inf extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.ke.model.TradeMsgChargeBegin_Inf)
+      TradeMsgChargeBegin_InfOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use TradeMsgChargeBegin_Inf.newBuilder() to construct.
+    private TradeMsgChargeBegin_Inf(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private TradeMsgChargeBegin_Inf() {
+      pilecode_ = "";
+      gun_ = "";
+      paySerial_ = "";
+      flag_ = "";
+      readings_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private TradeMsgChargeBegin_Inf(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              pilecode_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              gun_ = s;
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              paySerial_ = s;
+              break;
+            }
+            case 34: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              flag_ = s;
+              break;
+            }
+            case 42: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              readings_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.ke.model.TradeMsgOuterClass.internal_static_com_ke_model_TradeMsgChargeBegin_Inf_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.ke.model.TradeMsgOuterClass.internal_static_com_ke_model_TradeMsgChargeBegin_Inf_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf.class, com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf.Builder.class);
+    }
+
+    public static final int PILECODE_FIELD_NUMBER = 1;
+    private volatile java.lang.Object pilecode_;
+    /**
+     * <pre>
+     *桩体号
+     * </pre>
+     *
+     * <code>string pilecode = 1;</code>
+     */
+    public java.lang.String getPilecode() {
+      java.lang.Object ref = pilecode_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        pilecode_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *桩体号
+     * </pre>
+     *
+     * <code>string pilecode = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getPilecodeBytes() {
+      java.lang.Object ref = pilecode_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        pilecode_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int GUN_FIELD_NUMBER = 2;
+    private volatile java.lang.Object gun_;
+    /**
+     * <pre>
+     *枪号 1:A枪  2:B枪...
+     * </pre>
+     *
+     * <code>string gun = 2;</code>
+     */
+    public java.lang.String getGun() {
+      java.lang.Object ref = gun_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        gun_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *枪号 1:A枪  2:B枪...
+     * </pre>
+     *
+     * <code>string gun = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getGunBytes() {
+      java.lang.Object ref = gun_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        gun_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PAY_SERIAL_FIELD_NUMBER = 3;
+    private volatile java.lang.Object paySerial_;
+    /**
+     * <pre>
+     *支付交易流水号
+     * </pre>
+     *
+     * <code>string pay_serial = 3;</code>
+     */
+    public java.lang.String getPaySerial() {
+      java.lang.Object ref = paySerial_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        paySerial_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *支付交易流水号
+     * </pre>
+     *
+     * <code>string pay_serial = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getPaySerialBytes() {
+      java.lang.Object ref = paySerial_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        paySerial_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int FLAG_FIELD_NUMBER = 4;
+    private volatile java.lang.Object flag_;
+    /**
+     * <pre>
+     *成功失败标志  0:成功  1:失败
+     * </pre>
+     *
+     * <code>string flag = 4;</code>
+     */
+    public java.lang.String getFlag() {
+      java.lang.Object ref = flag_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        flag_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *成功失败标志  0:成功  1:失败
+     * </pre>
+     *
+     * <code>string flag = 4;</code>
+     */
+    public com.google.protobuf.ByteString
+        getFlagBytes() {
+      java.lang.Object ref = flag_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        flag_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int READINGS_FIELD_NUMBER = 5;
+    private volatile java.lang.Object readings_;
+    /**
+     * <pre>
+     *当前表底	
+     * </pre>
+     *
+     * <code>string readings = 5;</code>
+     */
+    public java.lang.String getReadings() {
+      java.lang.Object ref = readings_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        readings_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *当前表底	
+     * </pre>
+     *
+     * <code>string readings = 5;</code>
+     */
+    public com.google.protobuf.ByteString
+        getReadingsBytes() {
+      java.lang.Object ref = readings_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        readings_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getPilecodeBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, pilecode_);
+      }
+      if (!getGunBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, gun_);
+      }
+      if (!getPaySerialBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, paySerial_);
+      }
+      if (!getFlagBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, flag_);
+      }
+      if (!getReadingsBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, readings_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getPilecodeBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, pilecode_);
+      }
+      if (!getGunBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, gun_);
+      }
+      if (!getPaySerialBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, paySerial_);
+      }
+      if (!getFlagBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, flag_);
+      }
+      if (!getReadingsBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, readings_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf)) {
+        return super.equals(obj);
+      }
+      com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf other = (com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf) obj;
+
+      boolean result = true;
+      result = result && getPilecode()
+          .equals(other.getPilecode());
+      result = result && getGun()
+          .equals(other.getGun());
+      result = result && getPaySerial()
+          .equals(other.getPaySerial());
+      result = result && getFlag()
+          .equals(other.getFlag());
+      result = result && getReadings()
+          .equals(other.getReadings());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + PILECODE_FIELD_NUMBER;
+      hash = (53 * hash) + getPilecode().hashCode();
+      hash = (37 * hash) + GUN_FIELD_NUMBER;
+      hash = (53 * hash) + getGun().hashCode();
+      hash = (37 * hash) + PAY_SERIAL_FIELD_NUMBER;
+      hash = (53 * hash) + getPaySerial().hashCode();
+      hash = (37 * hash) + FLAG_FIELD_NUMBER;
+      hash = (53 * hash) + getFlag().hashCode();
+      hash = (37 * hash) + READINGS_FIELD_NUMBER;
+      hash = (53 * hash) + getReadings().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.ke.model.TradeMsgChargeBegin_Inf}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.ke.model.TradeMsgChargeBegin_Inf)
+        com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_InfOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.ke.model.TradeMsgOuterClass.internal_static_com_ke_model_TradeMsgChargeBegin_Inf_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.ke.model.TradeMsgOuterClass.internal_static_com_ke_model_TradeMsgChargeBegin_Inf_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf.class, com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf.Builder.class);
+      }
+
+      // Construct using com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        pilecode_ = "";
+
+        gun_ = "";
+
+        paySerial_ = "";
+
+        flag_ = "";
+
+        readings_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.ke.model.TradeMsgOuterClass.internal_static_com_ke_model_TradeMsgChargeBegin_Inf_descriptor;
+      }
+
+      @java.lang.Override
+      public com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf getDefaultInstanceForType() {
+        return com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf build() {
+        com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf buildPartial() {
+        com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf result = new com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf(this);
+        result.pilecode_ = pilecode_;
+        result.gun_ = gun_;
+        result.paySerial_ = paySerial_;
+        result.flag_ = flag_;
+        result.readings_ = readings_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf) {
+          return mergeFrom((com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf other) {
+        if (other == com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf.getDefaultInstance()) return this;
+        if (!other.getPilecode().isEmpty()) {
+          pilecode_ = other.pilecode_;
+          onChanged();
+        }
+        if (!other.getGun().isEmpty()) {
+          gun_ = other.gun_;
+          onChanged();
+        }
+        if (!other.getPaySerial().isEmpty()) {
+          paySerial_ = other.paySerial_;
+          onChanged();
+        }
+        if (!other.getFlag().isEmpty()) {
+          flag_ = other.flag_;
+          onChanged();
+        }
+        if (!other.getReadings().isEmpty()) {
+          readings_ = other.readings_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object pilecode_ = "";
+      /**
+       * <pre>
+       *桩体号
+       * </pre>
+       *
+       * <code>string pilecode = 1;</code>
+       */
+      public java.lang.String getPilecode() {
+        java.lang.Object ref = pilecode_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          pilecode_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *桩体号
+       * </pre>
+       *
+       * <code>string pilecode = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getPilecodeBytes() {
+        java.lang.Object ref = pilecode_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          pilecode_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *桩体号
+       * </pre>
+       *
+       * <code>string pilecode = 1;</code>
+       */
+      public Builder setPilecode(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        pilecode_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *桩体号
+       * </pre>
+       *
+       * <code>string pilecode = 1;</code>
+       */
+      public Builder clearPilecode() {
+        
+        pilecode_ = getDefaultInstance().getPilecode();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *桩体号
+       * </pre>
+       *
+       * <code>string pilecode = 1;</code>
+       */
+      public Builder setPilecodeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        pilecode_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object gun_ = "";
+      /**
+       * <pre>
+       *枪号 1:A枪  2:B枪...
+       * </pre>
+       *
+       * <code>string gun = 2;</code>
+       */
+      public java.lang.String getGun() {
+        java.lang.Object ref = gun_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          gun_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *枪号 1:A枪  2:B枪...
+       * </pre>
+       *
+       * <code>string gun = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getGunBytes() {
+        java.lang.Object ref = gun_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          gun_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *枪号 1:A枪  2:B枪...
+       * </pre>
+       *
+       * <code>string gun = 2;</code>
+       */
+      public Builder setGun(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        gun_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *枪号 1:A枪  2:B枪...
+       * </pre>
+       *
+       * <code>string gun = 2;</code>
+       */
+      public Builder clearGun() {
+        
+        gun_ = getDefaultInstance().getGun();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *枪号 1:A枪  2:B枪...
+       * </pre>
+       *
+       * <code>string gun = 2;</code>
+       */
+      public Builder setGunBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        gun_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object paySerial_ = "";
+      /**
+       * <pre>
+       *支付交易流水号
+       * </pre>
+       *
+       * <code>string pay_serial = 3;</code>
+       */
+      public java.lang.String getPaySerial() {
+        java.lang.Object ref = paySerial_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          paySerial_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *支付交易流水号
+       * </pre>
+       *
+       * <code>string pay_serial = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getPaySerialBytes() {
+        java.lang.Object ref = paySerial_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          paySerial_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *支付交易流水号
+       * </pre>
+       *
+       * <code>string pay_serial = 3;</code>
+       */
+      public Builder setPaySerial(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        paySerial_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *支付交易流水号
+       * </pre>
+       *
+       * <code>string pay_serial = 3;</code>
+       */
+      public Builder clearPaySerial() {
+        
+        paySerial_ = getDefaultInstance().getPaySerial();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *支付交易流水号
+       * </pre>
+       *
+       * <code>string pay_serial = 3;</code>
+       */
+      public Builder setPaySerialBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        paySerial_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object flag_ = "";
+      /**
+       * <pre>
+       *成功失败标志  0:成功  1:失败
+       * </pre>
+       *
+       * <code>string flag = 4;</code>
+       */
+      public java.lang.String getFlag() {
+        java.lang.Object ref = flag_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          flag_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *成功失败标志  0:成功  1:失败
+       * </pre>
+       *
+       * <code>string flag = 4;</code>
+       */
+      public com.google.protobuf.ByteString
+          getFlagBytes() {
+        java.lang.Object ref = flag_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          flag_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *成功失败标志  0:成功  1:失败
+       * </pre>
+       *
+       * <code>string flag = 4;</code>
+       */
+      public Builder setFlag(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        flag_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *成功失败标志  0:成功  1:失败
+       * </pre>
+       *
+       * <code>string flag = 4;</code>
+       */
+      public Builder clearFlag() {
+        
+        flag_ = getDefaultInstance().getFlag();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *成功失败标志  0:成功  1:失败
+       * </pre>
+       *
+       * <code>string flag = 4;</code>
+       */
+      public Builder setFlagBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        flag_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object readings_ = "";
+      /**
+       * <pre>
+       *当前表底	
+       * </pre>
+       *
+       * <code>string readings = 5;</code>
+       */
+      public java.lang.String getReadings() {
+        java.lang.Object ref = readings_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          readings_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *当前表底	
+       * </pre>
+       *
+       * <code>string readings = 5;</code>
+       */
+      public com.google.protobuf.ByteString
+          getReadingsBytes() {
+        java.lang.Object ref = readings_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          readings_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *当前表底	
+       * </pre>
+       *
+       * <code>string readings = 5;</code>
+       */
+      public Builder setReadings(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        readings_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *当前表底	
+       * </pre>
+       *
+       * <code>string readings = 5;</code>
+       */
+      public Builder clearReadings() {
+        
+        readings_ = getDefaultInstance().getReadings();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *当前表底	
+       * </pre>
+       *
+       * <code>string readings = 5;</code>
+       */
+      public Builder setReadingsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        readings_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.ke.model.TradeMsgChargeBegin_Inf)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.ke.model.TradeMsgChargeBegin_Inf)
+    private static final com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf();
+    }
+
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<TradeMsgChargeBegin_Inf>
+        PARSER = new com.google.protobuf.AbstractParser<TradeMsgChargeBegin_Inf>() {
+      @java.lang.Override
+      public TradeMsgChargeBegin_Inf parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new TradeMsgChargeBegin_Inf(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<TradeMsgChargeBegin_Inf> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<TradeMsgChargeBegin_Inf> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface TradeMsgChargeEnd_InfOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.ke.model.TradeMsgChargeEnd_Inf)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     *桩体号
+     * </pre>
+     *
+     * <code>string pilecode = 1;</code>
+     */
+    java.lang.String getPilecode();
+    /**
+     * <pre>
+     *桩体号
+     * </pre>
+     *
+     * <code>string pilecode = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getPilecodeBytes();
+
+    /**
+     * <pre>
+     *枪号 1:A枪  2:B枪...
+     * </pre>
+     *
+     * <code>string gun = 2;</code>
+     */
+    java.lang.String getGun();
+    /**
+     * <pre>
+     *枪号 1:A枪  2:B枪...
+     * </pre>
+     *
+     * <code>string gun = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getGunBytes();
+
+    /**
+     * <pre>
+     *支付交易流水号
+     * </pre>
+     *
+     * <code>string pay_serial = 3;</code>
+     */
+    java.lang.String getPaySerial();
+    /**
+     * <pre>
+     *支付交易流水号
+     * </pre>
+     *
+     * <code>string pay_serial = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getPaySerialBytes();
+
+    /**
+     * <pre>
+     *开始时间  YYYY-MM-dd HH:mm:ss
+     * </pre>
+     *
+     * <code>string start_time = 4;</code>
+     */
+    java.lang.String getStartTime();
+    /**
+     * <pre>
+     *开始时间  YYYY-MM-dd HH:mm:ss
+     * </pre>
+     *
+     * <code>string start_time = 4;</code>
+     */
+    com.google.protobuf.ByteString
+        getStartTimeBytes();
+
+    /**
+     * <pre>
+     *结束时间
+     * </pre>
+     *
+     * <code>string end_time = 5;</code>
+     */
+    java.lang.String getEndTime();
+    /**
+     * <pre>
+     *结束时间
+     * </pre>
+     *
+     * <code>string end_time = 5;</code>
+     */
+    com.google.protobuf.ByteString
+        getEndTimeBytes();
+
+    /**
+     * <pre>
+     *当前表底	
+     * </pre>
+     *
+     * <code>string readings = 6;</code>
+     */
+    java.lang.String getReadings();
+    /**
+     * <pre>
+     *当前表底	
+     * </pre>
+     *
+     * <code>string readings = 6;</code>
+     */
+    com.google.protobuf.ByteString
+        getReadingsBytes();
+
+    /**
+     * <pre>
+     *当前点亮
+     * </pre>
+     *
+     * <code>string energy = 7;</code>
+     */
+    java.lang.String getEnergy();
+    /**
+     * <pre>
+     *当前点亮
+     * </pre>
+     *
+     * <code>string energy = 7;</code>
+     */
+    com.google.protobuf.ByteString
+        getEnergyBytes();
+
+    /**
+     * <pre>
+     *充电金额(分)
+     * </pre>
+     *
+     * <code>string energy_money = 8;</code>
+     */
+    java.lang.String getEnergyMoney();
+    /**
+     * <pre>
+     *充电金额(分)
+     * </pre>
+     *
+     * <code>string energy_money = 8;</code>
+     */
+    com.google.protobuf.ByteString
+        getEnergyMoneyBytes();
+
+    /**
+     * <pre>
+     *服务费金额(分)
+     * </pre>
+     *
+     * <code>string service_money = 9;</code>
+     */
+    java.lang.String getServiceMoney();
+    /**
+     * <pre>
+     *服务费金额(分)
+     * </pre>
+     *
+     * <code>string service_money = 9;</code>
+     */
+    com.google.protobuf.ByteString
+        getServiceMoneyBytes();
+
+    /**
+     * <pre>
+     *结束原因
+     * </pre>
+     *
+     * <code>string end_cause = 10;</code>
+     */
+    java.lang.String getEndCause();
+    /**
+     * <pre>
+     *结束原因
+     * </pre>
+     *
+     * <code>string end_cause = 10;</code>
+     */
+    com.google.protobuf.ByteString
+        getEndCauseBytes();
+  }
+  /**
+   * Protobuf type {@code com.ke.model.TradeMsgChargeEnd_Inf}
+   */
+  public  static final class TradeMsgChargeEnd_Inf extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.ke.model.TradeMsgChargeEnd_Inf)
+      TradeMsgChargeEnd_InfOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use TradeMsgChargeEnd_Inf.newBuilder() to construct.
+    private TradeMsgChargeEnd_Inf(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private TradeMsgChargeEnd_Inf() {
+      pilecode_ = "";
+      gun_ = "";
+      paySerial_ = "";
+      startTime_ = "";
+      endTime_ = "";
+      readings_ = "";
+      energy_ = "";
+      energyMoney_ = "";
+      serviceMoney_ = "";
+      endCause_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private TradeMsgChargeEnd_Inf(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              pilecode_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              gun_ = s;
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              paySerial_ = s;
+              break;
+            }
+            case 34: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              startTime_ = s;
+              break;
+            }
+            case 42: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              endTime_ = s;
+              break;
+            }
+            case 50: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              readings_ = s;
+              break;
+            }
+            case 58: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              energy_ = s;
+              break;
+            }
+            case 66: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              energyMoney_ = s;
+              break;
+            }
+            case 74: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              serviceMoney_ = s;
+              break;
+            }
+            case 82: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              endCause_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.ke.model.TradeMsgOuterClass.internal_static_com_ke_model_TradeMsgChargeEnd_Inf_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.ke.model.TradeMsgOuterClass.internal_static_com_ke_model_TradeMsgChargeEnd_Inf_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf.class, com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf.Builder.class);
+    }
+
+    public static final int PILECODE_FIELD_NUMBER = 1;
+    private volatile java.lang.Object pilecode_;
+    /**
+     * <pre>
+     *桩体号
+     * </pre>
+     *
+     * <code>string pilecode = 1;</code>
+     */
+    public java.lang.String getPilecode() {
+      java.lang.Object ref = pilecode_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        pilecode_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *桩体号
+     * </pre>
+     *
+     * <code>string pilecode = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getPilecodeBytes() {
+      java.lang.Object ref = pilecode_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        pilecode_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int GUN_FIELD_NUMBER = 2;
+    private volatile java.lang.Object gun_;
+    /**
+     * <pre>
+     *枪号 1:A枪  2:B枪...
+     * </pre>
+     *
+     * <code>string gun = 2;</code>
+     */
+    public java.lang.String getGun() {
+      java.lang.Object ref = gun_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        gun_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *枪号 1:A枪  2:B枪...
+     * </pre>
+     *
+     * <code>string gun = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getGunBytes() {
+      java.lang.Object ref = gun_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        gun_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PAY_SERIAL_FIELD_NUMBER = 3;
+    private volatile java.lang.Object paySerial_;
+    /**
+     * <pre>
+     *支付交易流水号
+     * </pre>
+     *
+     * <code>string pay_serial = 3;</code>
+     */
+    public java.lang.String getPaySerial() {
+      java.lang.Object ref = paySerial_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        paySerial_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *支付交易流水号
+     * </pre>
+     *
+     * <code>string pay_serial = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getPaySerialBytes() {
+      java.lang.Object ref = paySerial_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        paySerial_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int START_TIME_FIELD_NUMBER = 4;
+    private volatile java.lang.Object startTime_;
+    /**
+     * <pre>
+     *开始时间  YYYY-MM-dd HH:mm:ss
+     * </pre>
+     *
+     * <code>string start_time = 4;</code>
+     */
+    public java.lang.String getStartTime() {
+      java.lang.Object ref = startTime_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        startTime_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *开始时间  YYYY-MM-dd HH:mm:ss
+     * </pre>
+     *
+     * <code>string start_time = 4;</code>
+     */
+    public com.google.protobuf.ByteString
+        getStartTimeBytes() {
+      java.lang.Object ref = startTime_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        startTime_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int END_TIME_FIELD_NUMBER = 5;
+    private volatile java.lang.Object endTime_;
+    /**
+     * <pre>
+     *结束时间
+     * </pre>
+     *
+     * <code>string end_time = 5;</code>
+     */
+    public java.lang.String getEndTime() {
+      java.lang.Object ref = endTime_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        endTime_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *结束时间
+     * </pre>
+     *
+     * <code>string end_time = 5;</code>
+     */
+    public com.google.protobuf.ByteString
+        getEndTimeBytes() {
+      java.lang.Object ref = endTime_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        endTime_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int READINGS_FIELD_NUMBER = 6;
+    private volatile java.lang.Object readings_;
+    /**
+     * <pre>
+     *当前表底	
+     * </pre>
+     *
+     * <code>string readings = 6;</code>
+     */
+    public java.lang.String getReadings() {
+      java.lang.Object ref = readings_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        readings_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *当前表底	
+     * </pre>
+     *
+     * <code>string readings = 6;</code>
+     */
+    public com.google.protobuf.ByteString
+        getReadingsBytes() {
+      java.lang.Object ref = readings_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        readings_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int ENERGY_FIELD_NUMBER = 7;
+    private volatile java.lang.Object energy_;
+    /**
+     * <pre>
+     *当前点亮
+     * </pre>
+     *
+     * <code>string energy = 7;</code>
+     */
+    public java.lang.String getEnergy() {
+      java.lang.Object ref = energy_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        energy_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *当前点亮
+     * </pre>
+     *
+     * <code>string energy = 7;</code>
+     */
+    public com.google.protobuf.ByteString
+        getEnergyBytes() {
+      java.lang.Object ref = energy_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        energy_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int ENERGY_MONEY_FIELD_NUMBER = 8;
+    private volatile java.lang.Object energyMoney_;
+    /**
+     * <pre>
+     *充电金额(分)
+     * </pre>
+     *
+     * <code>string energy_money = 8;</code>
+     */
+    public java.lang.String getEnergyMoney() {
+      java.lang.Object ref = energyMoney_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        energyMoney_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *充电金额(分)
+     * </pre>
+     *
+     * <code>string energy_money = 8;</code>
+     */
+    public com.google.protobuf.ByteString
+        getEnergyMoneyBytes() {
+      java.lang.Object ref = energyMoney_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        energyMoney_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int SERVICE_MONEY_FIELD_NUMBER = 9;
+    private volatile java.lang.Object serviceMoney_;
+    /**
+     * <pre>
+     *服务费金额(分)
+     * </pre>
+     *
+     * <code>string service_money = 9;</code>
+     */
+    public java.lang.String getServiceMoney() {
+      java.lang.Object ref = serviceMoney_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        serviceMoney_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *服务费金额(分)
+     * </pre>
+     *
+     * <code>string service_money = 9;</code>
+     */
+    public com.google.protobuf.ByteString
+        getServiceMoneyBytes() {
+      java.lang.Object ref = serviceMoney_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        serviceMoney_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int END_CAUSE_FIELD_NUMBER = 10;
+    private volatile java.lang.Object endCause_;
+    /**
+     * <pre>
+     *结束原因
+     * </pre>
+     *
+     * <code>string end_cause = 10;</code>
+     */
+    public java.lang.String getEndCause() {
+      java.lang.Object ref = endCause_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        endCause_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *结束原因
+     * </pre>
+     *
+     * <code>string end_cause = 10;</code>
+     */
+    public com.google.protobuf.ByteString
+        getEndCauseBytes() {
+      java.lang.Object ref = endCause_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        endCause_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getPilecodeBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, pilecode_);
+      }
+      if (!getGunBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, gun_);
+      }
+      if (!getPaySerialBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, paySerial_);
+      }
+      if (!getStartTimeBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, startTime_);
+      }
+      if (!getEndTimeBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, endTime_);
+      }
+      if (!getReadingsBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, readings_);
+      }
+      if (!getEnergyBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 7, energy_);
+      }
+      if (!getEnergyMoneyBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 8, energyMoney_);
+      }
+      if (!getServiceMoneyBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 9, serviceMoney_);
+      }
+      if (!getEndCauseBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 10, endCause_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getPilecodeBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, pilecode_);
+      }
+      if (!getGunBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, gun_);
+      }
+      if (!getPaySerialBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, paySerial_);
+      }
+      if (!getStartTimeBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, startTime_);
+      }
+      if (!getEndTimeBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, endTime_);
+      }
+      if (!getReadingsBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, readings_);
+      }
+      if (!getEnergyBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, energy_);
+      }
+      if (!getEnergyMoneyBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, energyMoney_);
+      }
+      if (!getServiceMoneyBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, serviceMoney_);
+      }
+      if (!getEndCauseBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(10, endCause_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf)) {
+        return super.equals(obj);
+      }
+      com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf other = (com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf) obj;
+
+      boolean result = true;
+      result = result && getPilecode()
+          .equals(other.getPilecode());
+      result = result && getGun()
+          .equals(other.getGun());
+      result = result && getPaySerial()
+          .equals(other.getPaySerial());
+      result = result && getStartTime()
+          .equals(other.getStartTime());
+      result = result && getEndTime()
+          .equals(other.getEndTime());
+      result = result && getReadings()
+          .equals(other.getReadings());
+      result = result && getEnergy()
+          .equals(other.getEnergy());
+      result = result && getEnergyMoney()
+          .equals(other.getEnergyMoney());
+      result = result && getServiceMoney()
+          .equals(other.getServiceMoney());
+      result = result && getEndCause()
+          .equals(other.getEndCause());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + PILECODE_FIELD_NUMBER;
+      hash = (53 * hash) + getPilecode().hashCode();
+      hash = (37 * hash) + GUN_FIELD_NUMBER;
+      hash = (53 * hash) + getGun().hashCode();
+      hash = (37 * hash) + PAY_SERIAL_FIELD_NUMBER;
+      hash = (53 * hash) + getPaySerial().hashCode();
+      hash = (37 * hash) + START_TIME_FIELD_NUMBER;
+      hash = (53 * hash) + getStartTime().hashCode();
+      hash = (37 * hash) + END_TIME_FIELD_NUMBER;
+      hash = (53 * hash) + getEndTime().hashCode();
+      hash = (37 * hash) + READINGS_FIELD_NUMBER;
+      hash = (53 * hash) + getReadings().hashCode();
+      hash = (37 * hash) + ENERGY_FIELD_NUMBER;
+      hash = (53 * hash) + getEnergy().hashCode();
+      hash = (37 * hash) + ENERGY_MONEY_FIELD_NUMBER;
+      hash = (53 * hash) + getEnergyMoney().hashCode();
+      hash = (37 * hash) + SERVICE_MONEY_FIELD_NUMBER;
+      hash = (53 * hash) + getServiceMoney().hashCode();
+      hash = (37 * hash) + END_CAUSE_FIELD_NUMBER;
+      hash = (53 * hash) + getEndCause().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.ke.model.TradeMsgChargeEnd_Inf}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.ke.model.TradeMsgChargeEnd_Inf)
+        com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_InfOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.ke.model.TradeMsgOuterClass.internal_static_com_ke_model_TradeMsgChargeEnd_Inf_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.ke.model.TradeMsgOuterClass.internal_static_com_ke_model_TradeMsgChargeEnd_Inf_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf.class, com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf.Builder.class);
+      }
+
+      // Construct using com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        pilecode_ = "";
+
+        gun_ = "";
+
+        paySerial_ = "";
+
+        startTime_ = "";
+
+        endTime_ = "";
+
+        readings_ = "";
+
+        energy_ = "";
+
+        energyMoney_ = "";
+
+        serviceMoney_ = "";
+
+        endCause_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.ke.model.TradeMsgOuterClass.internal_static_com_ke_model_TradeMsgChargeEnd_Inf_descriptor;
+      }
+
+      @java.lang.Override
+      public com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf getDefaultInstanceForType() {
+        return com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf build() {
+        com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf buildPartial() {
+        com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf result = new com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf(this);
+        result.pilecode_ = pilecode_;
+        result.gun_ = gun_;
+        result.paySerial_ = paySerial_;
+        result.startTime_ = startTime_;
+        result.endTime_ = endTime_;
+        result.readings_ = readings_;
+        result.energy_ = energy_;
+        result.energyMoney_ = energyMoney_;
+        result.serviceMoney_ = serviceMoney_;
+        result.endCause_ = endCause_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf) {
+          return mergeFrom((com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf other) {
+        if (other == com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf.getDefaultInstance()) return this;
+        if (!other.getPilecode().isEmpty()) {
+          pilecode_ = other.pilecode_;
+          onChanged();
+        }
+        if (!other.getGun().isEmpty()) {
+          gun_ = other.gun_;
+          onChanged();
+        }
+        if (!other.getPaySerial().isEmpty()) {
+          paySerial_ = other.paySerial_;
+          onChanged();
+        }
+        if (!other.getStartTime().isEmpty()) {
+          startTime_ = other.startTime_;
+          onChanged();
+        }
+        if (!other.getEndTime().isEmpty()) {
+          endTime_ = other.endTime_;
+          onChanged();
+        }
+        if (!other.getReadings().isEmpty()) {
+          readings_ = other.readings_;
+          onChanged();
+        }
+        if (!other.getEnergy().isEmpty()) {
+          energy_ = other.energy_;
+          onChanged();
+        }
+        if (!other.getEnergyMoney().isEmpty()) {
+          energyMoney_ = other.energyMoney_;
+          onChanged();
+        }
+        if (!other.getServiceMoney().isEmpty()) {
+          serviceMoney_ = other.serviceMoney_;
+          onChanged();
+        }
+        if (!other.getEndCause().isEmpty()) {
+          endCause_ = other.endCause_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object pilecode_ = "";
+      /**
+       * <pre>
+       *桩体号
+       * </pre>
+       *
+       * <code>string pilecode = 1;</code>
+       */
+      public java.lang.String getPilecode() {
+        java.lang.Object ref = pilecode_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          pilecode_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *桩体号
+       * </pre>
+       *
+       * <code>string pilecode = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getPilecodeBytes() {
+        java.lang.Object ref = pilecode_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          pilecode_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *桩体号
+       * </pre>
+       *
+       * <code>string pilecode = 1;</code>
+       */
+      public Builder setPilecode(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        pilecode_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *桩体号
+       * </pre>
+       *
+       * <code>string pilecode = 1;</code>
+       */
+      public Builder clearPilecode() {
+        
+        pilecode_ = getDefaultInstance().getPilecode();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *桩体号
+       * </pre>
+       *
+       * <code>string pilecode = 1;</code>
+       */
+      public Builder setPilecodeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        pilecode_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object gun_ = "";
+      /**
+       * <pre>
+       *枪号 1:A枪  2:B枪...
+       * </pre>
+       *
+       * <code>string gun = 2;</code>
+       */
+      public java.lang.String getGun() {
+        java.lang.Object ref = gun_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          gun_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *枪号 1:A枪  2:B枪...
+       * </pre>
+       *
+       * <code>string gun = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getGunBytes() {
+        java.lang.Object ref = gun_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          gun_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *枪号 1:A枪  2:B枪...
+       * </pre>
+       *
+       * <code>string gun = 2;</code>
+       */
+      public Builder setGun(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        gun_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *枪号 1:A枪  2:B枪...
+       * </pre>
+       *
+       * <code>string gun = 2;</code>
+       */
+      public Builder clearGun() {
+        
+        gun_ = getDefaultInstance().getGun();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *枪号 1:A枪  2:B枪...
+       * </pre>
+       *
+       * <code>string gun = 2;</code>
+       */
+      public Builder setGunBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        gun_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object paySerial_ = "";
+      /**
+       * <pre>
+       *支付交易流水号
+       * </pre>
+       *
+       * <code>string pay_serial = 3;</code>
+       */
+      public java.lang.String getPaySerial() {
+        java.lang.Object ref = paySerial_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          paySerial_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *支付交易流水号
+       * </pre>
+       *
+       * <code>string pay_serial = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getPaySerialBytes() {
+        java.lang.Object ref = paySerial_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          paySerial_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *支付交易流水号
+       * </pre>
+       *
+       * <code>string pay_serial = 3;</code>
+       */
+      public Builder setPaySerial(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        paySerial_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *支付交易流水号
+       * </pre>
+       *
+       * <code>string pay_serial = 3;</code>
+       */
+      public Builder clearPaySerial() {
+        
+        paySerial_ = getDefaultInstance().getPaySerial();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *支付交易流水号
+       * </pre>
+       *
+       * <code>string pay_serial = 3;</code>
+       */
+      public Builder setPaySerialBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        paySerial_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object startTime_ = "";
+      /**
+       * <pre>
+       *开始时间  YYYY-MM-dd HH:mm:ss
+       * </pre>
+       *
+       * <code>string start_time = 4;</code>
+       */
+      public java.lang.String getStartTime() {
+        java.lang.Object ref = startTime_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          startTime_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *开始时间  YYYY-MM-dd HH:mm:ss
+       * </pre>
+       *
+       * <code>string start_time = 4;</code>
+       */
+      public com.google.protobuf.ByteString
+          getStartTimeBytes() {
+        java.lang.Object ref = startTime_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          startTime_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *开始时间  YYYY-MM-dd HH:mm:ss
+       * </pre>
+       *
+       * <code>string start_time = 4;</code>
+       */
+      public Builder setStartTime(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        startTime_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *开始时间  YYYY-MM-dd HH:mm:ss
+       * </pre>
+       *
+       * <code>string start_time = 4;</code>
+       */
+      public Builder clearStartTime() {
+        
+        startTime_ = getDefaultInstance().getStartTime();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *开始时间  YYYY-MM-dd HH:mm:ss
+       * </pre>
+       *
+       * <code>string start_time = 4;</code>
+       */
+      public Builder setStartTimeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        startTime_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object endTime_ = "";
+      /**
+       * <pre>
+       *结束时间
+       * </pre>
+       *
+       * <code>string end_time = 5;</code>
+       */
+      public java.lang.String getEndTime() {
+        java.lang.Object ref = endTime_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          endTime_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *结束时间
+       * </pre>
+       *
+       * <code>string end_time = 5;</code>
+       */
+      public com.google.protobuf.ByteString
+          getEndTimeBytes() {
+        java.lang.Object ref = endTime_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          endTime_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *结束时间
+       * </pre>
+       *
+       * <code>string end_time = 5;</code>
+       */
+      public Builder setEndTime(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        endTime_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *结束时间
+       * </pre>
+       *
+       * <code>string end_time = 5;</code>
+       */
+      public Builder clearEndTime() {
+        
+        endTime_ = getDefaultInstance().getEndTime();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *结束时间
+       * </pre>
+       *
+       * <code>string end_time = 5;</code>
+       */
+      public Builder setEndTimeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        endTime_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object readings_ = "";
+      /**
+       * <pre>
+       *当前表底	
+       * </pre>
+       *
+       * <code>string readings = 6;</code>
+       */
+      public java.lang.String getReadings() {
+        java.lang.Object ref = readings_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          readings_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *当前表底	
+       * </pre>
+       *
+       * <code>string readings = 6;</code>
+       */
+      public com.google.protobuf.ByteString
+          getReadingsBytes() {
+        java.lang.Object ref = readings_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          readings_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *当前表底	
+       * </pre>
+       *
+       * <code>string readings = 6;</code>
+       */
+      public Builder setReadings(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        readings_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *当前表底	
+       * </pre>
+       *
+       * <code>string readings = 6;</code>
+       */
+      public Builder clearReadings() {
+        
+        readings_ = getDefaultInstance().getReadings();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *当前表底	
+       * </pre>
+       *
+       * <code>string readings = 6;</code>
+       */
+      public Builder setReadingsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        readings_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object energy_ = "";
+      /**
+       * <pre>
+       *当前点亮
+       * </pre>
+       *
+       * <code>string energy = 7;</code>
+       */
+      public java.lang.String getEnergy() {
+        java.lang.Object ref = energy_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          energy_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *当前点亮
+       * </pre>
+       *
+       * <code>string energy = 7;</code>
+       */
+      public com.google.protobuf.ByteString
+          getEnergyBytes() {
+        java.lang.Object ref = energy_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          energy_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *当前点亮
+       * </pre>
+       *
+       * <code>string energy = 7;</code>
+       */
+      public Builder setEnergy(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        energy_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *当前点亮
+       * </pre>
+       *
+       * <code>string energy = 7;</code>
+       */
+      public Builder clearEnergy() {
+        
+        energy_ = getDefaultInstance().getEnergy();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *当前点亮
+       * </pre>
+       *
+       * <code>string energy = 7;</code>
+       */
+      public Builder setEnergyBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        energy_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object energyMoney_ = "";
+      /**
+       * <pre>
+       *充电金额(分)
+       * </pre>
+       *
+       * <code>string energy_money = 8;</code>
+       */
+      public java.lang.String getEnergyMoney() {
+        java.lang.Object ref = energyMoney_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          energyMoney_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *充电金额(分)
+       * </pre>
+       *
+       * <code>string energy_money = 8;</code>
+       */
+      public com.google.protobuf.ByteString
+          getEnergyMoneyBytes() {
+        java.lang.Object ref = energyMoney_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          energyMoney_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *充电金额(分)
+       * </pre>
+       *
+       * <code>string energy_money = 8;</code>
+       */
+      public Builder setEnergyMoney(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        energyMoney_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *充电金额(分)
+       * </pre>
+       *
+       * <code>string energy_money = 8;</code>
+       */
+      public Builder clearEnergyMoney() {
+        
+        energyMoney_ = getDefaultInstance().getEnergyMoney();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *充电金额(分)
+       * </pre>
+       *
+       * <code>string energy_money = 8;</code>
+       */
+      public Builder setEnergyMoneyBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        energyMoney_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object serviceMoney_ = "";
+      /**
+       * <pre>
+       *服务费金额(分)
+       * </pre>
+       *
+       * <code>string service_money = 9;</code>
+       */
+      public java.lang.String getServiceMoney() {
+        java.lang.Object ref = serviceMoney_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          serviceMoney_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *服务费金额(分)
+       * </pre>
+       *
+       * <code>string service_money = 9;</code>
+       */
+      public com.google.protobuf.ByteString
+          getServiceMoneyBytes() {
+        java.lang.Object ref = serviceMoney_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          serviceMoney_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *服务费金额(分)
+       * </pre>
+       *
+       * <code>string service_money = 9;</code>
+       */
+      public Builder setServiceMoney(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        serviceMoney_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *服务费金额(分)
+       * </pre>
+       *
+       * <code>string service_money = 9;</code>
+       */
+      public Builder clearServiceMoney() {
+        
+        serviceMoney_ = getDefaultInstance().getServiceMoney();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *服务费金额(分)
+       * </pre>
+       *
+       * <code>string service_money = 9;</code>
+       */
+      public Builder setServiceMoneyBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        serviceMoney_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object endCause_ = "";
+      /**
+       * <pre>
+       *结束原因
+       * </pre>
+       *
+       * <code>string end_cause = 10;</code>
+       */
+      public java.lang.String getEndCause() {
+        java.lang.Object ref = endCause_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          endCause_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *结束原因
+       * </pre>
+       *
+       * <code>string end_cause = 10;</code>
+       */
+      public com.google.protobuf.ByteString
+          getEndCauseBytes() {
+        java.lang.Object ref = endCause_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          endCause_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *结束原因
+       * </pre>
+       *
+       * <code>string end_cause = 10;</code>
+       */
+      public Builder setEndCause(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        endCause_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *结束原因
+       * </pre>
+       *
+       * <code>string end_cause = 10;</code>
+       */
+      public Builder clearEndCause() {
+        
+        endCause_ = getDefaultInstance().getEndCause();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *结束原因
+       * </pre>
+       *
+       * <code>string end_cause = 10;</code>
+       */
+      public Builder setEndCauseBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        endCause_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.ke.model.TradeMsgChargeEnd_Inf)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.ke.model.TradeMsgChargeEnd_Inf)
+    private static final com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf();
+    }
+
+    public static com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<TradeMsgChargeEnd_Inf>
+        PARSER = new com.google.protobuf.AbstractParser<TradeMsgChargeEnd_Inf>() {
+      @java.lang.Override
+      public TradeMsgChargeEnd_Inf parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new TradeMsgChargeEnd_Inf(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<TradeMsgChargeEnd_Inf> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<TradeMsgChargeEnd_Inf> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_ke_model_TradeMsg_descriptor;
   private static final 
@@ -12127,6 +20362,26 @@ public final class TradeMsgOuterClass {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_com_ke_model_TradeMsgSupcardRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_ke_model_TradeMsgPileInfo_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_ke_model_TradeMsgPileInfo_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_ke_model_TradeMsgEvent_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_ke_model_TradeMsgEvent_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_ke_model_TradeMsgChargeBegin_Inf_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_ke_model_TradeMsgChargeBegin_Inf_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_ke_model_TradeMsgChargeEnd_Inf_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_ke_model_TradeMsgChargeEnd_Inf_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -12143,33 +20398,60 @@ public final class TradeMsgOuterClass {
       "sgVect\022\020\n\010msg_size\030\001 \001(\r\022(\n\010msg_vect\030\002 \003" +
       "(\0132\026.com.ke.model.TradeMsg\"=\n\017TradeMsgRe" +
       "quest\022\016\n\006cardno\030\001 \001(\t\022\013\n\003gun\030\002 \001(\005\022\r\n\005st" +
-      "ate\030\003 \001(\005\"@\n\023TradeMsgChargeBegin\022\013\n\003gun\030" +
-      "\001 \001(\005\022\016\n\006serial\030\002 \001(\t\022\014\n\004flag\030\003 \001(\005\"\271\004\n\021" +
-      "TradeMsgChargeEnd\022:\n\006charge\030\001 \001(\0132*.com." +
-      "ke.model.TradeMsgChargeEnd.ChargeInfo\032\347\003" +
-      "\n\nChargeInfo\022\016\n\006serial\030\001 \001(\t\022\014\n\004area\030\002 \001" +
-      "(\005\022+\n\nmedia_type\030\003 \001(\0162\027.com.ke.model.Me" +
-      "diaType\022\016\n\006cardno\030\004 \001(\t\022\020\n\010begin_bd\030\005 \001(" +
-      "\001\022\016\n\006end_bd\030\006 \001(\001\022\023\n\013begin_bd_fl\030\007 \003(\001\022\021" +
-      "\n\tend_bd_fl\030\010 \003(\001\022\025\n\rparking_price\030\t \001(\005" +
-      "\022\025\n\rparking_money\030\n \001(\005\022\022\n\nbegin_date\030\013 " +
-      "\001(\005\022\022\n\nbegin_time\030\014 \001(\005\022\020\n\010end_date\030\r \001(" +
-      "\005\022\020\n\010end_time\030\016 \001(\005\022\025\n\rbegin_balance\030\017 \001" +
-      "(\005\022\026\n\016recharge_money\030\020 \001(\005\022\023\n\013end_balanc" +
-      "e\030\021 \001(\005\022\025\n\rservice_money\030\022 \001(\005\022\022\n\nservic" +
-      "e_fl\030\023 \003(\005\022\023\n\013trade_price\030\024 \001(\005\022\026\n\016trade" +
-      "_price_fl\030\025 \003(\005\022\013\n\003gun\030\026 \001(\005\022\021\n\tend_caus" +
-      "e\030\027 \001(\005\"\246\001\n\022TradeMsgChargeInfo\022\013\n\003gun\030\001 " +
-      "\001(\005\022\n\n\002ua\030\002 \001(\001\022\n\n\002ub\030\003 \001(\001\022\n\n\002uc\030\004 \001(\001\022" +
-      "\n\n\002ia\030\005 \001(\001\022\n\n\002ib\030\006 \001(\001\022\n\n\002ic\030\007 \001(\001\022\016\n\006e" +
-      "nergy\030\010 \001(\001\022\r\n\005money\030\t \001(\005\022\014\n\004time\030\n \001(\005" +
-      "\022\016\n\006serial\030\013 \001(\t\"R\n\023TradeMsgChargeInfo2\022" +
-      "\013\n\003gun\030\001 \001(\005\022\013\n\003soc\030\002 \001(\005\022\021\n\tremain_tm\030\003" +
-      " \001(\005\022\016\n\006serial\030\004 \001(\t\"-\n\017TradeMsgGunInfo\022" +
-      "\013\n\003gun\030\001 \001(\005\022\r\n\005state\030\002 \001(\005\".\n\020TradeMsgG" +
-      "unError\022\013\n\003gun\030\001 \001(\005\022\r\n\005error\030\002 \001(\005\"G\n\026T" +
-      "radeMsgSupcardRequest\022\020\n\010cardtype\030\001 \001(\005\022" +
-      "\016\n\006cardno\030\002 \001(\t\022\013\n\003gun\030\003 \001(\005*\345\003\n\014TradeMs" +
+      "ate\030\003 \001(\005\"R\n\023TradeMsgChargeBegin\022\013\n\003gun\030" +
+      "\001 \001(\005\022\016\n\006serial\030\002 \001(\t\022\014\n\004flag\030\003 \001(\005\022\020\n\010r" +
+      "eadings\030\004 \001(\001\"\306\004\n\021TradeMsgChargeEnd\022:\n\006c" +
+      "harge\030\001 \001(\0132*.com.ke.model.TradeMsgCharg" +
+      "eEnd.ChargeInfo\032\364\003\n\nChargeInfo\022\016\n\006serial" +
+      "\030\001 \001(\t\022\014\n\004area\030\002 \001(\005\022+\n\nmedia_type\030\003 \001(\016" +
+      "2\027.com.ke.model.MediaType\022\016\n\006cardno\030\004 \001(" +
+      "\t\022\020\n\010begin_bd\030\005 \001(\001\022\016\n\006end_bd\030\006 \001(\001\022\023\n\013b" +
+      "egin_bd_fl\030\007 \003(\001\022\021\n\tend_bd_fl\030\010 \003(\001\022\025\n\rp" +
+      "arking_price\030\t \001(\005\022\025\n\rparking_money\030\n \001(" +
+      "\005\022\022\n\nbegin_date\030\013 \001(\005\022\022\n\nbegin_time\030\014 \001(" +
+      "\005\022\020\n\010end_date\030\r \001(\005\022\020\n\010end_time\030\016 \001(\005\022\025\n" +
+      "\rbegin_balance\030\017 \001(\005\022\026\n\016recharge_money\030\020" +
+      " \001(\005\022\023\n\013end_balance\030\021 \001(\005\022\025\n\rservice_mon" +
+      "ey\030\022 \001(\005\022\022\n\nservice_fl\030\023 \003(\005\022\023\n\013trade_pr" +
+      "ice\030\024 \001(\005\022\026\n\016trade_price_fl\030\025 \003(\005\022\013\n\003vin" +
+      "\030\026 \001(\t\022\013\n\003gun\030\027 \001(\005\022\021\n\tend_cause\030\030 \001(\005\"\210" +
+      "\002\n\022TradeMsgChargeInfo\022\013\n\003gun\030\001 \001(\005\022\n\n\002ua" +
+      "\030\002 \001(\001\022\n\n\002ub\030\003 \001(\001\022\n\n\002uc\030\004 \001(\001\022\n\n\002ia\030\005 \001" +
+      "(\001\022\n\n\002ib\030\006 \001(\001\022\n\n\002ic\030\007 \001(\001\022\t\n\001p\030\010 \001(\001\022\t\n" +
+      "\001q\030\t \001(\001\022\016\n\006energy\030\n \001(\001\022\r\n\005money\030\013 \001(\005\022" +
+      "\014\n\004time\030\014 \001(\005\022\016\n\006serial\030\r \001(\t\022\020\n\010gun_typ" +
+      "e\030\016 \001(\005\022\024\n\014switch_state\030\017 \001(\005\022\020\n\010reading" +
+      "s\030\020 \001(\001\022\020\n\010datatime\030\021 \001(\t\"d\n\023TradeMsgCha" +
+      "rgeInfo2\022\013\n\003gun\030\001 \001(\005\022\013\n\003soc\030\002 \001(\005\022\021\n\tre" +
+      "main_tm\030\003 \001(\005\022\016\n\006serial\030\004 \001(\t\022\020\n\010datatim" +
+      "e\030\005 \001(\t\"-\n\017TradeMsgGunInfo\022\013\n\003gun\030\001 \001(\005\022" +
+      "\r\n\005state\030\002 \001(\005\".\n\020TradeMsgGunError\022\013\n\003gu" +
+      "n\030\001 \001(\005\022\r\n\005error\030\002 \001(\005\"G\n\026TradeMsgSupcar" +
+      "dRequest\022\020\n\010cardtype\030\001 \001(\005\022\016\n\006cardno\030\002 \001" +
+      "(\t\022\013\n\003gun\030\003 \001(\005\"q\n\020TradeMsgPileInfo\022\021\n\tr" +
+      "un_state\030\001 \001(\005\022\021\n\talm_state\030\002 \001(\005\022\023\n\013tem" +
+      "perature\030\003 \001(\001\022\020\n\010humidity\030\004 \001(\001\022\020\n\010data" +
+      "time\030\005 \001(\t\"\354\003\n\rTradeMsgEvent\022\020\n\010pilecode" +
+      "\030\001 \001(\t\022\020\n\010gun_type\030\002 \001(\005\022\017\n\007classno\030\003 \001(" +
+      "\005\022\016\n\006typeno\030\004 \001(\005\022\013\n\003ymd\030\005 \001(\005\022\r\n\005hmsms\030" +
+      "\006 \001(\005\022\021\n\tvoltgrade\030\007 \001(\r\022\016\n\006output\030\010 \001(\r" +
+      "\022\022\n\nmember_id0\030\t \001(\005\022\022\n\nmember_id1\030\n \001(\005" +
+      "\022\022\n\nmember_id2\030\013 \001(\005\022\025\n\rdouble_value0\030\014 " +
+      "\001(\001\022\025\n\rdouble_value1\030\r \001(\001\022\025\n\rdouble_val" +
+      "ue2\030\016 \001(\001\022\025\n\rdouble_value3\030\017 \001(\001\022\024\n\014stat" +
+      "e_value0\030\020 \001(\r\022\024\n\014state_value1\030\021 \001(\r\022\024\n\014" +
+      "state_value2\030\022 \001(\r\022\024\n\014state_value3\030\023 \001(\r" +
+      "\022\022\n\ngroup_name\030\024 \001(\t\022\024\n\014member_name0\030\025 \001" +
+      "(\t\022\024\n\014member_name1\030\026 \001(\t\022\024\n\014member_name2" +
+      "\030\027 \001(\t\022\021\n\tchar_info\030\030 \001(\t\"l\n\027TradeMsgCha" +
+      "rgeBegin_Inf\022\020\n\010pilecode\030\001 \001(\t\022\013\n\003gun\030\002 " +
+      "\001(\t\022\022\n\npay_serial\030\003 \001(\t\022\014\n\004flag\030\004 \001(\t\022\020\n" +
+      "\010readings\030\005 \001(\t\"\322\001\n\025TradeMsgChargeEnd_In" +
+      "f\022\020\n\010pilecode\030\001 \001(\t\022\013\n\003gun\030\002 \001(\t\022\022\n\npay_" +
+      "serial\030\003 \001(\t\022\022\n\nstart_time\030\004 \001(\t\022\020\n\010end_" +
+      "time\030\005 \001(\t\022\020\n\010readings\030\006 \001(\t\022\016\n\006energy\030\007" +
+      " \001(\t\022\024\n\014energy_money\030\010 \001(\t\022\025\n\rservice_mo" +
+      "ney\030\t \001(\t\022\021\n\tend_cause\030\n \001(\t*\223\004\n\014TradeMs" +
       "gType\022\025\n\021MSG_TRADE_REQUEST\020\000\022\030\n\024MSG_TRAD" +
       "E_BEGINTRADE\020\001\022\031\n\025MSG_TRADE_CHARGE_INFO\020" +
       "\002\022\032\n\026MSG_TRADE_CHARGE_BEGIN\020\003\022\030\n\024MSG_TRA" +
@@ -12181,12 +20463,13 @@ public final class TradeMsgOuterClass {
       "N_RESP\020\014\022\034\n\030MSG_TRADE_CHARGE_INFO_DC\020\r\022\033" +
       "\n\027MSG_TRADE_GUNERROR_INFO\020\016\022\031\n\025MSG_TRADE" +
       "_SUPCARD_REQ\020\017\022 \n\034MSG_TRADE_BEGINTRADE_S" +
-      "UPCARD\020\020\022\032\n\026MSG_TRADE_CHARGE_INFO2\020\021*<\n\014" +
-      "ChargeResult\022\025\n\021CHARGERESULT_SUCC\020\000\022\025\n\021C" +
-      "HARGERESULT_FAIL\020\001*Q\n\tMediaType\022\023\n\017MEMBE" +
-      "RSHIP_CARD\020\000\022\n\n\006MOBILE\020\001\022\021\n\rMNG_CARD_CAR" +
-      "D\020\002\022\020\n\014PREPAID_CARD\020\003B\016\n\014com.ke.modelb\006p" +
-      "roto3"
+      "UPCARD\020\020\022\032\n\026MSG_TRADE_CHARGE_INFO2\020\021\022\027\n\023" +
+      "MSG_TRADE_PILE_INFO\020\022\022\023\n\017MSG_TRADE_EVENT" +
+      "\020\023*<\n\014ChargeResult\022\025\n\021CHARGERESULT_SUCC\020" +
+      "\000\022\025\n\021CHARGERESULT_FAIL\020\001*Q\n\tMediaType\022\023\n" +
+      "\017MEMBERSHIP_CARD\020\000\022\n\n\006MOBILE\020\001\022\021\n\rMNG_CA" +
+      "RD_CARD\020\002\022\020\n\014PREPAID_CARD\020\003B\016\n\014com.ke.mo" +
+      "delb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -12223,7 +20506,7 @@ public final class TradeMsgOuterClass {
     internal_static_com_ke_model_TradeMsgChargeBegin_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ke_model_TradeMsgChargeBegin_descriptor,
-        new java.lang.String[] { "Gun", "Serial", "Flag", });
+        new java.lang.String[] { "Gun", "Serial", "Flag", "Readings", });
     internal_static_com_ke_model_TradeMsgChargeEnd_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_com_ke_model_TradeMsgChargeEnd_fieldAccessorTable = new
@@ -12235,19 +20518,19 @@ public final class TradeMsgOuterClass {
     internal_static_com_ke_model_TradeMsgChargeEnd_ChargeInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ke_model_TradeMsgChargeEnd_ChargeInfo_descriptor,
-        new java.lang.String[] { "Serial", "Area", "MediaType", "Cardno", "BeginBd", "EndBd", "BeginBdFl", "EndBdFl", "ParkingPrice", "ParkingMoney", "BeginDate", "BeginTime", "EndDate", "EndTime", "BeginBalance", "RechargeMoney", "EndBalance", "ServiceMoney", "ServiceFl", "TradePrice", "TradePriceFl", "Gun", "EndCause", });
+        new java.lang.String[] { "Serial", "Area", "MediaType", "Cardno", "BeginBd", "EndBd", "BeginBdFl", "EndBdFl", "ParkingPrice", "ParkingMoney", "BeginDate", "BeginTime", "EndDate", "EndTime", "BeginBalance", "RechargeMoney", "EndBalance", "ServiceMoney", "ServiceFl", "TradePrice", "TradePriceFl", "Vin", "Gun", "EndCause", });
     internal_static_com_ke_model_TradeMsgChargeInfo_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_com_ke_model_TradeMsgChargeInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ke_model_TradeMsgChargeInfo_descriptor,
-        new java.lang.String[] { "Gun", "Ua", "Ub", "Uc", "Ia", "Ib", "Ic", "Energy", "Money", "Time", "Serial", });
+        new java.lang.String[] { "Gun", "Ua", "Ub", "Uc", "Ia", "Ib", "Ic", "P", "Q", "Energy", "Money", "Time", "Serial", "GunType", "SwitchState", "Readings", "Datatime", });
     internal_static_com_ke_model_TradeMsgChargeInfo2_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_com_ke_model_TradeMsgChargeInfo2_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ke_model_TradeMsgChargeInfo2_descriptor,
-        new java.lang.String[] { "Gun", "Soc", "RemainTm", "Serial", });
+        new java.lang.String[] { "Gun", "Soc", "RemainTm", "Serial", "Datatime", });
     internal_static_com_ke_model_TradeMsgGunInfo_descriptor =
       getDescriptor().getMessageTypes().get(7);
     internal_static_com_ke_model_TradeMsgGunInfo_fieldAccessorTable = new
@@ -12266,6 +20549,30 @@ public final class TradeMsgOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_ke_model_TradeMsgSupcardRequest_descriptor,
         new java.lang.String[] { "Cardtype", "Cardno", "Gun", });
+    internal_static_com_ke_model_TradeMsgPileInfo_descriptor =
+      getDescriptor().getMessageTypes().get(10);
+    internal_static_com_ke_model_TradeMsgPileInfo_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_ke_model_TradeMsgPileInfo_descriptor,
+        new java.lang.String[] { "RunState", "AlmState", "Temperature", "Humidity", "Datatime", });
+    internal_static_com_ke_model_TradeMsgEvent_descriptor =
+      getDescriptor().getMessageTypes().get(11);
+    internal_static_com_ke_model_TradeMsgEvent_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_ke_model_TradeMsgEvent_descriptor,
+        new java.lang.String[] { "Pilecode", "GunType", "Classno", "Typeno", "Ymd", "Hmsms", "Voltgrade", "Output", "MemberId0", "MemberId1", "MemberId2", "DoubleValue0", "DoubleValue1", "DoubleValue2", "DoubleValue3", "StateValue0", "StateValue1", "StateValue2", "StateValue3", "GroupName", "MemberName0", "MemberName1", "MemberName2", "CharInfo", });
+    internal_static_com_ke_model_TradeMsgChargeBegin_Inf_descriptor =
+      getDescriptor().getMessageTypes().get(12);
+    internal_static_com_ke_model_TradeMsgChargeBegin_Inf_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_ke_model_TradeMsgChargeBegin_Inf_descriptor,
+        new java.lang.String[] { "Pilecode", "Gun", "PaySerial", "Flag", "Readings", });
+    internal_static_com_ke_model_TradeMsgChargeEnd_Inf_descriptor =
+      getDescriptor().getMessageTypes().get(13);
+    internal_static_com_ke_model_TradeMsgChargeEnd_Inf_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_ke_model_TradeMsgChargeEnd_Inf_descriptor,
+        new java.lang.String[] { "Pilecode", "Gun", "PaySerial", "StartTime", "EndTime", "Readings", "Energy", "EnergyMoney", "ServiceMoney", "EndCause", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

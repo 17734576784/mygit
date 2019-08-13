@@ -8,6 +8,8 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.ke.model.Pilepara;
+
 /**
  * @author dbr
  * 
@@ -30,6 +32,12 @@ public interface PileMapper {
 
 	// 获取指定充电站下充电桩信息
 	List<Map<String, Object>> listPileInfo(String stationNo);
+	
+	// 获取指定运营商下充电桩信息
+	List<Pilepara> listPileByOperatorId(Integer operatorId);
+	
+	// 获取指定充电桩的运营商
+	int getOperatorIdByPileNo(String pileNo);
 
 	// 获取指定充电站下充电枪信息
 	List<Map<String, Object>> listGunInfo(String stationNo);

@@ -67,4 +67,14 @@ public class ScheduledTasks {
 	public void backUpChargeOrderTask() {
 		taskService.backUpChargeOrderTask();
 	}
+	
+	@Scheduled(cron = "0 */5 * * * ?")
+	public void pushHydropwerPileState() {
+		try {
+			taskService.pushHydropwerPileState();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

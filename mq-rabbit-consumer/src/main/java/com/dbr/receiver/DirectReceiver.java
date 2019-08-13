@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import com.dbr.model.User;
 
 @Component
-@RabbitListener(queues = "CalonDirectQueue")//CalonDirectQueue为队列名称
+@RabbitListener(queues = "CalonDirectQueue") // CalonDirectQueue为队列名称
 public class DirectReceiver {
 	
 	@RabbitHandler

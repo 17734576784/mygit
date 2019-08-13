@@ -35,7 +35,7 @@ public class Constant {
 	public static String SESSION_PREFIX = "session:";
 
 	/** session redis 缓存有效期 */
-	public static int SESSION_TIME_OUT = 600;
+	public static int SESSION_TIME_OUT = 60 * 30;
 	
 	/** session:token redis前缀 */
 	public static String SESSION_TOKEN_PREFIX = "session:token:";
@@ -143,20 +143,20 @@ public class Constant {
 	
 	/** 充电枪状态redis前缀 */
 	public static final String GUNSTATE = "gunstate:";
+	/** 充电桩状态redis前缀 */
+	public static final String PILESTATE = "pilestate:";
 	
 	/** 充电超时时间默认60秒 */
 	public static final int CHARGE_TIMEOUT = 60;
 	
 	/** 运营商配置reids前缀 */
-	public static final String OPERATORCONFIG_PREFIX = "OperatorConfig:"; 
-	
+	public static final String OPERATORCONFIG_PREFIX = "OperatorConfig:";
+	/** 运营商reids前缀 */
+	public static final String OPERATOR = "operator:";
 	/** 程序运行元年 */
 	public static final int INIT_YEAR = 2019;
-	
-	
 	/** 充电结束原因reids */
 	public static final String ENDCAUSE_DICTION = "Diction:充电结束原因_235";
-
 	public static final int REDIS_TIMEOUT = 0;
 	/** 充电开始推送队列 */
 	public static final String CHARGE_START_QUEUE = "CHARGE_START_QUEUE";
@@ -164,6 +164,28 @@ public class Constant {
 	public static final String CHARGE_OVER_QUEUE = "CHARGE_OVER_QUEUE";
 	/** 充电SOC推送队列 */
 	public static final String CHARGE_SOC_QUEUE = "CHARGE_SOC_QUEUE";
+	/** 充电桩告警推送队列 */
+	public static final String CHARGE_ALARM_QUEUE = "CHARGE_ALARM_QUEUE";
+
+	public static final short TWO = 2;
+	public static final short ONE = 1;
+	public static final int THREE = 3;
+	public static final short FOUR = 4;
+	public static final short FIVE = 5;
+	public static final short SIX = 6;
+
+	public static final int NUM_514 = 514; // 急停告警
+	public static final int NUM_701 = 701; // 通信告警
+	public static final int NUM_911 = 911; // 充电桩过温告警
+	public static final int NUM_410 = 410; // 停电告警
+	public static final int NUM_915 = 915; // 湿度告警
+	public static final int NUM_414 = 414; // 充电口过压
+	public static final int NUM_423 = 423; // 充电口过流
+	public static final int NUM_417 = 417; // 充电口欠压
+	public static final int NUM_313 = 313; // 交流接触器告警
+	public static final int NUM_910 = 910; // CP电压越限
+	public static final int NUM_614 = 614; // 车辆S2未闭合
+	public static final int NUM_1199 = 1199;// 水口故障
 
 	
 }

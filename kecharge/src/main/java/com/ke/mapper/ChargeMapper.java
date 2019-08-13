@@ -37,6 +37,9 @@ public interface ChargeMapper {
 	// 获取充电记录
 	Map<String, Object> getPileChargeRcd(Map<String, Object> param);
 	
+	// 获取水电桩充电记录
+	Map<String, Object> getPileRecord(Map<String, Object> param);
+		
 	// 轮询推送充电结束记录
 	List<Map<String, Object>> listPileChargeRcd(Map<String, Object> param);
 	

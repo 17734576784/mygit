@@ -12,12 +12,10 @@
  */
 package com.huawei.service.signalingDelivery;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.client.utils.DateUtils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -49,76 +47,66 @@ public class PostAsynCommandV4 {
 //      "status" : "ONLINE"
 //  }
 
-        // Two-Way Authentication
-        HttpsUtil httpsUtil = new HttpsUtil();
-        httpsUtil.initSSLConfigForTwoWay();
+		// Two-Way Authentication
+		HttpsUtil httpsUtil = new HttpsUtil();
+		httpsUtil.initSSLConfigForTwoWay();
 
-        // Authentication，get token
-        String accessToken = login(httpsUtil);
+		// Authentication，get token
+		String accessToken = login(httpsUtil);
 
-        //Please make sure that the following parameter values have been modified in the Constant file.
-        String urlPostAsynCmd = Constant.POST_ASYN_CMD;
-        String appId = Constant.APPID;
-
-        //please replace the deviceId, when you use the demo.
-        String deviceId = "598c9256-6b4f-43c0-b528-832464a4f8c9";
+		// Please make sure that the following parameter values have been modified in
+		// the Constant file.
+		String urlPostAsynCmd = Constant.POST_ASYN_CMD;
+		String appId = Constant.APPID;
+		
+		// please replace the deviceId, when you use the demo.
+		String deviceId = "e5064b02-c760-4770-b4d2-1041234758c6";
 //        String callbackUrl = Constant.REPORT_CMD_EXEC_RESULT_CALLBACK_URL;
-        String callbackUrl = "https://222.222.60.178:18213/chinatelecom/reportCmdExecResult";
+		String callbackUrl = "https://39.105.158.202:443/chinatelecom/reportCmdExecResult";
 
         //please replace the following parameter values, when you use the demo.
         //And those parameter values must be consistent with the content of profile that have been preset to IoT platform.
         //The following parameter values of this demo are use the watermeter profile that already initialized to IoT platform.
-        String serviceId = "KeLucentyCommand";
-        String method = "KE_LUCENTY_CMD";
-//        {"AFN":19 ,"IMSI":"xxx" ,"CNT":"xxx", "DIR":"xxx","ReportBaseTime":"xxx"," ReportIntervalHours":"xxx"}
-//        serviceId = "SuntrontWaterMeterAlarm";
-//        method = "SET_HIGHFLOW_ALARM";
-//        
-//        serviceId = "SuntrontValve";
-//        method = "SET_Control_Valve";
-        
-        JSONObject json = new JSONObject();
-//        json.put("valveStatus", 2);
-//        json.put("highFlow ", 190);        
-        byte[] data = new byte[] {
-        		68,32,00,32,00,68,0x5b,00,00,00,00,40,0x0C,73,01,01,01,04,21,16
-        };
-		json.put("cmdValue", "6832003200685b00000000400c73010101042116");
-        	//"6832003200685b00000000400c73010101042116"
-//        json.put("IMSI", "00000867726032982805");
-//        json.put("CNT", 3);
-//        json.put("DIR", 0);
-////        json.put("ReportBaseTime", DateUtils.formatDate(new Date(), "YYYY-MM-dd HH:mm:ss"));
-////        json.put("ReportIntervalHours", 1);
-//        
-//        json.put("ValveOperate", 1);
+		String serviceId = "KeLucentyCommand";
+		String method = "KE_LUCENTY_CMD";
+		String[] cmds = {
+//				"68D600D600684A90804E0A0A047201010208810015000121010104010110000101400001010114010104141E1E1E1E1E1E000000000000000000003516",
+//				"68D600D600684A90804E0A0A047102010208C10015000121010104010110020101400201010116010104161E1E1E1E1E1E000000000000000000007D16",
+//				"6816011601684A90804E0A0A0473040102084100150001210101080101010A0101010B0101080B0101010C0101040C0101100C0101400C0101010D1E1E1E1E1E1E000000000000000000004516"
+//				,
+				"6832003200685B90800200020C7101010103F216"
+				};
 
-        ObjectNode paras = JsonUtil.convertObject2ObjectNode(json);
-      
-        Map<String, Object> paramCommand = new HashMap<>();
-        paramCommand.put("serviceId", serviceId);
-        paramCommand.put("method", method);
-        paramCommand.put("paras", paras);      
-        
-        Map<String, Object> paramPostAsynCmd = new HashMap<>();
-        paramPostAsynCmd.put("deviceId", deviceId);
-        paramPostAsynCmd.put("command", paramCommand);
-        paramPostAsynCmd.put("callbackUrl", callbackUrl);
-        
-        String jsonRequest = JsonUtil.jsonObj2Sting(paramPostAsynCmd);
-                
-        Map<String, String> header = new HashMap<>();
-        header.put(Constant.HEADER_APP_KEY, appId);
-        header.put(Constant.HEADER_APP_AUTH, "Bearer" + " " + accessToken);
-        
-        HttpResponse responsePostAsynCmd = httpsUtil.doPostJson(urlPostAsynCmd, header, jsonRequest);
+		for (int i = 0; i < cmds.length; i++) {
+			JSONObject json = new JSONObject();
+			json.put("cmdValue", cmds[i]);
+			ObjectNode paras = JsonUtil.convertObject2ObjectNode(json);
 
-        String responseBody = httpsUtil.getHttpResponseBody(responsePostAsynCmd);
+			Map<String, Object> paramCommand = new HashMap<>();
+			paramCommand.put("serviceId", serviceId);
+			paramCommand.put("method", method);
+			paramCommand.put("paras", paras);
 
-        System.out.println("PostAsynCommand, response content:");
-        System.out.print(responsePostAsynCmd.getStatusLine());
-        System.out.println(responseBody);
-        System.out.println();
+			Map<String, Object> paramPostAsynCmd = new HashMap<>();
+			paramPostAsynCmd.put("deviceId", deviceId);
+			paramPostAsynCmd.put("command", paramCommand);
+			paramPostAsynCmd.put("callbackUrl", callbackUrl);
+
+			String jsonRequest = JsonUtil.jsonObj2Sting(paramPostAsynCmd);
+
+			Map<String, String> header = new HashMap<>();
+			header.put(Constant.HEADER_APP_KEY, appId);
+			header.put(Constant.HEADER_APP_AUTH, "Bearer" + " " + accessToken);
+
+			HttpResponse responsePostAsynCmd = httpsUtil.doPostJson(urlPostAsynCmd, header, jsonRequest);
+
+			String responseBody = httpsUtil.getHttpResponseBody(responsePostAsynCmd);
+
+			System.out.println("PostAsynCommand, response content:");
+			System.out.print(responsePostAsynCmd.getStatusLine());
+			System.out.println(responseBody);
+			System.out.println();
+		}
     }
 
     /**

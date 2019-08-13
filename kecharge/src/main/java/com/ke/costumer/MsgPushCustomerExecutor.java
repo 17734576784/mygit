@@ -26,13 +26,18 @@ import com.ke.mapper.ChargeMonitorMapper;
 import com.ke.mapper.MemberOrdersMapper;
 import com.ke.model.ChargeMonitor;
 import com.ke.model.ChargeSocMsg;
-import com.ke.model.ChargeStartMsg;
 import com.ke.model.MemberOrders;
+import com.ke.model.Operator;
+import com.ke.model.OperatorConfig;
+import com.ke.model.TradeMsgOuterClass;
+import com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf;
+import com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf;
+import com.ke.model.TradeMsgOuterClass.TradeMsgEvent;
 import com.ke.service.IChargeService;
-import com.ke.utils.ConverterUtil;
-import com.ke.utils.DateUtil;
+import static com.ke.utils.ConverterUtil.*;
 import com.ke.utils.JedisUtil;
 import com.ke.utils.JsonUtil;
+import com.ke.utils.SerializeUtil;
 
 /** 
 * @ClassName: MsgPushCustomerExecutor 
@@ -63,24 +68,62 @@ public class MsgPushCustomerExecutor {
 	public void chargeStartPush(Object obj) {
 		JSONObject json = new JSONObject();
 		try {
+			
+			TradeMsgChargeBegin_Inf inf = TradeMsgOuterClass.TradeMsgChargeBegin_Inf.parseFrom(obj.toString().getBytes());
 			// 解析推送充电记录中的数据
-			ChargeStartMsg chargeStartMsg = JsonUtil.convertJsonStringToObject(obj.toString(), ChargeStartMsg.class);
-			if (chargeStartMsg == null) {
+			if (inf == null) {
 				return;
 			}
 
-			String paySerialNumber = memberOrdersMapper.getPaySerialNumber(chargeStartMsg.getChargeSerialNumber());
+			String paySerialNumber = inf.getPaySerial();
 			if (null == paySerialNumber) {
 				return;
 			}
+			
+			MemberOrders order = memberOrdersMapper.getmemberOrders(paySerialNumber);
+			if(null == order){
+				return;
+			}
+			
+			String pileNo = order.getPileCode();
+			if (null == pileNo || pileNo.isEmpty()) {
+				return;
+			}
 
+			/** 验证运营商配置是否存在 */
+			int operatorId = order.getOperatorId();
+			String key = Constant.OPERATORCONFIG_PREFIX + operatorId;
+			OperatorConfig operatorConfig = (OperatorConfig) SerializeUtil.deserialize(JedisUtil.get(key.getBytes()));
+			if (null == operatorConfig) {
+				return;
+			}
+			
 			// 验证流水号合法性
 			boolean checkWasteNo = CommFunc.checkWasteno(paySerialNumber);
 			if (!checkWasteNo) {
 				return;
 			}
+			
+			key = Constant.OPERATOR + operatorId;
+			Map<String, String> operatorMap = JedisUtil.hgetAll(key);
+			if (operatorMap.isEmpty()) {
+				return;
+			}
+			Operator operator = JsonUtil.jsonString2SimpleObj(operatorMap, Operator.class);
+		
+			short clientType = operator.getClientType();
+			short infType = operator.getInfType();
+			/**
+			 * client_type 客户端类型 1:app 2:微信小程序 4:充电接口 按位操作 
+			 * inf_type 客户端是接口方式时，接口类型 1:小蜗接口 2:陆游水电桩接口 3:CEC互联互通接口
+			 */
+			if (clientType == Constant.FOUR && infType == Constant.TWO) {
+				json.put("readings", roundBase(toDouble(inf.getReadings()), 4));
+				json.put("pileNo", inf.getPilecode());
+				json.put("gunNo", inf.getGun());
+			}
 
-			int result = chargeStartMsg.getResut();
+			int result = toInt(inf.getFlag());
 			json.put("serialNumber", paySerialNumber);
 			json.put("chargeFlag", (1 - result));
 
@@ -116,38 +159,65 @@ public class MsgPushCustomerExecutor {
 		JSONObject json = new JSONObject();
 		try {
 			
+			TradeMsgChargeEnd_Inf inf = TradeMsgOuterClass.TradeMsgChargeEnd_Inf.parseFrom(obj.toString().getBytes());
 			// 解析推送充电记录中的数据
-			String paySerialNumber = obj.toString();
-			MemberOrders order = memberOrdersMapper.getmemberOrders(paySerialNumber);
-			String pileNo = order.getPileCode();
-			if (null == pileNo || pileNo.isEmpty()) {
+			String paySerialNumber = inf.getPaySerial();
+			String key = Constant.ORDER + paySerialNumber;
+			Map<String, String> orderMap = JedisUtil.hgetAll(key);
+			if (orderMap.isEmpty()) {
 				return;
 			}
-
+					
+			
+			int operatorId = toInt(orderMap.get("operatorId"));
+			key = Constant.OPERATOR + operatorId;
+			Map<String, String> operatorMap = JedisUtil.hgetAll(key);
+			if (operatorMap.isEmpty()) {
+				return;
+			}
+			Operator operator = JsonUtil.jsonString2SimpleObj(operatorMap, Operator.class);
+								
+			/** 验证运营商配置是否存在 */
+			key = Constant.OPERATORCONFIG_PREFIX + operatorId;
+			OperatorConfig operatorConfig = (OperatorConfig) SerializeUtil.deserialize(JedisUtil.get(key.getBytes()));
+			if (null == operatorConfig) {
+				return;
+			}
+			
 			// 验证流水号合法性
 			boolean checkWasteNo = CommFunc.checkWasteno(paySerialNumber);
 			if (!checkWasteNo) {
 				return;
 			}
-
-
+			
 			Map<String, String> endCauseMap = JedisUtil.hgetAll(Constant.ENDCAUSE_DICTION);
-			String endCause = endCauseMap.get(order.getEndCause());
+			String endCause = endCauseMap.get(orderMap.get("endCause"));
 			if (null == endCause || endCause.equals("")) {
 				endCause = "未知";
 			}
 
 			json.put("serialNumber", paySerialNumber);
-			json.put("pileNo", order.getPileCode());
-			json.put("gunNo", order.getGunId());
-			json.put("startDate", DateUtil.formatTimesTampDate(order.getChargebeginDate()));
-			json.put("endDate", DateUtil.formatTimesTampDate(order.getChargeendDate()));
-
-			json.put("totalElectricity", ConverterUtil.roundTosString(order.getChargeDl(), 2));
-			json.put("chargeMoney", ConverterUtil.roundTosString(order.getTradeMoney() * 100D, 2));
-			json.put("serviceMoney", ConverterUtil.roundTosString(order.getServiceMoney() * 100D, 2));
-			json.put("endCause", endCause);
-
+			json.put("pileNo", inf.getPilecode());
+			json.put("gunNo", inf.getGun());
+			json.put("startDate", inf.getStartTime());
+			json.put("endDate", inf.getEndTime());
+			short clientType = operator.getClientType();
+			short infType = operator.getInfType();
+			/**
+			 * client_type 客户端类型 1:app 2:微信小程序 4:充电接口 按位操作 
+			 * inf_type 客户端是接口方式时，接口类型 1:小蜗接口 2:陆游水电桩接口 3:CEC互联互通接口
+			 */
+			if (clientType == Constant.FOUR && infType == Constant.TWO) {
+				json.put("readings", inf.getReadings());
+			}
+			else if (clientType == Constant.FOUR && infType == Constant.ONE) {
+				json.put("totalElectricity", roundTosString(toDouble(inf.getEnergy()), 2));
+				json.put("chargeMoney", roundTosString(toDouble(inf.getEnergyMoney()) * 100D, 2));
+				json.put("serviceMoney", roundTosString(toDouble(inf.getServiceMoney()) * 100D, 2));
+				json.put("endCause", endCause);
+			}else {
+				return;
+			}
 			LoggerUtil.logger(LogName.CHARGE).info("接收充电结束消息,接收内容:{}", json.toString());
 
 			// 更新接口充电记录中请求结束充电
@@ -168,6 +238,13 @@ public class MsgPushCustomerExecutor {
 		}
 	}
 	
+	/** 
+	* 推送直流桩首次上报SOC  
+	* @Title: chargeSocPush
+	* @param @param obj    设定文件 
+	* @return void    返回类型 
+	* @throws 
+	*/
 	public void chargeSocPush(Object obj) {
 		JSONObject json = new JSONObject();
 		try {
@@ -175,7 +252,7 @@ public class MsgPushCustomerExecutor {
 			if (chargeSocMsg == null) {
 				return;
 			}
-						
+
 			// 解析推送直流首次充电信息数据
 			String paySerialNumber = memberOrdersMapper.getPaySerialNumber(chargeSocMsg.getChargeSerialNumber());
 			if (null == paySerialNumber) {
@@ -185,7 +262,7 @@ public class MsgPushCustomerExecutor {
 			if (chargeMonitor.getSocPush() != null && chargeMonitor.getSocPush() == Constant.PUSHED) {
 				return;
 			}
- 			
+
 			// 验证流水号合法性
 			boolean checkWasteNo = CommFunc.checkWasteno(paySerialNumber);
 			if (!checkWasteNo) {
@@ -208,5 +285,33 @@ public class MsgPushCustomerExecutor {
 			return;
 		}
 	}
+	
+	/** 
+	* 水电桩告警推送
+	* @Title: hydropwerAlarmPush
+	* @param @param obj    设定文件 
+	* @return void    返回类型 
+	* @throws 
+	*/
+	public void hydropwerAlarmPush(Object obj) {
+		JSONObject json = new JSONObject();
+		try {
+			TradeMsgEvent inf = TradeMsgOuterClass.TradeMsgEvent.parseFrom(obj.toString().getBytes());
+			if (null == inf) {
+				return;
+			}
 
+			json.put("pileNo", inf.getPilecode());
+			json.put("alarm",inf.getTypeno());
+
+			LoggerUtil.logger(LogName.CHARGE).info("接收水电桩告警推送消息,接收内容:{}", json.toString());
+			if (!chargeService.SendHydroPowerAlarm(json, Constant.RETRY)) {
+				LoggerUtil.logger(LogName.ERROR).error("水电桩告警推送消息发送失败," + json);
+			}
+		} catch (Exception e) {
+			LoggerUtil.logger(LogName.ERROR).error("水电桩告警推送消息发送失败,有异常信息!" + obj, e);
+			e.printStackTrace();
+			return;
+		}
+	}
 }

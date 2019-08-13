@@ -404,16 +404,18 @@ public class ComntMsgProc {
 		return getRecvMsgI(uuid, finish_flag, ret_vect);
 	}
 	
-	public synchronized static int getRecvMsg(String user_name, int user_id1, int user_id2, 
-											  boolean finish_flag, ArrayList<ComntMsg.MSG_SERVER_STRUCT> ret_vect) {
+	public synchronized static int getRecvMsg(String user_name, int user_id1, int user_id2, boolean finish_flag,
+			ArrayList<ComntMsg.MSG_SERVER_STRUCT> ret_vect) {
 		ComntMsgProc msgproc = ComntProc.getMsgProc();
-		if (msgproc == null) 	return MSGSTEP_END;
-			
-		ComntNetMsg 			net_msg  = msgproc.findNoEndNetMsg(user_name, user_id1, user_id2);
-		if (net_msg == null) 	return MSGSTEP_END;
-		
+		if (msgproc == null)
+			return MSGSTEP_END;
+
+		ComntNetMsg net_msg = msgproc.findNoEndNetMsg(user_name, user_id1, user_id2);
+		if (net_msg == null)
+			return MSGSTEP_END;
+
 		return getRecvMsgI(net_msg.msg_send.msg_head.uuid, finish_flag, ret_vect);
-	}	
+	}
 	
 	public synchronized static int getRecvMsgTimeOut(int uuid) {
 		ComntMsgProc msgproc = ComntProc.getMsgProc();
@@ -679,7 +681,6 @@ public class ComntMsgProc {
 	* @throws 
 	*/
 	private static void sendChargeOver(TRADE_CHARGE_END treade_charge_end) {
-		// TODO Auto-generated method stub
 		JSONObject json = new JSONObject();
 		try {
 			// 解析推送充电记录中的数据

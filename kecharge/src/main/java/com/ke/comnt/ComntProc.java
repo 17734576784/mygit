@@ -192,10 +192,10 @@ public class ComntProc implements Runnable{
 
 		int read_val  = 0;
 
-//		for (int i = 0; i < 10; i++) {
-//			read_val = readProc();			
-//			if (read_val <= 0) break;
-//		}		
+		for (int i = 0; i < 10; i++) {
+			read_val = readProc();			
+			if (read_val <= 0) break;
+		}		
 
 		writeProc();
 

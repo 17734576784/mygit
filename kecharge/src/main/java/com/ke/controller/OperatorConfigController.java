@@ -62,4 +62,10 @@ public class OperatorConfigController {
 	}
 	
 	
+	@RequestMapping("/listOperatorTest.json")
+	public String listOperatorTest() {
+		return this.operatorConfigService.listOperatorTest().toJSONString();
+	}
+	
+	
 }

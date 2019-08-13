@@ -3,18 +3,17 @@ package com.ke.model;
 import java.io.Serializable;
 
 public class OperatorConfig implements Serializable{
-	
     /** 
 	* @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 
 	*/ 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -636493284633129168L;
 
 	private Integer id;
 
     private Integer operatorId;
-    
+
     private String operatorLoginname;
-    
+
     private Integer memberId;
 
     private Byte useFlag;
@@ -33,9 +32,14 @@ public class OperatorConfig implements Serializable{
 
     private String chargeDcInfoUrl;
 
-    private String serialnumberPrefix;
+    private String chargeHeartUrl;
 
+    private String chargeAlramUrl;
+
+    private String serialnumberPrefix;
+    
     private String memberPhone;
+
     /**
 	 * @return the memberPhone
 	 */
@@ -56,6 +60,30 @@ public class OperatorConfig implements Serializable{
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getOperatorId() {
+        return operatorId;
+    }
+
+    public void setOperatorId(Integer operatorId) {
+        this.operatorId = operatorId;
+    }
+
+    public String getOperatorLoginname() {
+        return operatorLoginname;
+    }
+
+    public void setOperatorLoginname(String operatorLoginname) {
+        this.operatorLoginname = operatorLoginname == null ? null : operatorLoginname.trim();
+    }
+
+    public Integer getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(Integer memberId) {
+        this.memberId = memberId;
     }
 
     public Byte getUseFlag() {
@@ -122,62 +150,27 @@ public class OperatorConfig implements Serializable{
         this.chargeDcInfoUrl = chargeDcInfoUrl == null ? null : chargeDcInfoUrl.trim();
     }
 
-	public Integer getMemberId() {
-		return memberId;
-	}
+    public String getChargeHeartUrl() {
+        return chargeHeartUrl;
+    }
 
-	public void setMemberId(Integer memberId) {
-		this.memberId = memberId;
-	}
+    public void setChargeHeartUrl(String chargeHeartUrl) {
+        this.chargeHeartUrl = chargeHeartUrl == null ? null : chargeHeartUrl.trim();
+    }
 
-	public String getSerialnumberPrefix() {
+    public String getChargeAlramUrl() {
+        return chargeAlramUrl;
+    }
+
+    public void setChargeAlramUrl(String chargeAlramUrl) {
+        this.chargeAlramUrl = chargeAlramUrl == null ? null : chargeAlramUrl.trim();
+    }
+
+    public String getSerialnumberPrefix() {
         return serialnumberPrefix;
     }
 
     public void setSerialnumberPrefix(String serialnumberPrefix) {
         this.serialnumberPrefix = serialnumberPrefix == null ? null : serialnumberPrefix.trim();
     }
-
-	/**
-	 * @return the operatorId
-	 */
-	public Integer getOperatorId() {
-		return operatorId;
-	}
-
-	/**
-	 * @param operatorId the operatorId to set
-	 */
-	public void setOperatorId(Integer operatorId) {
-		this.operatorId = operatorId;
-	}
-
-	/**
-	 * @return the operatorLoginname
-	 */
-	public String getOperatorLoginname() {
-		return operatorLoginname;
-	}
-
-	/**
-	 * @param operatorLoginname the operatorLoginname to set
-	 */
-	public void setOperatorLoginname(String operatorLoginname) {
-		this.operatorLoginname = operatorLoginname;
-	}
-
-	/** (非 Javadoc) 
-	* <p>Title: toString</p> 
-	* <p>Description: </p> 
-	* @return 
-	* @see java.lang.Object#toString() 
-	*/
-	@Override
-	public String toString() {
-		return "OperatorConfig [id=" + id + ", operatorId=" + operatorId + ", operatorLoginname=" + operatorLoginname
-				+ ", memberId=" + memberId + ", useFlag=" + useFlag + ", username=" + username + ", password="
-				+ password + ", token=" + token + ", loginUrl=" + loginUrl + ", chargeStartUrl=" + chargeStartUrl
-				+ ", chargeOverUrl=" + chargeOverUrl + ", chargeDcInfoUrl=" + chargeDcInfoUrl + ", serialnumberPrefix="
-				+ serialnumberPrefix + ", memberPhone=" + memberPhone + "]";
-	}
 }

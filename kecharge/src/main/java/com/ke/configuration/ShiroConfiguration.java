@@ -117,16 +117,14 @@ public class ShiroConfiguration {
 		filterChainDefinitionMap.put("/css/**", "anon");
 		filterChainDefinitionMap.put("/images/**", "anon");
 
-
 		filterChainDefinitionMap.put("/error.json", "anon");
 		filterChainDefinitionMap.put("/login.json", "anon");
 		filterChainDefinitionMap.put("/manage/**", "anon");
 		filterChainDefinitionMap.put("/pile/**", "anon");
 
-
 		List<Map<String, String>> list = shiroMapper.listUrlPermission();
 		for (Map<String, String> map : list) {
-			filterChainDefinitionMap.put(map.get("url"), "perms[" + map.get("permission") + "]");
+			filterChainDefinitionMap.put(map.get("menuurl"), "perms[" + map.get("permission") + "]");
 		}
 		// 对所有用户认证
 		filterChainDefinitionMap.put("/**", "authc");

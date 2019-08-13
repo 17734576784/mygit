@@ -23,7 +23,7 @@ spring:
     # Redis数据库索引（默认为0）
     database: 2  
     # Redis服务器地址
-    host: 192.168.19.8
+    host: 127.0.0.1
     # Redis服务器连接端口
     port: 6379  
     # Redis服务器连接密码（默认为空）
@@ -45,9 +45,9 @@ spring:
     driverClassName: com.mysql.jdbc.Driver
     driver-class-name: com.mysql.jdbc.Driver
     platform: mysql
-    url: jdbc:mysql://192.168.19.8:3306/chargepara?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://127.0.0.1:3306/chargepara?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
-    password: keyd*%@#1095
+    password: root
     initialSize: 5
     minIdle: 5
     maxActive: 20
@@ -68,6 +68,8 @@ spring:
 interceptor: 
   urls: /operatorconfig/*.json,/chargemonitor/*.json,/manage/*.json,/pile/*.json
 
-webservice_ip: 192.168.19.4
+webservice_ip: 192.168.19.10
 webservice_port: 17206
+
+hydropwer_operator: 82
   

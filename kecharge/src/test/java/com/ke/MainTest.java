@@ -19,9 +19,12 @@ import java.util.stream.Collectors;
 import com.alibaba.fastjson.JSONObject;
 import com.ke.http.HttpsClientUtil;
 import com.ke.http.StreamClosedHttpResponse;
+import com.ke.model.MemberOrders;
 import com.ke.model.Substpara;
 import com.ke.model.TradeMsgOuterClass;
 import com.ke.utils.ConverterUtil;
+import com.ke.utils.JedisUtil;
+import com.ke.utils.JsonUtil;
 
 /** 
 * @ClassName: MainTest 
@@ -41,12 +44,35 @@ public class MainTest {
 	* @throws 
 	*/
 	public static void main(String[] args) throws Exception {
+		
+		
+//		byte[] tt = new byte[] {10, 12, 75, 69, 48, 48, 48, 48, 48, 48, 48, 48, 54, 51, 16, 1, 26, 12, 48, 48, 56, 57,
+//				48, 48, 48, 48, 48, 48, 57, 48, 41, 118, 113, 27, 13, -17, -65, -67, 45, -17, -65, -67, 63};	
+		byte[] tt = new byte[] {10, 12, 75, 69, 48, 48, 48, 48, 48, 48, 48, 48, 54, 51, 16, 1, 26, 10, 48, 48, 56, 57, 48, 48, 48, 48, 57,
+		 48, 41, 118, 113, 27, 13, -17, -65, -67, 45, -17, -65, -67, 63};
+		try {
+			TradeMsgOuterClass.TradeMsgChargeBegin_Inf i = TradeMsgOuterClass.TradeMsgChargeBegin_Inf.parseFrom(tt);
+			System.out.println(i.getPaySerial() +"  "+ i.getFlag() +"  "+i.getReadings());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
 		// TODO Auto-generated method stub
-		System.out.println(Runtime.getRuntime().availableProcessors());
-		
-		
-		TradeMsgOuterClass.TradeMsg.Builder tradeMsgBuilder = TradeMsgOuterClass.TradeMsg.newBuilder();
-		
+		 HttpsClientUtil http = new HttpsClientUtil();
+		 String url = "http://127.0.0.1:19999/ydsupport/excel/export";
+		 Map<String,String> param = new HashMap<>();
+		 param.put("title", "test");
+		 param.put("fileName", "角色档案1");
+//		 param.put("head", new String[]{"序号","角色名称","角色描述"});
+//		 param.put("beanPropertys", .toString());
+		 param.put("className", "com.support.serviceimpl.system.RoleFlowServiceImpl");
+		 param.put("methodName", "listRoleFlow");
+		 param.put("methodParam", "");
+  		 	 
+		 StreamClosedHttpResponse re = http.doGetWithParasGetStatusLine(url, param, null);
+		 System.out.println(re.getContent());
 //
 //		int size = 50000;
 //		List<Substpara> list = new LinkedList<Substpara>();

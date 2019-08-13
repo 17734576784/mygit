@@ -25,7 +25,7 @@ import org.springframework.stereotype.Component;
 *  
 */
 @Component
-@DependsOn({"jedisUtils"})
+@DependsOn({"jedisUtil"})
 public class MsgPushCustomerPool {
 	
 	@Autowired
@@ -49,6 +49,12 @@ public class MsgPushCustomerPool {
 				new BasicThreadFactory.Builder().namingPattern("chargeSoc-schedule-pool-%d").daemon(true).build());
 		SocPushService.execute(new SocPushCustomerThread(msgPushCustomerExecutor));
 
+		/** 创建水电桩报警推送充线程池 */
+		ScheduledExecutorService alaramPushService = new ScheduledThreadPoolExecutor(1,
+				new BasicThreadFactory.Builder().namingPattern("pilealarm-schedule-pool-%d").daemon(true).build());
+		alaramPushService.execute(new AlarmPushCustomerThread(msgPushCustomerExecutor));
+		
+		System.out.println("线程池启动成功");
 	}
 
 }

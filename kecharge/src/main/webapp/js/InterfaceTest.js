@@ -11,9 +11,10 @@ $(function() {
 //初始化下拉框
 function initSelect() {
 	$("#partnerId").empty();
-	$.post("manage/listOperator.json", "", function(data) {
+	$.post("manage/listOperatorTest.json", "", function(data) {
 		if (data.status == 0) {
 			partnerInfo = data.rows;
+			console.log(partnerInfo)
 			var jsonData = data.rows;
 			var html = "";
 			for ( var k = 0; k < jsonData.length; k++) {
@@ -58,8 +59,8 @@ function partnerLoginSub(param) {
 	$("#partnerInterfa").css("display", "inline-block");
 	$("#keInterfa").css("display", "none")
 	var paramJson = {};
-	paramJson.userName = partnerInfo[param - 1].loginPartneruserName;
-	paramJson.passWord = partnerInfo[param - 1].loginPartnerpassWord;
+	paramJson.userName = partnerInfo[param].loginPartneruserName;
+	paramJson.passWord = partnerInfo[param].loginPartnerpassWord;
 
 	$.post("pile/login.json", {
 		queryJsonStr : jsonString.json2String(paramJson)
@@ -136,6 +137,68 @@ function partnerSelectChange(value) {
 			"remainSecond  " : "0",
 			"SOC" : "10"
 		})
+	}else if (partnerInterfa == 4) {
+		interfaFun("pile/chargeStart.json", {
+			"serialNumber":"201601011001",
+			"pileNo": "KE0000000001",
+			"gunNo":"1",
+			"chargeFlag":"1",
+			"readings": "120.3212"
+		})
+	}else if (partnerInterfa == 5) {
+		interfaFun("pile/chargeOver.json", {
+			"serialNumber":"201601011001",
+			"pileNo":"KE0000000001",
+			"gunNo":"1",
+			"startDate":"2016-01-01 09:10:01",
+			"endDate":"2016-02-01 15:04:02",
+			"readings ":10.2
+		})
+	}else if (partnerInterfa == 6) {
+		interfaFun("pile/gunAlarm.json", {
+			"pileNo":"KE0000000001",
+			"gunNo":"1",
+			"gunType":1,
+			"alarm":"1"
+		})
+	}else if (partnerInterfa == 7) {
+		interfaFun("pile/pileState.json", {
+		    "pileNo": "KE0000000001",
+			"pileStatus": "1",
+			"temperature": "38",
+			"humidity": "43",
+			"rows":[
+				{
+					  "gunNo":1,
+					  "gunType":1,
+					  "switchState":1,
+					  "voltage": "220",
+					  "current": "5.2",
+					  "power": "12.34",
+					  "readings": "120.3212",
+					  "time": "2019-08-01 12:20:23 "
+				},
+				{
+					"gunNo":2,
+					"gunType":1,
+					"switchState":1,
+					  "voltage": "220",
+					"current": "5.2",
+					"power": "12.34",
+					"readings": "120.3212",
+					"time": "2019-08-01 12:20:23 "
+				},
+				{
+					"gunNo":3,
+					"gunType":2,
+					"switchState":1,
+					"voltage ": "0",
+					"current": "0",
+					"power": "0",
+					"readings": "120.3212",
+					"time": "2019-08-01 12:20:23 "
+				}] 
+		})
 	}
 }
 
@@ -185,10 +248,23 @@ function keSelectChange(value) {
 	} else if (keInterfa == 12) {
 		interfaFun("listGunState.json", {"stationNo": "KE0000000001"})
 	} else if (keInterfa == 13) {
-		interfaFun(" listChargeOrders.json", {
+		interfaFun("listChargeOrders.json", {
 			"stationNo":"00000111",
 			"startDate":"20180110",
 			"endDate":"20181010" 
+		})
+	}else if (keInterfa == 14) {
+		interfaFun("chargeControl.json", {
+			"pileNo": "KE0000000001",
+			"gunNo": "1",
+			"serialNumber": "2016010110001",
+			"cmd": "1" 
+		})
+	}else if (keInterfa == 15) {
+		interfaFun("getPileRecord.json", {
+			"pileNo": "KE0000000001",
+			"gunNo": "1",
+			"serialNumber": "2016010110001"	 
 		})
 	}
 }

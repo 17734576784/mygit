@@ -43,11 +43,11 @@ public class StartPushCustomerThread implements Runnable {
 	public void run() {
 		while (true) {
 			if (startPushCustomerRunFlag) {
-				Object chargeStart = null;
+				Object tradeMsg = null;
 				try {
-					chargeStart = JedisUtil.brpop(Constant.CHARGE_START_QUEUE, Constant.REDIS_TIMEOUT);
-					if (null != chargeStart) {
-						msgPushCustomerExecutor.chargeStartPush(chargeStart);
+					tradeMsg = JedisUtil.brpop(Constant.CHARGE_START_QUEUE, Constant.REDIS_TIMEOUT);
+					if (null != tradeMsg) {
+						msgPushCustomerExecutor.chargeStartPush(tradeMsg);
 					}
 				} catch (Exception e) {
 					e.printStackTrace();

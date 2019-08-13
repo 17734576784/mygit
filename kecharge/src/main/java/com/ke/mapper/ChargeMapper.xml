@@ -45,12 +45,22 @@
     </select>
     
     <select id="getPileChargeRcd" parameterType="map" resultType="map">
-		<foreach collection="yearList" index="index" item="year" open="" close="" separator=" nuion all ">
+		<foreach collection="yearList" index="index" item="year" open="" close="" separator=" union all ">
 			SELECT serialnumber,pile_code pileNo,gun_id gunNo,chargebegin_date startDate,chargeend_date endDate,
 			trade_money chargeMoney,service_money serviceMoney,charge_dl totalElectricity,end_cause endCause
 			from chargedata.orders${year}
 			where serialnumber=  #{serialNumber,jdbcType=VARCHAR} and pile_code = #{pileNo,jdbcType=VARCHAR} 
 			and gun_id = #{gunNo,jdbcType=TINYINT}
+		</foreach>
+    </select>
+    
+    <select id="getPileRecord" parameterType="map" resultType="map">
+		<foreach collection="monthList" index="index" item="month" open="" close="" separator=" union all ">
+			select o.serialnumber,d.pile_code pileNo,d.gunid gunNo,d.trade_begin startDate,d.trade_end endDate,
+			d.begin_bd beginReadings,d.end_bd endReadings 
+			from chargedata.charge${month} d,member_orders o
+			where d.serialnumber = o.charge_serialnumber and  o.serialnumber=  #{serialNumber,jdbcType=VARCHAR} 
+			and d.pile_code = #{pileNo,jdbcType=VARCHAR} and d.gunid = #{gunNo,jdbcType=TINYINT}
 		</foreach>
     </select>
     

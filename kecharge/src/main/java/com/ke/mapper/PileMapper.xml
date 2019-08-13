@@ -1,6 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ke.mapper.PileMapper">
+
+ <resultMap id="BaseResultMap" type="com.ke.model.Pilepara" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="subst_id" property="substId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="use_flag" property="useFlag" jdbcType="TINYINT" />
+    <result column="serial_code" property="serialCode" jdbcType="VARCHAR" />
+    <result column="rtu_id" property="rtuId" jdbcType="INTEGER" />
+    <result column="pileaddr" property="pileaddr" jdbcType="VARCHAR" />
+    <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="TINYINT" />
+    <result column="gun_num" property="gunNum" jdbcType="TINYINT" />
+    <result column="bike_gun_num" property="bikeGunNum" jdbcType="TINYINT" />
+    <result column="cp_flag" property="cpFlag" jdbcType="TINYINT" />
+    <result column="gun_flag" property="gunFlag" jdbcType="TINYINT" />
+    <result column="factory_id" property="factoryId" jdbcType="INTEGER" />
+    <result column="rate_id" property="rateId" jdbcType="INTEGER" />
+    <result column="rateperiod_id" property="rateperiodId" jdbcType="INTEGER" />
+    <result column="limit_p" property="limitP" jdbcType="REAL" />
+    <result column="rv" property="rv" jdbcType="INTEGER" />
+    <result column="ri" property="ri" jdbcType="REAL" />
+    <result column="wiring_mode" property="wiringMode" jdbcType="TINYINT" />
+    <result column="v_up" property="vUp" jdbcType="INTEGER" />
+    <result column="v_down" property="vDown" jdbcType="INTEGER" />
+    <result column="run_date" property="runDate" jdbcType="TIMESTAMP" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="pile_idx" property="pileIdx" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, subst_id, name, use_flag, serial_code, rtu_id, pileaddr, image_url, type, gun_num, 
+    bike_gun_num, cp_flag, gun_flag, factory_id, rate_id, rateperiod_id, limit_p, rv, 
+    ri, wiring_mode, v_up, v_down, run_date, create_date, update_date, pile_idx
+  </sql>
+  
+   <select id="listPileByOperatorId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+	    select p.* from substpara s ,pilepara p
+		where s.id = p.subst_id 
+		and s.operator_id in (select id from operator 
+		where tree_path like CONCAT('%',#{operatorId},'%') or id =#{operatorId}
+		)
+    </select>
+    
+    <select id="getOperatorIdByPileNo" parameterType="java.lang.String"	resultType="java.lang.Integer">
+		select o.id from operator o,substpara s,pilepara p
+		where p.subst_id = s.id and
+		s.operator_id = o.id
+		and p.serial_code = #{pileNo,jdbcType=VARCHAR}
+	</select>
+  
+  
     <select id="getPileState" parameterType="java.lang.String" resultType="map">
 	    SELECT p.id pileId,pd.`status` pileState,gd.gun_id gunId,
 		gd.`status` gunState,p.gun_num gunNum,p.cp_flag cpFlag,p.serial_code pileNo

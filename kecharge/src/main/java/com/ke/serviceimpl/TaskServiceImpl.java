@@ -13,12 +13,15 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.ke.common.CommFunc;
 import com.ke.common.Constant;
@@ -26,13 +29,16 @@ import com.ke.logger.LogName;
 import com.ke.logger.LoggerUtil;
 import com.ke.mapper.ChargeMonitorMapper;
 import com.ke.mapper.MemberOrdersMapper;
+import com.ke.mapper.PileMapper;
 import com.ke.model.ChargeMonitor;
 import com.ke.model.MemberOrders;
+import com.ke.model.Pilepara;
 import com.ke.service.IChargeService;
 import com.ke.service.ITaskService;
 import com.ke.utils.ConverterUtil;
 import com.ke.utils.DateUtil;
 import com.ke.utils.JedisUtil;
+import static com.ke.utils.ConverterUtil.*;
 
 /** 
 * @ClassName: TaskServiceImpl 
@@ -52,6 +58,12 @@ public class TaskServiceImpl implements ITaskService {
 	
 	@Resource
 	private MemberOrdersMapper memberOrdersMapper;
+	
+	@Resource
+	private PileMapper pileMapper;
+	
+	@Value("${hydropwer_operator}")
+	private Integer operatorId;
 
 	/** (非 Javadoc) 
 	* <p>Title: pushMessageTask</p> 
@@ -60,7 +72,6 @@ public class TaskServiceImpl implements ITaskService {
 	*/
 	@Override
 	public void pushMessageTask() {
-		// TODO Auto-generated method stub
 		try {
 			List<ChargeMonitor> chargeMonitorList = chargeMonitorMapper.listChargeMonitorTask();
 			for (ChargeMonitor chargeMonitor : chargeMonitorList) {
@@ -226,6 +237,56 @@ public class TaskServiceImpl implements ITaskService {
 			e.printStackTrace();
 			System.out.println("备份充电单任务失败");
 			LoggerUtil.logger(LogName.ERROR).error("备份充电单任务失败", e);
+		}
+	}
+
+	/** (非 Javadoc) 
+	* <p>Title: pushHydropwerPileState</p> 
+	* <p>Description: </p>  
+	 * @throws Exception 
+	* @see com.ke.service.ITaskService#pushHydropwerPileState() 
+	*/
+	@Override
+	public void pushHydropwerPileState() throws Exception {
+		
+		List<Pilepara> pileList = this.pileMapper.listPileByOperatorId(operatorId);
+		for (Pilepara pilepara : pileList) {
+			JSONObject pileStateJson = new JSONObject();
+			String key = Constant.PILESTATE + pilepara.getId();
+			Map<String, String> pileStateMap = JedisUtil.hgetAll(key);
+			pileStateJson.put("pileNo", pilepara.getSerialCode());
+			pileStateJson.put("temperature", pileStateMap.get("temperature"));
+			pileStateJson.put("humidity",  pileStateMap.get("humidity"));
+			pileStateJson.put("pileStatus", pileStateMap.get("state"));
+			pileStateJson.put("operatorId", operatorId);
+
+			key = Constant.GUNSTATE + pilepara.getId() + "_*";
+			Set<String> keySet = JedisUtil.keysStr(key);
+			JSONArray gunStateArray = new JSONArray();
+			for (String string : keySet) {
+				JSONObject gunStateJson = new JSONObject();
+				Map<String, String> gunState = JedisUtil.hgetAll(string);
+				gunStateJson.put("gunNo", string.split("_")[1]);
+				gunStateJson.put("gunType", toInt(gunState.get("gunType")));
+				gunStateJson.put("switchState", toInt(gunState.get("switchState")));
+				gunStateJson.put("voltage", roundBase(toDouble(gunState.get("va")), 2));
+				gunStateJson.put("current", roundBase(toDouble(gunState.get("ia")), 2));
+				gunStateJson.put("power", roundBase(toDouble(gunState.get("p")), 3));
+
+				gunStateJson.put("readings", roundBase(toDouble(gunState.get("readings")), 4));
+				gunStateJson.put("time", toStr(gunState.get("dataTime")));
+				gunStateArray.add(gunStateJson);
+			}
+
+			pileStateJson.put("rows", gunStateArray);
+			// 发送充电结束请求
+			try {
+				if (chargeService.SendHydroPowerHeartBeat(pileStateJson, Constant.RETRY)) {
+					Thread.sleep(2000);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

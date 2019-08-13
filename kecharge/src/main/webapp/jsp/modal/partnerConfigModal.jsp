@@ -23,9 +23,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		 var eidtType='<%=request.getParameter("eidtType")%>';
 		 var selectId='<%=request.getParameter("selectId")%>';
   	</script>
+  	<style type="text/css">
+  		.modal-util .modal-body{overflow-y:auto;}
+  	</style>
 </head>
-  <body class="bgColor">
-	<div class="mainConfig">
+  <body class="bgColor" style='overflow-y:auto;'>
+	<div class="mainConfig" style='overflow-y:auto;'>
 		<form id="configForm" onsubmit="return false;">
 			<input name="id" id="selectId" type="hidden">
 			<input name="token" id="token" type="hidden"/>
@@ -79,6 +82,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="formInput">
 				<label for="DCChargeInfoUrl"><font>*</font>回调推送直流首次充电信息地址：</label>
 				<textarea id="DCChargeInfoUrl" name="chargeDcInfoUrl"  class="validate[custom[url]]"></textarea>
+			</div>
+			<div class="formInput">
+				<label for="chargeHeartUrl"><font>*</font>回调推送心跳地址：</label>
+				<textarea id="chargeHeartUrl" name="chargeHeartUrl"  class="validate[custom[url]]"></textarea>
+			</div>
+			<div class="formInput">
+				<label for="chargeAlramUrl"><font>*</font>回调推送告警地址：</label>
+				<textarea id="chargeAlramUrl" name="chargeAlramUrl"  class="validate[custom[url]]"></textarea>
 			</div>
 		</form>
 	</div>

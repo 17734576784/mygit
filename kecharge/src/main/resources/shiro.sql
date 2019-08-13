@@ -52,3 +52,6 @@ INSERT INTO `interface_role_url` VALUES (10, '/listChargeOrders.json', 1);
 INSERT INTO `interface_role_url` VALUES (11, '/listPileInfo.json', 1);
 INSERT INTO `interface_role_url` VALUES (12, '/listGunInfo.json', 1);
 INSERT INTO `interface_role_url` VALUES (13, '/listGunState.json', 1);
+INSERT INTO `interface_role_url` VALUES (14, '//chargeControl.json', 1);
+INSERT INTO `interface_role_url` VALUES (15, '/getPileRecord.json', 1);
+ 

@@ -102,7 +102,6 @@ public class AccessInterceptor implements HandlerInterceptor {
 							result = false;
 						}
 					}
-
 				} 				
 			} else {
 				result = false;

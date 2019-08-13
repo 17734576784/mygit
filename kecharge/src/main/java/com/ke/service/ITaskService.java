@@ -42,4 +42,13 @@ public interface ITaskService {
 	* @throws 
 	*/
 	void backUpChargeOrderTask();
+	
+	/** 
+	* 推送水电桩状态  
+	* @Title: pushHydropwerPileState
+	* @param     设定文件 
+	* @return void    返回类型 
+	* @throws 
+	*/
+	void pushHydropwerPileState() throws Exception;
 }

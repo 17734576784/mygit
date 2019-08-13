@@ -3,6 +3,8 @@
  */
 package com.ke.controller;
 
+import java.io.UnsupportedEncodingException;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,9 +32,10 @@ public class TestController {
 		return rtnJson.toJSONString();
 	}
 
+	@SuppressWarnings("deprecation")
 	@RequestMapping("/chargeStart.json")
-	public String chargeStart(String token, String queryJsonStr) {
-		System.out.println("测试第三方开始推送：" + queryJsonStr);
+	public String chargeStart(String token, String queryJsonStr) throws UnsupportedEncodingException {
+		System.out.println("测试第三方开始推送：" + java.net.URLDecoder.decode(queryJsonStr,"utf-8"));
 
 		JSONObject rtnJson = new JSONObject();
 		rtnJson = CommFunc.errorInfo(Constant.SUCCESS, "");
@@ -41,6 +44,14 @@ public class TestController {
 
 	@RequestMapping("/chargeOver.json")
 	public String chargeOver(String token, String queryJsonStr) {
+		System.out.println("测试第三方结束推送：" + queryJsonStr);
+		JSONObject rtnJson = new JSONObject();
+		rtnJson = CommFunc.errorInfo(Constant.SUCCESS, "");
+		return rtnJson.toJSONString();
+	}
+	
+	@RequestMapping("/gunAlarm.json")
+	public String gunAlarm(String token, String queryJsonStr) {
 		System.out.println("测试第三方结束推送：" + queryJsonStr);
 		JSONObject rtnJson = new JSONObject();
 		rtnJson = CommFunc.errorInfo(Constant.SUCCESS, "");

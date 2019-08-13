@@ -60,8 +60,6 @@ public class ChinaTelecomUpGradeUtil {
 			String urlPostAsynCmd = Constant.CHINA_TELECOM_POST_ASYN_CMD;
 			String callbackUrl = Constant.CHINA_TELECOM_REPORT_CMD_EXEC_RESULT_CALLBACK_URL;
 
-			
-			
 			Map<String, Object> paramCommand = new HashMap<>();
 			paramCommand.put("serviceId", serviceId);
 			paramCommand.put("method", method);

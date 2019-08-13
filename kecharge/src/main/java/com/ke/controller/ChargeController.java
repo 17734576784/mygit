@@ -25,6 +25,11 @@ public class ChargeController {
 		return this.chargeService.chargeStart(token, queryJsonStr).toJSONString();
 	}
 
+	@RequestMapping("/chargeControl.json")
+	public String chargeControl(String token, String queryJsonStr) throws Exception {
+		return this.chargeService.chargeControl(token, queryJsonStr).toJSONString();
+	}
+
 	@RequestMapping("/chargeOver.json")
 	public String chargeOver(String queryJsonStr) throws Exception {
 		return this.chargeService.chargeOver(queryJsonStr).toJSONString();
@@ -38,6 +43,11 @@ public class ChargeController {
 	@RequestMapping("/getPileChargeRcd.json")
 	public String getPileChargeRcd(String queryJsonStr) throws Exception {
 		return this.chargeService.getPileChargeRcd(queryJsonStr).toJSONString();
+	}
+	
+	@RequestMapping("/getPileRecord.json")
+	public String getPileRecord(String queryJsonStr) throws Exception {
+		return this.chargeService.getPileRecord(queryJsonStr).toJSONString();
 	}
 	
 	@RequestMapping("/chargeRealData.json")

@@ -85,4 +85,6 @@ public interface IOperatorConfigService {
 	*/
 	JSONObject listOperator();
 	
+	JSONObject listOperatorTest();
+	
 }

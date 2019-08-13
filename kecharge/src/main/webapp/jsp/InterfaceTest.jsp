@@ -26,10 +26,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="interfaceOpt">
 		<label class="caption">选择接口:</label>		
 		<select id="partnerInterfa" onchange="partnerSelectChange(this.value)" disabled>
-			<option value="0">请选择小蜗接口</option>
+			<option value="0">请选择接口</option>
 			<option id="" value="1">充电开始信息接口</option>
 			<option id="" value="2">充电结束信息接口</option>
 			<option id="" value="3">接收过程实时数据</option>
+			<option id="" value="7">推送水电桩状态接口</option>
+			<option id="" value="4">接收用电(水)开始信息接口</option>
+			<option id="" value="5">接收用电(水)结束信息接口</option>
+			<option id="" value="6">接收电（水）口告警接口</option>
 		</select>
 		<select id="keInterfa" onchange="keSelectChange(this.value)" disabled style="display: none">
 			<option value="0">请选择科林接口</option>
@@ -46,6 +50,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<option id="" value="11">获取特定充电站下充电枪信息</option>
 			<option id="" value="12">获取特定充电站下充电枪状态</option>
 			<option id="" value="13">获取特定充电站下充电单</option>
+			<option id="" value="14">获取水电枪启停接口</option>
+			<option id="" value="15">获取用电(水)记录</option>
 		</select>
 		<button class="loginBtn btn btn-success" id="interfaTest" onclick="interfTest()" disabled>接口测试</button>
 		<span class="caption token">url: <font id="urlText"></font></span>
