@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="kecharge"
+  id="myeclipse.1498437832718"
+  context-root="/kecharge"
+  j2ee-spec="5.0"
+  archive="kecharge.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

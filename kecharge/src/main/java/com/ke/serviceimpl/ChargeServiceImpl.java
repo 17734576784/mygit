@@ -8,6 +8,13 @@
 */
 package com.ke.serviceimpl;
 
+import static com.ke.utils.ConverterUtil.roundTosString;
+import static com.ke.utils.ConverterUtil.toByte;
+import static com.ke.utils.ConverterUtil.toDouble;
+import static com.ke.utils.ConverterUtil.toInt;
+import static com.ke.utils.ConverterUtil.toLong;
+import static com.ke.utils.ConverterUtil.toStr;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -46,8 +53,6 @@ import com.ke.utils.ConverterUtil;
 import com.ke.utils.DateUtil;
 import com.ke.utils.JedisUtil;
 import com.ke.utils.SerializeUtil;
-
-import static com.ke.utils.ConverterUtil.*;
 
 /**
  * @ClassName: ChargeServiceImpl
@@ -229,8 +234,9 @@ public class ChargeServiceImpl implements IChargeService {
 
 	/**
 	 * @Title: insertChargeOrder @Description: 创建充电单和充电记录监控记录 @param @param
-	 * payserialNumber @param @param pileNo @param @param gunNo @param @param
-	 * chargeMoney @param @return 设定文件 @return boolean 返回类型 @throws
+	 *         payserialNumber @param @param pileNo @param @param
+	 *         gunNo @param @param chargeMoney @param @return 设定文件 @return
+	 *         boolean 返回类型 @throws
 	 */
 	@Transactional
 	private boolean insertChargeOrder(String payserialNumber, String pileNo, String gunNo, int chargeMoney,
@@ -262,7 +268,7 @@ public class ChargeServiceImpl implements IChargeService {
 
 		flag &= this.memberOrdersMapper.insertmemberOrders(memberOrders);
 		JedisUtil.hmset(Constant.ORDER + payserialNumber, CommFunc.beanToHMap(memberOrders));
-
+		JedisUtil.expire(Constant.ORDER + payserialNumber, Constant.ORDER_EXPIRE_OUTTIME);
 		return flag;
 	}
 
@@ -370,8 +376,8 @@ public class ChargeServiceImpl implements IChargeService {
 
 	/**
 	 * @Title: getRtuParam @Description: 查询充电桩终端及通道信息 @param @param
-	 * rtuId @param @param pileInfo @param @return 设定文件 @return RTU_PARA
-	 * 返回类型 @throws
+	 *         rtuId @param @param pileInfo @param @return 设定文件 @return RTU_PARA
+	 *         返回类型 @throws
 	 */
 	private RTU_PARA getRtuParam(int rtuId, Map<String, Object> pileInfo) {
 		ComntParaBase.RTU_PARA rtuPara = new RTU_PARA();
@@ -919,7 +925,7 @@ public class ChargeServiceImpl implements IChargeService {
 
 	/**
 	 * @Title: getendCause @Description: 获取充电结束原因 @param @param
-	 * endCause @param @return 设定文件 @return String 返回类型 @throws
+	 *         endCause @param @return 设定文件 @return String 返回类型 @throws
 	 */
 	private String getendCause(int endCause) {
 		Map<String, String> endCauseMap = JedisUtil.hgetAll(Constant.ENDCAUSE_DICTION);
@@ -928,7 +934,7 @@ public class ChargeServiceImpl implements IChargeService {
 
 	/**
 	 * @Title: getOperatorToken @Description: 获取运营商token @param @param
-	 * operatorId @param @return 设定文件 @return boolean 返回类型 @throws
+	 *         operatorId @param @return 设定文件 @return boolean 返回类型 @throws
 	 */
 	public boolean getOperatorToken(int operatorId) {
 		boolean flag = false;
@@ -948,7 +954,7 @@ public class ChargeServiceImpl implements IChargeService {
 
 			urlJson.put("loginUrl", operatorConfig.getLoginUrl());
 			urlJson.put("userName", operatorConfig.getUsername());
-			urlJson.put("passWord", operatorConfig.getPassword());
+			urlJson.put("password", operatorConfig.getPassword());
 
 			String rtnToken = sendLoginTokenRequest(urlJson);
 			if (!rtnToken.isEmpty()) {
@@ -1058,7 +1064,7 @@ public class ChargeServiceImpl implements IChargeService {
 	private JSONObject hydropwerOver(JSONObject json, int cmd, String token) throws Exception {
 		JSONObject rtnJson = new JSONObject();
 		String pileNo = "", gunNo = "", paySerialNumber = "";
-		LoggerUtil.logger(LogName.CHARGE).info("接收充电结束请求：" + json.toJSONString());
+		LoggerUtil.logger(LogName.CHARGE).info("接收水电桩结束请求：" + json.toJSONString());
 		pileNo = json.getString("pileNo");
 		gunNo = json.getString("gunNo");
 		paySerialNumber = json.getString("serialNumber");
@@ -1581,7 +1587,6 @@ public class ChargeServiceImpl implements IChargeService {
 			int status = jsonItem.getIntValue("status");
 			LoggerUtil.logger(LogName.CHARGE).info("发送水电桩心跳消息：{} ,接收内容：() ", json.toString(), response.getContent());
 			if (status == Constant.SUCCESS || status == Constant.REQUEST_BAD) {
-
 				if (status == Constant.REQUEST_BAD) {
 					LoggerUtil.logger(LogName.ERROR).error("丢弃充电水电桩心跳推送,：" + json.toString());
 				}
@@ -1647,7 +1652,7 @@ public class ChargeServiceImpl implements IChargeService {
 		JSONObject sendJson = new JSONObject();
 		sendJson.putAll(json);
 
-		String url = operatorConfig.getChargeAlramUrl();
+		String url = operatorConfig.getChargeAlarmUrl();
 		if (url == null || url.isEmpty()) {
 			return false;
 		}
@@ -1662,7 +1667,7 @@ public class ChargeServiceImpl implements IChargeService {
 
 			JSONObject jsonItem = JSONObject.parseObject(response.getContent());
 			int status = jsonItem.getIntValue("status");
-			LoggerUtil.logger(LogName.CHARGE).info("发送充电结束消息：{} ,接收内容：() ", json.toString(), response.getContent());
+			LoggerUtil.logger(LogName.CHARGE).info("发送充电桩告警消息：{} ,接收内容：() ", json.toString(), response.getContent());
 			if (status == Constant.SUCCESS || status == Constant.REQUEST_BAD) {
 
 				if (status == Constant.REQUEST_BAD) {
@@ -1681,7 +1686,7 @@ public class ChargeServiceImpl implements IChargeService {
 				SendChargeOverRequest(json, retry);
 			}
 		} catch (Exception e) {
-			LoggerUtil.logger(LogName.ERROR).error("发送充电结束请求异常,发送内容：" + json.toString(), e);
+			LoggerUtil.logger(LogName.ERROR).error("发送充电桩告警请求异常,发送内容：" + json.toString(), e);
 			flag = false;
 			e.printStackTrace();
 		}

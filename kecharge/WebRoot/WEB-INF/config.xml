@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web_cfg>
+	<cacheTimeOut timeout="2400" />				<!-- 缓存过期时间(小时)  默认2小时-->
+	<!-- c++ webservice IP地址和端口号-->
+	<web_service_addr ip="127.0.0.1" port="17206" />
+	<session timeout="30" />				<!-- 登录过期时间(分钟) -->
+
+	<prefix value="99" /> <!-- 小蜗科技 -->
+	<prefix value="98" /> <!--车航新能源  -->
+	<prefix value="97" /> <!-- 邢仪 -->
+	<prefix value="96" /> <!-- 艾鼬出行 -->
+		<prefix value="95" /> <!-- 艾鼬出行 -->
+	
+		<prefix value="94" /> <!-- 艾鼬出行 -->
+	
+</web_cfg>

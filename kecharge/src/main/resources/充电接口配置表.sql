@@ -42,7 +42,7 @@ create table operator_config(
 	charge_over_url  	VARCHAR(128)	 		null,							-- 回调推送充电结束地址
 	charge_dc_info_url VARCHAR(128)			null, 						-- 回调推送直流首次充电信息地址
 	charge_heart_url 	 VARCHAR(128)			null, 						-- 回调推送心跳地址
-	charge_alram_url   VARCHAR(128)			null, 						-- 回调推送告警地址
+	charge_alarm_url   VARCHAR(128)			null, 						-- 回调推送告警地址
 	serialnumber_prefix VARCHAR(128)	not null  					-- 流水号前缀
 );
 

@@ -88,8 +88,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<textarea id="chargeHeartUrl" name="chargeHeartUrl"  class="validate[custom[url]]"></textarea>
 			</div>
 			<div class="formInput">
-				<label for="chargeAlramUrl"><font>*</font>回调推送告警地址：</label>
-				<textarea id="chargeAlramUrl" name="chargeAlramUrl"  class="validate[custom[url]]"></textarea>
+				<label for="chargeAlarmUrl"><font>*</font>回调推送告警地址：</label>
+				<textarea id="chargeAlarmUrl" name="chargeAlarmUrl"  class="validate[custom[url]]"></textarea>
 			</div>
 		</form>
 	</div>

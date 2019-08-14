@@ -18,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.alibaba.fastjson.JSONObject;
+import com.ke.common.CommFunc;
 import com.ke.common.Constant;
 import com.ke.mapper.ChargeMapper;
 import com.ke.mapper.ChargeMonitorMapper;
@@ -71,6 +72,11 @@ public class KechargeApplicationTests {
 	@Test
 	public void ChargeTest() throws Exception {
 
+		Map<String, String> map = new HashMap<>();
+		map.put("a", "a");
+		JedisUtil.hmset("SetTest", map);
+		JedisUtil.expire("SetTest", Constant.ORDER_EXPIRE_OUTTIME);
+		
 		// JedisUtil.hset("operator:82", "clientType", "4");
 		// JedisUtil.hset("operator:82", "infType", "2");
 

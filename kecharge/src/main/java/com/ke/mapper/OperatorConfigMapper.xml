@@ -15,13 +15,13 @@
 		<result column="charge_over_url" property="chargeOverUrl" jdbcType="VARCHAR" />
 		<result column="charge_dc_info_url" property="chargeDcInfoUrl" jdbcType="VARCHAR" />
 		<result column="charge_heart_url" property="chargeHeartUrl" jdbcType="VARCHAR" />
-		<result column="charge_alram_url" property="chargeAlramUrl" jdbcType="VARCHAR" />
+		<result column="charge_alarm_url" property="chargeAlarmUrl" jdbcType="VARCHAR" />
 		<result column="serialnumber_prefix" property="serialnumberPrefix" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		id, operator_id, operator_loginname,use_flag, username, password, token,
 		login_url, charge_start_url, charge_over_url,
-		charge_dc_info_url, charge_heart_url, charge_alram_url,serialnumber_prefix,member_id
+		charge_dc_info_url, charge_heart_url, charge_alarm_url,serialnumber_prefix,member_id
 	</sql>
 
 	<select id="getOperatorConfig" resultType="map" parameterType="java.lang.Integer">
@@ -31,7 +31,7 @@
 		charge_over_url chargeOverUrl,charge_dc_info_url
 		chargeDcInfoUrl,serialnumber_prefix serialnumberPrefix ,m.username
 		memberPhone,
-		charge_heart_url chargeHeartUrl,charge_alram_url chargeAlramUrl
+		charge_heart_url chargeHeartUrl,charge_alarm_url chargeAlarmUrl
 		from operator_config pc LEFT JOIN members m ON pc.member_id = m.id
 		where pc.id = #{id,jdbcType=INTEGER}
 	</select>
@@ -83,8 +83,8 @@
 			<if test="chargeHeartUrl != null">
 				charge_heart_url,
 			</if>
-			<if test="chargeAlramUrl != null">
-				charge_alram_url,
+			<if test="chargeAlarmUrl != null">
+				charge_alarm_url,
 			</if>
 			<if test="serialnumberPrefix != null">
 				serialnumber_prefix,
@@ -130,8 +130,8 @@
 			<if test="chargeHeartUrl != null">
 				#{chargeHeartUrl,jdbcType=VARCHAR},
 			</if>
-			<if test="chargeAlramUrl != null">
-				#{chargeAlramUrl,jdbcType=VARCHAR},
+			<if test="chargeAlarmUrl != null">
+				#{chargeAlarmUrl,jdbcType=VARCHAR},
 			</if>
 			<if test="serialnumberPrefix != null">
 				#{serialnumberPrefix,jdbcType=VARCHAR},
@@ -178,8 +178,8 @@
 			<if test="chargeHeartUrl != null">
 				charge_heart_url = #{chargeHeartUrl,jdbcType=VARCHAR},
 			</if>
-			<if test="chargeAlramUrl != null">
-				charge_alram_url = #{chargeAlramUrl,jdbcType=VARCHAR},
+			<if test="chargeAlarmUrl != null">
+				charge_alarm_url = #{chargeAlarmUrl,jdbcType=VARCHAR},
 			</if>
 			<if test="serialnumberPrefix != null">
 				serialnumber_prefix = #{serialnumberPrefix,jdbcType=VARCHAR},
@@ -199,7 +199,7 @@
 	parameterType="map">
 	select pc.id, p.id operatorId,CASE when pc.use_flag = 1 then '是' ELSE '否' END
 	useFlag,pc.operator_loginname operatorLoginname,pc.username,
-	pc.password,serialnumber_prefix,token, login_url, charge_start_url,
+	pc.password,serialnumber_prefix,token, login_url, charge_start_url,charge_heart_url,charge_alarm_url,
 	charge_over_url,charge_dc_info_url,p.`name`	operatorName,member_id,m.username memberPhone
 	from operator_config pc
 	LEFT JOIN operator p ON pc.operator_id = p.id

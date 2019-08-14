@@ -1,0 +1,11 @@
+html{margin:0xp}
+.date{width:200px;margin-right:10px;margin-bottom:10px}
+.searchDiv{margin-bottom:10px;}
+.searchDiv select{width:200px;}
+.input-daterange{width:inherit!important;float:left;}
+.numSearch{float:left;} 
+.searchBtn{float:right;}
+.searchData{width:80px!important;}
+
+
+

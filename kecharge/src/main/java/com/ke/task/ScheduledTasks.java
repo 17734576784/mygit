@@ -27,47 +27,38 @@ import com.ke.service.ITaskService;
 @Configurable
 @EnableScheduling
 public class ScheduledTasks {
-	
+
 	@Autowired
 	private ITaskService taskService;
-	
-	/** 
-	* @Title: pushMessageTask 
-	* @Description: 消息推送任务 一分钟执行一次
-	* @param     设定文件 
-	* @return void    返回类型 
-	* @throws 
-	*/
+
+	/**
+	 * @Title: pushMessageTask @Description: 消息推送任务 一分钟执行一次 @param 设定文件 @return
+	 *         void 返回类型 @throws
+	 */
 	@Scheduled(cron = "0 */1 * * * ?")
 	public void pushMessageTask() {
-		taskService.pushMessageTask();
-	
+		 taskService.pushMessageTask();
+
 	}
 
-	/** 
-	* @Title: backupChargeMonitorTask 
-	* @Description: 备份充电记录监控任务  每天一点执行
-	* @param     设定文件 
-	* @return void    返回类型 
-	* @throws 
-	*/
+	/**
+	 * @Title: backupChargeMonitorTask @Description: 备份充电记录监控任务 每天一点执行 @param
+	 *         设定文件 @return void 返回类型 @throws
+	 */
 	@Scheduled(cron = "0 0 1 * * ?")
 	public void backupChargeMonitorTask() {
-		taskService.backupChargeMonitorTask();
- 	}
-	
-	/** 
-	* @Title: backUpChargeOrderTask 
-	* @Description: 备份充电单   每天一点执行
-	* @param     设定文件 
-	* @return void    返回类型 
-	* @throws 
-	*/
+		 taskService.backupChargeMonitorTask();
+	}
+
+	/**
+	 * @Title: backUpChargeOrderTask @Description: 备份充电单 每天一点执行 @param
+	 *         设定文件 @return void 返回类型 @throws
+	 */
 	@Scheduled(cron = "0 0 1 * * ?")
 	public void backUpChargeOrderTask() {
-		taskService.backUpChargeOrderTask();
+		 taskService.backUpChargeOrderTask();
 	}
-	
+
 	@Scheduled(cron = "0 */5 * * * ?")
 	public void pushHydropwerPileState() {
 		try {

@@ -43,6 +43,8 @@ function initPage() {
 				$("#chargeOverUrl").val(dataJson.chargeOverUrl);
 				$("#DCChargeInfoUrl").val(dataJson.chargeDcInfoUrl);
 				$("#chargeStartUrl").val(dataJson.chargeStartUrl);
+				$("#chargeHeartUrl").val(dataJson.chargeHeartUrl);
+				$("#chargeAlarmUrl").val(dataJson.chargeAlarmUrl);
 				$("#prefix").val(dataJson.serialnumberPrefix);
 				$("#memberPhone").val(dataJson.memberPhone);
 				$("#memberId").val(dataJson.memberId);

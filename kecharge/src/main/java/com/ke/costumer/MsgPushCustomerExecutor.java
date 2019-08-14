@@ -8,6 +8,10 @@
 */
 package com.ke.costumer;
 
+import static com.ke.utils.ConverterUtil.roundBase;
+import static com.ke.utils.ConverterUtil.roundTosString;
+import static com.ke.utils.ConverterUtil.toDouble;
+import static com.ke.utils.ConverterUtil.toInt;
 
 import java.util.Date;
 import java.util.Map;
@@ -34,42 +38,39 @@ import com.ke.model.TradeMsgOuterClass.TradeMsgChargeBegin_Inf;
 import com.ke.model.TradeMsgOuterClass.TradeMsgChargeEnd_Inf;
 import com.ke.model.TradeMsgOuterClass.TradeMsgEvent;
 import com.ke.service.IChargeService;
-import static com.ke.utils.ConverterUtil.*;
 import com.ke.utils.JedisUtil;
 import com.ke.utils.JsonUtil;
 import com.ke.utils.SerializeUtil;
 
-/** 
-* @ClassName: MsgPushCustomerExecutor 
-* @Description: 消息推送处理类
-* @author dbr
-* @date 2019年3月11日 下午4:06:07 
-*  
-*/
+/**
+ * @ClassName: MsgPushCustomerExecutor
+ * @Description: 消息推送处理类
+ * @author dbr
+ * @date 2019年3月11日 下午4:06:07
+ * 
+ */
 @Component
 public class MsgPushCustomerExecutor {
-	
+
 	@Resource
 	private ChargeMonitorMapper chargeMonitorMapper;
-	
+
 	@Autowired
 	private IChargeService chargeService;
 
 	@Resource
 	private MemberOrdersMapper memberOrdersMapper;
 
-	/** 
-	* @Title: chargeStartPush 
-	* @Description: 充电开始消息推送
-	* @param @param obj    设定文件 
-	* @return void    返回类型 
-	* @throws 
-	*/
+	/**
+	 * @Title: chargeStartPush @Description: 充电开始消息推送 @param @param obj
+	 * 设定文件 @return void 返回类型 @throws
+	 */
 	public void chargeStartPush(Object obj) {
 		JSONObject json = new JSONObject();
 		try {
-			
-			TradeMsgChargeBegin_Inf inf = TradeMsgOuterClass.TradeMsgChargeBegin_Inf.parseFrom(obj.toString().getBytes());
+
+			TradeMsgChargeBegin_Inf inf = TradeMsgOuterClass.TradeMsgChargeBegin_Inf
+					.parseFrom(obj.toString().getBytes());
 			// 解析推送充电记录中的数据
 			if (inf == null) {
 				return;
@@ -79,12 +80,12 @@ public class MsgPushCustomerExecutor {
 			if (null == paySerialNumber) {
 				return;
 			}
-			
+
 			MemberOrders order = memberOrdersMapper.getmemberOrders(paySerialNumber);
-			if(null == order){
+			if (null == order) {
 				return;
 			}
-			
+
 			String pileNo = order.getPileCode();
 			if (null == pileNo || pileNo.isEmpty()) {
 				return;
@@ -97,25 +98,25 @@ public class MsgPushCustomerExecutor {
 			if (null == operatorConfig) {
 				return;
 			}
-			
+
 			// 验证流水号合法性
 			boolean checkWasteNo = CommFunc.checkWasteno(paySerialNumber);
 			if (!checkWasteNo) {
 				return;
 			}
-			
+
 			key = Constant.OPERATOR + operatorId;
 			Map<String, String> operatorMap = JedisUtil.hgetAll(key);
 			if (operatorMap.isEmpty()) {
 				return;
 			}
 			Operator operator = JsonUtil.jsonString2SimpleObj(operatorMap, Operator.class);
-		
+
 			short clientType = operator.getClientType();
 			short infType = operator.getInfType();
 			/**
-			 * client_type 客户端类型 1:app 2:微信小程序 4:充电接口 按位操作 
-			 * inf_type 客户端是接口方式时，接口类型 1:小蜗接口 2:陆游水电桩接口 3:CEC互联互通接口
+			 * client_type 客户端类型 1:app 2:微信小程序 4:充电接口 按位操作 inf_type
+			 * 客户端是接口方式时，接口类型 1:小蜗接口 2:陆游水电桩接口 3:CEC互联互通接口
 			 */
 			if (clientType == Constant.FOUR && infType == Constant.TWO) {
 				json.put("readings", roundBase(toDouble(inf.getReadings()), 4));
@@ -146,19 +147,16 @@ public class MsgPushCustomerExecutor {
 			e.printStackTrace();
 			return;
 		}
- 	}
-	
-	/** 
-	* @Title: chargeOverPush 
-	* @Description: 充电结束消息推送 
-	* @param @param obj    设定文件 
-	* @return void    返回类型 
-	* @throws 
-	*/
+	}
+
+	/**
+	 * @Title: chargeOverPush @Description: 充电结束消息推送 @param @param obj
+	 * 设定文件 @return void 返回类型 @throws
+	 */
 	public void chargeOverPush(Object obj) {
 		JSONObject json = new JSONObject();
 		try {
-			
+
 			TradeMsgChargeEnd_Inf inf = TradeMsgOuterClass.TradeMsgChargeEnd_Inf.parseFrom(obj.toString().getBytes());
 			// 解析推送充电记录中的数据
 			String paySerialNumber = inf.getPaySerial();
@@ -167,8 +165,7 @@ public class MsgPushCustomerExecutor {
 			if (orderMap.isEmpty()) {
 				return;
 			}
-					
-			
+
 			int operatorId = toInt(orderMap.get("operatorId"));
 			key = Constant.OPERATOR + operatorId;
 			Map<String, String> operatorMap = JedisUtil.hgetAll(key);
@@ -176,20 +173,20 @@ public class MsgPushCustomerExecutor {
 				return;
 			}
 			Operator operator = JsonUtil.jsonString2SimpleObj(operatorMap, Operator.class);
-								
+
 			/** 验证运营商配置是否存在 */
 			key = Constant.OPERATORCONFIG_PREFIX + operatorId;
 			OperatorConfig operatorConfig = (OperatorConfig) SerializeUtil.deserialize(JedisUtil.get(key.getBytes()));
 			if (null == operatorConfig) {
 				return;
 			}
-			
+
 			// 验证流水号合法性
 			boolean checkWasteNo = CommFunc.checkWasteno(paySerialNumber);
 			if (!checkWasteNo) {
 				return;
 			}
-			
+
 			Map<String, String> endCauseMap = JedisUtil.hgetAll(Constant.ENDCAUSE_DICTION);
 			String endCause = endCauseMap.get(orderMap.get("endCause"));
 			if (null == endCause || endCause.equals("")) {
@@ -204,18 +201,17 @@ public class MsgPushCustomerExecutor {
 			short clientType = operator.getClientType();
 			short infType = operator.getInfType();
 			/**
-			 * client_type 客户端类型 1:app 2:微信小程序 4:充电接口 按位操作 
-			 * inf_type 客户端是接口方式时，接口类型 1:小蜗接口 2:陆游水电桩接口 3:CEC互联互通接口
+			 * client_type 客户端类型 1:app 2:微信小程序 4:充电接口 按位操作 inf_type
+			 * 客户端是接口方式时，接口类型 1:小蜗接口 2:陆游水电桩接口 3:CEC互联互通接口
 			 */
 			if (clientType == Constant.FOUR && infType == Constant.TWO) {
-				json.put("readings", inf.getReadings());
-			}
-			else if (clientType == Constant.FOUR && infType == Constant.ONE) {
+				json.put("readings", roundBase(toDouble(inf.getReadings()), 4));
+			} else if (clientType == Constant.FOUR && infType == Constant.ONE) {
 				json.put("totalElectricity", roundTosString(toDouble(inf.getEnergy()), 2));
 				json.put("chargeMoney", roundTosString(toDouble(inf.getEnergyMoney()) * 100D, 2));
 				json.put("serviceMoney", roundTosString(toDouble(inf.getServiceMoney()) * 100D, 2));
 				json.put("endCause", endCause);
-			}else {
+			} else {
 				return;
 			}
 			LoggerUtil.logger(LogName.CHARGE).info("接收充电结束消息,接收内容:{}", json.toString());
@@ -237,14 +233,11 @@ public class MsgPushCustomerExecutor {
 			return;
 		}
 	}
-	
-	/** 
-	* 推送直流桩首次上报SOC  
-	* @Title: chargeSocPush
-	* @param @param obj    设定文件 
-	* @return void    返回类型 
-	* @throws 
-	*/
+
+	/**
+	 * 推送直流桩首次上报SOC @Title: chargeSocPush @param @param obj 设定文件 @return void
+	 * 返回类型 @throws
+	 */
 	public void chargeSocPush(Object obj) {
 		JSONObject json = new JSONObject();
 		try {
@@ -285,14 +278,11 @@ public class MsgPushCustomerExecutor {
 			return;
 		}
 	}
-	
-	/** 
-	* 水电桩告警推送
-	* @Title: hydropwerAlarmPush
-	* @param @param obj    设定文件 
-	* @return void    返回类型 
-	* @throws 
-	*/
+
+	/**
+	 * 水电桩告警推送 @Title: hydropwerAlarmPush @param @param obj 设定文件 @return void
+	 * 返回类型 @throws
+	 */
 	public void hydropwerAlarmPush(Object obj) {
 		JSONObject json = new JSONObject();
 		try {
@@ -302,7 +292,7 @@ public class MsgPushCustomerExecutor {
 			}
 
 			json.put("pileNo", inf.getPilecode());
-			json.put("alarm",inf.getTypeno());
+			json.put("alarm", inf.getTypeno());
 
 			LoggerUtil.logger(LogName.CHARGE).info("接收水电桩告警推送消息,接收内容:{}", json.toString());
 			if (!chargeService.SendHydroPowerAlarm(json, Constant.RETRY)) {

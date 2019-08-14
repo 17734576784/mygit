@@ -8,6 +8,11 @@
 */
 package com.ke.serviceimpl;
 
+import static com.ke.utils.ConverterUtil.roundBase;
+import static com.ke.utils.ConverterUtil.toDouble;
+import static com.ke.utils.ConverterUtil.toInt;
+import static com.ke.utils.ConverterUtil.toStr;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -32,44 +37,51 @@ import com.ke.mapper.MemberOrdersMapper;
 import com.ke.mapper.PileMapper;
 import com.ke.model.ChargeMonitor;
 import com.ke.model.MemberOrders;
+import com.ke.model.Operator;
 import com.ke.model.Pilepara;
 import com.ke.service.IChargeService;
 import com.ke.service.ITaskService;
 import com.ke.utils.ConverterUtil;
 import com.ke.utils.DateUtil;
 import com.ke.utils.JedisUtil;
-import static com.ke.utils.ConverterUtil.*;
+import com.ke.utils.JsonUtil;
 
-/** 
-* @ClassName: TaskServiceImpl 
-* @Description: 自动任务服务实现类
-* @author dbr
-* @date 2019年1月10日 下午4:43:32 
-*  
-*/
+/**
+ * @ClassName: TaskServiceImpl
+ * @Description: 自动任务服务实现类
+ * @author dbr
+ * @date 2019年1月10日 下午4:43:32
+ * 
+ */
 @Service
 public class TaskServiceImpl implements ITaskService {
-	
+
 	@Resource
 	private ChargeMonitorMapper chargeMonitorMapper;
-	
+
 	@Autowired
 	private IChargeService chargeService;
-	
+
 	@Resource
 	private MemberOrdersMapper memberOrdersMapper;
-	
+
 	@Resource
 	private PileMapper pileMapper;
-	
+
 	@Value("${hydropwer_operator}")
 	private Integer operatorId;
 
-	/** (非 Javadoc) 
-	* <p>Title: pushMessageTask</p> 
-	* <p>Description: </p>  
-	* @see com.ke.service.ITaskService#pushMessageTask() 
-	*/
+	/**
+	 * (非 Javadoc)
+	 * <p>
+	 * Title: pushMessageTask
+	 * </p>
+	 * <p>
+	 * Description:
+	 * </p>
+	 * 
+	 * @see com.ke.service.ITaskService#pushMessageTask()
+	 */
 	@Override
 	public void pushMessageTask() {
 		try {
@@ -80,10 +92,38 @@ public class TaskServiceImpl implements ITaskService {
 				}
 
 				JSONObject json = new JSONObject();
+				MemberOrders order = this.memberOrdersMapper.getmemberOrders(chargeMonitor.getSerialnumber());
+				if (null == order) {
+					return;
+				}
+				
+				String key = Constant.OPERATOR + order.getOperatorId();
+				Map<String, String> operatorMap = JedisUtil.hgetAll(key);
+				if (operatorMap.isEmpty()) {
+					return;
+				}
+				
+				Operator operator = JsonUtil.jsonString2SimpleObj(operatorMap, Operator.class);
+				short clientType = operator.getClientType();
+				short infType = operator.getInfType();
+				
+				key = Constant.ORDER + chargeMonitor.getSerialnumber();
+				Map<String,String> orderMap = JedisUtil.hgetAll(key);
+				
 				if (chargeMonitor.getStartPush() == Constant.NOPUSH) {
 					json.put("serialNumber", chargeMonitor.getSerialnumber());
 					json.put("chargeFlag", chargeMonitor.getStartFlag());
-
+					
+					/**
+					 * client_type 客户端类型 1:app 2:微信小程序 4:充电接口 按位操作 inf_type
+					 * 客户端是接口方式时，接口类型 1:小蜗接口 2:陆游水电桩接口 3:CEC互联互通接口
+					 */
+					if (clientType == Constant.FOUR && infType == Constant.TWO) {
+						json.put("readings", roundBase(toDouble(orderMap.get("beginReadings")), 4));
+						json.put("pileNo", order.getPileCode());
+						json.put("gunNo", order.getGunId());
+					}
+					
 					if (chargeService.SendChargeStartRequest(json, Constant.RETRY)) {
 						chargeMonitor.setStartPush(Constant.PUSHED);
 						chargeMonitor.setStartPushTime(new Date());
@@ -93,46 +133,46 @@ public class TaskServiceImpl implements ITaskService {
 
 				} else if (chargeMonitor.getEndPush() == Constant.NOPUSH) {
 
-					MemberOrders order = this.memberOrdersMapper.getmemberOrders(chargeMonitor.getSerialnumber());
-
-					if (null == order) {
-						return;
-					}
-
 					boolean checkWasteNo = CommFunc.checkWasteno(order.getSerialnumber());
 					if (!checkWasteNo) {
 						continue;
 					}
+					JSONObject rtnJson = CommFunc.errorInfo(Constant.SUCCESS, "");
 
-					double totalElectricity = 0, trade_money = 0, serviceMoney = 0;
-					String endCause = "未知";
+					/**
+					 * client_type 客户端类型 1:app 2:微信小程序 4:充电接口 按位操作 inf_type
+					 * 客户端是接口方式时，接口类型 1:小蜗接口 2:陆游水电桩接口 3:CEC互联互通接口
+					 */
+					if (clientType == Constant.FOUR && infType == Constant.TWO) {
+						rtnJson.put("readings", roundBase(toDouble(orderMap.get("endReadings")), 4));
+					} else {
+						double totalElectricity = 0, trade_money = 0, serviceMoney = 0;
+						String endCause = "未知";
 
-					totalElectricity = ConverterUtil.toDouble(order.getChargeDl());
-					trade_money = ConverterUtil.toDouble(order.getTradeMoney() / 100);
-					serviceMoney = ConverterUtil.toDouble(order.getServiceMoney() / 100);
+						totalElectricity = ConverterUtil.toDouble(order.getChargeDl());
+						trade_money = ConverterUtil.toDouble(order.getTradeMoney() / 100);
+						serviceMoney = ConverterUtil.toDouble(order.getServiceMoney() / 100);
 
-					int m_cause = ConverterUtil.toInt(order.getEndCause());
-					Map<String, String> endCauseMap = JedisUtil.hgetAll(Constant.ENDCAUSE_DICTION);
-					endCause = endCauseMap.get(m_cause);
-					if (null == endCause || endCause.equals("")) {
-						endCause = "未知";
+						int m_cause = ConverterUtil.toInt(order.getEndCause());
+						Map<String, String> endCauseMap = JedisUtil.hgetAll(Constant.ENDCAUSE_DICTION);
+						endCause = endCauseMap.get(m_cause);
+						if (null == endCause || endCause.equals("")) {
+							endCause = "未知";
+						}
+						rtnJson.put("totalElectricity", ConverterUtil.roundTosString(totalElectricity, 2));
+						rtnJson.put("chargeMoney", ConverterUtil.roundTosString(trade_money, 2));
+						rtnJson.put("serviceMoney", ConverterUtil.roundTosString(serviceMoney, 2));
+
+						rtnJson.put("endCause", endCause);
 					}
 
-					JSONObject rtnJson = CommFunc.errorInfo(Constant.SUCCESS, "");
 					String pileNo = order.getPileCode();
-
 					rtnJson.put("serialNumber", order.getSerialnumber());
 					rtnJson.put("pileNo", pileNo);
 					rtnJson.put("gunNo", order.getGunId());
 					rtnJson.put("startDate", DateUtil.formatTimesTampDate(order.getChargebeginDate()));
 					rtnJson.put("endDate", DateUtil.formatTimesTampDate(order.getChargeendDate()));
-
-					rtnJson.put("totalElectricity", ConverterUtil.roundTosString(totalElectricity, 2));
-					rtnJson.put("chargeMoney", ConverterUtil.roundTosString(trade_money, 2));
-					rtnJson.put("serviceMoney", ConverterUtil.roundTosString(serviceMoney, 2));
-
-					rtnJson.put("endCause", endCause);
-
+				
 					// 发送充电结束请求
 					if (chargeService.SendChargeOverRequest(rtnJson, Constant.RETRY)) {
 						chargeMonitor.setEndPush(Constant.PUSHED);
@@ -148,11 +188,17 @@ public class TaskServiceImpl implements ITaskService {
 		}
 	}
 
-	/** (非 Javadoc) 
-	* <p>Title: backupChargeMonitorTask</p> 
-	* <p>Description: </p>  
-	* @see com.ke.service.ITaskService#backupChargeMonitorTask() 
-	*/
+	/**
+	 * (非 Javadoc)
+	 * <p>
+	 * Title: backupChargeMonitorTask
+	 * </p>
+	 * <p>
+	 * Description:
+	 * </p>
+	 * 
+	 * @see com.ke.service.ITaskService#backupChargeMonitorTask()
+	 */
 	@Override
 	public void backupChargeMonitorTask() {
 		try {
@@ -194,11 +240,17 @@ public class TaskServiceImpl implements ITaskService {
 		}
 	}
 
-	/** (非 Javadoc) 
-	* <p>Title: backUpChargeOrderTask</p> 
-	* <p>Description: </p>  
-	* @see com.ke.service.ITaskService#backUpChargeOrderTask() 
-	*/
+	/**
+	 * (非 Javadoc)
+	 * <p>
+	 * Title: backUpChargeOrderTask
+	 * </p>
+	 * <p>
+	 * Description:
+	 * </p>
+	 * 
+	 * @see com.ke.service.ITaskService#backUpChargeOrderTask()
+	 */
 	@Override
 	public void backUpChargeOrderTask() {
 		try {
@@ -240,23 +292,29 @@ public class TaskServiceImpl implements ITaskService {
 		}
 	}
 
-	/** (非 Javadoc) 
-	* <p>Title: pushHydropwerPileState</p> 
-	* <p>Description: </p>  
-	 * @throws Exception 
-	* @see com.ke.service.ITaskService#pushHydropwerPileState() 
-	*/
+	/**
+	 * (非 Javadoc)
+	 * <p>
+	 * Title: pushHydropwerPileState
+	 * </p>
+	 * <p>
+	 * Description:
+	 * </p>
+	 * 
+	 * @throws Exception
+	 * @see com.ke.service.ITaskService#pushHydropwerPileState()
+	 */
 	@Override
 	public void pushHydropwerPileState() throws Exception {
-		
+
 		List<Pilepara> pileList = this.pileMapper.listPileByOperatorId(operatorId);
 		for (Pilepara pilepara : pileList) {
 			JSONObject pileStateJson = new JSONObject();
 			String key = Constant.PILESTATE + pilepara.getId();
 			Map<String, String> pileStateMap = JedisUtil.hgetAll(key);
 			pileStateJson.put("pileNo", pilepara.getSerialCode());
-			pileStateJson.put("temperature", pileStateMap.get("temperature"));
-			pileStateJson.put("humidity",  pileStateMap.get("humidity"));
+			pileStateJson.put("temperature", (int) toDouble(pileStateMap.get("temperature")));
+			pileStateJson.put("humidity", (int) toDouble(pileStateMap.get("humidity")));
 			pileStateJson.put("pileStatus", pileStateMap.get("state"));
 			pileStateJson.put("operatorId", operatorId);
 
