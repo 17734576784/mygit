@@ -174,8 +174,18 @@ public class Constant {
 	public static final short FIVE = 5;
 	public static final short SIX = 6;
 
-	/** redis充电单有效期 默认3天 */
-	public static final Integer ORDER_EXPIRE_OUTTIME = 60 * 60 * 24 * 3;
+	public static final int NUM_514 = 514; // 急停告警
+	public static final int NUM_701 = 701; // 通信告警
+	public static final int NUM_911 = 911; // 充电桩过温告警
+	public static final int NUM_410 = 410; // 停电告警
+	public static final int NUM_915 = 915; // 湿度告警
+	public static final int NUM_414 = 414; // 充电口过压
+	public static final int NUM_423 = 423; // 充电口过流
+	public static final int NUM_417 = 417; // 充电口欠压
+	public static final int NUM_313 = 313; // 交流接触器告警
+	public static final int NUM_910 = 910; // CP电压越限
+	public static final int NUM_614 = 614; // 车辆S2未闭合
+	public static final int NUM_1199 = 1199;// 水口故障
 
 	
 }

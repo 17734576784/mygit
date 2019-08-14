@@ -11,7 +11,7 @@ function initGrid() {
 	queryJsonStr.useFlag = $("#useFlagSearch").val();
 
 	gridCommon.colNames = [ '', '运营商', '运营商登录用户名','使用标志', '科林登录用户名','会员手机号','流水号前缀',
-			'回调登录url', '回调推送充电开始地址', '回调推送充电结束地址','回调推送直流首次充电信息地址','心跳推送地址','告警推送地址' ]; // 列名
+			'回调登录url', '回调推送充电开始地址', '回调推送充电结束地址','回调推送直流首次充电信息地址' ]; // 列名
 	gridCommon.url = "/manage/listOperatorConfig.json"; // 请求地址
 	gridCommon.gridId = "gridTable"; // 表格加载div的id
 	gridCommon.pageId = "girdPager"; // 分页加载div的id
@@ -30,11 +30,7 @@ function initGrid() {
 			{name : 'loginUrl',         width : 400,editable : false,sortable : false,align : 'left'}, 
 			{name : 'chargeStartUrl',  width : 400,editable : false,sortable : false,align : 'left'}, 
 			{name : 'chargeOverUrl',   width : 400,editable : false,sortable : false,align : 'left'},
-			{name : 'chargeDcInfoUrl',	width : 400,editable : false,sortable : false,align : 'left'},
-			{name : 'chargeHeartUrl',   width : 400,editable : false,sortable : false,align : 'left'},
-			{name : 'chargeAlarmUrl',   width : 400,editable : false,sortable : false,align : 'left'}
-
-			
+			{name : 'chargeDcInfoUrl',width : 400,editable : false,sortable : false,align : 'left'}
 		]; //列参数
 	gridCommon.setMultiSelect(false); // 批量删除的全选功能
 	gridCommon.loadgrid();

@@ -268,7 +268,7 @@ public class ChargeServiceImpl implements IChargeService {
 
 		flag &= this.memberOrdersMapper.insertmemberOrders(memberOrders);
 		JedisUtil.hmset(Constant.ORDER + payserialNumber, CommFunc.beanToHMap(memberOrders));
-		JedisUtil.expire(Constant.ORDER + payserialNumber, Constant.ORDER_EXPIRE_OUTTIME);
+
 		return flag;
 	}
 
@@ -1064,7 +1064,7 @@ public class ChargeServiceImpl implements IChargeService {
 	private JSONObject hydropwerOver(JSONObject json, int cmd, String token) throws Exception {
 		JSONObject rtnJson = new JSONObject();
 		String pileNo = "", gunNo = "", paySerialNumber = "";
-		LoggerUtil.logger(LogName.CHARGE).info("接收水电桩结束请求：" + json.toJSONString());
+		LoggerUtil.logger(LogName.CHARGE).info("接收充电结束请求：" + json.toJSONString());
 		pileNo = json.getString("pileNo");
 		gunNo = json.getString("gunNo");
 		paySerialNumber = json.getString("serialNumber");
@@ -1652,7 +1652,7 @@ public class ChargeServiceImpl implements IChargeService {
 		JSONObject sendJson = new JSONObject();
 		sendJson.putAll(json);
 
-		String url = operatorConfig.getChargeAlarmUrl();
+		String url = operatorConfig.getChargeAlramUrl();
 		if (url == null || url.isEmpty()) {
 			return false;
 		}
@@ -1667,7 +1667,7 @@ public class ChargeServiceImpl implements IChargeService {
 
 			JSONObject jsonItem = JSONObject.parseObject(response.getContent());
 			int status = jsonItem.getIntValue("status");
-			LoggerUtil.logger(LogName.CHARGE).info("发送充电桩告警消息：{} ,接收内容：() ", json.toString(), response.getContent());
+			LoggerUtil.logger(LogName.CHARGE).info("发送充电结束消息：{} ,接收内容：() ", json.toString(), response.getContent());
 			if (status == Constant.SUCCESS || status == Constant.REQUEST_BAD) {
 
 				if (status == Constant.REQUEST_BAD) {
@@ -1686,7 +1686,7 @@ public class ChargeServiceImpl implements IChargeService {
 				SendChargeOverRequest(json, retry);
 			}
 		} catch (Exception e) {
-			LoggerUtil.logger(LogName.ERROR).error("发送充电桩告警请求异常,发送内容：" + json.toString(), e);
+			LoggerUtil.logger(LogName.ERROR).error("发送充电结束请求异常,发送内容：" + json.toString(), e);
 			flag = false;
 			e.printStackTrace();
 		}

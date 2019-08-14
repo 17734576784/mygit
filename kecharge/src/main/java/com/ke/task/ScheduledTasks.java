@@ -37,7 +37,7 @@ public class ScheduledTasks {
 	 */
 	@Scheduled(cron = "0 */1 * * * ?")
 	public void pushMessageTask() {
-		 taskService.pushMessageTask();
+		// taskService.pushMessageTask();
 
 	}
 
@@ -47,7 +47,7 @@ public class ScheduledTasks {
 	 */
 	@Scheduled(cron = "0 0 1 * * ?")
 	public void backupChargeMonitorTask() {
-		 taskService.backupChargeMonitorTask();
+		// taskService.backupChargeMonitorTask();
 	}
 
 	/**
@@ -56,7 +56,7 @@ public class ScheduledTasks {
 	 */
 	@Scheduled(cron = "0 0 1 * * ?")
 	public void backUpChargeOrderTask() {
-		 taskService.backUpChargeOrderTask();
+		// taskService.backUpChargeOrderTask();
 	}
 
 	@Scheduled(cron = "0 */5 * * * ?")

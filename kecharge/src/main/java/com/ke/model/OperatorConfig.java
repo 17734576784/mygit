@@ -34,7 +34,7 @@ public class OperatorConfig implements Serializable{
 
     private String chargeHeartUrl;
 
-    private String chargeAlarmUrl;
+    private String chargeAlramUrl;
 
     private String serialnumberPrefix;
     
@@ -158,12 +158,12 @@ public class OperatorConfig implements Serializable{
         this.chargeHeartUrl = chargeHeartUrl == null ? null : chargeHeartUrl.trim();
     }
 
-    public String getChargeAlarmUrl() {
-        return chargeAlarmUrl;
+    public String getChargeAlramUrl() {
+        return chargeAlramUrl;
     }
 
-    public void setChargeAlarmUrl(String chargeAlarmUrl) {
-        this.chargeAlarmUrl = chargeAlarmUrl == null ? null : chargeAlarmUrl.trim();
+    public void setChargeAlramUrl(String chargeAlramUrl) {
+        this.chargeAlramUrl = chargeAlramUrl == null ? null : chargeAlramUrl.trim();
     }
 
     public String getSerialnumberPrefix() {

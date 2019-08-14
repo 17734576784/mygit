@@ -186,9 +186,6 @@ public class OperatorConfigServiceImpl implements IOperatorConfigService {
 		jsonItem.put("chargeStartUrl", ConverterUtil.toStr(map.get("charge_start_url")));
 		jsonItem.put("chargeOverUrl", ConverterUtil.toStr(map.get("charge_over_url")));
 		jsonItem.put("chargeDcInfoUrl", ConverterUtil.toStr(map.get("charge_dc_info_url")));
-		jsonItem.put("chargeHeartUrl", ConverterUtil.toStr(map.get("charge_heart_url")));
-		jsonItem.put("chargeAlarmUrl", ConverterUtil.toStr(map.get("charge_alarm_url")));
-
 		return jsonItem;
 	}
 

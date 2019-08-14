@@ -37,14 +37,12 @@ import com.ke.mapper.MemberOrdersMapper;
 import com.ke.mapper.PileMapper;
 import com.ke.model.ChargeMonitor;
 import com.ke.model.MemberOrders;
-import com.ke.model.Operator;
 import com.ke.model.Pilepara;
 import com.ke.service.IChargeService;
 import com.ke.service.ITaskService;
 import com.ke.utils.ConverterUtil;
 import com.ke.utils.DateUtil;
 import com.ke.utils.JedisUtil;
-import com.ke.utils.JsonUtil;
 
 /**
  * @ClassName: TaskServiceImpl
@@ -92,38 +90,10 @@ public class TaskServiceImpl implements ITaskService {
 				}
 
 				JSONObject json = new JSONObject();
-				MemberOrders order = this.memberOrdersMapper.getmemberOrders(chargeMonitor.getSerialnumber());
-				if (null == order) {
-					return;
-				}
-				
-				String key = Constant.OPERATOR + order.getOperatorId();
-				Map<String, String> operatorMap = JedisUtil.hgetAll(key);
-				if (operatorMap.isEmpty()) {
-					return;
-				}
-				
-				Operator operator = JsonUtil.jsonString2SimpleObj(operatorMap, Operator.class);
-				short clientType = operator.getClientType();
-				short infType = operator.getInfType();
-				
-				key = Constant.ORDER + chargeMonitor.getSerialnumber();
-				Map<String,String> orderMap = JedisUtil.hgetAll(key);
-				
 				if (chargeMonitor.getStartPush() == Constant.NOPUSH) {
 					json.put("serialNumber", chargeMonitor.getSerialnumber());
 					json.put("chargeFlag", chargeMonitor.getStartFlag());
-					
-					/**
-					 * client_type 客户端类型 1:app 2:微信小程序 4:充电接口 按位操作 inf_type
-					 * 客户端是接口方式时，接口类型 1:小蜗接口 2:陆游水电桩接口 3:CEC互联互通接口
-					 */
-					if (clientType == Constant.FOUR && infType == Constant.TWO) {
-						json.put("readings", roundBase(toDouble(orderMap.get("beginReadings")), 4));
-						json.put("pileNo", order.getPileCode());
-						json.put("gunNo", order.getGunId());
-					}
-					
+
 					if (chargeService.SendChargeStartRequest(json, Constant.RETRY)) {
 						chargeMonitor.setStartPush(Constant.PUSHED);
 						chargeMonitor.setStartPushTime(new Date());
@@ -133,46 +103,46 @@ public class TaskServiceImpl implements ITaskService {
 
 				} else if (chargeMonitor.getEndPush() == Constant.NOPUSH) {
 
+					MemberOrders order = this.memberOrdersMapper.getmemberOrders(chargeMonitor.getSerialnumber());
+
+					if (null == order) {
+						return;
+					}
+
 					boolean checkWasteNo = CommFunc.checkWasteno(order.getSerialnumber());
 					if (!checkWasteNo) {
 						continue;
 					}
-					JSONObject rtnJson = CommFunc.errorInfo(Constant.SUCCESS, "");
 
-					/**
-					 * client_type 客户端类型 1:app 2:微信小程序 4:充电接口 按位操作 inf_type
-					 * 客户端是接口方式时，接口类型 1:小蜗接口 2:陆游水电桩接口 3:CEC互联互通接口
-					 */
-					if (clientType == Constant.FOUR && infType == Constant.TWO) {
-						rtnJson.put("readings", roundBase(toDouble(orderMap.get("endReadings")), 4));
-					} else {
-						double totalElectricity = 0, trade_money = 0, serviceMoney = 0;
-						String endCause = "未知";
+					double totalElectricity = 0, trade_money = 0, serviceMoney = 0;
+					String endCause = "未知";
 
-						totalElectricity = ConverterUtil.toDouble(order.getChargeDl());
-						trade_money = ConverterUtil.toDouble(order.getTradeMoney() / 100);
-						serviceMoney = ConverterUtil.toDouble(order.getServiceMoney() / 100);
+					totalElectricity = ConverterUtil.toDouble(order.getChargeDl());
+					trade_money = ConverterUtil.toDouble(order.getTradeMoney() / 100);
+					serviceMoney = ConverterUtil.toDouble(order.getServiceMoney() / 100);
 
-						int m_cause = ConverterUtil.toInt(order.getEndCause());
-						Map<String, String> endCauseMap = JedisUtil.hgetAll(Constant.ENDCAUSE_DICTION);
-						endCause = endCauseMap.get(m_cause);
-						if (null == endCause || endCause.equals("")) {
-							endCause = "未知";
-						}
-						rtnJson.put("totalElectricity", ConverterUtil.roundTosString(totalElectricity, 2));
-						rtnJson.put("chargeMoney", ConverterUtil.roundTosString(trade_money, 2));
-						rtnJson.put("serviceMoney", ConverterUtil.roundTosString(serviceMoney, 2));
-
-						rtnJson.put("endCause", endCause);
+					int m_cause = ConverterUtil.toInt(order.getEndCause());
+					Map<String, String> endCauseMap = JedisUtil.hgetAll(Constant.ENDCAUSE_DICTION);
+					endCause = endCauseMap.get(m_cause);
+					if (null == endCause || endCause.equals("")) {
+						endCause = "未知";
 					}
 
+					JSONObject rtnJson = CommFunc.errorInfo(Constant.SUCCESS, "");
 					String pileNo = order.getPileCode();
+
 					rtnJson.put("serialNumber", order.getSerialnumber());
 					rtnJson.put("pileNo", pileNo);
 					rtnJson.put("gunNo", order.getGunId());
 					rtnJson.put("startDate", DateUtil.formatTimesTampDate(order.getChargebeginDate()));
 					rtnJson.put("endDate", DateUtil.formatTimesTampDate(order.getChargeendDate()));
-				
+
+					rtnJson.put("totalElectricity", ConverterUtil.roundTosString(totalElectricity, 2));
+					rtnJson.put("chargeMoney", ConverterUtil.roundTosString(trade_money, 2));
+					rtnJson.put("serviceMoney", ConverterUtil.roundTosString(serviceMoney, 2));
+
+					rtnJson.put("endCause", endCause);
+
 					// 发送充电结束请求
 					if (chargeService.SendChargeOverRequest(rtnJson, Constant.RETRY)) {
 						chargeMonitor.setEndPush(Constant.PUSHED);
